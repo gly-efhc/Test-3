@@ -1,0 +1,220 @@
+# EFHC Test-3 — stage a verified frontend source update, no Pages required.
+# This workflow stages React AND the Owner-approved Pages workflow from the ZIP.
+# It does NOT deploy or remove the source ZIP. GitHub may reject workflow-file pushes
+# made with GITHUB_TOKEN (workflows permission is distinct from contents: write).
+name: EFHC — Import and update React sources
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'import/*.zip'
+      - '.github/workflows/efhc-import.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: efhc-test3-main
+  cancel-in-progress: false
+
+jobs:
+  import:
+    name: Validate ZIP and commit React-only source
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Restore self-contained import utility
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/efhc-pages-tools"
+          cat > "$RUNNER_TEMP/efhc-pages-tools/import_frontend.py" <<'EFHC_BUNDLED_IMPORT_FRONTEND_PY'
+          #!/usr/bin/env python3
+          """Import only EFHC browser runtime from an uploaded FRONTEND zip.
+          
+          No repository workspace files, old reports, backend, env files or tests are
+          extracted. This runs in CI and fails closed on malformed archives.
+          """
+          import argparse
+          import hashlib
+          import json
+          import os
+          from pathlib import Path, PurePosixPath
+          import re
+          import shutil
+          import stat
+          import sys
+          from zipfile import ZipFile, BadZipFile
+          
+          FILES = {
+              'frontend/package.json',
+              'frontend/package-lock.json',
+              'frontend/tsconfig.json',
+              'frontend/next-env.d.ts',
+              'frontend/next.config.js',
+              'frontend/postcss.config.js',
+              'frontend/.efhc-build-id',
+              'frontend/release-assets-manifest.json',
+          }
+          SUBTREES = ('frontend/src/', 'frontend/public/')
+          PAGES_WORKFLOW_IN_ZIP = 'ci/efhc-pages.yml'
+          PAGES_WORKFLOW_IN_REPO = '.github/workflows/efhc-pages.yml'
+          MAX_WORKFLOW_BYTES = 256 * 1024
+          MAX_ZIP_BYTES = 100 * 1024 * 1024
+          MAX_FILE_BYTES = 50 * 1024 * 1024
+          MAX_EXTRACT_BYTES = 220 * 1024 * 1024
+          MAX_ENTRIES = 10000
+          EXCLUDED_FILE = re.compile(r'(^|/)(\.env(?:\.|$)|.*\.(?:log|pem|key|p12|pfx|sqlite|db|zip|map)$)', re.I)
+          
+          
+          def main():
+              ap = argparse.ArgumentParser()
+              ap.add_argument('--import-dir', default='import')
+              ap.add_argument('--target', default='site/frontend')
+              ap.add_argument('--metadata', default='site/RELEASE.json')
+              args = ap.parse_args()
+              root = Path.cwd()
+              incoming = sorted((root / args.import_dir).glob('*.zip'))
+              if len(incoming) != 1:
+                  raise ValueError(f'Expected exactly one ZIP in {args.import_dir}/, found {len(incoming)}')
+              archive = incoming[0]
+              if archive.stat().st_size > MAX_ZIP_BYTES:
+                  raise ValueError('ZIP exceeds configured size limit')
+              source_sha = hashlib.sha256(archive.read_bytes()).hexdigest()
+              selected = []
+              pages_workflow = None
+              version = None
+              with ZipFile(archive, 'r') as z:
+                  infos = z.infolist()
+                  if len(infos) > MAX_ENTRIES:
+                      raise ValueError('ZIP contains too many entries')
+                  if z.testzip() is not None:
+                      raise ValueError('ZIP CRC verification failed')
+                  seen = set()
+                  for info in infos:
+                      name = info.filename
+                      p = PurePosixPath(name)
+                      if (name.startswith('/') or '\\' in name or '..' in p.parts or
+                              any(part in ('', '.') for part in p.parts) or '\x00' in name):
+                          raise ValueError(f'Unsafe ZIP path: {name}')
+                      if name in seen:
+                          raise ValueError(f'Duplicate ZIP entry: {name}')
+                      seen.add(name)
+                      mode = (info.external_attr >> 16) & 0xFFFF
+                      if stat.S_ISLNK(mode):
+                          raise ValueError(f'Symlink not allowed: {name}')
+                      if name == 'VERSION':
+                          version = z.read(info).decode('utf-8').strip()
+                      if name == PAGES_WORKFLOW_IN_ZIP:
+                          if info.file_size == 0 or info.file_size > MAX_WORKFLOW_BYTES:
+                              raise ValueError('Missing/oversized Pages workflow in ZIP')
+                          pages_workflow = z.read(info)
+                      if info.is_dir():
+                          continue
+                      if name in FILES or name.startswith(SUBTREES):
+                          if EXCLUDED_FILE.search(name):
+                              continue
+                          if info.file_size > MAX_FILE_BYTES:
+                              raise ValueError(f'Runtime file too large: {name}')
+                          selected.append(info)
+                  # VERSION is informative only. It never blocks a valid code update.
+                  version = version or 'not-specified'
+                  required = {'frontend/package.json', 'frontend/package-lock.json', 'frontend/next.config.js', 'frontend/tsconfig.json'}
+                  missing = required - {x.filename for x in selected}
+                  if missing:
+                      raise ValueError(f'Missing frontend files: {sorted(missing)}')
+                  if pages_workflow is None:
+                      raise ValueError(f'Archive must contain {PAGES_WORKFLOW_IN_ZIP}')
+                  try:
+                      workflow_text = pages_workflow.decode('utf-8')
+                  except UnicodeDecodeError as exc:
+                      raise ValueError('Pages workflow is not UTF-8') from exc
+                  if not re.search(r'^on:\s*$', workflow_text, re.M) or not re.search(r'^\s+workflow_dispatch:\s*$', workflow_text, re.M):
+                      raise ValueError('Pages workflow must be manually dispatchable')
+                  if not any(x.filename.startswith('frontend/src/pages/') for x in selected):
+                      raise ValueError('No React Pages Router sources found')
+                  if sum(x.file_size for x in selected) > MAX_EXTRACT_BYTES:
+                      raise ValueError('Runtime source exceeds configured size limit')
+                  target = root / args.target
+                  fresh = target.with_name(target.name + '.staging')
+                  if fresh.exists():
+                      shutil.rmtree(fresh)
+                  fresh.mkdir(parents=True)
+                  try:
+                      for info in selected:
+                          relative = PurePosixPath(info.filename).relative_to('frontend')
+                          path = fresh.joinpath(*relative.parts)
+                          path.parent.mkdir(parents=True, exist_ok=True)
+                          with z.open(info) as src, path.open('wb') as dst:
+                              shutil.copyfileobj(src, dst)
+                      if target.exists():
+                          shutil.rmtree(target)
+                      fresh.rename(target)
+                  finally:
+                      if fresh.exists():
+                          shutil.rmtree(fresh)
+              # The only workflow permitted from the transport archive is Pages.
+              # No other .github/workflows file may be modified by this importer.
+              workflow_target = root / PAGES_WORKFLOW_IN_REPO
+              workflow_target.parent.mkdir(parents=True, exist_ok=True)
+              workflow_target.write_bytes(pages_workflow)
+              metadata = {
+                  'source_version': version,
+                  'source_archive_name': archive.name,
+                  'source_archive_sha256': source_sha,
+                  'runtime_files_imported': len(selected),
+                  'pages_workflow_sha256': hashlib.sha256(pages_workflow).hexdigest(),
+                  'pages_workflow_path': PAGES_WORKFLOW_IN_REPO,
+                  'excluded': ['backend', 'docs', 'reports', 'ops', 'tests', 'other workflow files', 'root DEMO HTML', 'secrets', 'logs'],
+              }
+              out = root / args.metadata
+              out.parent.mkdir(parents=True, exist_ok=True)
+              out.write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+              print(f'EFHC_IMPORT_OK version={version} files={len(selected)} sha256={source_sha}', flush=True)
+              print(f'EFHC_PAGES_WORKFLOW_STAGED sha256={hashlib.sha256(pages_workflow).hexdigest()}', flush=True)
+          
+          
+          if __name__ == '__main__':
+              try:
+                  main()
+              except (BadZipFile, OSError, ValueError, UnicodeError) as exc:
+                  print(f'EFHC_IMPORT_FAIL_CLOSED: {exc}', file=sys.stderr)
+                  raise SystemExit(1)
+          EFHC_BUNDLED_IMPORT_FRONTEND_PY
+          python3 -m py_compile "$RUNNER_TEMP/efhc-pages-tools/import_frontend.py"
+
+      - name: Verify and import the one uploaded ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f import/README.md || { echo 'FAIL: import/README.md must be preserved'; exit 1; }
+          python3 "$RUNNER_TEMP/efhc-pages-tools/import_frontend.py" \
+            --import-dir import --target site/frontend --metadata site/RELEASE.json
+          # Commit browser runtime, source provenance, and exactly one approved Pages YAML.
+          # NEVER commit other ZIP entries (backend/docs/ENV/other workflows).
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- site/frontend site/RELEASE.json .github/workflows/efhc-pages.yml
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore(demo): stage verified React source [efhc-demo-import]'
+            if ! git push origin HEAD:main; then
+              echo 'EFHC_IMPORT_GITHUB_REJECTED: GitHub refused commit to main.' >&2
+              echo 'If the rejection names .github/workflows/efhc-pages.yml and workflows permission,' >&2
+              echo 'the default GITHUB_TOKEN cannot update workflow files. No changes were pushed.' >&2
+              exit 1
+            fi
+          fi
+          # The ZIP remains until the explicit manual Pages deployment succeeds.
+          test "$(find import -maxdepth 1 -name '*.zip' -type f | wc -l | tr -d ' ')" = 1
+          echo 'EFHC_IMPORT_COMMITTED=PASS; PAGES_WORKFLOW_STAGED=PASS; ZIP_RETAINED_UNTIL_DEPLOY=PASS'
