@@ -39,7 +39,7 @@ async function inspect(path) {
   const address=url.replace(/\/$/,'')+path;
   await send('Page.navigate',{url:address});
   await sleep(8500);
-  const expr=`JSON.stringify({href:location.href,path:location.pathname,title:document.title,text:(document.body?.innerText||'').slice(0,600),root:!!document.querySelector('#_next'),html:!!document.documentElement})`;
+  const expr=`JSON.stringify({href:location.href,path:location.pathname,title:document.title,text:(document.body?.innerText||'').slice(0,600),root:!!document.getElementById('__next'),html:!!document.documentElement})`;
   const result=await send('Runtime.evaluate',{expression:expr,returnByValue:true});
   const data=JSON.parse(result.result.result.value);
   const count=(data.path.match(/\/Test-3/g)||[]).length;
