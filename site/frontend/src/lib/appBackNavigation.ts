@@ -103,6 +103,11 @@ export function useAppBackNavigation(router: NextRouter): void {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    // GitHub Pages is an isolated read-only preview hosted below /Test-3/.
+    // Its browser history must remain browser-owned: the production back-guard
+    // otherwise appends the Pages basePath repeatedly through router.push().
+    // Only the explicit build-time Pages mode bypasses this guard.
+    if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1") return;
     let disposed = false;
 
     rememberRoute(routerRef.current.asPath || routerRef.current.pathname);

@@ -384,6 +384,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 telegramAvatarUrl={telegramAvatarUrl}
                 settings={settings}
                 setSettings={setSettings}
+                settingsHydrated={settingsHydrated}
                 tgScheme={tgScheme}
                 uiDictLoaded={uiDictLoaded}
                 ruDictLoaded={ruDictLoaded}
@@ -409,6 +410,7 @@ function AppInner(props: {
   telegramAvatarUrl: string | null;
   settings: UserSettings;
   setSettings: Dispatch<SetStateAction<UserSettings>>;
+  settingsHydrated: boolean;
   tgScheme: "light" | "dark";
   uiDictLoaded: boolean;
   ruDictLoaded: boolean;
@@ -426,6 +428,7 @@ function AppInner(props: {
     telegramAvatarUrl,
     settings,
     setSettings,
+    settingsHydrated,
     tgScheme,
     uiDictLoaded,
     ruDictLoaded,

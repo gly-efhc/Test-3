@@ -102,13 +102,14 @@ export const LayoutContext = React.createContext<LayoutContextValue>({
     avatar_social_provider: null,
     avatar_social_url: null,
     sfx_enabled: true,
+    music_enabled: false,
     sfx_volume: 0.6,
     sfx_pack: "default",
     haptics_enabled: true,
     reduce_motion: false,
     hide_balances: false,
     show_decimal_detail: false,
-    interface_settings_version: 3,
+    interface_settings_version: 4,
     color_theme_id: "CT-01",
     global_theme_id: "01",
     theme_overrides: {},
@@ -322,7 +323,7 @@ export function Layout(
       window.removeEventListener("resize", syncBottomNavViewport);
     };
   }, [isAdminRoute]);
-  const showBrowserLoginDemo = !props.telegramProviderId &&
+  const showBrowserLoginDemo = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" && !props.telegramProviderId &&
     router.pathname !== "/browser-shop" &&
     !isAdminRoute;
 
