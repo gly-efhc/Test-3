@@ -1,0 +1,3051 @@
+{
+  "schema": "efhc.frozen-v866.demo-tables.v1",
+  "source": "FRONTEND_v866.html",
+  "source_sha256": "9b6371f5fb62939596b78206f95031c447e9f2b375e62b30704403bb25102aef",
+  "derived_at_utc": "2026-10-29T12:00:00Z",
+  "panels": {
+    "active": [
+      {
+        "id": "1",
+        "public_id": "PNL-000000001",
+        "activated_at": "2026-10-28T12:00:00Z",
+        "created_at": "2026-10-28T12:00:00Z",
+        "expires_at": "2027-04-26T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "0.59788800",
+        "is_active": true
+      },
+      {
+        "id": "2",
+        "public_id": "PNL-000000002",
+        "activated_at": "2026-10-27T12:00:00Z",
+        "created_at": "2026-10-27T12:00:00Z",
+        "expires_at": "2027-04-25T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "1.19577600",
+        "is_active": true
+      },
+      {
+        "id": "3",
+        "public_id": "PNL-000000003",
+        "activated_at": "2026-10-26T12:00:00Z",
+        "created_at": "2026-10-26T12:00:00Z",
+        "expires_at": "2027-04-24T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "1.79366400",
+        "is_active": true
+      },
+      {
+        "id": "4",
+        "public_id": "PNL-000000004",
+        "activated_at": "2026-10-25T12:00:00Z",
+        "created_at": "2026-10-25T12:00:00Z",
+        "expires_at": "2027-04-23T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "2.39155200",
+        "is_active": true
+      },
+      {
+        "id": "5",
+        "public_id": "PNL-000000005",
+        "activated_at": "2026-10-24T12:00:00Z",
+        "created_at": "2026-10-24T12:00:00Z",
+        "expires_at": "2027-04-22T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "2.98944000",
+        "is_active": true
+      },
+      {
+        "id": "6",
+        "public_id": "PNL-000000006",
+        "activated_at": "2026-10-23T12:00:00Z",
+        "created_at": "2026-10-23T12:00:00Z",
+        "expires_at": "2027-04-21T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "3.58732800",
+        "is_active": true
+      },
+      {
+        "id": "7",
+        "public_id": "PNL-000000007",
+        "activated_at": "2026-10-22T12:00:00Z",
+        "created_at": "2026-10-22T12:00:00Z",
+        "expires_at": "2027-04-20T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "4.18521600",
+        "is_active": true
+      },
+      {
+        "id": "8",
+        "public_id": "PNL-000000008",
+        "activated_at": "2026-10-21T12:00:00Z",
+        "created_at": "2026-10-21T12:00:00Z",
+        "expires_at": "2027-04-19T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "4.78310400",
+        "is_active": true
+      },
+      {
+        "id": "9",
+        "public_id": "PNL-000000009",
+        "activated_at": "2026-10-20T12:00:00Z",
+        "created_at": "2026-10-20T12:00:00Z",
+        "expires_at": "2027-04-18T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "5.38099200",
+        "is_active": true
+      },
+      {
+        "id": "10",
+        "public_id": "PNL-000000010",
+        "activated_at": "2026-10-19T12:00:00Z",
+        "created_at": "2026-10-19T12:00:00Z",
+        "expires_at": "2027-04-17T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "5.97888000",
+        "is_active": true
+      },
+      {
+        "id": "11",
+        "public_id": "PNL-000000011",
+        "activated_at": "2026-10-18T12:00:00Z",
+        "created_at": "2026-10-18T12:00:00Z",
+        "expires_at": "2027-04-16T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "6.57676800",
+        "is_active": true
+      },
+      {
+        "id": "12",
+        "public_id": "PNL-000000012",
+        "activated_at": "2026-10-17T12:00:00Z",
+        "created_at": "2026-10-17T12:00:00Z",
+        "expires_at": "2027-04-15T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "7.17465600",
+        "is_active": true
+      },
+      {
+        "id": "13",
+        "public_id": "PNL-000000013",
+        "activated_at": "2026-10-16T12:00:00Z",
+        "created_at": "2026-10-16T12:00:00Z",
+        "expires_at": "2027-04-14T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "7.77254400",
+        "is_active": true
+      },
+      {
+        "id": "14",
+        "public_id": "PNL-000000014",
+        "activated_at": "2026-10-15T12:00:00Z",
+        "created_at": "2026-10-15T12:00:00Z",
+        "expires_at": "2027-04-13T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "8.37043200",
+        "is_active": true
+      },
+      {
+        "id": "15",
+        "public_id": "PNL-000000015",
+        "activated_at": "2026-10-14T12:00:00Z",
+        "created_at": "2026-10-14T12:00:00Z",
+        "expires_at": "2027-04-12T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "8.96832000",
+        "is_active": true
+      },
+      {
+        "id": "16",
+        "public_id": "PNL-000000016",
+        "activated_at": "2026-10-13T12:00:00Z",
+        "created_at": "2026-10-13T12:00:00Z",
+        "expires_at": "2027-04-11T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "9.56620800",
+        "is_active": true
+      },
+      {
+        "id": "17",
+        "public_id": "PNL-000000017",
+        "activated_at": "2026-10-12T12:00:00Z",
+        "created_at": "2026-10-12T12:00:00Z",
+        "expires_at": "2027-04-10T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "10.16409600",
+        "is_active": true
+      },
+      {
+        "id": "18",
+        "public_id": "PNL-000000018",
+        "activated_at": "2026-10-11T12:00:00Z",
+        "created_at": "2026-10-11T12:00:00Z",
+        "expires_at": "2027-04-09T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "10.76198400",
+        "is_active": true
+      },
+      {
+        "id": "19",
+        "public_id": "PNL-000000019",
+        "activated_at": "2026-10-10T12:00:00Z",
+        "created_at": "2026-10-10T12:00:00Z",
+        "expires_at": "2027-04-08T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "11.35987200",
+        "is_active": true
+      },
+      {
+        "id": "20",
+        "public_id": "PNL-000000020",
+        "activated_at": "2026-10-09T12:00:00Z",
+        "created_at": "2026-10-09T12:00:00Z",
+        "expires_at": "2027-04-07T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "11.95776000",
+        "is_active": true
+      },
+      {
+        "id": "21",
+        "public_id": "PNL-000000021",
+        "activated_at": "2026-10-08T12:00:00Z",
+        "created_at": "2026-10-08T12:00:00Z",
+        "expires_at": "2027-04-06T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "12.55564800",
+        "is_active": true
+      },
+      {
+        "id": "22",
+        "public_id": "PNL-000000022",
+        "activated_at": "2026-10-07T12:00:00Z",
+        "created_at": "2026-10-07T12:00:00Z",
+        "expires_at": "2027-04-05T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "13.15353600",
+        "is_active": true
+      },
+      {
+        "id": "23",
+        "public_id": "PNL-000000023",
+        "activated_at": "2026-10-06T12:00:00Z",
+        "created_at": "2026-10-06T12:00:00Z",
+        "expires_at": "2027-04-04T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "13.75142400",
+        "is_active": true
+      },
+      {
+        "id": "24",
+        "public_id": "PNL-000000024",
+        "activated_at": "2026-10-05T12:00:00Z",
+        "created_at": "2026-10-05T12:00:00Z",
+        "expires_at": "2027-04-03T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "14.34931200",
+        "is_active": true
+      },
+      {
+        "id": "25",
+        "public_id": "PNL-000000025",
+        "activated_at": "2026-10-04T12:00:00Z",
+        "created_at": "2026-10-04T12:00:00Z",
+        "expires_at": "2027-04-02T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "14.94720000",
+        "is_active": true
+      },
+      {
+        "id": "26",
+        "public_id": "PNL-000000026",
+        "activated_at": "2026-10-03T12:00:00Z",
+        "created_at": "2026-10-03T12:00:00Z",
+        "expires_at": "2027-04-01T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "15.54508800",
+        "is_active": true
+      },
+      {
+        "id": "27",
+        "public_id": "PNL-000000027",
+        "activated_at": "2026-10-02T12:00:00Z",
+        "created_at": "2026-10-02T12:00:00Z",
+        "expires_at": "2027-03-31T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "16.14297600",
+        "is_active": true
+      },
+      {
+        "id": "28",
+        "public_id": "PNL-000000028",
+        "activated_at": "2026-10-01T12:00:00Z",
+        "created_at": "2026-10-01T12:00:00Z",
+        "expires_at": "2027-03-30T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "16.74086400",
+        "is_active": true
+      },
+      {
+        "id": "29",
+        "public_id": "PNL-000000029",
+        "activated_at": "2026-09-30T12:00:00Z",
+        "created_at": "2026-09-30T12:00:00Z",
+        "expires_at": "2027-03-29T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "17.33875200",
+        "is_active": true
+      },
+      {
+        "id": "30",
+        "public_id": "PNL-000000030",
+        "activated_at": "2026-09-29T12:00:00Z",
+        "created_at": "2026-09-29T12:00:00Z",
+        "expires_at": "2027-03-28T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "17.93664000",
+        "is_active": true
+      },
+      {
+        "id": "31",
+        "public_id": "PNL-000000031",
+        "activated_at": "2026-09-28T12:00:00Z",
+        "created_at": "2026-09-28T12:00:00Z",
+        "expires_at": "2027-03-27T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "18.53452800",
+        "is_active": true
+      },
+      {
+        "id": "32",
+        "public_id": "PNL-000000032",
+        "activated_at": "2026-09-27T12:00:00Z",
+        "created_at": "2026-09-27T12:00:00Z",
+        "expires_at": "2027-03-26T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "19.13241600",
+        "is_active": true
+      },
+      {
+        "id": "33",
+        "public_id": "PNL-000000033",
+        "activated_at": "2026-09-26T12:00:00Z",
+        "created_at": "2026-09-26T12:00:00Z",
+        "expires_at": "2027-03-25T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "19.73030400",
+        "is_active": true
+      },
+      {
+        "id": "34",
+        "public_id": "PNL-000000034",
+        "activated_at": "2026-09-25T12:00:00Z",
+        "created_at": "2026-09-25T12:00:00Z",
+        "expires_at": "2027-03-24T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "20.32819200",
+        "is_active": true
+      },
+      {
+        "id": "35",
+        "public_id": "PNL-000000035",
+        "activated_at": "2026-09-24T12:00:00Z",
+        "created_at": "2026-09-24T12:00:00Z",
+        "expires_at": "2027-03-23T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "20.92608000",
+        "is_active": true
+      },
+      {
+        "id": "36",
+        "public_id": "PNL-000000036",
+        "activated_at": "2026-09-23T12:00:00Z",
+        "created_at": "2026-09-23T12:00:00Z",
+        "expires_at": "2027-03-22T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "21.52396800",
+        "is_active": true
+      },
+      {
+        "id": "37",
+        "public_id": "PNL-000000037",
+        "activated_at": "2026-09-22T12:00:00Z",
+        "created_at": "2026-09-22T12:00:00Z",
+        "expires_at": "2027-03-21T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "22.12185600",
+        "is_active": true
+      },
+      {
+        "id": "38",
+        "public_id": "PNL-000000038",
+        "activated_at": "2026-09-21T12:00:00Z",
+        "created_at": "2026-09-21T12:00:00Z",
+        "expires_at": "2027-03-20T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "22.71974400",
+        "is_active": true
+      },
+      {
+        "id": "39",
+        "public_id": "PNL-000000039",
+        "activated_at": "2026-09-20T12:00:00Z",
+        "created_at": "2026-09-20T12:00:00Z",
+        "expires_at": "2027-03-19T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "23.31763200",
+        "is_active": true
+      },
+      {
+        "id": "40",
+        "public_id": "PNL-000000040",
+        "activated_at": "2026-09-19T12:00:00Z",
+        "created_at": "2026-09-19T12:00:00Z",
+        "expires_at": "2027-03-18T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "23.91552000",
+        "is_active": true
+      },
+      {
+        "id": "41",
+        "public_id": "PNL-000000041",
+        "activated_at": "2026-09-18T12:00:00Z",
+        "created_at": "2026-09-18T12:00:00Z",
+        "expires_at": "2027-03-17T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "24.51340800",
+        "is_active": true
+      },
+      {
+        "id": "42",
+        "public_id": "PNL-000000042",
+        "activated_at": "2026-09-17T12:00:00Z",
+        "created_at": "2026-09-17T12:00:00Z",
+        "expires_at": "2027-03-16T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "25.11129600",
+        "is_active": true
+      },
+      {
+        "id": "43",
+        "public_id": "PNL-000000043",
+        "activated_at": "2026-09-16T12:00:00Z",
+        "created_at": "2026-09-16T12:00:00Z",
+        "expires_at": "2027-03-15T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "25.70918400",
+        "is_active": true
+      },
+      {
+        "id": "44",
+        "public_id": "PNL-000000044",
+        "activated_at": "2026-09-15T12:00:00Z",
+        "created_at": "2026-09-15T12:00:00Z",
+        "expires_at": "2027-03-14T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "26.30707200",
+        "is_active": true
+      },
+      {
+        "id": "45",
+        "public_id": "PNL-000000045",
+        "activated_at": "2026-09-14T12:00:00Z",
+        "created_at": "2026-09-14T12:00:00Z",
+        "expires_at": "2027-03-13T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "26.90496000",
+        "is_active": true
+      },
+      {
+        "id": "46",
+        "public_id": "PNL-000000046",
+        "activated_at": "2026-09-13T12:00:00Z",
+        "created_at": "2026-09-13T12:00:00Z",
+        "expires_at": "2027-03-12T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "27.50284800",
+        "is_active": true
+      },
+      {
+        "id": "47",
+        "public_id": "PNL-000000047",
+        "activated_at": "2026-09-12T12:00:00Z",
+        "created_at": "2026-09-12T12:00:00Z",
+        "expires_at": "2027-03-11T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "28.10073600",
+        "is_active": true
+      },
+      {
+        "id": "48",
+        "public_id": "PNL-000000048",
+        "activated_at": "2026-09-11T12:00:00Z",
+        "created_at": "2026-09-11T12:00:00Z",
+        "expires_at": "2027-03-10T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "28.69862400",
+        "is_active": true
+      },
+      {
+        "id": "49",
+        "public_id": "PNL-000000049",
+        "activated_at": "2026-09-10T12:00:00Z",
+        "created_at": "2026-09-10T12:00:00Z",
+        "expires_at": "2027-03-09T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "29.29651200",
+        "is_active": true
+      },
+      {
+        "id": "50",
+        "public_id": "PNL-000000050",
+        "activated_at": "2026-09-09T12:00:00Z",
+        "created_at": "2026-09-09T12:00:00Z",
+        "expires_at": "2027-03-08T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "29.89440000",
+        "is_active": true
+      },
+      {
+        "id": "51",
+        "public_id": "PNL-000000051",
+        "activated_at": "2026-09-08T12:00:00Z",
+        "created_at": "2026-09-08T12:00:00Z",
+        "expires_at": "2027-03-07T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "30.49228800",
+        "is_active": true
+      },
+      {
+        "id": "52",
+        "public_id": "PNL-000000052",
+        "activated_at": "2026-09-07T12:00:00Z",
+        "created_at": "2026-09-07T12:00:00Z",
+        "expires_at": "2027-03-06T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "31.09017600",
+        "is_active": true
+      },
+      {
+        "id": "53",
+        "public_id": "PNL-000000053",
+        "activated_at": "2026-09-06T12:00:00Z",
+        "created_at": "2026-09-06T12:00:00Z",
+        "expires_at": "2027-03-05T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "31.68806400",
+        "is_active": true
+      },
+      {
+        "id": "54",
+        "public_id": "PNL-000000054",
+        "activated_at": "2026-09-05T12:00:00Z",
+        "created_at": "2026-09-05T12:00:00Z",
+        "expires_at": "2027-03-04T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "32.28595200",
+        "is_active": true
+      },
+      {
+        "id": "55",
+        "public_id": "PNL-000000055",
+        "activated_at": "2026-09-04T12:00:00Z",
+        "created_at": "2026-09-04T12:00:00Z",
+        "expires_at": "2027-03-03T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "32.88384000",
+        "is_active": true
+      },
+      {
+        "id": "56",
+        "public_id": "PNL-000000056",
+        "activated_at": "2026-09-03T12:00:00Z",
+        "created_at": "2026-09-03T12:00:00Z",
+        "expires_at": "2027-03-02T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "33.48172800",
+        "is_active": true
+      },
+      {
+        "id": "57",
+        "public_id": "PNL-000000057",
+        "activated_at": "2026-09-02T12:00:00Z",
+        "created_at": "2026-09-02T12:00:00Z",
+        "expires_at": "2027-03-01T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "34.07961600",
+        "is_active": true
+      },
+      {
+        "id": "58",
+        "public_id": "PNL-000000058",
+        "activated_at": "2026-09-01T12:00:00Z",
+        "created_at": "2026-09-01T12:00:00Z",
+        "expires_at": "2027-02-28T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "34.67750400",
+        "is_active": true
+      },
+      {
+        "id": "59",
+        "public_id": "PNL-000000059",
+        "activated_at": "2026-08-31T12:00:00Z",
+        "created_at": "2026-08-31T12:00:00Z",
+        "expires_at": "2027-02-27T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "35.27539200",
+        "is_active": true
+      },
+      {
+        "id": "60",
+        "public_id": "PNL-000000060",
+        "activated_at": "2026-08-30T12:00:00Z",
+        "created_at": "2026-08-30T12:00:00Z",
+        "expires_at": "2027-02-26T12:00:00Z",
+        "archived_at": null,
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "35.87328000",
+        "is_active": true
+      }
+    ],
+    "archive": [
+      {
+        "id": "101",
+        "public_id": "PNL-000000101",
+        "activated_at": "2026-05-01T12:00:00Z",
+        "created_at": "2026-05-01T12:00:00Z",
+        "expires_at": "2026-10-28T12:00:00Z",
+        "archived_at": "2026-10-28T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "102",
+        "public_id": "PNL-000000102",
+        "activated_at": "2026-04-30T12:00:00Z",
+        "created_at": "2026-04-30T12:00:00Z",
+        "expires_at": "2026-10-27T12:00:00Z",
+        "archived_at": "2026-10-27T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "103",
+        "public_id": "PNL-000000103",
+        "activated_at": "2026-04-29T12:00:00Z",
+        "created_at": "2026-04-29T12:00:00Z",
+        "expires_at": "2026-10-26T12:00:00Z",
+        "archived_at": "2026-10-26T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "104",
+        "public_id": "PNL-000000104",
+        "activated_at": "2026-04-28T12:00:00Z",
+        "created_at": "2026-04-28T12:00:00Z",
+        "expires_at": "2026-10-25T12:00:00Z",
+        "archived_at": "2026-10-25T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "105",
+        "public_id": "PNL-000000105",
+        "activated_at": "2026-04-27T12:00:00Z",
+        "created_at": "2026-04-27T12:00:00Z",
+        "expires_at": "2026-10-24T12:00:00Z",
+        "archived_at": "2026-10-24T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "106",
+        "public_id": "PNL-000000106",
+        "activated_at": "2026-04-26T12:00:00Z",
+        "created_at": "2026-04-26T12:00:00Z",
+        "expires_at": "2026-10-23T12:00:00Z",
+        "archived_at": "2026-10-23T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "107",
+        "public_id": "PNL-000000107",
+        "activated_at": "2026-04-25T12:00:00Z",
+        "created_at": "2026-04-25T12:00:00Z",
+        "expires_at": "2026-10-22T12:00:00Z",
+        "archived_at": "2026-10-22T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "108",
+        "public_id": "PNL-000000108",
+        "activated_at": "2026-04-24T12:00:00Z",
+        "created_at": "2026-04-24T12:00:00Z",
+        "expires_at": "2026-10-21T12:00:00Z",
+        "archived_at": "2026-10-21T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "109",
+        "public_id": "PNL-000000109",
+        "activated_at": "2026-04-23T12:00:00Z",
+        "created_at": "2026-04-23T12:00:00Z",
+        "expires_at": "2026-10-20T12:00:00Z",
+        "archived_at": "2026-10-20T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "110",
+        "public_id": "PNL-000000110",
+        "activated_at": "2026-04-22T12:00:00Z",
+        "created_at": "2026-04-22T12:00:00Z",
+        "expires_at": "2026-10-19T12:00:00Z",
+        "archived_at": "2026-10-19T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "111",
+        "public_id": "PNL-000000111",
+        "activated_at": "2026-04-21T12:00:00Z",
+        "created_at": "2026-04-21T12:00:00Z",
+        "expires_at": "2026-10-18T12:00:00Z",
+        "archived_at": "2026-10-18T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "112",
+        "public_id": "PNL-000000112",
+        "activated_at": "2026-04-20T12:00:00Z",
+        "created_at": "2026-04-20T12:00:00Z",
+        "expires_at": "2026-10-17T12:00:00Z",
+        "archived_at": "2026-10-17T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "113",
+        "public_id": "PNL-000000113",
+        "activated_at": "2026-04-19T12:00:00Z",
+        "created_at": "2026-04-19T12:00:00Z",
+        "expires_at": "2026-10-16T12:00:00Z",
+        "archived_at": "2026-10-16T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "114",
+        "public_id": "PNL-000000114",
+        "activated_at": "2026-04-18T12:00:00Z",
+        "created_at": "2026-04-18T12:00:00Z",
+        "expires_at": "2026-10-15T12:00:00Z",
+        "archived_at": "2026-10-15T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "115",
+        "public_id": "PNL-000000115",
+        "activated_at": "2026-04-17T12:00:00Z",
+        "created_at": "2026-04-17T12:00:00Z",
+        "expires_at": "2026-10-14T12:00:00Z",
+        "archived_at": "2026-10-14T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "116",
+        "public_id": "PNL-000000116",
+        "activated_at": "2026-04-16T12:00:00Z",
+        "created_at": "2026-04-16T12:00:00Z",
+        "expires_at": "2026-10-13T12:00:00Z",
+        "archived_at": "2026-10-13T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "117",
+        "public_id": "PNL-000000117",
+        "activated_at": "2026-04-15T12:00:00Z",
+        "created_at": "2026-04-15T12:00:00Z",
+        "expires_at": "2026-10-12T12:00:00Z",
+        "archived_at": "2026-10-12T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "118",
+        "public_id": "PNL-000000118",
+        "activated_at": "2026-04-14T12:00:00Z",
+        "created_at": "2026-04-14T12:00:00Z",
+        "expires_at": "2026-10-11T12:00:00Z",
+        "archived_at": "2026-10-11T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "119",
+        "public_id": "PNL-000000119",
+        "activated_at": "2026-04-13T12:00:00Z",
+        "created_at": "2026-04-13T12:00:00Z",
+        "expires_at": "2026-10-10T12:00:00Z",
+        "archived_at": "2026-10-10T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "120",
+        "public_id": "PNL-000000120",
+        "activated_at": "2026-04-12T12:00:00Z",
+        "created_at": "2026-04-12T12:00:00Z",
+        "expires_at": "2026-10-09T12:00:00Z",
+        "archived_at": "2026-10-09T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "121",
+        "public_id": "PNL-000000121",
+        "activated_at": "2026-04-11T12:00:00Z",
+        "created_at": "2026-04-11T12:00:00Z",
+        "expires_at": "2026-10-08T12:00:00Z",
+        "archived_at": "2026-10-08T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "122",
+        "public_id": "PNL-000000122",
+        "activated_at": "2026-04-10T12:00:00Z",
+        "created_at": "2026-04-10T12:00:00Z",
+        "expires_at": "2026-10-07T12:00:00Z",
+        "archived_at": "2026-10-07T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "123",
+        "public_id": "PNL-000000123",
+        "activated_at": "2026-04-09T12:00:00Z",
+        "created_at": "2026-04-09T12:00:00Z",
+        "expires_at": "2026-10-06T12:00:00Z",
+        "archived_at": "2026-10-06T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "124",
+        "public_id": "PNL-000000124",
+        "activated_at": "2026-04-08T12:00:00Z",
+        "created_at": "2026-04-08T12:00:00Z",
+        "expires_at": "2026-10-05T12:00:00Z",
+        "archived_at": "2026-10-05T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "125",
+        "public_id": "PNL-000000125",
+        "activated_at": "2026-04-07T12:00:00Z",
+        "created_at": "2026-04-07T12:00:00Z",
+        "expires_at": "2026-10-04T12:00:00Z",
+        "archived_at": "2026-10-04T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "126",
+        "public_id": "PNL-000000126",
+        "activated_at": "2026-04-06T12:00:00Z",
+        "created_at": "2026-04-06T12:00:00Z",
+        "expires_at": "2026-10-03T12:00:00Z",
+        "archived_at": "2026-10-03T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "127",
+        "public_id": "PNL-000000127",
+        "activated_at": "2026-04-05T12:00:00Z",
+        "created_at": "2026-04-05T12:00:00Z",
+        "expires_at": "2026-10-02T12:00:00Z",
+        "archived_at": "2026-10-02T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "128",
+        "public_id": "PNL-000000128",
+        "activated_at": "2026-04-04T12:00:00Z",
+        "created_at": "2026-04-04T12:00:00Z",
+        "expires_at": "2026-10-01T12:00:00Z",
+        "archived_at": "2026-10-01T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "129",
+        "public_id": "PNL-000000129",
+        "activated_at": "2026-04-03T12:00:00Z",
+        "created_at": "2026-04-03T12:00:00Z",
+        "expires_at": "2026-09-30T12:00:00Z",
+        "archived_at": "2026-09-30T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "130",
+        "public_id": "PNL-000000130",
+        "activated_at": "2026-04-02T12:00:00Z",
+        "created_at": "2026-04-02T12:00:00Z",
+        "expires_at": "2026-09-29T12:00:00Z",
+        "archived_at": "2026-09-29T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "131",
+        "public_id": "PNL-000000131",
+        "activated_at": "2026-04-01T12:00:00Z",
+        "created_at": "2026-04-01T12:00:00Z",
+        "expires_at": "2026-09-28T12:00:00Z",
+        "archived_at": "2026-09-28T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "132",
+        "public_id": "PNL-000000132",
+        "activated_at": "2026-03-31T12:00:00Z",
+        "created_at": "2026-03-31T12:00:00Z",
+        "expires_at": "2026-09-27T12:00:00Z",
+        "archived_at": "2026-09-27T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "133",
+        "public_id": "PNL-000000133",
+        "activated_at": "2026-03-30T12:00:00Z",
+        "created_at": "2026-03-30T12:00:00Z",
+        "expires_at": "2026-09-26T12:00:00Z",
+        "archived_at": "2026-09-26T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "134",
+        "public_id": "PNL-000000134",
+        "activated_at": "2026-03-29T12:00:00Z",
+        "created_at": "2026-03-29T12:00:00Z",
+        "expires_at": "2026-09-25T12:00:00Z",
+        "archived_at": "2026-09-25T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "135",
+        "public_id": "PNL-000000135",
+        "activated_at": "2026-03-28T12:00:00Z",
+        "created_at": "2026-03-28T12:00:00Z",
+        "expires_at": "2026-09-24T12:00:00Z",
+        "archived_at": "2026-09-24T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "136",
+        "public_id": "PNL-000000136",
+        "activated_at": "2026-03-27T12:00:00Z",
+        "created_at": "2026-03-27T12:00:00Z",
+        "expires_at": "2026-09-23T12:00:00Z",
+        "archived_at": "2026-09-23T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "137",
+        "public_id": "PNL-000000137",
+        "activated_at": "2026-03-26T12:00:00Z",
+        "created_at": "2026-03-26T12:00:00Z",
+        "expires_at": "2026-09-22T12:00:00Z",
+        "archived_at": "2026-09-22T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "138",
+        "public_id": "PNL-000000138",
+        "activated_at": "2026-03-25T12:00:00Z",
+        "created_at": "2026-03-25T12:00:00Z",
+        "expires_at": "2026-09-21T12:00:00Z",
+        "archived_at": "2026-09-21T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "139",
+        "public_id": "PNL-000000139",
+        "activated_at": "2026-03-24T12:00:00Z",
+        "created_at": "2026-03-24T12:00:00Z",
+        "expires_at": "2026-09-20T12:00:00Z",
+        "archived_at": "2026-09-20T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "140",
+        "public_id": "PNL-000000140",
+        "activated_at": "2026-03-23T12:00:00Z",
+        "created_at": "2026-03-23T12:00:00Z",
+        "expires_at": "2026-09-19T12:00:00Z",
+        "archived_at": "2026-09-19T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "141",
+        "public_id": "PNL-000000141",
+        "activated_at": "2026-03-22T12:00:00Z",
+        "created_at": "2026-03-22T12:00:00Z",
+        "expires_at": "2026-09-18T12:00:00Z",
+        "archived_at": "2026-09-18T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "142",
+        "public_id": "PNL-000000142",
+        "activated_at": "2026-03-21T12:00:00Z",
+        "created_at": "2026-03-21T12:00:00Z",
+        "expires_at": "2026-09-17T12:00:00Z",
+        "archived_at": "2026-09-17T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "143",
+        "public_id": "PNL-000000143",
+        "activated_at": "2026-03-20T12:00:00Z",
+        "created_at": "2026-03-20T12:00:00Z",
+        "expires_at": "2026-09-16T12:00:00Z",
+        "archived_at": "2026-09-16T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "144",
+        "public_id": "PNL-000000144",
+        "activated_at": "2026-03-19T12:00:00Z",
+        "created_at": "2026-03-19T12:00:00Z",
+        "expires_at": "2026-09-15T12:00:00Z",
+        "archived_at": "2026-09-15T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "145",
+        "public_id": "PNL-000000145",
+        "activated_at": "2026-03-18T12:00:00Z",
+        "created_at": "2026-03-18T12:00:00Z",
+        "expires_at": "2026-09-14T12:00:00Z",
+        "archived_at": "2026-09-14T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "146",
+        "public_id": "PNL-000000146",
+        "activated_at": "2026-03-17T12:00:00Z",
+        "created_at": "2026-03-17T12:00:00Z",
+        "expires_at": "2026-09-13T12:00:00Z",
+        "archived_at": "2026-09-13T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "147",
+        "public_id": "PNL-000000147",
+        "activated_at": "2026-03-16T12:00:00Z",
+        "created_at": "2026-03-16T12:00:00Z",
+        "expires_at": "2026-09-12T12:00:00Z",
+        "archived_at": "2026-09-12T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "148",
+        "public_id": "PNL-000000148",
+        "activated_at": "2026-03-15T12:00:00Z",
+        "created_at": "2026-03-15T12:00:00Z",
+        "expires_at": "2026-09-11T12:00:00Z",
+        "archived_at": "2026-09-11T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "149",
+        "public_id": "PNL-000000149",
+        "activated_at": "2026-03-14T12:00:00Z",
+        "created_at": "2026-03-14T12:00:00Z",
+        "expires_at": "2026-09-10T12:00:00Z",
+        "archived_at": "2026-09-10T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "150",
+        "public_id": "PNL-000000150",
+        "activated_at": "2026-03-13T12:00:00Z",
+        "created_at": "2026-03-13T12:00:00Z",
+        "expires_at": "2026-09-09T12:00:00Z",
+        "archived_at": "2026-09-09T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "151",
+        "public_id": "PNL-000000151",
+        "activated_at": "2026-03-12T12:00:00Z",
+        "created_at": "2026-03-12T12:00:00Z",
+        "expires_at": "2026-09-08T12:00:00Z",
+        "archived_at": "2026-09-08T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "152",
+        "public_id": "PNL-000000152",
+        "activated_at": "2026-03-11T12:00:00Z",
+        "created_at": "2026-03-11T12:00:00Z",
+        "expires_at": "2026-09-07T12:00:00Z",
+        "archived_at": "2026-09-07T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "153",
+        "public_id": "PNL-000000153",
+        "activated_at": "2026-03-10T12:00:00Z",
+        "created_at": "2026-03-10T12:00:00Z",
+        "expires_at": "2026-09-06T12:00:00Z",
+        "archived_at": "2026-09-06T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "154",
+        "public_id": "PNL-000000154",
+        "activated_at": "2026-03-09T12:00:00Z",
+        "created_at": "2026-03-09T12:00:00Z",
+        "expires_at": "2026-09-05T12:00:00Z",
+        "archived_at": "2026-09-05T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "155",
+        "public_id": "PNL-000000155",
+        "activated_at": "2026-03-08T12:00:00Z",
+        "created_at": "2026-03-08T12:00:00Z",
+        "expires_at": "2026-09-04T12:00:00Z",
+        "archived_at": "2026-09-04T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "156",
+        "public_id": "PNL-000000156",
+        "activated_at": "2026-03-07T12:00:00Z",
+        "created_at": "2026-03-07T12:00:00Z",
+        "expires_at": "2026-09-03T12:00:00Z",
+        "archived_at": "2026-09-03T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "157",
+        "public_id": "PNL-000000157",
+        "activated_at": "2026-03-06T12:00:00Z",
+        "created_at": "2026-03-06T12:00:00Z",
+        "expires_at": "2026-09-02T12:00:00Z",
+        "archived_at": "2026-09-02T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "158",
+        "public_id": "PNL-000000158",
+        "activated_at": "2026-03-05T12:00:00Z",
+        "created_at": "2026-03-05T12:00:00Z",
+        "expires_at": "2026-09-01T12:00:00Z",
+        "archived_at": "2026-09-01T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "159",
+        "public_id": "PNL-000000159",
+        "activated_at": "2026-03-04T12:00:00Z",
+        "created_at": "2026-03-04T12:00:00Z",
+        "expires_at": "2026-08-31T12:00:00Z",
+        "archived_at": "2026-08-31T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      },
+      {
+        "id": "160",
+        "public_id": "PNL-000000160",
+        "activated_at": "2026-03-03T12:00:00Z",
+        "created_at": "2026-03-03T12:00:00Z",
+        "expires_at": "2026-08-30T12:00:00Z",
+        "archived_at": "2026-08-30T12:00:00Z",
+        "base_gen_per_sec": "0.00000692",
+        "generated_kwh": "107.61984000",
+        "is_active": false
+      }
+    ],
+    "batch_size": 20,
+    "initial_sort": "oldest",
+    "summary": {
+      "active_count": 60,
+      "total_generated_by_panels": "1094.13504000",
+      "nearest_expire_at": "2027-04-26T12:00:00Z"
+    }
+  },
+  "ranks": {
+    "users": [
+      {
+        "global_id": "3000000001",
+        "username": "federation_001",
+        "total_generated_kwh": "104562.12500000",
+        "rank_pos": 1,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000002",
+        "username": "federation_002",
+        "total_generated_kwh": "104124.25000000",
+        "rank_pos": 2,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000003",
+        "username": "federation_003",
+        "total_generated_kwh": "104124.25000000",
+        "rank_pos": 2,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000004",
+        "username": "federation_004",
+        "total_generated_kwh": "103248.50000000",
+        "rank_pos": 3,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000005",
+        "username": "federation_005",
+        "total_generated_kwh": "102810.62500000",
+        "rank_pos": 4,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000006",
+        "username": "federation_006",
+        "total_generated_kwh": "102372.75000000",
+        "rank_pos": 5,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000007",
+        "username": "federation_007",
+        "total_generated_kwh": "101814.12500000",
+        "rank_pos": 6,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000008",
+        "username": "federation_008",
+        "total_generated_kwh": "101376.25000000",
+        "rank_pos": 7,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000009",
+        "username": "federation_009",
+        "total_generated_kwh": "100938.37500000",
+        "rank_pos": 8,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000010",
+        "username": "federation_010",
+        "total_generated_kwh": "100500.50000000",
+        "rank_pos": 9,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000011",
+        "username": "federation_011",
+        "total_generated_kwh": "100062.62500000",
+        "rank_pos": 10,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000012",
+        "username": "federation_012",
+        "total_generated_kwh": "99624.75000000",
+        "rank_pos": 11,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000013",
+        "username": "federation_013",
+        "total_generated_kwh": "99186.87500000",
+        "rank_pos": 12,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000014",
+        "username": "federation_014",
+        "total_generated_kwh": "98628.25000000",
+        "rank_pos": 13,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000015",
+        "username": "federation_015",
+        "total_generated_kwh": "98190.37500000",
+        "rank_pos": 14,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000016",
+        "username": "federation_016",
+        "total_generated_kwh": "97752.50000000",
+        "rank_pos": 15,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000017",
+        "username": "federation_017",
+        "total_generated_kwh": "97314.62500000",
+        "rank_pos": 16,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000018",
+        "username": "federation_018",
+        "total_generated_kwh": "96876.75000000",
+        "rank_pos": 17,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000019",
+        "username": "federation_019",
+        "total_generated_kwh": "96438.87500000",
+        "rank_pos": 18,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000020",
+        "username": "federation_020",
+        "total_generated_kwh": "96001.00000000",
+        "rank_pos": 19,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000021",
+        "username": "federation_021",
+        "total_generated_kwh": "95442.37500000",
+        "rank_pos": 20,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000022",
+        "username": "federation_022",
+        "total_generated_kwh": "95004.50000000",
+        "rank_pos": 21,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000023",
+        "username": "federation_023",
+        "total_generated_kwh": "94566.62500000",
+        "rank_pos": 22,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000024",
+        "username": "federation_024",
+        "total_generated_kwh": "94128.75000000",
+        "rank_pos": 23,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000025",
+        "username": "federation_025",
+        "total_generated_kwh": "93690.87500000",
+        "rank_pos": 24,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000026",
+        "username": "federation_026",
+        "total_generated_kwh": "93253.00000000",
+        "rank_pos": 25,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000027",
+        "username": "federation_027",
+        "total_generated_kwh": "92815.12500000",
+        "rank_pos": 26,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000028",
+        "username": "federation_028",
+        "total_generated_kwh": "92256.50000000",
+        "rank_pos": 27,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000029",
+        "username": "federation_029",
+        "total_generated_kwh": "91818.62500000",
+        "rank_pos": 28,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000030",
+        "username": "federation_030",
+        "total_generated_kwh": "91380.75000000",
+        "rank_pos": 29,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000031",
+        "username": "federation_031",
+        "total_generated_kwh": "90942.87500000",
+        "rank_pos": 30,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000032",
+        "username": "federation_032",
+        "total_generated_kwh": "90505.00000000",
+        "rank_pos": 31,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000033",
+        "username": "federation_033",
+        "total_generated_kwh": "90067.12500000",
+        "rank_pos": 32,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000034",
+        "username": "federation_034",
+        "total_generated_kwh": "89629.25000000",
+        "rank_pos": 33,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000035",
+        "username": "federation_035",
+        "total_generated_kwh": "89070.62500000",
+        "rank_pos": 34,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000036",
+        "username": "federation_036",
+        "total_generated_kwh": "88632.75000000",
+        "rank_pos": 35,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000037",
+        "username": "federation_037",
+        "total_generated_kwh": "88194.87500000",
+        "rank_pos": 36,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000038",
+        "username": "federation_038",
+        "total_generated_kwh": "87757.00000000",
+        "rank_pos": 37,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000039",
+        "username": "federation_039",
+        "total_generated_kwh": "87319.12500000",
+        "rank_pos": 38,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000040",
+        "username": "federation_040",
+        "total_generated_kwh": "86881.25000000",
+        "rank_pos": 39,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000041",
+        "username": "federation_041",
+        "total_generated_kwh": "86443.37500000",
+        "rank_pos": 40,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000042",
+        "username": "federation_042",
+        "total_generated_kwh": "85884.75000000",
+        "rank_pos": 41,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000043",
+        "username": "federation_043",
+        "total_generated_kwh": "85446.87500000",
+        "rank_pos": 42,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000044",
+        "username": "federation_044",
+        "total_generated_kwh": "85009.00000000",
+        "rank_pos": 43,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000045",
+        "username": "federation_045",
+        "total_generated_kwh": "84571.12500000",
+        "rank_pos": 44,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000046",
+        "username": "federation_046",
+        "total_generated_kwh": "84133.25000000",
+        "rank_pos": 45,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000047",
+        "username": "federation_047",
+        "total_generated_kwh": "83695.37500000",
+        "rank_pos": 46,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000048",
+        "username": "federation_048",
+        "total_generated_kwh": "83257.50000000",
+        "rank_pos": 47,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000049",
+        "username": "federation_049",
+        "total_generated_kwh": "82698.87500000",
+        "rank_pos": 48,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000050",
+        "username": "federation_050",
+        "total_generated_kwh": "82261.00000000",
+        "rank_pos": 49,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000051",
+        "username": "federation_051",
+        "total_generated_kwh": "81823.12500000",
+        "rank_pos": 50,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000052",
+        "username": "federation_052",
+        "total_generated_kwh": "81385.25000000",
+        "rank_pos": 51,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000053",
+        "username": "federation_053",
+        "total_generated_kwh": "80947.37500000",
+        "rank_pos": 52,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000054",
+        "username": "federation_054",
+        "total_generated_kwh": "80509.50000000",
+        "rank_pos": 53,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000055",
+        "username": "federation_055",
+        "total_generated_kwh": "80071.62500000",
+        "rank_pos": 54,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000056",
+        "username": "federation_056",
+        "total_generated_kwh": "79513.00000000",
+        "rank_pos": 55,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000057",
+        "username": "federation_057",
+        "total_generated_kwh": "79075.12500000",
+        "rank_pos": 56,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000058",
+        "username": "federation_058",
+        "total_generated_kwh": "78637.25000000",
+        "rank_pos": 57,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000059",
+        "username": "federation_059",
+        "total_generated_kwh": "78199.37500000",
+        "rank_pos": 58,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000060",
+        "username": "federation_060",
+        "total_generated_kwh": "77761.50000000",
+        "rank_pos": 59,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000061",
+        "username": "federation_061",
+        "total_generated_kwh": "77323.62500000",
+        "rank_pos": 60,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000062",
+        "username": "federation_062",
+        "total_generated_kwh": "76885.75000000",
+        "rank_pos": 61,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000063",
+        "username": "federation_063",
+        "total_generated_kwh": "76327.12500000",
+        "rank_pos": 62,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000064",
+        "username": "federation_064",
+        "total_generated_kwh": "75889.25000000",
+        "rank_pos": 63,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000065",
+        "username": "federation_065",
+        "total_generated_kwh": "75451.37500000",
+        "rank_pos": 64,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000066",
+        "username": "federation_066",
+        "total_generated_kwh": "75013.50000000",
+        "rank_pos": 65,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000067",
+        "username": "federation_067",
+        "total_generated_kwh": "74575.62500000",
+        "rank_pos": 66,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000068",
+        "username": "federation_068",
+        "total_generated_kwh": "74137.75000000",
+        "rank_pos": 67,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000069",
+        "username": "federation_069",
+        "total_generated_kwh": "73699.87500000",
+        "rank_pos": 68,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000070",
+        "username": "federation_070",
+        "total_generated_kwh": "73141.25000000",
+        "rank_pos": 69,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000071",
+        "username": "federation_071",
+        "total_generated_kwh": "72703.37500000",
+        "rank_pos": 70,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000072",
+        "username": "federation_072",
+        "total_generated_kwh": "72265.50000000",
+        "rank_pos": 71,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000073",
+        "username": "federation_073",
+        "total_generated_kwh": "71827.62500000",
+        "rank_pos": 72,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000074",
+        "username": "federation_074",
+        "total_generated_kwh": "71389.75000000",
+        "rank_pos": 73,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000075",
+        "username": "federation_075",
+        "total_generated_kwh": "70951.87500000",
+        "rank_pos": 74,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000076",
+        "username": "federation_076",
+        "total_generated_kwh": "70514.00000000",
+        "rank_pos": 75,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000077",
+        "username": "federation_077",
+        "total_generated_kwh": "69955.37500000",
+        "rank_pos": 76,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000078",
+        "username": "federation_078",
+        "total_generated_kwh": "69517.50000000",
+        "rank_pos": 77,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000079",
+        "username": "federation_079",
+        "total_generated_kwh": "69079.62500000",
+        "rank_pos": 78,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000080",
+        "username": "federation_080",
+        "total_generated_kwh": "68641.75000000",
+        "rank_pos": 79,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000081",
+        "username": "federation_081",
+        "total_generated_kwh": "68203.87500000",
+        "rank_pos": 80,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000082",
+        "username": "federation_082",
+        "total_generated_kwh": "67766.00000000",
+        "rank_pos": 81,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000083",
+        "username": "federation_083",
+        "total_generated_kwh": "67328.12500000",
+        "rank_pos": 82,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000084",
+        "username": "federation_084",
+        "total_generated_kwh": "66769.50000000",
+        "rank_pos": 83,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000085",
+        "username": "federation_085",
+        "total_generated_kwh": "66331.62500000",
+        "rank_pos": 84,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000086",
+        "username": "federation_086",
+        "total_generated_kwh": "65893.75000000",
+        "rank_pos": 85,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000087",
+        "username": "federation_087",
+        "total_generated_kwh": "65455.87500000",
+        "rank_pos": 86,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000088",
+        "username": "federation_088",
+        "total_generated_kwh": "65018.00000000",
+        "rank_pos": 87,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000089",
+        "username": "federation_089",
+        "total_generated_kwh": "64580.12500000",
+        "rank_pos": 88,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000090",
+        "username": "federation_090",
+        "total_generated_kwh": "64142.25000000",
+        "rank_pos": 89,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000091",
+        "username": "federation_091",
+        "total_generated_kwh": "63583.62500000",
+        "rank_pos": 90,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000092",
+        "username": "federation_092",
+        "total_generated_kwh": "63145.75000000",
+        "rank_pos": 91,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000093",
+        "username": "federation_093",
+        "total_generated_kwh": "62707.87500000",
+        "rank_pos": 92,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000094",
+        "username": "federation_094",
+        "total_generated_kwh": "62270.00000000",
+        "rank_pos": 93,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000095",
+        "username": "federation_095",
+        "total_generated_kwh": "61832.12500000",
+        "rank_pos": 94,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000096",
+        "username": "federation_096",
+        "total_generated_kwh": "61394.25000000",
+        "rank_pos": 95,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000097",
+        "username": "federation_097",
+        "total_generated_kwh": "60956.37500000",
+        "rank_pos": 96,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000098",
+        "username": "federation_098",
+        "total_generated_kwh": "60397.75000000",
+        "rank_pos": 97,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000099",
+        "username": "federation_099",
+        "total_generated_kwh": "59959.87500000",
+        "rank_pos": 98,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000100",
+        "username": "federation_100",
+        "total_generated_kwh": "59522.00000000",
+        "rank_pos": 99,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000101",
+        "username": "federation_101",
+        "total_generated_kwh": "59084.12500000",
+        "rank_pos": 100,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000102",
+        "username": "federation_102",
+        "total_generated_kwh": "58646.25000000",
+        "rank_pos": 101,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000103",
+        "username": "federation_103",
+        "total_generated_kwh": "58208.37500000",
+        "rank_pos": 102,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000104",
+        "username": "federation_104",
+        "total_generated_kwh": "57770.50000000",
+        "rank_pos": 103,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000105",
+        "username": "federation_105",
+        "total_generated_kwh": "57211.87500000",
+        "rank_pos": 104,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000106",
+        "username": "federation_106",
+        "total_generated_kwh": "56774.00000000",
+        "rank_pos": 105,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000107",
+        "username": "federation_107",
+        "total_generated_kwh": "56336.12500000",
+        "rank_pos": 106,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000108",
+        "username": "federation_108",
+        "total_generated_kwh": "55898.25000000",
+        "rank_pos": 107,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000109",
+        "username": "federation_109",
+        "total_generated_kwh": "55460.37500000",
+        "rank_pos": 108,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000110",
+        "username": "federation_110",
+        "total_generated_kwh": "55022.50000000",
+        "rank_pos": 109,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000111",
+        "username": "federation_111",
+        "total_generated_kwh": "54584.62500000",
+        "rank_pos": 110,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000112",
+        "username": "federation_112",
+        "total_generated_kwh": "54026.00000000",
+        "rank_pos": 111,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000113",
+        "username": "federation_113",
+        "total_generated_kwh": "53588.12500000",
+        "rank_pos": 112,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000114",
+        "username": "federation_114",
+        "total_generated_kwh": "53150.25000000",
+        "rank_pos": 113,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000115",
+        "username": "federation_115",
+        "total_generated_kwh": "52712.37500000",
+        "rank_pos": 114,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000116",
+        "username": "federation_116",
+        "total_generated_kwh": "52274.50000000",
+        "rank_pos": 115,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000117",
+        "username": "federation_117",
+        "total_generated_kwh": "51836.62500000",
+        "rank_pos": 116,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000118",
+        "username": "federation_118",
+        "total_generated_kwh": "51398.75000000",
+        "rank_pos": 117,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000119",
+        "username": "federation_119",
+        "total_generated_kwh": "50840.12500000",
+        "rank_pos": 118,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000120",
+        "username": "federation_120",
+        "total_generated_kwh": "50402.25000000",
+        "rank_pos": 119,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000121",
+        "username": "federation_121",
+        "total_generated_kwh": "49964.37500000",
+        "rank_pos": 120,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000122",
+        "username": "federation_122",
+        "total_generated_kwh": "49526.50000000",
+        "rank_pos": 121,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000123",
+        "username": "federation_123",
+        "total_generated_kwh": "49088.62500000",
+        "rank_pos": 122,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000124",
+        "username": "federation_124",
+        "total_generated_kwh": "48650.75000000",
+        "rank_pos": 123,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000125",
+        "username": "federation_125",
+        "total_generated_kwh": "48212.87500000",
+        "rank_pos": 124,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000126",
+        "username": "federation_126",
+        "total_generated_kwh": "47654.25000000",
+        "rank_pos": 125,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000127",
+        "username": "federation_127",
+        "total_generated_kwh": "47216.37500000",
+        "rank_pos": 126,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000128",
+        "username": "federation_128",
+        "total_generated_kwh": "46778.50000000",
+        "rank_pos": 127,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000129",
+        "username": "federation_129",
+        "total_generated_kwh": "46340.62500000",
+        "rank_pos": 128,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000130",
+        "username": "federation_130",
+        "total_generated_kwh": "45902.75000000",
+        "rank_pos": 129,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000131",
+        "username": "federation_131",
+        "total_generated_kwh": "45464.87500000",
+        "rank_pos": 130,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000132",
+        "username": "federation_132",
+        "total_generated_kwh": "45027.00000000",
+        "rank_pos": 131,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000133",
+        "username": "federation_133",
+        "total_generated_kwh": "44468.37500000",
+        "rank_pos": 132,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000134",
+        "username": "federation_134",
+        "total_generated_kwh": "44030.50000000",
+        "rank_pos": 133,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000135",
+        "username": "federation_135",
+        "total_generated_kwh": "43592.62500000",
+        "rank_pos": 134,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000136",
+        "username": "federation_136",
+        "total_generated_kwh": "43154.75000000",
+        "rank_pos": 135,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000137",
+        "username": "federation_137",
+        "total_generated_kwh": "42716.87500000",
+        "rank_pos": 136,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000138",
+        "username": "federation_138",
+        "total_generated_kwh": "42279.00000000",
+        "rank_pos": 137,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000139",
+        "username": "federation_139",
+        "total_generated_kwh": "41841.12500000",
+        "rank_pos": 138,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000140",
+        "username": "federation_140",
+        "total_generated_kwh": "41282.50000000",
+        "rank_pos": 139,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000141",
+        "username": "federation_141",
+        "total_generated_kwh": "40844.62500000",
+        "rank_pos": 140,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000142",
+        "username": "federation_142",
+        "total_generated_kwh": "40406.75000000",
+        "rank_pos": 141,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000143",
+        "username": "federation_143",
+        "total_generated_kwh": "39968.87500000",
+        "rank_pos": 142,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000144",
+        "username": "federation_144",
+        "total_generated_kwh": "39531.00000000",
+        "rank_pos": 143,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000145",
+        "username": "federation_145",
+        "total_generated_kwh": "39093.12500000",
+        "rank_pos": 144,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000146",
+        "username": "federation_146",
+        "total_generated_kwh": "38655.25000000",
+        "rank_pos": 145,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000147",
+        "username": "federation_147",
+        "total_generated_kwh": "38096.62500000",
+        "rank_pos": 146,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000148",
+        "username": "federation_148",
+        "total_generated_kwh": "37658.75000000",
+        "rank_pos": 147,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000149",
+        "username": "federation_149",
+        "total_generated_kwh": "37220.87500000",
+        "rank_pos": 148,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000150",
+        "username": "federation_150",
+        "total_generated_kwh": "36783.00000000",
+        "rank_pos": 149,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000151",
+        "username": "federation_151",
+        "total_generated_kwh": "36345.12500000",
+        "rank_pos": 150,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000152",
+        "username": "federation_152",
+        "total_generated_kwh": "35907.25000000",
+        "rank_pos": 151,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000153",
+        "username": "federation_153",
+        "total_generated_kwh": "35469.37500000",
+        "rank_pos": 152,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000154",
+        "username": "federation_154",
+        "total_generated_kwh": "34910.75000000",
+        "rank_pos": 153,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000155",
+        "username": "federation_155",
+        "total_generated_kwh": "34472.87500000",
+        "rank_pos": 154,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000156",
+        "username": "federation_156",
+        "total_generated_kwh": "34035.00000000",
+        "rank_pos": 155,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000157",
+        "username": "federation_157",
+        "total_generated_kwh": "33597.12500000",
+        "rank_pos": 156,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000158",
+        "username": "federation_158",
+        "total_generated_kwh": "33159.25000000",
+        "rank_pos": 157,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000159",
+        "username": "federation_159",
+        "total_generated_kwh": "32721.37500000",
+        "rank_pos": 158,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000160",
+        "username": "federation_160",
+        "total_generated_kwh": "32283.50000000",
+        "rank_pos": 159,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000161",
+        "username": "federation_161",
+        "total_generated_kwh": "31724.87500000",
+        "rank_pos": 160,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000162",
+        "username": "federation_162",
+        "total_generated_kwh": "31287.00000000",
+        "rank_pos": 161,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000163",
+        "username": "federation_163",
+        "total_generated_kwh": "30849.12500000",
+        "rank_pos": 162,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000164",
+        "username": "federation_164",
+        "total_generated_kwh": "30411.25000000",
+        "rank_pos": 163,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000165",
+        "username": "federation_165",
+        "total_generated_kwh": "29973.37500000",
+        "rank_pos": 164,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000166",
+        "username": "federation_166",
+        "total_generated_kwh": "29535.50000000",
+        "rank_pos": 165,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000167",
+        "username": "federation_167",
+        "total_generated_kwh": "29097.62500000",
+        "rank_pos": 166,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000168",
+        "username": "federation_168",
+        "total_generated_kwh": "28539.00000000",
+        "rank_pos": 167,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000169",
+        "username": "federation_169",
+        "total_generated_kwh": "28101.12500000",
+        "rank_pos": 168,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000170",
+        "username": "federation_170",
+        "total_generated_kwh": "27663.25000000",
+        "rank_pos": 169,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000171",
+        "username": "federation_171",
+        "total_generated_kwh": "27225.37500000",
+        "rank_pos": 170,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000172",
+        "username": "federation_172",
+        "total_generated_kwh": "26787.50000000",
+        "rank_pos": 171,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000173",
+        "username": "federation_173",
+        "total_generated_kwh": "26349.62500000",
+        "rank_pos": 172,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000174",
+        "username": "federation_174",
+        "total_generated_kwh": "25911.75000000",
+        "rank_pos": 173,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000175",
+        "username": "federation_175",
+        "total_generated_kwh": "25353.12500000",
+        "rank_pos": 174,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000176",
+        "username": "federation_176",
+        "total_generated_kwh": "24915.25000000",
+        "rank_pos": 175,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000177",
+        "username": "federation_177",
+        "total_generated_kwh": "24477.37500000",
+        "rank_pos": 176,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000178",
+        "username": "federation_178",
+        "total_generated_kwh": "24039.50000000",
+        "rank_pos": 177,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000179",
+        "username": "federation_179",
+        "total_generated_kwh": "23601.62500000",
+        "rank_pos": 178,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000180",
+        "username": "federation_180",
+        "total_generated_kwh": "23163.75000000",
+        "rank_pos": 179,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000181",
+        "username": "federation_181",
+        "total_generated_kwh": "22725.87500000",
+        "rank_pos": 180,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000182",
+        "username": "federation_182",
+        "total_generated_kwh": "22167.25000000",
+        "rank_pos": 181,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000183",
+        "username": "federation_183",
+        "total_generated_kwh": "21729.37500000",
+        "rank_pos": 182,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000184",
+        "username": "federation_184",
+        "total_generated_kwh": "21291.50000000",
+        "rank_pos": 183,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000185",
+        "username": "federation_185",
+        "total_generated_kwh": "20853.62500000",
+        "rank_pos": 184,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000186",
+        "username": "federation_186",
+        "total_generated_kwh": "20415.75000000",
+        "rank_pos": 185,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000187",
+        "username": "federation_187",
+        "total_generated_kwh": "19977.87500000",
+        "rank_pos": 186,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000188",
+        "username": "federation_188",
+        "total_generated_kwh": "19540.00000000",
+        "rank_pos": 187,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000189",
+        "username": "federation_189",
+        "total_generated_kwh": "18981.37500000",
+        "rank_pos": 188,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000190",
+        "username": "federation_190",
+        "total_generated_kwh": "18543.50000000",
+        "rank_pos": 189,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000191",
+        "username": "federation_191",
+        "total_generated_kwh": "18105.62500000",
+        "rank_pos": 190,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000192",
+        "username": "federation_192",
+        "total_generated_kwh": "17667.75000000",
+        "rank_pos": 191,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000193",
+        "username": "federation_193",
+        "total_generated_kwh": "17229.87500000",
+        "rank_pos": 192,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000194",
+        "username": "federation_194",
+        "total_generated_kwh": "16792.00000000",
+        "rank_pos": 193,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000195",
+        "username": "federation_195",
+        "total_generated_kwh": "16354.12500000",
+        "rank_pos": 194,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000196",
+        "username": "federation_196",
+        "total_generated_kwh": "15795.50000000",
+        "rank_pos": 195,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000197",
+        "username": "federation_197",
+        "total_generated_kwh": "15357.62500000",
+        "rank_pos": 196,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000198",
+        "username": "federation_198",
+        "total_generated_kwh": "14919.75000000",
+        "rank_pos": 197,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000199",
+        "username": "federation_199",
+        "total_generated_kwh": "14481.87500000",
+        "rank_pos": 198,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000200",
+        "username": "federation_200",
+        "total_generated_kwh": "14044.00000000",
+        "rank_pos": 199,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000201",
+        "username": "federation_201",
+        "total_generated_kwh": "13606.12500000",
+        "rank_pos": 200,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000202",
+        "username": "federation_202",
+        "total_generated_kwh": "13168.25000000",
+        "rank_pos": 201,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000203",
+        "username": "federation_203",
+        "total_generated_kwh": "12609.62500000",
+        "rank_pos": 202,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000204",
+        "username": "federation_204",
+        "total_generated_kwh": "12171.75000000",
+        "rank_pos": 203,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000205",
+        "username": "federation_205",
+        "total_generated_kwh": "11733.87500000",
+        "rank_pos": 204,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000206",
+        "username": "federation_206",
+        "total_generated_kwh": "11296.00000000",
+        "rank_pos": 205,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000207",
+        "username": "federation_207",
+        "total_generated_kwh": "10858.12500000",
+        "rank_pos": 206,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000208",
+        "username": "federation_208",
+        "total_generated_kwh": "10420.25000000",
+        "rank_pos": 207,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000209",
+        "username": "federation_209",
+        "total_generated_kwh": "9982.37500000",
+        "rank_pos": 208,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000210",
+        "username": "federation_210",
+        "total_generated_kwh": "9423.75000000",
+        "rank_pos": 209,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000211",
+        "username": "federation_211",
+        "total_generated_kwh": "8985.87500000",
+        "rank_pos": 210,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000212",
+        "username": "federation_212",
+        "total_generated_kwh": "8548.00000000",
+        "rank_pos": 211,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000213",
+        "username": "federation_213",
+        "total_generated_kwh": "8110.12500000",
+        "rank_pos": 213,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000214",
+        "username": "federation_214",
+        "total_generated_kwh": "7672.25000000",
+        "rank_pos": 214,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000215",
+        "username": "federation_215",
+        "total_generated_kwh": "7234.37500000",
+        "rank_pos": 215,
+        "is_vip": true
+      },
+      {
+        "global_id": "3000000216",
+        "username": "federation_216",
+        "total_generated_kwh": "6796.50000000",
+        "rank_pos": 216,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000217",
+        "username": "federation_217",
+        "total_generated_kwh": "6237.87500000",
+        "rank_pos": 217,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000218",
+        "username": "federation_218",
+        "total_generated_kwh": "5800.00000000",
+        "rank_pos": 218,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000219",
+        "username": "federation_219",
+        "total_generated_kwh": "5362.12500000",
+        "rank_pos": 219,
+        "is_vip": false
+      },
+      {
+        "global_id": "3000000220",
+        "username": "federation_220",
+        "total_generated_kwh": "4924.25000000",
+        "rank_pos": 220,
+        "is_vip": true
+      }
+    ],
+    "me": {
+      "global_id": "0000657667",
+      "username": "efhc_player",
+      "total_generated_kwh": "8123.12345678",
+      "rank_pos": 212,
+      "is_vip": false
+    },
+    "top_limit": 100,
+    "more_limit": 100
+  },
+  "tasks": {
+    "catalog": [
+      {
+        "id": 11,
+        "code": "demo_join_telegram",
+        "title": "Вступите в Telegram группу/канал.",
+        "description": null,
+        "is_active": true,
+        "bonus_efhc": "0.10000000",
+        "kind": "join_channel",
+        "limit_per_user": 1,
+        "total_limit": 5000,
+        "performed_count": 312,
+        "proof_type": null,
+        "proof_hint": null,
+        "meta": {
+          "template": {
+            "id": "telegram_join",
+            "version": 1,
+            "title_key": "tasks.template.telegram_join.title",
+            "description_key": "tasks.template.telegram_join.description"
+          },
+          "channels": [
+            "@efhc_demo"
+          ],
+          "automatic": {
+            "target_url": "https://t.me/efhc_demo",
+            "platform": "telegram"
+          }
+        },
+        "created_at": "2026-10-29T12:00:00Z",
+        "updated_at": "2026-10-29T12:00:00Z"
+      },
+      {
+        "id": 12,
+        "code": "demo_watch_builtin",
+        "title": "Просмотр рекламы.",
+        "description": null,
+        "is_active": true,
+        "bonus_efhc": "0.01000000",
+        "kind": "watch_ad",
+        "limit_per_user": 1,
+        "total_limit": null,
+        "performed_count": 84,
+        "proof_type": null,
+        "proof_hint": null,
+        "meta": {
+          "template": {
+            "id": "rewarded_ad",
+            "version": 1,
+            "title_key": "tasks.template.rewarded_ad.title",
+            "description_key": "tasks.template.rewarded_ad.description"
+          },
+          "ads": {
+            "primary_provider": "builtin_timer",
+            "daily_limit": 10,
+            "fallback_enabled": false,
+            "required_format": "rewarded"
+          }
+        },
+        "created_at": "2026-10-29T12:00:00Z",
+        "updated_at": "2026-10-29T12:00:00Z"
+      },
+      {
+        "id": 13,
+        "code": "demo_partner_webapp",
+        "title": "Открыть приложение и ознакомиться.",
+        "description": null,
+        "is_active": true,
+        "bonus_efhc": "0.05000000",
+        "kind": "partner_webapp",
+        "limit_per_user": 1,
+        "total_limit": 1000,
+        "performed_count": 27,
+        "proof_type": null,
+        "proof_hint": null,
+        "meta": {
+          "template": {
+            "id": "partner_webapp",
+            "version": 1,
+            "title_key": "tasks.template.partner_webapp.title",
+            "description_key": "tasks.template.partner_webapp.description"
+          },
+          "automatic": {
+            "target_url": "https://example.com/partner-demo",
+            "platform": "web",
+            "action": "open_webapp"
+          }
+        },
+        "created_at": "2026-10-29T12:00:00Z",
+        "updated_at": "2026-10-29T12:00:00Z"
+      },
+      {
+        "id": 14,
+        "code": "demo_website_visit",
+        "title": "Перейдите на сайт.",
+        "description": null,
+        "is_active": true,
+        "bonus_efhc": "0.02000000",
+        "kind": "visit",
+        "limit_per_user": 1,
+        "total_limit": 2500,
+        "performed_count": 104,
+        "proof_type": null,
+        "proof_hint": null,
+        "meta": {
+          "template": {
+            "id": "website_visit",
+            "version": 1,
+            "title_key": "tasks.template.website_visit.title",
+            "description_key": "tasks.template.website_visit.description"
+          },
+          "automatic": {
+            "target_url": "https://efhc.app",
+            "platform": "web",
+            "action": "visit"
+          }
+        },
+        "created_at": "2026-10-29T12:00:00Z",
+        "updated_at": "2026-10-29T12:00:00Z"
+      },
+      {
+        "id": 15,
+        "code": "demo_partner_bot",
+        "title": "Запустите приложение.",
+        "description": null,
+        "is_active": true,
+        "bonus_efhc": "0.03000000",
+        "kind": "partner_bot",
+        "limit_per_user": 1,
+        "total_limit": 1500,
+        "performed_count": 43,
+        "proof_type": null,
+        "proof_hint": null,
+        "meta": {
+          "template": {
+            "id": "partner_bot",
+            "version": 1,
+            "title_key": "tasks.template.partner_bot.title",
+            "description_key": "tasks.template.partner_bot.description"
+          },
+          "automatic": {
+            "target_url": "https://t.me/efhc_demo_bot",
+            "platform": "telegram",
+            "action": "start_bot"
+          }
+        },
+        "created_at": "2026-10-29T12:00:00Z",
+        "updated_at": "2026-10-29T12:00:00Z"
+      }
+    ],
+    "earnings": {
+      "total_bonus_earned": "0.02000000",
+      "bonus_asset": "EFHCb",
+      "includes_ads": true
+    },
+    "states": [],
+    "bonus_balance_d8": "78.00000000"
+  }
+}

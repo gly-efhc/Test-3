@@ -12,13 +12,16 @@ import {
   getRankTopPage,
 } from "../services/ranks.service";
 import { queryKeys } from "./queryKeys";
+import { useFrozenDemoTables } from "../reconstruction/useFrozenDemoTables";
+import { demoMyRankWithTop, demoRankTopPage, demoRankContext } from "../reconstruction/demoTables";
 
 export function useMyRankWithTop(_globalId: string | null) {
   const globalId = useAuthOwnerGlobalId();
+  const demo = useFrozenDemoTables() && !globalId;
   return useQuery({
     queryKey: queryKeys.ranks.myPlusTop(globalId),
-    enabled: Boolean(globalId),
-    queryFn: ({ signal }) => getMyRankWithTop(signal),
+    enabled: Boolean(globalId) || demo,
+    queryFn: ({ signal }) => demo ? Promise.resolve(demoMyRankWithTop()) : getMyRankWithTop(signal),
     staleTime: 30_000,
   });
 }
@@ -28,9 +31,10 @@ export function useRankTopPages(
   firstCursor: string | null | undefined,
 ) {
   const globalId = useAuthOwnerGlobalId();
+  const demo = useFrozenDemoTables() && !globalId;
   return useInfiniteQuery({
     queryKey: queryKeys.ranks.top(globalId),
-    enabled: Boolean(globalId && firstCursor),
+    enabled: Boolean(firstCursor && (globalId || demo)),
     initialPageParam: firstCursor ?? null,
     queryFn: ({ pageParam, signal }) => {
       if (!pageParam) {
@@ -40,15 +44,17 @@ export function useRankTopPages(
           next_cursor: null,
         });
       }
-      return getRankTopPage({ cursor: pageParam, signal });
+      return demo ? Promise.resolve(demoRankTopPage(pageParam)) : getRankTopPage({ cursor: pageParam, signal });
     },
     getNextPageParam: (lastPage) => lastPage.next_cursor ?? undefined,
   });
 }
 
 export function useRankContext() {
+  const globalId = useAuthOwnerGlobalId();
+  const demo = useFrozenDemoTables() && !globalId;
   return useMutation({
-    mutationFn: () => getRankContext(),
+    mutationFn: () => demo ? Promise.resolve(demoRankContext()) : getRankContext(),
   });
 }
 

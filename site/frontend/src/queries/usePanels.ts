@@ -13,25 +13,30 @@ import {
   type PanelTab,
 } from "../services/panels.service";
 import { queryKeys } from "./queryKeys";
+import { useFrozenDemoTables } from "../reconstruction/useFrozenDemoTables";
+import { demoPanelsSummary, demoPanelsPage } from "../reconstruction/demoTables";
 
 export function usePanelsSummary() {
   const globalId = useAuthOwnerGlobalId();
+  const demo = useFrozenDemoTables() && !globalId;
   return useQuery({
     queryKey: queryKeys.panels.summary(globalId),
-    enabled: Boolean(globalId),
-    queryFn: getPanelsSummary,
+    enabled: Boolean(globalId) || demo,
+    queryFn: demo ? demoPanelsSummary : getPanelsSummary,
     staleTime: 10_000,
   });
 }
 
 export function usePanelsList(tab: PanelTab) {
   const globalId = useAuthOwnerGlobalId();
+  const demo = useFrozenDemoTables() && !globalId;
   return useInfiniteQuery({
     queryKey: queryKeys.panels.list(globalId, tab),
-    enabled: Boolean(globalId),
+    enabled: Boolean(globalId) || demo,
     initialPageParam: null as string | null,
-    queryFn: ({ pageParam, signal }) =>
-      getPanelsPage({ tab, cursor: pageParam, signal }),
+    queryFn: ({ pageParam, signal }) => demo
+      ? Promise.resolve(demoPanelsPage(tab, pageParam))
+      : getPanelsPage({ tab, cursor: pageParam, signal }),
     getNextPageParam: (lastPage) => lastPage.next_cursor ?? undefined,
   });
 }
