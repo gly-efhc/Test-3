@@ -1,0 +1,921 @@
+/* Theme 03 Ranks + Profile chroma migration owner — Cycle0146.
+   Palette values live only in theme03-chroma.json. This adapter binds the
+   existing KG/WG reference geometry to semantic Theme03 roles without changing
+   ranking/profile runtime, Profile History/Withdraw contracts or other themes. */
+
+/* KG-03 bridge: keep Ranks geometry/typography authority while removing local
+   slate/navy hue ownership from the reference surface family. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-ranks-shell[data-kg="KG-03"] {
+  --efhc-theme-accent:var(--efhc-color-accent);
+  --efhc-theme-accent-soft:var(--efhc-color-accent-soft);
+  --efhc-theme-edge:var(--efhc-color-border);
+
+  --efhc-rest-accent:var(--efhc-color-accent);
+  --efhc-rest-accent-text:var(--efhc-color-focus);
+  --efhc-rest-edge:var(--efhc-color-border);
+  --efhc-rest-soft:var(--efhc-color-accent-soft);
+  --efhc-rest-hero:
+    radial-gradient(300px 150px at 100% 0,color-mix(in srgb,var(--efhc-color-glow) 20%,transparent),transparent 70%),
+    linear-gradient(180deg,var(--efhc-color-hero),var(--efhc-color-canvas));
+  --efhc-rest-card:var(--efhc-color-card);
+  --efhc-rest-shadow:var(--efhc-color-shadow);
+
+  --efhc-chroma-hero-border:var(--efhc-color-border-strong);
+  --efhc-chroma-hero-background-image:
+    radial-gradient(320px 150px at 100% 0,color-mix(in srgb,var(--efhc-color-glow) 20%,transparent),transparent 70%),
+    linear-gradient(180deg,var(--efhc-color-hero),var(--efhc-color-canvas));
+  --efhc-chroma-hero-background-color:var(--efhc-color-canvas);
+
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-card);
+
+  --efhc-chroma-inset-border:var(--efhc-color-border);
+  --efhc-chroma-inset-background-image:none;
+  --efhc-chroma-inset-background-color:var(--efhc-color-inset);
+
+  background-image:radial-gradient(520px 220px at 100% 0,color-mix(in srgb,var(--efhc-color-glow) 12%,transparent),transparent 72%);
+  background-color:transparent;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-ranks-shell[data-kg="KG-03"] :is(
+  .efhc-game-kicker,
+  .efhc-rank-position
+) {
+  color:var(--efhc-color-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-ranks-shell[data-kg="KG-03"] .efhc-game-hero_icon {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-focus);
+}
+
+/* FRONTEND_ADMIN_CYCLE_0379 + OWNER refinement in Cycle0380 — Ranks Theme03
+   targeted material correction. Geometry/runtime stay frozen. Default actions
+   already sit at the soft Inset/Border floor; stronger CTA/active edges and
+   decorative glow are softened while keeping the same semantic role family. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-btn-primary,
+  #ranksPage[data-kg="KG-03"] #loadMoreRanks
+) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-accent);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-btn-secondary,
+  #ranksPage[data-kg="KG-03"] #rankRefresh,
+  #ranksPage[data-kg="KG-03"] #findMyRank
+) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] [data-ranks-show-me-action][data-ranks-active="true"],
+  #ranksPage[data-kg="KG-03"] #findMyRank[data-ranks-active="true"]
+) {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+/* T3R-06 — Ranks KPI/stat rows are ordinary data surfaces, not selected/CTA
+   material. The legacy KG-03 literal remained reachable after the semantic
+   adapter, so bind it to the existing near-black Inset role. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-ranks-shell[data-kg="KG-03"] .efhc-game-stat {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  box-shadow:none;
+}
+
+/* FRONTEND_ADMIN_CYCLE_0322 — compact leaderboard rows are repeated 32px data
+   rows, not card-level elevation owners. Remove only their coarse outer shadow. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-ranks-shell[data-kg="KG-03"] .efhc-rank-card[data-ranks-card="compact-row-32"],
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #ranksPage[data-kg="KG-03"] .source-rank-row[data-ranks-card="compact-row-32"] {
+  box-shadow:none;
+}
+
+/* Cycle0151 v315 — Ranks reference-surface contract.
+   Profile and HUB now consume the same small Theme03 material hierarchy as the
+   accepted Ranks page: page/canvas -> hero -> card -> inset -> accent/active.
+   Route-local RGBA/hex/gradient ownership is intentionally not introduced here. */
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"],
+  #profilePage[data-wg="WG-03"],
+  .efhc-hub-page[data-hu="HU-03"],
+  #hubPage[data-hu="HU-03"]
+) {
+  --efhc-theme-accent:var(--efhc-color-accent);
+  --efhc-theme-accent-soft:var(--efhc-color-accent-soft);
+  --efhc-theme-edge:var(--efhc-color-border);
+  /* Legacy WG consumers are bridged to the same semantic roles instead of
+     retaining a second Profile-only palette. */
+  --wg-accent:var(--efhc-color-accent);
+  --wg-edge:var(--efhc-color-border);
+  --wg-surface:var(--efhc-color-card);
+  --wg-glow:transparent;
+  --wg-shadow:var(--efhc-color-shadow);
+  /* Generic standalone .source-row firewall must not create a material stripe
+     beneath the conditional Admin marker/name row. Real inset controls below
+     define these variables on themselves. */
+  --efhc-chroma-inset-border:transparent;
+  --efhc-chroma-inset-background-image:none;
+  --efhc-chroma-inset-background-color:transparent;
+  --efhc-active-control-border:var(--efhc-color-border-strong);
+  --efhc-active-control-background:var(--efhc-color-active);
+  --efhc-active-control-color:var(--efhc-color-accent);
+  background-image:none;
+  background-color:transparent;
+}
+
+/* Profile hero: one Hero material, no local spotlight under identity/Admin state. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"] .efhc-profile-hero,
+  #profilePage[data-wg="WG-03"] .source-profile-hero
+) {
+  --efhc-chroma-hero-border:var(--efhc-color-border-strong);
+  --efhc-chroma-hero-background-image:none;
+  --efhc-chroma-hero-background-color:var(--efhc-color-hero);
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-hero);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+/* Profile ordinary cards mirror the Ranks Card level. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"] .efhc-profile-action-card,
+  .efhc-profile-page[data-wg="WG-03"] .efhc-game-section[data-profile-main-data="1303"],
+  #profilePage[data-wg="WG-03"] .source-profile-content > .source-card,
+  #profilePage[data-wg="WG-03"] .source-profile-settings-card
+) {
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-card);
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+/* Profile controls/stats use one Inset material. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"] .efhc-profile-tabs,
+  .efhc-profile-page[data-wg="WG-03"] .efhc-profile-topbar,
+  .efhc-profile-page[data-wg="WG-03"] .efhc-profile-field,
+  .efhc-profile-page[data-wg="WG-03"] .efhc-profile-trust-grid > *,
+  .efhc-profile-page[data-wg="WG-03"] .efhc-game-section[data-profile-main-data="1303"] .efhc-game-stat,
+  #profilePage[data-wg="WG-03"] .source-profile-tabs,
+  #profilePage[data-wg="WG-03"] .source-profile-topbar,
+  #profilePage[data-wg="WG-03"] .source-profile-compact-control,
+  #profilePage[data-wg="WG-03"] .source-trust-item,
+  #profilePage[data-wg="WG-03"] .source-stat
+) {
+  --efhc-chroma-inset-border:var(--efhc-color-border);
+  --efhc-chroma-inset-background-image:none;
+  --efhc-chroma-inset-background-color:var(--efhc-color-inset);
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"] .efhc-profile-avatar,
+  #profilePage[data-wg="WG-03"] .source-profile-avatar
+) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-profile-tab,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] .source-profile-tabs button {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-profile-tab--active,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] .source-profile-tabs button[data-active="true"] {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-accent);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"] .efhc-profile-settings-button,
+  #profilePage[data-wg="WG-03"] #profileSettingsButton
+) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-accent);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"] .efhc-profile-settings-button:hover,
+  #profilePage[data-wg="WG-03"] #profileSettingsButton:hover
+) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+}
+
+/* HUB follows the same Ranks Card level; no HU-03 local blue/violet surface. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-hub-page[data-hu="HU-03"] .efhc-hub-choice {
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-card);
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-hub-page[data-hu="HU-03"] .efhc-hub-choice:hover {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-hub-page[data-hu="HU-03"] .efhc-hub-choice_icon {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-inset);
+  color:var(--efhc-color-accent);
+  box-shadow:none;
+}
+
+/* Standalone HUB uses release-route-card but consumes the same Card role. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #hubPage[data-hu="HU-03"] .release-route-card {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #hubPage[data-hu="HU-03"] .release-route-card:hover {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-card);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #hubPage[data-hu="HU-03"] .release-route-card strong {
+  color:var(--efhc-color-text);
+}
+
+/* Cycle0151 v316 — Theme03 Settings + language selection extension.
+   Settings is part of the Profile family and must consume the same Ranks-reference
+   Card/Inset/Accent hierarchy; no PM-03 or standalone local palette is allowed.
+   Production Modal is portaled to document.body, therefore PM-03 is its exact
+   theme authority and must not depend on the application-shell ancestor. */
+.efhc-profile-modal-theme[data-pm="PM-03"] {
+  --efhc-theme-accent:var(--efhc-color-accent);
+  --efhc-theme-accent-soft:var(--efhc-color-accent-soft);
+  --efhc-theme-edge:var(--efhc-color-border);
+  background-image:none;
+  background-color:transparent;
+}
+
+.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-03"]) {
+  border:1px solid var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-page);
+  color:var(--efhc-color-text);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-03"]) .efhc-modal-header {
+  border-bottom-color:var(--efhc-color-border);
+  background:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+}
+
+.efhc-profile-modal-theme[data-pm="PM-03"] > section,
+.efhc-profile-modal-theme[data-pm="PM-03"] .efhc-card {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+  box-shadow:none;
+}
+
+.efhc-profile-modal-theme[data-pm="PM-03"] :is(
+  .efhc-settings-row,
+  .efhc-compact-language-picker_button,
+  .efhc-settings-select
+) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-profile-modal-theme[data-pm="PM-03"] .efhc-compact-language-picker_menu {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+.efhc-profile-modal-theme[data-pm="PM-03"] .efhc-compact-language-picker_option[data-active="true"] {
+  border-color:transparent;
+  background:transparent;
+  color:var(--efhc-color-text);
+}
+
+/* OWNER: the visible word “Язык” is redundant. Accessibility stays through the
+   button/listbox aria-label; only the duplicate visible label is hidden. */
+.efhc-profile-modal-theme[data-pm="PM-03"] .efhc-compact-language-picker_label {
+  display:none;
+}
+
+/* Standalone Theme03 Settings uses the same roles as PM-03 production. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profileSettingsOverlay .standalone-settings-dialog {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-page);
+  color:var(--efhc-color-text);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profileSettingsOverlay .standalone-avatar-settings {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  #profileSettingsOverlay .standalone-settings-row,
+  #profilePage[data-wg="WG-03"] .source-profile-language-button
+) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] .source-profile-language-menu {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] .source-profile-language-option[data-active="true"] {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] .source-profile-compact-control > .source-label[data-i18n-key="profile.language"] {
+  display:none;
+}
+
+/* Heading/layout rows are not material surfaces. This removes the dark insert
+   above language selection without changing content or geometry. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] .source-profile-settings-card > .source-row,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profileSettingsOverlay .standalone-settings-dialog > .source-row:first-child {
+  border-color:transparent;
+  background:transparent;
+  box-shadow:none;
+}
+
+
+/* Main Profile language picker is the same component as Settings and therefore
+   shares the exact Theme03 Inset/Card/Active language-selection contract. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-compact-language-picker_button {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-compact-language-picker_menu {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-compact-language-picker_option[data-active="true"] {
+  border-color:transparent;
+  background:transparent;
+  color:var(--efhc-color-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-compact-language-picker_label {
+  display:none;
+}
+
+/* Cycle0151 v317 — OWNER residual blue cleanup: Profile navigation and Settings
+   actions consume the existing Theme03 AccentSoft/Inset roles. No local palette,
+   no geometry/runtime changes. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] > .efhc-profile-topbar > button,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] > .efhc-profile-topbar .efhc-profile-topbar_actions > button:last-child,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] #profileBack,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] .source-profile-topbar .source-row > .source-button[data-route-direct="/"] {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-03"]) .efhc-modal-close,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profileSettingsOverlay #profileSettingsClose {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-profile-modal-theme[data-pm="PM-03"] .efhc-switch {
+  border:1px solid var(--efhc-color-border);
+  background:var(--efhc-color-inset);
+}
+.efhc-profile-modal-theme[data-pm="PM-03"] .efhc-switch--on {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+}
+.efhc-profile-modal-theme[data-pm="PM-03"] .efhc-switch_knob {
+  background:var(--efhc-color-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profileSettingsOverlay .standalone-setting-toggle {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profileSettingsOverlay .standalone-setting-toggle[data-active="true"] {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+}
+
+/* Cycle0151 v318 — Linked Wallets / Profile Wallet family.
+   Wallet identity, primary/additional semantics, masked addresses, provider
+   phases and status colours remain functional exceptions. Only decorative
+   page/card/inset/action material is bound to existing Theme03 roles. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-trust-section {
+  --tg-secondary-bg:var(--efhc-color-inset);
+  --tg-text:var(--efhc-color-text);
+  --tg-hint:var(--efhc-color-text-muted);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] :is(
+  .efhc-wallet-trust-rail,
+  .efhc-wallet-card,
+  .efhc-wallet-section-row
+) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-trust-rail span {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-trust-rail span.is-on {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-trust-section::before {
+  background:var(--efhc-color-border-strong);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-trust-section :is(
+  .efhc-wallet-card_actions,
+  .efhc-wallet-item_actions,
+  .efhc-wallet-primary-actions
+) .efhc-btn-primary {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-trust-section :is(
+  .efhc-wallet-card_actions,
+  .efhc-wallet-item_actions,
+  .efhc-wallet-primary-actions
+) .efhc-btn-secondary {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+/* Keep standalone owners separate. :is() takes the maximum specificity of
+   every branch, so grouping a card with an ID or a three-class action selector
+   would accidentally suppress GT-WALLET-02 primary-state material. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .standalone-wallet-card {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .standalone-wallet-actions .source-button.secondary {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] #standaloneWalletConnect {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .standalone-wallet-card[data-primary="true"] {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+}
+
+
+/* Cycle0151 v319 — OWNER evidence extends Theme03 Wallet to the visible
+   wallet badges “Основной” and “Подключён”. These are ordinary decorative
+   status chips inside Wallet family only, so bind just the exact wallet badge
+   markers to the existing AccentSoft + BorderStrong + Text contract without
+   changing wallet runtime, provider logic or non-wallet badges. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] [data-status="wallet-primary-badge"],
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] [data-status="wallet-connected-badge"] {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] [data-wallet-badge="primary"],
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] [data-wallet-badge="connected"] {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+/* FRONTEND_ADMIN_CYCLE_0321 — bounded standalone Theme03 colour parity.
+   Ranks ordinary rows and Wallet copy-address controls use existing semantic
+   Theme03 surfaces; borders/shadows/geometry/runtime semantics are untouched. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #ranksPage[data-kg="KG-03"] .source-rank-row {
+  background-image:none;
+  background-color:var(--efhc-color-card);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .source-button.secondary[data-wallet-copy-address] {
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+}
+
+
+/* FRONTEND_ADMIN_CYCLE_0332 — Wallet flattened structure Theme03 binding. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-entry { border-color:var(--efhc-color-border); background-image:none; background-color:var(--efhc-color-inset); color:var(--efhc-color-text); box-shadow:none; }
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-entry[data-wallet-role="primary"] { border-color:var(--efhc-color-border-strong); }
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-address-control { color:var(--efhc-color-text); }
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-address-control:focus-visible { outline-color:var(--efhc-color-focus); }
+
+/* FRONTEND_ADMIN_CYCLE_0339 continuation / v560 — OWNER Theme03 Admin-canon
+   material adoption for Profile + Wallet.  The physical palette is unchanged:
+   user Theme03 roles are value-identical to the frozen Admin Theme03 canon.
+   Geometry/runtime stay owned by the existing Profile/Wallet components; only
+   Page/Chrome/Card/Inset/Button material hierarchy is corrected here. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"],
+  #profilePage[data-wg="WG-03"]
+) {
+  color:var(--efhc-color-text);
+  background-image:none;
+  background-color:var(--efhc-color-page);
+}
+
+/* ADMIN_CHROME analogue: Profile navigation chrome. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"] .efhc-profile-topbar,
+  #profilePage[data-wg="WG-03"] .source-profile-topbar
+) {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-chrome);
+  color:var(--efhc-color-text);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+/* ADMIN_SECTION analogue: ordinary Profile content cards + Wallet outer section.
+   Hero has its own GT-PROFILE-01 Hero owner above.  Keep it out of this mixed
+   :is() selector: the standalone #profilePage branch would otherwise raise the
+   specificity of every branch and flatten Hero back to Card. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"] .efhc-profile-action-card,
+  .efhc-profile-page[data-wg="WG-03"] .efhc-game-section[data-profile-main-data="1303"],
+  #profilePage[data-wg="WG-03"] .source-profile-content > .source-card,
+  #profilePage[data-wg="WG-03"] .source-profile-settings-card
+) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+/* Wallet's structural wrapper was intentionally flat in 0332.  OWNER now
+   requests the Admin SECTION material; keep its zero-padding geometry. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-profile-action-card.efhc-profile-action-card--wallet-layout {
+  border:1px solid var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+/* ADMIN_KPI / INSET analogue: TON Connect and each bound-address frame. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] :is(
+  .efhc-wallet-card,
+  .efhc-wallet-entry
+),
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .standalone-wallet-card {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+/* FRONTEND_ADMIN_CYCLE_0383 — current matrix GT-WALLET-02 is authoritative:
+   primary identity keeps the shared restrained Active material + BorderStrong.
+   Badge position, wallet ordering, address/copy controls and runtime semantics stay unchanged. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-entry[data-wallet-role="primary"],
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .standalone-wallet-card[data-primary="true"] {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  box-shadow:none;
+}
+
+/* Primary bottom row: Remove at left, Primary badge at right, one line. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-entry[data-wallet-role="primary"] {
+  grid-template-columns:minmax(0,1fr) auto;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-entry[data-wallet-role="primary"] .efhc-wallet-address-zone {
+  grid-column:1 / -1;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-entry[data-wallet-role="primary"] .efhc-wallet-primary-actions {
+  grid-column:1;
+  grid-row:2;
+  align-items:center;
+  flex-wrap:nowrap;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-entry[data-wallet-role="primary"] .efhc-wallet-primary-status {
+  grid-column:2;
+  grid-row:2;
+  align-self:center;
+  justify-self:end;
+  white-space:nowrap;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .standalone-wallet-card[data-primary="true"] {
+  grid-template-columns:minmax(0,1fr) auto;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .standalone-wallet-card[data-primary="true"] .standalone-wallet-address {
+  grid-column:1 / -1;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .standalone-wallet-card[data-primary="true"] .standalone-wallet-actions {
+  grid-column:1;
+  grid-row:2;
+  align-items:center;
+  flex-wrap:nowrap;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .standalone-wallet-card[data-primary="true"] .standalone-wallet-primary-status {
+  grid-column:2;
+  grid-row:2;
+  align-self:center;
+  justify-self:end;
+  white-space:nowrap;
+}
+
+/* ADMIN_BUTTON_PRIMARY / SECONDARY analogue.  OWNER asks for approximately
+   20% less vertical size than Admin while keeping the same material language. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] :is(
+  .efhc-btn-primary,
+  .efhc-btn-secondary,
+  .efhc-btn-ghost,
+  .efhc-profile-topbar button,
+  .efhc-profile-tab,
+  .efhc-profile-settings-button
+):not(.efhc-profile-avatar-button),
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] :is(
+  .source-button:not(.danger),
+  .source-profile-tabs button,
+  .source-profile-settings-button
+) {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+  min-height:2.2rem;
+  padding-top:.32rem;
+  padding-bottom:.32rem;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-btn-primary,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-profile-tab--active,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] .source-profile-tabs button[data-active="true"] {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-text);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] :is(.efhc-btn-primary,.efhc-btn-secondary,.efhc-btn-ghost,.efhc-profile-topbar button,.efhc-profile-tab,.efhc-profile-settings-button):not(.efhc-profile-avatar-button):hover,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] :is(.source-button:not(.danger),.source-profile-tabs button,.source-profile-settings-button):hover {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-text);
+}
+
+/* Copy feedback: visual text-selection imitation only.  Do not invoke Selection
+   API or change clipboard semantics. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-address-control,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .standalone-wallet-address {
+  background:transparent;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-address-control code,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .standalone-wallet-address code {
+  border-radius:.28rem;
+  transition:background-color .22s ease,box-shadow .22s ease;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-address-control:hover code,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-address-control:focus-visible code,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .standalone-wallet-address:hover code,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .standalone-wallet-address:focus-visible code {
+  background-color:color-mix(in srgb,var(--efhc-color-accent) 18%,transparent);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-address-control[data-copy-state="copied"],
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .standalone-wallet-address[data-copy-state="copied"] {
+  background:transparent;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-address-control[data-copy-state="copied"] code,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .standalone-wallet-address[data-copy-state="copied"] code {
+  background-color:color-mix(in srgb,var(--efhc-color-accent) 34%,transparent);
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--efhc-color-focus) 26%,transparent) inset;
+}
+
+
+/* FRONTEND_ADMIN_CYCLE_0339 corrective continuation / v561 — visible Admin
+   black-violet surface-mass parity.  OWNER clarification: large user Theme03
+   Profile/Wallet rectangles must not read as purple slabs.  Admin law applies
+   literally: black/near-black owns surface mass; violet owns contour/focus/
+   active state.  Geometry and all Wallet runtime semantics remain unchanged. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"],
+  #profilePage[data-wg="WG-03"]
+) {
+  --efhc-chroma-card-border:var(--efhc-color-border-strong);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-inset);
+  --efhc-chroma-hero-border:var(--efhc-color-border-strong);
+  --efhc-chroma-hero-background-image:none;
+  --efhc-chroma-hero-background-color:var(--efhc-color-inset);
+  background-color:var(--efhc-color-canvas);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"] .efhc-profile-topbar,
+  #profilePage[data-wg="WG-03"] .source-profile-topbar
+) {
+  /* The generic chroma bridge paints .source-card/.efhc-card with !important.
+     Override the custom-property payload on the card itself, not only the
+     lower-priority background declaration, so the visible computed surface
+     is actually near-black. */
+  --efhc-chroma-card-border:var(--efhc-color-border-strong);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-inset);
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-profile-action-card.efhc-profile-action-card--wallet-layout {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+}
+
+/* The linked-wallet heading owns its narrow-screen containment instead of
+   inheriting a generic uppercase/tracking treatment that may exceed the card. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"] .efhc-wallet-section-heading,
+  #profilePage[data-wg="WG-03"] [data-profile-content="wallet"] .efhc-wallet-section-heading
+) {
+  display:block;
+  min-width:0;
+  max-width:100%;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:normal;
+  line-height:1.2;
+  letter-spacing:.04em;
+  font-size:clamp(.68rem,2.7vw,.78rem);
+}
+
+/* FRONTEND_ADMIN_CYCLE_0339 final OWNER visual correction / v562.
+   Scope is intentionally narrow: restore Admin Theme03 surface-mass law on the
+   shared Profile/Wallet/Balance content plane and reduce only selected-tab
+   Active intensity by 35%. No geometry, spacing, radius, layout or runtime
+   ownership changes are authorized here. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"],
+  #profilePage[data-wg="WG-03"]
+) {
+  --efhc-active-control-background:var(--efhc-color-active);
+}
+
+/* Standalone Profile / Wallet / Balance share this plane. The legacy PM-03
+   gradient is the purple slab visible in OWNER screenshots. Replace only its
+   background with the Admin Canvas role; retain its existing border/radius. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] .source-profile-content {
+  background-image:none;
+  background-color:var(--efhc-color-canvas);
+}
+
+/* OWNER: active Profile / Wallet tab remains an active indicator but uses the
+   the calibrated global Theme03 Active role; no page-local second active palette remains. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-profile-page[data-wg="WG-03"] .efhc-profile-tab--active,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] .source-profile-tabs button[data-active="true"] {
+  background:var(--efhc-color-active);
+}
+
+
+/* FRONTEND_ADMIN_CYCLE_0383 — rendered acceptance residual: Profile hierarchy requalification.
+   Late pre-matrix compatibility rules were still flattening Hero/Card into Inset.
+   Reassert only the current GT-PROFILE-01 semantic levels. Controls/tabs remain
+   Inset/Active and Wallet has its own exact owner below; geometry is untouched. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"] .efhc-profile-hero,
+  #profilePage[data-wg="WG-03"] .source-profile-hero
+) {
+  --efhc-chroma-hero-border:var(--efhc-color-border-strong);
+  --efhc-chroma-hero-background-image:none;
+  --efhc-chroma-hero-background-color:var(--efhc-color-hero);
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-hero);
+  box-shadow:var(--efhc-color-shadow);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-profile-page[data-wg="WG-03"] .efhc-profile-action-card:not(.efhc-profile-action-card--wallet-layout),
+  .efhc-profile-page[data-wg="WG-03"] .efhc-game-section[data-profile-main-data="1303"],
+  #profilePage[data-wg="WG-03"] .source-profile-content > .source-card:not([data-profile-content="wallet"]),
+  #profilePage[data-wg="WG-03"] .source-profile-settings-card
+) {
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-card);
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+/* FRONTEND_ADMIN_CYCLE_0383 — standalone final-cascade parity.
+   Historical standalone Profile rules remain in the review document as evidence,
+   but the current Theme03 Hero role is the final owner-visible material authority. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #profilePage[data-wg="WG-03"] .source-profile-hero {
+  border-color:var(--efhc-color-border-strong)!important;
+  background-image:none!important;
+  background-color:var(--efhc-color-hero)!important;
+  box-shadow:var(--efhc-color-shadow);
+}

@@ -1,0 +1,380 @@
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import {
+  TonConnectUIProvider,
+  useIsConnectionRestored,
+  useTonAddress,
+  useTonConnectUI,
+  useTonWallet,
+} from "@tonconnect/ui-react";
+
+import type { Lang } from "../i18n";
+import { tonConnectLanguage, tonConnectTheme } from "../tonconnect";
+import {
+  createNativeGramWalletAdapter,
+} from "./adapters/NativeGramWalletAdapter";
+import {
+  createTelegramWalletAdapter,
+} from "./adapters/TelegramWalletAdapter";
+import { createTonConnectAdapter } from "./adapters/TonConnectAdapter";
+import {
+  WalletAdapterUnavailableError,
+  type PreparedWalletProof,
+  type WalletAdapter,
+  type WalletAdapterDescriptor,
+  type WalletAdapterId,
+  type WalletBindingResult,
+  type WalletSession,
+  type WalletTransactionRequest,
+  type WalletTransactionResult,
+  type WalletView,
+} from "./types";
+
+const STORAGE_KEY = "efhc.walletProvider.v1";
+const DEFAULT_ADAPTER: WalletAdapterId = "tonconnect";
+const ADAPTER_ORDER: WalletAdapterId[] = [
+  "tonconnect",
+  "telegram_wallet",
+  "native_gram_wallet",
+];
+
+function isWalletAdapterId(value: unknown): value is WalletAdapterId {
+  return ADAPTER_ORDER.includes(value as WalletAdapterId);
+}
+
+function configuredAdapter(): WalletAdapterId | null {
+  const value = process.env.NEXT_PUBLIC_EFHC_WALLET_PROVIDER?.trim();
+  return isWalletAdapterId(value) ? value : null;
+}
+
+function storedAdapter(): WalletAdapterId | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const value = window.localStorage.getItem(STORAGE_KEY);
+    return isWalletAdapterId(value) ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+function storeAdapter(id: WalletAdapterId) {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(STORAGE_KEY, id);
+  } catch {
+    // Selection persistence is UI convenience only.
+  }
+}
+
+type WalletProviderValue = {
+  activeAdapterId: WalletAdapterId;
+  activeAdapterLabel: string;
+  adapters: WalletAdapterDescriptor[];
+  session: WalletSession | null;
+  address: string;
+  providerName: string;
+  restoreSettled: boolean;
+  modalOpened: boolean;
+  selectAdapter(id: WalletAdapterId): void;
+  listWallets(adapterId?: WalletAdapterId): Promise<WalletView[]>;
+  prepareProof(): Promise<PreparedWalletProof | null>;
+  connect(wallet?: WalletView): Promise<void>;
+  bindWallet(
+    proofState: PreparedWalletProof | null,
+  ): Promise<WalletBindingResult | null>;
+  disconnect(): Promise<void>;
+  sendTransaction(
+    tx: WalletTransactionRequest,
+  ): Promise<WalletTransactionResult>;
+  isUserRejected(error: unknown): boolean;
+};
+
+type WalletProviderProps = React.PropsWithChildren<{
+  manifestUrl: string;
+  returnUrl: string;
+  restoreConnection?: boolean;
+  language: Lang;
+  themeMode: "auto" | "dark" | "light";
+  telegramScheme: "light" | "dark";
+}>;
+
+const WalletProviderContext =
+  createContext<WalletProviderValue | null>(null);
+
+/**
+ * Single application-facing wallet root. TonConnect is mounted as one
+ * adapter; no page or feature imports its SDK directly.
+ */
+export function WalletProvider(props: WalletProviderProps) {
+  return (
+    <TonConnectUIProvider
+      manifestUrl={props.manifestUrl}
+      restoreConnection={props.restoreConnection}
+      actionsConfiguration={{
+        twaReturnUrl: props.returnUrl as `${string}://${string}`,
+      }}
+      uiPreferences={{
+        theme: tonConnectTheme(
+          props.themeMode,
+          props.telegramScheme,
+        ) as any,
+      }}
+      walletsPreferredFeatures={{
+        sendTransaction: { minMessages: 1 },
+      }}
+    >
+      <WalletProviderRuntime
+        language={props.language}
+        themeMode={props.themeMode}
+        telegramScheme={props.telegramScheme}
+      >
+        {props.children}
+      </WalletProviderRuntime>
+    </TonConnectUIProvider>
+  );
+}
+
+function WalletProviderRuntime(
+  props: React.PropsWithChildren<{
+    language: Lang;
+    themeMode: "auto" | "dark" | "light";
+    telegramScheme: "light" | "dark";
+  }>,
+) {
+  const [tonConnectUI, setTonConnectOptions] = useTonConnectUI();
+  const tonWallet = useTonWallet() as any;
+  const tonAddress = useTonAddress();
+  const restoreSettled = useIsConnectionRestored();
+  const [tonModalOpened, setTonModalOpened] = useState(false);
+  const [adapterRevision, setAdapterRevision] = useState(0);
+  const [activeAdapterId, setActiveAdapterId] =
+    useState<WalletAdapterId>(
+    DEFAULT_ADAPTER,
+  );
+
+  useEffect(() => {
+    try {
+      setTonConnectOptions({
+        language: tonConnectLanguage(props.language) as any,
+        uiPreferences: {
+          theme: tonConnectTheme(
+            props.themeMode,
+            props.telegramScheme,
+          ) as any,
+        },
+      });
+    } catch {
+      // TonConnect UI sync is best effort; adapter remains guarded.
+    }
+  }, [
+    props.language,
+    props.telegramScheme,
+    props.themeMode,
+    setTonConnectOptions,
+  ]);
+
+  useEffect(() => {
+    const api = tonConnectUI as any;
+    if (typeof api?.onModalStateChange !== "function") return;
+    const unsubscribe = api.onModalStateChange((state: any) => {
+      setTonModalOpened(Boolean(
+        state?.status === "opened" || state?.open === true,
+      ));
+    });
+    return () => {
+      try {
+        unsubscribe?.();
+      } catch {
+        // no-op
+      }
+    };
+  }, [tonConnectUI]);
+
+  const adapters = useMemo<WalletAdapter[]>(() => [
+    createTonConnectAdapter({
+      tonConnectUI,
+      wallet: tonWallet,
+      address: tonAddress,
+      restoreSettled,
+      modalOpened: tonModalOpened,
+    }),
+    createTelegramWalletAdapter(),
+    createNativeGramWalletAdapter(),
+  ], [
+    restoreSettled,
+    tonAddress,
+    tonConnectUI,
+    tonModalOpened,
+    tonWallet,
+  ]);
+
+  const adapterMap = useMemo(
+    () => new Map(adapters.map((adapter) => [adapter.id, adapter])),
+    [adapters],
+  );
+
+  useEffect(() => {
+    const unsubscribers = adapters.map((adapter) =>
+      adapter.subscribe(() => {
+      setAdapterRevision((value) => value + 1);
+    }));
+    return () => {
+      for (const unsubscribe of unsubscribers) {
+        try {
+          unsubscribe();
+        } catch {
+          // no-op
+        }
+      }
+    };
+  }, [adapters]);
+
+  useEffect(() => {
+    const preferred = [
+      configuredAdapter(),
+      storedAdapter(),
+      activeAdapterId,
+      ...ADAPTER_ORDER,
+    ].filter(isWalletAdapterId);
+    const selected = preferred.find((id) => (
+      adapterMap.get(id)?.getSnapshot().available
+    ));
+    if (selected && selected !== activeAdapterId) {
+      setActiveAdapterId(selected);
+    }
+  }, [activeAdapterId, adapterMap, adapterRevision]);
+
+  const activeAdapter = adapterMap.get(activeAdapterId)
+    || adapterMap.get(DEFAULT_ADAPTER);
+  if (!activeAdapter) {
+    throw new WalletAdapterUnavailableError(DEFAULT_ADAPTER);
+  }
+  const activeSnapshot = activeAdapter.getSnapshot();
+
+  const selectAdapter = useCallback((id: WalletAdapterId) => {
+    const target = adapterMap.get(id);
+    if (!target?.getSnapshot().available) {
+      throw new WalletAdapterUnavailableError(id);
+    }
+    setActiveAdapterId(id);
+    storeAdapter(id);
+  }, [adapterMap]);
+
+  const listWallets = useCallback(
+    (adapterId?: WalletAdapterId) => {
+      const target = adapterId ? adapterMap.get(adapterId) : activeAdapter;
+      if (!target?.getSnapshot().available) {
+        throw new WalletAdapterUnavailableError(adapterId || activeAdapter.id);
+      }
+      return target.listWallets();
+    },
+    [activeAdapter, adapterMap],
+  );
+  const prepareProof = useCallback(
+    () => activeAdapter.prepareProof(),
+    [activeAdapter],
+  );
+  const connect = useCallback(
+    async (wallet?: WalletView) => {
+      const target = wallet?.adapterId
+        ? adapterMap.get(wallet.adapterId)
+        : activeAdapter;
+      if (!target?.getSnapshot().available) {
+        throw new WalletAdapterUnavailableError(
+          wallet?.adapterId || activeAdapter.id,
+        );
+      }
+      if (wallet?.adapterId && wallet.adapterId !== activeAdapterId) {
+        setActiveAdapterId(wallet.adapterId);
+        storeAdapter(wallet.adapterId);
+      }
+      await target.connect(wallet);
+    },
+    [activeAdapter, activeAdapterId, adapterMap],
+  );
+  const bindWallet = useCallback(
+    (proofState: PreparedWalletProof | null) => (
+      activeAdapter.bindWallet(proofState)
+    ),
+    [activeAdapter],
+  );
+  const disconnect = useCallback(
+    () => activeAdapter.disconnect(),
+    [activeAdapter],
+  );
+  const sendTransaction = useCallback(
+    (tx: WalletTransactionRequest) => activeAdapter.sendTransaction(tx),
+    [activeAdapter],
+  );
+  const isUserRejected = useCallback(
+    (error: unknown) => activeAdapter.isUserRejected(error),
+    [activeAdapter],
+  );
+
+  const descriptors = adapters.map((adapter) => {
+    const snapshot = adapter.getSnapshot();
+    return {
+      id: adapter.id,
+      label: adapter.label,
+      available: snapshot.available,
+      connected: Boolean(snapshot.session),
+    };
+  });
+
+  const value = useMemo<WalletProviderValue>(() => ({
+    activeAdapterId: activeAdapter.id,
+    activeAdapterLabel: activeAdapter.label,
+    adapters: descriptors,
+    session: activeSnapshot.session,
+    address: activeSnapshot.session?.address || "",
+    providerName:
+      activeSnapshot.session?.providerName || activeAdapter.id,
+    restoreSettled: activeSnapshot.restoreSettled,
+    modalOpened: activeSnapshot.modalOpened,
+    selectAdapter,
+    listWallets,
+    prepareProof,
+    connect,
+    bindWallet,
+    disconnect,
+    sendTransaction,
+    isUserRejected,
+  }), [
+    activeAdapter.id,
+    activeAdapter.label,
+    activeSnapshot.modalOpened,
+    activeSnapshot.restoreSettled,
+    activeSnapshot.session,
+    bindWallet,
+    connect,
+    descriptors,
+    disconnect,
+    isUserRejected,
+    listWallets,
+    prepareProof,
+    selectAdapter,
+    sendTransaction,
+  ]);
+
+  return (
+    <WalletProviderContext.Provider value={value}>
+      {props.children}
+    </WalletProviderContext.Provider>
+  );
+}
+
+export function useWalletProvider(): WalletProviderValue {
+  const value = useContext(WalletProviderContext);
+  if (!value) {
+    throw new Error(
+      "useWalletProvider must be used inside WalletProvider",
+    );
+  }
+  return value;
+}

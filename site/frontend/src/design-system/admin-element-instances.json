@@ -1,0 +1,1553 @@
+{
+  "schema": "EFHC_ADMIN_ELEMENT_INSTANCES_V2",
+  "release": "FRONTEND_v401",
+  "scenario": {
+    "route": "/admin/withdrawals",
+    "app_mode": "admin",
+    "state": "normal",
+    "viewport_widths": [
+      320,
+      340,
+      390
+    ],
+    "proof": "STATIC_SOURCE_CASCADE_PROOF_V383_V384 + PROPAGATION_AUDIT_V386; no browser DOM snapshot + CYCLE0185_ORDERS_SEARCH_SOURCE_REGISTRATION",
+    "routes": [
+      "/admin/ads",
+      "/admin/efhc-deposits",
+      "/admin/shop",
+      "/admin/tasks",
+      "/admin/vip-nft",
+      "/admin/withdrawals"
+    ]
+  },
+  "instances": [
+    {
+      "route": "/admin/withdrawals",
+      "page_marker": "ADM-03",
+      "eam_family": "EAM-ADMIN-015",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED CONTOUR / STATIC CASCADE PROVEN v383",
+      "instance_id": "withdrawals-summary-total",
+      "label": "Всего заявок",
+      "renderer": "production",
+      "stable_selector": "[data-admin-route=\"/admin/withdrawals\"] [data-admin-instance=\"withdrawals-summary-total\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminWithdrawalsMobileDecisionPanel.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-ui-kpi",
+        "efhc-admin-ui-tone--primary"
+      ],
+      "data_attributes": {
+        "data-admin-primitive": "kpi",
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-015",
+        "data-admin-instance": "withdrawals-summary-total",
+        "data-admin-tone": "primary"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Production total is current filter and rejected includes canceled; labels/data semantics are preserved, not silently equated.",
+      "owner_visual_qualification": "ACCEPTED by current OWNER statement",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-accent-soft)",
+        "border_radius": "22px",
+        "padding": "14px",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/withdrawals",
+      "page_marker": "ADM-03",
+      "eam_family": "EAM-ADMIN-015",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED CONTOUR / STATIC CASCADE PROVEN v383",
+      "instance_id": "withdrawals-summary-pending",
+      "label": "В ожидании",
+      "renderer": "production",
+      "stable_selector": "[data-admin-route=\"/admin/withdrawals\"] [data-admin-instance=\"withdrawals-summary-pending\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminWithdrawalsMobileDecisionPanel.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-ui-kpi",
+        "efhc-admin-ui-tone--warning"
+      ],
+      "data_attributes": {
+        "data-admin-primitive": "kpi",
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-015",
+        "data-admin-instance": "withdrawals-summary-pending",
+        "data-admin-tone": "warning"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Production total is current filter and rejected includes canceled; labels/data semantics are preserved, not silently equated.",
+      "owner_visual_qualification": "ACCEPTED by current OWNER statement",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-accent-soft)",
+        "border_radius": "22px",
+        "padding": "14px",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/withdrawals",
+      "page_marker": "ADM-03",
+      "eam_family": "EAM-ADMIN-015",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED CONTOUR / STATIC CASCADE PROVEN v383",
+      "instance_id": "withdrawals-summary-paid",
+      "label": "Выплачено",
+      "renderer": "production",
+      "stable_selector": "[data-admin-route=\"/admin/withdrawals\"] [data-admin-instance=\"withdrawals-summary-paid\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminWithdrawalsMobileDecisionPanel.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-ui-kpi",
+        "efhc-admin-ui-tone--success"
+      ],
+      "data_attributes": {
+        "data-admin-primitive": "kpi",
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-015",
+        "data-admin-instance": "withdrawals-summary-paid",
+        "data-admin-tone": "success"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Production total is current filter and rejected includes canceled; labels/data semantics are preserved, not silently equated.",
+      "owner_visual_qualification": "ACCEPTED by current OWNER statement",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-accent-soft)",
+        "border_radius": "22px",
+        "padding": "14px",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/withdrawals",
+      "page_marker": "ADM-03",
+      "eam_family": "EAM-ADMIN-015",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED CONTOUR / STATIC CASCADE PROVEN v383",
+      "instance_id": "withdrawals-summary-rejected",
+      "label": "Отклонено",
+      "renderer": "production",
+      "stable_selector": "[data-admin-route=\"/admin/withdrawals\"] [data-admin-instance=\"withdrawals-summary-rejected\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminWithdrawalsMobileDecisionPanel.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-ui-kpi",
+        "efhc-admin-ui-tone--neutral"
+      ],
+      "data_attributes": {
+        "data-admin-primitive": "kpi",
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-015",
+        "data-admin-instance": "withdrawals-summary-rejected",
+        "data-admin-tone": "neutral"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Production total is current filter and rejected includes canceled; labels/data semantics are preserved, not silently equated.",
+      "owner_visual_qualification": "ACCEPTED by current OWNER statement",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-accent-soft)",
+        "border_radius": "22px",
+        "padding": "14px",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/withdrawals",
+      "page_marker": "ADM-03",
+      "eam_family": "EAM-ADMIN-002",
+      "visual_primitive": "ADMIN_CHROME",
+      "status": "EXISTING OWNER EXEMPLAR / CONTOUR PROOF REQUIRED",
+      "instance_id": "page-chrome",
+      "renderer": "production",
+      "stable_selector": "[data-admin-route=\"/admin/withdrawals\"] [data-admin-instance=\"page-chrome\"]",
+      "classes": [
+        "efhc-admin-header"
+      ],
+      "data_attributes": {
+        "data-admin-primitive": "chrome",
+        "data-admin-instance": "page-chrome"
+      },
+      "production_source": [
+        "frontend/src/components/admin/AdminPage.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "expected_contract": {}
+    },
+    {
+      "route": "/admin/withdrawals",
+      "page_marker": "ADM-03",
+      "eam_family": "EAM-ADMIN-015",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED CONTOUR / STATIC CASCADE PROVEN v383",
+      "instance_id": "withdrawals-summary-total",
+      "label": "Всего заявок",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-route=\"/admin/withdrawals\"] [data-admin-instance=\"withdrawals-summary-total\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminWithdrawalsMobileDecisionPanel.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "release-admin-fact"
+      ],
+      "data_attributes": {
+        "data-admin-primitive": "kpi",
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-015",
+        "data-admin-instance": "withdrawals-summary-total"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Production total is current filter and rejected includes canceled; labels/data semantics are preserved, not silently equated.",
+      "owner_visual_qualification": "ACCEPTED by current OWNER statement",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-card)",
+        "border_radius": ".8rem",
+        "padding": ".62rem",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/withdrawals",
+      "page_marker": "ADM-03",
+      "eam_family": "EAM-ADMIN-015",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED CONTOUR / STATIC CASCADE PROVEN v383",
+      "instance_id": "withdrawals-summary-pending",
+      "label": "В ожидании",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-route=\"/admin/withdrawals\"] [data-admin-instance=\"withdrawals-summary-pending\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminWithdrawalsMobileDecisionPanel.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "release-admin-fact"
+      ],
+      "data_attributes": {
+        "data-admin-primitive": "kpi",
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-015",
+        "data-admin-instance": "withdrawals-summary-pending"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Production total is current filter and rejected includes canceled; labels/data semantics are preserved, not silently equated.",
+      "owner_visual_qualification": "ACCEPTED by current OWNER statement",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-card)",
+        "border_radius": ".8rem",
+        "padding": ".62rem",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/withdrawals",
+      "page_marker": "ADM-03",
+      "eam_family": "EAM-ADMIN-015",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED CONTOUR / STATIC CASCADE PROVEN v383",
+      "instance_id": "withdrawals-summary-paid",
+      "label": "Выплачено",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-route=\"/admin/withdrawals\"] [data-admin-instance=\"withdrawals-summary-paid\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminWithdrawalsMobileDecisionPanel.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "release-admin-fact"
+      ],
+      "data_attributes": {
+        "data-admin-primitive": "kpi",
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-015",
+        "data-admin-instance": "withdrawals-summary-paid"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Production total is current filter and rejected includes canceled; labels/data semantics are preserved, not silently equated.",
+      "owner_visual_qualification": "ACCEPTED by current OWNER statement",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-card)",
+        "border_radius": ".8rem",
+        "padding": ".62rem",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/withdrawals",
+      "page_marker": "ADM-03",
+      "eam_family": "EAM-ADMIN-015",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED CONTOUR / STATIC CASCADE PROVEN v383",
+      "instance_id": "withdrawals-summary-rejected",
+      "label": "Отклонено",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-route=\"/admin/withdrawals\"] [data-admin-instance=\"withdrawals-summary-rejected\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminWithdrawalsMobileDecisionPanel.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "release-admin-fact"
+      ],
+      "data_attributes": {
+        "data-admin-primitive": "kpi",
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-015",
+        "data-admin-instance": "withdrawals-summary-rejected"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Production total is current filter and rejected includes canceled; labels/data semantics are preserved, not silently equated.",
+      "owner_visual_qualification": "ACCEPTED by current OWNER statement",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-card)",
+        "border_radius": ".8rem",
+        "padding": ".62rem",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/withdrawals",
+      "page_marker": "ADM-03",
+      "eam_family": "EAM-ADMIN-002",
+      "visual_primitive": "ADMIN_CHROME",
+      "status": "EXISTING OWNER EXEMPLAR / CONTOUR PROOF REQUIRED",
+      "instance_id": "page-chrome",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-route=\"/admin/withdrawals\"] [data-admin-instance=\"page-chrome\"]",
+      "classes": [
+        "source-profile-topbar"
+      ],
+      "data_attributes": {
+        "data-admin-primitive": "chrome",
+        "data-admin-instance": "page-chrome"
+      },
+      "production_source": [
+        "frontend/src/components/admin/AdminPage.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "expected_contract": {}
+    },
+    {
+      "route": "/admin/tasks",
+      "page_marker": "ADM-06",
+      "eam_family": "EAM-ADMIN-018",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "tasks-summary-total",
+      "label": "Заданий",
+      "renderer": "production",
+      "stable_selector": "[data-admin-page-marker=\"ADM-06\"] [data-admin-instance=\"tasks-summary-total\"]",
+      "production_source": [
+        "frontend/src/pages/admin/tasks.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-ui-kpi",
+        "efhc-admin-ui-tone--neutral"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-018",
+        "data-admin-instance": "tasks-summary-total",
+        "data-admin-tone": "neutral",
+        "data-admin-primitive": "kpi"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-inset)",
+        "border_radius": "22px",
+        "padding": "14px",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/tasks",
+      "page_marker": "ADM-06",
+      "eam_family": "EAM-ADMIN-018",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "tasks-summary-active",
+      "label": "Активных",
+      "renderer": "production",
+      "stable_selector": "[data-admin-page-marker=\"ADM-06\"] [data-admin-instance=\"tasks-summary-active\"]",
+      "production_source": [
+        "frontend/src/pages/admin/tasks.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-ui-kpi",
+        "efhc-admin-ui-tone--neutral"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-018",
+        "data-admin-instance": "tasks-summary-active",
+        "data-admin-tone": "neutral",
+        "data-admin-primitive": "kpi"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-inset)",
+        "border_radius": "22px",
+        "padding": "14px",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/tasks",
+      "page_marker": "ADM-06",
+      "eam_family": "EAM-ADMIN-018",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "tasks-summary-completed",
+      "label": "Выполнено",
+      "renderer": "production",
+      "stable_selector": "[data-admin-page-marker=\"ADM-06\"] [data-admin-instance=\"tasks-summary-completed\"]",
+      "production_source": [
+        "frontend/src/pages/admin/tasks.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-ui-kpi",
+        "efhc-admin-ui-tone--neutral"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-018",
+        "data-admin-instance": "tasks-summary-completed",
+        "data-admin-tone": "neutral",
+        "data-admin-primitive": "kpi"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-inset)",
+        "border_radius": "22px",
+        "padding": "14px",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/tasks",
+      "page_marker": "ADM-06",
+      "eam_family": "EAM-ADMIN-018",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "tasks-summary-exhausted",
+      "label": "Лимит исчерпан",
+      "renderer": "production",
+      "stable_selector": "[data-admin-page-marker=\"ADM-06\"] [data-admin-instance=\"tasks-summary-exhausted\"]",
+      "production_source": [
+        "frontend/src/pages/admin/tasks.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-ui-kpi",
+        "efhc-admin-ui-tone--neutral"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-018",
+        "data-admin-instance": "tasks-summary-exhausted",
+        "data-admin-tone": "neutral",
+        "data-admin-primitive": "kpi"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-inset)",
+        "border_radius": "22px",
+        "padding": "14px",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/tasks",
+      "page_marker": "ADM-06",
+      "eam_family": "EAM-ADMIN-018",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "tasks-summary-total",
+      "label": "Заданий",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-page-marker=\"ADM-06\"] [data-admin-instance=\"tasks-summary-total\"]",
+      "production_source": [
+        "frontend/src/pages/admin/tasks.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "release-admin-fact"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-018",
+        "data-admin-instance": "tasks-summary-total"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-card)",
+        "border_radius": ".8rem",
+        "padding": ".62rem",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/tasks",
+      "page_marker": "ADM-06",
+      "eam_family": "EAM-ADMIN-018",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "tasks-summary-active",
+      "label": "Активных",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-page-marker=\"ADM-06\"] [data-admin-instance=\"tasks-summary-active\"]",
+      "production_source": [
+        "frontend/src/pages/admin/tasks.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "release-admin-fact"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-018",
+        "data-admin-instance": "tasks-summary-active"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-card)",
+        "border_radius": ".8rem",
+        "padding": ".62rem",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/tasks",
+      "page_marker": "ADM-06",
+      "eam_family": "EAM-ADMIN-018",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "tasks-summary-completed",
+      "label": "Выполнено",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-page-marker=\"ADM-06\"] [data-admin-instance=\"tasks-summary-completed\"]",
+      "production_source": [
+        "frontend/src/pages/admin/tasks.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "release-admin-fact"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-018",
+        "data-admin-instance": "tasks-summary-completed"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-card)",
+        "border_radius": ".8rem",
+        "padding": ".62rem",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/tasks",
+      "page_marker": "ADM-06",
+      "eam_family": "EAM-ADMIN-018",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "tasks-summary-exhausted",
+      "label": "Лимит исчерпан",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-page-marker=\"ADM-06\"] [data-admin-instance=\"tasks-summary-exhausted\"]",
+      "production_source": [
+        "frontend/src/pages/admin/tasks.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "release-admin-fact"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-018",
+        "data-admin-instance": "tasks-summary-exhausted"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-card)",
+        "border_radius": ".8rem",
+        "padding": ".62rem",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/vip-nft",
+      "page_marker": "ADM-11",
+      "eam_family": "EAM-ADMIN-017",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "vip-nft-summary-total",
+      "label": "Всего заявок",
+      "renderer": "production",
+      "stable_selector": "[data-admin-page-marker=\"ADM-11\"] [data-admin-instance=\"vip-nft-summary-total\"]",
+      "production_source": [
+        "frontend/src/pages/admin/vip-nft.tsx",
+        "frontend/src/components/admin/AdminVipNftRequestsPanel.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-vip-summary-tile-v354",
+        "rounded-xl",
+        "border",
+        "p-3"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-017",
+        "data-admin-instance": "vip-nft-summary-total"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-accent-soft)",
+        "border_radius": "UNRESOLVED",
+        "padding": "UNRESOLVED",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/vip-nft",
+      "page_marker": "ADM-11",
+      "eam_family": "EAM-ADMIN-017",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "vip-nft-summary-waiting",
+      "label": "Ожидают выдачи",
+      "renderer": "production",
+      "stable_selector": "[data-admin-page-marker=\"ADM-11\"] [data-admin-instance=\"vip-nft-summary-waiting\"]",
+      "production_source": [
+        "frontend/src/pages/admin/vip-nft.tsx",
+        "frontend/src/components/admin/AdminVipNftRequestsPanel.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-vip-summary-tile-v354",
+        "rounded-xl",
+        "border",
+        "p-3"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-017",
+        "data-admin-instance": "vip-nft-summary-waiting"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-accent-soft)",
+        "border_radius": "UNRESOLVED",
+        "padding": "UNRESOLVED",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/vip-nft",
+      "page_marker": "ADM-11",
+      "eam_family": "EAM-ADMIN-017",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "vip-nft-summary-issued",
+      "label": "Выдано",
+      "renderer": "production",
+      "stable_selector": "[data-admin-page-marker=\"ADM-11\"] [data-admin-instance=\"vip-nft-summary-issued\"]",
+      "production_source": [
+        "frontend/src/pages/admin/vip-nft.tsx",
+        "frontend/src/components/admin/AdminVipNftRequestsPanel.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-vip-summary-tile-v354",
+        "rounded-xl",
+        "border",
+        "p-3"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-017",
+        "data-admin-instance": "vip-nft-summary-issued"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-accent-soft)",
+        "border_radius": "UNRESOLVED",
+        "padding": "UNRESOLVED",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/vip-nft",
+      "page_marker": "ADM-11",
+      "eam_family": "EAM-ADMIN-017",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "vip-nft-summary-rejected",
+      "label": "Отклонено",
+      "renderer": "production",
+      "stable_selector": "[data-admin-page-marker=\"ADM-11\"] [data-admin-instance=\"vip-nft-summary-rejected\"]",
+      "production_source": [
+        "frontend/src/pages/admin/vip-nft.tsx",
+        "frontend/src/components/admin/AdminVipNftRequestsPanel.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-vip-summary-tile-v354",
+        "rounded-xl",
+        "border",
+        "p-3"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-017",
+        "data-admin-instance": "vip-nft-summary-rejected"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-accent-soft)",
+        "border_radius": "UNRESOLVED",
+        "padding": "UNRESOLVED",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/vip-nft",
+      "page_marker": "ADM-11",
+      "eam_family": "EAM-ADMIN-017",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "vip-nft-summary-total",
+      "label": "Всего заявок",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-page-marker=\"ADM-11\"] [data-admin-instance=\"vip-nft-summary-total\"]",
+      "production_source": [
+        "frontend/src/pages/admin/vip-nft.tsx",
+        "frontend/src/components/admin/AdminVipNftRequestsPanel.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "admin-module-metric"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-017",
+        "data-admin-instance": "vip-nft-summary-total"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-accent-soft)",
+        "border_radius": ".68rem",
+        "padding": ".52rem",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/vip-nft",
+      "page_marker": "ADM-11",
+      "eam_family": "EAM-ADMIN-017",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "vip-nft-summary-waiting",
+      "label": "Ожидают выдачи",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-page-marker=\"ADM-11\"] [data-admin-instance=\"vip-nft-summary-waiting\"]",
+      "production_source": [
+        "frontend/src/pages/admin/vip-nft.tsx",
+        "frontend/src/components/admin/AdminVipNftRequestsPanel.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "admin-module-metric"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-017",
+        "data-admin-instance": "vip-nft-summary-waiting"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-accent-soft)",
+        "border_radius": ".68rem",
+        "padding": ".52rem",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/vip-nft",
+      "page_marker": "ADM-11",
+      "eam_family": "EAM-ADMIN-017",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "vip-nft-summary-issued",
+      "label": "Выдано",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-page-marker=\"ADM-11\"] [data-admin-instance=\"vip-nft-summary-issued\"]",
+      "production_source": [
+        "frontend/src/pages/admin/vip-nft.tsx",
+        "frontend/src/components/admin/AdminVipNftRequestsPanel.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "admin-module-metric"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-017",
+        "data-admin-instance": "vip-nft-summary-issued"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-accent-soft)",
+        "border_radius": ".68rem",
+        "padding": ".52rem",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/vip-nft",
+      "page_marker": "ADM-11",
+      "eam_family": "EAM-ADMIN-017",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "OWNER ACCEPTED MATERIAL v384 / SPACING QUALIFIED v385",
+      "instance_id": "vip-nft-summary-rejected",
+      "label": "Отклонено",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-page-marker=\"ADM-11\"] [data-admin-instance=\"vip-nft-summary-rejected\"]",
+      "production_source": [
+        "frontend/src/pages/admin/vip-nft.tsx",
+        "frontend/src/components/admin/AdminVipNftRequestsPanel.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "admin-module-metric"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-017",
+        "data-admin-instance": "vip-nft-summary-rejected"
+      },
+      "expected_contract": {
+        "border-width": "1px (OWNER accepted v378 contour)",
+        "border-style": "solid",
+        "border-color": "var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "parity_limit": "Contour copied; original page labels, values, geometry and business contracts preserved",
+      "owner_visual_qualification": "OWNER ACCEPTED in direct chat before Cycle0182",
+      "cascade_proof_v383": {
+        "status": "STATIC_SOURCE_WINNER_PROVEN",
+        "border_width": "1px",
+        "border_style": "solid",
+        "border_color": "var(--efhc-admin-canon-border-strong)",
+        "box_shadow": "var(--efhc-admin-canon-shadow)",
+        "background_color": "var(--efhc-admin-canon-accent-soft)",
+        "border_radius": ".68rem",
+        "padding": ".52rem",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      },
+      "cascade_correction_v384": {
+        "status": "STATIC_SOURCE_CORRECTION_PROVEN",
+        "reference": "/admin/withdrawals",
+        "new_blanket_override": false
+      }
+    },
+    {
+      "route": "/admin/efhc-deposits",
+      "page_marker": "ADM-12",
+      "eam_family": "EAM-ADMIN-022",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "CYCLE0191 KPI DATA SEMANTICS NORMALIZED / MATERIAL CONTRACT UNCHANGED / BACKEND-DERIVED CREDITED EFHC AGGREGATES",
+      "instance_id": "deposits-summary-shown",
+      "label": "Всего операций",
+      "renderer": "production",
+      "stable_selector": "[data-admin-page-marker=\"ADM-12\"] [data-admin-instance=\"deposits-summary-shown\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminTonInboxHumanPanel.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-ui-kpi"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-022",
+        "data-admin-instance": "deposits-summary-shown"
+      },
+      "expected_contract": {
+        "production": "AccentSoft + 1px BorderStrong + Shadow + 22px radius + 14px padding + 13px label / 24px value",
+        "standalone": "Card + 1px BorderStrong + Shadow + .8rem radius + .62rem padding + Withdrawals-equivalent typography"
+      },
+      "parity_limit": "Visual material remains canonical; Cycle0191 value semantics are route-owned by /admin/efhc-deposits/runtime-summary and must match production+standalone contract.",
+      "owner_visual_qualification": "PENDING on FRONTEND_v386 external visual review",
+      "static_targeted_audit_v386": {
+        "status": "PASS 76/76",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/efhc-deposits",
+      "page_marker": "ADM-12",
+      "eam_family": "EAM-ADMIN-022",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "CYCLE0191 KPI DATA SEMANTICS NORMALIZED / MATERIAL CONTRACT UNCHANGED / BACKEND-DERIVED CREDITED EFHC AGGREGATES",
+      "instance_id": "deposits-summary-attention",
+      "label": "Всего EFHC",
+      "renderer": "production",
+      "stable_selector": "[data-admin-page-marker=\"ADM-12\"] [data-admin-instance=\"deposits-summary-attention\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminTonInboxHumanPanel.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-ui-kpi"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-022",
+        "data-admin-instance": "deposits-summary-attention"
+      },
+      "expected_contract": {
+        "production": "AccentSoft + 1px BorderStrong + Shadow + 22px radius + 14px padding + 13px label / 24px value",
+        "standalone": "Card + 1px BorderStrong + Shadow + .8rem radius + .62rem padding + Withdrawals-equivalent typography"
+      },
+      "parity_limit": "Visual material remains canonical; Cycle0191 value semantics are route-owned by /admin/efhc-deposits/runtime-summary and must match production+standalone contract.",
+      "owner_visual_qualification": "PENDING on FRONTEND_v386 external visual review",
+      "static_targeted_audit_v386": {
+        "status": "PASS 76/76",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/efhc-deposits",
+      "page_marker": "ADM-12",
+      "eam_family": "EAM-ADMIN-022",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "CYCLE0191 KPI DATA SEMANTICS NORMALIZED / MATERIAL CONTRACT UNCHANGED / BACKEND-DERIVED CREDITED EFHC AGGREGATES",
+      "instance_id": "deposits-summary-next",
+      "label": "30 дней",
+      "renderer": "production",
+      "stable_selector": "[data-admin-page-marker=\"ADM-12\"] [data-admin-instance=\"deposits-summary-next\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminTonInboxHumanPanel.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-ui-kpi"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-022",
+        "data-admin-instance": "deposits-summary-next"
+      },
+      "expected_contract": {
+        "production": "AccentSoft + 1px BorderStrong + Shadow + 22px radius + 14px padding + 13px label / 24px value",
+        "standalone": "Card + 1px BorderStrong + Shadow + .8rem radius + .62rem padding + Withdrawals-equivalent typography"
+      },
+      "parity_limit": "Visual material remains canonical; Cycle0191 value semantics are route-owned by /admin/efhc-deposits/runtime-summary and must match production+standalone contract.",
+      "owner_visual_qualification": "PENDING on FRONTEND_v386 external visual review",
+      "static_targeted_audit_v386": {
+        "status": "PASS 76/76",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/efhc-deposits",
+      "page_marker": "ADM-12",
+      "eam_family": "EAM-ADMIN-022",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "CYCLE0191 KPI DATA SEMANTICS NORMALIZED / MATERIAL CONTRACT UNCHANGED / BACKEND-DERIVED CREDITED EFHC AGGREGATES",
+      "instance_id": "deposits-summary-state",
+      "label": "24 часа EFHC",
+      "renderer": "production",
+      "stable_selector": "[data-admin-page-marker=\"ADM-12\"] [data-admin-instance=\"deposits-summary-state\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminTonInboxHumanPanel.tsx",
+        "frontend/src/components/admin/AdminDashboardUiKit.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "efhc-admin-ui-kpi"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-022",
+        "data-admin-instance": "deposits-summary-state"
+      },
+      "expected_contract": {
+        "production": "AccentSoft + 1px BorderStrong + Shadow + 22px radius + 14px padding + 13px label / 24px value",
+        "standalone": "Card + 1px BorderStrong + Shadow + .8rem radius + .62rem padding + Withdrawals-equivalent typography"
+      },
+      "parity_limit": "Visual material remains canonical; Cycle0191 value semantics are route-owned by /admin/efhc-deposits/runtime-summary and must match production+standalone contract.",
+      "owner_visual_qualification": "PENDING on FRONTEND_v386 external visual review",
+      "static_targeted_audit_v386": {
+        "status": "PASS 76/76",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/efhc-deposits",
+      "page_marker": "ADM-12",
+      "eam_family": "EAM-ADMIN-022",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "CYCLE0191 KPI DATA SEMANTICS NORMALIZED / MATERIAL CONTRACT UNCHANGED / BACKEND-DERIVED CREDITED EFHC AGGREGATES",
+      "instance_id": "deposits-summary-shown",
+      "label": "Всего операций",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-page-marker=\"ADM-12\"] [data-admin-instance=\"deposits-summary-shown\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminTonInboxHumanPanel.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "admin-module-metric"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-022",
+        "data-admin-instance": "deposits-summary-shown"
+      },
+      "expected_contract": {
+        "production": "AccentSoft + 1px BorderStrong + Shadow + 22px radius + 14px padding + 13px label / 24px value",
+        "standalone": "Card + 1px BorderStrong + Shadow + .8rem radius + .62rem padding + Withdrawals-equivalent typography"
+      },
+      "parity_limit": "Visual material remains canonical; Cycle0191 value semantics are route-owned by /admin/efhc-deposits/runtime-summary and must match production+standalone contract.",
+      "owner_visual_qualification": "PENDING on FRONTEND_v386 external visual review",
+      "static_targeted_audit_v386": {
+        "status": "PASS 76/76",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/efhc-deposits",
+      "page_marker": "ADM-12",
+      "eam_family": "EAM-ADMIN-022",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "CYCLE0191 KPI DATA SEMANTICS NORMALIZED / MATERIAL CONTRACT UNCHANGED / BACKEND-DERIVED CREDITED EFHC AGGREGATES",
+      "instance_id": "deposits-summary-attention",
+      "label": "Всего EFHC",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-page-marker=\"ADM-12\"] [data-admin-instance=\"deposits-summary-attention\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminTonInboxHumanPanel.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "admin-module-metric"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-022",
+        "data-admin-instance": "deposits-summary-attention"
+      },
+      "expected_contract": {
+        "production": "AccentSoft + 1px BorderStrong + Shadow + 22px radius + 14px padding + 13px label / 24px value",
+        "standalone": "Card + 1px BorderStrong + Shadow + .8rem radius + .62rem padding + Withdrawals-equivalent typography"
+      },
+      "parity_limit": "Visual material remains canonical; Cycle0191 value semantics are route-owned by /admin/efhc-deposits/runtime-summary and must match production+standalone contract.",
+      "owner_visual_qualification": "PENDING on FRONTEND_v386 external visual review",
+      "static_targeted_audit_v386": {
+        "status": "PASS 76/76",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/efhc-deposits",
+      "page_marker": "ADM-12",
+      "eam_family": "EAM-ADMIN-022",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "CYCLE0191 KPI DATA SEMANTICS NORMALIZED / MATERIAL CONTRACT UNCHANGED / BACKEND-DERIVED CREDITED EFHC AGGREGATES",
+      "instance_id": "deposits-summary-next",
+      "label": "30 дней",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-page-marker=\"ADM-12\"] [data-admin-instance=\"deposits-summary-next\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminTonInboxHumanPanel.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "admin-module-metric"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-022",
+        "data-admin-instance": "deposits-summary-next"
+      },
+      "expected_contract": {
+        "production": "AccentSoft + 1px BorderStrong + Shadow + 22px radius + 14px padding + 13px label / 24px value",
+        "standalone": "Card + 1px BorderStrong + Shadow + .8rem radius + .62rem padding + Withdrawals-equivalent typography"
+      },
+      "parity_limit": "Visual material remains canonical; Cycle0191 value semantics are route-owned by /admin/efhc-deposits/runtime-summary and must match production+standalone contract.",
+      "owner_visual_qualification": "PENDING on FRONTEND_v386 external visual review",
+      "static_targeted_audit_v386": {
+        "status": "PASS 76/76",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/efhc-deposits",
+      "page_marker": "ADM-12",
+      "eam_family": "EAM-ADMIN-022",
+      "visual_primitive": "ADMIN_SUMMARY_KPI",
+      "status": "CYCLE0191 KPI DATA SEMANTICS NORMALIZED / MATERIAL CONTRACT UNCHANGED / BACKEND-DERIVED CREDITED EFHC AGGREGATES",
+      "instance_id": "deposits-summary-state",
+      "label": "24 часа EFHC",
+      "renderer": "standalone",
+      "stable_selector": "[data-admin-page-marker=\"ADM-12\"] [data-admin-instance=\"deposits-summary-state\"]",
+      "production_source": [
+        "frontend/src/components/admin/AdminTonInboxHumanPanel.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "admin-module-metric"
+      ],
+      "data_attributes": {
+        "data-admin-visual-primitive": "ADMIN_SUMMARY_KPI",
+        "data-eam-family": "EAM-ADMIN-022",
+        "data-admin-instance": "deposits-summary-state"
+      },
+      "expected_contract": {
+        "production": "AccentSoft + 1px BorderStrong + Shadow + 22px radius + 14px padding + 13px label / 24px value",
+        "standalone": "Card + 1px BorderStrong + Shadow + .8rem radius + .62rem padding + Withdrawals-equivalent typography"
+      },
+      "parity_limit": "Visual material remains canonical; Cycle0191 value semantics are route-owned by /admin/efhc-deposits/runtime-summary and must match production+standalone contract.",
+      "owner_visual_qualification": "PENDING on FRONTEND_v386 external visual review",
+      "static_targeted_audit_v386": {
+        "status": "PASS 76/76",
+        "browser_evidence": "NOT_USED_BY_OWNER_POLICY"
+      }
+    },
+    {
+      "route": "/admin/shop",
+      "page_marker": "ADM-05",
+      "eam_family": "EAM-ADMIN-022",
+      "visual_primitive": "ADMIN_CONTROL",
+      "status": "CYCLE0186 ORDERS SEARCH COMPOSITION / STATIC SOURCE REGISTERED",
+      "instance_id": "orders-search-production-v389",
+      "label": "Поиск заказа",
+      "renderer": "production",
+      "state": "orders",
+      "stable_selector": "[data-admin-orders-search=\"v389\"][data-admin-instance=\"orders-search-production-v389\"]",
+      "production_source": [
+        "frontend/src/pages/admin/shop.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "space-y-3"
+      ],
+      "data_attributes": {
+        "data-admin-orders-search": "v389",
+        "data-eam-family": "EAM-ADMIN-022",
+        "data-admin-visual-primitive": "ADMIN_CONTROL",
+        "data-admin-instance": "orders-search-production-v389",
+        "data-admin-orders-state": "orders"
+      },
+      "css_owner": "Existing AdminSectionCard / efhc-input / Button secondary owners; no new CSS rule",
+      "runtime_contract": [
+        "GET /admin/shop/order/{order_id}",
+        "GET /admin/shop/orders/user/{global_id}"
+      ],
+      "qualification": "STATIC SOURCE CORRECTION PROVEN / OWNER VISUAL QUALIFICATION PENDING"
+    },
+    {
+      "route": "/admin/shop",
+      "page_marker": "ADM-05",
+      "eam_family": "EAM-ADMIN-022",
+      "visual_primitive": "ADMIN_CONTROL",
+      "status": "CYCLE0186 ORDERS SEARCH COMPOSITION / STATIC SOURCE REGISTERED",
+      "instance_id": "orders-search-standalone-v389",
+      "label": "Поиск заказа",
+      "renderer": "standalone",
+      "state": "orders",
+      "stable_selector": "[data-admin-orders-search=\"v389\"][data-admin-instance=\"orders-search-standalone-v389\"]",
+      "production_source": [
+        "frontend/src/pages/admin/shop.tsx"
+      ],
+      "standalone_source": "FRONTEND_v591.html",
+      "classes": [
+        "source-card"
+      ],
+      "data_attributes": {
+        "data-admin-orders-search": "v389",
+        "data-eam-family": "EAM-ADMIN-022",
+        "data-admin-visual-primitive": "ADMIN_CONTROL",
+        "data-admin-instance": "orders-search-standalone-v389",
+        "data-admin-orders-state": "orders"
+      },
+      "css_owner": "Existing source-card / efhc-input / source-button secondary owners; no new CSS rule",
+      "runtime_contract": [
+        "GET /admin/shop/order/{order_id}",
+        "GET /admin/shop/orders/user/{global_id}"
+      ],
+      "qualification": "STATIC SOURCE CORRECTION PROVEN / OWNER VISUAL QUALIFICATION PENDING"
+    }
+  ]
+}

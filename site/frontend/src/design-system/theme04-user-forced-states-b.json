@@ -1,0 +1,149 @@
+{
+  "schema": "EFHC_THEME04_USER_FORCED_STATES_B_V1",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0407",
+  "physicalHeadAudited": "FRONTEND_v630",
+  "theme": {
+    "id": "04",
+    "anchor": "#229ED9",
+    "name": "Classic Telegram Blue"
+  },
+  "scope": {
+    "routeFamilies": [
+      "Profile",
+      "Wallet",
+      "History",
+      "Settings",
+      "Hub",
+      "FAQ",
+      "Withdraw",
+      "Ads",
+      "Error"
+    ],
+    "scenes": [
+      "ads-default",
+      "error-404",
+      "faq-default",
+      "faq-first-open",
+      "faq-search-focus",
+      "hub-default",
+      "profile-default",
+      "profile-history",
+      "profile-settings-open",
+      "profile-wallet",
+      "withdraw-ad-overlay",
+      "withdraw-default"
+    ],
+    "states": [
+      "hover",
+      "active",
+      "focus",
+      "focus-visible",
+      "selected",
+      "expanded",
+      "checked",
+      "disabled"
+    ],
+    "browserShop": false,
+    "mutation": false
+  },
+  "classificationLaw": {
+    "source": "frontend/src/design-system/theme04-color-canon-classification.json",
+    "rule": "Exact normalized membership in Cycle0400 PASS/neutral/explicit-semantic whitelist; transparent allowed; every other introduced state color is FAIL. Hue-distance is not used.",
+    "baseFailOnly": true,
+    "frozenExclusion": "Technical/Admin workbench interactive owners excluded.",
+    "responsiveDeduplication": "Identical scene/path/style signatures across 320/340/390 are tested once; different style signatures remain separate."
+  },
+  "coverage": {
+    "scenePasses": 12,
+    "selectedStateOwnerSignatures": 105,
+    "resolvedStateOwnerSignatures": 105,
+    "forcedStateTests": 528,
+    "stateGroupErrors": 0,
+    "stateTestErrors": 0,
+    "introducedFailFindings": 101,
+    "uniqueStateFailOwners": 2
+  },
+  "findingSummary": {
+    "byState": {
+      "focus": 2,
+      "focus-visible": 99
+    },
+    "byToken": {
+      "rgb(88, 199, 180)": 99,
+      "rgba(110, 168, 255, 0.12)": 2
+    },
+    "byProperty": {
+      "boxShadow": 2,
+      "outlineColor": 99
+    }
+  },
+  "stateFailOwners": [
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "[data-interface-app-mode=\"user\"][data-global-theme-id] :is(button, a, [role=\"button\"]):focus-visible",
+      "state": "focus-visible",
+      "property": "outlineColor",
+      "token": "rgb(88, 199, 180)",
+      "findingCount": 99,
+      "scenes": [
+        "ads-default",
+        "error-404",
+        "faq-default",
+        "faq-first-open",
+        "faq-search-focus",
+        "hub-default",
+        "profile-default",
+        "profile-history",
+        "profile-settings-open",
+        "profile-wallet",
+        "withdraw-ad-overlay",
+        "withdraw-default"
+      ],
+      "samplePaths": [
+        "div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1) > div.efhc-game-header_actions:nth-of-type(3) > button.efhc-header-action.primary:nth-of-type(5)",
+        "div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1) > div.efhc-game-header_actions:nth-of-type(3) > button.efhc-header-action:nth-of-type(2)",
+        "div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1) > div.efhc-game-header_actions:nth-of-type(3) > button.efhc-header-action:nth-of-type(3)",
+        "div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1) > div.efhc-game-header_actions:nth-of-type(3) > button.efhc-header-action:nth-of-type(4)",
+        "div.release-faq-list.dynamic-full-faq > div.standalone-faq-index > button.standalone-faq-index-row:nth-of-type(1)",
+        "div.release-faq-list.dynamic-full-faq > div.standalone-faq-index > button.standalone-faq-index-row:nth-of-type(10)",
+        "div.release-faq-list.dynamic-full-faq > div.standalone-faq-index > button.standalone-faq-index-row:nth-of-type(11)",
+        "div.release-faq-list.dynamic-full-faq > div.standalone-faq-index > button.standalone-faq-index-row:nth-of-type(12)"
+      ],
+      "declaration": {
+        "property": "outline-color",
+        "value": "var(--efhc-route-accent) !important",
+        "important": true
+      },
+      "variableChain": [
+        {
+          "name": "--efhc-route-accent",
+          "computedValue": "#58c7b4"
+        }
+      ],
+      "provenanceKind": "DIRECT"
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".source-input:focus",
+      "state": "focus",
+      "property": "boxShadow",
+      "token": "rgba(110, 168, 255, 0.12)",
+      "findingCount": 2,
+      "scenes": [
+        "withdraw-ad-overlay",
+        "withdraw-default"
+      ],
+      "samplePaths": [
+        "#withdrawInput"
+      ],
+      "declaration": {
+        "property": "box-shadow",
+        "value": "rgba(110, 168, 255, 0.12) 0px 0px 0px 2px",
+        "important": false
+      },
+      "variableChain": [],
+      "provenanceKind": "DIRECT"
+    }
+  ],
+  "note": "Audit-only evidence. Findings are not mutation authority. Cycle0408 is Browser Shop forced states and is not auto-authorized."
+}

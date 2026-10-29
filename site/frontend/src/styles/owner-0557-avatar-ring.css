@@ -1,0 +1,31 @@
+/* OWNER 0557 iteration 02: only USER Profile avatar ring/material.
+   Do not change size, hit area, image content, language picker, Admin, or avatar editor. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-profile-page .efhc-profile-hero .efhc-profile-avatar-button {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.58)!important;
+  background-color:color-mix(in srgb,#05070b 90%,var(--efhc-ct-accent) 10%)!important;
+  background-image:none!important;
+  color:var(--efhc-ct-accent)!important;
+  box-shadow:inset 0 0 0 1px rgba(var(--efhc-ct-accent-rgb),.08),0 0 11px rgba(var(--efhc-ct-accent-rgb),.12)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-profile-page .efhc-profile-avatar-button .efhc-energy-stage_coin {
+  color:var(--efhc-ct-accent)!important;
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+/* Standalone USER Profile only: photos are never filtered/recoloured. */
+html[data-interface-app-mode="user"][data-color-theme-id]
+#profilePage .source-profile-hero .source-profile-avatar {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.58)!important;
+  background-color:color-mix(in srgb,#05070b 90%,var(--efhc-ct-accent) 10%)!important;
+  background-image:none!important;
+  color:var(--efhc-ct-accent)!important;
+  box-shadow:inset 0 0 0 1px rgba(var(--efhc-ct-accent-rgb),.08),0 0 11px rgba(var(--efhc-ct-accent-rgb),.12)!important;
+}
+html[data-interface-app-mode="user"][data-color-theme-id]
+#profilePage .source-profile-hero .source-profile-avatar :is(svg,svg *) {
+  color:var(--efhc-ct-accent)!important;
+}

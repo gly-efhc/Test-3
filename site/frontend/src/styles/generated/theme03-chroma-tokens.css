@@ -1,0 +1,29 @@
+/* GENERATED FILE — DO NOT EDIT.
+   Source: frontend/src/design-system/theme03-chroma.json
+   FRONTEND_ADMIN_CYCLE_0383: current USER Theme03 18-role semantic material vector; final role values come from the current machine authority. */
+@layer efhc-theme-tokens {
+  [data-interface-app-mode="user"][data-global-theme-id="03"],
+  :root:has(.efhc-profile-modal-theme[data-pm="PM-03"]),
+  :root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]),
+  .efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"],
+  html[data-shop-theme="dark"] {
+    --efhc-color-canvas:rgba(7,10,18,.98);
+    --efhc-color-page:rgba(12,10,24,.98);
+    --efhc-color-chrome:rgba(12,10,24,.98);
+    --efhc-color-chrome-inset:rgba(28,20,53,.66);
+    --efhc-color-hero:rgba(16,19,36,.98);
+    --efhc-color-card:rgba(18,16,33,.86);
+    --efhc-color-inset:rgba(13,11,25,.96);
+    --efhc-color-active:linear-gradient(135deg,rgba(34,25,61,.94),rgba(23,18,43,.96));
+    --efhc-color-accent:#a78bfa;
+    --efhc-color-accent-soft:rgba(124,92,255,.10);
+    --efhc-color-accent-strong:#7557db;
+    --efhc-color-border:rgba(167,139,250,.24);
+    --efhc-color-border-strong:rgba(167,139,250,.42);
+    --efhc-color-text:#f8fafc;
+    --efhc-color-text-muted:#cbd5e1;
+    --efhc-color-shadow:0 14px 34px rgba(0,0,0,.26);
+    --efhc-color-glow:#7c5cff;
+    --efhc-color-focus:#c4b5fd;
+  }
+}

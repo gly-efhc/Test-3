@@ -1,0 +1,253 @@
+{
+  "schema": "EFHC_COLOR_THEME_REGISTRY_V1",
+  "release_base": "FRONTEND_v702",
+  "owner_cycle": "FRONTEND_ADMIN_CYCLE_0463",
+  "status": "CANONICAL_10_COLOR_SELECTOR_ACTIVE / CYCLE0463 OWNER COLOR CORRECTION / DESIGN_STATE_INDEPENDENT",
+  "owner_law": {
+    "color_theme_changes": "CHROMA_ONLY",
+    "selected_designs_survive_color_change": true,
+    "new_color_expansion": "One new Color Theme adds one palette and immediately becomes compatible with the entire universal design library; no design cloning is allowed.",
+    "theme_names": "Color names only; legacy character/design names are design provenance, not Color Theme names.",
+    "common_default_design": "Current legacy Theme03 design set, applied only when a user has no stored design selection.",
+    "admin_excluded": true,
+    "theme03_frozen_source": false,
+    "ordinary_shadow": "One neutral Theme03-derived ordinary shadow/elevation canon for every CT-01..CT-10; ordinary elevation is not Color- or Design-owned.",
+    "glow": "Glow is separate from ordinary elevation: design owns form/intensity/presence; Color Theme owns hue.",
+    "rendered_parity_gate": "Any future COLOR adapter must preserve authored DESIGN material/geometry unless OWNER explicitly changes that property; rendered parity evidence is mandatory before release.",
+    "forbidden_color_implementation": "A late global COLOR stylesheet must not seize background/surface/layout/radius/material ownership from HS/EG/BN/page/design families through broad selectors or !important.",
+    "inactive_disabled_indicator_gray": "#94A3B8",
+    "inactive_disabled_indicator_gray_role": "RESERVED_NEUTRAL_ONLY / FORBIDDEN_AS_ACTIVE_COLOR_THEME_ACCENT",
+    "active_color_theme_accents_must_exclude": [
+      "#94A3B8"
+    ],
+    "user_ct03_special_exceptions": "NONE / OWNER_CYCLE0468 / CT03_EQUIVALENT_TO_OTHER_NINE_THEMES"
+  },
+  "current_runtime_boundary": {
+    "visible_color_theme_count": 10,
+    "legacy_source_theme_input_count": 13,
+    "runtime_legacy_projection_count": 10,
+    "runtime_change_completed_in_cycle": "0459",
+    "projection_law": "color_theme_id is user authority; global_theme_id is deterministic compatibility projection only",
+    "design_state": "interface_variants survives Color Theme changes unchanged"
+  },
+  "color_theme_count": 10,
+  "themes": [
+    {
+      "id": "CT-01",
+      "future_visible_slot": "01",
+      "name": "Blue",
+      "name_ru": "Голубой",
+      "accent": "#6EA8FF",
+      "legacy_theme_ids": [
+        "01"
+      ],
+      "legacy_sources": [
+        {
+          "legacy_theme_id": "01",
+          "legacy_name": "EFHC Canon",
+          "legacy_color_name_ru": "Голубой"
+        }
+      ],
+      "role_vector_status": "TARGET_COLOR_AUTHORITY_ACTIVE / BROAD_V685_RUNTIME_PROJECTION_REJECTED / AUTHORED_DESIGN_BASELINE_RECOVERED",
+      "design_ownership": false
+    },
+    {
+      "id": "CT-02",
+      "future_visible_slot": "02",
+      "name": "Light Blue",
+      "name_ru": "Светло-синий",
+      "accent": "#73AEFC",
+      "legacy_theme_ids": [
+        "02"
+      ],
+      "legacy_sources": [
+        {
+          "legacy_theme_id": "02",
+          "legacy_name": "Deep Navy",
+          "legacy_color_name_ru": "Светло-синий"
+        }
+      ],
+      "role_vector_status": "TARGET_COLOR_AUTHORITY_ACTIVE / BROAD_V685_RUNTIME_PROJECTION_REJECTED / AUTHORED_DESIGN_BASELINE_RECOVERED",
+      "design_ownership": false
+    },
+    {
+      "id": "CT-03",
+      "future_visible_slot": "03",
+      "name": "Violet",
+      "name_ru": "Фиолетовый",
+      "accent": "#A78BFA",
+      "legacy_theme_ids": [
+        "03",
+        "11",
+        "12"
+      ],
+      "legacy_sources": [
+        {
+          "legacy_theme_id": "03",
+          "legacy_name": "Violet Depth",
+          "legacy_color_name_ru": "Фиолетовый"
+        },
+        {
+          "legacy_theme_id": "11",
+          "legacy_name": "Soft Pill",
+          "legacy_color_name_ru": "Фиолетовый"
+        },
+        {
+          "legacy_theme_id": "12",
+          "legacy_name": "Split Focus",
+          "legacy_color_name_ru": "Фиолетовый"
+        }
+      ],
+      "role_vector_status": "TARGET_COLOR_AUTHORITY_ACTIVE / BROAD_V685_RUNTIME_PROJECTION_REJECTED / AUTHORED_DESIGN_BASELINE_RECOVERED",
+      "design_ownership": false
+    },
+    {
+      "id": "CT-04",
+      "future_visible_slot": "04",
+      "name": "Azure",
+      "name_ru": "Лазурный",
+      "accent": "#229ED9",
+      "legacy_theme_ids": [
+        "04"
+      ],
+      "legacy_sources": [
+        {
+          "legacy_theme_id": "04",
+          "legacy_name": "Ocean Teal",
+          "legacy_color_name_ru": "Классический синий Telegram"
+        }
+      ],
+      "role_vector_status": "TARGET_COLOR_AUTHORITY_ACTIVE / BROAD_V685_RUNTIME_PROJECTION_REJECTED / AUTHORED_DESIGN_BASELINE_RECOVERED",
+      "design_ownership": false
+    },
+    {
+      "id": "CT-05",
+      "future_visible_slot": "05",
+      "name": "Gold",
+      "name_ru": "Золотой",
+      "accent": "#E5BF58",
+      "legacy_theme_ids": [
+        "05"
+      ],
+      "legacy_sources": [
+        {
+          "legacy_theme_id": "05",
+          "legacy_name": "Gold Prestige",
+          "legacy_color_name_ru": "Золотой"
+        }
+      ],
+      "role_vector_status": "TARGET_COLOR_AUTHORITY_ACTIVE / BROAD_V685_RUNTIME_PROJECTION_REJECTED / AUTHORED_DESIGN_BASELINE_RECOVERED",
+      "design_ownership": false
+    },
+    {
+      "id": "CT-06",
+      "future_visible_slot": "06",
+      "name": "Fuchsia",
+      "name_ru": "Фуксия",
+      "accent": "#D946EF",
+      "legacy_theme_ids": [
+        "06",
+        "10"
+      ],
+      "legacy_sources": [
+        {
+          "legacy_theme_id": "06",
+          "legacy_name": "Graphite Minimal",
+          "legacy_color_name_ru": "Серо-голубой / графитовый"
+        },
+        {
+          "legacy_theme_id": "10",
+          "legacy_name": "Linear Ledger",
+          "legacy_color_name_ru": "Серо-голубой / графитовый"
+        }
+      ],
+      "role_vector_status": "TARGET_COLOR_AUTHORITY_ACTIVE / OWNER_CORRECTED_CYCLE0463 / GRAY_RESERVED_INACTIVE_DISABLED",
+      "design_ownership": false
+    },
+    {
+      "id": "CT-07",
+      "future_visible_slot": "07",
+      "name": "Sky Blue",
+      "name_ru": "Небесно-голубой",
+      "accent": "#7FB4FF",
+      "legacy_theme_ids": [
+        "07"
+      ],
+      "legacy_sources": [
+        {
+          "legacy_theme_id": "07",
+          "legacy_name": "Aurora Glass",
+          "legacy_color_name_ru": "Небесно-голубой"
+        }
+      ],
+      "role_vector_status": "TARGET_COLOR_AUTHORITY_ACTIVE / BROAD_V685_RUNTIME_PROJECTION_REJECTED / AUTHORED_DESIGN_BASELINE_RECOVERED",
+      "design_ownership": false
+    },
+    {
+      "id": "CT-08",
+      "future_visible_slot": "08",
+      "name": "Indigo",
+      "name_ru": "Индиго",
+      "accent": "#8F86FF",
+      "legacy_theme_ids": [
+        "08"
+      ],
+      "legacy_sources": [
+        {
+          "legacy_theme_id": "08",
+          "legacy_name": "Compact Operator",
+          "legacy_color_name_ru": "Сине-фиолетовый / индиго"
+        }
+      ],
+      "role_vector_status": "TARGET_COLOR_AUTHORITY_ACTIVE / BROAD_V685_RUNTIME_PROJECTION_REJECTED / AUTHORED_DESIGN_BASELINE_RECOVERED",
+      "design_ownership": false
+    },
+    {
+      "id": "CT-09",
+      "future_visible_slot": "09",
+      "name": "Teal",
+      "name_ru": "Бирюзовый",
+      "accent": "#58C7B4",
+      "legacy_theme_ids": [
+        "09"
+      ],
+      "legacy_sources": [
+        {
+          "legacy_theme_id": "09",
+          "legacy_name": "Modular Dashboard",
+          "legacy_color_name_ru": "Бирюзово-мятный / Modular Teal"
+        }
+      ],
+      "role_vector_status": "TARGET_COLOR_AUTHORITY_ACTIVE / BROAD_V685_RUNTIME_PROJECTION_REJECTED / AUTHORED_DESIGN_BASELINE_RECOVERED",
+      "design_ownership": false
+    },
+    {
+      "id": "CT-10",
+      "future_visible_slot": "10",
+      "name": "Muted Gold",
+      "name_ru": "Приглушённое золото",
+      "accent": "#C5A15A",
+      "legacy_theme_ids": [
+        "13"
+      ],
+      "legacy_sources": [
+        {
+          "legacy_theme_id": "13",
+          "legacy_name": "Black / Gold Emblematic",
+          "legacy_color_name_ru": "Ярко-золотой / жёлто-золотой"
+        }
+      ],
+      "role_vector_status": "TARGET_COLOR_AUTHORITY_ACTIVE / OWNER_STANDARDIZED_CYCLE0463 / NO_EMBLEMATIC_COLOR_SELECTOR_EXCEPTION",
+      "design_ownership": false
+    }
+  ],
+  "extension_contract": {
+    "next_id_policy": "Append a new CT-NN identity; do not clone design variants.",
+    "required_minimum_authority": [
+      "unique color identity/accent anchor",
+      "semantic role-vector plan",
+      "contrast/accessibility review"
+    ],
+    "combinations_formula": "COLOR_THEME_COUNT × each independent design family catalog; page families remain independently selectable."
+  }
+}

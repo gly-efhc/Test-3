@@ -1,0 +1,79 @@
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+
+import { useAuthOwnerGlobalId } from "../auth/AuthSessionProvider";
+import {
+  claimTask,
+  getMyTasks,
+  getTaskEarnings,
+  getTasksCatalog,
+} from "../services/tasks.service";
+import type { GlobalId } from "../types/identity";
+import { queryKeys } from "./queryKeys";
+
+async function invalidateTaskState(
+  queryClient: ReturnType<typeof useQueryClient>,
+  globalId: GlobalId | null,
+): Promise<void> {
+  await Promise.all([
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.tasks.mine(globalId),
+    }),
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.snapshot.current(globalId),
+    }),
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.tasks.earnings(globalId),
+    }),
+  ]);
+}
+
+export function useTasksCatalog() {
+  return useQuery({
+    queryKey: queryKeys.tasks.catalog,
+    staleTime: 60_000,
+    queryFn: getTasksCatalog,
+  });
+}
+
+export function useTaskEarnings() {
+  const globalId = useAuthOwnerGlobalId();
+  return useQuery({
+    queryKey: queryKeys.tasks.earnings(globalId),
+    enabled: Boolean(globalId),
+    staleTime: 10_000,
+    queryFn: getTaskEarnings,
+  });
+}
+
+export function useMyTasks() {
+  const globalId = useAuthOwnerGlobalId();
+  return useQuery({
+    queryKey: queryKeys.tasks.mine(globalId),
+    enabled: Boolean(globalId),
+    staleTime: 10_000,
+    queryFn: getMyTasks,
+  });
+}
+
+export function useClaimTask() {
+  const globalId = useAuthOwnerGlobalId();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: claimTask,
+    onSuccess: async () => {
+      await invalidateTaskState(queryClient, globalId);
+    },
+  });
+}
+
+export function useRefreshTaskState() {
+  const globalId = useAuthOwnerGlobalId();
+  const queryClient = useQueryClient();
+  return async (): Promise<void> => {
+    await invalidateTaskState(queryClient, globalId);
+  };
+}

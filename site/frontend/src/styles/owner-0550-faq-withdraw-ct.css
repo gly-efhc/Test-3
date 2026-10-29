@@ -1,0 +1,90 @@
+/* OWNER 0550 — CT chroma for sixth FAQ selection (physical FQ-13),
+   fifth Withdraw selection (physical WD-13), and public bottom navigation.
+   Selection IDs are not runtime data-* style IDs. No Admin or finance state changes. */
+
+/* The entire FQ-13 inner tree inherits active CT, including previously blue
+   question frames, section/subsection rails, index buttons and answer dividers. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-faq-shell[data-fq="FQ-13"],#faqPage[data-fq="FQ-13"]) {
+  --fq-accent:var(--efhc-ct-accent);
+  --fq-edge:rgba(var(--efhc-ct-accent-rgb),.32);
+  --efhc-theme-accent:var(--efhc-ct-accent);
+  --efhc-theme-edge:var(--fq-edge);
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-faq-shell[data-fq="FQ-13"],#faqPage[data-fq="FQ-13"]) :is(
+  .efhc-card,.efhc-faq-search-zone,.efhc-faq-search-control,
+  .efhc-faq-section-node,.efhc-faq-subsection-node,.efhc-faq-question-node,
+  .standalone-faq-search-field,.standalone-faq-index-row,.standalone-faq-back,
+  .release-faq-item,.release-faq-subsection,.release-faq-question,
+  .source-card,.source-field
+) { border-color:var(--fq-edge)!important; }
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-faq-shell[data-fq="FQ-13"],#faqPage[data-fq="FQ-13"]) :is(
+  .efhc-faq-answer-block,.release-faq-answer
+) { border-color:rgba(var(--efhc-ct-accent-rgb),.24)!important; }
+
+/* No inherited physical WD-13 gold or blue may own decorative chroma.
+   Semantic payment amounts and statuses deliberately remain untouched. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-withdraw-shell[data-wd="WD-13"],#withdrawPage[data-wd="WD-13"]) {
+  --efhc-theme-accent:var(--efhc-ct-accent);
+  --efhc-theme-edge:rgba(var(--efhc-ct-accent-rgb),.29);
+  --wd-accent:var(--efhc-ct-accent);
+  --wd-edge:rgba(var(--efhc-ct-accent-rgb),.29);
+  --wd-soft:rgba(var(--efhc-ct-accent-rgb),.055);
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-withdraw-shell[data-wd="WD-13"],#withdrawPage[data-wd="WD-13"]) :is(
+  .efhc-withdraw-hero,.efhc-card,.efhc-withdraw-requests-history,
+  .source-game-hero,.source-card,.source-input,.efhc-input,
+  .efhc-withdraw-summary-list,.standalone-withdraw-summary-list
+) { border-color:rgba(var(--efhc-ct-accent-rgb),.29)!important; }
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-withdraw-shell[data-wd="WD-13"],#withdrawPage[data-wd="WD-13"]) :is(
+  .efhc-withdraw-summary-row,.standalone-withdraw-summary-row,
+  .standalone-withdraw-history-export
+) { border-color:rgba(var(--efhc-ct-accent-rgb),.22)!important; }
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-withdraw-shell[data-wd="WD-13"],#withdrawPage[data-wd="WD-13"]) :is(
+  .efhc-history-filter,.source-button.secondary,.efhc-withdraw-max-cta
+):not(.efhc-history-filter--active) {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;
+  background-color:rgba(var(--efhc-ct-accent-rgb),.045)!important;
+  background-image:none!important;
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-withdraw-shell[data-wd="WD-13"],#withdrawPage[data-wd="WD-13"])
+.efhc-history-filter--active {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.56)!important;
+  background-color:rgba(var(--efhc-ct-accent-rgb),.16)!important;
+  background-image:none!important;
+  color:var(--efhc-ct-accent)!important;
+}
+
+/* Withdraw only: remove obsolete hero arrow and right-corner decoration
+   while preserving border, typography, children, and layout of every WD style. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"]
+:is(.efhc-withdraw-shell .efhc-withdraw-hero,#withdrawPage .standalone-withdraw-hero) {
+  background-image:none!important;
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"]
+.efhc-withdraw-shell .efhc-withdraw-hero .efhc-game-hero_glow { display:none!important; }
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"]
+:is(.efhc-withdraw-shell .efhc-withdraw-hero,#withdrawPage .standalone-withdraw-hero)::before,
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"]
+:is(.efhc-withdraw-shell .efhc-withdraw-hero,#withdrawPage .standalone-withdraw-hero)::after {
+  content:none!important;
+}
+
+/* Bottom navigation is a shared USER surface. Only chroma changes, never
+   BN geometry, shadow, hit areas, or icon shapes. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-game-nav,.efhc-game-nav_grid) {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-game-nav_grid .efhc-game-nav_item[data-active="true"] {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.38)!important;
+  background-color:rgba(var(--efhc-ct-accent-rgb),.10)!important;
+}

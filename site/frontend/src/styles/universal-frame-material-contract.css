@@ -1,0 +1,90 @@
+/* FRONTEND_ADMIN_CYCLE_0461 — external-audit frame/material ownership recovery.
+   DESIGN owns geometry/topology/material anatomy. Color Theme supplies only
+   semantic chroma operands through inherited --efhc-ct-* variables.
+   This file intentionally has no [data-color-theme-id] selector ownership. */
+
+/* Referrals copy-link action: geometry and shadow presence are DESIGN/state-owned. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+.efhc-referrals-shell[data-rg] [data-referral-action="copy-link"],
+.efhc-independent-shell[data-interface-app-mode="user"]
+#referralsPage[data-rg] #copyReferral {
+  box-shadow:none!important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"]
+.efhc-referrals-shell[data-rg] [data-referral-action="copy-link"]:hover,
+.efhc-independent-shell[data-interface-app-mode="user"]
+#referralsPage[data-rg] #copyReferral:hover {
+  box-shadow:none!important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"]
+.efhc-referrals-shell[data-rg] [data-referral-action="copy-link"]:focus-visible,
+.efhc-independent-shell[data-interface-app-mode="user"]
+#referralsPage[data-rg] #copyReferral:focus-visible {
+  outline-width:2px;
+  outline-style:solid;
+  outline-offset:3px;
+  box-shadow:none!important;
+}
+
+/* RG-03 material topology: DESIGN owns gradient geometry and shadow anatomy;
+   CT only supplies --efhc-ct-accent-rgb at runtime. */
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell[data-rg="RG-03"] {
+  background-image:radial-gradient(520px 220px at 100% 0px,rgba(var(--efhc-ct-accent-rgb),.12),rgba(0,0,0,0) 72%);
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell[data-rg="RG-03"] .efhc-game-hero {
+  background-image:radial-gradient(360px 150px at 100% 0px,rgba(var(--efhc-ct-accent-rgb),.10),rgba(0,0,0,0) 72%);
+  box-shadow:rgba(var(--efhc-ct-accent-rgb),.08) 0 0 0 1px inset,rgba(0,0,0,.26) 0 14px 34px 0;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell[data-rg="RG-03"] .efhc-card {
+  background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),.024),rgba(0,0,0,0) 58%);
+  box-shadow:rgba(var(--efhc-ct-accent-rgb),.08) 0 0 0 1px inset,rgba(0,0,0,.26) 0 14px 34px 0;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell[data-rg="RG-03"] .efhc-list-row,
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell[data-rg="RG-03"] .efhc-referrals-tabs,
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell[data-rg="RG-03"] .efhc-referrals-link-card {
+  box-shadow:rgba(var(--efhc-ct-accent-rgb),.08) 0 0 0 1px inset,rgba(0,0,0,.26) 0 14px 34px 0;
+}
+
+/* Remaining audited shadow anatomy moved out of Color Theme selector ownership.
+   Per-design intensity/topology is preserved exactly; only the chroma operand is inherited. */
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-profile-page[data-wg] .efhc-profile-action-card {
+  box-shadow:var(--wg-shadow)!important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-ranks-shell[data-kg="KG-03"] :is(.efhc-game-hero,.efhc-rank-card,.efhc-ranks-me-card) {
+  box-shadow:rgba(var(--efhc-ct-accent-rgb),.08) 0 0 0 1px inset,rgba(0,0,0,.26) 0 14px 34px 0;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-ranks-shell[data-kg="KG-09"] .efhc-game-hero {
+  box-shadow:rgba(var(--efhc-ct-accent-rgb),.24) 0 0 0 1px inset;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-panels-page[data-ph="PH-03"] .panels-hero {
+  box-shadow:rgba(var(--efhc-ct-accent-rgb),.22) 0 0 0 1px inset,rgba(0,0,0,.26) 0 14px 34px 0;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-panels-tabs[data-pt="PT-10"] > .efhc-btn-primary {
+  box-shadow:rgb(var(--efhc-ct-accent-rgb)) 0 -2px 0 0 inset;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-exchange-shell[data-xh="XH-01"] .efhc-game-hero {
+  box-shadow:rgba(var(--efhc-ct-accent-rgb),.20) 0 0 0 1px inset;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-exchange-shell[data-xh="XH-02"] .efhc-game-hero,
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-exchange-shell[data-xh="XH-03"] .efhc-game-hero {
+  box-shadow:rgba(var(--efhc-ct-accent-rgb),.24) 0 0 0 1px inset;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-exchange-hero[data-xh="XH-03"] {
+  box-shadow:rgba(var(--efhc-ct-accent-rgb),.22) 0 0 0 1px inset,rgba(0,0,0,.26) 0 14px 34px 0;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-exchange-hero[data-xh="XH-09"] {
+  box-shadow:rgba(var(--efhc-ct-accent-rgb),.22) 0 0 0 1px inset;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-tasks-shell[data-tg="TG-01"] .efhc-game-hero {
+  box-shadow:rgba(var(--efhc-ct-accent-rgb),.20) 0 0 0 1px inset;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-tasks-shell[data-tg="TG-02"] .efhc-game-hero,
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-tasks-shell[data-tg="TG-03"] .efhc-game-hero {
+  box-shadow:rgba(var(--efhc-ct-accent-rgb),.24) 0 0 0 1px inset;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-tasks-shell[data-tg="TG-10"] .efhc-game-hero {
+  box-shadow:rgba(var(--efhc-ct-accent-rgb),.18) 0 0 0 1px inset;
+}

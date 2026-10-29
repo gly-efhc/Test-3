@@ -1,0 +1,3934 @@
+{
+  "schema": "EFHC_UNIVERSAL_DESIGN_REGISTRY_V1",
+  "release_base": "FRONTEND_v737 / PR9 recovery stage (not merged)",
+  "owner_cycle": "FRONTEND_ADMIN_CYCLE_0471",
+  "status": "OWNER_0562_CURRENT_236_DESIGNS_PRESENTATION_ALIASES_REMOVED_VISUAL_CERTIFICATION_PARTIAL",
+  "source_registry": "frontend/src/lib/interfaceVariantRegistry.ts",
+  "source_global_theme_matrix": "frontend/src/lib/globalThemeRegistry.ts",
+  "laws": {
+    "all_existing_variant_ids_preserved": false,
+    "color_is_not_design_identity": true,
+    "legacy_theme_id_is_not_design_id": true,
+    "new_color_must_not_create_cloned_design_ids": true,
+    "design_deletion_requires_owner_and_rendered_equivalence_proof": true,
+    "theme03_common_default_is_default_only": true,
+    "retired_choices_removed_only_with_owner_authorization": true
+  },
+  "counts": {
+    "registry_groups_total": 29,
+    "registry_variant_tokens_total": 236,
+    "protected_admin_variants": 12,
+    "semantic_variant_tokens_SC": 4,
+    "design_owned_non_admin_variants": 220,
+    "legacy_global_theme_design_families": 21,
+    "legacy_global_theme_hard_bindings": 273,
+    "design_owned_outside_legacy_global_matrix": 59,
+    "theme03_common_default_bindings": 21,
+    "hard_binding_reduction_factor_when_decoupled": 13
+  },
+  "groups": [
+    {
+      "group": "SC",
+      "label": "Status colour",
+      "ownership_class": "SEMANTIC",
+      "scope": "INTERNAL_SEMANTIC",
+      "migration_disposition": "KEEP_SEMANTIC",
+      "variant_count": 4,
+      "variants": [
+        {
+          "id": "SC-01",
+          "ownership_class": "SEMANTIC",
+          "subtype": "PROTECTED_SEMANTIC",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "SC-02",
+          "ownership_class": "SEMANTIC",
+          "subtype": "PROTECTED_SEMANTIC",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "SC-03",
+          "ownership_class": "SEMANTIC",
+          "subtype": "PROTECTED_SEMANTIC",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/admin-theme03-canon.json",
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/styles/admin-theme03-canon.css",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "SC-04",
+          "ownership_class": "SEMANTIC",
+          "subtype": "PROTECTED_SEMANTIC",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        }
+      ],
+      "legacy_theme_slots": {},
+      "theme03_default": null
+    },
+    {
+      "group": "HB",
+      "label": "Header balance sub-variant",
+      "ownership_class": "DESIGN",
+      "scope": "INTERNAL_DESIGN",
+      "migration_disposition": "PRESERVE_INTERNAL",
+      "variant_count": 11,
+      "variants": [
+        {
+          "id": "HB-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "HB-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "HB-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/admin-theme03-canon.json",
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/admin-theme03-canon.css",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme03-shell-chroma.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "HB-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "HB-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "HB-06",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "HB-07",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "HB-08"
+        },
+        {
+          "id": "HB-08",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "HB-09"
+        },
+        {
+          "id": "HB-09",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "HB-11"
+        },
+        {
+          "id": "HB-10",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "HB-12"
+        },
+        {
+          "id": "HB-11",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/theme04-base-fail-provenance-a.json",
+            "frontend/src/design-system/theme04-base-fail-provenance-b.json",
+            "frontend/src/design-system/theme04-base-fail-provenance-c.json",
+            "frontend/src/design-system/theme04-base-fail-provenance-d.json",
+            "frontend/src/design-system/theme04-owner-visual-correction.json",
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme04-bounded-chroma-corrections.css"
+          ],
+          "preserve": true,
+          "render_style_id": "HB-13"
+        }
+      ],
+      "legacy_theme_slots": {},
+      "theme03_default": null
+    },
+    {
+      "group": "HS",
+      "label": "Header shell",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "UNIVERSALIZE",
+      "variant_count": 6,
+      "variants": [
+        {
+          "id": "HS-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "03"
+          ],
+          "source_files": [
+            "frontend/src/components/GlobalHeader.tsx",
+            "frontend/src/design-system/admin-theme03-canon.json",
+            "frontend/src/design-system/global-theme-protection-contract.json",
+            "frontend/src/design-system/theme03-chroma.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/admin-theme03-canon.css",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme03-shell-chroma.css"
+          ],
+          "preserve": true,
+          "render_style_id": "HS-03"
+        },
+        {
+          "id": "HS-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "06"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "HS-06"
+        },
+        {
+          "id": "HS-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "07"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "HS-07"
+        },
+        {
+          "id": "HS-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "10"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "HS-10"
+        },
+        {
+          "id": "HS-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "11"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "HS-11"
+        },
+        {
+          "id": "HS-06",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "13"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/headerThemeComposition.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "HS-13"
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "HS-01",
+        "02": "HS-02",
+        "03": "HS-03",
+        "04": "HS-04",
+        "05": "HS-05",
+        "06": "HS-06",
+        "07": "HS-07",
+        "08": "HS-08",
+        "09": "HS-09",
+        "10": "HS-10",
+        "11": "HS-11",
+        "12": "HS-12",
+        "13": "HS-13"
+      },
+      "theme03_default": "HS-03"
+    },
+    {
+      "group": "EG",
+      "label": "Energy frame",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "OWNER_RETIRE_SELECTABLE_IDS_KEEP_PHYSICAL_CSS",
+      "variant_count": 1,
+      "variants": [
+        {
+          "id": "EG-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "EG-01",
+        "02": "EG-02",
+        "03": "EG-03",
+        "04": "EG-04",
+        "05": "EG-05",
+        "06": "EG-06",
+        "07": "EG-07",
+        "08": "EG-08",
+        "09": "EG-09",
+        "10": "EG-10",
+        "11": "EG-11",
+        "12": "EG-12",
+        "13": "EG-13"
+      },
+      "theme03_default": "EG-01"
+    },
+    {
+      "group": "BN",
+      "label": "Bottom navigation",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED_PLUS_LOCAL",
+      "migration_disposition": "OWNER_RETIRE_SELECTABLE_IDS_KEEP_PHYSICAL_CSS",
+      "variant_count": 5,
+      "variants": [
+        {
+          "id": "BN-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "02"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "BN-02"
+        },
+        {
+          "id": "BN-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "BN-01"
+        },
+        {
+          "id": "BN-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "03"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme03-shell-chroma.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "BN-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "10"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "BN-10"
+        },
+        {
+          "id": "BN-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "13"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "BN-13"
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "BN-01",
+        "02": "BN-02",
+        "03": "BN-03",
+        "04": "BN-04",
+        "05": "BN-05",
+        "06": "BN-06",
+        "07": "BN-07",
+        "08": "BN-08",
+        "09": "BN-09",
+        "10": "BN-10",
+        "11": "BN-11",
+        "12": "BN-12",
+        "13": "BN-13"
+      },
+      "theme03_default": "BN-03"
+    },
+    {
+      "group": "EI",
+      "label": "Energy icon",
+      "ownership_class": "DESIGN",
+      "scope": "LOCAL_DESIGN",
+      "migration_disposition": "PRESERVE_LOCAL",
+      "variant_count": 1,
+      "variants": [
+        {
+          "id": "EI-07",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/components/ProfileModal.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/design-system/theme01-chroma-provenance-audit.json",
+            "frontend/src/design-system/theme02-chroma-provenance-audit.json",
+            "frontend/src/design-system/theme04-base-fail-provenance-c.json",
+            "frontend/src/lib/profileAvatar.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme01-bounded-chroma-corrections.css",
+            "frontend/src/styles/theme02-bounded-chroma-corrections.css"
+          ],
+          "preserve": true
+        }
+      ],
+      "legacy_theme_slots": {},
+      "theme03_default": null
+    },
+    {
+      "group": "PB",
+      "label": "Energy progress bar",
+      "ownership_class": "DESIGN",
+      "scope": "LOCAL_DESIGN_WITH_TRANSITIONAL_COLOR_STARTS",
+      "migration_disposition": "PRESERVE_LOCAL_DECOUPLE_CHROMA",
+      "variant_count": 33,
+      "variants": [
+        {
+          "id": "PB-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/pages/referrals.tsx",
+            "frontend/src/styles/global-theme-energy-progress-contract.css",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PB-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PB-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PB-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PB-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PB-06",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PB-07",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PB-08",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-09"
+        },
+        {
+          "id": "PB-09",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-10"
+        },
+        {
+          "id": "PB-10",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-11"
+        },
+        {
+          "id": "PB-11",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-12"
+        },
+        {
+          "id": "PB-12",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-13"
+        },
+        {
+          "id": "PB-13",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-14"
+        },
+        {
+          "id": "PB-14",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-15"
+        },
+        {
+          "id": "PB-15",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-16"
+        },
+        {
+          "id": "PB-16",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-18"
+        },
+        {
+          "id": "PB-17",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-19"
+        },
+        {
+          "id": "PB-18",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-20"
+        },
+        {
+          "id": "PB-19",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/pages/referrals.tsx",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-21"
+        },
+        {
+          "id": "PB-20",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-22"
+        },
+        {
+          "id": "PB-21",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-23"
+        },
+        {
+          "id": "PB-22",
+          "ownership_class": "DESIGN",
+          "subtype": "TRANSITIONAL_COLOR_LINKED_START",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-24"
+        },
+        {
+          "id": "PB-23",
+          "ownership_class": "DESIGN",
+          "subtype": "TRANSITIONAL_COLOR_LINKED_START",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-25"
+        },
+        {
+          "id": "PB-24",
+          "ownership_class": "DESIGN",
+          "subtype": "TRANSITIONAL_COLOR_LINKED_START",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-26"
+        },
+        {
+          "id": "PB-25",
+          "ownership_class": "DESIGN",
+          "subtype": "TRANSITIONAL_COLOR_LINKED_START",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-27"
+        },
+        {
+          "id": "PB-26",
+          "ownership_class": "DESIGN",
+          "subtype": "TRANSITIONAL_COLOR_LINKED_START",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-28"
+        },
+        {
+          "id": "PB-27",
+          "ownership_class": "DESIGN",
+          "subtype": "TRANSITIONAL_COLOR_LINKED_START",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-29"
+        },
+        {
+          "id": "PB-28",
+          "ownership_class": "DESIGN",
+          "subtype": "TRANSITIONAL_COLOR_LINKED_START",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-30"
+        },
+        {
+          "id": "PB-29",
+          "ownership_class": "DESIGN",
+          "subtype": "TRANSITIONAL_COLOR_LINKED_START",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-31"
+        },
+        {
+          "id": "PB-30",
+          "ownership_class": "DESIGN",
+          "subtype": "TRANSITIONAL_COLOR_LINKED_START",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-32"
+        },
+        {
+          "id": "PB-31",
+          "ownership_class": "DESIGN",
+          "subtype": "TRANSITIONAL_COLOR_LINKED_START",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-33"
+        },
+        {
+          "id": "PB-32",
+          "ownership_class": "DESIGN",
+          "subtype": "TRANSITIONAL_COLOR_LINKED_START",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-34"
+        },
+        {
+          "id": "PB-33",
+          "ownership_class": "DESIGN",
+          "subtype": "TRANSITIONAL_COLOR_LINKED_START",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-35"
+        }
+      ],
+      "legacy_theme_slots": {},
+      "theme03_default": null
+    },
+    {
+      "group": "RP",
+      "label": "Referrals progress bar",
+      "ownership_class": "DESIGN",
+      "scope": "LOCAL_DESIGN_SHARED_PB_TOKEN_NAMESPACE",
+      "migration_disposition": "PRESERVE_LOCAL_SHARED_PB35_ACTIVE",
+      "variant_count": 33,
+      "variants": [
+        {
+          "id": "RP-01",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/pages/referrals.tsx",
+            "frontend/src/styles/global-theme-energy-progress-contract.css",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-01"
+        },
+        {
+          "id": "RP-02",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-02"
+        },
+        {
+          "id": "RP-03",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-03"
+        },
+        {
+          "id": "RP-04",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-04"
+        },
+        {
+          "id": "RP-05",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-05"
+        },
+        {
+          "id": "RP-06",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-06"
+        },
+        {
+          "id": "RP-07",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-07"
+        },
+        {
+          "id": "RP-08",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-09"
+        },
+        {
+          "id": "RP-09",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-10"
+        },
+        {
+          "id": "RP-10",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-11"
+        },
+        {
+          "id": "RP-11",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-12"
+        },
+        {
+          "id": "RP-12",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-13"
+        },
+        {
+          "id": "RP-13",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-14"
+        },
+        {
+          "id": "RP-14",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-15"
+        },
+        {
+          "id": "RP-15",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-16"
+        },
+        {
+          "id": "RP-16",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-18"
+        },
+        {
+          "id": "RP-17",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-19"
+        },
+        {
+          "id": "RP-18",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-20"
+        },
+        {
+          "id": "RP-19",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/pages/referrals.tsx",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-21"
+        },
+        {
+          "id": "RP-20",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-22"
+        },
+        {
+          "id": "RP-21",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-23"
+        },
+        {
+          "id": "RP-22",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-24"
+        },
+        {
+          "id": "RP-23",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-25"
+        },
+        {
+          "id": "RP-24",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-26"
+        },
+        {
+          "id": "RP-25",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-27"
+        },
+        {
+          "id": "RP-26",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-28"
+        },
+        {
+          "id": "RP-27",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-29"
+        },
+        {
+          "id": "RP-28",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-30"
+        },
+        {
+          "id": "RP-29",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-31"
+        },
+        {
+          "id": "RP-30",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-32"
+        },
+        {
+          "id": "RP-31",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-33"
+        },
+        {
+          "id": "RP-32",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-34"
+        },
+        {
+          "id": "RP-33",
+          "ownership_class": "DESIGN",
+          "subtype": "SHARED_TOKEN_NAMESPACE_WITH_PB",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/design-system/global-theme-energy-progress-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/global-theme-energy-progress-contract.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PB-35"
+        }
+      ],
+      "legacy_theme_slots": {},
+      "theme03_default": null
+    },
+    {
+      "group": "PH",
+      "label": "Panels hero",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "OWNER_RETIRE_SELECTABLE_IDS_KEEP_PHYSICAL_CSS",
+      "variant_count": 6,
+      "variants": [
+        {
+          "id": "PH-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PH-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "02"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PH-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "03"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme03-panels-exchange-chroma.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PH-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "04"
+          ],
+          "source_files": [
+            "frontend/src/design-system/theme04-owner-visual-correction.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme04-bounded-chroma-corrections.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PH-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "10"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PH-10"
+        },
+        {
+          "id": "PH-06",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "12"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PH-12"
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "PH-01",
+        "02": "PH-02",
+        "03": "PH-03",
+        "04": "PH-04",
+        "05": "PH-05",
+        "06": "PH-06",
+        "07": "PH-07",
+        "08": "PH-08",
+        "09": "PH-09",
+        "10": "PH-10",
+        "11": "PH-11",
+        "12": "PH-12",
+        "13": "PH-13"
+      },
+      "theme03_default": "PH-03"
+    },
+    {
+      "group": "PT",
+      "label": "Panels portfolio tabs",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "OWNER_RETIRE_SELECTABLE_IDS_KEEP_PHYSICAL_CSS",
+      "variant_count": 5,
+      "variants": [
+        {
+          "id": "PT-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PT-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "02"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PT-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "03"
+          ],
+          "source_files": [
+            "frontend/src/design-system/theme03-chroma.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme03-panels-exchange-chroma.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PT-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "10"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PT-10"
+        },
+        {
+          "id": "PT-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "11"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PT-11"
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "PT-01",
+        "02": "PT-02",
+        "03": "PT-03",
+        "04": "PT-04",
+        "05": "PT-05",
+        "06": "PT-06",
+        "07": "PT-07",
+        "08": "PT-08",
+        "09": "PT-09",
+        "10": "PT-10",
+        "11": "PT-11",
+        "12": "PT-12",
+        "13": "PT-13"
+      },
+      "theme03_default": "PT-03"
+    },
+    {
+      "group": "PC",
+      "label": "Panels cards",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "OWNER_RETIRE_SELECTABLE_IDS_KEEP_PHYSICAL_CSS",
+      "variant_count": 9,
+      "variants": [
+        {
+          "id": "PC-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PC-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "02"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PC-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "03"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme03-panels-exchange-chroma.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PC-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "04"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PC-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "05"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PC-06",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "06"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PC-07",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "08"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PC-08"
+        },
+        {
+          "id": "PC-08",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "09"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme03-panels-exchange-chroma.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PC-09"
+        },
+        {
+          "id": "PC-09",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "10"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PC-10"
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "PC-01",
+        "02": "PC-02",
+        "03": "PC-03",
+        "04": "PC-04",
+        "05": "PC-05",
+        "06": "PC-06",
+        "07": "PC-07",
+        "08": "PC-08",
+        "09": "PC-09",
+        "10": "PC-10",
+        "11": "PC-11",
+        "12": "PC-12",
+        "13": "PC-13"
+      },
+      "theme03_default": "PC-03"
+    },
+    {
+      "group": "PA",
+      "label": "Panels activation",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "OWNER_RETIRE_SELECTABLE_IDS_KEEP_PHYSICAL_CSS",
+      "variant_count": 6,
+      "variants": [
+        {
+          "id": "PA-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PA-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "02"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PA-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "04"
+          ],
+          "source_files": [
+            "frontend/src/design-system/theme04-base-fail-provenance-a.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme04-bounded-chroma-corrections.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PA-04"
+        },
+        {
+          "id": "PA-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "10"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PA-10"
+        },
+        {
+          "id": "PA-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "11"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PA-11"
+        },
+        {
+          "id": "PA-06",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "12"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "PA-12"
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "PA-01",
+        "02": "PA-02",
+        "03": "PA-03",
+        "04": "PA-04",
+        "05": "PA-05",
+        "06": "PA-06",
+        "07": "PA-07",
+        "08": "PA-08",
+        "09": "PA-09",
+        "10": "PA-10",
+        "11": "PA-11",
+        "12": "PA-12",
+        "13": "PA-13"
+      },
+      "theme03_default": "PA-02"
+    },
+    {
+      "group": "XH",
+      "label": "Exchange hero",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED_PLUS_LOCAL",
+      "migration_disposition": "UNIVERSALIZE",
+      "variant_count": 6,
+      "variants": [
+        {
+          "id": "XH-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "XH-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "02"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "XH-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "04"
+          ],
+          "source_files": [
+            "frontend/src/design-system/theme04-base-fail-provenance-a.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme04-bounded-chroma-corrections.css"
+          ],
+          "preserve": true,
+          "render_style_id": "XH-04"
+        },
+        {
+          "id": "XH-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "07"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "XH-07"
+        },
+        {
+          "id": "XH-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "10"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "XH-10"
+        },
+        {
+          "id": "XH-06",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "12"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "XH-12"
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "XH-01",
+        "02": "XH-02",
+        "03": "XH-03",
+        "04": "XH-04",
+        "05": "XH-05",
+        "06": "XH-06",
+        "07": "XH-07",
+        "08": "XH-08",
+        "09": "XH-09",
+        "10": "XH-10",
+        "11": "XH-11",
+        "12": "XH-12",
+        "13": "XH-13"
+      },
+      "theme03_default": "XH-01",
+      "legacy_runtime_ids_preserved": true
+    },
+    {
+      "group": "XS",
+      "label": "Exchange stats",
+      "ownership_class": "DESIGN",
+      "scope": "LOCAL_DESIGN",
+      "migration_disposition": "PRESERVE_LOCAL",
+      "variant_count": 1,
+      "variants": [
+        {
+          "id": "XS-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        }
+      ],
+      "legacy_theme_slots": {},
+      "theme03_default": "XS-01",
+      "legacy_runtime_ids_preserved": true
+    },
+    {
+      "group": "XC",
+      "label": "Exchange card",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED_PLUS_LOCAL",
+      "migration_disposition": "UNIVERSALIZE",
+      "variant_count": 1,
+      "variants": [
+        {
+          "id": "XC-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "XC-01",
+        "02": "XC-02",
+        "03": "XC-03",
+        "04": "XC-04",
+        "05": "XC-05",
+        "06": "XC-06",
+        "07": "XC-07",
+        "08": "XC-08",
+        "09": "XC-09",
+        "10": "XC-10",
+        "11": "XC-11",
+        "12": "XC-12",
+        "13": "XC-13"
+      },
+      "theme03_default": "XC-01",
+      "legacy_runtime_ids_preserved": true
+    },
+    {
+      "group": "XA",
+      "label": "Exchange action",
+      "ownership_class": "DESIGN",
+      "scope": "LOCAL_DESIGN",
+      "migration_disposition": "PRESERVE_LOCAL",
+      "variant_count": 1,
+      "variants": [
+        {
+          "id": "XA-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        }
+      ],
+      "legacy_theme_slots": {},
+      "theme03_default": "XA-01",
+      "legacy_runtime_ids_preserved": true
+    },
+    {
+      "group": "TG",
+      "label": "Tasks",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "OWNER_RETIRE_SELECTABLE_IDS_KEEP_PHYSICAL_CSS",
+      "variant_count": 4,
+      "variants": [
+        {
+          "id": "TG-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "TG-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "02"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "TG-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "03"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme03-tasks-referrals-chroma.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "TG-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "09"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "TG-09"
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "TG-01",
+        "02": "TG-02",
+        "03": "TG-03",
+        "04": "TG-04",
+        "05": "TG-05",
+        "06": "TG-06",
+        "07": "TG-07",
+        "08": "TG-08",
+        "09": "TG-09",
+        "10": "TG-10",
+        "11": "TG-11",
+        "12": "TG-12",
+        "13": "TG-13"
+      },
+      "theme03_default": "TG-03"
+    },
+    {
+      "group": "RG",
+      "label": "Referrals",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "UNIVERSALIZE",
+      "variant_count": 13,
+      "variants": [
+        {
+          "id": "RG-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "RG-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "02"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "RG-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "03"
+          ],
+          "source_files": [
+            "frontend/src/design-system/global-theme-protection-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme03-tasks-referrals-chroma.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "RG-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "04"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme04-bounded-chroma-corrections.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "RG-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "05"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "RG-06",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "06"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "RG-07",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "07"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "RG-08",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "08"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "RG-09",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "09"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "RG-10",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "10"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "RG-11",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "11"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "RG-12",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "12"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "RG-13",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "13"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "RG-01",
+        "02": "RG-02",
+        "03": "RG-03",
+        "04": "RG-04",
+        "05": "RG-05",
+        "06": "RG-06",
+        "07": "RG-07",
+        "08": "RG-08",
+        "09": "RG-09",
+        "10": "RG-10",
+        "11": "RG-11",
+        "12": "RG-12",
+        "13": "RG-13"
+      },
+      "theme03_default": "RG-03"
+    },
+    {
+      "group": "KG",
+      "label": "Ranks",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "UNIVERSALIZE",
+      "variant_count": 10,
+      "variants": [
+        {
+          "id": "KG-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "KG-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "02"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "KG-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "03"
+          ],
+          "source_files": [
+            "frontend/src/design-system/global-theme-protection-contract.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/settings.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme03-ranks-profile-chroma.css",
+            "frontend/src/styles/theme03-ranks-shared-action-correction.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "KG-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "04"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme04-bounded-chroma-corrections.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "KG-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "05"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "KG-06",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "06"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "KG-07",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "07"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "KG-08",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "08"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "KG-09",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "09"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "KG-10",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "10"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "KG-01",
+        "02": "KG-02",
+        "03": "KG-03",
+        "04": "KG-04",
+        "05": "KG-05",
+        "06": "KG-06",
+        "07": "KG-07",
+        "08": "KG-08",
+        "09": "KG-09",
+        "10": "KG-10",
+        "11": "KG-11",
+        "12": "KG-12",
+        "13": "KG-13"
+      },
+      "theme03_default": "KG-03"
+    },
+    {
+      "group": "WG",
+      "label": "Web profile / wallet",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "UNIVERSALIZE",
+      "variant_count": 1,
+      "variants": [
+        {
+          "id": "WG-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "WG-01",
+        "02": "WG-01",
+        "03": "WG-01",
+        "04": "WG-01",
+        "05": "WG-01",
+        "06": "WG-01",
+        "07": "WG-01",
+        "08": "WG-01",
+        "09": "WG-01",
+        "10": "WG-01",
+        "11": "WG-01",
+        "12": "WG-01",
+        "13": "WG-01"
+      },
+      "theme03_default": "WG-01"
+    },
+    {
+      "group": "HU",
+      "label": "HUB",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "UNIVERSALIZE",
+      "variant_count": 1,
+      "variants": [
+        {
+          "id": "HU-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "HU-01",
+        "02": "HU-02",
+        "03": "HU-03",
+        "04": "HU-04",
+        "05": "HU-05",
+        "06": "HU-06",
+        "07": "HU-07",
+        "08": "HU-08",
+        "09": "HU-09",
+        "10": "HU-10",
+        "11": "HU-11",
+        "12": "HU-12",
+        "13": "HU-13"
+      },
+      "theme03_default": "HU-03"
+    },
+    {
+      "group": "FQ",
+      "label": "FAQ",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "UNIVERSALIZE",
+      "variant_count": 6,
+      "variants": [
+        {
+          "id": "FQ-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/pages/faq.tsx",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "FQ-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "02"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/pages/faq.tsx",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "FQ-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "03"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/pages/faq.tsx",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme03-faq-chroma.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "FQ-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "04"
+          ],
+          "source_files": [
+            "frontend/src/design-system/theme04-base-fail-provenance-d.json",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/pages/faq.tsx",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme04-bounded-chroma-corrections.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "FQ-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "05"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/pages/faq.tsx",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "FQ-06",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "13"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "FQ-13"
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "FQ-01",
+        "02": "FQ-02",
+        "03": "FQ-03",
+        "04": "FQ-04",
+        "05": "FQ-05",
+        "06": "FQ-06",
+        "07": "FQ-07",
+        "08": "FQ-08",
+        "09": "FQ-09",
+        "10": "FQ-10",
+        "11": "FQ-11",
+        "12": "FQ-12",
+        "13": "FQ-13"
+      },
+      "theme03_default": "FQ-03"
+    },
+    {
+      "group": "PM",
+      "label": "Profile menu",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "UNIVERSALIZE",
+      "variant_count": 13,
+      "variants": [
+        {
+          "id": "PM-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PM-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "02"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PM-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "03"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/generated/theme03-chroma-tokens.css",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme03-ranks-profile-chroma.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PM-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "04"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme04-bounded-chroma-corrections.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PM-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "05"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PM-06",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "06"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PM-07",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "07"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PM-08",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "08"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PM-09",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "09"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PM-10",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "10"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PM-11",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "11"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PM-12",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "12"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "PM-13",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "13"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "PM-01",
+        "02": "PM-02",
+        "03": "PM-03",
+        "04": "PM-04",
+        "05": "PM-05",
+        "06": "PM-06",
+        "07": "PM-07",
+        "08": "PM-08",
+        "09": "PM-09",
+        "10": "PM-10",
+        "11": "PM-11",
+        "12": "PM-12",
+        "13": "PM-13"
+      },
+      "theme03_default": "PM-03"
+    },
+    {
+      "group": "HI",
+      "label": "History",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "UNIVERSALIZE",
+      "variant_count": 3,
+      "variants": [
+        {
+          "id": "HI-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "HI-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "03"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme03-balance-history-chroma.css"
+          ],
+          "preserve": true,
+          "render_style_id": "HI-03"
+        },
+        {
+          "id": "HI-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "04"
+          ],
+          "source_files": [
+            "frontend/src/components/profile/ProfileHistorySection.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme04-bounded-chroma-corrections.css"
+          ],
+          "preserve": true,
+          "render_style_id": "HI-04"
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "HI-01",
+        "02": "HI-01",
+        "03": "HI-03",
+        "04": "HI-04",
+        "05": "HI-01",
+        "06": "HI-01",
+        "07": "HI-01",
+        "08": "HI-03",
+        "09": "HI-01",
+        "10": "HI-01",
+        "11": "HI-01",
+        "12": "HI-01",
+        "13": "HI-04"
+      },
+      "theme03_default": "HI-03"
+    },
+    {
+      "group": "WD",
+      "label": "Withdraw",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "UNIVERSALIZE",
+      "variant_count": 5,
+      "variants": [
+        {
+          "id": "WD-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "WD-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "02"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "WD-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "06"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "WD-06"
+        },
+        {
+          "id": "WD-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "10"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "WD-10"
+        },
+        {
+          "id": "WD-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "13"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true,
+          "render_style_id": "WD-13"
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "WD-01",
+        "02": "WD-02",
+        "03": "WD-03",
+        "04": "WD-04",
+        "05": "WD-05",
+        "06": "WD-06",
+        "07": "WD-07",
+        "08": "WD-08",
+        "09": "WD-09",
+        "10": "WD-10",
+        "11": "WD-11",
+        "12": "WD-12",
+        "13": "WD-13"
+      },
+      "theme03_default": "WD-03"
+    },
+    {
+      "group": "AD",
+      "label": "Ads",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "UNIVERSALIZE",
+      "variant_count": 13,
+      "variants": [
+        {
+          "id": "AD-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "AD-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "02"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "AD-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "03"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme03-shell-chroma.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "AD-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "04"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme04-bounded-chroma-corrections.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "AD-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "05"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "AD-06",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "06"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "AD-07",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "07"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "AD-08",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "08"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "AD-09",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "09"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "AD-10",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "10"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "AD-11",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "11"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "AD-12",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "12"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "AD-13",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "13"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "AD-01",
+        "02": "AD-02",
+        "03": "AD-03",
+        "04": "AD-04",
+        "05": "AD-05",
+        "06": "AD-06",
+        "07": "AD-07",
+        "08": "AD-08",
+        "09": "AD-09",
+        "10": "AD-10",
+        "11": "AD-11",
+        "12": "AD-12",
+        "13": "AD-13"
+      },
+      "theme03_default": "AD-03"
+    },
+    {
+      "group": "BS",
+      "label": "Browser Shop",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "UNIVERSALIZE",
+      "variant_count": 13,
+      "variants": [
+        {
+          "id": "BS-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "BS-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "02"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "BS-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "03"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "BS-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "04"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme04-bounded-chroma-corrections.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "BS-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "05"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "BS-06",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "06"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "BS-07",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "07"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "BS-08",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "08"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "BS-09",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "09"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "BS-10",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "10"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "BS-11",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "11"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "BS-12",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "12"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "BS-13",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "13"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "BS-01",
+        "02": "BS-02",
+        "03": "BS-03",
+        "04": "BS-04",
+        "05": "BS-05",
+        "06": "BS-06",
+        "07": "BS-07",
+        "08": "BS-08",
+        "09": "BS-09",
+        "10": "BS-10",
+        "11": "BS-11",
+        "12": "BS-12",
+        "13": "BS-13"
+      },
+      "theme03_default": "BS-03"
+    },
+    {
+      "group": "ER",
+      "label": "Error pages",
+      "ownership_class": "DESIGN",
+      "scope": "GLOBAL_THEME_COUPLED",
+      "migration_disposition": "UNIVERSALIZE",
+      "variant_count": 13,
+      "variants": [
+        {
+          "id": "ER-01",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "01"
+          ],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/lib/interfaceVariantRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "ER-02",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "02"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "ER-03",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "03"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css",
+            "frontend/src/styles/theme03-shell-chroma.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "ER-04",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "04"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "ER-05",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "05"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "ER-06",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "06"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "ER-07",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "07"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "ER-08",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "08"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "ER-09",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "09"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "ER-10",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "10"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "ER-11",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "11"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "ER-12",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "12"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "ER-13",
+          "ownership_class": "DESIGN",
+          "subtype": "STANDARD",
+          "legacy_global_theme_ids": [
+            "13"
+          ],
+          "source_files": [
+            "frontend/src/lib/globalThemeRegistry.ts",
+            "frontend/src/styles/globals.css"
+          ],
+          "preserve": true
+        }
+      ],
+      "legacy_theme_slots": {
+        "01": "ER-01",
+        "02": "ER-02",
+        "03": "ER-03",
+        "04": "ER-04",
+        "05": "ER-05",
+        "06": "ER-06",
+        "07": "ER-07",
+        "08": "ER-08",
+        "09": "ER-09",
+        "10": "ER-10",
+        "11": "ER-11",
+        "12": "ER-12",
+        "13": "ER-13"
+      },
+      "theme03_default": "ER-03"
+    },
+    {
+      "group": "AM",
+      "label": "Admin",
+      "ownership_class": "DESIGN",
+      "scope": "ADMIN_FROZEN",
+      "migration_disposition": "EXCLUDED_PROTECTED",
+      "variant_count": 12,
+      "variants": [
+        {
+          "id": "AM-01",
+          "ownership_class": "DESIGN",
+          "subtype": "PROTECTED_ADMIN",
+          "legacy_global_theme_ids": [],
+          "source_files": [
+            "frontend/src/components/Layout.tsx",
+            "frontend/src/components/interface-settings/InterfaceCustomizationProvider.tsx",
+            "frontend/src/lib/interfaceVariantRegistry.ts"
+          ],
+          "preserve": true
+        },
+        {
+          "id": "AM-02",
+          "ownership_class": "DESIGN",
+          "subtype": "PROTECTED_ADMIN",
+          "legacy_global_theme_ids": [],
+          "source_files": [],
+          "preserve": true
+        },
+        {
+          "id": "AM-03",
+          "ownership_class": "DESIGN",
+          "subtype": "PROTECTED_ADMIN",
+          "legacy_global_theme_ids": [],
+          "source_files": [],
+          "preserve": true
+        },
+        {
+          "id": "AM-04",
+          "ownership_class": "DESIGN",
+          "subtype": "PROTECTED_ADMIN",
+          "legacy_global_theme_ids": [],
+          "source_files": [],
+          "preserve": true
+        },
+        {
+          "id": "AM-05",
+          "ownership_class": "DESIGN",
+          "subtype": "PROTECTED_ADMIN",
+          "legacy_global_theme_ids": [],
+          "source_files": [],
+          "preserve": true
+        },
+        {
+          "id": "AM-06",
+          "ownership_class": "DESIGN",
+          "subtype": "PROTECTED_ADMIN",
+          "legacy_global_theme_ids": [],
+          "source_files": [],
+          "preserve": true
+        },
+        {
+          "id": "AM-07",
+          "ownership_class": "DESIGN",
+          "subtype": "PROTECTED_ADMIN",
+          "legacy_global_theme_ids": [],
+          "source_files": [],
+          "preserve": true
+        },
+        {
+          "id": "AM-08",
+          "ownership_class": "DESIGN",
+          "subtype": "PROTECTED_ADMIN",
+          "legacy_global_theme_ids": [],
+          "source_files": [],
+          "preserve": true
+        },
+        {
+          "id": "AM-09",
+          "ownership_class": "DESIGN",
+          "subtype": "PROTECTED_ADMIN",
+          "legacy_global_theme_ids": [],
+          "source_files": [],
+          "preserve": true
+        },
+        {
+          "id": "AM-10",
+          "ownership_class": "DESIGN",
+          "subtype": "PROTECTED_ADMIN",
+          "legacy_global_theme_ids": [],
+          "source_files": [],
+          "preserve": true
+        },
+        {
+          "id": "AM-11",
+          "ownership_class": "DESIGN",
+          "subtype": "PROTECTED_ADMIN",
+          "legacy_global_theme_ids": [],
+          "source_files": [],
+          "preserve": true
+        },
+        {
+          "id": "AM-12",
+          "ownership_class": "DESIGN",
+          "subtype": "PROTECTED_ADMIN",
+          "legacy_global_theme_ids": [],
+          "source_files": [],
+          "preserve": true
+        }
+      ],
+      "legacy_theme_slots": {},
+      "theme03_default": null
+    }
+  ],
+  "theme03_common_default_set": {
+    "HS": "HS-03",
+    "EG": "EG-01",
+    "BN": "BN-03",
+    "PH": "PH-03",
+    "PT": "PT-03",
+    "PC": "PC-03",
+    "PA": "PA-02",
+    "XH": "XH-01",
+    "XC": "XC-01",
+    "TG": "TG-03",
+    "RG": "RG-03",
+    "KG": "KG-03",
+    "WG": "WG-01",
+    "HU": "HU-03",
+    "FQ": "FQ-03",
+    "PM": "PM-03",
+    "HI": "HI-03",
+    "WD": "WD-03",
+    "AD": "AD-03",
+    "BS": "BS-03",
+    "ER": "ER-03"
+  },
+  "transitional_notes": {
+    "PB-24..PB-35": "Cycle0453 census preserved the Cycle0452 physical IDs. Cycle0455 anti-loss proof classified PB-24..PB-35 as color-only duplicates with no unique geometry/effect/animation; current runtime retains them as compatibility aliases to PB-01 and provenance is stored in Артефакты тем/Cycle0455/.",
+    "RP": "Current PB and RP each expose the same 35 physical PB design slots; historic RP-21 census remains archival provenance only.",
+    "BN/XH/XC": "Slot 15 remains an independent local design outside the legacy 01..13 Global Theme matrix.",
+    "AM": "Frozen Admin family; excluded from Color×Design migration.",
+    "OWNER_pruned_selections": "47 EG/BN/PH/PT/PC/PA/TG choices retired without deleting shared historical CSS; 3 historic KG11..13 metadata entries removed from active catalog. Physical IDs of retained designs unchanged."
+  },
+  "current_default_reconciliation": {
+    "cycle0466_iteration02": {
+      "family": "WG",
+      "legacy_source_default": "WG-03",
+      "current_default": "WG-01",
+      "reason": "OWNER removed all Profile designs but WG-01; legacy Theme03 provenance remains unchanged"
+    },
+    "cycle0467_iteration01": {
+      "families": [
+        "XH",
+        "XC"
+      ],
+      "legacy_source_defaults": {
+        "XH": "XH-03",
+        "XC": "XC-03"
+      },
+      "current_defaults": {
+        "XH": "XH-01",
+        "XC": "XC-01"
+      },
+      "reason": "OWNER retired XH-03 and XC-03 from the active catalog. Historical legacy_theme_slots remain archival mapping; current defaults must use active variants."
+    },
+    "cycle0471_pr9": {
+      "scope": "active registry and JSON catalogs only",
+      "retired_choice_count": 47,
+      "physical_css_preserved": true,
+      "status": "CANDIDATE_NOT_RENDERED_ACCEPTED"
+    }
+  },
+  "qualification_semantics": {
+    "full_rendered_cross_product_certified": false
+  }
+}

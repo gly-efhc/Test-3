@@ -1,0 +1,70 @@
+/* GENERATED FILE — DO NOT EDIT.
+   Frozen role source: frontend/src/design-system/admin-theme03-canon.json#frozenRoles
+   Provenance binding: 365ef46de8ea9e56e35e37638d563ecb781ca19b01d5f4d5ec3b94eb3a045ced
+   FRONTEND_ADMIN_CYCLE_0382 / FRONTEND_v606: Admin consumes its frozen role vector independently from live USER Theme03. */
+@layer efhc-admin-theme03-tokens {
+  .efhc-independent-shell[data-interface-app-mode="admin"],
+  .efhc-admin-shell[data-admin-page-marker="ADM-00"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminPage[data-admin-page-marker="ADM-00"],
+  .efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"],
+  .efhc-admin-shell[data-admin-page-marker="ADM-02"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"],
+  .efhc-admin-shell[data-admin-page-marker="ADM-03"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"],
+  .efhc-admin-shell[data-admin-page-marker="ADM-04"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminBonusesPage[data-admin-page-marker="ADM-04"],
+  .efhc-admin-shell[data-admin-page-marker="ADM-05"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminShopPage[data-admin-page-marker="ADM-05"],
+  .efhc-admin-shell[data-admin-page-marker="ADM-06"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"],
+  .efhc-admin-shell[data-admin-page-marker="ADM-07"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-07"],
+  .efhc-admin-shell[data-admin-page-marker="ADM-08"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-08"],
+  .efhc-admin-shell[data-admin-page-marker="ADM-09"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-09"],
+  .efhc-admin-shell[data-admin-page-marker="ADM-10"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-10"],
+  .efhc-modal-overlay:has([data-admin-hub-editor-modal="v252"]),
+  .efhc-admin-shell[data-admin-page-marker="ADM-11"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"],
+  .efhc-modal-overlay:has([data-admin-vip-decision-modal="v211"]),
+  .efhc-admin-shell[data-admin-page-marker="ADM-12"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-12"],
+  .efhc-modal-overlay:has([data-admin-prompt-marker="efhc-deposits-v348"]),
+  .efhc-admin-shell[data-admin-page-marker="ADM-13"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-13"],
+  .efhc-admin-shell:has([data-admin-system-route="/admin/system"]),
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-15"],
+  .efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]),
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminApiWorkbenchPage[data-admin-page-marker="ADM-16"],
+  .efhc-admin-shell[data-admin-page-marker="ADM-14"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-14"],
+  .efhc-modal-overlay:has([data-admin-prompt-marker="sale-packages-editor-v352"]),
+  .efhc-modal-overlay:has([data-admin-prompt-marker="sale-packages-toggle-v352"]),
+  .efhc-admin-shell:has([data-admin-system-route="/admin/diagnostics"]),
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-15"],
+  .efhc-admin-shell[data-admin-page-marker="ADM-19"],
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-19"],
+  .efhc-modal-overlay:has([data-admin-prompt-marker="emergency-v363"]) {
+    --efhc-admin-canon-canvas:rgba(7,10,18,.98);
+    --efhc-admin-canon-page:rgba(12,10,24,.98);
+    --efhc-admin-canon-chrome:rgba(12,10,24,.98);
+    --efhc-admin-canon-chrome-inset:rgba(28,20,53,.66);
+    --efhc-admin-canon-hero:rgba(16,19,36,.98);
+    --efhc-admin-canon-card:rgba(18,16,33,.86);
+    --efhc-admin-canon-inset:rgba(7,10,18,.98);
+    --efhc-admin-canon-active:linear-gradient(135deg,rgba(117,87,219,.42),rgba(89,64,182,.30));
+    --efhc-admin-canon-accent:#a78bfa;
+    --efhc-admin-canon-accent-soft:rgba(124,92,255,.10);
+    --efhc-admin-canon-accent-strong:#7557db;
+    --efhc-admin-canon-border:rgba(167,139,250,.24);
+    --efhc-admin-canon-border-strong:rgba(167,139,250,.42);
+    --efhc-admin-canon-text:#f8fafc;
+    --efhc-admin-canon-text-muted:#cbd5e1;
+    --efhc-admin-canon-shadow:0 14px 34px rgba(0,0,0,.26);
+    --efhc-admin-canon-glow:#7c5cff;
+    --efhc-admin-canon-focus:#c4b5fd;
+  }
+}

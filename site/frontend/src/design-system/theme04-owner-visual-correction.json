@@ -1,0 +1,45 @@
+{
+  "schema": "EFHC_THEME04_CYCLE0451_OWNER_VISUAL_CORRECTION_V1",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0451",
+  "iteration": 2,
+  "date": "2026-10-13",
+  "source": "OWNER_SCREENSHOT_AND_EXPLICIT_VISUAL_FEEDBACK",
+  "theme": {
+    "id": "04",
+    "name": "Classic Telegram Blue",
+    "accent": "#229ED9"
+  },
+  "findings": [
+    {
+      "surface": "Profile",
+      "owner": "WG-04 / .efhc-profile-global-id",
+      "finding": "Global ID area retained wrong Theme04 colour ownership",
+      "correction": "label/value recoloured to Theme04 blue-aligned text hierarchy"
+    },
+    {
+      "surface": "Profile language",
+      "owner": "WG-04 / .efhc-language-select_*",
+      "finding": "language selector/menu shadows/material were visually inconsistent",
+      "correction": "button/menu border, material, menu shadow and active option aligned to Theme04"
+    },
+    {
+      "surface": "Panels",
+      "owner": "PH-04 / .efhc-game-kicker + hero",
+      "finding": "Энергетические модули label used wrong colour",
+      "correction": "kicker and hero title/material aligned to Theme04"
+    },
+    {
+      "surface": "Header balance",
+      "owner": "HS-04 + HB-13",
+      "finding": "balance card had extra outer shadow and visually thick border",
+      "correction": "one-pixel Theme04 border and inset-only subtle highlight, no outer shadow"
+    }
+  ],
+  "protected": {
+    "theme03Mutation": false,
+    "adminMutation": false,
+    "envMutation": false,
+    "businessSemanticMutation": false
+  },
+  "status": "CORRECTED_PENDING_OWNER_VISUAL_REACCEPTANCE"
+}

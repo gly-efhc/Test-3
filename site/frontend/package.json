@@ -1,0 +1,61 @@
+{
+  "name": "efhc-frontend",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbo",
+    "prebuild": "node scripts/prebuild.mjs",
+    "build": "node scripts/build-next-production.mjs",
+    "start": "next start -p 3000",
+    "lint": "npm run typecheck",
+    "typecheck": "tsc --noEmit",
+    "performance-budgets": "node scripts/budgets.mjs",
+    "release-assets:verify": "node scripts/verify-production-assets.mjs",
+    "test:frontend-regression": "node --test tests/regression/current-*.test.mjs",
+    "check:frontend-regression": "npm run test:frontend-regression",
+    "check:reports-scope": "python ../ops/reports/check_frontend_reports_scope.py --root ..",
+    "check:archive-scope": "python ../ops/release/check_frontend_archive_scope.py --root ..",
+    "check:cycle-numbering": "python ../ops/ci_checks/check_frontend_cycle_numbering.py --root ..",
+    "test:tonconnect-update-acceptance": "node --test tests/regression/current-tonconnect-wallet-source.test.mjs tests/regression/current-tonconnect-sdk-engine.test.mjs tests/regression/current-tonconnect-ci-safety.test.mjs tests/regression/current-tonconnect-least-privilege.test.mjs",
+    "check:tonconnect-update-acceptance": "npm run test:tonconnect-update-acceptance",
+    "music:playlist": "node scripts/generate-background-playlist.mjs",
+    "demo:sync-hub": "node scripts/sync-hub-demo-parity.mjs"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.59.0",
+    "@ton/core": "0.63.1",
+    "@ton/crypto": "3.3.0",
+    "@ton/crypto-primitives": "2.1.0",
+    "@ton/ton": "16.3.0",
+    "@tonconnect/sdk": "5.0.0",
+    "@twa-dev/sdk": "^8.0.2",
+    "axios": "1.20.0",
+    "buffer": "^6.0.3",
+    "dataloader": "^2.0.0",
+    "eventsource": "^2.0.2",
+    "jssha": "3.2.0",
+    "next": "16.4.3",
+    "node-fetch": "^2.7.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "tweetnacl": "^1.0.3",
+    "tweetnacl-util": "^0.15.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.0",
+    "@types/node": "^20.14.10",
+    "@types/react": "19.2.15",
+    "@types/react-dom": "19.2.3",
+    "postcss": "^8.5.10",
+    "tailwindcss": "4.3.0",
+    "typescript": "^5.5.4"
+  },
+  "overrides": {
+    "axios": "$axios",
+    "follow-redirects": "^1.16.1",
+    "postcss": "$postcss",
+    "@ton/ton": {
+      "zod": "$zod"
+    }
+  }
+}

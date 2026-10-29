@@ -1,0 +1,268 @@
+{
+  "schema": "EFHC_GLOBAL_THEME_PROTECTION_CONTRACT_V6",
+  "ownerDecisionDate": "2026-10-19",
+  "status": "ACTIVE_CT01_CT10_EQUAL_USER_POLICY",
+  "pageKickerLaw": {
+    "rule": "Panels / Exchange / Tasks / Referrals route kicker text always uses the active Global Theme accent.",
+    "source": "frontend/src/styles/global-theme-page-kicker-contract.css",
+    "routes": [
+      {
+        "route": "/panels",
+        "ru": "Энергетические модули",
+        "production": ".efhc-panels-shell .efhc-game-kicker",
+        "standalone": "#panelsPage .panels-kicker"
+      },
+      {
+        "route": "/exchange",
+        "ru": "Обмен энергии",
+        "production": ".efhc-exchange-shell .efhc-game-kicker",
+        "standalone": "#exchangePage .source-hero-kicker"
+      },
+      {
+        "route": "/tasks",
+        "ru": "Зарабатывайте бонусы",
+        "production": ".efhc-tasks-shell .efhc-game-kicker",
+        "standalone": "#tasksPage .source-hero-kicker"
+      },
+      {
+        "route": "/referrals",
+        "ru": "Партнёрская система",
+        "production": ".efhc-referrals-shell .efhc-game-kicker",
+        "standalone": "#referralsPage .source-hero-kicker"
+      }
+    ],
+    "colorOwner": "--efhc-route-accent",
+    "exceptions": "status/error/success/financial/provider/brand semantics are not governed by this law",
+    "status": "LEGACY_SUBSET_OF_themeAccentElementLaw"
+  },
+  "antiRegressionLaw": [
+    "CT01–CT10 share one USER color-theme policy; no CT03 opt-outs, freezes or separate acceptance gates.",
+    "Standalone and React use the same ordinary active CT color tokens.",
+    "Admin and real semantic status colors remain separate from USER decorative chroma.",
+    "The eight OWNER-designated theme-accent elements remain governed by --efhc-route-accent.",
+    "Ranks Refresh / Find Me share --efhc-ranks-action-shadow across all ten user themes."
+  ],
+  "guardHashes": {
+    "frontend/src/styles/global-theme-page-kicker-contract.css": "ba2bc412fd4bba47cf2a2cee7d305db6dbf1e45773c0f26b5d4c27e13276f56a",
+    "frontend/src/styles/global-theme-ranks-action-shadow-contract.css": "f4833b8ad79801e2dcfc51a3bed8d48783792e28c997674ef2778730dccdd995"
+  },
+  "themeAccentElementLaw": {
+    "rule": "Eight OWNER-designated ordinary decorative elements consume the active Global Theme accent. Referrals achievement circles use theme accent on circle outline/glow with light glyphs; the connector progress fill and copy-link action are theme-owned; Lvl labels/thresholds/state backgrounds remain state-owned.",
+    "source": "frontend/src/styles/global-theme-page-kicker-contract.css",
+    "colorOwner": "--efhc-route-accent",
+    "elements": [
+      {
+        "id": "user.panels.hero.kicker",
+        "route": "/panels",
+        "ru": "Энергетические модули",
+        "production": ".efhc-panels-shell .efhc-panels-hero[data-ph] .efhc-game-kicker",
+        "standalone": "#panelsPage[data-pa] .panels-kicker"
+      },
+      {
+        "id": "user.exchange.hero.kicker",
+        "route": "/exchange",
+        "ru": "Обмен энергии",
+        "production": ".efhc-exchange-shell .efhc-exchange-hero[data-xh] .efhc-game-kicker",
+        "standalone": "#exchangePage .source-hero-kicker"
+      },
+      {
+        "id": "user.tasks.hero.kicker",
+        "route": "/tasks",
+        "ru": "Зарабатывайте бонусы",
+        "production": ".efhc-tasks-shell[data-tg] .efhc-game-hero .efhc-game-kicker",
+        "standalone": "#tasksPage[data-tg] .source-hero-kicker"
+      },
+      {
+        "id": "user.referrals.hero.kicker",
+        "route": "/referrals",
+        "ru": "Партнёрская система",
+        "production": ".efhc-referrals-shell[data-rg] .efhc-game-hero .efhc-game-kicker",
+        "standalone": "#referralsPage[data-rg] .source-hero-kicker"
+      },
+      {
+        "id": "user.referrals.achievement.level-circle",
+        "route": "/referrals",
+        "ru": "Кружки уровней достижений",
+        "production": ".efhc-referrals-shell[data-rg] .efhc-referral-achievement-dot",
+        "standalone": "#referralsPage[data-rg] .standalone-referral-achievement-nodes > div > b",
+        "scope": "circle outline/glow only; number/check glyph stays standard light; Lvl labels, thresholds, progress track/fill and state background excluded"
+      },
+      {
+        "id": "user.withdraw.hero.kicker",
+        "route": "/withdraw",
+        "ru": "Вывод средств",
+        "production": ".efhc-withdraw-shell .efhc-withdraw-hero .efhc-game-kicker",
+        "standalone": "#withdrawPage[data-wd] .source-hero-kicker"
+      },
+      {
+        "id": "user.referrals.invite.copy-link",
+        "route": "/referrals",
+        "ru": "Копировать ссылку",
+        "production": ".efhc-referrals-shell[data-rg] [data-referral-action=\"copy-link\"]",
+        "standalone": "#referralsPage[data-rg] #copyReferral",
+        "scope": "button border/background/shadow follow theme accent; label stays standard light"
+      },
+      {
+        "id": "user.referrals.achievement.connector-progress",
+        "route": "/referrals",
+        "ru": "Прогресс между кружками уровней",
+        "production": ".efhc-referrals-shell[data-rg] .efhc-referral-achievement-track > span",
+        "standalone": "#referralsPage[data-rg] .standalone-referral-achievement-track > span",
+        "scope": "filled connector segment follows theme accent; neutral rail remains state-owned"
+      }
+    ],
+    "exceptions": "status/error/success/financial/provider/brand semantics are not governed by this law",
+    "status": "OWNER_EXTENDED_V676_REFERRALS_COPY_AND_CONNECTOR_PROGRESS"
+  },
+  "computedVerificationV674": {
+    "method": "Chromium /usr/bin/chromium via Playwright page.set_content on physical FRONTEND_v674.html",
+    "status": "PASS",
+    "theme03": {
+      "rankRow": {
+        "color": "rgb(248, 250, 252)",
+        "borderColor": "rgba(167, 139, 250, 0.24)",
+        "backgroundColor": "rgba(13, 11, 25, 0.96)",
+        "backgroundImage": "none",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      },
+      "rankMine": {
+        "color": "rgb(248, 250, 252)",
+        "borderColor": "rgba(167, 139, 250, 0.42)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(135deg, rgba(34, 25, 61, 0.94), rgba(23, 18, 43, 0.96))",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      },
+      "rankMedal": {
+        "color": "rgb(167, 139, 250)",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "boxShadow": "none",
+        "outlineColor": "rgb(167, 139, 250)"
+      },
+      "refCircle": {
+        "color": "rgb(167, 139, 250)",
+        "borderColor": "color(srgb 0.654902 0.545098 0.980392 / 0.58)",
+        "backgroundColor": "color(srgb 0.654902 0.545098 0.980392 / 0.1)",
+        "backgroundImage": "none",
+        "boxShadow": "color(srgb 0.654902 0.545098 0.980392 / 0.12) 0px 0px 0px 1px",
+        "outlineColor": "rgb(167, 139, 250)"
+      },
+      "withdrawKicker": {
+        "color": "rgb(167, 139, 250)",
+        "borderColor": "rgb(167, 139, 250)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "boxShadow": "none",
+        "outlineColor": "rgb(167, 139, 250)"
+      }
+    },
+    "rootDriftSentinel": {
+      "scenario": "global Theme01 + local KG-03",
+      "result": {
+        "rankRow": {
+          "color": "rgb(248, 250, 252)",
+          "borderColor": "rgba(124, 92, 255, 0.28)",
+          "backgroundColor": "rgba(124, 92, 255, 0.08)",
+          "backgroundImage": "none",
+          "boxShadow": "none",
+          "outlineColor": "rgb(248, 250, 252)"
+        },
+        "rankMine": {
+          "color": "rgb(248, 250, 252)",
+          "borderColor": "rgba(124, 92, 255, 0.28)",
+          "backgroundColor": "rgba(124, 92, 255, 0.08)",
+          "backgroundImage": "none",
+          "boxShadow": "none",
+          "outlineColor": "rgb(248, 250, 252)"
+        },
+        "rankMedal": {
+          "color": "rgb(167, 139, 250)",
+          "borderColor": "rgba(0, 0, 0, 0)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "none",
+          "boxShadow": "none",
+          "outlineColor": "rgb(167, 139, 250)"
+        }
+      },
+      "verdict": "PASS: leaderboard rows retain KG-03 violet variables instead of foreign blue"
+    },
+    "theme04AccentElements": {
+      "refCircle": {
+        "color": "rgb(34, 158, 217)",
+        "borderColor": "color(srgb 0.133333 0.619608 0.85098 / 0.58)",
+        "backgroundColor": "color(srgb 0.133333 0.619608 0.85098 / 0.1)",
+        "backgroundImage": "none",
+        "boxShadow": "color(srgb 0.133333 0.619608 0.85098 / 0.12) 0px 0px 0px 1px",
+        "outlineColor": "rgb(34, 158, 217)"
+      },
+      "withdrawKicker": {
+        "color": "rgb(34, 158, 217)",
+        "borderColor": "rgb(34, 158, 217)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "boxShadow": "none",
+        "outlineColor": "rgb(34, 158, 217)"
+      },
+      "refKicker": {
+        "color": "rgb(34, 158, 217)",
+        "borderColor": "rgb(34, 158, 217)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "boxShadow": "none",
+        "outlineColor": "rgb(34, 158, 217)"
+      }
+    }
+  },
+  "v675Followup": {
+    "physicalCheckpoint": "FRONTEND_v675",
+    "referralsAchievementRule": "circle outline/glow follow --efhc-route-accent; number/check stays standard light; state background and progress semantics preserved",
+    "ranksActionRule": "Refresh/Find Me reuse Theme03 Tasks Execute raised material: BorderStrong + AccentSoft + Text + restrained semantic shadow",
+    "frozenTheme03FilesMutated": false,
+    "adminMutation": false,
+    "runtimeSemanticsMutation": false,
+    "ownerVisualRecheck": "PENDING"
+  },
+  "computedVerificationV676": {
+    "method": "Chromium /usr/bin/chromium via Python Playwright page.set_content on physical FRONTEND_v676.html",
+    "status": "PASS",
+    "theme03": {
+      "referralsCopyLink": {
+        "color": "rgb(248, 250, 252)",
+        "borderColor": "rgb(167, 139, 250)",
+        "background": "theme accent 14%",
+        "boxShadow": "theme accent 12% 0 0 12px"
+      },
+      "referralsAchievementConnector": {
+        "backgroundColor": "rgb(167, 139, 250)",
+        "boxShadow": "theme accent 28% 0 0 8px"
+      },
+      "hubHeader": {
+        "backgroundColor": "rgba(18, 16, 33, 0.86)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "classification": "ordinary Card/Text Theme03 header material"
+      }
+    },
+    "theme04": {
+      "referralsCopyLink": {
+        "borderColor": "rgb(34, 158, 217)",
+        "background": "theme accent 14%"
+      },
+      "referralsAchievementConnector": {
+        "backgroundColor": "rgb(34, 158, 217)"
+      }
+    }
+  },
+  "ranksActionShadowLaw": {
+    "status": "OWNER_GLOBAL_SYNC_V677_THEME04_REFERENCE",
+    "source": "frontend/src/styles/global-theme-ranks-action-shadow-contract.css",
+    "machineAuthority": "frontend/src/design-system/global-theme-ranks-action-shadow-contract.json",
+    "referenceTheme": "04",
+    "referenceComputedShadow": "none",
+    "token": "--efhc-ranks-action-shadow",
+    "scope": "Ranks Refresh / Find Me only; background/border/text/geometry/active material remain theme-owned"
+  }
+}

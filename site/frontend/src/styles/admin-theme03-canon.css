@@ -1,0 +1,3195 @@
+/* Admin Theme03 Canon — Cycle0154 / ADM-00 only.
+   Physical colour values are NOT owned here. They are generated from the frozen
+   Theme03 Golden Canon role vector. This cycle changes material/chroma only;
+   Admin geometry, routes, Bank arithmetic, module count and runtime stay frozen. */
+
+/* Production /admin page semantic bridge. */
+
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] :is(
+  h1,
+  .efhc-admin-section-card,
+  .efhc-admin-stat-card,
+  .efhc-admin-home-bank-charts,
+  .efhc-admin-app-grid
+) {
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] .efhc-admin-stat-card,
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] .efhc-admin-home-bank-charts article {
+  border-color:var(--efhc-admin-canon-border);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] :is(
+  .efhc-admin-eyebrow,
+  .efhc-admin-category-legend
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] .efhc-text-muted,
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] .efhc-admin-section-card :is(
+  [class*="text-[color:var(--tg-hint)]"],
+  [class*="text-xs"]
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] .efhc-admin-home-bank-charts article > span,
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] .efhc-admin-stat-card :is(
+  [class*="text-[color:var(--tg-hint)]"],
+  [class*="uppercase"]
+) {
+  color:var(--efhc-admin-canon-text-muted);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] .efhc-admin-home-bank-charts article > div {
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-canvas);
+}
+
+/* Existing launcher !important owners consume these variables. No new
+   !important is introduced by the Admin canon. Category dots remain their
+   registered local semantic exception; card material becomes Theme03 canon. */
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] .efhc-admin-app-button {
+  --efhc-admin-launcher-border:var(--efhc-admin-canon-border);
+  --efhc-admin-launcher-background:var(--efhc-admin-canon-card);
+  --efhc-admin-launcher-border-hover:var(--efhc-admin-canon-border-strong);
+  --efhc-admin-launcher-background-hover:var(--efhc-admin-canon-active);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+
+/* Production body-level modal opened by /admin. */
+
+/* Standalone /admin counterpart. */
+
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] .efhc-admin-app-button_title,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminPage[data-admin-page-marker="ADM-00"] :is(
+  .admin-reference-title,
+  .admin-reference-section h2,
+  .admin-reference-stat strong,
+  .admin-home-bank-chart-v218 strong,
+  .admin-reference-module strong
+) {
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminPage[data-admin-page-marker="ADM-00"] :is(
+  .admin-reference-copy,
+  .admin-reference-stat span,
+  .admin-home-bank-chart-v218 span,
+  .admin-category-legend-v132
+) {
+  color:var(--efhc-admin-canon-text-muted);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminPage[data-admin-page-marker="ADM-00"] .admin-reference-stat,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminPage[data-admin-page-marker="ADM-00"] .admin-home-bank-chart-v218 {
+  border-color:var(--efhc-admin-canon-border);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-inset);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminPage[data-admin-page-marker="ADM-00"] .admin-home-bank-chart-v218 i {
+  border:1px solid var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-canvas);
+}
+
+/* Exit remains a functional destructive/navigation exception. Category dots and
+   Bank reserve/circulation bars remain their existing semantic local colours. */
+
+/* Cycle0155 v329 — direct OWNER request: the global Header shown in admin-mode
+   uses the frozen Theme03 HS-03/HB-03/SC-03 material contract. Geometry, actions,
+   balance measurement, routes and wallet/deposit runtime remain unchanged. */
+.efhc-independent-shell[data-interface-app-mode="admin"] .efhc-header-divider {
+  border-bottom-color:var(--efhc-admin-canon-border);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] .efhc-game-header[data-hs="HS-03"] {
+  background:
+    radial-gradient(110% 180% at 50% -80%,color-mix(in srgb,var(--efhc-admin-canon-glow) 25%,transparent),transparent 62%),
+    linear-gradient(180deg,var(--efhc-admin-canon-chrome),var(--efhc-admin-canon-canvas));
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] .efhc-game-header[data-hs="HS-03"] :is(
+  .efhc-game-header_profile,
+  .efhc-game-header_balance,
+  .efhc-header-action
+) {
+  border-color:color-mix(in srgb,var(--efhc-admin-canon-accent) 25%,transparent);
+  background:var(--efhc-admin-canon-chrome-inset);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] .efhc-game-header_balance[data-hb="HB-03"] {
+  --hb-color:var(--efhc-admin-canon-accent);
+}
+
+/* Cycle0183 / FRONTEND_v386 — OWNER blue-chroma hardening.
+   `info` is an ordinary decorative Admin tone, not a protected semantic state.
+   Resolve its single token owner to Theme03 violet for every Admin renderer instead of
+   patching individual blue cards/charts/filters. Success/warning/danger remain semantic. */
+.efhc-admin-shell[data-admin-theme-surface="true"],
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"],
+.efhc-independent-shell[data-interface-app-mode="admin"] {
+  --efhc-dash-info:var(--efhc-admin-canon-accent);
+  --efhc-filter-accent:var(--efhc-admin-canon-accent);
+}
+
+/* Admin Theme03 Canon — Cycle0155 / ADM-01 (/admin/users), v326 corrective mapping.
+   v322 is the protected composition/geometry baseline for Admin Users. Theme03 may
+   recolour exact material owners only; it must not flatten nested surfaces, add
+   blanket shadows, or turn transparent inner rows into opaque cards. */
+
+/* Production /admin/users page. */
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] {
+  --efhc-theme-accent:var(--efhc-admin-canon-accent);
+  --efhc-theme-accent-soft:var(--efhc-admin-canon-accent-soft);
+  --efhc-theme-edge:var(--efhc-admin-canon-border);
+  --efhc-admin-user-search-border:var(--efhc-admin-canon-border-strong);
+  --efhc-admin-user-search-background:var(--efhc-admin-canon-accent-soft);
+  --efhc-admin-user-search-text:var(--efhc-admin-canon-text);
+  --efhc-admin-user-search-border-hover:var(--efhc-admin-canon-border-strong);
+  --efhc-admin-user-search-background-hover:var(--efhc-admin-canon-active);
+  --efhc-history-filter-active-border:var(--efhc-admin-canon-border-strong);
+  --efhc-history-filter-active-background:var(--efhc-admin-canon-active);
+  --efhc-history-filter-active-text:var(--efhc-admin-canon-text);
+  color:var(--efhc-admin-canon-text);
+  background-color:var(--efhc-admin-canon-page);
+}
+
+/* EAM-STATUS-001: active VIP/Activ are ordinary Theme03 active indicators.
+   Inactive state keeps the existing neutral STATUS_LOCAL owner. */
+
+/* Exact Admin Users cards only. Generic .efhc-card/.efhc-game-section ownership is
+   intentionally avoided so the v322 nested composition remains authoritative. */
+
+/* Cycle0155 v328 — OWNER correction for stuck windows/actions in Funds + Balance.
+   Exact separation owners only: no new palette, no !important, no runtime changes.
+   Production already has the correct v322 hierarchy; this makes the vertical separation
+   explicit so card/content windows cannot visually merge with their action controls. */
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"]
+  .efhc-admin-user-section-card[data-eam-family="EAM-ADMIN-010"] > .efhc-btn-primary {
+  margin-top:.9rem;
+}
+
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"]
+  .efhc-admin-user-section-card[data-eam-family="EAM-HISTORY-001"] .efhc-history-financial-section {
+  display:grid;
+  gap:1rem;
+}
+
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"]
+  .efhc-admin-user-section-card[data-eam-family="EAM-HISTORY-001"] .efhc-history-financial-section > :not([hidden]) {
+  margin-top:0;
+  margin-bottom:0;
+}
+
+/* Cycle0155 v327 OWNER regression correction: Funds and Balance inner material owners
+   intentionally fall back to their physical v322 CSS. ADM-01 must not rematerialize
+   these nested structures until OWNER accepts a visually correct mapping. The Theme03
+   shell/topbar/hero/search/tabs remain active; geometry and runtime are untouched. */
+
+/* Balance identities EFHC/EFHCm/EFHCb, credit/debit, VIP/Activ and operational
+   status colours are semantic local exceptions and are deliberately not repainted. */
+
+/* Standalone /admin/users counterpart. Exact v322 owners are recoloured in place. */
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] {
+  --efhc-admin-user-search-border:var(--efhc-admin-canon-border-strong);
+  --efhc-admin-user-search-background:var(--efhc-admin-canon-accent-soft);
+  --efhc-admin-user-search-text:var(--efhc-admin-canon-text);
+  --efhc-admin-user-search-border-hover:var(--efhc-admin-canon-border-strong);
+  --efhc-admin-user-search-background-hover:var(--efhc-admin-canon-active);
+  --efhc-history-filter-active-border:var(--efhc-admin-canon-border-strong);
+  --efhc-history-filter-active-background:var(--efhc-admin-canon-active);
+  --efhc-history-filter-active-text:var(--efhc-admin-canon-text);
+  color:var(--efhc-admin-canon-text);
+  background-color:var(--efhc-admin-canon-page);
+}
+
+/* Cycle0183 / ADM-01 — the profile Lvl badge had a direct legacy blue owner in globals.css. */
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] .efhc-profile-status--level {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-accent);
+}
+
+/* Cycle0190 / ADM-01 — remaining non-semantic native/control chroma only.
+   Balance financial/status/asset semantics are hard-excluded by the v392 Balance semantic canon. */
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] input[type="checkbox"] {
+  accent-color:var(--efhc-admin-canon-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"]
+  .source-profile-status-window:not(.vip):not(.success) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"]
+  .admin-user-recent-v139 button {
+  border-color:var(--efhc-admin-canon-border);
+  background-color:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"]
+  .admin-user-recent-v139 button:hover {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background-color:var(--efhc-admin-canon-active);
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] .efhc-profile-topbar button,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] .admin-users-topbar-v138 button {
+  background-color:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] [data-eam-family="EAM-ADMIN-008"].efhc-profile-action-card,
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] .efhc-admin-user-section-card,
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] .efhc-admin-user-profile-data-static,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] .admin-user-search-profile-v138,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] :is(
+  .admin-user-profile-data-static-v154,
+  .admin-user-operation-card-v137,
+  .admin-user-panel-inline-v139,
+  .admin-user-provider-v139
+) {
+  border-color:var(--efhc-admin-canon-border);
+  background-color:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] .efhc-profile-hero,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] .admin-user-profile-hero-v138 {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-hero);
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] .efhc-profile-avatar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] .admin-user-avatar-v138 {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background-color:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] .efhc-admin-user-nav-row,
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] .efhc-input,
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] .efhc-history-filter,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] .admin-user-stat-grid-v138 .source-stat,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] .admin-user-preview-v139,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] input,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] select,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] .efhc-history-filter {
+  border-color:var(--efhc-admin-canon-border);
+  background-color:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] .admin-user-tabs-v138 {
+  border-color:var(--efhc-admin-canon-border);
+  background-color:var(--efhc-admin-canon-inset);
+}
+
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] .efhc-admin-user-nav-row:hover,
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] .efhc-history-filter--active,
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] :is(.efhc-btn-primary,.efhc-btn-secondary):hover,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] .admin-user-tabs-v138 button[data-active="true"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] .efhc-history-filter--active {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background-color:var(--efhc-admin-canon-active);
+  color:var(--efhc-admin-canon-text);
+}
+
+
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] :is(.efhc-btn-primary,.efhc-btn-secondary),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] :is(.source-button,.efhc-admin-user-search-button) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background-color:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] .efhc-profile-topbar button:hover,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] :is(.source-button,.efhc-admin-user-search-button):hover {
+  background-color:var(--efhc-admin-canon-active);
+}
+
+/* Standalone parity for the same v328 separation contract.
+   v327 still inherited historical margin-based composition where the preview window and
+   the following full-width action could touch. Grid gap becomes the single exact owner. */
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"]
+  .admin-user-panel-inline-v139,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"]
+  .admin-user-operation-card-v137 .admin-user-form-grid,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"]
+  :is(.admin-user-operation-card-v137,.admin-user-panel-inline-v139) .admin-user-preview-v139 {
+  margin-top:0;
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"]
+  :is(.admin-user-operation-card-v137,.admin-user-panel-inline-v139),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"]
+  .admin-user-history-v138 {
+  display:grid;
+  gap:.68rem;
+}
+
+/* Existing standalone VIP/Activ/inactive !important owners remain functional
+   exceptions; no corrective !important is added by this adapter. */
+
+/* Admin Theme03 Canon — Cycle0156 / ADM-02 Bank. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-004 → EAM-ADMIN-011 → EAM-ADMIN-014.
+   Only material/chroma owners are mapped here. Bank reserve/circulation/category fills,
+   integrity success/error and financial/runtime geometry remain semantic local exceptions. */
+
+.efhc-independent-shell[data-interface-app-mode="admin"] .efhc-game-header[data-hs="HS-03"] .efhc-header-action.efhc-btn-secondary,
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] :is(
+  h1,
+  .efhc-admin-section-card,
+  .efhc-admin-bank-integrity-v153,
+  .efhc-admin-bank-map-v154
+) {
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] :is(
+  .efhc-game-stat_label,
+  .efhc-game-stat_note,
+  .efhc-history-bank-page-hint,
+  .efhc-history-balance-label
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] .admin-user-tabs-v138 button,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] :is(
+  .source-stat-label,
+  .admin-user-preview-v139 span,
+  .efhc-history-balance-label,
+  .efhc-history-bank-page-hint
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] :is(
+  .efhc-text-muted,
+  .efhc-text-muted2,
+  .efhc-admin-bank-integrity-v153_side > span,
+  .efhc-admin-bank-integrity-v153_side > small,
+  .efhc-admin-bank-integrity-v153_total > span,
+  .efhc-admin-bank-integrity-v153_total > small,
+  .efhc-admin-bank-map-v154_copy > span,
+  .efhc-admin-bank-map-v179_amount-fraction
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-04"] :is(
+  .efhc-text-muted,
+  .efhc-bonuses-bank-map-copy span,
+  .efhc-bonuses-bank-map-row > small,
+  .efhc-bonuses-bank-map-empty,
+  .efhc-admin-compact-operation_subject,
+  .efhc-admin-compact-operation_time
+) {
+  color:var(--efhc-admin-canon-text-muted);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] .efhc-admin-section-card,
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] .efhc-admin-section-card {
+  border-color:var(--efhc-admin-canon-border);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-card);
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] .efhc-admin-bank-integrity-v153_side {
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+}
+
+/* Standalone /admin/bank counterpart. Top-level source-card material is safe here:
+   Bank has no nested card-on-card ownership analogous to the rejected ADM-01 mapping. */
+
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] .efhc-profile-topbar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"] .admin-users-topbar-v138,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"] .source-profile-topbar {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background-color:var(--efhc-admin-canon-chrome);
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"] .admin-bank-v153-ratio,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"] .admin-bank-map-v154-track,
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] .efhc-admin-bank-integrity-v153_ratio,
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] .efhc-admin-bank-map-v154_track {
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-canvas);
+}
+
+/* Admin Theme03 Canon — Cycle0157 / ADM-03 Withdrawals. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-002 → EAM-ADMIN-004 → EAM-ADMIN-006 → EAM-ADMIN-015.
+   Material/chroma only. Wallet-first payout flow, D8, approve/reject/repair/outcome-preview,
+   payout evidence and final-status runtime are protected. Success/warning/danger/VIP/destructive
+   colours remain semantic local exceptions rather than generic violet repaint. */
+
+/* Cycle0157 corrective v333: the owner-visible "Заявки на вывод" heading is decorative Theme03 accent, not a success/status signal. */
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"] :is(
+  .source-muted,
+  .admin-bank-v153-side > span,
+  .admin-bank-v153-side > small,
+  .admin-bank-v153-total > span,
+  .admin-bank-v153-total > small,
+  .admin-bank-map-v154-copy > span,
+  .admin-bank-map-v179-amount-fraction
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] :is(
+  .efhc-text-muted,
+  .efhc-text-muted2,
+  .efhc-admin-ui-section-header p,
+  .efhc-admin-ui-kpi_label,
+  .efhc-admin-ui-kpi_hint,
+  .efhc-admin-ui-chart-card_subtitle,
+  .efhc-admin-ui-flow-map_title,
+  .efhc-admin-ui-flow-map_node span,
+  .efhc-admin-ui-flow-map_node small,
+  .efhc-admin-ui-action-table_row span,
+  .efhc-admin-ui-action-table_row small,
+  .efhc-admin-withdraw-mobile_meta,
+  .efhc-admin-withdraw-mobile_address,
+  .efhc-admin-compact-operation_subject,
+  .efhc-admin-compact-operation_time
+) {
+  color:var(--efhc-admin-canon-text-muted);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminPage[data-admin-page-marker="ADM-00"] .admin-reference-section,
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] :is(
+  .efhc-admin-section-card,
+  .efhc-admin-withdraw-mobile,
+  .efhc-admin-ui-chart-card,
+  .efhc-admin-ui-action-table,
+  .efhc-admin-ui-empty
+) {
+  border-color:var(--efhc-admin-canon-border);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-ui-kpi.efhc-admin-ui-tone--success {
+  border-color:color-mix(in srgb,var(--efhc-dash-success) 42%,var(--efhc-admin-canon-border));
+  background:color-mix(in srgb,var(--efhc-dash-success) 9%,var(--efhc-admin-canon-card));
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-ui-kpi.efhc-admin-ui-tone--warning {
+  border-color:color-mix(in srgb,var(--efhc-dash-warning) 42%,var(--efhc-admin-canon-border));
+  background:color-mix(in srgb,var(--efhc-dash-warning) 9%,var(--efhc-admin-canon-card));
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-ui-kpi.efhc-admin-ui-tone--danger {
+  border-color:color-mix(in srgb,var(--efhc-dash-danger) 42%,var(--efhc-admin-canon-border));
+  background:color-mix(in srgb,var(--efhc-dash-danger) 9%,var(--efhc-admin-canon-card));
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-ui-kpi.efhc-admin-ui-tone--info {
+  border-color:color-mix(in srgb,var(--efhc-dash-info) 42%,var(--efhc-admin-canon-border));
+  background:color-mix(in srgb,var(--efhc-dash-info) 9%,var(--efhc-admin-canon-card));
+}
+
+:root:has(.efhc-admin-shell[data-admin-page-marker="ADM-00"]) .efhc-modal :is(.efhc-input,input,textarea),
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] [data-admin-bank-log-export="json-csv-xlsx"] select,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"] .efhc-input,
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-ui-flow-map_node,
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdrawal-payout-cards .efhc-admin-compact-operation-row {
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-ui-kpi.efhc-admin-ui-tone--primary,
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdrawal-payout-cards button.efhc-admin-compact-operation-row:hover {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminPage[data-admin-page-marker="ADM-00"] .admin-reference-module.admin-module-v132:hover:not(:disabled),
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-ui-flow-map_node[data-active="true"],
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdrawal-payout-cards .efhc-admin-compact-operation-row[data-active="true"] {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-active);
+}
+
+/* Body-level production decision/prompt modals opened by /admin/withdrawals. */
+:root:has(.efhc-admin-shell[data-admin-page-marker="ADM-00"]) .efhc-modal.efhc-modal-sheet,
+:root:has(.efhc-admin-shell[data-admin-page-marker="ADM-03"]) .efhc-modal.efhc-modal-sheet {
+  border:1px solid var(--efhc-admin-canon-border-strong);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+
+:root:has(.efhc-admin-shell[data-admin-page-marker="ADM-00"]) .efhc-modal-header,
+:root:has(.efhc-admin-shell[data-admin-page-marker="ADM-03"]) .efhc-modal-header {
+  border-bottom-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-card);
+}
+
+/* Standalone /admin/withdrawals counterpart. */
+
+
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-ui-kpi,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"] :is(
+  .release-admin-fact,
+  .admin-reference-section,
+  .release-admin-withdraw-decision,
+  .release-admin-withdraw-decision-grid > div,
+  .release-admin-withdraw-list .admin-compact-operation-row-v156,
+  .release-admin-withdraw-row
+) {
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"] :is(
+  .release-admin-fact span,
+  .release-admin-withdraw-row span,
+  .release-admin-withdraw-decision-grid span,
+  .source-muted,
+  .admin-reference-copy,
+  .admin-reference-status
+) {
+  color:var(--efhc-admin-canon-text-muted);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"] .release-admin-withdraw-row[data-active="true"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"] .admin-compact-operation-row-v156[data-active="true"] {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-active);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"] .source-profile-topbar .source-button,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"] .source-card .source-button,
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-live-dashboard_live,
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-dashboard-filter-chip[data-dashboard-filter-selected="true"],
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-dashboard-filter-chip[aria-pressed="true"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"] :is(
+  .source-profile-topbar .source-button,
+  .admin-reference-section .source-button:not(.danger),
+  .release-admin-withdraw-decision .source-button:not(.danger),
+  .standalone-settings-dialog .source-button:not(.danger)
+) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"] .admin-reference-badge:not(.danger) {
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text);
+}
+
+
+/* Admin Theme03 Canon — Cycle0158 / ADM-04 Bonuses. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-002 → EAM-ADMIN-004 → EAM-ADMIN-006 → EAM-ADMIN-012.
+   Material/chroma only. Exact-D8 EFHCb arithmetic, Admin Bonuses API/filter/export, Global-ID-only
+   history and 20-record paging remain protected. Tasks/referrals/manual source-series colours plus
+   warning/error/status badge meaning remain semantic local exceptions rather than generic violet repaint. */
+
+.efhc-admin-shell[data-admin-page-marker="ADM-04"] .efhc-admin-compact-operation-row {
+  border-bottom-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-04"] button.efhc-admin-compact-operation-row:hover {
+  background:var(--efhc-admin-canon-accent-soft);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] .efhc-admin-actions :is(.efhc-btn-primary,.efhc-btn-secondary),
+:root:has(.efhc-admin-shell[data-admin-page-marker="ADM-00"]) .efhc-modal-sheet :is(.efhc-btn-primary,.efhc-btn-secondary),
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] :is(.efhc-btn-primary,.efhc-btn-secondary),
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdraw-mobile_actions button,
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] :is(.efhc-btn-primary,.efhc-btn-secondary),
+:root:has(.efhc-admin-shell[data-admin-page-marker="ADM-03"]) .efhc-modal-sheet :is(.efhc-btn-primary,.efhc-btn-secondary),
+.efhc-admin-shell[data-admin-page-marker="ADM-04"] :is(.efhc-btn-primary,.efhc-btn-secondary) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+
+/* Standalone /admin/bonuses counterpart. */
+
+.efhc-admin-shell[data-admin-page-marker="ADM-04"] .efhc-bonuses-bank-map-row,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBonusesPage[data-admin-page-marker="ADM-04"] .admin-bonuses-v187-map-row {
+  border-bottom-color:var(--efhc-admin-canon-border);
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-04"] .efhc-bonuses-bank-map-track,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBonusesPage[data-admin-page-marker="ADM-04"] .admin-bonuses-v187-map-track {
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-canvas);
+}
+
+
+/* Admin Theme03 Canon — Cycle0159 / ADM-05 Shop. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-002 → EAM-ADMIN-004 → EAM-ADMIN-006 → EAM-ADMIN-013.
+   Material/chroma only. The 17-position catalog, editor/payment contracts, VIP 0001–9999 registry,
+   paid-order flow, API/export/paging and customer Shop remain protected. Availability/status, VIP-number
+   state colours, warning/destructive meaning and financial/provider identity remain semantic exceptions. */
+.efhc-admin-shell[data-admin-page-marker="ADM-04"],
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] {
+  --efhc-theme-accent:var(--efhc-admin-canon-accent);
+  --efhc-theme-accent-soft:var(--efhc-admin-canon-accent-soft);
+  --efhc-theme-edge:var(--efhc-admin-canon-border);
+  --tg-bg:var(--efhc-admin-canon-page);
+  --tg-secondary-bg:var(--efhc-admin-canon-card);
+  --tg-text:var(--efhc-admin-canon-text);
+  --tg-hint:var(--efhc-admin-canon-text-muted);
+  color:var(--efhc-admin-canon-text);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-page);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] .efhc-admin-shop-product-row-v235[data-selected="true"] {
+  border-color:var(--efhc-admin-canon-accent);
+  background:var(--efhc-admin-canon-inset);
+}
+
+/* Cycle0159 corrective v337 — OWNER: Shop overview controls must read as Theme03 violet, not legacy blue. */
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] [data-admin-shop-composition="15-fixed-plus-custom-plus-one-vip-owner-catalog"] > .efhc-admin-section-card:first-child :is(.efhc-btn-primary,.efhc-btn-secondary) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-accent);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"] .source-profile-topbar .source-button:hover,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"] .source-card .source-button:hover,
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] [data-admin-shop-composition="15-fixed-plus-custom-plus-one-vip-owner-catalog"] > .efhc-admin-section-card:first-child .efhc-btn-primary {
+  background:var(--efhc-admin-canon-active);
+  color:var(--efhc-admin-canon-text);
+}
+
+:root:has(.efhc-admin-shell[data-admin-page-marker="ADM-05"]) .efhc-modal-header {
+  border-bottom-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-hero);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminShopPage[data-admin-page-marker="ADM-05"] .admin-shop-v235-row[data-selected="true"] {
+  border-color:var(--efhc-admin-canon-accent);
+  background:var(--efhc-admin-canon-card);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminShopPage[data-admin-page-marker="ADM-05"] .admin-compact-operation-row-v156[data-active="true"],
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] .efhc-admin-compact-operation-row[data-active="true"] {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-active);
+}
+
+/* Cycle0159 corrective v337 — standalone Shop overview navigation uses the same Theme03 violet control language. */
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminShopPage[data-admin-page-marker="ADM-05"] [data-admin-shop-composition="fixed-17-products-list-modal-with-vip-subpages-v237"] .source-button.secondary {
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-accent);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] .efhc-admin-vip-number-map_summary > span,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminShopPage[data-admin-page-marker="ADM-05"] .efhc-admin-vip-number-map_summary > span {
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text-muted);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"] .standalone-settings-dialog,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminShopPage[data-admin-page-marker="ADM-05"] .standalone-settings-dialog {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+}
+
+
+/* Admin Theme03 Canon — Cycle0160 / ADM-06 Tasks. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-002 → EAM-ADMIN-004 → EAM-ADMIN-018.
+   Material/chroma only. Five-template authority, structured target/provider fields, exact-D8 EFHCb reward,
+   20-record list window, duplicate preflight, verifier/API/runtime and the embedded USER task preview remain
+   protected. Status/warning/inactive/provider/verifier/financial meaning remain semantic local exceptions. */
+
+/* Cycle0160 corrective v340 — OWNER supersedes v338: the admin preview must reproduce
+   the current USER Tasks card anatomy, not merely repaint the legacy preview violet.
+   Production reuses the live `.efhc-tasks-shell[data-tg]` compact geometry; only this
+   admin-only preview receives Theme03 material ownership. Public `/tasks` is untouched. */
+
+/* Cycle0160 corrective v342 — OWNER layout + create-mode Theme03 correction.
+   The preview title is a plain heading; the actual task card is the single full-width
+   visual window. The old wrapper no longer paints Card material. Create-mode template
+   controls consume the same Theme03 violet roles; public /tasks remains untouched. */
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-user-preview] {
+  background:transparent;
+  box-shadow:none;
+}
+
+/* Cycle0160 corrective v340 — standalone counterpart of the current USER task card. */
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-user-preview],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-preview-v161 {
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-card);
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-preview-v161 .source-task-card {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 80px;
+  align-items:center;
+  min-height:80px;
+  gap:.64rem;
+  padding:.58rem .68rem;
+  border-color:var(--efhc-admin-canon-border);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-preview-v161 .source-task-top {
+  display:grid;
+  grid-template-columns:1fr;
+  align-items:start;
+  min-width:0;
+  gap:.24rem;
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-preview-v161 .source-task-title {
+  min-width:0;
+  color:var(--efhc-admin-canon-text);
+  font-size:.76rem;
+  font-weight:400;
+  line-height:1.28;
+  overflow-wrap:anywhere;
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-preview-v161 .source-reward {
+  justify-content:flex-start;
+  color:var(--efhc-admin-canon-accent);
+  white-space:nowrap;
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-preview-v161 .source-task-card > .source-row {
+  width:80px;
+  min-width:0;
+  margin-top:0;
+  align-self:center;
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-preview-v161 .source-task-card > .source-row .source-button {
+  width:80px;
+  max-width:80px;
+  min-height:2.3rem;
+  padding:.42rem .44rem;
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text);
+  font-size:.72rem;
+  line-height:1.12;
+  text-align:center;
+}
+
+/* Cycle0160 corrective v342 — standalone parity: no preview frame around the card;
+   create-mode template buttons are explicitly Theme03 violet instead of legacy blue. */
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-preview-heading-v342 {
+  margin-bottom:.4rem;
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-preview-live-card],
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-user-preview] .efhc-task-card,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-preview-v161 .source-task-card {
+  width:100%;
+  max-width:none;
+}
+
+/* Admin Theme03 Canon — Cycle0161 / ADM-07 Reports. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-002 → EAM-ADMIN-004 → EAM-ADMIN-005 → EAM-ADMIN-006 → EAM-ADMIN-016.
+   Material/chroma only. Reports remain read-only; real timeseries/data truth, Global ID lookup,
+   sanitized JSON/CSV/TXT/XLSX journal exports, 20-record operation density and runtime are protected.
+   success/error/warning/info/danger remain semantic status exceptions. */
+.efhc-admin-shell[data-admin-page-marker="ADM-03"],
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] {
+  --efhc-theme-accent:var(--efhc-admin-canon-accent);
+  --efhc-theme-accent-soft:var(--efhc-admin-canon-accent-soft);
+  --efhc-theme-edge:var(--efhc-admin-canon-border);
+  --tg-bg:var(--efhc-admin-canon-page);
+  --tg-secondary-bg:var(--efhc-admin-canon-card);
+  --tg-text:var(--efhc-admin-canon-text);
+  --tg-hint:var(--efhc-admin-canon-text-muted);
+  --tg-button:var(--efhc-admin-canon-accent);
+  --tg-button-text:var(--efhc-admin-canon-text);
+  --efhc-dash-bg:var(--efhc-admin-canon-page);
+  --efhc-dash-surface:var(--efhc-admin-canon-card);
+  --efhc-dash-panel:var(--efhc-admin-canon-card);
+  --efhc-dash-panel-strong:var(--efhc-admin-canon-inset);
+  --efhc-dash-border:var(--efhc-admin-canon-border);
+  --efhc-dash-border-strong:var(--efhc-admin-canon-border-strong);
+  --efhc-dash-text:var(--efhc-admin-canon-text);
+  --efhc-dash-muted:var(--efhc-admin-canon-text-muted);
+  --efhc-dash-muted-2:var(--efhc-admin-canon-text-muted);
+  --efhc-dash-accent:var(--efhc-admin-canon-accent);
+  --efhc-dash-accent-strong:var(--efhc-admin-canon-accent-strong);
+  --efhc-dashboard-accent:var(--efhc-admin-canon-accent);
+  --efhc-dashboard-panel:var(--efhc-admin-canon-card);
+  --efhc-dashboard-panel-strong:var(--efhc-admin-canon-inset);
+  --efhc-dashboard-border:var(--efhc-admin-canon-border);
+  --efhc-dashboard-border-strong:var(--efhc-admin-canon-border-strong);
+  --efhc-dashboard-text:var(--efhc-admin-canon-text);
+  --efhc-dashboard-text-muted:var(--efhc-admin-canon-text-muted);
+  --efhc-dashboard-muted:var(--efhc-admin-canon-text-muted);
+  color:var(--efhc-admin-canon-text);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-page);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-04"] .efhc-admin-bank-map-v154_toggles input,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBonusesPage[data-admin-page-marker="ADM-04"] .admin-bank-map-v154-toggles input,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-editor] input[type="checkbox"],
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] .efhc-admin-reports-export_toggle input {
+  accent-color:var(--efhc-admin-canon-accent);
+}
+
+
+
+/* Cycle0225 corrective continuation v433 — Reports Global-ID search material.
+   Exact ADM-07 local owner: black/near-black Theme03 card + violet contour/controls.
+   Geometry and Global-ID runtime are unchanged. */
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] [data-admin-reports-global-id-scope="v433"] .efhc-admin-panel-chrome {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] [data-admin-reports-global-id-scope="v433"] .efhc-input {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] [data-admin-reports-global-id-scope="v433"] .efhc-btn-secondary {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] [data-admin-reports-global-id-scope="v433"] .efhc-btn-secondary:hover {
+  border-color:var(--efhc-admin-canon-accent);
+  background:var(--efhc-admin-canon-active);
+}
+
+/* Admin Theme03 Canon — Cycle0162 / ADM-08 Referrals. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-002 → EAM-ADMIN-004.
+   Exact Global ID read-only summary only. Cursor scan, referral level thresholds,
+   EFHCb amount, single-user CSV, API/navigation/geometry/runtime are protected. */
+
+
+/* Admin Theme03 Canon — Cycle0163 / ADM-09 Panels. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-002 → EAM-ADMIN-004 → EAM-ADMIN-019 → EAM-ADMIN-020 → EAM-ADMIN-021.
+   Material migration only. Exact Global ID / Panel ID reads, protective fail-closed lifecycle,
+   backend-authoritative settlement, D8/100 EFHC law, server-side CSV/XLSX export and geometry/runtime are protected. */
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"] .admin-bank-v153-side,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"] .admin-bank-v153-total:not([data-ok="false"]),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-09"] :is(
+  .admin-panels-result-line-v190,
+  .admin-panels-protection-v170,
+  .admin-panel-row-v188:not(.admin-panel-dead-v183),
+  .admin-panel-row-v188-metric
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] .efhc-admin-bank-integrity-v153_total:not([data-integrity-ok="false"]) {
+  background:var(--efhc-admin-canon-inset);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] .efhc-admin-panels-map-v188_track,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-09"] .admin-panels-map-v188-track {
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-inset);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] .efhc-admin-panels-map-v188_row:not([data-series="archive"]) .efhc-admin-panels-map-v188_track > span,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-09"] .admin-panels-map-v188-row:not([data-series="archive"]) .admin-panels-map-v188-track > span {
+  background:var(--efhc-admin-canon-accent);
+}
+/* OWNER corrective v344 — shared Admin navigation/nesting + Tasks active-state visual correction.
+   Structural wrappers are transparent; visible semantic cards remain page-local owners. */
+
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] :is(
+  .efhc-admin-reports-visual,
+  .efhc-admin-domain-reports,
+  .efhc-admin-observability-timeseries,
+  .efhc-admin-reports-export,
+  .efhc-admin-logs-events-dashboard,
+  [data-admin-reports-journals][data-admin-flat-group="true"]
+) {
+  border:0;
+  background:transparent;
+  box-shadow:none;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] .efhc-admin-reports-visual {
+  padding:0;
+}
+
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-preview-v161,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] :is([data-admin-task-editor-shell],[data-admin-task-template-picker]),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-editor-v161[data-admin-flat-group="true"],
+.efhc-independent-shell[data-interface-app-mode="admin"] .release-admin-detail[data-human-surface="true"] .admin-reference-section {
+  padding:0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+}
+
+/* Admin Theme03 Canon — Cycle0164 / ADM-10 Hub. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-002 → EAM-ADMIN-004 → EAM-HUB-001.
+   Material migration only. Dynamic active-only catalog, title+URL contract, position reorder,
+   idempotent mutations, customer HUB two-column runtime and external Shop boundary are protected. */
+
+
+/* Admin Theme03 Canon — Cycle0165 / ADM-11 VIP NFT. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-002 → EAM-ADMIN-004 → EAM-ADMIN-006 → EAM-ADMIN-017.
+   Material migration only. Paid-only queue/FIFO, full delivery-wallet authority, audit/export and terminal
+   semantics are protected. Waiting neon-green audit outline and destructive rejection remain semantic exceptions. */
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] .efhc-admin-shop-product-row-v235:hover,
+.efhc-admin-shell[data-admin-page-marker="ADM-10"] .efhc-admin-hub-row-main-v252:hover,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-10"] .admin-hub-v252-main:hover,
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] .efhc-admin-vip-nft-issuance-list button.efhc-admin-compact-operation-row:not([data-tone="neon"]):hover,
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] .efhc-admin-vip-nft-issuance-list .efhc-admin-compact-operation-row:not([data-tone="neon"])[data-active="true"] {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] .admin-compact-operation-row-v156:not(.is-waiting-v212)[data-active="true"] {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] .efhc-admin-panels-contour-v183 .efhc-btn-primary,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-09"] .admin-panels-contour-v183 .source-button:not(.secondary),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-10"] .source-button:not(.secondary):not(.danger),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] :is(
+  .source-button:not(.secondary):not(.danger),
+  .source-segmented button[data-active="true"]
+) { background:var(--efhc-admin-canon-active); }
+
+
+/* Admin Theme03 Canon — Cycle0166 / ADM-12 EFHC deposits. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-002 → EAM-ADMIN-004/005/006 → EAM-ADMIN-022.
+   Material migration only. Direct +EFHC versus Shop-order isolation, idempotency/reprocess safety and
+   success/warning/error semantics are protected. */
+.efhc-admin-shell[data-admin-page-marker="ADM-06"],
+.efhc-admin-shell[data-admin-page-marker="ADM-08"],
+.efhc-admin-shell[data-admin-page-marker="ADM-09"],
+.efhc-admin-shell[data-admin-page-marker="ADM-10"],
+.efhc-admin-shell[data-admin-page-marker="ADM-11"],
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] {
+  --efhc-theme-accent:var(--efhc-admin-canon-accent);
+  --efhc-theme-accent-soft:var(--efhc-admin-canon-accent-soft);
+  --efhc-theme-edge:var(--efhc-admin-canon-border);
+  --tg-bg:var(--efhc-admin-canon-page);
+  --tg-secondary-bg:var(--efhc-admin-canon-card);
+  --tg-text:var(--efhc-admin-canon-text);
+  --tg-hint:var(--efhc-admin-canon-text-muted);
+  --tg-button:var(--efhc-admin-canon-accent);
+  --tg-button-text:var(--efhc-admin-canon-text);
+  color:var(--efhc-admin-canon-text);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-page);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-12"] .admin-compact-operation-row-v156[data-active="true"],
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] [data-admin-efhc-deposits-surface="v348"] button.efhc-admin-compact-operation-row:hover,
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] [data-admin-efhc-deposits-surface="v348"] .efhc-admin-compact-operation-row[data-active="true"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminUsersPage[data-admin-page-marker="ADM-01"]
+  .source-profile-status-window:is(.vip,.success)[data-active="true"] {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+}
+
+
+/* Admin Theme03 Canon — Cycle0167 / ADM-13 Ads. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-002 → EAM-ADMIN-004/005 → EAM-ADMIN-023.
+   Material migration only. Provider health/error/security semantics, withdraw_required_ad contract,
+   server-side secret handling and Ads API/runtime remain protected. */
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] .efhc-admin-ads-provider-row.ring-1,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-13"] .admin-compact-operation-row-v156[data-active="true"] {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+}
+
+/* Admin Theme03 Canon — Cycle0168 / /admin/system / ADM-15. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-002 → EAM-ADMIN-004/005 → EAM-ADMIN-024.
+   Route-exact scope is mandatory because /admin/diagnostics shares ADM-15 and belongs to Cycle0171.
+   Material migration only; health status semantics and /api/health runtime remain protected. */
+
+/* Admin Theme03 Canon — Cycle0169 / /admin/api-workbench / ADM-16. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-002 → EAM-ADMIN-004/005 → EAM-ADMIN-025.
+   ADM-16 is reserved for API Workbench. Cycle0172 resolves /admin/logs as the /admin/reports compatibility alias under ADM-07; no duplicate Logs visual owner is allowed.
+   Material migration only; write gating/idempotency and success/error/coverage semantics remain protected. */
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBonusesPage[data-admin-page-marker="ADM-04"] .admin-bonuses-v149-card,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminApiWorkbenchPage[data-admin-page-marker="ADM-16"] .admin-api-workbench,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"] .source-card:not(.admin-bank-v153-integrity),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"] .admin-bank-v153-integrity {
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] [data-admin-efhc-deposits-surface="v348"] .efhc-admin-stat-card,
+.efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]) .efhc-admin-stat-card,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminApiWorkbenchPage[data-admin-page-marker="ADM-16"] .admin-api-route {
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminApiWorkbenchPage[data-admin-page-marker="ADM-16"] .admin-api-result pre {
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-inset);
+  box-shadow:none;
+}
+
+/* Admin Theme03 Canon — Cycle0170 / /admin/sale-packages / ADM-14 + OWNER visual corrections v352. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-002 → EAM-ADMIN-004/005 → EAM-ADMIN-026.
+   Material migration only. Sale-package API/idempotency/confirmation/precision remain protected. */
+.efhc-modal-overlay:has([data-admin-prompt-marker="sale-packages-editor-v352"]), .efhc-modal-overlay:has([data-admin-prompt-marker="sale-packages-toggle-v352"]) { --tg-bg:var(--efhc-admin-canon-page);--tg-secondary-bg:var(--efhc-admin-canon-card);--tg-text:var(--efhc-admin-canon-text);--tg-hint:var(--efhc-admin-canon-text-muted);--tg-link:var(--efhc-admin-canon-accent);--tg-button:var(--efhc-admin-canon-accent);--tg-button-text:var(--efhc-admin-canon-text); }
+
+/* OWNER v352 — API Workbench decorative success/coverage/selection is violet, not green. */
+.efhc-independent-shell[data-interface-app-mode="admin"] .efhc-game-header[data-hs="HS-03"] .efhc-header-action.efhc-btn-primary,
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] .efhc-profile-status--on,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminApiWorkbenchPage[data-admin-page-marker="ADM-16"] .admin-api-workbench_badge,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminApiWorkbenchPage[data-admin-page-marker="ADM-16"] .admin-api-route[data-last-status="ok"] { border-color:var(--efhc-admin-canon-border-strong);background:var(--efhc-admin-canon-accent-soft);color:var(--efhc-admin-canon-accent); }
+
+/* OWNER v352 — System overall selection/highlight is Theme03 violet, not muted. */
+
+/* OWNER v352 — VIP NFT top request summary is Theme03 violet, not blue/inset. */
+
+/* Admin Theme03 Canon — Cycle0171 / /admin/diagnostics / ADM-15. */
+/* EAM chain: EAM-ADMIN-001 → EAM-ADMIN-002 → EAM-ADMIN-004/005 → EAM-ADMIN-027.
+   Route-exact scope is mandatory because /admin/system shares ADM-15 and remains its own Cycle0168 surface.
+   Material migration only; health warning/error semantics and /api/health runtime remain protected. */
+.efhc-admin-shell[data-admin-page-marker="ADM-13"],
+.efhc-admin-shell:has([data-admin-system-route="/admin/system"]),
+.efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]),
+.efhc-admin-shell[data-admin-page-marker="ADM-14"],
+.efhc-admin-shell:has([data-admin-system-route="/admin/diagnostics"]) {
+  --efhc-theme-accent:var(--efhc-admin-canon-accent);
+  --efhc-theme-accent-soft:var(--efhc-admin-canon-accent-soft);
+  --efhc-theme-edge:var(--efhc-admin-canon-border);
+  --tg-bg:var(--efhc-admin-canon-page);
+  --tg-secondary-bg:var(--efhc-admin-canon-card);
+  --tg-text:var(--efhc-admin-canon-text);
+  --tg-hint:var(--efhc-admin-canon-text-muted);
+  --tg-link:var(--efhc-admin-canon-accent);
+  --tg-button:var(--efhc-admin-canon-accent);
+  --tg-button-text:var(--efhc-admin-canon-text);
+  color:var(--efhc-admin-canon-text);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-page);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] .efhc-admin-header,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminPage[data-admin-page-marker="ADM-00"] .admin-reference-hero,
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] .efhc-admin-header,
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-header,
+.efhc-admin-shell[data-admin-page-marker="ADM-04"] .efhc-admin-header,
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] .efhc-admin-header,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-header,
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] .efhc-admin-header,
+.efhc-admin-shell[data-admin-page-marker="ADM-08"] .efhc-admin-header,
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] .efhc-admin-header,
+.efhc-admin-shell[data-admin-page-marker="ADM-10"] .efhc-admin-header,
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] .efhc-admin-header,
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] .efhc-admin-header,
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] .efhc-admin-header,
+.efhc-admin-shell:has([data-admin-system-route="/admin/system"]) .efhc-admin-header,
+.efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]) .efhc-admin-header,
+.efhc-admin-shell[data-admin-page-marker="ADM-14"] .efhc-admin-header,
+.efhc-admin-shell:has([data-admin-system-route="/admin/diagnostics"]) .efhc-admin-header {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-hero);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"] .source-profile-topbar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBonusesPage[data-admin-page-marker="ADM-04"] .source-profile-topbar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminShopPage[data-admin-page-marker="ADM-05"] .source-profile-topbar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .source-profile-topbar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-07"] .source-profile-topbar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-08"] .source-profile-topbar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-09"] .source-profile-topbar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-10"] .source-profile-topbar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] .source-profile-topbar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-12"] .source-profile-topbar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-13"] .source-profile-topbar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/system"] .source-profile-topbar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminApiWorkbenchPage[data-admin-page-marker="ADM-16"] .source-profile-topbar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/sale-packages"] .source-profile-topbar,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/diagnostics"] .source-profile-topbar {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-chrome);
+  color:var(--efhc-admin-canon-text);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-12"] .source-button:not(.secondary):not(.danger),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-13"] .source-button:not(.secondary):not(.danger),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/system"] .source-button:not(.secondary):not(.danger),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/sale-packages"] .source-button:not(.secondary):not(.danger),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/diagnostics"] .source-button:not(.secondary):not(.danger),
+.efhc-admin-shell[data-admin-page-marker="ADM-04"] .efhc-admin-compact-operation-row[data-active="true"] { background:var(--efhc-admin-canon-active); }
+
+/* OWNER corrective v354 — Cycle0171 OPEN visual qualification corrections for ADM-13 / ADM-15 / ADM-11. */
+/* Ads EAM-ADMIN-023: violet summary tiles, withdrawal-like provider positions, flat API connection group. */
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] .efhc-admin-eyebrow,
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] .efhc-admin-eyebrow,
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-eyebrow,
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-ui-eyebrow,
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdrawals-dashboard-runtime .efhc-dashboard-toolbar__identity strong,
+.efhc-admin-shell[data-admin-page-marker="ADM-04"] .efhc-admin-eyebrow,
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] .efhc-admin-eyebrow,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-eyebrow,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-user-preview] .efhc-task-card_reward,
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] :is(.efhc-admin-eyebrow,.efhc-admin-ui-eyebrow),
+.efhc-admin-shell[data-admin-page-marker="ADM-08"] .efhc-admin-eyebrow,
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] .efhc-admin-eyebrow,
+.efhc-admin-shell[data-admin-page-marker="ADM-10"] .efhc-admin-eyebrow,
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] .efhc-admin-eyebrow,
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] .efhc-admin-eyebrow,
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] .efhc-admin-eyebrow,
+.efhc-admin-shell:has([data-admin-system-route="/admin/system"]) .efhc-admin-eyebrow,
+.efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]) .efhc-admin-eyebrow,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminApiWorkbenchPage[data-admin-page-marker="ADM-16"] .admin-api-method,
+.efhc-admin-shell[data-admin-page-marker="ADM-14"] .efhc-admin-eyebrow,
+.efhc-admin-shell:has([data-admin-system-route="/admin/diagnostics"]) .efhc-admin-eyebrow {
+  color:var(--efhc-admin-canon-accent);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-template-picker] button[data-selected="true"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-row-v161[data-active="true"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-tasks-v161-list button[data-active="true"],
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] .efhc-admin-ads-provider-cards .efhc-admin-ads-provider-row-active-v354,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-13"] .admin-ads-provider-cards-v354 .admin-compact-operation-row-v156[data-active="true"] {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-active);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] [data-admin-ads-api-connection-panel][data-admin-flat-group="true"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-13"] [data-admin-ads-api-connection-panel][data-admin-flat-group="true"] {
+  border:0;
+  border-radius:0;
+  padding:0;
+  background:transparent;
+  box-shadow:none;
+}
+
+/* System/Diagnostics EAM-ADMIN-024/027: status map uses the same separate rounded-position geometry as Withdrawals. */
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] .efhc-admin-ads-provider-cards,
+.efhc-admin-shell:has([data-admin-system-route="/admin/system"]) .efhc-admin-system-health-cards,
+.efhc-admin-shell:has([data-admin-system-route="/admin/diagnostics"]) .efhc-admin-system-health-cards {
+  display:grid;
+  gap:.46rem;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] .efhc-admin-ads-provider-cards .efhc-admin-ads-provider-row,
+.efhc-admin-shell:has([data-admin-system-route="/admin/system"]) .efhc-admin-system-health-cards .efhc-admin-system-health-row,
+.efhc-admin-shell:has([data-admin-system-route="/admin/diagnostics"]) .efhc-admin-system-health-cards .efhc-admin-system-health-row {
+  min-height:3.4rem;
+  padding:.68rem .76rem;
+  border:1px solid var(--efhc-admin-canon-border);
+  border-radius:.78rem;
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+}
+
+/* VIP NFT historical top-summary material owner.
+   Cycle0184/v387 removes the Ads summary KPI group; VIP retains its accepted material. */
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"][data-admin-vip-owner-correction="v354"] .efhc-admin-vip-summary-tile-v354 {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:inset 0 0 0 1px var(--efhc-admin-canon-border);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"][data-admin-vip-owner-correction="v354"] .admin-module-metric {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:inset 0 0 0 1px var(--efhc-admin-canon-border);
+}
+
+
+/* OWNER corrective v355 — Cycle0171 OPEN visual qualification corrections for API Workbench / VIP NFT / Withdrawals / global Admin header tone. */
+/* EAM-ADMIN-002: all production AdminPage primary headers use the same frozen Theme03 Chrome material as Admin Users topbar. */
+
+/* EAM-ADMIN-025: API Workbench Back/Menu buttons must follow Theme03, not the historical blue Button fallback. */
+:root:has(.efhc-admin-shell[data-admin-page-marker="ADM-05"]) .efhc-modal-sheet :is(.efhc-btn-primary,.efhc-btn-secondary),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminShopPage[data-admin-page-marker="ADM-05"] :is(
+  .source-profile-topbar .source-button,
+  .admin-shop-v150-actions .source-button:not(.danger),
+  .admin-shop-v150-tabs .source-button:not(.danger),
+  .standalone-settings-dialog .source-button:not(.danger)
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] :is(
+  .source-profile-topbar .source-button,
+  .admin-task-toolbar-v161 .source-button:not(.danger),
+  [data-admin-task-filter].source-button:not(.danger),
+  .admin-module-sim-toolbar button:not(.danger)
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminApiWorkbenchPage[data-admin-page-marker="ADM-16"] .source-profile-topbar .source-button {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text);
+}
+
+/* EAM-ADMIN-017: VIP NFT summary keeps violet cards but numeric values are ordinary white Theme03 Text. */
+
+/* EAM-ADMIN-015: production Withdrawals operational toolbar retains the accepted Chrome material. The redundant standalone descriptive hero is removed in Cycle0177/v367. */
+
+/* Remaining standalone primary Admin hero windows mirror the Admin Users/topbar Chrome tone. */
+
+/* OWNER corrective v357 — Cycle0171 CRITICAL REGRESSION recovery from physical FRONTEND_v355; v356 is rejected and is not a source base. */
+/* EAM-ADMIN-003: exact +1 CSS px for Admin module titles only; launcher geometry remains untouched. */
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] .efhc-admin-app-button_title {
+  font-size:calc(.78rem + 1px);
+}
+
+/* EAM-ADMIN-017: preserve the physical v355 VIP DOM. Existing top-level windows use Chrome; existing summary cards keep their identity and only rearrange content internally. */
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] .efhc-admin-bank-map-v179_amount-whole,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"] :is(
+  .source-card-title,
+  .admin-bank-v153-side > strong,
+  .admin-bank-v153-side > b,
+  .admin-bank-v153-total > strong,
+  .admin-bank-map-v154-copy > strong,
+  .admin-bank-map-v179-amount-whole
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-user-preview] .efhc-task-card_title,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-preview-heading],
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-editor-heading],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminApiWorkbenchPage[data-admin-page-marker="ADM-16"] :is(.admin-api-route code,.admin-api-result pre),
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"][data-admin-vip-owner-correction="v354"] .efhc-admin-vip-summary-tile-v354 strong,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"][data-admin-vip-owner-correction="v354"] .admin-module-metric strong,
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-nft-requests="shop-orders-v211"] .efhc-admin-vip-summary-tile-v354 .efhc-text-muted,
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-nft-requests="shop-orders-v211"] .efhc-admin-vip-summary-tile-v354 strong {
+  color:var(--efhc-admin-canon-text);
+}
+
+/* EAM-ADMIN-015: route-exact Withdrawals overview uses the exact Chrome role of the main "Выплаты" window. */
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdrawals-dashboard-runtime .efhc-dashboard-toolbar {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-chrome);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+
+/* EAM-ADMIN-001/002: point-fix only the main Admin hero; no global Admin recolor is introduced here. */
+
+/* OWNER corrective v358 — Cycle0171 continuation: Tasks inactive status + VIP summary refinement + primary Admin-window Chrome canon. */
+/* EAM-ADMIN-018: only the factual inactive Tasks status badge changes; warning/active states keep their existing semantic owners. */
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-catalog] [data-status="inactive"] {
+  border:1px solid var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text-muted);
+  box-shadow:none;
+}
+
+/* EAM-ADMIN-017: existing VIP summary tiles stay intact. Border brightness follows the outer summary window, and only text size is raised by the OWNER-requested +2 CSS px. */
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-nft-requests="shop-orders-v211"] .efhc-admin-vip-summary-tile-v354 .efhc-text-muted {
+  font-size:calc(.75rem + 2px);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-nft-requests="shop-orders-v211"] .efhc-admin-vip-summary-tile-v354 strong {
+  font-size:calc(1.25rem + 2px);
+}
+
+/* Standalone counterparts for the same exact EAM owners. */
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-row-v161 .source-pill[data-task-state="inactive"] {
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text-muted);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-nft-requests="shop-orders-v211"] .efhc-admin-vip-summary-tile-v354,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"] .admin-module-metric {
+  border-color:var(--efhc-admin-canon-border-strong);
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"] .admin-module-metric strong {
+  font-size:calc(.68rem + 2px);
+}
+
+
+/* OWNER corrective v359 — Cycle0171 CRITICAL REGRESSION recovery: preserve v357 VIP/Withdrawals visual contracts and move Tasks creation into a dedicated modal. */
+/* EAM-ADMIN-017: exact v357 VIP summary card appearance. v358 border/font experiment is superseded; DOM and internal left/right composition remain unchanged. */
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-nft-requests="shop-orders-v211"] .efhc-admin-vip-summary-tile-v354 .efhc-text-muted {
+  font-size:.75rem;
+  color:var(--efhc-admin-canon-text);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-nft-requests="shop-orders-v211"] .efhc-admin-vip-summary-tile-v354 strong {
+  font-size:1.25rem;
+  color:var(--efhc-admin-canon-text);
+}
+
+/* EAM-ADMIN-017 standalone: source-owned copy of the exact v357 recovery so canon regeneration cannot erase it again. */
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"] .admin-module-metrics {
+  margin-top:0;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-nft-requests="shop-orders-v211"] .efhc-admin-vip-summary-tile-v354,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"] .admin-module-metric {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:.75rem;
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"] .admin-module-metric span {
+  font-size:.52rem;
+  color:var(--efhc-admin-canon-text);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"] .admin-module-metric strong {
+  margin-top:0;
+  justify-self:end;
+  font-size:.68rem;
+  color:var(--efhc-admin-canon-text);
+}
+
+
+/* OWNER corrective v360 — Cycle0171 continuation: OWNER returns Tasks create flow to v357, refines VIP/Withdrawals typography, and removes Ads full-fill selection. */
+/* EAM-ADMIN-018 / Tasks: v357 inline create flow is restored. Only the primary action toolbar receives justified spacing and slightly larger touch geometry. */
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-toolbar="primary-v360"] {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  column-gap:.9rem;
+  row-gap:.7rem;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] [data-admin-task-toolbar-primary-v360] {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  column-gap:.72rem;
+  row-gap:.62rem;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-toolbar="primary-v360"] :is(button,a),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] [data-admin-task-toolbar-primary-v360] .source-button {
+  min-height:2.65rem;
+  max-width:100%;
+  padding-inline:1rem;
+  white-space:normal;
+  text-align:center;
+}
+
+/* Cycle0181 / FRONTEND_v384 / EAM-ADMIN-018 — OWNER-approved material correction.
+   The existing Tasks route owner now consumes the proven Withdrawals ADMIN_SUMMARY_KPI
+   material instead of the historical neutral/inset task material. No generic KPI layer is added. */
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-summary="withdrawals-compact-v366"] .efhc-admin-ui-kpi {
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  column-gap:.75rem;
+  min-width:0;
+  background:var(--efhc-admin-canon-accent-soft);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-summary="withdrawals-compact-v366"] .efhc-admin-ui-kpi_label {
+  grid-column:1;
+  grid-row:1;
+  min-width:0;
+  font-size:13px;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-summary="withdrawals-compact-v366"] .efhc-admin-ui-kpi_value {
+  grid-column:2;
+  grid-row:1;
+  justify-self:end;
+  font-size:24px;
+  line-height:1.08;
+}
+@media (max-width:430px){
+}
+
+/* Standalone counterpart: exact Withdrawals `release-admin-fact` material/typography owner. */
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-tasks-v366-summary {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.42rem;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-tasks-v366-summary .release-admin-fact {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  column-gap:.7rem;
+  min-width:0;
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-card);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-tasks-v366-summary .release-admin-fact span {
+  min-width:0;
+  color:var(--efhc-admin-canon-text-muted);
+  font-size:calc(.52rem + 2px);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-tasks-v366-summary .release-admin-fact strong {
+  margin-top:0;
+  justify-self:end;
+  color:var(--efhc-admin-canon-text);
+  font-size:calc(.66rem + 2px);
+}
+@media(max-width:430px){
+}
+
+/* Cycle0181 / FRONTEND_v384 / EAM-ADMIN-017 — OWNER-approved Withdrawals reference correction.
+   Keep the VIP four-card composition, but make each summary tile consume the same proven
+   ADMIN_SUMMARY_KPI material hierarchy and KPI typography as Withdrawals. */
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-nft-requests="shop-orders-v211"] .efhc-admin-vip-summary-tile-v354 {
+  column-gap:.75rem;
+  border-radius:22px;
+  background:var(--efhc-admin-canon-accent-soft);
+  padding:14px;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-nft-requests="shop-orders-v211"] .efhc-admin-vip-summary-tile-v354 .efhc-text-muted {
+  color:var(--efhc-admin-canon-text-muted);
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-nft-requests="shop-orders-v211"] .efhc-admin-vip-summary-tile-v354 strong {
+  margin-top:0;
+  justify-self:end;
+  color:var(--efhc-admin-canon-text);
+  font-size:24px;
+  font-weight:950;
+  line-height:1.08;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"] .admin-module-metric {
+  column-gap:.7rem;
+  border-color:var(--efhc-admin-canon-border);
+  border-radius:.8rem;
+  background:var(--efhc-admin-canon-card);
+  padding:.62rem;
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"] .admin-module-metric span {
+  color:var(--efhc-admin-canon-text-muted);
+  font-size:calc(.52rem + 2px);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"] .admin-module-metric strong {
+  margin-top:0;
+  justify-self:end;
+  color:var(--efhc-admin-canon-text);
+  font-size:calc(.66rem + 2px);
+}
+
+/* Cycle0184 / FRONTEND_v387 — direct OWNER correction.
+   ADMIN_SUMMARY_KPI remains on EFHC deposits only in this propagation block.
+   Orders and Ads summary KPI groups were withdrawn by OWNER as low-value UI. */
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] [data-admin-efhc-deposits-summary="v386"] .efhc-admin-ui-kpi[data-admin-visual-primitive="ADMIN_SUMMARY_KPI"] {
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  column-gap:.75rem;
+  min-width:0;
+  border:1px solid var(--efhc-admin-canon-border-strong);
+  border-radius:22px;
+  background:var(--efhc-admin-canon-accent-soft);
+  padding:14px;
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] [data-admin-efhc-deposits-summary="v386"] .efhc-admin-ui-kpi_label {
+  grid-column:1;
+  grid-row:1;
+  min-width:0;
+  color:var(--efhc-admin-canon-text-muted);
+  font-size:13px;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] [data-admin-efhc-deposits-summary="v386"] .efhc-admin-ui-kpi_value {
+  grid-column:2;
+  grid-row:1;
+  justify-self:end;
+  color:var(--efhc-admin-canon-text);
+  font-size:24px;
+  line-height:1.08;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] [data-admin-efhc-deposits-summary="v386"] .efhc-admin-ui-kpi_meta,
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] [data-admin-efhc-deposits-summary="v386"] .efhc-admin-ui-kpi_hint {
+  grid-column:1 / -1;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-12"] [data-admin-efhc-deposits-summary-v387] .admin-module-metric[data-admin-visual-primitive="ADMIN_SUMMARY_KPI"] {
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  column-gap:.7rem;
+  min-width:0;
+  border:1px solid var(--efhc-admin-canon-border-strong);
+  border-radius:.8rem;
+  background:var(--efhc-admin-canon-card);
+  padding:.62rem;
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-12"] [data-admin-efhc-deposits-summary-v387] .admin-module-metric span {
+  min-width:0;
+  color:var(--efhc-admin-canon-text-muted);
+  font-size:calc(.52rem + 2px);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-12"] [data-admin-efhc-deposits-summary-v387] .admin-module-metric strong {
+  margin-top:0;
+  justify-self:end;
+  color:var(--efhc-admin-canon-text);
+  font-size:calc(.66rem + 2px);
+}
+
+/* Cycle0182 / FRONTEND_v385 — OWNER spacing correction after visual qualification of Cycle0181.
+   Withdrawals is the spacing reference. Standalone Admin Detail must not add its historical
+   .65rem data-host offset on top of the page .72rem rhythm; Tasks/VIP block cadence is .72rem. */
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-module-data,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] .admin-module-data {
+  margin-top:0;
+  gap:.72rem;
+}
+
+/* EAM-ADMIN-015 / Withdrawals: four compact summary frames follow VIP left-label/right-value anatomy; label and value each grow by exactly +2 CSS px. */
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdraw-mobile_kpis .efhc-admin-ui-kpi {
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  column-gap:.75rem;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdraw-mobile_kpis .efhc-admin-ui-kpi_label {
+  grid-column:1;
+  grid-row:1;
+  font-size:13px;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdraw-mobile_kpis .efhc-admin-ui-kpi_value {
+  grid-column:2;
+  grid-row:1;
+  justify-self:end;
+  font-size:24px;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdraw-mobile_kpis .efhc-admin-ui-kpi_meta,
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdraw-mobile_kpis .efhc-admin-ui-kpi_hint {
+  grid-column:1 / -1;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"] .release-admin-fact {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  column-gap:.7rem;
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-card);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"] .admin-module-metric span,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"] .release-admin-fact span {
+  font-size:calc(.52rem + 2px);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"] .release-admin-fact strong {
+  margin-top:0;
+  justify-self:end;
+  font-size:calc(.66rem + 2px);
+}
+
+/* EAM-ADMIN-023 / Ads: provider selection is contour-only. Ordinary inset fill is preserved; active/hover no longer receive a full accent fill. */
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] .efhc-admin-ads-provider-cards .efhc-admin-ads-provider-row:hover {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-inset);
+}
+
+
+/* Admin Visual Primitive Rebaseline — Cycle0175 / OWNER directive.
+   This is the final ordinary-material owner for Admin. Route/page CSS may continue
+   to own geometry and semantic exceptions, but ordinary Page/Chrome/Card/Inset/KPI/
+   List/Control/Button materials must resolve through this small shared primitive set.
+   OWNER frozen exemplar: EAM-ADMIN-005 / AdminStatCard on /admin. */
+
+/* ADMIN_PAGE + ADMIN_TEXT */
+.efhc-admin-shell[data-admin-page-marker="ADM-00"],
+.efhc-admin-shell[data-admin-page-marker="ADM-02"],
+.efhc-admin-shell[data-admin-theme-surface="true"] {
+  --efhc-theme-accent:var(--efhc-admin-canon-accent);
+  --efhc-theme-accent-soft:var(--efhc-admin-canon-accent-soft);
+  --efhc-theme-edge:var(--efhc-admin-canon-border);
+  color:var(--efhc-admin-canon-text);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-page);
+}
+
+/* ADMIN_CHROME */
+
+/* ADMIN_SECTION */
+.efhc-admin-shell[data-admin-page-marker="ADM-04"] .efhc-admin-section-card,
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] :is(
+  .efhc-admin-section-card,
+  .efhc-card
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] :is(
+  .efhc-admin-section-card,
+  .efhc-card,
+  [data-admin-task-summary] > div,
+  [data-admin-task-user-preview],
+  [data-admin-task-statistics] > div
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] :is(
+  .efhc-admin-reports-visual,
+  .efhc-admin-domain-reports,
+  .efhc-admin-reports-export,
+  .efhc-admin-section-card,
+  .efhc-dashboard-surface
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-08"] .efhc-admin-section-card,
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] .efhc-admin-section-card,
+.efhc-admin-shell[data-admin-page-marker="ADM-10"] .efhc-admin-section-card,
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] .efhc-admin-section-card,
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] .efhc-admin-section-card,
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] :is(.efhc-admin-section-card,.efhc-card,.efhc-admin-ads-analytics-card),
+.efhc-admin-shell:has([data-admin-system-route="/admin/system"]) :is(.efhc-admin-section-card,.efhc-admin-action-grid,.efhc-admin-system-technical-details),
+.efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]) .efhc-admin-section-card,
+.efhc-admin-shell[data-admin-page-marker="ADM-14"] :is(.efhc-admin-section-card,.efhc-card,.efhc-admin-action-grid),
+.efhc-admin-shell:has([data-admin-system-route="/admin/diagnostics"]) :is(.efhc-admin-section-card,.efhc-admin-action-grid,.efhc-admin-system-technical-details),
+.efhc-admin-shell[data-admin-theme-surface="true"] [data-admin-primitive="section"],
+.efhc-admin-shell[data-admin-theme-surface="true"] .efhc-admin-section-card {
+  border-color:var(--efhc-admin-canon-border);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+
+/* ADMIN_KPI — exact material family of the OWNER-approved EAM-ADMIN-005 exemplar. */
+.efhc-admin-shell[data-admin-theme-surface="true"] [data-admin-primitive="kpi"],
+.efhc-admin-shell[data-admin-theme-surface="true"] .efhc-admin-stat-card,
+.efhc-admin-shell[data-admin-theme-surface="true"] .efhc-admin-ui-kpi {
+  background-image:none;
+  background-color:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminApiWorkbenchPage[data-admin-page-marker="ADM-16"] .admin-api-route:not([data-last-status="ok"]):not([data-last-status="error"]),
+.efhc-admin-shell[data-admin-theme-surface="true"] :is(
+  .efhc-admin-stat-card[data-admin-tone="default"],
+  .efhc-admin-stat-card[data-admin-tone="neutral"],
+  .efhc-admin-ui-kpi[data-admin-tone="primary"],
+  .efhc-admin-ui-kpi[data-admin-tone="neutral"],
+  .efhc-admin-ui-kpi[data-admin-tone="info"]
+) {
+  border-color:var(--efhc-admin-canon-border);
+}
+
+/* ADMIN_LIST_ROW */
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminPage[data-admin-page-marker="ADM-00"] .admin-page-nav-v133 button,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBonusesPage[data-admin-page-marker="ADM-04"] :is(
+  .source-profile-topbar .source-button,
+  .admin-bonuses-v149-host .source-button
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] :is(.efhc-btn-primary,.efhc-btn-secondary),
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-user-preview] .efhc-task-card_reward .efhc-badge,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-user-preview] .efhc-task-card_bottom > .efhc-btn-primary,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-template-picker] button[data-selected="true"],
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-editor] a,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] :is(.efhc-btn-primary,.efhc-btn-secondary),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-template-grid-v162 .source-button:not(.danger),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-07"] :is(
+  .source-button:not(.danger),
+  input,
+  select
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-08"] :is(.efhc-input,.efhc-btn-secondary),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-08"] :is(
+  .source-button:not(.danger),
+  input
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] :is(
+  .efhc-admin-panels-contour-v183 .efhc-btn-primary,
+  .efhc-admin-panels-contour-v183 .efhc-btn-secondary,
+  .efhc-admin-panels-search-v170 .efhc-btn-primary,
+  .efhc-admin-panels-search-v170 .efhc-btn-secondary,
+  .efhc-admin-panels-export-v188 .efhc-btn-secondary,
+  .efhc-admin-panels-search-v170 input,
+  .efhc-admin-panels-export-v188 select
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-09"] :is(
+  .admin-panels-contour-v183 .source-button,
+  .admin-panels-search-v170 .source-button,
+  .admin-panels-export-v188 .source-button,
+  input,
+  select
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-row-v161 .source-pill.active,
+.efhc-admin-shell[data-admin-page-marker="ADM-10"] :is(.efhc-admin-hub-position-v252 select,.efhc-btn-secondary),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-10"] :is(.source-button:not(.danger),select,input),
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] :is(
+  [data-admin-vip-search-panel="v211"] .efhc-input,
+  [data-admin-vip-search-panel="v211"] .efhc-btn-secondary,
+  [data-admin-vip-search-panel="v211"] .efhc-btn-ghost,
+  [data-admin-vip-audit-download="v374"] .efhc-btn-secondary,
+  .efhc-admin-section-card > div .efhc-btn-secondary
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] :is(
+  .source-button:not(.danger),
+  .source-segmented button,
+  input,
+  textarea
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] :is(.efhc-input,.efhc-btn-secondary,.efhc-btn-ghost),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-12"] :is(.source-button:not(.danger),select,input),
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] :is(.efhc-input,.efhc-btn-secondary,.efhc-btn-ghost),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-13"] :is(.source-button:not(.danger),select,input,textarea),
+.efhc-admin-shell:has([data-admin-system-route="/admin/system"]) :is(.efhc-btn-secondary,.efhc-btn-ghost),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/system"] :is(.source-button:not(.danger),select,input),
+.efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]) :is(.efhc-input,.efhc-btn-secondary,.efhc-btn-ghost),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminApiWorkbenchPage[data-admin-page-marker="ADM-16"] :is(.admin-api-toolbar button,.admin-api-route button),
+.efhc-admin-shell[data-admin-page-marker="ADM-14"] :is(.efhc-btn-secondary,.efhc-btn-ghost,.efhc-input),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/sale-packages"] :is(.source-button:not(.danger),select,input),
+.efhc-admin-shell:has([data-admin-system-route="/admin/diagnostics"]) [data-admin-system-overall-summary],
+.efhc-admin-shell:has([data-admin-system-route="/admin/diagnostics"]) :is(.efhc-btn-secondary,.efhc-btn-ghost),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/diagnostics"] .admin-v132-callout,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/diagnostics"] :is(.source-button:not(.danger),select,input),
+.efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]) .efhc-admin-actions :is(.efhc-btn-secondary,.efhc-btn-ghost),
+.efhc-admin-shell[data-admin-theme-surface="true"] button.efhc-admin-compact-operation-row:not([data-tone]):hover,
+.efhc-admin-shell[data-admin-theme-surface="true"] .efhc-admin-compact-operation-row:not([data-tone])[data-active="true"] {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+
+/* ADMIN_CONTROL */
+.efhc-admin-shell[data-admin-theme-surface="true"] :is(.efhc-input,input,textarea,select):focus-visible {
+  outline-color:var(--efhc-admin-canon-focus);
+  border-color:var(--efhc-admin-canon-border-strong);
+}
+
+/* ADMIN_BUTTON_PRIMARY / SECONDARY. Destructive/danger styling remains a semantic exception. */
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminShopPage[data-admin-page-marker="ADM-05"] [data-admin-shop-composition="fixed-17-products-list-modal-with-vip-subpages-v237"] .source-button,
+.efhc-admin-shell[data-admin-page-marker="ADM-10"] .efhc-btn-primary,
+.efhc-modal-overlay:has([data-admin-hub-editor-modal="v252"]) .efhc-btn-primary,
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] .efhc-btn-primary,
+.efhc-modal-overlay:has([data-admin-vip-decision-modal="v211"]) .efhc-btn-primary,
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] .efhc-btn-primary,
+.efhc-modal-overlay:has([data-admin-prompt-marker="efhc-deposits-v348"]) .efhc-btn-primary,
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] .efhc-btn-primary,
+.efhc-admin-shell:has([data-admin-system-route="/admin/system"]) .efhc-btn-primary,
+.efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]) .efhc-btn-primary,
+.efhc-admin-shell[data-admin-page-marker="ADM-14"] .efhc-btn-primary,
+.efhc-admin-shell:has([data-admin-system-route="/admin/diagnostics"]) .efhc-btn-primary,
+.efhc-admin-shell[data-admin-theme-surface="true"] .efhc-btn-primary:not(.danger) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-active);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] .efhc-admin-actions :is(.efhc-btn-primary,.efhc-btn-secondary):hover,
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] :is(.efhc-btn-primary,.efhc-btn-secondary):hover,
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdraw-mobile_actions button:hover,
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] :is(.efhc-btn-primary,.efhc-btn-secondary):hover,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"] .source-segmented button[data-active="true"],
+.efhc-admin-shell[data-admin-page-marker="ADM-04"] :is(.efhc-btn-primary,.efhc-btn-secondary):hover,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBonusesPage[data-admin-page-marker="ADM-04"] .admin-bonuses-v187-periods .source-button:not(.secondary),
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] .efhc-admin-reports-visual_metric[data-selected="true"],
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] .efhc-admin-reports-export_chips button[data-active="true"],
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] .efhc-admin-reports-export_download:not(:disabled),
+.efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]) .efhc-admin-actions :is(.efhc-btn-secondary,.efhc-btn-ghost):hover,
+.efhc-admin-shell[data-admin-theme-surface="true"] :is(.efhc-btn-primary,.efhc-btn-secondary,.efhc-btn-ghost):not(.danger):hover {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-active);
+  color:var(--efhc-admin-canon-text);
+}
+
+/* ADMIN_CARD / Cycle0174 emergency action cards. Runtime, confirmation and geometry stay owned by the page. */
+:root:has(.efhc-admin-shell[data-admin-page-marker="ADM-05"]) .efhc-modal.efhc-modal-sheet,
+.efhc-modal-overlay:has([data-admin-hub-editor-modal="v252"]) .efhc-modal-sheet,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-10"] [data-admin-hub-editor-overlay-v252] .standalone-settings-dialog,
+.efhc-modal-overlay:has([data-admin-vip-decision-modal="v211"]) .efhc-modal-sheet,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] .standalone-settings-dialog,
+.efhc-modal-overlay:has([data-admin-prompt-marker="efhc-deposits-v348"]) .efhc-modal-sheet,
+:root:has(.efhc-admin-shell[data-admin-page-marker="ADM-19"]) .efhc-modal-overlay:has([data-admin-prompt-marker="emergency-v363"]) .efhc-modal-sheet {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+:root:has(.efhc-admin-shell[data-admin-page-marker="ADM-03"]) .efhc-modal :is(.efhc-input,input,textarea),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"] .release-admin-withdraw-decision .source-card,
+.efhc-admin-shell[data-admin-page-marker="ADM-04"] :is(
+  .efhc-input,
+  input,
+  select
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBonusesPage[data-admin-page-marker="ADM-04"] :is(
+  .admin-bonuses-v149-filter-grid input,
+  .admin-bonuses-v149-filter-grid select
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBonusesPage[data-admin-page-marker="ADM-04"] .admin-compact-operation-row-v156,
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] .efhc-admin-vip-number-map,
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] :is(
+  .efhc-input,
+  input:not([type="checkbox"]),
+  select,
+  textarea
+),
+:root:has(.efhc-admin-shell[data-admin-page-marker="ADM-05"]) .efhc-modal :is(.efhc-input,input,textarea),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminShopPage[data-admin-page-marker="ADM-05"] .efhc-admin-vip-number-map,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminShopPage[data-admin-page-marker="ADM-05"] :is(
+  .admin-shop-v150-grid input,
+  .admin-shop-v150-grid select,
+  .admin-shop-v150-grid textarea,
+  .efhc-admin-vip-number-map_controls input,
+  .efhc-admin-vip-number-map_controls select
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] :is(
+  [data-admin-task-filters] input,
+  [data-admin-task-filters] select,
+  [data-admin-task-template-fields] input,
+  [data-admin-task-template-fields] select,
+  [data-admin-task-template-fields] textarea,
+  [data-admin-task-editor] input:not([type="checkbox"]),
+  [data-admin-task-editor] select,
+  [data-admin-task-editor] textarea
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] :is(
+  .admin-task-fields-v161 input,
+  .admin-task-fields-v161 select,
+  .admin-task-fields-v161 textarea
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-08"] [data-admin-referrals-search-result="v207"] > div,
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] [data-admin-ads-summary-layout="theme03-violet-v354"] .efhc-admin-ads-summary-secondary-v354,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-13"] .admin-ads-provider-cards-v354 .admin-compact-operation-row-v156,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/system"] .admin-system-health-cards-v354 .admin-compact-operation-row-v156,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/diagnostics"] .admin-system-health-cards-v354 .admin-compact-operation-row-v156,
+:root:has(.efhc-admin-shell[data-admin-page-marker="ADM-19"]) .efhc-modal-overlay:has([data-admin-prompt-marker="emergency-v363"]) :is(.efhc-input,input,textarea,select) {
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+}
+
+/* Standalone shared counterparts: one ordinary material owner across all Admin pages. */
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminPage[data-admin-page-marker="ADM-00"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBankPage[data-admin-page-marker="ADM-02"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBonusesPage[data-admin-page-marker="ADM-04"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminShopPage[data-admin-page-marker="ADM-05"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-07"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-08"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-09"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-10"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-12"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-13"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/system"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminApiWorkbenchPage[data-admin-page-marker="ADM-16"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/sale-packages"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/diagnostics"],
+.efhc-independent-shell[data-interface-app-mode="admin"] :is(
+  #adminPage,
+  #adminUsersPage,
+  #adminBankPage,
+  #adminWithdrawalsPage,
+  #adminBonusesPage,
+  #adminShopPage,
+  #adminApiWorkbenchPage,
+  #adminDetailPage
+)[data-admin-page-marker] {
+  color:var(--efhc-admin-canon-text);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-page);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminPage[data-admin-page-marker="ADM-00"] .admin-reference-module.admin-module-v132,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-user-preview] .efhc-task-card,
+.efhc-independent-shell[data-interface-app-mode="admin"] [data-admin-page-marker] .source-card {
+  border-color:var(--efhc-admin-canon-border);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-theme-surface="true"] .efhc-admin-compact-operation-row:not([data-tone]),
+.efhc-independent-shell[data-interface-app-mode="admin"] [data-admin-page-marker] :is(
+  .admin-reference-stat,
+  .admin-module-metric,
+  .release-admin-fact
+) {
+  border-color:var(--efhc-admin-canon-border);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminBonusesPage[data-admin-page-marker="ADM-04"] :is(
+  .admin-bonuses-v149-title span,
+  .admin-bonuses-v149-meta,
+  .admin-bonuses-v187-map-copy span,
+  .admin-bonuses-v187-map-row > small,
+  .source-muted
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] :is(
+  .efhc-text-muted,
+  .efhc-text-muted2,
+  .efhc-admin-shop-product-main-v235 small,
+  .efhc-admin-shop-product-prices-v235 small,
+  .efhc-admin-vip-number-map_pager > span,
+  .efhc-admin-vip-number-map > p,
+  .efhc-admin-compact-operation_subject,
+  .efhc-admin-compact-operation_time
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] :is(
+  .efhc-text-muted,
+  [data-admin-task-summary] .efhc-text-muted,
+  [data-admin-task-statistics] .efhc-text-muted
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] :is(
+  .source-muted,
+  .admin-task-message-v161,
+  .admin-task-fields-v161 label > span,
+  .admin-tasks-v161-summary span,
+  .admin-tasks-v161-stat span
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] :is(.efhc-text-muted,.efhc-text-muted2),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-07"] .source-muted,
+.efhc-admin-shell[data-admin-page-marker="ADM-08"] .efhc-text-muted,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-08"] .source-muted,
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] :is(.efhc-text-muted,.efhc-text-muted2),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-09"] .source-muted,
+.efhc-admin-shell[data-admin-page-marker="ADM-10"] :is(.efhc-admin-hub-row-copy-v252 small,.efhc-admin-hub-row-chevron-v252,.efhc-admin-hub-position-v252>span,.efhc-text-muted),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-10"] :is(.admin-hub-v252-copy small,.admin-hub-v252-chevron,.admin-hub-v252-position>span,.source-muted),
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] :is(.efhc-text-muted,.efhc-text-muted2),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] .source-muted,
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] :is(.efhc-text-muted,.efhc-text-muted2),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-12"] .source-muted,
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] :is(.efhc-text-muted,.efhc-text-muted2),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-13"] .source-muted,
+.efhc-admin-shell:has([data-admin-system-route="/admin/system"]) :is(.efhc-text-muted,.efhc-text-muted2),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/system"] .source-muted,
+.efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]) :is(.efhc-text-muted,.efhc-text-muted2),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminApiWorkbenchPage[data-admin-page-marker="ADM-16"] :is(.admin-api-workbench_head p,.admin-api-group>summary span,.admin-api-result-head,.admin-api-progress),
+.efhc-admin-shell:has([data-admin-system-route="/admin/diagnostics"]) :is(.efhc-text-muted,.efhc-text-muted2),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/diagnostics"] .source-muted,
+.efhc-admin-shell[data-admin-theme-surface="true"] [data-admin-primitive="kpi"] :is(
+  [class*="text-[color:var(--tg-hint)]"],
+  [class*="uppercase"],
+  .efhc-admin-ui-kpi_label,
+  .efhc-admin-ui-kpi_meta,
+  .efhc-admin-ui-kpi_hint
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] [data-admin-page-marker] :is(
+  .admin-reference-stat span,
+  .admin-module-metric span,
+  .release-admin-fact span,
+  .source-muted
+) { color:var(--efhc-admin-canon-text-muted); }
+.efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]) .efhc-admin-api-route-row:hover,
+.efhc-admin-shell[data-admin-page-marker="ADM-14"] .efhc-telegram-section-row:has([aria-label="Выбран"]),
+.efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]) .efhc-admin-stat-card,
+.efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]) .efhc-admin-api-route-row[data-selected="true"],
+.efhc-admin-shell:has([data-admin-system-route="/admin/system"]) [data-admin-system-overall-summary],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/system"] .admin-v132-callout,
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-nft-map="v211-top-summary"] > div,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"] .source-stat,
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] .efhc-admin-ads-provider-cards .efhc-admin-ads-provider-row:hover,
+.efhc-admin-shell[data-admin-page-marker="ADM-19"] .efhc-admin-emergency-action[data-admin-primitive="card"]:hover,
+.efhc-independent-shell[data-interface-app-mode="admin"] [data-admin-page-marker] .admin-compact-operation-row-v156:not([data-tone])[data-active="true"] {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] .efhc-admin-shop-product-row-v235,
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] .efhc-admin-compact-operation-row,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-catalog] > button,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-template-picker] button,
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] :is(
+  .efhc-admin-reports-visual_metric,
+  .efhc-admin-reports-visual_chart,
+  .efhc-admin-reports-grafana-boundary span,
+  .efhc-admin-reports-export_chips button,
+  .efhc-admin-reports-export_download
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-08"] .admin-panels-map-v188-row,
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] :is(
+  .efhc-admin-panels-map-v188_row,
+  [data-admin-panels-result-line="v190"],
+  .efhc-admin-panels-protection-note-v170,
+  .efhc-admin-panel-row-v188:not(.efhc-admin-panel-dead-v183),
+  .efhc-admin-panel-row-v188_metric
+),
+.efhc-admin-shell[data-admin-page-marker="ADM-10"] :is(.efhc-admin-hub-row-main-v252,.efhc-admin-hub-position-v252),
+.efhc-modal-overlay:has([data-admin-hub-editor-modal="v252"]) :is(.efhc-modal-header,.efhc-input,.efhc-btn-secondary),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-10"] :is(.admin-hub-v252-main,.admin-hub-v252-position),
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-nft-map="v211-top-summary"] > div,
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] .efhc-admin-vip-nft-issuance-list .efhc-admin-compact-operation-row:not([data-tone="neon"]),
+.efhc-modal-overlay:has([data-admin-vip-decision-modal="v211"]) :is(
+  .efhc-modal-header,
+  [data-admin-vip-wallet-destination="v211"],
+  .efhc-telegram-section-row,
+  .efhc-admin-section-card,
+  .efhc-input,
+  .efhc-btn-secondary,
+  .efhc-btn-ghost
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] :is(
+  .source-stat,
+  .admin-user-preview-v139 > div,
+  .standalone-settings-dialog [data-admin-vip-wallet-destination="v211"]
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] .admin-compact-operation-row-v156:not(.is-waiting-v212),
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] [data-admin-efhc-deposits-surface="v348"] .efhc-admin-compact-operation-row,
+.efhc-modal-overlay:has([data-admin-prompt-marker="efhc-deposits-v348"]) :is(.efhc-modal-header,.efhc-input,.efhc-btn-secondary),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-12"] :is(.source-stat,.admin-compact-operation-row-v156),
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] :is(
+  .efhc-admin-ads-provider-row,
+  .efhc-admin-ads-editor-card,
+  .efhc-admin-ads-inset,
+  .efhc-admin-ads-status-inset,
+  .efhc-admin-ads-secret-inset
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-13"] :is(
+  .source-stat,
+  .admin-compact-operation-row-v156,
+  [data-admin-ads-api-connection-panel]
+),
+.efhc-admin-shell:has([data-admin-system-route="/admin/system"]) :is([data-admin-system-overall-summary],.efhc-admin-system-health-row),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/system"] :is(.admin-panels-map-v188-row,.admin-v132-callout),
+.efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]) .efhc-admin-api-route-row,
+.efhc-admin-shell:has([data-admin-api-workbench-surface="v352"]) .efhc-admin-api-result,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminApiWorkbenchPage[data-admin-page-marker="ADM-16"] .admin-api-group,
+.efhc-admin-shell[data-admin-page-marker="ADM-14"] :is(.efhc-admin-stat-card,.efhc-telegram-section-row),
+.efhc-admin-shell:has([data-admin-system-route="/admin/diagnostics"]) .efhc-admin-system-health-row,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/diagnostics"] .admin-panels-map-v188-row,
+.efhc-admin-shell[data-admin-theme-surface="true"] :is(
+  .efhc-input,
+  input:not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  select
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] [data-admin-page-marker] .admin-compact-operation-row-v156:not([data-tone]),
+.efhc-independent-shell[data-interface-app-mode="admin"] [data-admin-page-marker] :is(input,textarea,select) {
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] [data-admin-page-marker] .source-button:not(.danger):hover {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-active);
+  color:var(--efhc-admin-canon-text);
+}
+
+/* Preserve already OWNER-qualified local contracts after the shared primitive owner. */
+.efhc-admin-shell[data-admin-theme-surface="true"] > .efhc-admin-header,
+.efhc-independent-shell[data-interface-app-mode="admin"] :is(#adminPage,#adminAdsPage) .admin-reference-hero,
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-nft-requests="shop-orders-v211"] > .efhc-admin-section-card,
+.efhc-admin-shell[data-admin-page-marker="ADM-00"][data-admin-theme-surface="true"] > .efhc-admin-header,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] :is(
+  [data-admin-vip-summary-position="top-v211"],
+  [data-admin-vip-nft-page="standalone-module-v211"]
+),
+.efhc-admin-shell[data-admin-theme-surface="true"] > .efhc-admin-header[data-admin-primitive="chrome"],
+.efhc-independent-shell[data-interface-app-mode="admin"] :is(
+  #adminPage,
+  #adminUsersPage,
+  #adminBankPage,
+  #adminWithdrawalsPage,
+  #adminBonusesPage,
+  #adminShopPage,
+  #adminApiWorkbenchPage,
+  #adminDetailPage
+)[data-admin-page-marker] :is(.source-profile-topbar,.admin-reference-hero),
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdrawals-dashboard-runtime .efhc-dashboard-toolbar {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-chrome);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+
+/* Cycle0177 / FRONTEND_v378 / EAM-ADMIN-015 — source-proven specificity correction:
+   The early :is() branch has specificity (1,5,0), because its maximum branch has two classes.
+   The former late (1,4,0) rule lost border-color. The explicit draft-instance marker raises it
+   to (1,5,0), winning equal specificity by later source order. Browser/OWNER review is pending.
+   Historical v377 trial:
+   copy the complete visible Withdrawals chrome contour to the four summary KPI cards.
+   The contour contract is the same 1px strong border plus the same canonical shadow; all four
+   summary frames use the same violet contour. Geometry, fill, radius and typography stay unchanged. */
+/* OWNER v380 contour remains accepted for Withdrawals, Tasks and VIP NFT. Cycle0184/v387 withdraws Ads summary KPI propagation. */
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminWithdrawalsPage[data-admin-page-marker="ADM-03"] .release-admin-fact[data-admin-visual-primitive="ADMIN_SUMMARY_KPI"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-tasks-v366-summary .release-admin-fact[data-admin-visual-primitive="ADMIN_SUMMARY_KPI"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] [data-admin-vip-summary-position="top-v211"] .admin-module-metric[data-admin-visual-primitive="ADMIN_SUMMARY_KPI"] {
+  border:1px solid var(--efhc-admin-canon-border-strong);
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdraw-mobile_kpis .efhc-admin-ui-kpi[data-admin-visual-primitive="ADMIN_SUMMARY_KPI"],
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-summary-kpis-v366 .efhc-admin-ui-kpi[data-admin-visual-primitive="ADMIN_SUMMARY_KPI"],
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-nft-requests="shop-orders-v211"] .efhc-admin-vip-summary-tile-v354[data-admin-visual-primitive="ADMIN_SUMMARY_KPI"] {
+  border:1px solid var(--efhc-admin-canon-border-strong);
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-13"] .efhc-admin-ads-provider-cards .efhc-admin-ads-provider-row-active-v354,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-13"] .admin-ads-provider-cards-v354 .admin-compact-operation-row-v156[data-active="true"] {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-inset);
+  box-shadow:none;
+}
+
+/* Cycle0174 standalone Emergency counterpart / ADM-19. Generic technical executor remains intact,
+   but its ordinary surfaces consume the same primitives instead of the historical blue workbench skin. */
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminShopPage[data-admin-page-marker="ADM-05"] :is(
+  .source-card,
+  .admin-shop-v150-guide > div,
+  .admin-shop-v150-row,
+  .admin-shop-v235-row,
+  .admin-shop-v150-editor,
+  .admin-shop-v150-editor-preview,
+  .admin-shop-v150-editor-section,
+  .admin-compact-operation-row-v156
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] :is(
+  .admin-reference-section,
+  .admin-module-metric,
+  .admin-tasks-v161 .source-card,
+  .admin-task-row-v161,
+  .admin-task-preview-v161,
+  .admin-tasks-v161-stat
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-07"] :is(
+  .source-card,
+  .admin-module-metric,
+  .admin-reference-section,
+  .admin-compact-operation-row-v156
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-08"] :is(
+  .source-card,
+  .admin-reference-section
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-09"] :is(
+  .source-card,
+  .admin-panels-section-v188,
+  .admin-panels-map-v188-row,
+  .admin-panels-result-line-v190,
+  .admin-panels-protection-v170,
+  .admin-panel-row-v188:not(.admin-panel-dead-v183),
+  .admin-panel-row-v188-metric
+),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-10"] .source-card,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-11"] .source-card,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-12"] .source-card,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-13"] .source-card,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/system"] .source-card,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/sale-packages"] :is(.source-card,.source-stat,.admin-shop-v150-row),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-route="/admin/diagnostics"] .source-card,
+.efhc-admin-shell[data-admin-page-marker="ADM-19"] .efhc-admin-emergency-action[data-admin-primitive="card"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-19"] :is(
+  .admin-v132-emergency,
+  .admin-module-sim-action
+) {
+  border-color:var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-theme-surface="true"] :is(.efhc-btn-secondary,.efhc-btn-ghost):not(.danger),
+.efhc-independent-shell[data-interface-app-mode="admin"] [data-admin-page-marker] .source-button:not(.danger),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-19"] :is(
+  .admin-module-sim-toolbar button,
+  .admin-module-sim-action button
+) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-19"] :is(
+  .admin-module-sim-toolbar button,
+  .admin-module-sim-action button
+):hover {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-active);
+}
+
+/* Cycle0177 / FRONTEND_v368 / EAM-ADMIN-018 — OWNER sample adoption.
+   The Admin Tasks page now uses the OWNER-provided minimal catalog + one universal create/edit modal.
+   Existing 20 primitives only: SECTION/CARD/CONTROL/BUTTON/BADGE/MODAL. API/verifier/reward/default-inactive contracts are unchanged. */
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] {
+  width:min(100%,780px);
+  margin-inline:auto;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-tasks-surface="minimal-v368"] {
+  width:100%;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-section {
+  margin-top:0;
+  padding:14px;
+  border:1px solid var(--efhc-admin-canon-border);
+  border-radius:24px;
+  background:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-title {
+  color:var(--efhc-admin-canon-text);
+  font-size:14px;
+  font-weight:700;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-control,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-control {
+  width:100%;
+  min-width:0;
+  min-height:40px;
+  padding:8px 12px;
+  border:1px solid var(--efhc-admin-canon-border);
+  border-radius:12px;
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+  font-size:14px;
+  box-shadow:none;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-control::placeholder,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-control::placeholder {
+  color:color-mix(in srgb,var(--efhc-admin-canon-text-muted) 55%,transparent);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-status {
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-edit {
+  min-height:34px;
+  padding:6px 12px;
+  border-radius:12px;
+  font-size:12px;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-more > summary {
+  list-style:none;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-more-button {
+  display:inline-flex;
+  width:34px;
+  height:34px;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  border:1px solid var(--efhc-admin-canon-border);
+  border-radius:12px;
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text-muted);
+  font-size:20px;
+  line-height:1;
+  cursor:pointer;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-more-menu button {
+  width:100%;
+  min-height:36px;
+  padding:7px 10px;
+  border:0;
+  border-radius:10px;
+  background:transparent;
+  color:var(--efhc-admin-canon-text);
+  text-align:left;
+  font-size:13px;
+  font-weight:650;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-more-menu .danger {
+  color:var(--efhc-semantic-danger,#fca5a5);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-empty {
+  margin-top:12px;
+  padding:24px 12px;
+  border:1px dashed var(--efhc-admin-canon-border);
+  border-radius:16px;
+  color:var(--efhc-admin-canon-text-muted);
+  text-align:center;
+  font-size:13px;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:13px 14px;
+  border-bottom:1px solid var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-chrome);
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-title {
+  color:var(--efhc-admin-canon-text);
+  font-size:16px;
+  font-weight:750;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-control {
+  min-height:42px;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-error {
+  margin-top:12px;
+  padding:9px 11px;
+  border:1px solid color-mix(in srgb,var(--efhc-semantic-danger,#fca5a5) 30%,transparent);
+  border-radius:12px;
+  color:var(--efhc-semantic-danger,#fca5a5);
+  font-size:12px;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-toast {
+  position:fixed;
+  left:50%;
+  bottom:18px;
+  z-index:140;
+  min-width:220px;
+  max-width:calc(100vw - 24px);
+  padding:10px 13px;
+  transform:translateX(-50%);
+  border:1px solid var(--efhc-admin-canon-border-strong);
+  border-radius:14px;
+  background:var(--efhc-admin-canon-chrome);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:var(--efhc-admin-canon-shadow);
+  text-align:center;
+  font-size:12px;
+  font-weight:650;
+}
+
+@media(max-width:430px) {
+
+  .efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-status {
+    justify-content:flex-start;
+  }
+}
+
+/* Cycle0177 / FRONTEND_v368 / EAM-ADMIN-018 — OWNER Tasks minimal sample, standalone source owner. */
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-tasks-minimal-v368 {
+  display:grid;
+  gap:.72rem;
+  width:min(100%,780px);
+  margin-inline:auto;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-section {
+  padding:14px;
+  border:1px solid var(--efhc-admin-canon-border);
+  border-radius:24px;
+  background:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-head,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-head .source-card-title {
+  font-size:14px;
+  font-weight:700;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-head > .source-button {
+  min-height:40px;
+  padding:8px 16px;
+  border:1px solid var(--efhc-admin-canon-border-strong);
+  border-radius:16px;
+  background:var(--efhc-admin-canon-active);
+  color:var(--efhc-admin-canon-text);
+  font-size:14px;
+  font-weight:650;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-filters,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-filters {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 150px;
+  gap:8px;
+  margin-top:12px;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-filters :is(input,select),
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-field :is(input,select,textarea) {
+  width:100%;
+  min-width:0;
+  min-height:40px;
+  padding:8px 12px;
+  border:1px solid var(--efhc-admin-canon-border);
+  border-radius:12px;
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+  font:inherit;
+  font-size:14px;
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-list,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-list {
+  display:grid;
+  gap:8px;
+  margin-top:12px;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-row,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-row {
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:10px;
+  align-items:start;
+  width:100%;
+  padding:12px;
+  border:1px solid var(--efhc-admin-canon-border);
+  border-radius:16px;
+  background:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-copy,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-copy {min-width:0;}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-name,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-name {
+  color:var(--efhc-admin-canon-text);
+  font-size:14px;
+  font-weight:700;
+  line-height:1.28;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-meta,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-meta {
+  margin-top:5px;
+  color:var(--efhc-admin-canon-text-muted);
+  font-size:12px;
+  line-height:1.35;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-status {
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-status .source-pill {
+  min-height:25px;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:650;
+  white-space:nowrap;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-status .source-pill[data-task-state="inactive"] {
+  border:1px solid var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text-muted);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-actions,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-actions {
+  grid-column:1/-1;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding-top:9px;
+  border-top:1px solid color-mix(in srgb,var(--efhc-admin-canon-text-muted) 10%,transparent);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-actions > .source-button {
+  min-height:34px;
+  padding:6px 12px;
+  border:1px solid var(--efhc-admin-canon-border);
+  border-radius:12px;
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+  font-size:12px;
+  font-weight:650;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-more,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-more {
+  position:relative;
+  margin-left:auto;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-more > summary {
+  display:inline-flex;
+  width:34px;
+  height:34px;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  border:1px solid var(--efhc-admin-canon-border);
+  border-radius:12px;
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text-muted);
+  font-size:20px;
+  line-height:1;
+  list-style:none;
+  cursor:pointer;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-more > summary::-webkit-details-marker,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-more > summary::-webkit-details-marker {display:none;}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-more-menu,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-menu {
+  position:absolute;
+  right:0;
+  bottom:42px;
+  z-index:8;
+  display:grid;
+  min-width:150px;
+  gap:4px;
+  padding:6px;
+  border:1px solid var(--efhc-admin-canon-border-strong);
+  border-radius:14px;
+  background:var(--efhc-admin-canon-chrome);
+  box-shadow:var(--efhc-admin-canon-shadow);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-menu button {
+  width:100%;
+  min-height:36px;
+  padding:7px 10px;
+  border:0;
+  border-radius:10px;
+  background:transparent;
+  color:var(--efhc-admin-canon-text);
+  text-align:left;
+  font:inherit;
+  font-size:13px;
+  font-weight:650;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-more-menu button:hover,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-menu button:hover {background:var(--efhc-admin-canon-accent-soft);}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-menu .danger {color:#fca5a5;}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-empty {
+  padding:24px 12px;
+  border:1px dashed var(--efhc-admin-canon-border);
+  border-radius:16px;
+  color:var(--efhc-admin-canon-text-muted);
+  text-align:center;
+  font-size:13px;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-overlay,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-overlay {
+  position:fixed;
+  inset:0;
+  z-index:120;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:20px 12px;
+  overflow:auto;
+  background:rgba(2,3,8,.76);
+  backdrop-filter:blur(8px);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-modal {
+  width:min(100%,620px);
+  overflow:hidden;
+  border:1px solid var(--efhc-admin-canon-border-strong);
+  border-radius:24px;
+  background:var(--efhc-admin-canon-card);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:0 24px 70px rgba(0,0,0,.52);
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-modal-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:13px 14px;
+  border-bottom:1px solid var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-chrome);
+  font-size:16px;
+  font-weight:750;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-close,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-modal-head > button {
+  display:inline-flex;
+  width:38px;
+  height:38px;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  border:1px solid var(--efhc-admin-canon-border);
+  border-radius:14px;
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+  font-size:20px;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-body,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-modal-body {padding:14px;}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-summary="withdrawals-compact-v366"],
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-fields,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-fields {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-field,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-field {
+  display:grid;
+  min-width:0;
+  gap:5px;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-field-wide,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-field.wide,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-check.wide {grid-column:1/-1;}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-field > span,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-field > span {
+  color:var(--efhc-admin-canon-text-muted);
+  font-size:12px;
+  font-weight:650;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-textarea,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-field textarea {min-height:84px;resize:vertical;}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-check,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-check {
+  display:flex;
+  min-height:42px;
+  align-items:center;
+  gap:9px;
+  padding:9px 11px;
+  border:1px solid var(--efhc-admin-canon-border);
+  border-radius:12px;
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+  font-size:13px;
+  font-weight:650;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-check input,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-check input {width:16px;height:16px;accent-color:var(--efhc-admin-canon-accent);}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-error {
+  margin-top:12px;
+  padding:9px 11px;
+  border:1px solid rgba(248,113,113,.30);
+  border-radius:12px;
+  background:rgba(127,29,29,.12);
+  color:#fca5a5;
+  font-size:12px;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-action,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-modal-action {
+  display:flex;
+  justify-content:flex-end;
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid var(--efhc-admin-canon-border);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-action .efhc-btn-primary,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-modal-action .source-button {min-width:120px;}
+@media(max-width:430px){
+  .efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-summary="withdrawals-compact-v366"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-tasks-v366-summary,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-filters,
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-fields,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-filters,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-fields {grid-template-columns:1fr;}
+  .efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-section,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-section {padding:12px;border-radius:20px;}
+  .efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-minimal-row,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-row {grid-template-columns:minmax(0,1fr);gap:8px;}
+  .efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-status {justify-content:flex-start;}
+  .efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-field-wide,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] :is(.admin-task-minimal-v368-field.wide,.admin-task-minimal-v368-check.wide) {grid-column:auto;}
+  .efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal-overlay,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-overlay {align-items:flex-end;padding:0;}
+  .efhc-admin-shell[data-admin-page-marker="ADM-06"] .efhc-admin-task-modal,
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-modal {width:100%;max-height:94vh;overflow:auto;border-radius:24px 24px 0 0;border-bottom:0;}
+}
+
+/* Cycle0177 / FRONTEND_v370 / EAM-ADMIN-018 — OWNER correction: ordinary Tasks active/inactive badges are ADMIN_BADGE Theme03 material.
+   `limit` remains the warning semantic exception; progress bars and registered special indicators are outside this correction. */
+.efhc-admin-shell[data-admin-page-marker="ADM-06"] [data-admin-task-catalog] [data-status="active"],
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminDetailPage[data-admin-page-marker="ADM-06"] .admin-task-minimal-v368-status .source-pill[data-task-state="active"] {
+  border:1px solid var(--efhc-admin-canon-border);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+
+/* Cycle0195 / OWNER — ADM-00 vertical rhythm follows the existing Admin-module card gap.
+   Production exemplar: .efhc-admin-app-grid = .7rem, <=520px = .5rem.
+   Standalone exemplar: .admin-reference-grid = .48rem.
+   Only vertical external spacing is normalized; horizontal gaps, padding, geometry, borders, colour and runtime stay unchanged. */
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] {
+  row-gap:.7rem;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-00"] [data-admin-business-summary="true"] {
+  row-gap:.7rem;
+}
+@media (max-width:520px) {
+  .efhc-admin-shell[data-admin-page-marker="ADM-00"],
+  .efhc-admin-shell[data-admin-page-marker="ADM-00"] [data-admin-business-summary="true"] {
+    row-gap:.5rem;
+  }
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminPage[data-admin-page-marker="ADM-00"] {
+  row-gap:.48rem;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminPage[data-admin-page-marker="ADM-00"] .admin-reference-stats {
+  row-gap:.48rem;
+}
+.efhc-independent-shell[data-interface-app-mode="admin"] #adminPage[data-admin-page-marker="ADM-00"] .admin-home-bank-charts-v218 {
+  margin-block:0;
+}
+
+
+/* Cycle0226 v435 — OWNER Admin Global-ID black-violet search + compact log export canon.
+   Black/near-black owns surface mass; violet owns contour/focus/accent only.
+   Exact search/runtime geometry and export scopes are unchanged. */
+.efhc-admin-shell[data-admin-theme-surface="true"] [data-admin-global-id-search-canon="v435"],
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] [data-admin-global-id-search-canon="v435"] {
+  border:1px solid var(--efhc-admin-canon-border-strong);
+  border-radius:.8rem;
+  background:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-theme-surface="true"] [data-admin-global-id-search-canon="v435"]:not(.efhc-card),
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] [data-admin-global-id-search-canon="v435"]:not(.efhc-card) {
+  padding:.65rem;
+}
+.efhc-admin-shell[data-admin-theme-surface="true"] [data-admin-global-id-search-canon="v435"] :is(input,.efhc-input),
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] [data-admin-global-id-search-canon="v435"] :is(input,.efhc-input) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-canvas);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-theme-surface="true"] [data-admin-global-id-search-canon="v435"] :is(.efhc-btn-primary,.efhc-btn-secondary),
+.efhc-profile-page.efhc-admin-user-profile[data-admin-page-marker="ADM-01"] [data-admin-global-id-search-canon="v435"] :is(.efhc-btn-primary,.efhc-btn-secondary,.efhc-admin-user-search-button) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-accent-soft);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] [data-admin-reports-black-violet="v435"] .efhc-admin-dashboard-toolbar,
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] [data-admin-reports-black-violet="v435"] .efhc-admin-panel-chrome {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background-image:none;
+  background-color:var(--efhc-admin-canon-inset);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] [data-admin-reports-black-violet="v435"] :is(select,input,.efhc-input) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-canvas);
+  color:var(--efhc-admin-canon-text);
+}
+.efhc-admin-log-export-strip {
+  display:flex;
+  flex-wrap:nowrap;
+  align-items:center;
+  gap:.35rem;
+  max-width:100%;
+  overflow-x:auto;
+  scrollbar-width:thin;
+}
+.efhc-admin-log-export-strip > button {
+  flex:0 0 auto;
+  width:auto;
+  min-width:3.65rem;
+  min-height:2rem;
+  padding:.38rem .62rem;
+  white-space:nowrap;
+}
+
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] [data-admin-reports-global-id-scope="v433"] .efhc-admin-panel-chrome {
+  background-color:var(--efhc-admin-canon-inset);
+  box-shadow:none;
+}
+
+
+/* Cycle0228 v439 — OWNER Withdrawals full flatten correction.
+   ADM-03 only: tools/search wrappers are structural and render no card material.
+   Input/actions retain black-violet Theme03 material; visible Global ID label restored. Runtime,
+   owner scope, payout semantics and queue composition remain protected. */
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] [data-admin-withdrawals-global-id-log-scope="v439"] {
+  display:grid;
+  gap:.65rem;
+  border:0;
+  border-radius:0;
+  padding:0;
+  background:transparent;
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdrawals-global-id-label-v439 {
+  color:var(--efhc-admin-canon-text);
+  font-size:.78rem;
+  font-weight:700;
+  line-height:1.1;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] [data-admin-withdraw-global-search-scope="v439"] {
+  border:0;
+  border-radius:0;
+  padding:0;
+  background:transparent;
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] [data-admin-withdraw-global-search-scope="v439"] :is(input,.efhc-input) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-canvas);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] [data-admin-withdraw-global-search-scope="v439"] :is(.efhc-btn-primary,.efhc-btn-secondary) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-canvas);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] [data-admin-withdraw-global-search-scope="v439"] :is(.efhc-btn-primary,.efhc-btn-secondary):hover {
+  background:var(--efhc-admin-canon-active);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdrawals-export-v439 {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:.35rem;
+  width:100%;
+  min-width:0;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdrawals-export-v439 > button {
+  width:100%;
+  min-width:0;
+  min-height:1.6rem;
+  padding:.28rem .3rem;
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-canvas);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+  white-space:nowrap;
+  line-height:1;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-03"] .efhc-admin-withdrawals-export-v439 > button:hover {
+  background:var(--efhc-admin-canon-active);
+}
+
+
+/* Cycle0229 v440 — OWNER Reports/Logs corrective visual + explicit filter apply.
+   ADM-07 only: Global-ID wrappers are structural (no nested card material); controls retain
+   black-violet Theme03. Reports export is four equal responsive columns. Journal title and
+   filter apply action share one header row; apply feedback is a transient violet pressed state. */
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] .efhc-admin-reports-global-id-v440 {
+  display:grid;
+  gap:.65rem;
+  border:0;
+  border-radius:0;
+  padding:0;
+  background:transparent;
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] .efhc-admin-reports-global-id-label-v440 {
+  color:var(--efhc-admin-canon-text);
+  font-size:.78rem;
+  font-weight:700;
+  line-height:1.1;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] [data-admin-reports-global-search-scope="v440"] {
+  border:0;
+  border-radius:0;
+  padding:0;
+  background:transparent;
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] [data-admin-reports-global-search-scope="v440"] :is(input,.efhc-input) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-canvas);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] [data-admin-reports-global-search-scope="v440"] :is(.efhc-btn-primary,.efhc-btn-secondary) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-canvas);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] [data-admin-reports-global-search-scope="v440"] :is(.efhc-btn-primary,.efhc-btn-secondary):hover {
+  background:var(--efhc-admin-canon-active);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] .efhc-admin-reports-journals-head-v440 {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:.75rem;
+  min-width:0;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] .efhc-admin-reports-filter-apply-v440 {
+  flex:0 0 auto;
+  min-height:2rem;
+  padding:.4rem .72rem;
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-canvas);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+  transition:background-color .12s ease,border-color .12s ease,box-shadow .12s ease,transform .12s ease;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] .efhc-admin-reports-filter-apply-v440.is-pressed {
+  border-color:var(--efhc-admin-canon-accent-strong);
+  background:var(--efhc-admin-canon-active);
+  box-shadow:0 0 0 2px var(--efhc-admin-canon-accent-soft);
+  transform:translateY(1px);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] [data-admin-safe-log-export-filtered="v440"] {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:.35rem;
+  width:100%;
+  min-width:0;
+  max-width:none;
+  overflow:visible;
+  margin-top:.35rem;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-07"] [data-admin-safe-log-export-filtered="v440"] > button {
+  width:100%;
+  min-width:0;
+  min-height:1.9rem;
+  padding:.36rem .3rem;
+  white-space:nowrap;
+  line-height:1.05;
+}
+@media (max-width:420px) {
+  .efhc-admin-shell[data-admin-page-marker="ADM-07"] .efhc-admin-reports-journals-head-v440 {
+    gap:.5rem;
+  }
+  .efhc-admin-shell[data-admin-page-marker="ADM-07"] .efhc-admin-reports-filter-apply-v440 {
+    max-width:48%;
+    padding-inline:.5rem;
+    font-size:.75rem;
+  }
+}
+
+/* Cycle0230 v442 — OWNER visual canon propagation.
+   Withdrawals + Reports/Logs define the approved Admin control composition:
+   structural search wrappers do not paint nested cards; labels remain visible; controls keep
+   black/near-black Theme03 material; journal exports are four equal responsive columns.
+   Panels adopts the composition; VIP NFT issuance and direct EFHC deposits adopt the four-format strip. */
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] .efhc-admin-panels-control-v442 {
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:.55rem;
+  align-items:end;
+  margin-bottom:.55rem;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] .efhc-admin-panels-contour-v442 {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.45rem;
+  margin:0;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] .efhc-admin-panels-contour-v442 > button {
+  width:100%;
+  min-width:0;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] [data-admin-panels-global-search-scope="v442"] {
+  border:0;
+  border-radius:0;
+  padding:0;
+  margin:0;
+  background:transparent;
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] .efhc-admin-panels-global-id-label-v442 {
+  color:var(--efhc-admin-canon-text);
+  font-size:.78rem;
+  font-weight:700;
+  line-height:1.1;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] [data-admin-panels-global-search-scope="v442"] :is(input,.efhc-input) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-canvas);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] [data-admin-panels-global-search-scope="v442"] :is(.efhc-btn-primary,.efhc-btn-secondary) {
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-canvas);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] [data-admin-panels-global-search-scope="v442"] :is(.efhc-btn-primary,.efhc-btn-secondary):hover {
+  background:var(--efhc-admin-canon-active);
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] .efhc-admin-panels-export-v442,
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] .efhc-admin-deposits-export-v442 {
+  display:grid;
+  gap:.45rem;
+  width:100%;
+  min-width:0;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] .efhc-admin-panels-export-strip-v442,
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] .efhc-admin-vip-export-v442,
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] .efhc-admin-deposits-export-strip-v442 {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:.35rem;
+  width:100%;
+  min-width:0;
+  max-width:none;
+  overflow:visible;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] .efhc-admin-panels-export-strip-v442 > button,
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] .efhc-admin-vip-export-v442 > button,
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] .efhc-admin-deposits-export-strip-v442 > button {
+  width:100%;
+  min-width:0;
+  min-height:1.9rem;
+  padding:.36rem .3rem;
+  border-color:var(--efhc-admin-canon-border-strong);
+  background:var(--efhc-admin-canon-canvas);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+  white-space:nowrap;
+  line-height:1.05;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-09"] .efhc-admin-panels-export-strip-v442 > button:hover,
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] .efhc-admin-vip-export-v442 > button:hover,
+.efhc-admin-shell[data-admin-page-marker="ADM-12"] .efhc-admin-deposits-export-strip-v442 > button:hover {
+  background:var(--efhc-admin-canon-active);
+}
+
+/* OWNER corrective v454 — VIP issuance search geometry.
+   The generic Global-ID canon keeps material ownership, but its .65rem inset made the
+   search controls visibly narrower than the canonical JSON/CSV/TXT/XLSX strip.
+   Keep the outer search box at the same full content width and retain only a small
+   inner inset; no filter/export geometry changes. */
+.efhc-admin-shell[data-admin-page-marker="ADM-11"] [data-admin-vip-search-panel="v454-export-line"] {
+  width:100%;
+  min-width:0;
+  max-width:none;
+  box-sizing:border-box;
+  padding:.28rem;
+}
+
+/* Cycle0231 v443 — Orders visual correction.
+   OWNER: slightly widen only the order-search panel; keep its internal search composition.
+   Paid-log JSON/CSV/XLSX actions are three equal responsive columns across the available width. */
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] .efhc-admin-section-card:has([data-admin-orders-search-width="v443"]) {
+  width:calc(100% + .5rem);
+  max-width:none;
+  margin-inline:-.25rem;
+  box-sizing:border-box;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] [data-admin-orders-search-width="v443"] {
+  width:100%;
+  max-width:none;
+  min-width:0;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] .efhc-admin-orders-log-export-v443 {
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:.45rem;
+  width:100%;
+  min-width:0;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] .efhc-admin-orders-log-export-v443 > label {
+  justify-self:start;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] .efhc-admin-orders-export-strip-v443 {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:.35rem;
+  width:100%;
+  min-width:0;
+  max-width:none;
+  overflow:visible;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-05"] .efhc-admin-orders-export-strip-v443 > button {
+  width:100%;
+  min-width:0;
+  min-height:1.9rem;
+  padding:.36rem .3rem;
+  white-space:nowrap;
+  line-height:1.05;
+}
+
+/* Cycle0232 v444 — Bank EFHC export geometry correction.
+   OWNER: remove the visible technical subtitle and the visible Rows label; keep an accessible
+   rows selector aligned to the same 1.9rem action height; JSON/CSV/XLSX are three equal responsive columns. */
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] .efhc-admin-bank-log-export-v444 {
+  display:grid;
+  grid-template-columns:minmax(5.75rem,7.5rem) minmax(0,1fr);
+  align-items:end;
+  gap:.45rem;
+  width:100%;
+  min-width:0;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] .efhc-admin-bank-export-rows-v444 {
+  width:100%;
+  min-width:0;
+  min-height:1.9rem;
+  height:1.9rem;
+  padding:.2rem .45rem;
+  border:1px solid var(--efhc-admin-canon-border-strong);
+  border-radius:.55rem;
+  background:var(--efhc-admin-canon-canvas);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] .efhc-admin-bank-export-strip-v444 {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:.35rem;
+  width:100%;
+  min-width:0;
+  max-width:none;
+  overflow:visible;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] .efhc-admin-bank-export-strip-v444 > button {
+  width:100%;
+  min-width:0;
+  min-height:1.9rem;
+  height:1.9rem;
+  padding:.36rem .3rem;
+  white-space:nowrap;
+  line-height:1.05;
+}
+
+
+/* Cycle0232 v445 corrective continuation — OWNER row-limit select canon.
+   Bank EFHC is the visual donor: compact rounded 1.9rem selector, no visible Rows label;
+   Panels, Orders and Direct EFHC deposits use the same control geometry. Bank log controls
+   are separated from the section title by the OWNER-approved .65rem gap. */
+.efhc-admin-shell :is(
+  [data-admin-page-marker="ADM-02"],
+  [data-admin-page-marker="ADM-05"],
+  [data-admin-page-marker="ADM-09"],
+  [data-admin-page-marker="ADM-12"]
+) .efhc-admin-export-controls-v445 {
+  display:grid;
+  grid-template-columns:minmax(5.75rem,7.5rem) minmax(0,1fr);
+  align-items:end;
+  gap:.45rem;
+  width:100%;
+  min-width:0;
+}
+.efhc-admin-shell :is(
+  [data-admin-page-marker="ADM-02"],
+  [data-admin-page-marker="ADM-05"],
+  [data-admin-page-marker="ADM-09"],
+  [data-admin-page-marker="ADM-12"]
+) .efhc-admin-export-rows-v445 {
+  width:100%;
+  min-width:0;
+  min-height:1.9rem;
+  height:1.9rem;
+  padding:.2rem .45rem;
+  border:1px solid var(--efhc-admin-canon-border-strong);
+  border-radius:.55rem;
+  background:var(--efhc-admin-canon-canvas);
+  color:var(--efhc-admin-canon-text);
+  box-shadow:none;
+}
+.efhc-admin-shell[data-admin-page-marker="ADM-02"] .efhc-admin-bank-log-export-v445 {
+  margin-top:.65rem;
+}
+@media (max-width:520px) {
+  .efhc-admin-shell :is(
+    [data-admin-page-marker="ADM-02"],
+    [data-admin-page-marker="ADM-05"],
+    [data-admin-page-marker="ADM-09"],
+    [data-admin-page-marker="ADM-12"]
+  ) .efhc-admin-export-controls-v445 {
+    grid-template-columns:minmax(0,1fr);
+  }
+  .efhc-admin-shell :is(
+    [data-admin-page-marker="ADM-02"],
+    [data-admin-page-marker="ADM-05"],
+    [data-admin-page-marker="ADM-09"],
+    [data-admin-page-marker="ADM-12"]
+  ) .efhc-admin-export-rows-v445 {
+    width:min(100%,7.5rem);
+  }
+}

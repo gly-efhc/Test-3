@@ -1,0 +1,48 @@
+/* PH-12 design keeps all geometry in authored variants. This user chroma contract
+   binds decorative properties to CT01–CT10; Admin remains untouched. */
+/* OWNER 0542 — CSS ownership: CT owns PH-12 chroma, PH owns geometry.
+   CT-03 is part of the shared ten-theme USER palette. Admin remains frozen. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-panels-hero[data-ph="PH-12"],
+  .efhc-panels-page[data-ph="PH-12"] .panels-hero
+){
+  border-color:rgba(var(--efhc-ct-accent-rgb),.30);
+  background:radial-gradient(360px 180px at 6% 110%,rgba(var(--efhc-ct-accent-rgb),.18),transparent 64%),linear-gradient(150deg,rgba(16,22,33,.96),rgba(8,11,22,.97));
+  box-shadow:0 16px 36px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.035);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-panels-hero[data-ph="PH-12"] .efhc-game-stats,
+  .efhc-panels-page[data-ph="PH-12"] .panels-stats
+){
+  border-color:rgba(var(--efhc-ct-accent-rgb),.16);
+  background:linear-gradient(120deg,rgba(var(--efhc-ct-accent-rgb),.105),rgba(4,7,14,.22) 58%,rgba(var(--efhc-ct-accent-rgb),.045));
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-panels-hero[data-ph="PH-12"] .efhc-game-stats,
+  .efhc-panels-page[data-ph="PH-12"] .panels-stats
+)::before{
+  background:linear-gradient(180deg,transparent,rgba(var(--efhc-ct-accent-rgb),.52) 22%,rgba(var(--efhc-ct-accent-rgb),.16) 78%,transparent);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-panels-hero[data-ph="PH-12"] .efhc-game-stat,
+  .efhc-panels-page[data-ph="PH-12"] .panels-stat
+){border-color:rgba(var(--efhc-ct-accent-rgb),.16);background:rgba(12,20,31,.58)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-panels-hero[data-ph="PH-12"] .efhc-game-stat:first-child,
+  .efhc-panels-page[data-ph="PH-12"] .panels-stat:first-child
+){
+  border-color:rgba(var(--efhc-ct-accent-rgb),.34);
+  background:radial-gradient(circle at 74% 50%,rgba(var(--efhc-ct-accent-rgb),.18),transparent 58%),rgba(12,20,31,.90);
+  box-shadow:inset -10px 0 24px rgba(var(--efhc-ct-accent-rgb),.08);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-panels-hero[data-ph="PH-12"] .efhc-game-stat:nth-child(n+2),
+  .efhc-panels-page[data-ph="PH-12"] .panels-stat:nth-child(n+2)
+){
+  background:linear-gradient(90deg,rgba(var(--efhc-ct-accent-rgb),.115),rgba(var(--efhc-ct-accent-rgb),.028));
+  box-shadow:inset 0 0 0 1px rgba(var(--efhc-ct-accent-rgb),.18);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] :is(
+ .efhc-panels-hero[data-ph="PH-12"] .efhc-game-stat:first-child .efhc-game-stat_value,
+ .efhc-panels-page[data-ph="PH-12"] .panels-stat:first-child .panels-stat-value
+){text-shadow:0 0 18px rgba(var(--efhc-ct-accent-rgb),.18)}

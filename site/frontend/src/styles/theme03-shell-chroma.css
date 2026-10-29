@@ -1,0 +1,287 @@
+/* Theme 03 shell chroma migration owner — Cycle0143.
+   Palette values live only in theme03-chroma.json. This file owns shell material
+   composition/intensity and consumes semantic colour roles; it must not contain
+   independent decorative hue literals or geometry changes. */
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] {
+  /* Exact-value bridge for legacy accent/edge consumers during staged migration. */
+  --efhc-route-accent:var(--efhc-color-accent);
+  --efhc-route-surface:var(--efhc-color-page);
+  --efhc-route-surface-raised:var(--efhc-color-hero);
+  --efhc-route-border:var(--efhc-color-border);
+  --efhc-route-border-strong:var(--efhc-color-border-strong);
+  --efhc-route-glow:var(--efhc-color-accent-soft);
+
+  /* Internal Header variants remain geometry/material selectors only in Theme03. */
+  --efhc-sc-active-color:var(--efhc-color-accent);
+  --efhc-sc-active-shadow-near:color-mix(in srgb,var(--efhc-color-accent) 76%,transparent);
+  --efhc-sc-active-shadow-far:color-mix(in srgb,var(--efhc-color-glow) 38%,transparent);
+}
+
+/* Cycle0319 OWNER correction — public-shell legacy blue wash must not override
+   USER Theme03. Geometry and borders are untouched; only ordinary shell chroma
+   is rebound to the existing black/violet Theme03 semantic roles. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"][data-public-shell-route="public"] {
+  background:
+    radial-gradient(620px 260px at 50% -80px,color-mix(in srgb,var(--efhc-color-glow) 14%,transparent),transparent 72%),
+    linear-gradient(180deg,var(--efhc-color-page),var(--efhc-color-canvas) 68%,var(--efhc-color-canvas));
+}
+
+/* Bottom Nav geometry/labels/borders remain frozen. Cycle0319 changes only
+   the active material/text/icon chroma from the legacy public blue to the
+   existing Theme03 violet roles. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"][data-public-shell-route="public"]
+.efhc-game-nav_item[data-active="true"] {
+  background:var(--efhc-color-accent-soft)!important;
+  color:var(--efhc-color-accent)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"][data-public-shell-route="public"]
+.efhc-game-nav_item[data-active="true"] :is(.efhc-game-nav_label,.efhc-game-nav_icon) {
+  color:var(--efhc-color-accent)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"][data-public-shell-route="public"]
+.efhc-game-nav_item[data-active="true"] .efhc-game-nav_icon {
+  background:var(--efhc-color-accent-soft);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-header-divider {
+  background:var(--efhc-color-chrome);
+  border-bottom-color:var(--efhc-color-border);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-game-header[data-hs="HS-03"] {
+  background:
+    radial-gradient(110% 180% at 50% -80%,color-mix(in srgb,var(--efhc-color-glow) 25%,transparent),transparent 62%),
+    linear-gradient(180deg,var(--efhc-color-chrome),var(--efhc-color-canvas));
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-game-header[data-hs="HS-03"] :is(
+  .efhc-game-header_profile,
+  .efhc-game-header_balance,
+  .efhc-header-action
+) {
+  border-color:color-mix(in srgb,var(--efhc-color-accent) 25%,transparent);
+  background:var(--efhc-color-card);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-game-header_balance[data-hb="HB-03"] {
+  --hb-color:var(--efhc-color-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-game-nav_grid[data-bn="BN-03"] {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-chrome);
+}
+
+/* Cycle0151 v315 + T3R-05: one Header action colour contract. FAQ, Wallet and
+   +EFHC use ordinary near-black material; HUB remains the single accent action. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-game-header[data-hs="HS-03"] .efhc-header-action.efhc-btn-secondary {
+  color:var(--efhc-color-text);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-game-header[data-hs="HS-03"] :is(.efhc-header-action.efhc-btn-primary,.efhc-header-action.primary) {
+  border-color:var(--efhc-color-border-strong)!important;
+  background:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-accent);
+}
+
+/* Cycle0151 v318 + T3R-05 — Theme settings gear. The idle control is ordinary
+   near-black material with a violet contour; editing remains the active accent. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-interface-customization-button,
+  .interface-customization-button
+) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-interface-customization-button[data-mode="editing"],
+html[data-customization-mode="editing"] .efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .interface-customization-button {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-text);
+}
+
+/* Direct top-up is a body-level portal in production and a body-level overlay
+   in standalone. The generated Theme03 root bridge supplies the SAME 18-role
+   SSOT to both; this adapter changes only the exact direct-deposit family. */
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]) .efhc-modal.efhc-modal-sheet:has(.efhc-direct-deposit),
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]) #standaloneDirectDepositV218 .standalone-settings-dialog {
+  border:1px solid var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]) .efhc-modal.efhc-modal-sheet:has(.efhc-direct-deposit) .efhc-modal-header {
+  border-bottom-color:var(--efhc-color-border);
+  background:var(--efhc-color-card);
+}
+
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]) :is(
+  .efhc-direct-deposit_amount-control,
+  #standaloneDirectDepositV218 input,
+  #standaloneDirectDepositV218 [data-direct-deposit-wallet-chooser-v239]
+) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+}
+
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]) .efhc-direct-deposit_summary,
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]) #standaloneDirectDepositV218 .standalone-direct-deposit-v218_summary {
+  border-color:var(--efhc-color-border);
+}
+
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]) .efhc-direct-deposit_actions .efhc-btn-primary,
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]) #standaloneDirectDepositV218 [data-direct-deposit-send-v218] {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]) .efhc-direct-deposit_actions .efhc-btn-secondary,
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]) #standaloneDirectDepositV218 :is(
+  [data-direct-deposit-close-v218],
+  [data-direct-deposit-wallet-v239]
+) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+
+/* OWNER Theme3 recovery T3R-04A — User Ads AD-03 exact material bridge.
+   /ads is a compatibility route to Tasks, but while rendered its USER material
+   must obey the same Theme03 black/near-black hierarchy. This block owns only
+   AD-03 decorative chroma; redirect/query/runtime semantics remain untouched. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ads-trust-shell[data-ad="AD-03"],
+  #adsPage[data-ad="AD-03"]
+) {
+  --efhc-theme-accent:var(--efhc-color-accent);
+  --efhc-theme-accent-soft:var(--efhc-color-accent-soft);
+  --efhc-theme-edge:var(--efhc-color-border);
+  --tg-bg:var(--efhc-color-canvas);
+  --tg-secondary-bg:var(--efhc-color-card);
+  --tg-text:var(--efhc-color-text);
+  --tg-hint:var(--efhc-color-text-muted);
+  --tg-button:var(--efhc-color-accent-strong);
+  --tg-button-text:var(--efhc-color-text);
+  --efhc-chroma-hero-border:var(--efhc-color-border-strong);
+  --efhc-chroma-hero-background-image:none;
+  --efhc-chroma-hero-background-color:var(--efhc-color-hero);
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-card);
+  background-image:none;
+  background-color:transparent;
+}
+
+/* The shared public-trust decoration is yellow/cyan and is not semantic. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]
+.efhc-ads-trust-shell[data-ad="AD-03"][data-public-visual-trust="hub-browser-shop-withdraw-ads"]::before {
+  background:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ads-trust-shell[data-ad="AD-03"] .efhc-ads-trust-rail,
+  .efhc-ads-trust-shell[data-ad="AD-03"] .efhc-card,
+  #adsPage[data-ad="AD-03"] .source-card
+) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]
+#adsPage[data-ad="AD-03"] .source-game-hero {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-hero);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  #adsPage[data-ad="AD-03"] .source-hero-icon,
+  #adsPage[data-ad="AD-03"] .source-hero-kicker
+) {
+  color:var(--efhc-color-accent);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]
+#adsPage[data-ad="AD-03"] .source-hero-icon {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-accent-soft);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]
+.efhc-ads-trust-shell[data-ad="AD-03"] .efhc-ads-trust-rail span.is-active {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ads-trust-shell[data-ad="AD-03"] .efhc-btn-primary,
+  #adsPage[data-ad="AD-03"] .source-button
+) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ads-trust-shell[data-ad="AD-03"] .efhc-btn-primary,
+  #adsPage[data-ad="AD-03"] .source-button
+):focus-visible {
+  outline-color:var(--efhc-color-focus);
+}
+
+/* OWNER Theme3 recovery T3R-04B — Error ER-03 ordinary material only.
+   Protected SafeErrorState warning/error semantics stay amber. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-error-page[data-er="ER-03"],
+  #errorPage[data-er="ER-03"]
+) {
+  --tg-bg:var(--efhc-color-canvas);
+  --tg-secondary-bg:var(--efhc-color-card);
+  --tg-text:var(--efhc-color-text);
+  --tg-hint:var(--efhc-color-text-muted);
+  --tg-button:var(--efhc-color-accent-strong);
+  --tg-button-text:var(--efhc-color-text);
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-card);
+  background-image:none;
+  background-color:transparent;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]
+#errorPage[data-er="ER-03"] .source-card {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-error-page[data-er="ER-03"] .efhc-btn-secondary,
+  #errorPage[data-er="ER-03"] .source-primary-button
+) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-error-page[data-er="ER-03"] .efhc-btn-secondary,
+  #errorPage[data-er="ER-03"] .source-primary-button
+):focus-visible {
+  outline-color:var(--efhc-color-focus);
+}
+

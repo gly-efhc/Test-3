@@ -1,0 +1,261 @@
+{
+  "schema": "EFHC_THEME04_USER_FORCED_STATES_A_V1",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0406",
+  "physicalHeadAudited": "FRONTEND_v629",
+  "theme": {
+    "id": "04",
+    "anchor": "#229ED9",
+    "name": "Classic Telegram Blue"
+  },
+  "scope": {
+    "routeFamilies": [
+      "Shell",
+      "Energy",
+      "Panels",
+      "Exchange",
+      "Tasks",
+      "Referrals",
+      "Ranks"
+    ],
+    "scenes": [
+      "direct-topup-open",
+      "energy-customization-open",
+      "energy-default",
+      "exchange-default",
+      "panels-default",
+      "panels-portfolio-direction",
+      "panels-portfolio",
+      "ranks-default",
+      "ranks-findme-active",
+      "referrals-default",
+      "referrals-my-active",
+      "referrals-my",
+      "tasks-default"
+    ],
+    "states": [
+      "hover",
+      "active",
+      "focus",
+      "focus-visible",
+      "selected",
+      "expanded",
+      "checked",
+      "disabled"
+    ],
+    "browserShop": false,
+    "mutation": false
+  },
+  "classificationLaw": {
+    "source": "frontend/src/design-system/theme04-color-canon-classification.json",
+    "rule": "Exact normalized membership in Cycle0400 PASS/neutral/explicit-semantic whitelist; transparent allowed; every other introduced state color is FAIL. Hue-distance is not used.",
+    "baseFailOnly": true,
+    "responsiveDeduplication": "Identical scene/path/style signatures across 320/340/390 are tested once; different style signatures would remain separate."
+  },
+  "coverage": {
+    "scenePasses": 13,
+    "selectedStateOwnerSignatures": 76,
+    "resolvedStateOwnerSignatures": 76,
+    "forcedStateTests": 380,
+    "stateGroupErrors": 0,
+    "stateTestErrors": 0,
+    "introducedFailFindings": 58,
+    "uniqueStateFailOwners": 2
+  },
+  "findingSummary": {
+    "byState": {
+      "focus-visible": 58
+    },
+    "byToken": {
+      "rgb(229, 151, 0)": 1,
+      "rgb(88, 199, 180)": 57
+    },
+    "byProperty": {
+      "outlineColor": 58
+    }
+  },
+  "stateFailOwners": [
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "[data-interface-app-mode=\"user\"][data-global-theme-id] :is(button, a, [role=\"button\"]):focus-visible",
+      "state": "focus-visible",
+      "property": "outlineColor",
+      "token": "rgb(88, 199, 180)",
+      "findingCount": 57,
+      "scenes": [
+        "direct-topup-open",
+        "energy-customization-open",
+        "energy-default",
+        "exchange-default",
+        "panels-default",
+        "panels-portfolio",
+        "panels-portfolio-direction",
+        "ranks-default",
+        "ranks-findme-active",
+        "referrals-default",
+        "referrals-my",
+        "referrals-my-active",
+        "tasks-default"
+      ],
+      "samplePaths": [
+        "div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1) > div.efhc-game-header_actions:nth-of-type(3) > button.efhc-header-action.primary:nth-of-type(5)",
+        "div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1) > div.efhc-game-header_actions:nth-of-type(3) > button.efhc-header-action:nth-of-type(2)",
+        "div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1) > div.efhc-game-header_actions:nth-of-type(3) > button.efhc-header-action:nth-of-type(3)",
+        "div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1) > div.efhc-game-header_actions:nth-of-type(3) > button.efhc-header-action:nth-of-type(4)",
+        "#globalThemeControl",
+        "#activatePanel",
+        "#copyReferral",
+        "div.source-route-page.unified-route-page:nth-of-type(6) > section.source-card:nth-of-type(2) > div.standalone-referral-share-grid:nth-of-type(4) > button.source-button.secondary.referral-share-action:nth-of-type(2)",
+        "div.source-route-page.unified-route-page:nth-of-type(6) > section.source-card:nth-of-type(2) > div.standalone-referral-share-grid:nth-of-type(4) > button.source-button.secondary.referral-share-action:nth-of-type(3)"
+      ],
+      "declaration": {
+        "property": "outline-color",
+        "value": "var(--efhc-route-accent) !important",
+        "important": true
+      },
+      "variableChains": [
+        {
+          "name": "--efhc-route-accent",
+          "computedValue": "#58c7b4"
+        }
+      ],
+      "provenanceKind": "DIRECT"
+    },
+    {
+      "type": "NO_CSS_OWNER",
+      "owner": "BROWSER_OR_USER_AGENT_DEFAULT",
+      "state": "focus-visible",
+      "property": "outlineColor",
+      "token": "rgb(229, 151, 0)",
+      "findingCount": 1,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "samplePaths": [
+        "#standaloneDirectDepositAmountV218"
+      ],
+      "declaration": null,
+      "variableChains": [],
+      "provenanceKind": "UNRESOLVED"
+    }
+  ],
+  "sceneCoverage": [
+    {
+      "sceneId": "direct-topup-open",
+      "baseGroups": 0,
+      "baseFailures": 0,
+      "stateGroups": 6,
+      "stateFailures": 0,
+      "forcedStateTests": 30,
+      "introducedForeignStateFindings": 5
+    },
+    {
+      "sceneId": "energy-customization-open",
+      "baseGroups": 0,
+      "baseFailures": 0,
+      "stateGroups": 6,
+      "stateFailures": 0,
+      "forcedStateTests": 30,
+      "introducedForeignStateFindings": 5
+    },
+    {
+      "sceneId": "energy-default",
+      "baseGroups": 0,
+      "baseFailures": 0,
+      "stateGroups": 5,
+      "stateFailures": 0,
+      "forcedStateTests": 25,
+      "introducedForeignStateFindings": 4
+    },
+    {
+      "sceneId": "exchange-default",
+      "baseGroups": 0,
+      "baseFailures": 0,
+      "stateGroups": 6,
+      "stateFailures": 0,
+      "forcedStateTests": 30,
+      "introducedForeignStateFindings": 4
+    },
+    {
+      "sceneId": "panels-default",
+      "baseGroups": 0,
+      "baseFailures": 0,
+      "stateGroups": 6,
+      "stateFailures": 0,
+      "forcedStateTests": 30,
+      "introducedForeignStateFindings": 5
+    },
+    {
+      "sceneId": "panels-portfolio-direction",
+      "baseGroups": 0,
+      "baseFailures": 0,
+      "stateGroups": 6,
+      "stateFailures": 0,
+      "forcedStateTests": 30,
+      "introducedForeignStateFindings": 4
+    },
+    {
+      "sceneId": "panels-portfolio",
+      "baseGroups": 0,
+      "baseFailures": 0,
+      "stateGroups": 6,
+      "stateFailures": 0,
+      "forcedStateTests": 30,
+      "introducedForeignStateFindings": 4
+    },
+    {
+      "sceneId": "ranks-default",
+      "baseGroups": 0,
+      "baseFailures": 0,
+      "stateGroups": 5,
+      "stateFailures": 0,
+      "forcedStateTests": 25,
+      "introducedForeignStateFindings": 4
+    },
+    {
+      "sceneId": "ranks-findme-active",
+      "baseGroups": 0,
+      "baseFailures": 0,
+      "stateGroups": 5,
+      "stateFailures": 0,
+      "forcedStateTests": 25,
+      "introducedForeignStateFindings": 4
+    },
+    {
+      "sceneId": "referrals-default",
+      "baseGroups": 0,
+      "baseFailures": 0,
+      "stateGroups": 8,
+      "stateFailures": 0,
+      "forcedStateTests": 40,
+      "introducedForeignStateFindings": 7
+    },
+    {
+      "sceneId": "referrals-my-active",
+      "baseGroups": 0,
+      "baseFailures": 0,
+      "stateGroups": 6,
+      "stateFailures": 0,
+      "forcedStateTests": 30,
+      "introducedForeignStateFindings": 4
+    },
+    {
+      "sceneId": "referrals-my",
+      "baseGroups": 0,
+      "baseFailures": 0,
+      "stateGroups": 6,
+      "stateFailures": 0,
+      "forcedStateTests": 30,
+      "introducedForeignStateFindings": 4
+    },
+    {
+      "sceneId": "tasks-default",
+      "baseGroups": 0,
+      "baseFailures": 0,
+      "stateGroups": 5,
+      "stateFailures": 0,
+      "forcedStateTests": 25,
+      "introducedForeignStateFindings": 4
+    }
+  ],
+  "decisionLaw": "Audit only. Findings do not authorize mutation. Cycle0409 consolidates correction scope."
+}

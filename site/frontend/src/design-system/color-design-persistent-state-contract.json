@@ -1,0 +1,51 @@
+{
+  "schema": "EFHC_COLOR_DESIGN_PERSISTENT_STATE_CONTRACT_V1_CLEAN_START",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0454",
+  "interface_settings_version": 1,
+  "canonical_state": {
+    "color_theme_id": "CT-01..CT-10; color authority only",
+    "interface_variants": "single independent complete design selection map; canonical form authority",
+    "global_theme_id": "deterministic runtime CSS theme projection; not design authority",
+    "theme_overrides": "optional runtime per-theme mirror; not legacy rollback storage"
+  },
+  "migration": {
+    "policy": "no existing users; initialize one clean canonical V1 schema on first launch",
+    "legacy_versions": "not read or imported",
+    "old_KG_choices": "not migrated; all 10 current KG choices are fresh-start selections",
+    "default_when_design_missing": "current Theme03 design defaults; Color Theme CT01 independent"
+  },
+  "color_change_law": {
+    "changes": [
+      "color_theme_id",
+      "temporary global_theme_id compatibility projection"
+    ],
+    "must_not_change": [
+      "interface_variants",
+      "PB form ID",
+      "EI form ID",
+      "page/card/layout variant IDs"
+    ],
+    "compatibility": "synchronize in-memory runtime overrides only; no rollback or old version writes"
+  },
+  "rollback": {
+    "browser_local": "write only EFHC_USER_SETTINGS_V1",
+    "telegram_cloud": "write only ui_settings_v1",
+    "standalone": "write only EFHC_THEME_STATE_V1"
+  },
+  "visible_selector_boundary": "Cycle0458 keeps legacy visible color selector compatibility. Visible 10-color selector is Cycle0459.",
+  "next_cycle": "0459 visible 10-Color Theme UI + duplicate palette retirement; NOT STARTED automatically",
+  "currentization_cycle": "FRONTEND_ADMIN_CYCLE_0471_CLEAN_START",
+  "universal_design_catalog": {
+    "registry": "frontend/src/design-system/universal-design-catalog.json",
+    "runtime_ids_remain_persisted_keys": true,
+    "canonical_aliases_are_non_persisted_color_independent_metadata": true,
+    "RP_runtime_count": 35,
+    "PB_runtime_count": 35,
+    "PB_RP_shared_physical_library": "PROGRESS_35",
+    "PB_RP_persisted_selections_are_independent": true,
+    "theme03_baseline": "default-only; global families map to slot03 when design state is missing",
+    "all_color_theme_applicable_designs_available_under": "CT-01..CT-10",
+    "browser_shop": "DARK/LIGHT only; BS retained for historical compatibility/provenance, not Color Theme runtime",
+    "historical_census": "frontend/src/design-system/universal-design-registry.json (Cycle0453 immutable census snapshot)"
+  }
+}

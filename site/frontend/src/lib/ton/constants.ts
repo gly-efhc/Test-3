@@ -1,0 +1,9 @@
+export const EFHC_JETTON_DECIMALS = 8;
+export const USDT_JETTON_DECIMALS = 6;
+
+export const EFHC_JETTON_MASTER_ADDRESS =
+  "EQDNcpWf9mXgSPDubDCzvuaX-juL4p8MuUwrQC-36sARRBuw";
+
+
+export const USDT_JETTON_MASTER_ADDRESS =
+  "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs";

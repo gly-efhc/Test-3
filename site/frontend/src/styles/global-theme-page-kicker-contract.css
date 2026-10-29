@@ -1,0 +1,135 @@
+/* OWNER Global Theme invariant — 2026-10-13.
+   These four route kickers are ordinary decorative theme accents. Their text
+   colour always follows the active Global Theme accent. Functional/status/
+   financial/provider colours remain independent. This late contract is
+   intentionally more specific than individual theme adapters. */
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id] :is(
+  .efhc-panels-shell .efhc-panels-hero[data-ph] .efhc-game-kicker,
+  .efhc-exchange-shell .efhc-exchange-hero[data-xh] .efhc-game-kicker,
+  .efhc-tasks-shell[data-tg] .efhc-game-hero .efhc-game-kicker,
+  .efhc-referrals-shell[data-rg] .efhc-game-hero .efhc-game-kicker
+) {
+  color:var(--efhc-route-accent) !important;
+}
+
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id] #panelsPage[data-pa] .panels-kicker,
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id] #exchangePage .source-hero-kicker,
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id] #tasksPage[data-tg] .source-hero-kicker,
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id] #referralsPage[data-rg] .source-hero-kicker {
+  color:var(--efhc-route-accent) !important;
+}
+
+/* OWNER Global Theme accent-element extension — 2026-10-14, clarified by OWNER.
+   Referrals achievement LEVEL CIRCLES use the active theme accent only for the
+   circle outline/glow. Numerals/check glyphs remain standard light text. Lvl labels,
+   thresholds, progress track/fill and reached/next/future background stay owned
+   by their existing progress/state semantics. Withdraw kicker remains an
+   ordinary decorative route accent. */
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-referrals-shell[data-rg] .efhc-referral-achievement-node {
+  color:var(--tg-hint,#94a3b8) !important;
+}
+
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-referrals-shell[data-rg] .efhc-referral-achievement-dot {
+  border-color:var(--efhc-route-accent) !important;
+  color:var(--tg-text,#f8fafc) !important;
+}
+
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+#referralsPage[data-rg] .standalone-referral-achievement-nodes > div {
+  color:var(--tg-hint,#94a3b8) !important;
+}
+
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+#referralsPage[data-rg] .standalone-referral-achievement-nodes > div > b {
+  border-color:var(--efhc-route-accent) !important;
+  color:var(--tg-text,#f8fafc) !important;
+}
+
+
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-referrals-shell[data-rg] .efhc-referral-achievement-node[data-referral-level-state="reached"] .efhc-referral-achievement-dot,
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+#referralsPage[data-rg] .standalone-referral-achievement-nodes > div[data-state="reached"] > b {
+  box-shadow:0 0 8px color-mix(in srgb,var(--efhc-route-accent) 28%,transparent) !important;
+}
+
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-referrals-shell[data-rg] .efhc-referral-achievement-node[data-referral-level-state="next"] .efhc-referral-achievement-dot,
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+#referralsPage[data-rg] .standalone-referral-achievement-nodes > div[data-state="next"] > b {
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--efhc-route-accent) 10%,transparent) !important;
+}
+
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-withdraw-shell .efhc-withdraw-hero .efhc-game-kicker,
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+#withdrawPage[data-wd] .source-hero-kicker {
+  color:var(--efhc-route-accent) !important;
+}
+
+
+/* OWNER Global Theme accent-element extension — 2026-10-14.
+   Referrals copy-link action and the achievement connector progress fill are
+   ordinary decorative theme-owned material. The neutral rail remains neutral;
+   only the filled connector segment follows the active Global Theme accent. */
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-referrals-shell[data-rg] [data-referral-action="copy-link"],
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+#referralsPage[data-rg] #copyReferral {
+  border-color:color-mix(in srgb,var(--efhc-route-accent) 30%,transparent) !important;
+  background:color-mix(in srgb,var(--efhc-route-accent) 9%,transparent) !important;
+  color:var(--tg-text,#f8fafc) !important;
+  box-shadow:none !important;
+}
+
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-referrals-shell[data-rg] [data-referral-action="copy-link"]:hover,
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+#referralsPage[data-rg] #copyReferral:hover {
+  border-color:color-mix(in srgb,var(--efhc-route-accent) 45%,transparent) !important;
+  background:color-mix(in srgb,var(--efhc-route-accent) 11%,transparent) !important;
+  box-shadow:none !important;
+}
+
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-referrals-shell[data-rg] [data-referral-action="copy-link"]:focus-visible,
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+#referralsPage[data-rg] #copyReferral:focus-visible {
+  border-color:color-mix(in srgb,var(--efhc-route-accent) 45%,transparent) !important;
+  outline:2px solid color-mix(in srgb,var(--efhc-route-accent) 76%,white 24%);
+  outline-offset:3px;
+  box-shadow:none !important;
+}
+
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-referrals-shell[data-rg] .efhc-referral-achievement-track > span,
+html[data-interface-app-mode="user"][data-global-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+#referralsPage[data-rg] .standalone-referral-achievement-track > span {
+  background:var(--efhc-route-accent) !important;
+  box-shadow:0 0 8px color-mix(in srgb,var(--efhc-route-accent) 28%,transparent) !important;
+}

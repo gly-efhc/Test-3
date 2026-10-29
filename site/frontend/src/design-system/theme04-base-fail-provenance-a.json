@@ -1,0 +1,2107 @@
+{
+  "schema": "EFHC_THEME04_BASE_FAIL_PROVENANCE_A_V1",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0401",
+  "physicalHeadAudited": "FRONTEND_v624",
+  "theme": {
+    "id": "04",
+    "anchor": "#229ED9"
+  },
+  "scope": {
+    "routeFamilies": [
+      "Shell",
+      "Overlay",
+      "Energy",
+      "Panels",
+      "Exchange"
+    ],
+    "scenes": [
+      "energy-default",
+      "energy-customization-open",
+      "direct-topup-open",
+      "panels-default",
+      "panels-portfolio",
+      "panels-portfolio-direction",
+      "exchange-default"
+    ],
+    "forcedStates": false,
+    "browserShop": false,
+    "mutation": false
+  },
+  "coverage": {
+    "physicalOwnerStyleGroups": 461,
+    "representativeOwnerSignatures": 55,
+    "resolvedRepresentativeSignatures": 55,
+    "provenanceErrors": 0,
+    "resolvedFailFindings": 371,
+    "uniqueWinningSelectors": 39,
+    "userWinningSelectors": 34,
+    "frozenTechnicalAdminSelectors": 5
+  },
+  "findingClassCounts": {
+    "FAIL_OLD_TEAL": 295,
+    "FAIL_FOREIGN_CHROMA": 76
+  },
+  "dominantVariableChains": [
+    {
+      "name": "--efhc-route-accent",
+      "computedValue": "#58c7b4",
+      "findingCount": 107
+    },
+    {
+      "name": "--efhc-route-accent-rgb",
+      "computedValue": "88,199,180",
+      "findingCount": 14
+    },
+    {
+      "name": "--header-status-accent",
+      "computedValue": "#58c7b4",
+      "findingCount": 14
+    },
+    {
+      "name": "--energy-frame-accent",
+      "computedValue": "#58c7b4",
+      "findingCount": 5
+    },
+    {
+      "name": "--efhc-tone-chrome",
+      "computedValue": "color-mix(in srgb,#58c7b4 25%,transparent)",
+      "findingCount": 4
+    },
+    {
+      "name": "--efhc-tone-card",
+      "computedValue": "color-mix(in srgb,#58c7b4 10%,transparent)",
+      "findingCount": 3
+    },
+    {
+      "name": "--efhc-chroma-inset-background-color",
+      "computedValue": "",
+      "findingCount": 2
+    },
+    {
+      "name": "--efhc-tone-hero",
+      "computedValue": "color-mix(in srgb,#58c7b4 20%,transparent)",
+      "findingCount": 2
+    }
+  ],
+  "systemicOwnerEvidence": [
+    {
+      "type": "VARIABLE_CHAIN",
+      "name": "--efhc-route-accent",
+      "computedValue": "#58c7b4",
+      "findingCount": 107
+    },
+    {
+      "type": "VARIABLE_CHAIN",
+      "name": "--efhc-route-accent-rgb",
+      "computedValue": "88,199,180",
+      "findingCount": 14
+    },
+    {
+      "type": "VARIABLE_CHAIN",
+      "name": "--header-status-accent",
+      "computedValue": "#58c7b4",
+      "findingCount": 14
+    },
+    {
+      "type": "VARIABLE_CHAIN",
+      "name": "--energy-frame-accent",
+      "computedValue": "#58c7b4",
+      "findingCount": 5
+    },
+    {
+      "type": "VARIABLE_CHAIN",
+      "name": "--efhc-tone-chrome",
+      "computedValue": "color-mix(in srgb,#58c7b4 25%,transparent)",
+      "findingCount": 4
+    },
+    {
+      "type": "VARIABLE_CHAIN",
+      "name": "--efhc-tone-card",
+      "computedValue": "color-mix(in srgb,#58c7b4 10%,transparent)",
+      "findingCount": 3
+    },
+    {
+      "type": "VARIABLE_CHAIN",
+      "name": "--efhc-chroma-inset-background-color",
+      "computedValue": "",
+      "findingCount": 2
+    },
+    {
+      "type": "VARIABLE_CHAIN",
+      "name": "--efhc-tone-hero",
+      "computedValue": "color-mix(in srgb,#58c7b4 20%,transparent)",
+      "findingCount": 2
+    },
+    {
+      "type": "WINNING_SELECTOR",
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id] .panels-generation-tier[data-tier=\"vip\"]",
+      "findingCount": 29,
+      "scenes": [
+        "panels-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ]
+    },
+    {
+      "type": "WINNING_SELECTOR",
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id] .efhc-game-header_balance svg",
+      "findingCount": 27,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ]
+    },
+    {
+      "type": "WINNING_SELECTOR",
+      "selector": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.efhc-game-header, .efhc-header-divider, .efhc-game-nav, .efhc-game-nav_grid)",
+      "findingCount": 20,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ]
+    },
+    {
+      "type": "WINNING_SELECTOR",
+      "selector": ".global-theme-control",
+      "findingCount": 20,
+      "scenes": [
+        "energy-customization-open"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ]
+    },
+    {
+      "type": "WINNING_SELECTOR",
+      "selector": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) .efhc-game-nav_item[data-active=\"true\"]",
+      "findingCount": 19,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ]
+    },
+    {
+      "type": "WINNING_SELECTOR",
+      "selector": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.efhc-game-header_profile, .efhc-game-header_balance, .efhc-header-action)",
+      "findingCount": 16,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ]
+    },
+    {
+      "type": "WINNING_SELECTOR",
+      "selector": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.source-card, .efhc-card, .panels-card, .exchange-card, .source-task-card, .referrals-card, .rank-card, .profile-card, .hub-card, .withdraw-card, .standalone-faq-index-row, .release-withdraw-item)",
+      "findingCount": 15,
+      "scenes": [
+        "exchange-default",
+        "panels-default",
+        "panels-portfolio-direction"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ]
+    },
+    {
+      "type": "WINNING_SELECTOR",
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id] .efhc-status-indicator-context .efhc-game-header_status[data-active=\"true\"]",
+      "findingCount": 14,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ]
+    },
+    {
+      "type": "WINNING_SELECTOR",
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id] .panel-badge[data-status=\"activ\"][data-active=\"true\"]",
+      "findingCount": 12,
+      "scenes": [
+        "panels-portfolio-direction"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ]
+    },
+    {
+      "type": "WINNING_SELECTOR",
+      "selector": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.source-game-hero, .panels-hero, .exchange-hero, .profile-hero, .withdraw-hero)",
+      "findingCount": 10,
+      "scenes": [
+        "exchange-default",
+        "panels-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ]
+    },
+    {
+      "type": "WINNING_SELECTOR",
+      "selector": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.source-profile-tabs button[data-active=\"true\"], .source-segmented button[data-active=\"true\"], .panels-tab[data-active=\"true\"], [aria-current=\"true\"])",
+      "findingCount": 10,
+      "scenes": [
+        "panels-portfolio-direction"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ]
+    },
+    {
+      "type": "WINNING_SELECTOR",
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id] #exchangePage .source-history-boundary .source-button.secondary",
+      "findingCount": 10,
+      "scenes": [
+        "exchange-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ]
+    },
+    {
+      "type": "WINNING_SELECTOR",
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id] .efhc-energy-stage[data-eg] .efhc-energy-stage_eyebrow",
+      "findingCount": 10,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ]
+    },
+    {
+      "type": "WINNING_SELECTOR",
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"13\"]) :is(.source-row, .source-stat, .source-profile-tabs, .source-segmented, .panel-field, .activation-values, .release-faq-item, .release-faq-subsection, .standalone-operation-day, .standalone-history-withdraw-row, .source-history-boundary)",
+      "findingCount": 10,
+      "scenes": [
+        "direct-topup-open",
+        "panels-portfolio-direction"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ]
+    },
+    {
+      "type": "WINNING_SELECTOR",
+      "selector": ".panels-card-title",
+      "findingCount": 9,
+      "scenes": [
+        "panels-default"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ]
+    }
+  ],
+  "winningOwners": [
+    {
+      "selector": ".standalone-status-route-control .tech-action[data-active=\"true\"]",
+      "scopeClass": "FROZEN_TECHNICAL_ADMIN",
+      "findingCount": 15,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.13)",
+        "rgba(88, 199, 180, 0.5)"
+      ],
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "rgba(88, 199, 180, 0.13)",
+          "findingCount": 3
+        },
+        {
+          "property": "border-top-color",
+          "value": "rgba(88, 199, 180, 0.5)",
+          "findingCount": 3
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgba(88, 199, 180, 0.5)",
+          "findingCount": 3
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgba(88, 199, 180, 0.5)",
+          "findingCount": 3
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgba(88, 199, 180, 0.5)",
+          "findingCount": 3
+        }
+      ],
+      "samplePaths": [
+        "#workbenchActivRouteToggle",
+        "#workbenchUserVisibility",
+        "#workbenchVipRouteToggle"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".admin-qa-v133_badge",
+      "scopeClass": "FROZEN_TECHNICAL_ADMIN",
+      "findingCount": 10,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(187, 247, 208)",
+        "rgba(22, 101, 52, 0.12)",
+        "rgba(74, 222, 128, 0.25)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "rgb(187, 247, 208)",
+          "findingCount": 5
+        },
+        {
+          "property": "background-color",
+          "value": "rgba(22, 101, 52, 0.12)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": "rgba(74, 222, 128, 0.25)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgba(74, 222, 128, 0.25)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgba(74, 222, 128, 0.25)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgba(74, 222, 128, 0.25)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#adminQaDatasetBadge"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".admin-qa-v133_controls button[data-active=\"true\"]",
+      "scopeClass": "FROZEN_TECHNICAL_ADMIN",
+      "findingCount": 10,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(220, 252, 231)",
+        "rgba(22, 101, 52, 0.16)",
+        "rgba(74, 222, 128, 0.42)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "rgb(220, 252, 231)",
+          "findingCount": 5
+        },
+        {
+          "property": "background-color",
+          "value": "rgba(22, 101, 52, 0.16)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": "rgba(74, 222, 128, 0.42)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgba(74, 222, 128, 0.42)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgba(74, 222, 128, 0.42)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgba(74, 222, 128, 0.42)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "aside.tech-workbench > div.tech-page:nth-of-type(3) > section.admin-reference-section > div.admin-qa-v133 > div.admin-qa-v133_controls:nth-of-type(3) > button:nth-of-type(3)"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".tech-bank-integrity-stress-v180 output",
+      "scopeClass": "FROZEN_TECHNICAL_ADMIN",
+      "findingCount": 9,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "rgb(88, 199, 180)",
+          "findingCount": 9
+        }
+      ],
+      "samplePaths": [
+        "#techBankIntegrityPreview"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".tech-workbench_badge",
+      "scopeClass": "FROZEN_TECHNICAL_ADMIN",
+      "findingCount": 4,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(239, 68, 68, 0.35)"
+      ],
+      "declarations": [
+        {
+          "property": "border-top-color",
+          "value": "rgba(239, 68, 68, 0.35)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgba(239, 68, 68, 0.35)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgba(239, 68, 68, 0.35)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgba(239, 68, 68, 0.35)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "aside.tech-workbench > div.tech-workbench_head:nth-of-type(1) > span.tech-workbench_badge"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id] .panels-generation-tier[data-tier=\"vip\"]",
+      "scopeClass": "USER",
+      "findingCount": 29,
+      "scenes": [
+        "panels-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)",
+        "rgba(88, 199, 180, 0.1)",
+        "rgba(88, 199, 180, 0.11)",
+        "rgba(88, 199, 180, 0.46)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--efhc-route-accent,#6ea8ff) !important",
+          "findingCount": 23
+        },
+        {
+          "property": "background-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "box-shadow",
+          "value": "inset 0 1px 0 rgba(255,255,255,.045),0 0 12px rgba(var(--efhc-route-accent-rgb,110,168,255),.10) !important",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#generationTierText",
+        "#generationTier",
+        "div.panels-generation-tier:nth-of-type(2) > span.panels-generation-tier-dot:nth-of-type(1)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent",
+              "computedValue": "#58c7b4"
+            }
+          ],
+          "findingCount": 23
+        },
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent-rgb",
+              "computedValue": "88,199,180"
+            }
+          ],
+          "findingCount": 1
+        }
+      ]
+    },
+    {
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id] .efhc-game-header_balance svg",
+      "scopeClass": "USER",
+      "findingCount": 27,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--efhc-route-accent) !important",
+          "findingCount": 27
+        }
+      ],
+      "samplePaths": [
+        "div.efhc-game-header_balance:nth-of-type(2) > svg > circle",
+        "div.efhc-game-header_balance:nth-of-type(2) > svg > path",
+        "div.efhc-game-header_balance:nth-of-type(2) > svg"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent",
+              "computedValue": "#58c7b4"
+            }
+          ],
+          "findingCount": 27
+        }
+      ]
+    },
+    {
+      "selector": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.efhc-game-header, .efhc-header-divider, .efhc-game-nav, .efhc-game-nav_grid)",
+      "scopeClass": "USER",
+      "findingCount": 20,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "color(srgb 0.345098 0.780392 0.705882 / 0.25)",
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "background-image",
+          "value": "radial-gradient(520px 170px at 76% -90px,var(--efhc-tone-chrome),transparent 70%) !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 4
+        }
+      ],
+      "samplePaths": [
+        "#bottomNav",
+        "div.workspace:nth-of-type(1) > div.preview-column > div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1)",
+        "div.workspace:nth-of-type(1) > div.preview-column > div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider",
+        "div.workspace:nth-of-type(1) > div.preview-column > div.unified-shell > div.efhc-independent-shell > nav.efhc-game-nav"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-tone-chrome",
+              "computedValue": "color-mix(in srgb,#58c7b4 25%,transparent)"
+            }
+          ],
+          "findingCount": 4
+        }
+      ]
+    },
+    {
+      "selector": ".global-theme-control",
+      "scopeClass": "USER",
+      "findingCount": 20,
+      "scenes": [
+        "energy-customization-open"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(243, 232, 255)",
+        "rgba(124, 92, 255, 0.15)",
+        "rgba(167, 139, 250, 0.42)",
+        "rgba(20, 14, 38, 0.94)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "rgb(243, 232, 255)",
+          "findingCount": 14
+        },
+        {
+          "property": "background-color",
+          "value": "rgba(20, 14, 38, 0.94)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": "rgba(167, 139, 250, 0.42)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgba(167, 139, 250, 0.42)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgba(167, 139, 250, 0.42)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgba(167, 139, 250, 0.42)",
+          "findingCount": 1
+        },
+        {
+          "property": "box-shadow",
+          "value": "rgba(0, 0, 0, 0.32) 0px 5px 16px, rgba(124, 92, 255, 0.15) 0px 0px 15px, rgba(255, 255, 255, 0.043) 0px 1px 0px inset",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#globalThemeControl",
+        "button.global-theme-control:nth-of-type(1) > span"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) .efhc-game-nav_item[data-active=\"true\"]",
+      "scopeClass": "USER",
+      "findingCount": 19,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "color(srgb 0.345098 0.780392 0.705882 / 0.1)",
+        "rgb(88, 199, 180)",
+        "rgba(88, 199, 180, 0.46)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--efhc-route-accent) !important",
+          "findingCount": 14
+        },
+        {
+          "property": "background-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.efhc-game-nav_grid > button.efhc-game-nav_item:nth-of-type(1) > span.efhc-game-nav_label:nth-of-type(2)",
+        "div.efhc-game-nav_grid > button.efhc-game-nav_item:nth-of-type(1)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent",
+              "computedValue": "#58c7b4"
+            }
+          ],
+          "findingCount": 14
+        }
+      ]
+    },
+    {
+      "selector": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.efhc-game-header_profile, .efhc-game-header_balance, .efhc-header-action)",
+      "scopeClass": "USER",
+      "findingCount": 16,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 4
+        }
+      ],
+      "samplePaths": [
+        "#headerBalance",
+        "#profileBox",
+        "div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1) > div.efhc-game-header_actions:nth-of-type(3) > button.efhc-header-action.primary:nth-of-type(5)",
+        "div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1) > div.efhc-game-header_actions:nth-of-type(3) > button.efhc-header-action:nth-of-type(2)"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.source-card, .efhc-card, .panels-card, .exchange-card, .source-task-card, .referrals-card, .rank-card, .profile-card, .hub-card, .withdraw-card, .standalone-faq-index-row, .release-withdraw-item)",
+      "scopeClass": "USER",
+      "findingCount": 15,
+      "scenes": [
+        "exchange-default",
+        "panels-default",
+        "panels-portfolio-direction"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "color(srgb 0.345098 0.780392 0.705882 / 0.1)",
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "background-image",
+          "value": "radial-gradient(360px 130px at 100% 0,var(--efhc-tone-card),transparent 70%) !important",
+          "findingCount": 3
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 3
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 3
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 3
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 3
+        }
+      ],
+      "samplePaths": [
+        "#exchangeCard",
+        "div.efhc-panels-page.unified-route-page:nth-of-type(2) > section.panels-card.panels-activation-card:nth-of-type(2)",
+        "div.efhc-panels-page.unified-route-page:nth-of-type(3) > section.panels-card.panels-list-card"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-tone-card",
+              "computedValue": "color-mix(in srgb,#58c7b4 10%,transparent)"
+            }
+          ],
+          "findingCount": 3
+        }
+      ]
+    },
+    {
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id] .efhc-status-indicator-context .efhc-game-header_status[data-active=\"true\"]",
+      "scopeClass": "USER",
+      "findingCount": 14,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)",
+        "rgba(88, 199, 180, 0.34)",
+        "rgba(88, 199, 180, 0.76)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--efhc-route-accent) !important",
+          "findingCount": 10
+        },
+        {
+          "property": "text-shadow",
+          "value": "0 0 5px rgba(var(--efhc-route-accent-rgb),.76),0 0 12px rgba(var(--efhc-route-accent-rgb),.34) !important",
+          "findingCount": 4
+        }
+      ],
+      "samplePaths": [
+        "#activBadge",
+        "#vipBadge"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent",
+              "computedValue": "#58c7b4"
+            }
+          ],
+          "findingCount": 10
+        },
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent-rgb",
+              "computedValue": "88,199,180"
+            },
+            {
+              "name": "--efhc-route-accent-rgb",
+              "computedValue": "88,199,180"
+            }
+          ],
+          "findingCount": 4
+        }
+      ]
+    },
+    {
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id] .panel-badge[data-status=\"activ\"][data-active=\"true\"]",
+      "scopeClass": "USER",
+      "findingCount": 12,
+      "scenes": [
+        "panels-portfolio-direction"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "color(srgb 0.345098 0.780392 0.705882 / 0.08)",
+        "color(srgb 0.345098 0.780392 0.705882 / 0.3)",
+        "color(srgb 0.345098 0.780392 0.705882 / 0.42)",
+        "color(srgb 0.345098 0.780392 0.705882 / 0.72)",
+        "rgb(88, 199, 180)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--header-status-accent,var(--efhc-route-accent))",
+          "findingCount": 5
+        },
+        {
+          "property": "border-color",
+          "value": "color-mix(in srgb,var(--header-status-accent,var(--efhc-route-accent)) 42%,transparent)",
+          "findingCount": 4
+        },
+        {
+          "property": "text-shadow",
+          "value": "0 0 5px color-mix(in srgb,var(--header-status-accent,var(--efhc-route-accent)) 72%,transparent),0 0 12px color-mix(in srgb,var(--header-status-accent,var(--efhc-route-accent)) 30%,transparent)",
+          "findingCount": 2
+        },
+        {
+          "property": "background",
+          "value": "color-mix(in srgb,var(--header-status-accent,var(--efhc-route-accent)) 8%,transparent)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.panels-list:nth-of-type(3) > article.panel-tile:nth-of-type(1) > div.panel-tile-head:nth-of-type(1) > span.panel-badge"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--header-status-accent",
+              "computedValue": "#58c7b4"
+            },
+            {
+              "name": "--efhc-route-accent",
+              "computedValue": "#58c7b4"
+            }
+          ],
+          "findingCount": 10
+        },
+        {
+          "chain": [
+            {
+              "name": "--header-status-accent",
+              "computedValue": "#58c7b4"
+            },
+            {
+              "name": "--efhc-route-accent",
+              "computedValue": "#58c7b4"
+            },
+            {
+              "name": "--header-status-accent",
+              "computedValue": "#58c7b4"
+            },
+            {
+              "name": "--efhc-route-accent",
+              "computedValue": "#58c7b4"
+            }
+          ],
+          "findingCount": 2
+        }
+      ]
+    },
+    {
+      "selector": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.source-game-hero, .panels-hero, .exchange-hero, .profile-hero, .withdraw-hero)",
+      "scopeClass": "USER",
+      "findingCount": 10,
+      "scenes": [
+        "exchange-default",
+        "panels-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "color(srgb 0.345098 0.780392 0.705882 / 0.2)",
+        "rgba(88, 199, 180, 0.46)"
+      ],
+      "declarations": [
+        {
+          "property": "background-image",
+          "value": "radial-gradient(320px 150px at 100% 0,var(--efhc-tone-hero),transparent 70%) !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 2
+        }
+      ],
+      "samplePaths": [
+        "#exchangeHero",
+        "#panelsHero"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-tone-hero",
+              "computedValue": "color-mix(in srgb,#58c7b4 20%,transparent)"
+            }
+          ],
+          "findingCount": 2
+        }
+      ]
+    },
+    {
+      "selector": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.source-profile-tabs button[data-active=\"true\"], .source-segmented button[data-active=\"true\"], .panels-tab[data-active=\"true\"], [aria-current=\"true\"])",
+      "scopeClass": "USER",
+      "findingCount": 10,
+      "scenes": [
+        "panels-portfolio-direction"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "color(srgb 0.345098 0.780392 0.705882 / 0.1)",
+        "rgb(88, 199, 180)",
+        "rgba(88, 199, 180, 0.46)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--efhc-route-accent) !important",
+          "findingCount": 5
+        },
+        {
+          "property": "background-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.panels-tabs:nth-of-type(1) > button.panels-tab:nth-of-type(1)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent",
+              "computedValue": "#58c7b4"
+            }
+          ],
+          "findingCount": 5
+        }
+      ]
+    },
+    {
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id] #exchangePage .source-history-boundary .source-button.secondary",
+      "scopeClass": "USER",
+      "findingCount": 10,
+      "scenes": [
+        "exchange-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)",
+        "rgba(88, 199, 180, 0.1)",
+        "rgba(88, 199, 180, 0.46)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--efhc-route-accent) !important",
+          "findingCount": 5
+        },
+        {
+          "property": "background-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.exchange-body-variant > div.source-history-boundary > button.source-button.secondary"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent",
+              "computedValue": "#58c7b4"
+            }
+          ],
+          "findingCount": 5
+        }
+      ]
+    },
+    {
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id] .efhc-energy-stage[data-eg] .efhc-energy-stage_eyebrow",
+      "scopeClass": "USER",
+      "findingCount": 10,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "color(srgb 0.345098 0.780392 0.705882 / 0.7)",
+        "rgb(88, 199, 180)",
+        "rgba(88, 199, 180, 0.22)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--efhc-route-accent) !important",
+          "findingCount": 8
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "color-mix(in srgb,var(--efhc-route-accent) 70%,transparent) !important",
+          "findingCount": 1
+        },
+        {
+          "property": "text-shadow",
+          "value": "0 2px 18px rgba(var(--efhc-route-accent-rgb),.22) !important",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.efhc-energy-page.unified-route-page:nth-of-type(1) > section.efhc-energy-stage > div.efhc-energy-stage_body:nth-of-type(4) > div.efhc-energy-stage_eyebrow:nth-of-type(1)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent",
+              "computedValue": "#58c7b4"
+            }
+          ],
+          "findingCount": 9
+        },
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent-rgb",
+              "computedValue": "88,199,180"
+            }
+          ],
+          "findingCount": 1
+        }
+      ]
+    },
+    {
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"13\"]) :is(.source-row, .source-stat, .source-profile-tabs, .source-segmented, .panel-field, .activation-values, .release-faq-item, .release-faq-subsection, .standalone-operation-day, .standalone-history-withdraw-row, .source-history-boundary)",
+      "scopeClass": "USER",
+      "findingCount": 10,
+      "scenes": [
+        "direct-topup-open",
+        "panels-portfolio-direction"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.04)",
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "var(--efhc-chroma-inset-background-color,rgba(var(--efhc-route-accent-rgb),.04)) !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 2
+        }
+      ],
+      "samplePaths": [
+        "aside.tech-workbench > div.tech-development-tools:nth-of-type(2) > div.standalone-referral-scenarios:nth-of-type(6) > div.source-row:nth-of-type(1)",
+        "div.panels-list:nth-of-type(3) > article.panel-tile:nth-of-type(1) > div.panel-grid:nth-of-type(2) > div.panel-field:nth-of-type(1)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-chroma-inset-background-color",
+              "computedValue": ""
+            },
+            {
+              "name": "--efhc-route-accent-rgb",
+              "computedValue": "88,199,180"
+            }
+          ],
+          "findingCount": 2
+        }
+      ]
+    },
+    {
+      "selector": ".panels-card-title",
+      "scopeClass": "USER",
+      "findingCount": 9,
+      "scenes": [
+        "panels-default"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(255, 248, 223)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "rgb(255, 248, 223)",
+          "findingCount": 9
+        }
+      ],
+      "samplePaths": [
+        "div.efhc-panels-page.unified-route-page:nth-of-type(2) > section.panels-card.panels-activation-card:nth-of-type(2) > div.panels-card-title:nth-of-type(1)"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".panels-page-title",
+      "scopeClass": "USER",
+      "findingCount": 9,
+      "scenes": [
+        "panels-default"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(255, 248, 223)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "rgb(255, 248, 223)",
+          "findingCount": 9
+        }
+      ],
+      "samplePaths": [
+        "section.panels-hero:nth-of-type(1) > div.panels-hero-head:nth-of-type(1) > div.min-w-0:nth-of-type(1) > div.panels-page-title:nth-of-type(2)"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".efhc-game-header_status",
+      "scopeClass": "USER",
+      "findingCount": 8,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)"
+      ],
+      "declarations": [
+        {
+          "property": "border-top-color",
+          "value": "initial",
+          "findingCount": 2
+        },
+        {
+          "property": "border-right-color",
+          "value": "initial",
+          "findingCount": 2
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "initial",
+          "findingCount": 2
+        },
+        {
+          "property": "border-left-color",
+          "value": "initial",
+          "findingCount": 2
+        }
+      ],
+      "samplePaths": [
+        "#activBadge",
+        "#vipBadge"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.source-stat, .source-row, .source-rank-row, .source-profile-tabs, .source-segmented, .standalone-history-sheet > *, .source-history-boundary, .release-faq-item, .release-faq-subsection)",
+      "scopeClass": "USER",
+      "findingCount": 8,
+      "scenes": [
+        "exchange-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 2
+        }
+      ],
+      "samplePaths": [
+        "div:nth-of-type(3) > div.source-row.exchange-available-row:nth-of-type(1)",
+        "section.source-game-hero.exchange-hero-variant > div.source-stats:nth-of-type(2) > div.source-stat:nth-of-type(1)"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id] .efhc-game-nav_icon",
+      "scopeClass": "USER",
+      "findingCount": 8,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 2
+        }
+      ],
+      "samplePaths": [
+        "div.efhc-game-nav_grid > button.efhc-game-nav_item:nth-of-type(1) > span.efhc-game-nav_icon:nth-of-type(1)",
+        "div.efhc-game-nav_grid > button.efhc-game-nav_item:nth-of-type(2) > span.efhc-game-nav_icon:nth-of-type(1)"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".exchange-hero-variant[data-xh=\"XH-04\"] .source-hero-icon",
+      "scopeClass": "USER",
+      "findingCount": 6,
+      "scenes": [
+        "exchange-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(126, 227, 208)",
+        "rgba(88, 199, 180, 0.13)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "rgb(126, 227, 208)",
+          "findingCount": 5
+        },
+        {
+          "property": "background-color",
+          "value": "rgba(88, 199, 180, 0.13)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "section.source-game-hero.exchange-hero-variant > div.source-hero-head:nth-of-type(1) > div.source-hero-icon:nth-of-type(2)"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".efhc-energy-stage[data-eg] .efhc-energy-frame-theme-slots span[data-active=\"true\"]",
+      "scopeClass": "USER",
+      "findingCount": 5,
+      "scenes": [
+        "energy-customization-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)"
+      ],
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "var(--energy-frame-accent)",
+          "findingCount": 4
+        },
+        {
+          "property": "background",
+          "value": "var(--energy-frame-accent)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.efhc-energy-frame-theme-slots:nth-of-type(3) > span:nth-of-type(4)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--energy-frame-accent",
+              "computedValue": "#58c7b4"
+            }
+          ],
+          "findingCount": 5
+        }
+      ]
+    },
+    {
+      "selector": ".efhc-energy-stage_coin",
+      "scopeClass": "USER",
+      "findingCount": 5,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(210, 180, 119, 0.22)",
+        "rgba(255, 226, 145, 0.72)"
+      ],
+      "declarations": [
+        {
+          "property": "border-top-color",
+          "value": "rgba(255, 226, 145, 0.72)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgba(255, 226, 145, 0.72)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgba(255, 226, 145, 0.72)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgba(255, 226, 145, 0.72)",
+          "findingCount": 1
+        },
+        {
+          "property": "box-shadow",
+          "value": "rgba(210, 180, 119, 0.22) 0px 0px 16px",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#energyIcon"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".efhc-panels-page[data-pa=\"PA-04\"] .activation-button",
+      "scopeClass": "USER",
+      "findingCount": 5,
+      "scenes": [
+        "panels-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.13)",
+        "rgba(88, 199, 180, 0.35)"
+      ],
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "rgba(88, 199, 180, 0.13)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": "rgba(88, 199, 180, 0.35)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgba(88, 199, 180, 0.35)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgba(88, 199, 180, 0.35)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgba(88, 199, 180, 0.35)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#activatePanel"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".exchange-body-variant[data-xc=\"XC-04\"] .source-preview",
+      "scopeClass": "USER",
+      "findingCount": 5,
+      "scenes": [
+        "exchange-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.09)",
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "rgba(88, 199, 180, 0.09)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": "rgba(88, 199, 180, 0.3)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgba(88, 199, 180, 0.3)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgba(88, 199, 180, 0.3)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgba(88, 199, 180, 0.3)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div:nth-of-type(3) > div.source-preview:nth-of-type(2)"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id=\"04\"] .efhc-panels-page[data-pa=\"PA-04\"] .activation-values",
+      "scopeClass": "USER",
+      "findingCount": 5,
+      "scenes": [
+        "panels-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.05)",
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.efhc-panels-page.unified-route-page:nth-of-type(2) > section.panels-card.panels-activation-card:nth-of-type(2) > div.activation-grid:nth-of-type(2) > div.activation-values:nth-of-type(1)"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id] #exchangePage .source-history-boundary",
+      "scopeClass": "USER",
+      "findingCount": 5,
+      "scenes": [
+        "exchange-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.055)",
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.exchange-body-variant > div.source-history-boundary"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) .efhc-energy-stage[data-eg]",
+      "scopeClass": "USER",
+      "findingCount": 4,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.46)"
+      ],
+      "declarations": [
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.efhc-energy-page.unified-route-page:nth-of-type(1) > section.efhc-energy-stage"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".panels-stat",
+      "scopeClass": "USER",
+      "findingCount": 4,
+      "scenes": [
+        "panels-default"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(229, 191, 88, 0.19)"
+      ],
+      "declarations": [
+        {
+          "property": "border-top-color",
+          "value": "rgba(229, 191, 88, 0.19)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgba(229, 191, 88, 0.19)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgba(229, 191, 88, 0.19)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgba(229, 191, 88, 0.19)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "section.panels-hero:nth-of-type(1) > div.panels-stats:nth-of-type(2) > div.panels-stat:nth-of-type(1)"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".standalone-direct-deposit-v218 input",
+      "scopeClass": "USER",
+      "findingCount": 4,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(229, 191, 88, 0.42)"
+      ],
+      "declarations": [
+        {
+          "property": "border-top-color",
+          "value": "rgba(229, 191, 88, 0.42)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgba(229, 191, 88, 0.42)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgba(229, 191, 88, 0.42)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgba(229, 191, 88, 0.42)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#standaloneDirectDepositAmountV218"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": "<UNRESOLVED>",
+      "scopeClass": "USER",
+      "findingCount": 4,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)"
+      ],
+      "declarations": [
+        {
+          "property": "fill",
+          "value": "currentcolor",
+          "findingCount": 2
+        },
+        {
+          "property": "stroke",
+          "value": "currentcolor",
+          "findingCount": 2
+        }
+      ],
+      "samplePaths": [
+        "div.efhc-game-header_balance:nth-of-type(2) > svg > circle",
+        "div.efhc-game-header_balance:nth-of-type(2) > svg > path"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".efhc-energy-progress-fill",
+      "scopeClass": "USER",
+      "findingCount": 2,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)",
+        "rgba(88, 199, 180, 0.24)"
+      ],
+      "declarations": [
+        {
+          "property": "background-image",
+          "value": "linear-gradient(90deg, rgb(95, 150, 219), rgb(88, 199, 180))",
+          "findingCount": 1
+        },
+        {
+          "property": "box-shadow",
+          "value": "rgba(88, 199, 180, 0.24) 0px 0px 12px",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#progressFill"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": ".panels-generation-tier-dot",
+      "scopeClass": "USER",
+      "findingCount": 2,
+      "scenes": [
+        "panels-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)"
+      ],
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "currentcolor",
+          "findingCount": 1
+        },
+        {
+          "property": "box-shadow",
+          "value": "currentcolor 0px 0px 9px",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.panels-generation-tier:nth-of-type(2) > span.panels-generation-tier-dot:nth-of-type(1)"
+      ],
+      "variableChains": []
+    },
+    {
+      "selector": "[data-interface-app-mode=\"user\"][data-global-theme-id=\"04\"] .efhc-game-header[data-hs=\"HS-04\"], [data-interface-app-mode=\"user\"][data-global-theme-id=\"04\"] .efhc-header-divider",
+      "scopeClass": "USER",
+      "findingCount": 2,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.08)"
+      ],
+      "declarations": [
+        {
+          "property": "box-shadow",
+          "value": "0 10px 30px rgba(0,0,0,.24),inset 0 -1px 0 rgba(var(--efhc-route-accent-rgb),.08) !important",
+          "findingCount": 2
+        }
+      ],
+      "samplePaths": [
+        "div.workspace:nth-of-type(1) > div.preview-column > div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1)",
+        "div.workspace:nth-of-type(1) > div.preview-column > div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent-rgb",
+              "computedValue": "88,199,180"
+            }
+          ],
+          "findingCount": 2
+        }
+      ]
+    },
+    {
+      "selector": ".efhc-game-header_balance[data-hb=\"HB-13\"]",
+      "scopeClass": "USER",
+      "findingCount": 1,
+      "scenes": [
+        "direct-topup-open"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(229, 191, 88, 0.18)"
+      ],
+      "declarations": [
+        {
+          "property": "box-shadow",
+          "value": "rgba(255, 255, 255, 0.04) 0px 1px 0px inset, rgba(229, 191, 88, 0.18) 0px -2px 0px inset",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#headerBalance"
+      ],
+      "variableChains": []
+    }
+  ],
+  "decisionLaw": "Audit only. These are provenance facts, not authorization to mutate. Cycle0409 consolidates final correction scope."
+}

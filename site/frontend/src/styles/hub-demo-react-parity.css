@@ -1,0 +1,54 @@
+/* OWNER: React HUB follows the visually accepted standalone DEMO HUB.
+   One CSS source is embedded byte-for-byte by frontend/scripts/sync-hub-demo-parity.mjs.
+   This does not change Admin, the protected language carousel, or financial contracts. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu="HU-01"] .efhc-hub-choice-grid,
+html[data-interface-app-mode="user"][data-color-theme-id] #hubPage[data-hu="HU-01"] .efhc-hub-standalone-actions {
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:.52rem!important;
+  margin-top:.62rem!important;
+  width:100%!important;
+  max-width:none!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu="HU-01"] .efhc-hub-choice,
+html[data-interface-app-mode="user"][data-color-theme-id] #hubPage[data-hu="HU-01"] .efhc-hub-standalone-actions .release-route-card {
+  display:flex!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  min-height:50px!important;
+  height:50px!important;
+  max-height:50px!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:center!important;
+  gap:0!important;
+  padding:.35rem .62rem!important;
+  border:1px solid rgba(var(--efhc-ct-accent-rgb),.30)!important;
+  border-radius:.85rem!important;
+  background:rgba(var(--efhc-ct-accent-rgb),.03)!important;
+  background-image:none!important;
+  color:#f8fafc!important;
+  text-align:left!important;
+  box-shadow:none!important;
+  appearance:none;
+  cursor:pointer;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu="HU-01"] .efhc-hub-choice:hover,
+html[data-interface-app-mode="user"][data-color-theme-id] #hubPage[data-hu="HU-01"] .efhc-hub-standalone-actions .release-route-card:hover {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.50)!important;
+  background:rgba(var(--efhc-ct-accent-rgb),.06)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu="HU-01"] .efhc-hub-choice strong,
+html[data-interface-app-mode="user"][data-color-theme-id] #hubPage[data-hu="HU-01"] .efhc-hub-standalone-actions .release-route-card strong {
+  display:-webkit-box!important;
+  -webkit-box-orient:vertical!important;
+  -webkit-line-clamp:2!important;
+  overflow:hidden!important;
+  overflow-wrap:anywhere!important;
+  white-space:normal!important;
+  color:#edf5ff!important;
+  font-size:.67rem!important;
+  line-height:normal!important;
+  font-weight:700;
+  max-width:100%;
+}

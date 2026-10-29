@@ -1,0 +1,398 @@
+/* FRONTEND_ADMIN_CYCLE_0451 — Theme04 Classic Telegram Blue bounded correction.
+   Authority: #229ED9. Correct only proven ordinary USER/Browser Shop decorative
+   owners from Cycles0399-0408 revalidated against current source. Preserve
+   Theme03/Admin, Energy EI/PB, financial/status/error/success/provider/brand
+   semantics and all runtime/business behaviour. */
+
+/* Systemic USER Theme04 owner: replace the retired teal route token family. */
+[data-interface-app-mode="user"][data-global-theme-id="04"] {
+  --efhc-route-accent:#229ed9;
+  --efhc-route-accent-rgb:34,158,217;
+  --efhc-route-surface:rgba(7,18,26,.88);
+  --efhc-route-surface-raised:rgba(9,23,32,.94);
+  --efhc-route-border:rgba(34,158,217,.30);
+  --efhc-route-border-strong:rgba(34,158,217,.46);
+  --efhc-route-glow:rgba(34,158,217,.14);
+  --efhc-clean-title:#e6f7ff;
+  
+}
+
+/* Theme-family variables that still own ordinary route material downstream. */
+[data-interface-app-mode="user"][data-global-theme-id="04"] :is(
+  .efhc-referrals-shell[data-rg="RG-04"],
+  .efhc-ranks-shell[data-kg="KG-04"]
+) {
+  --efhc-rest-accent:#229ed9;
+  --efhc-rest-accent-text:color-mix(in srgb,#229ed9 72%,#fff 28%);
+  --efhc-rest-edge:rgba(34,158,217,.30);
+  --efhc-rest-soft:rgba(34,158,217,.09);
+  --efhc-rest-hero:radial-gradient(320px 150px at 100% 0,rgba(34,158,217,.14),transparent 72%),rgba(9,23,32,.94);
+  --efhc-rest-card:rgba(7,18,26,.88);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-profile-page[data-wg="WG-04"] {
+  
+  
+  
+  
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] :is(
+  .efhc-faq-shell[data-fq="FQ-04"],
+  .efhc-history-trust-section[data-hi="HI-04"],
+  .efhc-withdraw-trust-shell[data-wd="WD-04"],
+  .efhc-ads-trust-shell[data-ad="AD-04"],
+  .efhc-browser-shop-game-page[data-bs="BS-04"],
+  .efhc-profile-modal-theme[data-pm="PM-04"]
+) {
+  --efhc-theme-accent:#229ed9;
+  --efhc-theme-accent-soft:rgba(34,158,217,.09);
+  --efhc-theme-edge:rgba(34,158,217,.30);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] #faqPage[data-fq="FQ-04"] {
+  --fq-accent:#229ed9;
+  --fq-edge:rgba(34,158,217,.30);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] #withdrawPage[data-wd="WD-04"] {
+  --wd-accent:#229ed9;
+  --wd-edge:rgba(34,158,217,.30);
+}
+
+/* Revalidated direct ordinary owners that bypass the shared tonal bridge. */
+[data-interface-app-mode="user"][data-global-theme-id="04"] :is(.global-theme-control,.efhc-global-theme-control) {
+  border-color:rgba(34,158,217,.42);
+  background:rgba(9,23,32,.94);
+  color:#e6f7ff;
+  box-shadow:0 8px 24px rgba(0,0,0,.34),0 0 18px rgba(34,158,217,.15),inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] :is(.global-theme-control,.efhc-global-theme-control):focus-visible {
+  outline-color:#229ed9;
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] :is(.panels-page-title,.panels-card-title) {
+  color:#e6f7ff;
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .panels-stat {
+  border-color:rgba(34,158,217,.22);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-panels-hero[data-ph="PH-04"] .efhc-game-hero_icon,
+[data-interface-app-mode="user"][data-global-theme-id="04"] .exchange-hero-variant[data-xh="XH-04"] .source-hero-icon {
+  border-color:rgba(34,158,217,.30);
+  background:rgba(34,158,217,.09);
+  color:color-mix(in srgb,#229ed9 72%,#fff 28%);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-tasks-shell[data-tg="TG-04"] .efhc-task-card_reward .efhc-badge {
+  border-color:rgba(34,158,217,.30);
+  background:rgba(34,158,217,.09);
+  color:color-mix(in srgb,#229ed9 72%,#fff 28%);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .exchange-body-variant[data-xc="XC-04"] .source-preview {
+  border-color:rgba(34,158,217,.30);
+  background:rgba(34,158,217,.09);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-panels-page[data-pa="PA-04"] .activation-button {
+  border-color:rgba(34,158,217,.35);
+  background:rgba(34,158,217,.13);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-panels-page[data-pa="PA-04"] .activation-values {
+  border-color:rgba(34,158,217,.30)!important;
+  background-color:rgba(34,158,217,.05)!important;
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .standalone-direct-deposit-v218 input,
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"]) .standalone-direct-deposit-v218 input {
+  border-color:rgba(34,158,217,.42);
+}
+
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"]) .standalone-direct-deposit-v218 input:focus-visible {
+  outline:2px solid #229ed9;
+  outline-offset:2px;
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-game-header_balance[data-hb="HB-13"] {
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04),inset 0 -2px 0 rgba(34,158,217,.18);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] :is(
+  .standalone-avatar-preset-grid button,
+  .standalone-avatar-custom-grid button,
+  .standalone-avatar-preview,
+  .standalone-avatar-settings
+) {
+  border-color:rgba(34,158,217,.30);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] #faqPage[data-fq-family="global-theme"] .standalone-faq-back,
+[data-interface-app-mode="user"][data-global-theme-id="04"] #faqPage[data-fq="FQ-04"] > .standalone-faq-simple {
+  border-color:rgba(34,158,217,.30)!important;
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] #withdrawPage[data-wd="WD-04"] :is(.source-input,#withdrawCreate) {
+  border-color:rgba(34,158,217,.30);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] #withdrawPage[data-wd="WD-04"] #withdrawCreate {
+  box-shadow:inset 0 0 0 1px rgba(34,158,217,.12);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] #withdrawPage[data-wd="WD-04"] .standalone-withdraw-summary-list {
+  border-top-color:rgba(34,158,217,.30);
+  border-bottom-color:rgba(34,158,217,.30);
+}
+
+/* Shared USER forced-state owner from Cycles0406/0407. */
+[data-interface-app-mode="user"][data-global-theme-id="04"] :is(summary,input,select,textarea):focus-visible {
+  outline:2px solid #229ed9;
+  outline-offset:2px;
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] #withdrawPage[data-wd="WD-04"] .source-input:focus {
+  border-color:rgba(34,158,217,.52);
+  box-shadow:0 0 0 3px rgba(34,158,217,.12);
+}
+
+/* Browser Shop Theme04 ordinary material only. Commerce success/error/status and
+   EFHC/provider brand colours are intentionally left untouched. */
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"][data-global-theme-id="04"],
+html[data-shop-theme="dark"][data-global-theme-id="04"] {
+  --efhc-color-canvas:rgba(5,14,21,.98);
+  --efhc-color-page:rgba(7,18,26,.98);
+  --efhc-color-chrome:rgba(9,23,32,.98);
+  --efhc-color-chrome-inset:rgba(11,28,39,.88);
+  --efhc-color-hero:rgba(12,34,49,.94);
+  --efhc-color-card:rgba(9,25,36,.90);
+  --efhc-color-inset:rgba(8,21,30,.92);
+  --efhc-color-active:linear-gradient(135deg,rgba(34,158,217,.18),rgba(19,91,126,.16));
+  --efhc-color-accent:#229ed9;
+  --efhc-color-accent-soft:rgba(34,158,217,.12);
+  --efhc-color-accent-strong:#1c86b8;
+  --efhc-color-border:rgba(34,158,217,.24);
+  --efhc-color-border-strong:rgba(34,158,217,.40);
+  --efhc-color-text:#f8fafc;
+  --efhc-color-text-muted:#c3d7e2;
+  --efhc-color-shadow:0 14px 34px rgba(0,0,0,.26);
+  --efhc-color-glow:#229ed9;
+  --efhc-color-focus:#229ed9;
+}
+
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"][data-global-theme-id="04"] :is(
+  .efhc-shop-site_language,
+  .efhc-shop-site_balance,
+  .efhc-shop-site_profile,
+  .efhc-shop-catalog-toolbar,
+  .efhc-shop-landing_account,
+  .efhc-shop-catalog-section,
+  .efhc-shop-account-panel,
+  .efhc-shop-checkout-modal,
+  .efhc-shop-wallet-modal,
+  .efhc-shop-order-modal
+),
+html[data-shop-theme="dark"][data-global-theme-id="04"] :is(
+  .shop-toolbar,.account,.catalog-section,.account-panel,.modal,.language,.profile-pill,.theme-toggle,
+  .text-product,.number-chooser,.number-grid button,.currencies button,.custom-product input,
+  .number-head input,.modal h2 input,.wallet-choice-list button,.profile-grid article,.modal-close,.button.secondary
+) {
+  border-color:var(--efhc-color-border);
+  background-color:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"][data-global-theme-id="04"] :is(
+  .efhc-shop-catalog-copy > header > span,
+  .efhc-shop-account-panel > header > span,
+  .efhc-shop-catalog-heading-copy > span,
+  .efhc-shop-checkout-modal > span,
+  .efhc-shop-wallet-modal > span
+),
+html[data-shop-theme="dark"][data-global-theme-id="04"] :is(
+  .section-heading header span,.section-copy header span,.account-panel header span,.modal > span
+) {
+  color:var(--efhc-color-accent);
+}
+
+html[data-shop-theme="dark"][data-global-theme-id="04"] :is(
+  .number-grid button[data-active="true"],
+  .currencies button[data-active="true"],
+  .language-picker-option[data-active="true"],
+  .tabs button[data-active="true"]
+) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-text);
+}
+
+html[data-shop-theme="dark"][data-global-theme-id="04"] .section-image {
+  background:linear-gradient(145deg,var(--efhc-color-active),var(--efhc-color-inset));
+}
+
+html[data-shop-theme="dark"][data-global-theme-id="04"] :is(button,select,a,input):focus-visible,
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"][data-global-theme-id="04"] :is(button,select,a,input):focus-visible {
+  outline:2px solid var(--efhc-color-focus);
+  outline-offset:2px;
+}
+
+/* FRONTEND_ADMIN_CYCLE_0451B — screenshot-grounded Theme04 owner repairs.
+   Scope: Profile WG-04, Panels PH-04, Header HB-13 only. Preserve Theme03/Admin
+   and all non-visual behaviour. */
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-profile-page[data-wg="WG-04"] {
+  --wg-accent:#229ed9;
+  --wg-edge:rgba(34,158,217,.30);
+  --wg-surface:rgba(7,18,26,.88);
+  --wg-glow:rgba(34,158,217,.12);
+  --wg-shadow:0 12px 30px rgba(0,0,0,.22);
+  background:radial-gradient(560px 230px at 100% 0,rgba(34,158,217,.14),transparent 72%);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-profile-page[data-wg="WG-04"] :is(
+  .efhc-profile-hero,
+  .efhc-profile-action-card,
+  .efhc-profile-tabs,
+  .efhc-profile-field,
+  .efhc-profile-trust-grid > *
+) {
+  border-color:var(--wg-edge);
+  background:radial-gradient(340px 140px at 100% 0,rgba(34,158,217,.12),transparent 72%),var(--wg-surface);
+  box-shadow:var(--wg-shadow);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-profile-page[data-wg="WG-04"] .efhc-profile-global-id {
+  color:#9ecfe5;
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-profile-page[data-wg="WG-04"] .efhc-profile-global-id strong {
+  color:#f4fbff;
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-profile-page[data-wg="WG-04"] .efhc-profile-settings-button {
+  border-color:rgba(34,158,217,.32);
+  background:rgba(34,158,217,.08);
+  color:#9edbff;
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-profile-page[data-wg="WG-04"] .efhc-language-select_button,
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-profile-page[data-wg="WG-04"] .efhc-language-select_menu {
+  border-color:rgba(34,158,217,.26);
+  background:rgba(9,23,32,.94);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-profile-page[data-wg="WG-04"] .efhc-language-select_menu {
+  box-shadow:0 14px 32px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.03);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-profile-page[data-wg="WG-04"] .efhc-language-select_option--active {
+  background:rgba(34,158,217,.12);
+  box-shadow:0 0 0 1px rgba(34,158,217,.34) inset;
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-panels-hero[data-ph="PH-04"] {
+  border-color:rgba(34,158,217,.30);
+  background:radial-gradient(320px 150px at 100% 0,rgba(34,158,217,.14),transparent 72%),rgba(9,23,32,.94);
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-panels-hero[data-ph="PH-04"] :is(.efhc-game-title,.panels-page-title) {
+  color:#e6f7ff;
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-panels-hero[data-ph="PH-04"] .efhc-game-kicker {
+  color:#9ecfe5;
+}
+
+[data-interface-app-mode="user"][data-global-theme-id="04"] .efhc-game-header[data-hs="HS-04"] .efhc-game-header_balance[data-hb="HB-13"] {
+  border-width:1px !important;
+  border-color:var(--efhc-route-border) !important;
+  background:linear-gradient(180deg,rgba(var(--efhc-route-accent-rgb),.035),transparent),#0b1922 !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035) !important;
+}
+
+
+/* FRONTEND_ADMIN_CYCLE_0451C — DOM-aligned follow-up repair after OWNER screenshot review.
+   Root cause: the standalone/current Profile and Panels surfaces render through
+   source-* / panels-* DOM owners, so the previous legacy efhc-profile-* /
+   efhc-panels-hero-only selectors did not reach the actual nodes seen by OWNER. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #profilePage[data-wg="WG-04"] {
+  --wg-accent:#229ed9;
+  --wg-edge:rgba(34,158,217,.30);
+  --wg-surface:rgba(7,18,26,.88);
+  --wg-glow:rgba(34,158,217,.12);
+  --wg-shadow:0 12px 30px rgba(0,0,0,.22);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #profilePage[data-wg="WG-04"] :is(
+  .source-profile-hero,
+  .source-profile-settings-card,
+  .source-stat,
+  .source-profile-tab,
+  .source-profile-tab-panel,
+  .source-profile-action-card,
+  .source-profile-trust-card
+) {
+  border-color:var(--wg-edge) !important;
+  background:radial-gradient(340px 140px at 100% 0,rgba(34,158,217,.12),transparent 72%),var(--wg-surface) !important;
+  box-shadow:var(--wg-shadow) !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #profilePage[data-wg="WG-04"] .standalone-profile-global-id,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #profilePage[data-wg="WG-04"] .standalone-profile-global-id > span {
+  color:#9ecfe5 !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #profilePage[data-wg="WG-04"] .standalone-profile-global-id > strong {
+  color:#f4fbff !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #profilePage[data-wg="WG-04"] #profileSettingsButton {
+  border-color:rgba(34,158,217,.32) !important;
+  background:rgba(34,158,217,.08) !important;
+  color:#9edbff !important;
+  box-shadow:none !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #profilePage[data-wg="WG-04"] .source-profile-language-button,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #profilePage[data-wg="WG-04"] .source-profile-language-menu {
+  border-color:rgba(34,158,217,.26) !important;
+  background:rgba(9,23,32,.94) !important;
+  color:#e6f7ff !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #profilePage[data-wg="WG-04"] .source-profile-language-button {
+  box-shadow:0 12px 30px rgba(0,0,0,.22) !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #profilePage[data-wg="WG-04"] .source-profile-language-menu {
+  box-shadow:0 14px 32px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.03) !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #profilePage[data-wg="WG-04"] .source-profile-language-option[data-active="true"] {
+  border-color:transparent !important;
+  background:transparent !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #panelsPage[data-pa="PA-04"] .panels-hero,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #panelsPage[data-pa="PA-04"][data-ph="PH-04"] .panels-hero,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #panelsPage[data-pa="PA-04"][data-ph="PH-05"] .panels-hero {
+  border-color:rgba(34,158,217,.30) !important;
+  background:radial-gradient(320px 150px at 100% 0,rgba(34,158,217,.14),transparent 72%),rgba(9,23,32,.94) !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #panelsPage[data-pa="PA-04"] .panels-page-title {
+  color:#e6f7ff !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #panelsPage[data-pa="PA-04"] .panels-kicker {
+  color:#9ecfe5 !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="04"] #panelsPage[data-pa="PA-04"] .panels-stat {
+  border-color:rgba(34,158,217,.22) !important;
+  background:rgba(0,0,0,.28) !important;
+}

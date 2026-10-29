@@ -1,0 +1,1089 @@
+/* OWNER Referrals social-share brand contract — 2026-10-14 / FRONTEND_v678.
+   Service identity is brand-owned, never Global-Theme-owned. Theme01/02 may not
+   recolour WhatsApp/Viber/other share buttons. Only border/background/icon colour
+   are locked here; radius, size, spacing and shape remain theme/variant-owned. */
+
+:is(
+  .efhc-referrals-share-grid button[data-referral-share-kind="telegram"],
+  .standalone-referral-share-grid [data-share-kind="telegram"]
+){border-color:#26a5e4!important;background:#26a5e4!important;color:#fff!important}
+:is(
+  .efhc-referrals-share-grid button[data-referral-share-kind="whatsapp"],
+  .standalone-referral-share-grid [data-share-kind="whatsapp"]
+){border-color:#25d366!important;background:#25d366!important;color:#fff!important}
+:is(
+  .efhc-referrals-share-grid button[data-referral-share-kind="viber"],
+  .standalone-referral-share-grid [data-share-kind="viber"]
+){border-color:#7360f2!important;background:#7360f2!important;color:#fff!important}
+:is(
+  .efhc-referrals-share-grid button[data-referral-share-kind="facebook"],
+  .standalone-referral-share-grid [data-share-kind="facebook"]
+){border-color:#0866ff!important;background:#0866ff!important;color:#fff!important}
+:is(
+  .efhc-referrals-share-grid button[data-referral-share-kind="x"],
+  .standalone-referral-share-grid [data-share-kind="x"]
+){border-color:#434343!important;background:#111!important;color:#fff!important}
+
+:is(
+  .efhc-referrals-share-grid button[data-referral-share-kind],
+  .standalone-referral-share-grid [data-share-kind]
+):is(:hover,:active,:focus-visible){
+  color:#fff!important;
+}
+
+.standalone-referral-share-grid [data-share-kind] svg{
+  fill:currentColor!important;
+  color:inherit!important;
+}
+.efhc-referrals-share-grid button[data-referral-share-kind] .efhc-referrals-share-button_logo{
+  filter:brightness(0) invert(1)!important;
+}
+
+/* FRONTEND_ADMIN_CYCLE_0456 — expanded Color Theme ownership migration.
+   OWNER visual verdict 2026-10-15 retained the broad USER color-authority
+   transfer after manual review found no systemic design regression. Remaining
+   v687 defects are corrected as bounded chroma debt on top; no rollback.
+
+   This layer deliberately does NOT own geometry, radius, spacing, composition,
+   content, semantic/status/financial colors, external brand colors, Browser
+   Shop, Admin, or Theme03 source files. It makes color_theme_id the late USER
+   chroma authority while the legacy 13-theme selectors remain compatibility
+   projection during the migration. */
+
+:is(.efhc-independent-shell,.efhc-user-direct-deposit-portal)[data-interface-app-mode="user"][data-color-theme-id="CT-01"]{
+  --efhc-ct-accent:#6ea8ff;--efhc-ct-accent-rgb:110,168,255;
+}
+:is(.efhc-independent-shell,.efhc-user-direct-deposit-portal)[data-interface-app-mode="user"][data-color-theme-id="CT-02"]{
+  --efhc-ct-accent:#73aefc;--efhc-ct-accent-rgb:115,174,252;
+}
+:is(.efhc-independent-shell,.efhc-user-direct-deposit-portal)[data-interface-app-mode="user"][data-color-theme-id="CT-03"]{
+  --efhc-ct-accent:#a78bfa;--efhc-ct-accent-rgb:167,139,250;
+}
+:is(.efhc-independent-shell,.efhc-user-direct-deposit-portal)[data-interface-app-mode="user"][data-color-theme-id="CT-04"]{
+  --efhc-ct-accent:#229ed9;--efhc-ct-accent-rgb:34,158,217;
+}
+:is(.efhc-independent-shell,.efhc-user-direct-deposit-portal)[data-interface-app-mode="user"][data-color-theme-id="CT-05"]{
+  --efhc-ct-accent:#e5bf58;--efhc-ct-accent-rgb:229,191,88;
+}
+:is(.efhc-independent-shell,.efhc-user-direct-deposit-portal)[data-interface-app-mode="user"][data-color-theme-id="CT-06"]{
+  --efhc-ct-accent:#d946ef;--efhc-ct-accent-rgb:217,70,239;
+}
+:is(.efhc-independent-shell,.efhc-user-direct-deposit-portal)[data-interface-app-mode="user"][data-color-theme-id="CT-07"]{
+  --efhc-ct-accent:#7fb4ff;--efhc-ct-accent-rgb:127,180,255;
+}
+:is(.efhc-independent-shell,.efhc-user-direct-deposit-portal)[data-interface-app-mode="user"][data-color-theme-id="CT-08"]{
+  --efhc-ct-accent:#8f86ff;--efhc-ct-accent-rgb:143,134,255;
+}
+:is(.efhc-independent-shell,.efhc-user-direct-deposit-portal)[data-interface-app-mode="user"][data-color-theme-id="CT-09"]{
+  --efhc-ct-accent:#58c7b4;--efhc-ct-accent-rgb:88,199,180;
+}
+:is(.efhc-independent-shell,.efhc-user-direct-deposit-portal)[data-interface-app-mode="user"][data-color-theme-id="CT-10"]{
+  --efhc-ct-accent:#c5a15a;--efhc-ct-accent-rgb:197,161,90;
+}
+
+:is(.efhc-independent-shell,.efhc-user-direct-deposit-portal)[data-interface-app-mode="user"][data-color-theme-id]{
+  --efhc-ct-accent-soft:color-mix(in srgb,var(--efhc-ct-accent) 9%,transparent);
+  --efhc-ct-accent-strong:color-mix(in srgb,var(--efhc-ct-accent) 78%,black 22%);
+  --efhc-ct-border:color-mix(in srgb,var(--efhc-ct-accent) 24%,transparent);
+  --efhc-ct-border-strong:color-mix(in srgb,var(--efhc-ct-accent) 42%,transparent);
+  --efhc-ct-glow:color-mix(in srgb,var(--efhc-ct-accent) 14%,transparent);
+  --efhc-ct-focus:color-mix(in srgb,var(--efhc-ct-accent) 76%,white 24%);
+  --efhc-common-elevation-shadow:0 14px 34px rgba(0,0,0,.26);
+
+  /* Compatibility consumers: CT variables above remain the authority. */
+  --efhc-route-accent:var(--efhc-ct-accent);
+  --efhc-route-accent-rgb:var(--efhc-ct-accent-rgb);
+  --efhc-route-border:var(--efhc-ct-border);
+  --efhc-route-border-strong:var(--efhc-ct-border-strong);
+  --efhc-route-glow:var(--efhc-ct-glow);
+  --efhc-theme-accent:var(--efhc-ct-accent);
+  --efhc-theme-accent-soft:var(--efhc-ct-accent-soft);
+  --efhc-theme-edge:var(--efhc-ct-border);
+  
+  --efhc-rest-accent:var(--efhc-ct-accent);
+  --efhc-rest-accent-text:var(--efhc-ct-focus);
+  --efhc-rest-edge:var(--efhc-ct-border);
+  --rest-accent:var(--efhc-ct-accent);
+  --rest-accent-text:var(--efhc-ct-focus);
+  --rest-edge:var(--efhc-ct-border);
+
+  /* Theme03 is a frozen source/reference. Only inherited runtime chroma roles
+     are projected here when a Theme03-authored design is used under another CT. */
+  --efhc-color-accent:var(--efhc-ct-accent);
+  --efhc-color-accent-soft:var(--efhc-ct-accent-soft);
+  --efhc-color-accent-strong:var(--efhc-ct-accent-strong);
+  --efhc-color-border:var(--efhc-ct-border);
+  --efhc-color-border-strong:var(--efhc-ct-border-strong);
+  --efhc-color-glow:var(--efhc-ct-accent);
+  --efhc-color-focus:var(--efhc-ct-focus);
+  --efhc-color-shadow:var(--efhc-common-elevation-shadow);
+
+  /* Telegram variables are compatibility consumers only, never CT authority. */
+  --tg-link:var(--efhc-ct-accent);
+  --tg-button:var(--efhc-ct-accent);
+  --tg-link-color:var(--efhc-ct-accent);
+
+  /* Energy consumes CT hue while PB/EI geometry remains independently owned. */
+  --efhc-energy-ei07-accent:var(--efhc-ct-accent);
+  --efhc-energy-ei07-rgb:var(--efhc-ct-accent-rgb);
+  --efhc-energy-frame-accent:var(--efhc-ct-accent);
+  --efhc-energy-frame-accent-rgb:var(--efhc-ct-accent-rgb);
+  --efhc-energy-frame-edge:var(--efhc-ct-border);
+  --efhc-energy-frame-glow:var(--efhc-ct-glow);
+}
+
+/* Existing authored families retain geometry/material identities. Their legacy
+   accent/edge/glow custom properties now consume CT instead of the variant ID. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-profile-page[data-wg]{
+  --wg-accent:var(--efhc-ct-accent);
+}
+/* WG keeps authored edge/glow intensity; Color Theme supplies hue only. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-profile-page[data-wg="WG-01"]{--wg-edge:color-mix(in srgb,var(--efhc-ct-accent) 20%,transparent);--wg-glow:color-mix(in srgb,var(--efhc-ct-accent) 8%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-profile-page[data-wg="WG-02"]{--wg-edge:color-mix(in srgb,var(--efhc-ct-accent) 25%,transparent);--wg-glow:color-mix(in srgb,var(--efhc-ct-accent) 12%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-profile-page[data-wg="WG-03"]{--wg-edge:color-mix(in srgb,var(--efhc-ct-accent) 24%,transparent);--wg-glow:color-mix(in srgb,var(--efhc-ct-accent) 13%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-profile-page[data-wg="WG-04"]{--wg-edge:color-mix(in srgb,var(--efhc-ct-accent) 26%,transparent);--wg-glow:color-mix(in srgb,var(--efhc-ct-accent) 12%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-profile-page[data-wg="WG-05"]{--wg-edge:color-mix(in srgb,var(--efhc-ct-accent) 26%,transparent);--wg-glow:color-mix(in srgb,var(--efhc-ct-accent) 12%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-profile-page[data-wg="WG-06"]{--wg-edge:color-mix(in srgb,var(--efhc-ct-accent) 16%,transparent);--wg-glow:color-mix(in srgb,var(--efhc-ct-accent) 3.5%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-profile-page[data-wg="WG-07"]{--wg-edge:color-mix(in srgb,var(--efhc-ct-accent) 22%,transparent);--wg-glow:color-mix(in srgb,var(--efhc-ct-accent) 14%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-profile-page[data-wg="WG-08"]{--wg-edge:color-mix(in srgb,var(--efhc-ct-accent) 20%,transparent);--wg-glow:color-mix(in srgb,var(--efhc-ct-accent) 8%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-profile-page[data-wg="WG-09"]{--wg-edge:color-mix(in srgb,var(--efhc-ct-accent) 22%,transparent);--wg-glow:color-mix(in srgb,var(--efhc-ct-accent) 10%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-profile-page[data-wg="WG-10"]{--wg-edge:color-mix(in srgb,var(--efhc-ct-accent) 20%,transparent);--wg-glow:color-mix(in srgb,var(--efhc-ct-accent) 3.5%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-profile-page[data-wg="WG-11"]{--wg-edge:color-mix(in srgb,var(--efhc-ct-accent) 23%,transparent);--wg-glow:color-mix(in srgb,var(--efhc-ct-accent) 11%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-profile-page[data-wg="WG-12"]{--wg-edge:color-mix(in srgb,var(--efhc-ct-accent) 24%,transparent);--wg-glow:color-mix(in srgb,var(--efhc-ct-accent) 12%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-profile-page[data-wg="WG-13"]{--wg-edge:color-mix(in srgb,var(--efhc-ct-accent) 24%,transparent);--wg-glow:color-mix(in srgb,var(--efhc-ct-accent) 8%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-faq-shell[data-fq]{
+  --fq-accent:var(--efhc-ct-accent);
+  --fq-edge:var(--efhc-ct-border);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-history-financial-section[data-hi-family="global-theme"]{
+  --hi-edge:var(--efhc-ct-border);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-history-financial-section[data-hi="HI-01"]{--hi-edge:color-mix(in srgb,var(--efhc-ct-accent) 18%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-history-financial-section[data-hi="HI-02"]{--hi-edge:color-mix(in srgb,var(--efhc-ct-accent) 20%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-history-financial-section[data-hi="HI-03"]{--hi-edge:color-mix(in srgb,var(--efhc-ct-accent) 20%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-history-financial-section[data-hi="HI-04"]{--hi-edge:color-mix(in srgb,var(--efhc-ct-accent) 17%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-history-financial-section[data-hi="HI-05"]{--hi-edge:color-mix(in srgb,var(--efhc-ct-accent) 19%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-history-financial-section[data-hi="HI-06"]{--hi-edge:color-mix(in srgb,var(--efhc-ct-accent) 15%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-history-financial-section[data-hi="HI-07"]{--hi-edge:color-mix(in srgb,var(--efhc-ct-accent) 17%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-history-financial-section[data-hi="HI-08"]{--hi-edge:color-mix(in srgb,var(--efhc-ct-accent) 22%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-history-financial-section[data-hi="HI-09"]{--hi-edge:color-mix(in srgb,var(--efhc-ct-accent) 24%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-history-financial-section[data-hi="HI-10"]{--hi-edge:color-mix(in srgb,var(--efhc-ct-accent) 20%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-history-financial-section[data-hi="HI-11"]{--hi-edge:color-mix(in srgb,var(--efhc-ct-accent) 25%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-history-financial-section[data-hi="HI-12"]{--hi-edge:color-mix(in srgb,var(--efhc-ct-accent) 26%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-history-financial-section[data-hi="HI-13"]{--hi-edge:color-mix(in srgb,var(--efhc-ct-accent) 24%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-history-financial-section[data-hi="HI-02"] .efhc-history-filter--active{border-color:color-mix(in srgb,var(--efhc-ct-accent) 42%,transparent);background-color:color-mix(in srgb,var(--efhc-ct-accent) 13%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-history-financial-section[data-hi="HI-05"] [data-history-block="withdraws"]{border-left-color:color-mix(in srgb,var(--efhc-ct-accent) 52%,transparent)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-withdraw-trust-shell[data-wd]{
+  --wd-accent:var(--efhc-ct-accent);
+  --wd-edge:var(--efhc-ct-border);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-referrals-shell[data-rg],
+  .efhc-ranks-shell[data-kg],
+  .efhc-hub-page[data-hu],
+  .efhc-profile-modal-theme[data-pm],
+  .efhc-history-trust-section[data-hi],
+  .efhc-withdraw-trust-shell[data-wd],
+  .efhc-ads-trust-shell[data-ad],
+  .efhc-error-page[data-er],
+  .efhc-tasks-shell[data-tg],
+  .efhc-profile-page[data-wg],
+  .efhc-faq-shell[data-fq]
+){
+  --efhc-theme-accent:var(--efhc-ct-accent);
+  --efhc-theme-accent-soft:var(--efhc-ct-accent-soft);
+  --efhc-theme-edge:var(--efhc-ct-border);
+}
+
+/* Bounded rendered representatives. These are ordinary decorative chroma only;
+   no radius, padding, layout, surface material, semantic or brand ownership. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-panels-hero[data-ph],
+  .efhc-panels-tabs[data-pt],
+  .efhc-panels-card-surface[data-pc],
+  .efhc-panels-activation-card[data-pa],
+  .efhc-exchange-hero[data-xh],
+  .efhc-exchange-card-variant[data-xc],
+  .efhc-tasks-shell[data-tg] .efhc-game-hero,
+  .efhc-tasks-shell[data-tg] .efhc-task-card,
+  .efhc-referrals-shell[data-rg] .efhc-game-hero,
+  .efhc-ranks-shell[data-kg] .efhc-game-hero,
+  .efhc-profile-page[data-wg] .efhc-profile-hero,
+  .efhc-profile-page[data-wg] .efhc-profile-action-card,
+  .efhc-faq-shell[data-fq] .efhc-card,
+  .efhc-withdraw-trust-shell[data-wd] .efhc-card,
+  .efhc-ads-trust-shell[data-ad] .efhc-card
+){
+  border-color:var(--efhc-ct-border)!important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-panels-hero[data-ph] .efhc-game-hero_icon,
+  .efhc-exchange-hero[data-xh] .efhc-game-hero_icon,
+  .efhc-tasks-shell[data-tg] .efhc-task-card_reward .efhc-badge
+){
+  color:var(--efhc-ct-focus)!important;
+  border-color:var(--efhc-ct-border)!important;
+  background-color:var(--efhc-ct-accent-soft)!important;
+}
+
+/* WG action cards are the first deliberate full chroma proof: keep the authored
+   material/background-color and geometry, replace only its historical glow hue. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-profile-page[data-wg] .efhc-profile-action-card{
+  background-image:radial-gradient(
+    360px 130px at 100% 0,
+    var(--wg-glow),
+    transparent 70%
+  )!important;
+}
+
+/* OWNER visual gate accepted the broad transfer on 2026-10-15.
+   The remaining v687 Exchange/Referrals defects are corrected as bounded chroma
+   debt only: no geometry, layout or material anatomy ownership is added here. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-exchange-shell .efhc-exchange-preview-row,
+  #exchangePage .source-preview
+){
+  border-color:color-mix(in srgb,var(--efhc-ct-accent) 28%,transparent)!important;
+  background-color:color-mix(in srgb,#0f172a 92%,var(--efhc-ct-accent) 8%)!important;
+  color:var(--tg-text,#f8fafc)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-exchange-shell .efhc-exchange-preview-row strong,
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+#exchangePage .source-preview strong{
+  color:inherit!important;
+}
+/* XA-06 is the authored border-only variant. Keep its transparent material;
+   only its existing bottom edge consumes the current Color Theme hue. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-exchange-action-surface[data-xa="XA-06"] .efhc-exchange-preview-row{
+  background-color:transparent!important;
+}
+
+/* OWNER-reported v687 issue: Copy Link is a soft themed action, not a neon
+   100%-accent frame. The legacy owner contract already uses !important; these
+   bounded declarations match that compatibility boundary without broad repaint. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell[data-rg] [data-referral-action="copy-link"],
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+#referralsPage[data-rg] #copyReferral{
+  border-color:color-mix(in srgb,var(--efhc-ct-accent) 30%,transparent)!important;
+  background-color:color-mix(in srgb,var(--efhc-ct-accent) 9%,transparent)!important;
+  color:var(--tg-text,#f8fafc)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell[data-rg] [data-referral-action="copy-link"]:hover,
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+#referralsPage[data-rg] #copyReferral:hover{
+  border-color:color-mix(in srgb,var(--efhc-ct-accent) 45%,transparent)!important;
+  background-color:color-mix(in srgb,var(--efhc-ct-accent) 11%,transparent)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell[data-rg] [data-referral-action="copy-link"]:focus-visible,
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+#referralsPage[data-rg] #copyReferral:focus-visible{
+  border-color:color-mix(in srgb,var(--efhc-ct-accent) 45%,transparent)!important;
+  outline-color:var(--efhc-ct-focus);
+}
+
+/* Cycle0456 Batch H foundation — portal-safe Profile menu Color Theme authority.
+   Production Profile Settings is rendered through createPortal(..., document.body),
+   so it cannot inherit CT variables from the USER shell. Read the shell state with
+   :root:has(...) and project CT tokens only onto the portal sheet/surface. This is
+   not a root repaint: no html/body variable is written and PM geometry/material
+   anatomy remains owned by its selected PM design. Literal PM gradient operands
+   are migrated separately, atom-by-atom, per the independent audit. */
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-01"]) :is(
+  .efhc-profile-modal-theme[data-pm],
+  .efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm])
+){--efhc-ct-accent:#6ea8ff;--efhc-ct-accent-rgb:110,168,255}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-02"]) :is(
+  .efhc-profile-modal-theme[data-pm],
+  .efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm])
+){--efhc-ct-accent:#73aefc;--efhc-ct-accent-rgb:115,174,252}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-03"]) :is(
+  .efhc-profile-modal-theme[data-pm],
+  .efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm])
+){--efhc-ct-accent:#a78bfa;--efhc-ct-accent-rgb:167,139,250}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-04"]) :is(
+  .efhc-profile-modal-theme[data-pm],
+  .efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm])
+){--efhc-ct-accent:#229ed9;--efhc-ct-accent-rgb:34,158,217}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-05"]) :is(
+  .efhc-profile-modal-theme[data-pm],
+  .efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm])
+){--efhc-ct-accent:#e5bf58;--efhc-ct-accent-rgb:229,191,88}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-06"]) :is(
+  .efhc-profile-modal-theme[data-pm],
+  .efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm])
+){--efhc-ct-accent:#d946ef;--efhc-ct-accent-rgb:217,70,239}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-07"]) :is(
+  .efhc-profile-modal-theme[data-pm],
+  .efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm])
+){--efhc-ct-accent:#7fb4ff;--efhc-ct-accent-rgb:127,180,255}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-08"]) :is(
+  .efhc-profile-modal-theme[data-pm],
+  .efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm])
+){--efhc-ct-accent:#8f86ff;--efhc-ct-accent-rgb:143,134,255}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-09"]) :is(
+  .efhc-profile-modal-theme[data-pm],
+  .efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm])
+){--efhc-ct-accent:#58c7b4;--efhc-ct-accent-rgb:88,199,180}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-10"]) :is(
+  .efhc-profile-modal-theme[data-pm],
+  .efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm])
+){--efhc-ct-accent:#c5a15a;--efhc-ct-accent-rgb:197,161,90}
+
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) :is(
+  .efhc-profile-modal-theme[data-pm],
+  .efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm])
+){
+  --efhc-ct-accent-soft:color-mix(in srgb,var(--efhc-ct-accent) 9%,transparent);
+  --efhc-ct-accent-strong:color-mix(in srgb,var(--efhc-ct-accent) 78%,black 22%);
+  --efhc-ct-border:color-mix(in srgb,var(--efhc-ct-accent) 24%,transparent);
+  --efhc-ct-border-strong:color-mix(in srgb,var(--efhc-ct-accent) 42%,transparent);
+  --efhc-ct-glow:color-mix(in srgb,var(--efhc-ct-accent) 14%,transparent);
+  --efhc-ct-focus:color-mix(in srgb,var(--efhc-ct-accent) 76%,white 24%);
+  --efhc-common-elevation-shadow:0 14px 34px rgba(0,0,0,.26);
+  --efhc-theme-accent:var(--efhc-ct-accent);
+  --efhc-theme-accent-soft:var(--efhc-ct-accent-soft);
+  --efhc-theme-edge:var(--efhc-ct-border);
+  
+  --efhc-color-accent:var(--efhc-ct-accent);
+  --efhc-color-accent-soft:var(--efhc-ct-accent-soft);
+  --efhc-color-accent-strong:var(--efhc-ct-accent-strong);
+  --efhc-color-border:var(--efhc-ct-border);
+  --efhc-color-border-strong:var(--efhc-ct-border-strong);
+  --efhc-color-glow:var(--efhc-ct-accent);
+  --efhc-color-focus:var(--efhc-ct-focus);
+  --efhc-color-shadow:var(--efhc-common-elevation-shadow);
+}
+
+/* Preserve each PM design's original soft/edge intensity while COLOR supplies
+   only the hue. The selector shape deliberately matches the portal foundation's
+   specificity so normal cascade order is sufficient; no !important is needed. */
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) :is(.efhc-profile-modal-theme[data-pm="PM-01"],.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-01"])){--efhc-theme-accent-soft:color-mix(in srgb,var(--efhc-ct-accent) 16%,transparent);--efhc-theme-edge:color-mix(in srgb,var(--efhc-ct-accent) 25%,transparent)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) :is(.efhc-profile-modal-theme[data-pm="PM-02"],.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-02"])){--efhc-theme-accent-soft:color-mix(in srgb,var(--efhc-ct-accent) 18%,transparent);--efhc-theme-edge:color-mix(in srgb,var(--efhc-ct-accent) 32%,transparent)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) :is(.efhc-profile-modal-theme[data-pm="PM-03"],.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-03"])){--efhc-theme-accent-soft:color-mix(in srgb,var(--efhc-ct-accent) 10%,transparent);--efhc-theme-edge:color-mix(in srgb,var(--efhc-ct-accent) 24%,transparent)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) :is(.efhc-profile-modal-theme[data-pm="PM-04"],.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-04"])){--efhc-theme-accent-soft:color-mix(in srgb,var(--efhc-ct-accent) 9%,transparent);--efhc-theme-edge:color-mix(in srgb,var(--efhc-ct-accent) 30%,transparent)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) :is(.efhc-profile-modal-theme[data-pm="PM-05"],.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-05"])){--efhc-theme-accent-soft:color-mix(in srgb,var(--efhc-ct-accent) 9%,transparent);--efhc-theme-edge:color-mix(in srgb,var(--efhc-ct-accent) 30%,transparent)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) :is(.efhc-profile-modal-theme[data-pm="PM-06"],.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-06"])){--efhc-theme-accent-soft:color-mix(in srgb,var(--efhc-ct-accent) 5.5%,transparent);--efhc-theme-edge:color-mix(in srgb,var(--efhc-ct-accent) 17%,transparent)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) :is(.efhc-profile-modal-theme[data-pm="PM-07"],.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-07"])){--efhc-theme-accent-soft:color-mix(in srgb,var(--efhc-ct-accent) 9%,transparent);--efhc-theme-edge:color-mix(in srgb,var(--efhc-ct-accent) 24%,transparent)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) :is(.efhc-profile-modal-theme[data-pm="PM-08"],.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-08"])){--efhc-theme-accent-soft:color-mix(in srgb,var(--efhc-ct-accent) 8%,transparent);--efhc-theme-edge:color-mix(in srgb,var(--efhc-ct-accent) 22%,transparent)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) :is(.efhc-profile-modal-theme[data-pm="PM-09"],.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-09"])){--efhc-theme-accent-soft:color-mix(in srgb,var(--efhc-ct-accent) 7.5%,transparent);--efhc-theme-edge:color-mix(in srgb,var(--efhc-ct-accent) 24%,transparent)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) :is(.efhc-profile-modal-theme[data-pm="PM-10"],.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-10"])){--efhc-theme-accent-soft:color-mix(in srgb,var(--efhc-ct-accent) 5%,transparent);--efhc-theme-edge:color-mix(in srgb,var(--efhc-ct-accent) 20%,transparent)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) :is(.efhc-profile-modal-theme[data-pm="PM-11"],.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-11"])){--efhc-theme-accent-soft:color-mix(in srgb,var(--efhc-ct-accent) 9%,transparent);--efhc-theme-edge:color-mix(in srgb,var(--efhc-ct-accent) 25%,transparent)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) :is(.efhc-profile-modal-theme[data-pm="PM-12"],.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-12"])){--efhc-theme-accent-soft:color-mix(in srgb,var(--efhc-ct-accent) 7.5%,transparent);--efhc-theme-edge:color-mix(in srgb,var(--efhc-ct-accent) 26%,transparent)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) :is(.efhc-profile-modal-theme[data-pm="PM-13"],.efhc-modal.efhc-modal-sheet:has(.efhc-profile-modal-theme[data-pm="PM-13"])){--efhc-theme-accent-soft:color-mix(in srgb,var(--efhc-ct-accent) 9%,transparent);--efhc-theme-edge:color-mix(in srgb,var(--efhc-ct-accent) 24%,transparent)}
+
+/* Border hue is confirmed COLOR ownership in the independent matrix. This late
+   portal-only bridge changes no radius, padding, surface background or shadow. */
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm] > section,
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm] .efhc-card{
+  border-color:var(--efhc-theme-edge);
+}
+
+/* Cycle0456 PM atom completion: preserve each PM material base and geometry;
+   only confirmed decorative radial-gradient hue operands consume current CT.
+   PM-03 remains frozen and PM-01/PM-13 have no migrated radial atom here. */
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-02"]{background-image:radial-gradient(560px 230px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.14),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-04"]{background-image:radial-gradient(560px 230px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.14),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-04"] > section,
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-04"] .efhc-card{background-image:radial-gradient(340px 140px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.14),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-05"]{background-image:radial-gradient(560px 230px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.14),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-05"] > section,
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-05"] .efhc-card{background-image:radial-gradient(340px 140px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.14),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-06"]{background-image:radial-gradient(560px 230px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.045),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-06"] > section,
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-06"] .efhc-card{background-image:radial-gradient(340px 140px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.045),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-07"]{background-image:radial-gradient(560px 230px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.16),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-07"] > section,
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-07"] .efhc-card{background-image:radial-gradient(340px 140px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.16),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-08"]{background-image:radial-gradient(560px 230px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.11),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-08"] > section,
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-08"] .efhc-card{background-image:radial-gradient(340px 140px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.11),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-09"]{background-image:radial-gradient(560px 230px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.12),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-09"] > section,
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-09"] .efhc-card{background-image:radial-gradient(340px 140px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.12),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-10"]{background-image:radial-gradient(560px 230px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.055),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-10"] > section,
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-10"] .efhc-card{background-image:radial-gradient(340px 140px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.055),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-11"]{background-image:radial-gradient(560px 230px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.14),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-11"] > section,
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-11"] .efhc-card{background-image:radial-gradient(340px 140px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.14),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-12"]{background-image:radial-gradient(560px 230px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.15),transparent 72%)}
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-12"] > section,
+:root:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]) .efhc-profile-modal-theme[data-pm="PM-12"] .efhc-card{background-image:radial-gradient(340px 140px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.15),transparent 72%)}
+
+/* External social provider identity remains outside Color Theme. This exclusion
+   remains intentional under the retained Cycle0456 transfer. */
+
+/* Cycle0456 v691 — remaining legacy family chroma projection.
+   Generated from final authored computed styles: selector/anatomy/intensity stay DESIGN-owned;
+   only known decorative palette RGB operands are replaced by current Color Theme hue.
+   Semantic/status/financial colours, BRAND providers and Browser Shop are excluded. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-01"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.34);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-01"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-01"] .efhc-list-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-01"] .efhc-referrals-tabs{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-01"] .efhc-referrals-link-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-02"]{background-image:radial-gradient(560px 240px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-02"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-02"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-02"] .efhc-list-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-02"] .efhc-referrals-tabs{border-color:rgba(var(--efhc-ct-accent-rgb),0.25)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-02"] .efhc-referrals-link-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.25)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-03"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.42)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-03"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-03"] .efhc-list-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-03"] .efhc-referrals-tabs{border-color:rgba(var(--efhc-ct-accent-rgb),0.28)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-03"] .efhc-referrals-link-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.28)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-04"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-04"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.46);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-04"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-04"] .efhc-list-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-04"] .efhc-referrals-tabs{border-color:rgba(var(--efhc-ct-accent-rgb),0.3)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-04"] .efhc-referrals-link-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.3)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-05"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-05"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.48);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-05"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-05"] .efhc-list-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-05"] .efhc-referrals-tabs{border-color:rgba(var(--efhc-ct-accent-rgb),0.3)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-05"] .efhc-referrals-link-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.3)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-06"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.043), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-06"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.46);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-06"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-06"] .efhc-list-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-06"] .efhc-referrals-tabs{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-06"] .efhc-referrals-link-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-07"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.16), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-07"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-07"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-07"] .efhc-list-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-07"] .efhc-referrals-tabs{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-07"] .efhc-referrals-link-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-08"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.11), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-08"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.38);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-08"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-08"] .efhc-list-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-08"] .efhc-referrals-tabs{border-color:rgba(var(--efhc-ct-accent-rgb),0.22)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-08"] .efhc-referrals-link-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.22)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-09"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.12), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-09"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.38);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-09"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-09"] .efhc-list-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-09"] .efhc-referrals-tabs{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-09"] .efhc-referrals-link-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-10"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.055), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-10"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.48);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-10"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-10"] .efhc-list-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-10"] .efhc-referrals-tabs{border-color:rgba(var(--efhc-ct-accent-rgb),0.26) rgba(0, 0, 0, 0)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-10"] .efhc-referrals-link-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.26)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-11"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-11"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-11"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-11"] .efhc-list-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-11"] .efhc-referrals-tabs{border-color:rgba(var(--efhc-ct-accent-rgb),0.25)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-11"] .efhc-referrals-link-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.25)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-12"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.15), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-12"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-12"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-12"] .efhc-list-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-12"] .efhc-referrals-tabs{border-color:rgba(var(--efhc-ct-accent-rgb),0.26)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-12"] .efhc-referrals-link-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.26)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-13"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.094), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-13"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.02), rgba(0, 0, 0, 0) 54%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-13"] .efhc-referrals-tabs{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg="RG-13"] .efhc-referrals-link-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-01"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.34);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-01"] .efhc-rank-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-01"] .efhc-rank-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-01"] .efhc-ranks-me-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-02"]{background-image:radial-gradient(560px 240px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-02"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-02"] .efhc-rank-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-02"] .efhc-rank-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-02"] .efhc-ranks-me-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-03"]{background-image:radial-gradient(520px 220px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.12), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-03"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-03"] .efhc-rank-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-03"] .efhc-rank-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-03"] .efhc-ranks-me-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-04"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-04"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.46);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-04"] .efhc-rank-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-04"] .efhc-rank-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-04"] .efhc-ranks-me-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-05"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-05"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.48);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-05"] .efhc-rank-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-05"] .efhc-rank-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-05"] .efhc-ranks-me-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-06"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.043), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-06"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.46);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-06"] .efhc-rank-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-06"] .efhc-rank-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-06"] .efhc-ranks-me-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-07"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.16), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-07"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-07"] .efhc-rank-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-07"] .efhc-rank-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-07"] .efhc-ranks-me-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-08"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.11), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-08"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.38);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-08"] .efhc-rank-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-08"] .efhc-rank-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-08"] .efhc-ranks-me-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-09"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.12), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-09"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.38);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-09"] .efhc-rank-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-09"] .efhc-rank-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-09"] .efhc-ranks-me-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-10"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.055), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-10"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.48);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-10"] .efhc-rank-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-10"] .efhc-rank-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-10"] .efhc-ranks-me-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-11"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-11"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-11"] .efhc-rank-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-11"] .efhc-rank-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-11"] .efhc-ranks-me-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-12"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.15), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-12"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-12"] .efhc-rank-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-12"] .efhc-rank-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-12"] .efhc-ranks-me-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-13"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.094), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-13"] .efhc-rank-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.02), rgba(0, 0, 0, 0) 54%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-13"] .efhc-ranks-me-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.02), rgba(0, 0, 0, 0) 54%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu="HU-01"] .efhc-hub-choice{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu="HU-10"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.055), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu="HU-10"] .efhc-hub-choice{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu="HU-11"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu="HU-11"] .efhc-hub-choice{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu="HU-12"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.15), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu="HU-12"] .efhc-hub-choice{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu="HU-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu="HU-13"] .efhc-hub-choice{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.02), rgba(0, 0, 0, 0) 54%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-01"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-01"] .efhc-faq-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-02"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-02"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-02"] .efhc-faq-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-03"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.13), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-03"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-03"] .efhc-faq-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-04"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-04"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-04"] .efhc-faq-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-05"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-05"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-05"] .efhc-faq-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-06"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.043), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-06"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-06"] .efhc-faq-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-07"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.16), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-07"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-07"] .efhc-faq-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-08"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.11), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-08"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-08"] .efhc-faq-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-09"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.12), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-09"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-09"] .efhc-faq-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-10"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.055), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-10"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-10"] .efhc-faq-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-11"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-11"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-11"] .efhc-faq-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-12"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.15), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-12"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-12"] .efhc-faq-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:radial-gradient(512px 192px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.08), rgba(0, 0, 0, 0) 72%), none}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-13"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.02), rgba(0, 0, 0, 0) 54%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-13"] .efhc-faq-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.02), rgba(0, 0, 0, 0) 54%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-withdraw-trust-shell[data-wd="WD-01"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-withdraw-trust-shell[data-wd="WD-01"] .efhc-withdraw-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-withdraw-trust-shell[data-wd="WD-02"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-withdraw-trust-shell[data-wd="WD-02"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-withdraw-trust-shell[data-wd="WD-02"] .efhc-withdraw-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-withdraw-trust-shell[data-wd="WD-06"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.043), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-withdraw-trust-shell[data-wd="WD-06"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-withdraw-trust-shell[data-wd="WD-06"] .efhc-withdraw-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-withdraw-trust-shell[data-wd="WD-10"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.055), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-withdraw-trust-shell[data-wd="WD-10"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-withdraw-trust-shell[data-wd="WD-10"] .efhc-withdraw-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-withdraw-trust-shell[data-wd="WD-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-withdraw-trust-shell[data-wd="WD-13"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.02), rgba(0, 0, 0, 0) 54%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-withdraw-trust-shell[data-wd="WD-13"] .efhc-withdraw-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.02), rgba(0, 0, 0, 0) 54%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-01"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-01"] .efhc-ads-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-02"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-02"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-02"] .efhc-ads-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-03"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.13), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-03"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-03"] .efhc-ads-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-04"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-04"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-04"] .efhc-ads-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-05"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-05"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-05"] .efhc-ads-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-06"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.043), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-06"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-06"] .efhc-ads-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-07"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.16), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-07"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-07"] .efhc-ads-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-08"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.11), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-08"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-08"] .efhc-ads-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-09"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.12), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-09"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-09"] .efhc-ads-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-10"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.055), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-10"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-10"] .efhc-ads-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-11"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-11"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-11"] .efhc-ads-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-12"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.15), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-12"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-12"] .efhc-ads-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:radial-gradient(512px 192px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.08), rgba(0, 0, 0, 0) 72%), none}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-13"] .efhc-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.02), rgba(0, 0, 0, 0) 54%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ads-trust-shell[data-ad="AD-13"] .efhc-ads-trust-rail{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.02), rgba(0, 0, 0, 0) 54%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-01"]{background-image:radial-gradient(520px 260px at 50% 0px, rgba(var(--efhc-ct-accent-rgb),0.12), rgba(0, 0, 0, 0) 72%), none}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-01"] :is(.efhc-card,[data-safe-error-state]){border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-02"] :is(.efhc-card,[data-safe-error-state]){border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-03"] :is(.efhc-card,[data-safe-error-state]){border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-04"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-04"] :is(.efhc-card,[data-safe-error-state]){border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-05"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-05"] :is(.efhc-card,[data-safe-error-state]){border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-06"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.043), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-06"] :is(.efhc-card,[data-safe-error-state]){border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-07"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.16), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-07"] :is(.efhc-card,[data-safe-error-state]){border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-08"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.11), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-08"] :is(.efhc-card,[data-safe-error-state]){border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-09"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.12), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-09"] :is(.efhc-card,[data-safe-error-state]){border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-10"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.055), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-10"] :is(.efhc-card,[data-safe-error-state]){border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-11"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-11"] :is(.efhc-card,[data-safe-error-state]){border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-12"]{background-image:radial-gradient(560px 230px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.15), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-12"] :is(.efhc-card,[data-safe-error-state]){border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:radial-gradient(512px 192px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.08), rgba(0, 0, 0, 0) 72%), none}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-error-page[data-er="ER-13"] :is(.efhc-card,[data-safe-error-state]){border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.02), rgba(0, 0, 0, 0) 54%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-hero[data-ph="PH-01"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.34);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-hero[data-ph="PH-02"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-page[data-ph="PH-03"] .panels-hero{background-image:radial-gradient(280px 140px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.2), rgba(0, 0, 0, 0) 70%), linear-gradient(rgba(16, 19, 36, 0.98), rgba(7, 10, 18, 0.98))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-hero[data-ph="PH-03"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-hero[data-ph="PH-04"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.46);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-hero[data-ph="PH-05"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.48);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-hero[data-ph="PH-06"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.46);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-hero[data-ph="PH-07"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-hero[data-ph="PH-08"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.38);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-hero[data-ph="PH-09"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.38);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-hero[data-ph="PH-10"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.48);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-hero[data-ph="PH-11"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-hero[data-ph="PH-12"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-page[data-ph="PH-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-hero[data-ph="PH-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.094), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-tabs[data-pt="PT-01"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.2)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-tabs[data-pt="PT-01"] > .efhc-btn-primary{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-tabs[data-pt="PT-02"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-tabs[data-pt="PT-02"] > .efhc-btn-primary{border-color:rgba(var(--efhc-ct-accent-rgb),0.38);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.23), rgba(27, 68, 128, 0.18))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-page[data-pt="PT-03"] .panels-tabs{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.07)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-page[data-pt="PT-03"] .panels-tab[data-active="true"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.38);background-image:linear-gradient(135deg, rgba(var(--efhc-ct-accent-rgb),0.42), rgba(var(--efhc-ct-accent-rgb),0.3))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-tabs[data-pt="PT-03"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-tabs[data-pt="PT-03"] > .efhc-btn-primary{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-tabs[data-pt="PT-09"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-tabs[data-pt="PT-09"] > .efhc-btn-primary{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.075);color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-tabs[data-pt="PT-10"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.26)}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-tabs[data-pt="PT-11"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.25)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-tabs[data-pt="PT-11"] > .efhc-btn-primary{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-page[data-pt="PT-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-tabs[data-pt="PT-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.22)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-tabs[data-pt="PT-13"] > .efhc-btn-primary{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-color:rgb(var(--efhc-ct-accent-rgb));color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-01"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-tile{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-02"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-02"] .efhc-panel-tile{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-page[data-pc="PC-03"] .panel-tile{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:radial-gradient(340px 130px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.13), rgba(0, 0, 0, 0) 70%), none}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-03"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-03"] .efhc-panel-tile{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-04"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-04"] .efhc-panel-tile{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-05"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-05"] .efhc-panel-tile{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-06"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-06"] .efhc-panel-tile{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-07"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-07"] .efhc-panel-tile{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-08"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-08"] .efhc-panel-tile{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-09"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-09"] .efhc-panel-tile{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-10"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-10"] .efhc-panel-tile{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-page[data-pc="PC-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.22)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-card-surface[data-pc="PC-13"] .efhc-panel-tile{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.02), rgba(0, 0, 0, 0) 54%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-01"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-02"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-02"] .efhc-panels-activate{border-color:rgba(var(--efhc-ct-accent-rgb),0.38);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.27), rgba(31, 73, 135, 0.19))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-page[data-pa="PA-03"] .panels-activation-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:radial-gradient(420px 180px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.15), rgba(0, 0, 0, 0) 70%), none}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-03"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-04"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-04"] .efhc-panels-activate{border-color:rgba(var(--efhc-ct-accent-rgb),0.35);background-color:rgba(var(--efhc-ct-accent-rgb),0.13)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-05"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-05"] .efhc-panels-activate{border-color:rgba(var(--efhc-ct-accent-rgb),0.35);background-color:rgba(var(--efhc-ct-accent-rgb),0.12)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-06"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-06"] .efhc-panels-activate{border-color:rgba(var(--efhc-ct-accent-rgb),0.32);background-color:rgba(var(--efhc-ct-accent-rgb),0.055);color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-07"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-07"] .efhc-panels-activate{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.09)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-08"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-08"] .efhc-panels-activate{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-color:rgba(var(--efhc-ct-accent-rgb),0.08)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-09"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-09"] .efhc-panels-activate{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.075);color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-10"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-11"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-12"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-page[data-pa="PA-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-activation-card[data-pa="PA-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.02), rgba(0, 0, 0, 0) 54%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xh="XH-01"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.34);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-01"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.34);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xh="XH-02"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-02"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xh="XH-03"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-03"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-03"] .efhc-game-hero_icon{border-color:rgba(var(--efhc-ct-accent-rgb),0.34);background-color:rgba(var(--efhc-ct-accent-rgb),0.12);color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xh="XH-04"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.46);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-04"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.46);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-04"] .efhc-game-hero_icon{border-color:rgb(var(--efhc-ct-accent-rgb));background-color:rgba(var(--efhc-ct-accent-rgb),0.12);color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xh="XH-05"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.48);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-05"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.48);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xh="XH-06"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.46);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-06"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.46);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-06"] .efhc-game-hero_icon{border-color:rgba(var(--efhc-ct-accent-rgb),0.32);background-color:rgba(var(--efhc-ct-accent-rgb),0.055);color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xh="XH-07"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-07"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xh="XH-08"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.38);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-08"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.38);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-08"] .efhc-game-hero_icon{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-color:rgba(var(--efhc-ct-accent-rgb),0.08)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xh="XH-09"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.38);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-09"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.38);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-09"] .efhc-game-hero_icon{border-color:rgb(var(--efhc-ct-accent-rgb));color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xh="XH-10"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.48);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-10"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.48);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-10"] .efhc-game-hero_icon{background-color:rgba(var(--efhc-ct-accent-rgb),0.08)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xh="XH-11"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-11"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-11"] .efhc-game-hero_icon{border-color:rgba(var(--efhc-ct-accent-rgb),0.32);background-color:rgba(var(--efhc-ct-accent-rgb),0.1)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xh="XH-12"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-12"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xh="XH-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xh="XH-13"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.094), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xh="XH-13"] .efhc-game-hero_icon{background-image:linear-gradient(rgb(var(--efhc-ct-accent-rgb)), rgb(255, 234, 115))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.094), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-hero[data-xh="XH-13"] .efhc-game-hero_icon{background-image:linear-gradient(rgb(var(--efhc-ct-accent-rgb)), rgb(255, 234, 115))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-stats-surface[data-xs="XS-04"] .efhc-game-stat{border-color:rgba(var(--efhc-ct-accent-rgb),0.26)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-stats-surface[data-xs="XS-09"] .efhc-game-stat{border-color:rgba(244, 210, 122, 0.2) rgba(244, 210, 122, 0.2) rgba(244, 210, 122, 0.2) rgba(var(--efhc-ct-accent-rgb),0.55)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-stats-surface[data-xs="XS-10"] .efhc-game-stat{background-image:linear-gradient(145deg, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(15, 23, 42, 0.66))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xc="XC-01"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-01"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-01"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xc="XC-02"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-02"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-02"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xc="XC-03"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-03"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-03"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xc="XC-04"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-04"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-04"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xc="XC-05"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-05"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-05"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xc="XC-06"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-06"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-06"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xc="XC-07"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-07"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-07"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xc="XC-08"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-08"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-08"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xc="XC-09"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-09"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-09"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xc="XC-10"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-10"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-10"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xc="XC-11"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-11"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-11"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xc="XC-12"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-12"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-12"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xc="XC-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-card-variant[data-xc="XC-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.02), rgba(0, 0, 0, 0) 54%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-01"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-01"] .efhc-btn-primary{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-01"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-01"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-02"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-02"] .efhc-btn-primary{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-02"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-02"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-03"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-03"] .efhc-btn-primary{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-03"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-03"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-04"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-04"] .efhc-btn-primary{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-04"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-04"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-05"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-05"] .efhc-btn-primary{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-05"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-05"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-06"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-06"] .efhc-btn-primary{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-06"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-06"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-07"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-07"] .efhc-btn-primary{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-07"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-07"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-08"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-08"] .efhc-btn-primary{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-08"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-08"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-09"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-09"] .efhc-btn-primary{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-09"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-09"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-10"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-10"] .efhc-btn-primary{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-10"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-10"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-11"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-11"] .efhc-btn-primary{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-11"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-11"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-12"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-12"] .efhc-btn-primary{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-12"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-12"] .efhc-exchange-preview-row{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-color:rgba(var(--efhc-ct-accent-rgb),0.04)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-shell[data-xa="XA-13"] .efhc-btn-primary{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-exchange-action-surface[data-xa="XA-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.22)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-01"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.34);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-01"] .efhc-task-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.2);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-01"] .efhc-task-card button{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-02"]{background-image:radial-gradient(520px 220px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-02"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-02"] .efhc-task-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-02"] .efhc-task-card button{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-03"]{background-image:radial-gradient(520px 220px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.12), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-03"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-03"] .efhc-task-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-03"] .efhc-task-card button{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-04"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.46);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-04"] .efhc-task-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-04"] .efhc-task-card button{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-05"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.48);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-05"] .efhc-task-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.3);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-05"] .efhc-task-card button{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-06"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.46);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-06"] .efhc-task-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-06"] .efhc-task-card button{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-07"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-07"] .efhc-task-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-07"] .efhc-task-card button{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-08"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.38);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-08"] .efhc-task-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-08"] .efhc-task-card button{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-09"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.38);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%), none}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-09"] .efhc-task-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.24);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.04), rgba(0, 0, 0, 0) 58%), none}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-09"] .efhc-task-card button{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-10"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.48);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-10"] .efhc-task-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-10"] .efhc-task-card button{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-11"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.4);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.1), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-11"] .efhc-task-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.25);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.024), rgba(0, 0, 0, 0) 58%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-11"] .efhc-task-card button{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-12"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-image:radial-gradient(300px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.14), rgba(0, 0, 0, 0) 72%), none}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-12"] .efhc-task-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.26);background-color:rgba(var(--efhc-ct-accent-rgb),0.075)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-12"] .efhc-task-card button{background-color:rgb(var(--efhc-ct-accent-rgb))}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-13"]{border-color:rgba(var(--efhc-ct-accent-rgb),0.24)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-13"] .efhc-game-hero{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-image:radial-gradient(360px 150px at 100% 0px, rgba(var(--efhc-ct-accent-rgb),0.094), rgba(0, 0, 0, 0) 72%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-13"] .efhc-task-card{border-color:rgba(var(--efhc-ct-accent-rgb),0.22);background-image:linear-gradient(rgba(var(--efhc-ct-accent-rgb),0.02), rgba(0, 0, 0, 0) 54%)}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg="TG-13"] .efhc-task-card button{border-color:rgba(var(--efhc-ct-accent-rgb),0.42);background-color:rgb(var(--efhc-ct-accent-rgb))}
+
+
+/* Cycle0456 v691 — residual owner-variable corrections after generated projection.
+   These feed existing authored state rules; no geometry/material/status ownership changes. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-03"]{--efhc-color-border:rgba(var(--efhc-ct-accent-rgb),.20);--efhc-color-border-strong:rgba(var(--efhc-ct-accent-rgb),.28);--efhc-color-accent-soft:rgba(var(--efhc-ct-accent-rgb),.10);--efhc-color-active:rgba(var(--efhc-ct-accent-rgb),.10);--efhc-color-accent:rgb(var(--efhc-ct-accent-rgb));--efhc-color-focus:rgb(var(--efhc-ct-accent-rgb))}
+
+/* Cycle0456 v691 — KG-03 repeated-row decorative soft tint follows CT; authored 8% intensity retained. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-ranks-shell[data-kg="KG-03"] .efhc-rank-card{background-color:rgba(var(--efhc-ct-accent-rgb),.08)}
+
+/* Cycle0456 v691 — Withdraw required-ad modal decorative edge; status content remains semantic. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] #withdrawRequiredAdOverlay .standalone-settings-dialog{border-color:rgba(var(--efhc-ct-accent-rgb),.28)}
+
+/* Cycle0456 v691 — CT-06 legacy clean-title bug: text remains neutral; old violet title token is not Color authority. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-06"]{--efhc-clean-title:#f8fafc;}
+
+/* FRONTEND_ADMIN_CYCLE_0456 v691 semantic status isolation: CT must not own SC-* status chroma. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]{
+  --header-status-accent:inherit;
+  --header-status-accent-rgb:inherit;
+  --header-status-glow-rgb:inherit;
+}
+
+/* FRONTEND_ADMIN_CYCLE_0456 v691 SC semantic authority restore after legacy Global Theme projection. */
+:root[data-status-color="SC-01"]{--header-status-accent:#f3cf69;--header-status-accent-rgb:243,207,105;--header-status-glow-rgb:229,191,88}
+:root[data-status-color="SC-02"]{--header-status-accent:var(--header-balance-accent);--header-status-accent-rgb:var(--header-balance-accent-rgb);--header-status-glow-rgb:var(--header-balance-accent-rgb)}
+:root[data-status-color="SC-03"]{--header-status-accent:#a78bfa;--header-status-accent-rgb:167,139,250;--header-status-glow-rgb:124,92,255}
+:root[data-status-color="SC-04"]{--header-status-accent:#58c7b4;--header-status-accent-rgb:88,199,180;--header-status-glow-rgb:45,212,191}
+
+/* Cycle0464/04: portal consumes CT palette even though it lives under body.
+   All ten CTs receive the same USER material selectors. */
+.efhc-user-direct-deposit-portal[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-modal-sheet,.efhc-direct-deposit_amount-control){
+  border-color:var(--efhc-ct-border-strong);
+}
+.efhc-user-direct-deposit-portal[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-modal-header,.efhc-direct-deposit_summary){
+  border-color:var(--efhc-ct-border);
+}
+.efhc-user-direct-deposit-portal[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-direct-deposit_amount-control:focus-within{
+  border-color:var(--efhc-ct-accent);
+  outline-color:var(--efhc-ct-accent);
+}
+.efhc-user-direct-deposit-portal[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-direct-deposit_amount-control strong{color:var(--efhc-ct-accent);}
+
+/* Cycle0464/05 — Direct Deposit portal: only two action buttons and ordinary
+   initial amount frame. CT03 material is preserved while its requested button chroma follows CT. */
+.efhc-user-direct-deposit-portal[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-direct-deposit_actions .efhc-btn-primary{
+  border-color:var(--efhc-ct-accent)!important;
+  background-color:var(--efhc-ct-accent)!important;
+  color:#09111e!important;
+}
+.efhc-user-direct-deposit-portal[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-direct-deposit_actions .efhc-btn-secondary{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.38)!important;
+  background-color:rgba(255,255,255,.04)!important;
+  color:#f8fafc!important;
+}
+/* All ten colours: FAQ search border, icon, clear and manual-focus ring.
+   FQ geometry and background remain design-owned; CT03 qualified FQ03
+   material/focus are protected and already inherit violet semantics. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-faq-shell[data-fq] .efhc-faq-search-control > div{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-faq-shell[data-fq] .efhc-faq-search-control:focus-within > div{
+  border-color:var(--efhc-ct-accent)!important;
+  outline-color:rgba(var(--efhc-ct-accent-rgb),.24);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-faq-shell[data-fq] .efhc-faq-search-control :is(span,button){
+  color:var(--efhc-ct-accent)!important;
+}
+
+/* Cycle0464/07 — final OWNER-approved Direct Deposit CT material.
+   Calm dark UI, one subtle thematic CTA, no amount focus highlight.
+   Scope: chroma only; buttons/states/layout/financial execution unchanged. */
+.efhc-user-direct-deposit-portal[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-direct-deposit_actions .efhc-btn-primary{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.38)!important;
+  background-color:rgba(var(--efhc-ct-accent-rgb),.055)!important;
+  color:#f8fafc!important;
+}
+.efhc-user-direct-deposit-portal[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-direct-deposit_actions .efhc-btn-secondary{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.22)!important;
+  background-color:rgba(255,255,255,.025)!important;
+  color:#f8fafc!important;
+}
+/* OWNER Cycle0561: keep the near-black material while all decorative edges
+   inherit CT01–CT10 (no fixed blue, grey or violet border authority). */
+.efhc-user-direct-deposit-portal[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-modal-sheet,.efhc-direct-deposit_amount-control,.efhc-modal-header,.efhc-direct-deposit_summary){
+  border-color:rgba(var(--efhc-ct-accent-rgb),.28)!important;
+}
+.efhc-user-direct-deposit-portal[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-direct-deposit_amount-control:focus-within{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.40)!important;
+}
+.efhc-user-direct-deposit-portal[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-direct-deposit_amount-control strong{color:#cbd5e1!important;}
+
+/* Cycle0464/08: remove the two extra surface strips from this portal only.
+   No changes to common Modal, header geometry, buttons, divider or Admin. */
+.efhc-user-direct-deposit-portal[data-interface-app-mode="user"] .efhc-modal-header,
+.efhc-user-direct-deposit-portal[data-interface-app-mode="user"] .efhc-direct-deposit_actions{
+  background-color:transparent!important;
+  background-image:none!important;
+}
+
+/* OWNER 0543: single Color Theme authority for independent User variants.
+   Geometry, state semantics, Admin and the frozen CT-03 remain unchanged. */
+.efhc-independent-shell[data-interface-app-mode="user"]:is([data-color-theme-id="CT-01"],[data-color-theme-id="CT-02"],[data-color-theme-id="CT-04"],[data-color-theme-id="CT-05"],[data-color-theme-id="CT-06"],[data-color-theme-id="CT-07"],[data-color-theme-id="CT-08"],[data-color-theme-id="CT-09"],[data-color-theme-id="CT-10"])
+.efhc-panels-activation-card[data-pa="PA-04"] .efhc-panels-activate{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.45)!important;
+  background-color:rgba(var(--efhc-ct-accent-rgb),.18)!important;
+  color:var(--efhc-ct-accent)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]:is([data-color-theme-id="CT-01"],[data-color-theme-id="CT-02"],[data-color-theme-id="CT-04"],[data-color-theme-id="CT-05"],[data-color-theme-id="CT-06"],[data-color-theme-id="CT-07"],[data-color-theme-id="CT-08"],[data-color-theme-id="CT-09"],[data-color-theme-id="CT-10"])
+.efhc-tasks-shell[data-tg="TG-09"] :is(.efhc-game-hero,.efhc-task-card){
+  border-color:rgba(var(--efhc-ct-accent-rgb),.32)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]:is([data-color-theme-id="CT-01"],[data-color-theme-id="CT-02"],[data-color-theme-id="CT-04"],[data-color-theme-id="CT-05"],[data-color-theme-id="CT-06"],[data-color-theme-id="CT-07"],[data-color-theme-id="CT-08"],[data-color-theme-id="CT-09"],[data-color-theme-id="CT-10"])
+.efhc-tasks-shell[data-tg="TG-09"] .efhc-task-card button{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.45)!important;
+  background-color:rgba(var(--efhc-ct-accent-rgb),.15)!important;
+  color:var(--efhc-ct-accent)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]:is([data-color-theme-id="CT-01"],[data-color-theme-id="CT-02"],[data-color-theme-id="CT-04"],[data-color-theme-id="CT-05"],[data-color-theme-id="CT-06"],[data-color-theme-id="CT-07"],[data-color-theme-id="CT-08"],[data-color-theme-id="CT-09"],[data-color-theme-id="CT-10"])
+.efhc-ranks-shell[data-kg="KG-02"] .efhc-game-stats{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.35)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]:is([data-color-theme-id="CT-01"],[data-color-theme-id="CT-02"],[data-color-theme-id="CT-04"],[data-color-theme-id="CT-05"],[data-color-theme-id="CT-06"],[data-color-theme-id="CT-07"],[data-color-theme-id="CT-08"],[data-color-theme-id="CT-09"],[data-color-theme-id="CT-10"])
+.efhc-ranks-shell[data-kg] :is([data-ranks-refresh-action],[data-ranks-show-me-action]){
+  border-color:rgba(var(--efhc-ct-accent-rgb),.38)!important;
+  background-color:rgba(var(--efhc-ct-accent-rgb),.15)!important;
+  color:var(--efhc-ct-accent)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]:is([data-color-theme-id="CT-01"],[data-color-theme-id="CT-02"],[data-color-theme-id="CT-04"],[data-color-theme-id="CT-05"],[data-color-theme-id="CT-06"],[data-color-theme-id="CT-07"],[data-color-theme-id="CT-08"],[data-color-theme-id="CT-09"],[data-color-theme-id="CT-10"])
+.efhc-withdraw-shell[data-wd] .efhc-withdraw-requests-history :is(.efhc-history-bank-operation,.efhc-history-filter){
+  border-color:rgba(var(--efhc-ct-accent-rgb),.28)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]:is([data-color-theme-id="CT-01"],[data-color-theme-id="CT-02"],[data-color-theme-id="CT-04"],[data-color-theme-id="CT-05"],[data-color-theme-id="CT-06"],[data-color-theme-id="CT-07"],[data-color-theme-id="CT-08"],[data-color-theme-id="CT-09"],[data-color-theme-id="CT-10"])
+.efhc-withdraw-shell[data-wd] .efhc-withdraw-requests-history .efhc-history-filter--active{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.52)!important;
+  background-color:rgba(var(--efhc-ct-accent-rgb),.18)!important;
+  color:var(--efhc-ct-accent)!important;
+}

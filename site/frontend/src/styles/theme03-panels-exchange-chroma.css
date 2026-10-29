@@ -1,0 +1,394 @@
+/* Theme 03 Panels + Exchange chroma migration owner — Cycle0144.
+   Palette values live only in theme03-chroma.json. This adapter binds semantic
+   Theme03 roles into the pre-existing cascade hooks; geometry, business/runtime
+   behavior and Global Themes 01-02/04-13 remain unchanged. */
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-panels-shell .efhc-panels-hero,
+  .efhc-exchange-shell .efhc-exchange-hero,
+  #panelsPage .panels-hero,
+  #exchangePage .exchange-hero-variant
+) {
+  --efhc-chroma-hero-border:var(--efhc-color-border-strong);
+  --efhc-chroma-hero-background-image:
+    radial-gradient(360px 150px at 100% 0,color-mix(in srgb,var(--efhc-color-glow) 20%,transparent),transparent 72%),
+    linear-gradient(180deg,var(--efhc-color-hero),var(--efhc-color-canvas));
+  --efhc-chroma-hero-background-color:var(--efhc-color-canvas);
+  box-shadow:inset 0 0 0 1px var(--efhc-color-border),var(--efhc-color-shadow);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-panels-shell .efhc-panels-activation-card,
+  .efhc-panels-shell .efhc-panels-list-card,
+  .efhc-panels-shell .efhc-panels-card-surface,
+  .efhc-exchange-shell .efhc-exchange-card-variant,
+  .efhc-exchange-shell .efhc-exchange-panel,
+  .efhc-exchange-shell .efhc-exchange-action-surface,
+  #panelsPage .panels-card,
+  #panelsPortfolioPage .panels-card,
+  #exchangePage .exchange-card-variant
+) {
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-card);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-panels-shell .efhc-panel-tile,
+  .efhc-exchange-shell .efhc-exchange-hero .efhc-game-stat,
+  .efhc-exchange-shell .efhc-exchange-preview-row,
+  .efhc-exchange-shell .efhc-exchange-input-group,
+  .efhc-exchange-shell .efhc-exchange-history-boundary,
+  #panelsPage .panel-field,
+  #panelsPortfolioPage .panel-field,
+  #exchangePage .source-stat,
+  #exchangePage .source-preview,
+  #exchangePage .source-history-boundary
+) {
+  --efhc-chroma-inset-border:var(--efhc-color-border);
+  --efhc-chroma-inset-background-image:none;
+  --efhc-chroma-inset-background-color:var(--efhc-color-inset);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-panels-shell .efhc-panels-tabs,
+  #panelsPortfolioPage .panels-tabs
+) {
+  --efhc-active-control-border:var(--efhc-color-border-strong);
+  --efhc-active-control-background:color-mix(in srgb,var(--efhc-color-accent) 7%,transparent);
+  --efhc-active-control-color:var(--efhc-color-text);
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-inset);
+}
+
+/* FRONTEND_ADMIN_CYCLE_0378 — corrective Theme03 My Panels direction control.
+   The whole control consumes the existing black-violet Violet Depth roles;
+   geometry, hit area and old/new sort semantics remain unchanged. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-panels-shell .efhc-panels-sort-direction,
+  #panelsPortfolioPage .panels-sort-button
+) {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-inset);
+  color:var(--efhc-color-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-panels-shell .efhc-panels-sort-direction > span,
+  #panelsPortfolioPage .panels-sort-button > span
+) {
+  color:var(--efhc-color-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-panels-shell .efhc-panels-hero,
+  #panelsPage .panels-hero
+) {
+  --efhc-panels-kicker-chroma:var(--efhc-color-accent);
+}
+
+/* OWNER Theme3 recovery T3R-05 — Exchange hero KPI rows are ordinary inset
+   material. The historical XH-03 purple fill is reachable, so neutralize only
+   this exact KPI family; hero glow/accent remains violet. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-exchange-shell .efhc-exchange-hero .efhc-game-stat,
+  #exchangePage .exchange-hero-variant .source-stat
+) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-exchange-shell,
+  #exchangePage
+) {
+  --efhc-exchange-history-boundary-background:var(--efhc-color-inset);
+  --efhc-exchange-history-hint-chroma:color-mix(in srgb,var(--efhc-color-accent) 46%,var(--efhc-color-text-muted) 54%);
+  --efhc-exchange-history-link-chroma:var(--efhc-color-accent);
+  --efhc-exchange-history-link-decoration:color-mix(in srgb,var(--efhc-color-accent) 72%,transparent);
+}
+
+/* Cycle0151 corrective owner-chain: standalone Panels uses `.panel-tile`, not
+   production `.efhc-panel-tile`. Clear the legacy PC-03 violet radial overlay and
+   keep the authored card geometry on the same neutral ordinary card role. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #panelsPortfolioPage .panel-tile {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+}
+
+/* Production Exchange canonical availability row is unpainted. Standalone wraps
+   the same content in `.source-row`, which the generic chroma firewall otherwise
+   paints with route-accent fallback. Feed the firewall transparent material only
+   for this exact counterpart. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #exchangePage .exchange-available-row {
+  --efhc-chroma-inset-border:transparent;
+  --efhc-chroma-inset-background-image:none;
+  --efhc-chroma-inset-background-color:transparent;
+}
+
+/* Shared Theme03 CTA language: Panels activation + both Exchange actions.
+   Same chroma/material primitive; existing component geometry remains local. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-theme03-cta {
+  border-color:var(--efhc-color-border-strong);
+  background:color-mix(in srgb,var(--efhc-color-accent) 13%,transparent);
+  color:var(--efhc-color-accent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb,var(--efhc-color-text) 5%,transparent),
+    0 0 12px color-mix(in srgb,var(--efhc-color-glow) 10%,transparent);
+}
+
+/* Cycle0151 v316 + OWNER Theme3 recovery T3R-05: the receive preview remains
+   the owned surface, but the newer black-violet hierarchy classifies it as ordinary
+   inset material. Amount/EFHCm stays neutral light Text; violet remains contour. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-exchange-shell .efhc-exchange-preview-row,
+  #exchangePage .source-preview
+) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-exchange-shell .efhc-exchange-preview-row strong,
+  #exchangePage .source-preview strong
+) {
+  color:var(--efhc-color-text);
+}
+
+/* Cycle0151 v317 — OWNER residual blue/yellow cleanup for Panels. The page title
+   and activation-card title are neutral light Text; hero/card outlines and the
+   “Мои панели” entrypoint use existing violet Theme03 semantic roles. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-panels-shell .efhc-panels-hero,
+  #panelsPage[data-ph="PH-03"] .panels-hero
+) {
+  --efhc-chroma-hero-border:var(--efhc-color-border-strong);
+  border-color:var(--efhc-color-border-strong);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-panels-shell .efhc-panels-activation-card,
+  #panelsPage[data-pa="PA-03"] .panels-card
+) {
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  border-color:var(--efhc-color-border);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-panels-shell .efhc-panels-hero .efhc-game-title,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-panels-shell .efhc-panels-activation-card > .text-lg.font-semibold,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #panelsPage[data-ph="PH-03"] .panels-page-title,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #panelsPage[data-pa="PA-03"] .panels-card-title {
+  color:var(--efhc-color-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-panels-shell .efhc-panels-portfolio-entry,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #panelsPage[data-ph="PH-03"] .panels-portfolio-entry {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+/* Cycle0151 v318 — Panels “Энергетические модули” inner KPI windows.
+   The legacy generic GameStat/standalone panel-stat border is decorative, not
+   financial/status semantics. Bind only these exact Panels hero descendants to
+   the existing Theme03 Inset + Border role; geometry and values remain local. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-panels-shell .efhc-panels-hero .efhc-game-stat,
+  #panelsPage[data-ph="PH-03"] .panels-hero .panels-stat
+) {
+  --efhc-chroma-inset-border:var(--efhc-color-border);
+  --efhc-chroma-inset-background-image:none;
+  --efhc-chroma-inset-background-color:var(--efhc-color-inset);
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  box-shadow:none;
+}
+
+/* Cycle0151 v319 — OWNER screenshots proved `/panels/portfolio` still had dark
+   local KPI patches inside ordinary panel cards. Reuse the parent card surface
+   by making the exact field windows transparent; no geometry, values or status
+   chips change. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-panels-card-surface[data-pc="PC-09"] :is(.efhc-panel-tile_dates,.efhc-panel-tile_stats) > * {
+  border-color:transparent;
+  background-image:none;
+  background-color:transparent;
+  box-shadow:none;
+}
+
+/* Standalone has a historical global chroma firewall that writes panel-field
+   material with !important. Do not fight it with another !important: feed its
+   existing inherited variables from the exact Theme03 portfolio owner. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #panelsPortfolioPage .panel-field {
+  --efhc-chroma-inset-border:transparent;
+  --efhc-chroma-inset-background-image:none;
+  --efhc-chroma-inset-background-color:transparent;
+}
+
+/* OWNER Theme3 recovery T3R-03 — Withdraw WD-03 exact material bridge.
+   EAM-WITHDRAW-001 defines Withdraw as the Exchange-family composition, so this
+   adapter owns only Theme03 decorative chroma for that exact family. Geometry,
+   amount/wallet/runtime semantics, protected status/error colours and all other
+   Global Themes remain unchanged. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-withdraw-trust-shell[data-wd="WD-03"],
+  #withdrawPage[data-wd="WD-03"]
+) {
+  --efhc-theme-accent:var(--efhc-color-accent);
+  --efhc-theme-accent-soft:var(--efhc-color-accent-soft);
+  --efhc-theme-edge:var(--efhc-color-border);
+  --wd-accent:var(--efhc-color-accent);
+  --wd-edge:var(--efhc-color-border);
+  --wd-soft:var(--efhc-color-accent-soft);
+  --wd-card:var(--efhc-color-card);
+  --tg-bg:var(--efhc-color-canvas);
+  --tg-secondary-bg:var(--efhc-color-card);
+  --tg-text:var(--efhc-color-text);
+  --tg-hint:var(--efhc-color-text-muted);
+  --tg-button:var(--efhc-color-accent-strong);
+  --tg-button-text:var(--efhc-color-text);
+  --efhc-history-filter-active-border:var(--efhc-color-border-strong);
+  --efhc-history-filter-active-background:var(--efhc-color-accent-soft);
+  --efhc-history-filter-active-text:var(--efhc-color-accent);
+  --efhc-chroma-hero-border:var(--efhc-color-border);
+  --efhc-chroma-hero-background-image:none;
+  --efhc-chroma-hero-background-color:var(--efhc-color-hero);
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-card);
+  --efhc-chroma-inset-border:var(--efhc-color-border);
+  --efhc-chroma-inset-background-image:none;
+  --efhc-chroma-inset-background-color:var(--efhc-color-inset);
+  background-image:none;
+  background-color:transparent;
+}
+
+/* Production trust decoration historically injected cyan/yellow independently
+   of the Global Theme. Theme03 Withdraw is black-violet, so this decoration is
+   removed rather than recolouring a large page-level wash. Cycle0380 also keeps
+   the top hero on plain Hero/Border material with neutral depth only. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]
+.efhc-withdraw-trust-shell[data-wd="WD-03"][data-public-visual-trust="hub-browser-shop-withdraw-ads"]::before {
+  background:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-withdraw-trust-shell[data-wd="WD-03"] .efhc-withdraw-hero,
+  #withdrawPage[data-wd="WD-03"] .source-game-hero
+) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-hero);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]
+.efhc-withdraw-trust-shell[data-wd="WD-03"] .efhc-game-hero_glow {
+  background:radial-gradient(circle,var(--efhc-color-accent-soft),transparent 70%);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-withdraw-trust-shell[data-wd="WD-03"] .efhc-game-hero_icon,
+  #withdrawPage[data-wd="WD-03"] .source-hero-icon
+) {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-withdraw-trust-shell[data-wd="WD-03"] .efhc-game-kicker,
+  #withdrawPage[data-wd="WD-03"] .source-hero-kicker
+) {
+  color:var(--efhc-color-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-withdraw-trust-shell[data-wd="WD-03"] .efhc-input,
+  #withdrawPage[data-wd="WD-03"] .source-input
+) {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-withdraw-trust-shell[data-wd="WD-03"] .efhc-btn-primary,
+  #withdrawPage[data-wd="WD-03"] .source-button:not(.secondary)
+) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-withdraw-trust-shell[data-wd="WD-03"] .efhc-btn-secondary,
+  #withdrawPage[data-wd="WD-03"] .source-button.secondary
+) {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-withdraw-trust-shell[data-wd="WD-03"] .efhc-btn-primary,
+  .efhc-withdraw-trust-shell[data-wd="WD-03"] .efhc-btn-secondary,
+  .efhc-withdraw-trust-shell[data-wd="WD-03"] .efhc-input,
+  #withdrawPage[data-wd="WD-03"] .source-button,
+  #withdrawPage[data-wd="WD-03"] .source-input
+):focus-visible {
+  outline-color:var(--efhc-color-focus);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-withdraw-trust-shell[data-wd="WD-03"] .efhc-history-filter--active,
+  #withdrawPage[data-wd="WD-03"] .efhc-history-filter--active
+) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-accent);
+}
+
+/* FRONTEND_ADMIN_CYCLE_0321 — bounded standalone Theme03 colour parity.
+   Only proven inactive/secondary ordinary surfaces are normalized. Borders,
+   shadows, geometry, financial semantics, Energy and Admin remain untouched. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #panelsPortfolioPage[data-pt="PT-03"] .panels-tab[data-active="false"] {
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #exchangePage #exchangeMaxButton {
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #withdrawPage[data-wd="WD-03"] .efhc-history-filter:not(.efhc-history-filter--active) {
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+}
+
+
+
+/* FRONTEND_ADMIN_CYCLE_0383 — rendered acceptance residual: Exchange exact input owner.
+   The input itself had a legacy XC-03 fill/border after the parent input-group
+   variables were already correct. Bind the actual production + standalone
+   controls to the shared Inset role; geometry and exchange behavior stay local. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-exchange-shell .efhc-exchange-input-group .efhc-input,
+  #exchangePage .source-field .source-input
+) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}

@@ -1,0 +1,321 @@
+/* Theme 03 FAQ micro-chroma migration owner — Cycle0148.
+   FQ-03 is near-canonical: preserve drill-down/search/tree geometry and bind
+   decorative hue to the centralized Theme03 SSOT. No palette literals,
+   geometry, FAQ content/runtime or corrective priority overrides live here. */
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] {
+  --fq-accent:var(--efhc-color-accent);
+  --fq-edge:var(--efhc-color-border);
+  --fq-surface:var(--efhc-color-card);
+  --tg-text:var(--efhc-color-text);
+  --tg-hint:var(--efhc-color-text-muted);
+  --tg-secondary-bg:var(--efhc-color-inset);
+
+  --efhc-chroma-hero-border:var(--efhc-color-border-strong);
+  --efhc-chroma-hero-background-image:linear-gradient(180deg,var(--efhc-color-hero),var(--efhc-color-canvas));
+  --efhc-chroma-hero-background-color:var(--efhc-color-canvas);
+
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-card);
+
+  --efhc-chroma-inset-border:var(--efhc-color-border);
+  --efhc-chroma-inset-background-image:none;
+  --efhc-chroma-inset-background-color:var(--efhc-color-inset);
+
+  background-image:radial-gradient(520px 220px at 100% 0,color-mix(in srgb,var(--efhc-color-glow) 12%,transparent),transparent 72%);
+  background-color:transparent;
+}
+
+/* The historical public FAQ shell painted disclosure arrows blue even when
+   FQ-03 itself was Violet. Keep the existing disclosure glyph/geometry, but
+   move its decorative hue to the Theme03 accent role. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] :is(
+  .efhc-faq-section-node,
+  .efhc-faq-subsection-node,
+  .efhc-faq-question-node
+) > summary::before,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] :is(
+  .efhc-faq-section-node,
+  .efhc-faq-subsection-node
+) > summary em,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] .efhc-faq-answer-content li::marker {
+  color:var(--efhc-color-accent);
+}
+
+/* Standalone owner-review mirror consumes the same adapter source. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] {
+  --fq-accent:var(--efhc-color-accent);
+  --fq-edge:var(--efhc-color-border);
+  --fq-surface:var(--efhc-color-card);
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-card);
+  --efhc-chroma-inset-border:var(--efhc-color-border);
+  --efhc-chroma-inset-background-image:none;
+  --efhc-chroma-inset-background-color:var(--efhc-color-inset);
+  background-image:radial-gradient(520px 220px at 100% 0,color-mix(in srgb,var(--efhc-color-glow) 12%,transparent),transparent 72%);
+  background-color:transparent;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] :is(
+  .standalone-faq-index-row,
+  .standalone-faq-back,
+  .release-faq-question
+) {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] .standalone-faq-index-row span,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] .release-faq-answer p {
+  color:var(--efhc-color-text-muted);
+}
+
+/* FRONTEND_ADMIN_CYCLE_0339 continuation / v560 — OWNER Theme03 Admin-canon
+   material adoption for FAQ.  FQ-03 structure/search/runtime remain unchanged;
+   Page/Chrome/Card/Inset/Button materials mirror Admin Theme03 roles. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-faq-shell[data-fq="FQ-03"],
+  #faqPage[data-fq="FQ-03"]
+) {
+  color:var(--efhc-color-text);
+  background-image:none;
+  background-color:var(--efhc-color-page);
+}
+
+/* FAQ title behaves as lightweight Admin chrome without geometry mutation. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] .efhc-faq-user-header {
+  background-image:none;
+  background-color:var(--efhc-color-chrome);
+  color:var(--efhc-color-text);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+/* Top-level FAQ cards = ADMIN_SECTION. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] > .efhc-card,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] > .source-card {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+/* Accordion/search rows = ADMIN_INSET/KPI: contour but no coarse nested shadow. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] :is(
+  .efhc-faq-section-node,
+  .efhc-faq-subsection-node,
+  .efhc-faq-question-node,
+  .efhc-faq-answer-block
+),
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] :is(
+  .standalone-faq-index-row,
+  .release-faq-item,
+  .release-faq-subsection,
+  .release-faq-question
+) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] :is(
+  .efhc-faq-section-node,
+  .efhc-faq-subsection-node,
+  .efhc-faq-question-node
+) > summary {
+  color:var(--efhc-color-text);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] .efhc-faq-answer-block,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] .release-faq-answer p {
+  color:var(--efhc-color-text-muted);
+}
+
+/* FAQ search control = Admin Card shell with Inset field.  No markup or
+   interaction changes; the wrapper receives only visual material. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] .efhc-faq-search-zone {
+  border-radius:1rem;
+  background-image:none;
+  background-color:var(--efhc-color-card);
+  box-shadow:var(--efhc-color-shadow);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] .efhc-faq-search-zone > div > div {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] .efhc-faq-search-zone input {
+  color:var(--efhc-color-text);
+}
+
+/* FAQ navigation controls adopt Admin buttons at ~80% vertical size. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] .efhc-card button,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] :is(.standalone-faq-index-row,.standalone-faq-back) {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+  min-height:2.2rem;
+  padding-top:.32rem;
+  padding-bottom:.32rem;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] .efhc-card button:hover,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] :is(.standalone-faq-index-row,.standalone-faq-back):hover {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] :is(input,button):focus-visible,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] :is(input,button):focus-visible {
+  outline-color:var(--efhc-color-focus);
+  border-color:var(--efhc-color-border-strong);
+}
+
+
+/* FRONTEND_ADMIN_CYCLE_0339 corrective continuation / v561 — visible FAQ
+   black-violet parity.  Remove the remaining legacy blue search material and
+   purple large-card mass: near-black owns fill, violet owns contour/focus. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-faq-shell[data-fq="FQ-03"],
+  #faqPage[data-fq="FQ-03"]
+) {
+  --efhc-chroma-card-border:var(--efhc-color-border-strong);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-inset);
+  background-image:none;
+  background-color:var(--efhc-color-canvas);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] > .efhc-card,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] > .source-card {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+}
+
+/* Production TelegramSearchBar receives a stable semantic owner class in
+   FaqSearchBar.tsx so Theme03 no longer depends on anonymous div depth. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] .efhc-faq-search-zone {
+  background:transparent;
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] .efhc-faq-search-control > div {
+  border:1px solid var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] .efhc-faq-search-control input {
+  border:0;
+  background:transparent;
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+/* Standalone FAQ previously retained the legacy blue .source-input owner.
+   Override the actual field/input pair directly. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] .standalone-faq-search-field {
+  border:1px solid var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] .standalone-faq-search-field .source-input {
+  border:0;
+  background:transparent;
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-faq-shell[data-fq="FQ-03"] .efhc-faq-search-control:focus-within > div,
+  #faqPage[data-fq="FQ-03"] .standalone-faq-search-field:focus-within
+) {
+  border-color:var(--efhc-color-focus);
+  outline:2px solid color-mix(in srgb,var(--efhc-color-focus) 24%,transparent);
+  outline-offset:2px;
+}
+
+/* FRONTEND_ADMIN_CYCLE_0339 final OWNER visual correction / v562.
+   Restore the pre-v561 FAQ search geometry exactly: the rounded .source-input
+   owns the visible 1px frame; the positioning wrapper owns no frame. Change
+   Theme03 material colour only. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] .standalone-faq-search-field {
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  outline:0;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] .standalone-faq-search-field .source-input {
+  border:1px solid var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #faqPage[data-fq="FQ-03"] .standalone-faq-search-field .source-input:focus {
+  border-color:var(--efhc-color-focus);
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--efhc-color-focus) 18%,transparent);
+}
+
+/* Production TelegramSearchBar already owns rounded-2xl geometry. Theme03
+   changes only its existing border/fill/focus colours. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] .efhc-faq-search-control > div {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-faq-shell[data-fq="FQ-03"] .efhc-faq-search-control:focus-within > div {
+  border-color:var(--efhc-color-focus);
+}
+
+
+/* FRONTEND_ADMIN_CYCLE_0383 — rendered acceptance residual: FAQ layered card + active bridge.
+   The late black-violet compatibility layer flattened the top Card to Inset and
+   the generic !important card bridge hid hover Active in standalone. Restore the
+   matrix hierarchy through the existing Card/Inset/Active semantic properties. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-faq-shell[data-fq="FQ-03"] > .efhc-card,
+  #faqPage[data-fq="FQ-03"] > .source-card
+) {
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-card);
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-card);
+  box-shadow:var(--efhc-color-shadow);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]
+#faqPage[data-fq="FQ-03"] :is(.standalone-faq-index-row,.standalone-faq-back):hover {
+  --efhc-chroma-card-border:var(--efhc-color-border-strong);
+  --efhc-chroma-card-background-image:var(--efhc-color-active);
+  --efhc-chroma-card-background-color:transparent;
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+}
+
+
+/* FRONTEND_ADMIN_CYCLE_0383 — exact standalone FAQ row Inset owner.
+   The global card bridge also matches standalone-faq-index-row. Set its own
+   card payload to Inset so the parent Card remains visually distinct. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]
+#faqPage[data-fq="FQ-03"] :is(.standalone-faq-index-row,.standalone-faq-back) {
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-inset);
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  box-shadow:none;
+}

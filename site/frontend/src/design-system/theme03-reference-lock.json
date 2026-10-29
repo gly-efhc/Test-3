@@ -1,0 +1,58 @@
+{
+  "schema": "EFHC_THEME03_REFERENCE_LOCK_V1",
+  "status": "SUPERSEDED_BY_OWNER_CYCLE0468_CT01_CT10_UNIFORM",
+  "themeId": "03",
+  "themeName": "Violet Depth",
+  "qualifiedCycle": "FRONTEND_ADMIN_CYCLE_0383",
+  "qualifiedSourceHead": "FRONTEND_v607",
+  "lockCycle": "FRONTEND_ADMIN_CYCLE_0384",
+  "lockRelease": "FRONTEND_v608",
+  "lockAuthority": "Direct OWNER instruction 2026-10-06",
+  "roleVectorSha256": "4a82d1af5874cac5b37dab7761af7c1bac7b9d964048352903eba31c124afaad",
+  "roleCount": 18,
+  "roles": {
+    "canvas": "rgba(7,10,18,.98)",
+    "page": "rgba(12,10,24,.98)",
+    "chrome": "rgba(12,10,24,.98)",
+    "chromeInset": "rgba(28,20,53,.66)",
+    "hero": "rgba(16,19,36,.98)",
+    "card": "rgba(18,16,33,.86)",
+    "inset": "rgba(13,11,25,.96)",
+    "active": "linear-gradient(135deg,rgba(34,25,61,.94),rgba(23,18,43,.96))",
+    "accent": "#a78bfa",
+    "accentSoft": "rgba(124,92,255,.10)",
+    "accentStrong": "#7557db",
+    "border": "rgba(167,139,250,.24)",
+    "borderStrong": "rgba(167,139,250,.42)",
+    "text": "#f8fafc",
+    "textMuted": "#cbd5e1",
+    "shadow": "0 14px 34px rgba(0,0,0,.26)",
+    "glow": "#7c5cff",
+    "focus": "#c4b5fd"
+  },
+  "qualifiedMatrixRows": 51,
+  "changePolicy": {
+    "default": "CT03_IS_NOT_EXEMPT_FROM_UNIFIED_USER_COLOR_THEME_RULES",
+    "allowedOnlyWith": "NORMAL_OWNER_TASK_RULES",
+    "targetThemeProjection": "NO_USER_THEME03_IMMUTABILITY_GATE"
+  },
+  "lockedImplementationFiles": {
+    "frontend/scripts/generate-theme03-chroma-tokens.mjs": "b044da0907da913712af8c1bae6ffbb92ece327a943916ca33dd8c3ea0e96efb",
+    "frontend/src/styles/generated/theme03-chroma-tokens.css": "a2fed7ec0686aefa21aa85c60069e8aec01d836b87f33c9856b5476a1c7496e5",
+    "frontend/src/styles/theme03-shell-chroma.css": "b5302b26373a01d0b793a1a363d6aa3d4cebfd780e2c280a22d8de8c61cdbfe7",
+    "frontend/src/styles/theme03-panels-exchange-chroma.css": "02cc599628f7a1cdda07f83c0ee87f80997436014ed8c220f263a86c5fe4364a",
+    "frontend/src/styles/theme03-tasks-referrals-chroma.css": "c2703d8c6fe81645d31607a1fb870ec414d784b53552484dced97d95bcc6da50",
+    "frontend/src/styles/theme03-ranks-profile-chroma.css": "1a49fb3ce7815b2904f1e0a9f16c3339f806e5503c419c020451a8f66df9c1e6",
+    "frontend/src/styles/theme03-energy-chroma.css": "2f68d7c205b288c4ece79b731b4e42b5543fd8eb906b0daca5fd6abad453d545",
+    "frontend/src/styles/theme03-faq-chroma.css": "80504818e7b4128a22dfb10ed1d2f25c5c91b9531a752cace1d0c12bc531676e",
+    "frontend/src/styles/theme03-balance-history-chroma.css": "1aaeec3ad55d991b1855cd78307703511fc8bc5b79425f13d3789d195f155451",
+    "frontend/src/styles/theme03-browser-shop-chroma.css": "5721f131e4364e369ef3bec0499c71f155a1a218b076bd9b4f6804294b64cf18"
+  },
+  "notLockedByFileHash": [
+    "FRONTEND_vNNN.html",
+    "SHOP_vNNN.html",
+    "docs/SSOT/GLOBAL_THEME_ELEMENT_MATRIX.json",
+    "docs/frontend/FRONTEND_GLOBAL_THEME_ELEMENT_MATRIX.md"
+  ],
+  "reason": "Historical provenance only. Direct OWNER Cycle0468 lifts USER CT03 exclusions, special immutable protection and dedicated tests; Admin theme is separate."
+}

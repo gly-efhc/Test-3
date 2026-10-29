@@ -1,0 +1,388 @@
+/* Cycle0464 — OWNER-assigned Color Theme coverage across ten palettes.
+   CT owns chroma only; DESIGN owns geometry, state and material topology.
+   CT01–CT10 are equal USER color participants. Admin/Shop are separate.
+   Active hue follows --efhc-ct-accent, including CT-06 #D946EF / CT-10 #C5A15A.
+   Low-intensity surfaces prevent CT-10 gold flooding. */
+:is(.efhc-independent-shell, html)[data-interface-app-mode="user"][data-color-theme-id]{
+  --efhc-owner-coverage-edge:color-mix(in srgb,var(--efhc-ct-accent) 29%,transparent);
+  --efhc-owner-coverage-action-edge:color-mix(in srgb,var(--efhc-ct-accent) 37%,transparent);
+  --efhc-owner-coverage-surface:color-mix(in srgb,var(--efhc-ct-accent) 3%,transparent);
+  --efhc-owner-coverage-label:color-mix(in srgb,var(--efhc-ct-accent) 55%,#f8fafc 45%);
+}
+/* Energy KPI surfaces: a barely visible tint, theme edge + labels, legible numbers. */
+:is(.efhc-independent-shell, html)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-energy-stage, #energyPage) .efhc-energy-chip,
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-energy-mini-card{
+  border-color:var(--efhc-owner-coverage-edge)!important;
+  background-color:var(--efhc-owner-coverage-surface)!important;
+  background-image:none!important;
+}
+:is(.efhc-independent-shell, html)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-energy-stage, #energyPage) .efhc-energy-chip span,
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-energy-mini-card_label{
+  color:var(--efhc-owner-coverage-label)!important;
+}
+:is(.efhc-independent-shell, html)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-energy-stage, #energyPage) .efhc-energy-chip strong,
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-energy-mini-card_value{
+  color:#f8fafc!important;
+}
+/* Page actions: same transparent/quiet treatment for all Color Themes. */
+:is(.efhc-independent-shell, html)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-panels-portfolio-entry, [data-panels-portfolio-entrypoint="canonical"],
+ .efhc-referrals-my-entry, [data-referrals-my-entrypoint="canonical"],
+ .efhc-withdraw-history-export-actions [data-history-export],
+ #withdrawPage [data-history-export], #withdrawPage [data-withdraw-history-export] .source-button,
+ #withdrawPage .standalone-withdraw-history-export-actions .source-button,
+ .efhc-tasks-shell .efhc-task-card_bottom>button:not(:disabled),
+ #tasksPage .source-task-card .source-button:not(:disabled)){
+  border-color:var(--efhc-owner-coverage-action-edge)!important;
+  background-color:var(--efhc-owner-coverage-surface)!important;
+  background-image:none!important;
+  color:#f8fafc!important;
+  box-shadow:none!important;
+}
+/* Tasks upper bonus strip: semantic chroma, preserve value readability. */
+:is(.efhc-independent-shell, html)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-tasks-shell, #tasksPage) :is(.efhc-bonus-earnings-strip,.standalone-bonus-earnings-strip){
+  border-color:var(--efhc-owner-coverage-edge)!important;
+  background-color:var(--efhc-owner-coverage-surface)!important;
+  background-image:none!important;
+}
+/* My Panels: controls + active badge CT-owned, inactive remains neutral/gray. */
+:is(.efhc-independent-shell, html)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-panels-sort-direction, #panelsPortfolioPage .panels-sort-button){
+  border-color:var(--efhc-owner-coverage-action-edge)!important;
+  background-color:var(--efhc-owner-coverage-surface)!important;
+  color:var(--efhc-owner-coverage-label)!important;
+}
+:is(.efhc-independent-shell, html)[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-panel-activ-status[data-status="activ"][data-active="true"]{
+  border-color:var(--efhc-owner-coverage-action-edge)!important;
+  background-color:var(--efhc-owner-coverage-surface)!important;
+  color:var(--efhc-owner-coverage-label)!important;
+}
+:is(.efhc-independent-shell, html)[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-panel-activ-status[data-status="activ"][data-active="false"]{
+  border-color:rgba(148,163,184,.24)!important;
+  background-color:rgba(148,163,184,.035)!important;
+  color:#94a3b8!important;
+}
+/* Floating settings gear and check: same live CT regardless of editing state. */
+:is(.efhc-independent-shell, html)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-interface-customization-button,.efhc-global-theme-control,
+ .interface-customization-button,.global-theme-control):not(:disabled){
+  border-color:var(--efhc-owner-coverage-action-edge)!important;
+  background-color:#0b1019!important;
+  background-image:none!important;
+  color:var(--efhc-owner-coverage-label)!important;
+  box-shadow:0 6px 18px rgba(0,0,0,.26)!important;
+}
+:is(.efhc-independent-shell, html)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-interface-customization-button,.efhc-global-theme-control,
+ .interface-customization-button,.global-theme-control):focus-visible{
+  outline-color:var(--efhc-ct-accent)!important;
+}
+/* Exact gear/selectors override older :root:has theme projections only within
+   the two customization docks; CT03 participates equally. */
+html[data-interface-app-mode="user"][data-color-theme-id]
+#customizationControlDock :is(.interface-customization-button,.global-theme-control):not(:disabled),
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-customization-control-dock :is(.efhc-interface-customization-button,.efhc-global-theme-control):not(:disabled){
+  border-color:var(--efhc-owner-coverage-action-edge)!important;
+  background-color:#0b1019!important;
+  background-image:none!important;
+  color:var(--efhc-owner-coverage-label)!important;
+}
+/* OWNER 0562: hidden gear must not intercept taps after its five-second timer.
+   Keep existing dock geometry, CT materials and editing interactions intact. */
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-customization-control-dock > .efhc-interface-customization-button[data-visible="false"] {
+  pointer-events:none!important;
+}
+/* Muted gold is CT-10 identity, but interactive emphasis follows CT01–09's
+   restrained border + tiny tint hierarchy instead of opaque yellow panels. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-10"]
+:is(.efhc-panels-tabs>.efhc-btn-primary,.efhc-tasks-shell .efhc-task-card_reward .efhc-badge,
+ .efhc-panels-activate){
+  border-color:var(--efhc-owner-coverage-action-edge)!important;
+  background-color:var(--efhc-owner-coverage-surface)!important;
+  background-image:none!important;
+  color:#f8fafc!important;
+}
+
+/* OWNER Cycle0464 continuation: two earnings labels stay white for ALL ten CTs,
+   including CT03, without changing the block material or geometry. */
+:is(.efhc-independent-shell,html)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-tasks-shell,#tasksPage) :is(.efhc-bonus-earnings-row>span,.standalone-bonus-earnings-strip span){
+  color:#ffffff!important;
+}
+/* Energy name: one chroma owner for EVERY EG design and color variant;
+   no geometric/design selector is permitted to choose a competing hue. */
+:is(.efhc-independent-shell,html)[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-energy-stage[data-eg] .efhc-energy-stage_eyebrow{
+  color:var(--efhc-ct-accent)!important;
+  border-bottom-color:color-mix(in srgb,var(--efhc-ct-accent) 70%,transparent)!important;
+  text-shadow:0 2px 18px color-mix(in srgb,var(--efhc-ct-accent) 22%,transparent)!important;
+}
+/* Exactly one low-opacity hue tint on the action; do not reintroduce
+   foreign --tg-secondary-bg as an opaque source of panel material. */
+:is(.efhc-independent-shell,html)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-panels-shell .efhc-panels-portfolio-entry,#panelsPage .panels-portfolio-entry,
+     [data-panels-portfolio-entrypoint="canonical"]){
+  border-color:var(--efhc-owner-coverage-action-edge)!important;
+  background:color-mix(in srgb,var(--efhc-ct-accent) 3%,transparent)!important;
+  color:#ffffff!important;
+  box-shadow:none!important;
+}
+/* Rankings Load More: white readable copy, CT-owned edge, 2–3% tint.
+   KG design owns shape, never active color. Separate from Refresh/Find Me. */
+:is(.efhc-independent-shell,html)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-ranks-shell[data-kg] [data-ranks-load-more="true"],
+     #ranksPage[data-kg] #loadMoreRanks){
+  border-color:var(--efhc-owner-coverage-action-edge)!important;
+  background:color-mix(in srgb,var(--efhc-ct-accent) 3%,transparent)!important;
+  color:#ffffff!important;
+  box-shadow:none!important;
+}
+/* CT10 only: PB29 retains its independent gradient geometry but consumes the
+   current muted palette. Older PB29 design chroma remains future 0466 debt. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-10"]
+.efhc-energy-stage[data-eg] .efhc-energy-progress-track[data-pb="PB-29"] .efhc-energy-progress-fill{
+  background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 70%,#0b0e1b),var(--efhc-ct-accent))!important;
+  box-shadow:0 0 12px color-mix(in srgb,var(--efhc-ct-accent) 24%,transparent)!important;
+}
+
+/* Cycle0467/02 OWNER: HUB owns layout only; every decorative hue comes from CT01–CT10.
+   CT03 is governed by the same live CT contract. Semantic/brand-colored media excluded. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu]{
+  --efhc-theme-accent:var(--efhc-ct-accent);
+  --efhc-theme-edge:rgba(var(--efhc-ct-accent-rgb),.30);
+  --efhc-theme-accent-soft:rgba(var(--efhc-ct-accent-rgb),.03);
+  background-color:transparent!important;
+  background-image:none!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu] .efhc-hub-choice{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;
+  background-color:rgba(var(--efhc-ct-accent-rgb),.03)!important;
+  background-image:none!important;
+  color:#f8fafc!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu] .efhc-hub-choice:hover{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.5)!important;
+  background-color:rgba(var(--efhc-ct-accent-rgb),.06)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu] .efhc-hub-choice_icon{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.35)!important;
+  background:rgba(var(--efhc-ct-accent-rgb),.05)!important;
+  color:var(--efhc-ct-accent)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-hub-page[data-hu] .efhc-hub-choice:focus-visible{outline-color:var(--efhc-ct-accent)!important;}
+/* Withdraw MAX: OWNER specified CT outline ONLY. Do not repaint its fill/text/states. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-withdraw-shell .efhc-withdraw-max-cta{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.45)!important;
+}
+/* Deposit portal is rooted in body: explicitly scope ALL decorative consumers to the portal's CT tokens. */
+.efhc-user-direct-deposit-portal[data-color-theme-id] .efhc-modal-title,
+.efhc-user-direct-deposit-portal[data-color-theme-id] .efhc-direct-deposit_exchange-title{color:#f8fafc!important;}
+.efhc-user-direct-deposit-portal[data-color-theme-id] .efhc-modal-close{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;
+  background:rgba(var(--efhc-ct-accent-rgb),.035)!important;
+}
+.efhc-user-direct-deposit-portal[data-color-theme-id] .efhc-direct-deposit_amount-control{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.28)!important;
+}
+.efhc-user-direct-deposit-portal[data-color-theme-id] .efhc-modal-close:focus-visible,
+.efhc-user-direct-deposit-portal[data-color-theme-id] .efhc-direct-deposit_amount-control:focus-within{outline-color:var(--efhc-ct-accent)!important;}
+.efhc-user-direct-deposit-portal[data-color-theme-id] .efhc-direct-deposit_actions [data-direct-deposit-action="send-efhc-jetton"]{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;
+  background:rgba(var(--efhc-ct-accent-rgb),.08)!important;
+  color:#f8fafc!important;
+}
+.efhc-user-direct-deposit-portal[data-color-theme-id] .efhc-direct-deposit_actions [data-direct-deposit-action="cancel"]{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;
+  background:transparent!important;
+  color:#f8fafc!important;
+}
+
+/* Cycle0468 — OWNER CT01–CT10 Energy and Panels material correction.
+   Only the named USER consumers are changed; CT03 is included by direct OWNER
+   decision. Shape, border widths, semantic warnings, BASE and VIP ornament stay. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-energy-stage[data-eg]{
+  --efhc-energy-frame-accent:var(--efhc-ct-accent);
+  --efhc-energy-frame-accent-rgb:var(--efhc-ct-accent-rgb);
+  --efhc-energy-frame-edge:rgba(var(--efhc-ct-accent-rgb),.30);
+  border-color:var(--efhc-energy-frame-edge)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-energy-stage[data-eg] .efhc-energy-stage_level strong{
+  border:0!important;
+  border-radius:0!important;
+  padding:0!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  color:#f8fafc!important;
+  text-shadow:none!important;
+  box-shadow:none!important;
+}
+/* My Panels: preserve card geometry/edge, replace only its opaque material and
+   remove every child-cell background. A design PC variant cannot repaint these. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-panels-portfolio-shell .efhc-panels-card-surface .efhc-panel-tile{
+  background-color:color-mix(in srgb,#090a0e 97%,var(--efhc-ct-accent) 3%)!important;
+  background-image:none!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-panels-portfolio-shell .efhc-panels-card-surface .efhc-panel-tile :is(
+  .efhc-panel-tile_head,.efhc-panel-tile_head>div,
+  .efhc-panel-tile_dates,.efhc-panel-tile_dates>div,
+  .efhc-panel-tile_stats,.efhc-panel-tile_stats>div
+){
+  background-color:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-panels-portfolio-shell .efhc-panel-activ-status[data-status="activ"][data-active="true"]{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.36)!important;
+  background:rgba(var(--efhc-ct-accent-rgb),.035)!important;
+  color:var(--efhc-ct-accent)!important;
+  text-shadow:0 0 9px rgba(var(--efhc-ct-accent-rgb),.17)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-panels-portfolio-shell .efhc-panel-activ-status[data-status="activ"][data-active="false"]{
+  border-color:rgba(148,163,184,.18)!important;
+  background:rgba(148,163,184,.025)!important;
+  color:#94a3b8!important;
+  text-shadow:none!important;
+}
+/* Neutral black with the same very light CT tint as card; retain inactive
+   button's existing border width and active tab material. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-panels-portfolio-shell .efhc-panels-tabs [data-panels-tab-button].efhc-btn-secondary{
+  background-color:color-mix(in srgb,#090a0e 97%,var(--efhc-ct-accent) 3%)!important;
+  background-image:none!important;
+  border-color:rgba(var(--efhc-ct-accent-rgb),.18)!important;
+}
+/* Activation price and total balance are plain text, without cell underlays.
+   Notice/error surfaces and the actionable activation button are untouched. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-panels-shell .efhc-panels-activation-card > .grid > .grid,
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-panels-shell .efhc-panels-activation-card > .grid > .grid > div{
+  background-color:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+/* VIP retains its border, glow and dot; BASE is unchanged. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-panels-shell .efhc-panels-generation-tier[data-tier="vip"]{
+  background-color:transparent!important;
+  background-image:none!important;
+  color:var(--efhc-ct-accent)!important;
+}
+
+/* Cycle0468 iteration02: OWNER visual corrections across CT01–CT10, never Admin.
+   Chroma follows live CT, material stays neutral. RG selects geometry only.
+   Referrals compact layout proposal C is REVIEW ONLY in demo/, not active UI. */
+
+/* Energy Lvl: exact text-only label, never a chip (also overrides old CT10 case). */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-energy-stage[data-eg] .efhc-energy-stage_level strong{
+  border:0!important;border-radius:0!important;padding:0!important;
+  background:transparent!important;background-image:none!important;
+  box-shadow:none!important;text-shadow:none!important;color:#f8fafc!important;
+}
+
+/* CT01–CT10 floating selector + gear: identical near-black opaque material,
+   including CT07 with legacy no-blur rules. Keep keyboard focus and click logic. */
+html[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-customization-control-dock > :is(.efhc-global-theme-control,.efhc-interface-customization-button){
+  background:#0b1019!important;background-color:#0b1019!important;background-image:none!important;
+  border-color:rgba(var(--efhc-ct-accent-rgb),.37)!important;
+  color:#f8fafc!important;
+  box-shadow:0 6px 18px rgba(0,0,0,.26)!important;
+}
+
+/* My Panels typography is not colorized by CT/PC. Activ is deliberately excluded. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-panels-portfolio-shell .efhc-panel-tile :is(
+  .efhc-panel-tile_head,.efhc-panel-tile_dates,.efhc-panel-tile_stats
+) :is(.font-semibold,.efhc-panel-countdown-live){
+  color:#f8fafc!important;text-shadow:none!important;filter:none!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-panels-portfolio-shell .efhc-panel-tile :is(.efhc-panel-tile_head,.efhc-panel-tile_dates,.efhc-panel-tile_stats) .efhc-text-muted2{
+  color:#cbd5e1!important;text-shadow:none!important;filter:none!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-panels-portfolio-shell .efhc-panels-dashboard-runtime__panel-card :is(strong,.efhc-dash-value){
+  color:#f8fafc!important;text-shadow:none!important;filter:none!important;
+}
+
+/* All four Referrals routes, every RG variant, every CT. Outer cards retain
+   their near-black surface; remove independent tinted overlays and gradients. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell[data-rg]{
+  --efhc-rest-accent:var(--efhc-ct-accent);
+  --efhc-rest-accent-text:var(--efhc-ct-accent);
+  --efhc-rest-edge:rgba(var(--efhc-ct-accent-rgb),.30);
+  --efhc-rest-soft:rgba(var(--efhc-ct-accent-rgb),.03);
+  background:transparent!important;background-image:none!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell[data-rg] :is(.efhc-game-hero,.efhc-card,.efhc-list-row,.efhc-referrals-link-card,.efhc-subpage-hero){
+  border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;
+  background-color:color-mix(in srgb,#090a0e 97%,var(--efhc-ct-accent) 3%)!important;
+  background-image:none!important;
+  backdrop-filter:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell[data-rg] :is(
+ .efhc-game-stat,.efhc-game-hero_glow,.efhc-referrals-visual-rail,
+ .efhc-referrals-visual-chip,.efhc-referral-achievement-nodes>div,
+ .efhc-referrals-segment-surface,.efhc-referrals-tabs
+){background-color:transparent!important;background-image:none!important;box-shadow:none!important;}
+/* Keep referral link field visible and focusable, but without an inner fill. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell[data-rg] .efhc-referrals-link-card{
+  background:transparent!important;background-image:none!important;
+}
+/* Neutral main text; only CT-owned kicker/active tabs/status/progress keep hue. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell[data-rg] :is(.efhc-game-title,.efhc-card h1,.efhc-card h2,.efhc-card h3,.efhc-game-stat_value,.efhc-list-row .font-semibold,.efhc-subpage-centered-title){color:#f8fafc!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell[data-rg] :is(.efhc-game-detail,.efhc-text-muted2){color:#cbd5e1!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell[data-rg] .efhc-game-kicker{color:var(--efhc-ct-accent)!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell[data-rg] .efhc-referral-activ-indicator .efhc-game-header_status[data-status="activ"][data-active="true"]{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.36)!important;
+  color:var(--efhc-ct-accent)!important;
+  background:rgba(var(--efhc-ct-accent-rgb),.035)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell[data-rg] .efhc-referral-activ-indicator .efhc-game-header_status[data-status="activ"][data-active="false"]{
+  color:#94a3b8!important;border-color:rgba(148,163,184,.16)!important;
+  background:rgba(148,163,184,.025)!important;text-shadow:none!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell[data-rg] .efhc-referrals-tabs > .efhc-btn-primary,
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell[data-rg] .efhc-referrals-tabs > .efhc-btn-secondary{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;
+  background:rgba(var(--efhc-ct-accent-rgb),.03)!important;
+}
+/* RG variant values no longer control padding on referral roster rows.
+   14px => 8px each side, exactly -12px versus the canonical roster row. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell[data-rg] .efhc-list-row[data-referral-row]{
+  padding-block:8px!important;min-height:44px;
+}
+
+/* RG08 preserved its own 0.58rem source row padding; remove the same 12px
+   rather than silently enlarging or shrinking its independently chosen form. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell[data-rg="RG-08"] .efhc-list-row[data-referral-row]{
+  padding-block:calc(.58rem - 6px)!important;min-height:44px;
+}

@@ -1,0 +1,43 @@
+{
+  "schema": "EFHC_THEME03_RANKS_SHARED_ACTION_MATERIAL_V1",
+  "date": "2026-10-14",
+  "ownerDecision": "Theme03 Ranks Refresh and Find Me must use the same complete neutral secondary-button design as Theme01/02/04-13; Theme03 has no private action material.",
+  "referenceComputedStandalone": {
+    "themes": [
+      "01",
+      "02",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "backgroundColor": "rgba(15, 23, 42, 0.72)",
+    "borderColor": "rgba(148, 163, 184, 0.18)",
+    "color": "rgb(212, 223, 236)",
+    "boxShadow": "none",
+    "baseHoverActiveSameMaterial": true,
+    "focusRule": "current theme focus/accent outline; material unchanged"
+  },
+  "theme03Scope": [
+    "Ranks / Обновить",
+    "Ranks / Найти меня"
+  ],
+  "geometryOwnedElsewhere": true,
+  "states": [
+    "base",
+    "hover",
+    "active",
+    "focus-visible"
+  ],
+  "forbiddenTheme03PrivateMaterial": [
+    "--efhc-color-accent-soft",
+    "--efhc-color-active",
+    "--efhc-color-border-strong"
+  ]
+}

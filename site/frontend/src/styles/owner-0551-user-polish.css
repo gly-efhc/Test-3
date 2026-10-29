@@ -1,0 +1,221 @@
+/* OWNER cycle 0551. USER-only, ten-CT chroma and bounded decorative fixes.
+   Geometry, semantics, financial statuses, Admin, and Shop are unchanged. */
+
+/* The Header balance frame is a real, accessible navigation control. */
+.efhc-game-header_balance[data-header-balance-navigation] {
+  appearance:none;
+  font:inherit;
+  color:inherit;
+  cursor:pointer;
+  text-decoration:none;
+}
+.efhc-game-header_balance[data-header-balance-navigation]:focus-visible {
+  outline:2px solid var(--efhc-ct-accent,#a78bfa);
+  outline-offset:2px;
+}
+
+/* Ranks actions retain themed outlines, never opaque neon material. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-ranks-shell[data-kg],#ranksPage[data-kg])
+:is([data-ranks-refresh-action],[data-ranks-show-me-action],#rankRefresh,#findMyRank) {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.38)!important;
+  background-image:none!important;
+  background-color:rgba(12,17,29,.62)!important;
+  color:#e2e8f0!important;
+  box-shadow:none!important;
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-ranks-shell[data-kg],#ranksPage[data-kg])
+:is([data-ranks-refresh-action],[data-ranks-show-me-action],#rankRefresh,#findMyRank):is(:hover,[data-ranks-active="true"]):not(:disabled) {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.58)!important;
+  background-color:rgba(19,25,38,.75)!important;
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-ranks-shell[data-kg],#ranksPage[data-kg])
+:is([data-ranks-refresh-action],[data-ranks-show-me-action],#rankRefresh,#findMyRank):focus-visible {
+  outline:2px solid var(--efhc-ct-accent)!important;
+  outline-offset:2px;
+}
+
+/* Explicit page roots: they are not descendants of themselves. */
+/* Higher specificity than legacy tonal page gradients. */
+html[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+:is(#tasksPage,#panelsPage,#panelsPortfolioPage,.efhc-tasks-shell,.efhc-panels-page) {
+  background-image:none!important;
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-tasks-shell,#tasksPage,.efhc-panels-page,#panelsPage,#panelsPortfolioPage) {
+  background-image:none!important;
+}
+
+/* Remove all upper-right glow layers on both pages (all physical variants),
+   including hero, nested tile/card and overlay glow, without recolouring badges. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"]
+:is(.efhc-tasks-shell,#tasksPage,.efhc-panels-page,#panelsPage,#panelsPortfolioPage)
+:is(.efhc-game-hero_glow,.source-hero-glow,.panels-hero_glow) {
+  display:none!important;
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"]
+:is(.efhc-tasks-shell,#tasksPage,.efhc-panels-page,#panelsPage,#panelsPortfolioPage) {
+  background-image:none!important;
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"]
+:is(.efhc-tasks-shell,#tasksPage,.efhc-panels-page,#panelsPage,#panelsPortfolioPage)
+:is(.efhc-game-hero,.source-game-hero,.efhc-task-card,.source-task-card,
+    .efhc-bonus-earnings-strip,.standalone-bonus-earnings-strip,
+    .panels-hero,.efhc-panels-hero,.panel-tile,.panels-activation-card,
+    .source-card,.efhc-card,.panels-card) {
+  background-image:none!important;
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"]
+:is(.efhc-tasks-shell,#tasksPage,.efhc-panels-page,#panelsPage,#panelsPortfolioPage)
+:is(.efhc-game-hero,.source-game-hero,.efhc-task-card,.source-task-card,
+    .panels-hero,.efhc-panels-hero,.panel-tile,.panels-activation-card)::before,
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"]
+:is(.efhc-tasks-shell,#tasksPage,.efhc-panels-page,#panelsPage,#panelsPortfolioPage)
+:is(.efhc-game-hero,.source-game-hero,.efhc-task-card,.source-task-card,
+    .panels-hero,.efhc-panels-hero,.panel-tile,.panels-activation-card)::after {
+  background-image:none!important;
+}
+
+/* React portal inherits CT from the Layout USER shell; excludes Admin. */
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-01"])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme) {
+  --efhc-ct-accent-rgb:110,168,255;
+  --efhc-ct-accent:#6EA8FF;
+}
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-02"])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme) {
+  --efhc-ct-accent-rgb:115,174,252;
+  --efhc-ct-accent:#73AEFC;
+}
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-03"])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme) {
+  --efhc-ct-accent-rgb:167,139,250;
+  --efhc-ct-accent:#A78BFA;
+}
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-04"])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme) {
+  --efhc-ct-accent-rgb:34,158,217;
+  --efhc-ct-accent:#229ED9;
+}
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-05"])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme) {
+  --efhc-ct-accent-rgb:229,191,88;
+  --efhc-ct-accent:#E5BF58;
+}
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-06"])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme) {
+  --efhc-ct-accent-rgb:217,70,239;
+  --efhc-ct-accent:#D946EF;
+}
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-07"])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme) {
+  --efhc-ct-accent-rgb:127,180,255;
+  --efhc-ct-accent:#7FB4FF;
+}
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-08"])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme) {
+  --efhc-ct-accent-rgb:143,134,255;
+  --efhc-ct-accent:#8F86FF;
+}
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-09"])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme) {
+  --efhc-ct-accent-rgb:88,199,180;
+  --efhc-ct-accent:#58C7B4;
+}
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-10"])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme) {
+  --efhc-ct-accent-rgb:197,161,90;
+  --efhc-ct-accent:#C5A15A;
+}
+/* Settings are a user portal in React and #profileSettingsOverlay in standalone.
+   Do not address all .standalone-settings-dialog: Admin uses that class too. */
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme),
+html[data-interface-app-mode="user"][data-color-theme-id]
+#profileSettingsOverlay {
+  --efhc-settings-edge:rgba(var(--efhc-ct-accent-rgb),.31);
+  --efhc-settings-edge-strong:rgba(var(--efhc-ct-accent-rgb),.57);
+  --efhc-settings-inset:rgba(var(--efhc-ct-accent-rgb),.042);
+  --efhc-settings-active:rgba(var(--efhc-ct-accent-rgb),.14);
+  --efhc-theme-accent:var(--efhc-ct-accent);
+  --efhc-theme-edge:var(--efhc-settings-edge);
+}
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme) .efhc-modal-sheet,
+html[data-interface-app-mode="user"][data-color-theme-id]
+#profileSettingsOverlay .standalone-settings-dialog {
+  border-color:var(--efhc-settings-edge)!important;
+  background-image:none!important;
+  background-color:#0b111d!important;
+  color:#f8fafc;
+}
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme) :is(
+  .efhc-profile-modal-theme,.efhc-profile-avatar-settings,.efhc-profile-avatar-editor,
+  .efhc-settings-row,.efhc-settings-select,.efhc-language-select_button,
+  .efhc-profile-avatar-preset,.efhc-profile-avatar-social,.efhc-profile-avatar-url-input,
+  .efhc-modal-close,.efhc-btn-secondary),
+html[data-interface-app-mode="user"][data-color-theme-id]
+#profileSettingsOverlay :is(
+  .standalone-avatar-settings,.standalone-settings-row,.standalone-avatar-url-input,
+  .standalone-avatar-preset-grid button,.standalone-avatar-social-grid button,
+  .standalone-avatar-preview,.standalone-settings-dialog .source-button) {
+  border-color:var(--efhc-settings-edge)!important;
+  background-image:none!important;
+  background-color:var(--efhc-settings-inset)!important;
+}
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme)
+:is(.efhc-switch--on,.efhc-profile-avatar-preset[aria-pressed="true"],.efhc-profile-avatar-social[aria-pressed="true"]),
+html[data-interface-app-mode="user"][data-color-theme-id]
+#profileSettingsOverlay :is(.standalone-setting-toggle[data-active="true"],.standalone-avatar-preset-grid button[data-active="true"],.standalone-avatar-social-grid button[data-active="true"]) {
+  border-color:var(--efhc-settings-edge-strong)!important;
+  background-color:var(--efhc-settings-active)!important;
+}
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme)
+:is(.efhc-switch:not(.efhc-switch--on),.efhc-settings-row),
+html[data-interface-app-mode="user"][data-color-theme-id]
+#profileSettingsOverlay :is(.standalone-setting-toggle[data-active="false"],.standalone-settings-row) {
+  border-color:var(--efhc-settings-edge)!important;
+  background-color:var(--efhc-settings-inset)!important;
+}
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme) :is(button,input,select):focus-visible,
+html[data-interface-app-mode="user"][data-color-theme-id]
+#profileSettingsOverlay :is(button,input,select):focus-visible {
+  outline:2px solid var(--efhc-ct-accent)!important;
+  outline-offset:2px;
+}
+
+/* OWNER 0555: simplified USER settings only. The language picker, its menu and
+   every language option deliberately remain unchanged and outside this rule. */
+.efhc-profile-settings-disclosure,
+html[data-interface-app-mode="user"] #profileSettingsOverlay .efhc-settings-disclosure {
+  border:1px solid var(--efhc-settings-edge,rgba(148,163,184,.24));
+  border-radius:14px;
+  background-color:rgba(var(--efhc-ct-accent-rgb,167,139,250),.035);
+  color:inherit;
+  padding:.35rem .75rem;
+  margin:.45rem 0;
+}
+.efhc-profile-settings-disclosure > summary,
+html[data-interface-app-mode="user"] #profileSettingsOverlay .efhc-settings-disclosure > summary {
+  display:flex;align-items:center;justify-content:space-between;
+  gap:.65rem;min-height:44px;list-style:none;cursor:pointer;
+  font-size:.9rem;font-weight:700;
+}
+.efhc-profile-settings-disclosure > summary::-webkit-details-marker,
+html[data-interface-app-mode="user"] #profileSettingsOverlay .efhc-settings-disclosure > summary::-webkit-details-marker {display:none;}
+.efhc-profile-settings-disclosure > summary::after,
+html[data-interface-app-mode="user"] #profileSettingsOverlay .efhc-settings-disclosure > summary::after {content:"+";font-size:1.1rem;color:var(--efhc-ct-accent,#a78bfa);}
+.efhc-profile-settings-disclosure[open] > summary::after,
+html[data-interface-app-mode="user"] #profileSettingsOverlay .efhc-settings-disclosure[open] > summary::after {content:"−";}
+.efhc-profile-settings-disclosure_body {display:grid;gap:.75rem;padding:.45rem 0 .7rem;}
+html[data-interface-app-mode="user"] #profileSettingsOverlay .efhc-settings-disclosure[open] {padding-bottom:.7rem;}
+html[data-interface-app-mode="user"] #profileSettingsOverlay .efhc-settings-disclosure > .standalone-settings-row {margin-top:.3rem;}
+.efhc-profile-settings-disclosure > summary:focus-visible,
+html[data-interface-app-mode="user"] #profileSettingsOverlay .efhc-settings-disclosure > summary:focus-visible {outline:2px solid var(--efhc-ct-accent,#a78bfa);outline-offset:2px;}

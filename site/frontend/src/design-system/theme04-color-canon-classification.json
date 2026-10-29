@@ -1,0 +1,2581 @@
+{
+  "schema": "EFHC_THEME04_COLOR_CANON_CLASSIFICATION_V1",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0400",
+  "sourcePhysicalHead": "FRONTEND_v623",
+  "sourceCensusCycle": "FRONTEND_ADMIN_CYCLE_0399",
+  "theme": {
+    "id": "04",
+    "name": "Ocean Teal",
+    "colorNameRu": "Классический синий Telegram",
+    "frozenAccent": "#229ED9"
+  },
+  "classificationLaw": {
+    "reuseCycle0399CensusOnly": true,
+    "fullChromiumRerun": false,
+    "provenanceInThisCycle": false,
+    "visualMutationInThisCycle": false,
+    "oldTealOverride": "Any non-transparent token present in Cycle0399 oldTealDiscovery is FAIL_OLD_TEAL even when the old broad classifier labelled it THEME_HUE_FAMILY.",
+    "foreignRule": "Cycle0399 FOREIGN_CHROMA_CANDIDATE is FAIL unless an exact current machine semantic canon authorizes the value.",
+    "familyRule": "Cycle0399 THEME_HUE_FAMILY remains token-level palette-family PASS unless the explicit old-teal override applies. Owner-level provenance is intentionally deferred to Cycles0401-0409.",
+    "neutralRule": "Cycle0399 NEUTRAL remains NEUTRAL_INTENTIONAL; this cycle does not reinterpret neutral material as decorative chroma.",
+    "semanticAuthority": "frontend/src/design-system/balance-semantic-color-canon.json",
+    "colorAuthority": "frontend/src/design-system/global-theme-color-canon.json#themes[id=04]"
+  },
+  "summary": {
+    "computedTokens": 285,
+    "tokenClassCounts": {
+      "FAIL_FOREIGN_CHROMA": 43,
+      "FAIL_OLD_TEAL": 32,
+      "NEUTRAL_INTENTIONAL": 33,
+      "PALETTE_FAMILY_PASS": 161,
+      "SEMANTIC_EXCEPTION_EXPLICIT": 14,
+      "TRANSPARENT": 2
+    },
+    "computedUseClassCounts": {
+      "FAIL_FOREIGN_CHROMA": 18663,
+      "FAIL_OLD_TEAL": 25023,
+      "NEUTRAL_INTENTIONAL": 67890,
+      "PALETTE_FAMILY_PASS": 421884,
+      "SEMANTIC_EXCEPTION_EXPLICIT": 3387,
+      "TRANSPARENT": 36001
+    },
+    "failTokens": 75,
+    "oldTealFailTokens": 32,
+    "foreignChromaFailTokens": 43
+  },
+  "oldTealSeeds": [
+    "#14B8A6",
+    "#58C7B4",
+    "#7EE3D0"
+  ],
+  "tokenInventory": [
+    {
+      "token": "rgb(115, 96, 242)",
+      "computedUses": 15,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(135, 113, 12)",
+      "computedUses": 594,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(155, 231, 190)",
+      "computedUses": 405,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "SEMANTIC_EXCEPTION_EXPLICIT",
+      "explicitAuthority": "frontend/src/design-system/balance-semantic-color-canon.json#semanticColors.statusDone.foreground"
+    },
+    {
+      "token": "rgb(16, 35, 27)",
+      "computedUses": 27,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(167, 139, 250)",
+      "computedUses": 231,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(187, 247, 208)",
+      "computedUses": 375,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(194, 178, 255)",
+      "computedUses": 84,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(20, 17, 11)",
+      "computedUses": 42,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(210, 175, 0)",
+      "computedUses": 108,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(216, 180, 93)",
+      "computedUses": 3,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "SEMANTIC_EXCEPTION_EXPLICIT",
+      "explicitAuthority": "frontend/src/design-system/balance-semantic-color-canon.json#semanticColors.balanceBonusMarker.core"
+    },
+    {
+      "token": "rgb(220, 252, 231)",
+      "computedUses": 375,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(229, 191, 88)",
+      "computedUses": 516,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "SEMANTIC_EXCEPTION_EXPLICIT",
+      "explicitAuthority": "frontend/src/design-system/balance-semantic-color-canon.json#semanticColors.statusPending.foreground"
+    },
+    {
+      "token": "rgb(242, 206, 105)",
+      "computedUses": 102,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(243, 232, 255)",
+      "computedUses": 42,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(247, 247, 244)",
+      "computedUses": 972,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(252, 165, 165)",
+      "computedUses": 753,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "SEMANTIC_EXCEPTION_EXPLICIT",
+      "explicitAuthority": "frontend/src/design-system/balance-semantic-color-canon.json#semanticColors.statusFailed.foreground"
+    },
+    {
+      "token": "rgb(255, 211, 40)",
+      "computedUses": 54,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(255, 248, 223)",
+      "computedUses": 54,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(31, 27, 8)",
+      "computedUses": 18,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(37, 211, 102)",
+      "computedUses": 15,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(40, 88, 64)",
+      "computedUses": 108,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(12, 10, 24, 0.98)",
+      "computedUses": 54,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(124, 92, 255, 0.15)",
+      "computedUses": 3,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(124, 92, 255, 0.16)",
+      "computedUses": 3,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(124, 92, 255, 0.22)",
+      "computedUses": 3,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(124, 92, 255, 0.34)",
+      "computedUses": 3,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(13, 11, 25, 0.96)",
+      "computedUses": 2577,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(167, 139, 250, 0.24)",
+      "computedUses": 10968,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(167, 139, 250, 0.42)",
+      "computedUses": 240,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(18, 16, 33, 0.86)",
+      "computedUses": 138,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(194, 178, 255, 0.42)",
+      "computedUses": 3,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(20, 14, 38, 0.94)",
+      "computedUses": 3,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(210, 180, 119, 0.22)",
+      "computedUses": 15,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(216, 180, 93, 0.05)",
+      "computedUses": 3,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "SEMANTIC_EXCEPTION_EXPLICIT",
+      "explicitAuthority": "frontend/src/design-system/balance-semantic-color-canon.json#semanticColors.balanceBonusMarker.background"
+    },
+    {
+      "token": "rgba(216, 180, 93, 0.72)",
+      "computedUses": 12,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "SEMANTIC_EXCEPTION_EXPLICIT",
+      "explicitAuthority": "frontend/src/design-system/balance-semantic-color-canon.json#semanticColors.balanceBonusMarker.border"
+    },
+    {
+      "token": "rgba(22, 101, 52, 0.12)",
+      "computedUses": 75,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(22, 101, 52, 0.16)",
+      "computedUses": 75,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(229, 191, 88, 0.18)",
+      "computedUses": 75,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(229, 191, 88, 0.19)",
+      "computedUses": 36,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(229, 191, 88, 0.42)",
+      "computedUses": 12,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(23, 18, 43, 0.96)",
+      "computedUses": 57,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(239, 68, 68, 0.35)",
+      "computedUses": 300,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(242, 206, 105, 0.5)",
+      "computedUses": 12,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(248, 113, 113, 0.1)",
+      "computedUses": 21,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "SEMANTIC_EXCEPTION_EXPLICIT",
+      "explicitAuthority": "frontend/src/design-system/balance-semantic-color-canon.json#semanticColors.operationDebit.iconBackground"
+    },
+    {
+      "token": "rgba(255, 226, 145, 0.72)",
+      "computedUses": 48,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(34, 25, 61, 0.94)",
+      "computedUses": 57,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(38, 31, 16, 0.05)",
+      "computedUses": 63,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(38, 31, 16, 0.08)",
+      "computedUses": 27,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(52, 211, 153, 0.12)",
+      "computedUses": 9,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "SEMANTIC_EXCEPTION_EXPLICIT",
+      "explicitAuthority": "frontend/src/design-system/balance-semantic-color-canon.json#semanticColors.operationCredit.iconBackground"
+    },
+    {
+      "token": "rgba(74, 222, 128, 0.25)",
+      "computedUses": 300,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(74, 222, 128, 0.42)",
+      "computedUses": 300,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(0, 0, 0)",
+      "computedUses": 48573,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(107, 107, 107)",
+      "computedUses": 3,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(128, 128, 128)",
+      "computedUses": 1776,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(129, 121, 109)",
+      "computedUses": 216,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(159, 150, 136)",
+      "computedUses": 54,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(167, 173, 183)",
+      "computedUses": 7776,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(17, 17, 17)",
+      "computedUses": 651,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(21, 21, 21)",
+      "computedUses": 243,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(23, 23, 23)",
+      "computedUses": 318,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(245, 245, 245)",
+      "computedUses": 1914,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(255, 255, 255)",
+      "computedUses": 3696,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(60, 60, 60)",
+      "computedUses": 120,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(67, 67, 67)",
+      "computedUses": 12,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(0, 0, 0, 0.2)",
+      "computedUses": 36,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(0, 0, 0, 0.22)",
+      "computedUses": 411,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(0, 0, 0, 0.24)",
+      "computedUses": 159,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(0, 0, 0, 0.26)",
+      "computedUses": 6,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(0, 0, 0, 0.28)",
+      "computedUses": 21,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(0, 0, 0, 0.32)",
+      "computedUses": 153,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(0, 0, 0, 0.34)",
+      "computedUses": 75,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(0, 0, 0, 0.38)",
+      "computedUses": 75,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(0, 0, 0, 0.64)",
+      "computedUses": 9,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(17, 17, 17, 0.62)",
+      "computedUses": 12,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(21, 21, 21, 0.14)",
+      "computedUses": 108,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(255, 255, 255, 0.03)",
+      "computedUses": 6,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(255, 255, 255, 0.04)",
+      "computedUses": 561,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(255, 255, 255, 0.043)",
+      "computedUses": 81,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(255, 255, 255, 0.05)",
+      "computedUses": 78,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(255, 255, 255, 0.57)",
+      "computedUses": 81,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(255, 255, 255, 0.72)",
+      "computedUses": 81,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(255, 255, 255, 0.82)",
+      "computedUses": 567,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(8, 8, 8, 0.9)",
+      "computedUses": 9,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(8, 9, 9, 0.58)",
+      "computedUses": 9,
+      "cycle0399Class": "NEUTRAL",
+      "resolvedClass": "NEUTRAL_INTENTIONAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.106734 0.205707 0.255277 / 0.71702)",
+      "computedUses": 9,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.08)",
+      "computedUses": 120,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.1)",
+      "computedUses": 282,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.12)",
+      "computedUses": 171,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.2)",
+      "computedUses": 30,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.25)",
+      "computedUses": 300,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.3)",
+      "computedUses": 120,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.42)",
+      "computedUses": 636,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.5)",
+      "computedUses": 36,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.7)",
+      "computedUses": 9,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.72)",
+      "computedUses": 120,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.552549 0.805647 0.787059)",
+      "computedUses": 15900,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.683922 0.888392 0.858353)",
+      "computedUses": 42,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.978039 0.984314 0.990588)",
+      "computedUses": 135,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(10, 18, 32)",
+      "computedUses": 1275,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(11, 17, 29)",
+      "computedUses": 18,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(11, 18, 32)",
+      "computedUses": 2325,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(110, 168, 255)",
+      "computedUses": 1632,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "SEMANTIC_EXCEPTION_EXPLICIT",
+      "explicitAuthority": "frontend/src/design-system/balance-semantic-color-canon.json#semanticColors.balanceMainMarker.core"
+    },
+    {
+      "token": "rgb(113, 129, 152)",
+      "computedUses": 12177,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(126, 227, 208)",
+      "computedUses": 2934,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(127, 145, 168)",
+      "computedUses": 12150,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(13, 23, 36)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(130, 147, 170)",
+      "computedUses": 492,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(139, 185, 255)",
+      "computedUses": 27,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(141, 225, 209)",
+      "computedUses": 15,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(142, 160, 184)",
+      "computedUses": 378,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(142, 161, 184)",
+      "computedUses": 5508,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(143, 161, 184)",
+      "computedUses": 270,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(143, 162, 185)",
+      "computedUses": 729,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(145, 161, 184)",
+      "computedUses": 11883,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(145, 162, 183)",
+      "computedUses": 180,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(145, 165, 191)",
+      "computedUses": 1080,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(146, 164, 186)",
+      "computedUses": 918,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(147, 164, 187)",
+      "computedUses": 270,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(148, 163, 184)",
+      "computedUses": 12867,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(155, 195, 255)",
+      "computedUses": 135,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(156, 197, 255)",
+      "computedUses": 60,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(159, 176, 198)",
+      "computedUses": 17475,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(17, 21, 28)",
+      "computedUses": 18,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(17, 24, 39)",
+      "computedUses": 75,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(17, 25, 38)",
+      "computedUses": 9,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(185, 201, 220)",
+      "computedUses": 375,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(185, 214, 251)",
+      "computedUses": 45,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(185, 214, 255)",
+      "computedUses": 15,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(191, 248, 238)",
+      "computedUses": 1125,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(203, 213, 225)",
+      "computedUses": 114,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(207, 226, 251)",
+      "computedUses": 375,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(212, 223, 236)",
+      "computedUses": 873,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(219, 234, 254)",
+      "computedUses": 11568,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(220, 232, 246)",
+      "computedUses": 243,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(220, 232, 248)",
+      "computedUses": 14625,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(220, 233, 248)",
+      "computedUses": 15,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(220, 234, 255)",
+      "computedUses": 2970,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(220, 255, 248)",
+      "computedUses": 6399,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(229, 238, 252)",
+      "computedUses": 1350,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(229, 255, 251)",
+      "computedUses": 15,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(230, 238, 251)",
+      "computedUses": 192,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(231, 240, 255)",
+      "computedUses": 3375,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(232, 237, 245)",
+      "computedUses": 180,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(232, 241, 255)",
+      "computedUses": 675,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(233, 243, 255)",
+      "computedUses": 285,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(234, 243, 255)",
+      "computedUses": 20850,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(237, 245, 255)",
+      "computedUses": 54,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(238, 245, 255)",
+      "computedUses": 1680,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(238, 246, 255)",
+      "computedUses": 1404,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(241, 245, 249)",
+      "computedUses": 945,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(245, 248, 252)",
+      "computedUses": 5400,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(248, 250, 252)",
+      "computedUses": 164865,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(38, 165, 228)",
+      "computedUses": 15,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(38, 58, 88)",
+      "computedUses": 75,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(41, 65, 94)",
+      "computedUses": 36,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(42, 48, 58)",
+      "computedUses": 495,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(5, 8, 13)",
+      "computedUses": 300,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(5, 9, 16)",
+      "computedUses": 150,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(7, 11, 18)",
+      "computedUses": 150,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(7, 9, 13)",
+      "computedUses": 27,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(8, 102, 255)",
+      "computedUses": 15,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(8, 13, 22)",
+      "computedUses": 153,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(8, 16, 28)",
+      "computedUses": 165,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(82, 98, 120)",
+      "computedUses": 1440,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(88, 199, 180)",
+      "computedUses": 6903,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(9, 17, 30)",
+      "computedUses": 288,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(95, 115, 144)",
+      "computedUses": 10125,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(95, 150, 219)",
+      "computedUses": 12,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(10, 16, 27, 0.92)",
+      "computedUses": 75,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(10, 16, 27, 0.94)",
+      "computedUses": 75,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(10, 17, 29, 0.8)",
+      "computedUses": 75,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(10, 17, 29, 0.82)",
+      "computedUses": 12,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(10, 18, 31, 0.72)",
+      "computedUses": 75,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(11, 14, 27, 0.96)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.05)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "SEMANTIC_EXCEPTION_EXPLICIT",
+      "explicitAuthority": "frontend/src/design-system/balance-semantic-color-canon.json#semanticColors.balanceMainMarker.background"
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.1)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.14)",
+      "computedUses": 96,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.15)",
+      "computedUses": 48,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.16)",
+      "computedUses": 144,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.18)",
+      "computedUses": 636,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.2)",
+      "computedUses": 306,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.22)",
+      "computedUses": 1200,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.23)",
+      "computedUses": 60,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.24)",
+      "computedUses": 300,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.25)",
+      "computedUses": 48,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.26)",
+      "computedUses": 6912,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.28)",
+      "computedUses": 435,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.3)",
+      "computedUses": 504,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.32)",
+      "computedUses": 51,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.34)",
+      "computedUses": 12,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.38)",
+      "computedUses": 300,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.42)",
+      "computedUses": 600,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.48)",
+      "computedUses": 300,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.5)",
+      "computedUses": 600,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(110, 168, 255, 0.72)",
+      "computedUses": 12,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "SEMANTIC_EXCEPTION_EXPLICIT",
+      "explicitAuthority": "frontend/src/design-system/balance-semantic-color-canon.json#semanticColors.balanceMainMarker.border"
+    },
+    {
+      "token": "rgba(12, 20, 34, 0.74)",
+      "computedUses": 102,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(12, 20, 34, 0.82)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.04)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "SEMANTIC_EXCEPTION_EXPLICIT",
+      "explicitAuthority": "frontend/src/design-system/balance-semantic-color-canon.json#semanticColors.balanceTotalMarker.background"
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.08)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.09)",
+      "computedUses": 7446,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.1)",
+      "computedUses": 42,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.12)",
+      "computedUses": 3402,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.13)",
+      "computedUses": 150,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.14)",
+      "computedUses": 1902,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.15)",
+      "computedUses": 300,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.16)",
+      "computedUses": 1170,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.17)",
+      "computedUses": 4512,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.18)",
+      "computedUses": 18486,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.22)",
+      "computedUses": 27,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.24)",
+      "computedUses": 324,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.25)",
+      "computedUses": 36,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.26)",
+      "computedUses": 480,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.35)",
+      "computedUses": 36,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(148, 163, 184, 0.52)",
+      "computedUses": 12,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "SEMANTIC_EXCEPTION_EXPLICIT",
+      "explicitAuthority": "frontend/src/design-system/balance-semantic-color-canon.json#semanticColors.balanceTotalMarker.border"
+    },
+    {
+      "token": "rgba(15, 23, 42, 0.42)",
+      "computedUses": 150,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(15, 23, 42, 0.46)",
+      "computedUses": 75,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(15, 23, 42, 0.48)",
+      "computedUses": 9,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(15, 23, 42, 0.58)",
+      "computedUses": 39,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(15, 23, 42, 0.62)",
+      "computedUses": 150,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(15, 23, 42, 0.65)",
+      "computedUses": 636,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(15, 23, 42, 0.7)",
+      "computedUses": 381,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(15, 23, 42, 0.72)",
+      "computedUses": 2040,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(15, 23, 42, 0.74)",
+      "computedUses": 120,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(15, 23, 42, 0.84)",
+      "computedUses": 12,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(2, 6, 23, 0.34)",
+      "computedUses": 24,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(20, 184, 166, 0.08)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(20, 36, 60, 0.72)",
+      "computedUses": 1728,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(202, 213, 225, 0.68)",
+      "computedUses": 28,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(203, 213, 225, 0.34)",
+      "computedUses": 189,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(203, 213, 225, 0.58)",
+      "computedUses": 4374,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(203, 213, 225, 0.64)",
+      "computedUses": 54,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(203, 213, 225, 0.66)",
+      "computedUses": 1080,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(203, 213, 225, 0.68)",
+      "computedUses": 5753,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(203, 213, 225, 0.82)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "SEMANTIC_EXCEPTION_EXPLICIT",
+      "explicitAuthority": "frontend/src/design-system/balance-semantic-color-canon.json#semanticColors.balanceTotalMarker.core"
+    },
+    {
+      "token": "rgba(220, 234, 255, 0.72)",
+      "computedUses": 675,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(226, 232, 240, 0.78)",
+      "computedUses": 243,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(248, 250, 252, 0.42)",
+      "computedUses": 12,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(30, 41, 59, 0.58)",
+      "computedUses": 75,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(30, 41, 59, 0.72)",
+      "computedUses": 831,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(5, 8, 13, 0.44)",
+      "computedUses": 75,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(5, 8, 13, 0.92)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(5, 9, 16, 0.48)",
+      "computedUses": 288,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(59, 130, 246, 0.09)",
+      "computedUses": 6,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(59, 130, 246, 0.1)",
+      "computedUses": 21,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(59, 130, 246, 0.11)",
+      "computedUses": 12,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(59, 130, 246, 0.12)",
+      "computedUses": 183,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(59, 130, 246, 0.13)",
+      "computedUses": 132,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(59, 130, 246, 0.15)",
+      "computedUses": 225,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(59, 130, 246, 0.16)",
+      "computedUses": 225,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(59, 130, 246, 0.18)",
+      "computedUses": 150,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(59, 130, 246, 0.28)",
+      "computedUses": 144,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(6, 11, 20, 0.72)",
+      "computedUses": 18,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(6, 8, 8, 0.32)",
+      "computedUses": 9,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(7, 12, 20, 0.3)",
+      "computedUses": 36,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(8, 12, 19, 0.76)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(8, 13, 22, 0.48)",
+      "computedUses": 75,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(8, 13, 22, 0.84)",
+      "computedUses": 12,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(8, 13, 22, 0.96)",
+      "computedUses": 75,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(8, 14, 24, 0.58)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(8, 15, 26, 0.58)",
+      "computedUses": 6,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(8, 15, 28, 0.42)",
+      "computedUses": 75,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(8, 15, 28, 0.5)",
+      "computedUses": 15,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(8, 15, 28, 0.58)",
+      "computedUses": 225,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(8, 27, 31, 0.82)",
+      "computedUses": 18,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "PALETTE_FAMILY_PASS",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.04)",
+      "computedUses": 561,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.05)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.055)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.08)",
+      "computedUses": 150,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.09)",
+      "computedUses": 9,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.1)",
+      "computedUses": 6,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.11)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.12)",
+      "computedUses": 18,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.13)",
+      "computedUses": 231,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.22)",
+      "computedUses": 9,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.24)",
+      "computedUses": 12,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.25)",
+      "computedUses": 12,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.26)",
+      "computedUses": 72,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.3)",
+      "computedUses": 10434,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.34)",
+      "computedUses": 252,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.35)",
+      "computedUses": 12,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.46)",
+      "computedUses": 420,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.5)",
+      "computedUses": 900,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.76)",
+      "computedUses": 252,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(0, 0, 0, 0)",
+      "computedUses": 35993,
+      "cycle0399Class": "TRANSPARENT",
+      "resolvedClass": "TRANSPARENT",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0)",
+      "computedUses": 8,
+      "cycle0399Class": "TRANSPARENT",
+      "resolvedClass": "TRANSPARENT",
+      "explicitAuthority": null
+    }
+  ],
+  "failTokenInventory": [
+    {
+      "token": "rgb(115, 96, 242)",
+      "computedUses": 15,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(135, 113, 12)",
+      "computedUses": 594,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(16, 35, 27)",
+      "computedUses": 27,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(167, 139, 250)",
+      "computedUses": 231,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(187, 247, 208)",
+      "computedUses": 375,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(194, 178, 255)",
+      "computedUses": 84,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(20, 17, 11)",
+      "computedUses": 42,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(210, 175, 0)",
+      "computedUses": 108,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(220, 252, 231)",
+      "computedUses": 375,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(242, 206, 105)",
+      "computedUses": 102,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(243, 232, 255)",
+      "computedUses": 42,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(247, 247, 244)",
+      "computedUses": 972,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(255, 211, 40)",
+      "computedUses": 54,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(255, 248, 223)",
+      "computedUses": 54,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(31, 27, 8)",
+      "computedUses": 18,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(37, 211, 102)",
+      "computedUses": 15,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(40, 88, 64)",
+      "computedUses": 108,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(12, 10, 24, 0.98)",
+      "computedUses": 54,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(124, 92, 255, 0.15)",
+      "computedUses": 3,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(124, 92, 255, 0.16)",
+      "computedUses": 3,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(124, 92, 255, 0.22)",
+      "computedUses": 3,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(124, 92, 255, 0.34)",
+      "computedUses": 3,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(13, 11, 25, 0.96)",
+      "computedUses": 2577,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(167, 139, 250, 0.24)",
+      "computedUses": 10968,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(167, 139, 250, 0.42)",
+      "computedUses": 240,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(18, 16, 33, 0.86)",
+      "computedUses": 138,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(194, 178, 255, 0.42)",
+      "computedUses": 3,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(20, 14, 38, 0.94)",
+      "computedUses": 3,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(210, 180, 119, 0.22)",
+      "computedUses": 15,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(22, 101, 52, 0.12)",
+      "computedUses": 75,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(22, 101, 52, 0.16)",
+      "computedUses": 75,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(229, 191, 88, 0.18)",
+      "computedUses": 75,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(229, 191, 88, 0.19)",
+      "computedUses": 36,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(229, 191, 88, 0.42)",
+      "computedUses": 12,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(23, 18, 43, 0.96)",
+      "computedUses": 57,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(239, 68, 68, 0.35)",
+      "computedUses": 300,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(242, 206, 105, 0.5)",
+      "computedUses": 12,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(255, 226, 145, 0.72)",
+      "computedUses": 48,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(34, 25, 61, 0.94)",
+      "computedUses": 57,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(38, 31, 16, 0.05)",
+      "computedUses": 63,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(38, 31, 16, 0.08)",
+      "computedUses": 27,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(74, 222, 128, 0.25)",
+      "computedUses": 300,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(74, 222, 128, 0.42)",
+      "computedUses": 300,
+      "cycle0399Class": "FOREIGN_CHROMA_CANDIDATE",
+      "resolvedClass": "FAIL_FOREIGN_CHROMA",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.08)",
+      "computedUses": 120,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.1)",
+      "computedUses": 282,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.12)",
+      "computedUses": 171,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.2)",
+      "computedUses": 30,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.25)",
+      "computedUses": 300,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.3)",
+      "computedUses": 120,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.42)",
+      "computedUses": 636,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.5)",
+      "computedUses": 36,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.7)",
+      "computedUses": 9,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "color(srgb 0.345098 0.780392 0.705882 / 0.72)",
+      "computedUses": 120,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(126, 227, 208)",
+      "computedUses": 2934,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgb(88, 199, 180)",
+      "computedUses": 6903,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(20, 184, 166, 0.08)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.04)",
+      "computedUses": 561,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.05)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.055)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.08)",
+      "computedUses": 150,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.09)",
+      "computedUses": 9,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.1)",
+      "computedUses": 6,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.11)",
+      "computedUses": 3,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.12)",
+      "computedUses": 18,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.13)",
+      "computedUses": 231,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.22)",
+      "computedUses": 9,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.24)",
+      "computedUses": 12,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.25)",
+      "computedUses": 12,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.26)",
+      "computedUses": 72,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.3)",
+      "computedUses": 10434,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.34)",
+      "computedUses": 252,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.35)",
+      "computedUses": 12,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.46)",
+      "computedUses": 420,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.5)",
+      "computedUses": 900,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    },
+    {
+      "token": "rgba(88, 199, 180, 0.76)",
+      "computedUses": 252,
+      "cycle0399Class": "THEME_HUE_FAMILY",
+      "resolvedClass": "FAIL_OLD_TEAL",
+      "explicitAuthority": null
+    }
+  ],
+  "nextCycle": {
+    "cycle": "FRONTEND_ADMIN_CYCLE_0401",
+    "scope": "Base FAIL provenance A: Shell / Overlay / Energy / Panels / Exchange",
+    "authorized": false
+  },
+  "note": "Cycle0400 is classification only. FAIL is a token-level result, not an authorization to mutate product CSS. Physical/winning owners are resolved only in later bounded provenance cycles."
+}

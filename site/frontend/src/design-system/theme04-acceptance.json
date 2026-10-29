@@ -1,0 +1,128 @@
+{
+  "schema": "EFHC_THEME04_CYCLE0451_ACCEPTANCE_V1",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0451",
+  "sourcePhysicalHead": "FRONTEND_v668",
+  "targetPhysicalRelease": "FRONTEND_v669",
+  "theme": {
+    "id": "04",
+    "name": "Classic Telegram Blue",
+    "accent": "#229ED9",
+    "accentRgb": "34,158,217"
+  },
+  "evidenceReuse": {
+    "physicalCensus": "frontend/src/design-system/theme04-physical-element-census.json",
+    "colorClassification": "frontend/src/design-system/theme04-color-canon-classification.json",
+    "baseProvenance": [
+      "frontend/src/design-system/theme04-base-fail-provenance-a.json",
+      "frontend/src/design-system/theme04-base-fail-provenance-b.json",
+      "frontend/src/design-system/theme04-base-fail-provenance-c.json",
+      "frontend/src/design-system/theme04-base-fail-provenance-d.json",
+      "frontend/src/design-system/theme04-browser-shop-base-fail-provenance.json"
+    ],
+    "forcedStateEvidence": [
+      "frontend/src/design-system/theme04-user-forced-states-a.json",
+      "frontend/src/design-system/theme04-user-forced-states-b.json",
+      "frontend/src/design-system/theme04-browser-shop-forced-states.json"
+    ],
+    "historicalCoverage": {
+      "sceneViewportRuns": 102,
+      "renderedElementStateRecords": 17202,
+      "interactiveStateCapableRecords": 4221,
+      "computedColorTokens": 285,
+      "preCorrectionFailTokens": 75,
+      "preCorrectionOldTealFailTokens": 32,
+      "preCorrectionForeignChromaFailTokens": 43
+    }
+  },
+  "correction": {
+    "css": "frontend/src/styles/theme04-bounded-chroma-corrections.css",
+    "productionImport": "frontend/src/pages/_app.tsx",
+    "standaloneFrontend": "FRONTEND_v669.html",
+    "standaloneShop": "SHOP_v669.html",
+    "systemicOwner": "--efhc-route-accent / --efhc-route-accent-rgb and bounded Theme04 family variables",
+    "theme03Mutation": false,
+    "adminMutation": false,
+    "envMutation": false,
+    "businessBehaviorMutation": false,
+    "protectedSemanticMutation": false
+  },
+  "protectedExceptions": {
+    "energyEiPb": "PRESERVED",
+    "financialStatusErrorSuccess": "PRESERVED",
+    "providerBrand": "PRESERVED",
+    "browserShopCommerceStatusErrorSuccess": "PRESERVED"
+  },
+  "postCorrectionEvidence": {
+    "globalThemeMatrix": {
+      "widths": [
+        320,
+        340,
+        390
+      ],
+      "rowsPerWidth": 51,
+      "probeRuns": 153,
+      "passed": 153,
+      "failed": 0,
+      "oldTealRows": 0,
+      "violetForeignRows": 0,
+      "goldForeignRows": 0
+    },
+    "forcedStateRecheck": {
+      "directTopup": {
+        "stateOwnerGroups": 33,
+        "forcedStateTests": 165,
+        "introducedForeignFindings": 0,
+        "failures": 0
+      },
+      "faq": {
+        "stateOwnerGroups": 21,
+        "forcedStateTests": 105,
+        "introducedForeignFindings": 0,
+        "failures": 0
+      },
+      "browserShopDark": {
+        "stateOwnerGroups": 131,
+        "forcedStateTests": 653,
+        "introducedForeignFindings": 0,
+        "failures": 0
+      },
+      "total": {
+        "stateOwnerGroups": 185,
+        "forcedStateTests": 923,
+        "introducedForeignFindings": 0,
+        "failures": 0
+      }
+    },
+    "withdrawFocus": {
+      "selector": "#withdrawInput",
+      "borderTopColor": "rgba(34, 158, 217, 0.3)",
+      "boxShadow": "none",
+      "foreignFocusShadowReproduced": false
+    },
+    "targetedRegression": {
+      "tests": 6,
+      "passed": 6,
+      "failed": 0
+    },
+    "generalFrontendRegression": {
+      "tests": 130,
+      "passed": 129,
+      "failed": 1,
+      "soleFailure": "missing @tonconnect/sdk because node_modules are absent"
+    }
+  },
+  "acceptance": {
+    "status": "RENDERED_FORCED_QUALIFIED_DEPENDENCY_VERIFY_BLOCKED_OWNER_VISUAL_GATE",
+    "oldTealOrdinaryThemeOwnersResolved": true,
+    "browserShopOrdinaryMaterialBoundToTheme04": true,
+    "productionStandaloneParity": true,
+    "nextThemeAutoStart": false
+  },
+  "verificationBoundary": {
+    "dependencyInstall": "BLOCKED_TOOL_RUNTIME",
+    "npmCi": "npm internal failure: Exit handler never called",
+    "offlineCache": "BLOCKED: zod-3.25.76.tgz not cached",
+    "typecheck": "NOT_QUALIFIED_DEPENDENCIES_MISSING",
+    "build": "NOT_QUALIFIED_DEPENDENCIES_MISSING"
+  }
+}

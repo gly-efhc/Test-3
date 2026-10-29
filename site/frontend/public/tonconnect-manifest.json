@@ -1,0 +1,8 @@
+{
+  "_note": "FALLBACK ONLY. Canonical manifest is served by /api/tonconnect-manifest.",
+  "url": "https://efhc.app",
+  "name": "EFHC Bot",
+  "iconUrl": "https://efhc.app/icon.png",
+  "termsOfUseUrl": "https://efhc.app/web-profile?legal=terms",
+  "privacyPolicyUrl": "https://efhc.app/web-profile?legal=privacy"
+}

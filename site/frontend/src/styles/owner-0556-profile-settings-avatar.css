@@ -1,0 +1,163 @@
+/* OWNER 0556: avatar & settings USER-only CT material. No language carousel rules. */
+[data-modal-portal="body"][data-interface-app-mode="user"][data-color-theme-id="CT-01"]:has(.efhc-profile-avatar-editor),
+html[data-interface-app-mode="user"][data-color-theme-id="CT-01"] #profileAvatarOverlay {
+  --efhc-ct-accent-rgb:110,168,255;--efhc-ct-accent:#6EA8FF;
+}
+[data-modal-portal="body"][data-interface-app-mode="user"][data-color-theme-id="CT-02"]:has(.efhc-profile-avatar-editor),
+html[data-interface-app-mode="user"][data-color-theme-id="CT-02"] #profileAvatarOverlay {
+  --efhc-ct-accent-rgb:115,174,252;--efhc-ct-accent:#73AEFC;
+}
+[data-modal-portal="body"][data-interface-app-mode="user"][data-color-theme-id="CT-03"]:has(.efhc-profile-avatar-editor),
+html[data-interface-app-mode="user"][data-color-theme-id="CT-03"] #profileAvatarOverlay {
+  --efhc-ct-accent-rgb:167,139,250;--efhc-ct-accent:#A78BFA;
+}
+[data-modal-portal="body"][data-interface-app-mode="user"][data-color-theme-id="CT-04"]:has(.efhc-profile-avatar-editor),
+html[data-interface-app-mode="user"][data-color-theme-id="CT-04"] #profileAvatarOverlay {
+  --efhc-ct-accent-rgb:34,158,217;--efhc-ct-accent:#229ED9;
+}
+[data-modal-portal="body"][data-interface-app-mode="user"][data-color-theme-id="CT-05"]:has(.efhc-profile-avatar-editor),
+html[data-interface-app-mode="user"][data-color-theme-id="CT-05"] #profileAvatarOverlay {
+  --efhc-ct-accent-rgb:229,191,88;--efhc-ct-accent:#E5BF58;
+}
+[data-modal-portal="body"][data-interface-app-mode="user"][data-color-theme-id="CT-06"]:has(.efhc-profile-avatar-editor),
+html[data-interface-app-mode="user"][data-color-theme-id="CT-06"] #profileAvatarOverlay {
+  --efhc-ct-accent-rgb:217,70,239;--efhc-ct-accent:#D946EF;
+}
+[data-modal-portal="body"][data-interface-app-mode="user"][data-color-theme-id="CT-07"]:has(.efhc-profile-avatar-editor),
+html[data-interface-app-mode="user"][data-color-theme-id="CT-07"] #profileAvatarOverlay {
+  --efhc-ct-accent-rgb:127,180,255;--efhc-ct-accent:#7FB4FF;
+}
+[data-modal-portal="body"][data-interface-app-mode="user"][data-color-theme-id="CT-08"]:has(.efhc-profile-avatar-editor),
+html[data-interface-app-mode="user"][data-color-theme-id="CT-08"] #profileAvatarOverlay {
+  --efhc-ct-accent-rgb:143,134,255;--efhc-ct-accent:#8F86FF;
+}
+[data-modal-portal="body"][data-interface-app-mode="user"][data-color-theme-id="CT-09"]:has(.efhc-profile-avatar-editor),
+html[data-interface-app-mode="user"][data-color-theme-id="CT-09"] #profileAvatarOverlay {
+  --efhc-ct-accent-rgb:88,199,180;--efhc-ct-accent:#58C7B4;
+}
+[data-modal-portal="body"][data-interface-app-mode="user"][data-color-theme-id="CT-10"]:has(.efhc-profile-avatar-editor),
+html[data-interface-app-mode="user"][data-color-theme-id="CT-10"] #profileAvatarOverlay {
+  --efhc-ct-accent-rgb:197,161,90;--efhc-ct-accent:#C5A15A;
+}
+
+/* Avatar modal, including portal-rendered header. Never recolor user-supplied photos. */
+[data-modal-portal="body"][data-interface-app-mode="user"]:has(.efhc-profile-avatar-editor),
+html[data-interface-app-mode="user"] #profileAvatarOverlay {
+  --efhc-avatar-edge:rgba(var(--efhc-ct-accent-rgb),.33);
+  --efhc-avatar-selected:rgba(var(--efhc-ct-accent-rgb),.19);
+  --efhc-avatar-plane:rgba(var(--efhc-ct-accent-rgb),.045);
+  --efhc-theme-accent:var(--efhc-ct-accent);
+}
+[data-modal-portal="body"][data-interface-app-mode="user"]:has(.efhc-profile-avatar-editor) .efhc-modal-sheet,
+html[data-interface-app-mode="user"] #profileAvatarOverlay .standalone-settings-dialog {
+  border:1px solid var(--efhc-avatar-edge)!important;
+  background-image:none!important;
+  background-color:var(--tg-bg,#101319)!important;
+  color:var(--tg-text,#f8fafc);
+}
+[data-modal-portal="body"][data-interface-app-mode="user"]:has(.efhc-profile-avatar-editor) .efhc-modal-header,
+html[data-interface-app-mode="user"] #profileAvatarOverlay .source-row:first-child {
+  border-color:var(--efhc-avatar-edge)!important;
+  background-image:none!important;background-color:transparent!important;
+}
+[data-modal-portal="body"][data-interface-app-mode="user"]:has(.efhc-profile-avatar-editor)
+:is(.efhc-profile-avatar-settings-group,.efhc-profile-avatar-social,.efhc-profile-avatar-preset,.efhc-profile-avatar-url-input,.efhc-profile-avatar-url-actions button,.efhc-modal-close),
+html[data-interface-app-mode="user"] #profileAvatarOverlay
+:is(.standalone-avatar-settings,.standalone-avatar-social-grid button,.standalone-avatar-preset-grid button,.standalone-avatar-url-input,.standalone-avatar-url-actions button,#profileAvatarClose) {
+  border-color:var(--efhc-avatar-edge)!important;
+  background-image:none!important;
+  background-color:var(--efhc-avatar-plane)!important;
+  box-shadow:none!important;
+  color:inherit;
+}
+[data-modal-portal="body"][data-interface-app-mode="user"]:has(.efhc-profile-avatar-editor)
+:is(.efhc-profile-avatar-social[aria-pressed="true"],.efhc-profile-avatar-preset[aria-pressed="true"]),
+html[data-interface-app-mode="user"] #profileAvatarOverlay
+:is(.standalone-avatar-social-grid button[data-active="true"],.standalone-avatar-preset-grid button[data-active="true"]) {
+  border-color:var(--efhc-ct-accent)!important;
+  background-color:var(--efhc-avatar-selected)!important;
+}
+[data-modal-portal="body"][data-interface-app-mode="user"]:has(.efhc-profile-avatar-editor) :is(button,input):focus-visible,
+html[data-interface-app-mode="user"] #profileAvatarOverlay :is(button,input):focus-visible {
+  outline:2px solid var(--efhc-ct-accent)!important;outline-offset:2px;
+}
+[data-modal-portal="body"][data-interface-app-mode="user"]:has(.efhc-profile-avatar-editor) :is(img,.efhc-energy-stage_coin),
+html[data-interface-app-mode="user"] #profileAvatarOverlay img {
+  /* The source image pixels are unchanged. */
+}
+/* Settings: one Profile plane, no row backgrounds or nested cards. */
+.efhc-profile-modal-theme .efhc-settings-row {
+  border:0!important;border-bottom:1px solid rgba(var(--efhc-ct-accent-rgb),.19)!important;
+  border-radius:0!important;background:transparent!important;background-image:none!important;
+  box-shadow:none!important;
+}
+.efhc-profile-modal-theme .efhc-settings-row:last-child{border-bottom:0!important;}
+html[data-interface-app-mode="user"] #profileSettingsOverlay .standalone-settings-dialog {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.28)!important;
+  background:var(--tg-bg,#101319)!important;
+}
+html[data-interface-app-mode="user"] #profileSettingsOverlay .standalone-settings-row {
+  border:0!important;border-bottom:1px solid rgba(var(--efhc-ct-accent-rgb),.19)!important;
+  border-radius:0!important;background:transparent!important;background-image:none!important;
+  box-shadow:none!important;
+}
+html[data-interface-app-mode="user"] #profileSettingsOverlay .standalone-settings-row:last-child {border-bottom:0!important;}
+html[data-interface-app-mode="user"] #profileSettingsOverlay .standalone-setting-toggle {
+  background:rgba(var(--efhc-ct-accent-rgb),.06)!important;
+  border-color:rgba(var(--efhc-ct-accent-rgb),.32)!important;
+}
+html[data-interface-app-mode="user"] #profileSettingsOverlay .standalone-setting-toggle[data-active="true"] {
+  background:rgba(var(--efhc-ct-accent-rgb),.18)!important;
+  border-color:rgba(var(--efhc-ct-accent-rgb),.6)!important;
+}
+/* Standalone functional reduction of motion, without affecting stored business data. */
+html[data-efhc-reduce-motion="true"] *,html[data-efhc-reduce-motion="true"] *::before,html[data-efhc-reduce-motion="true"] *::after {
+  animation-duration:.001ms!important;animation-iteration-count:1!important;
+  transition-duration:.001ms!important;scroll-behavior:auto!important;
+}
+
+/* The single EI-07 avatar icon inherits the active palette, not a fixed gold/blue. */
+[data-modal-portal="body"][data-interface-app-mode="user"]:has(.efhc-profile-avatar-editor) .efhc-profile-avatar-preset,
+html[data-interface-app-mode="user"] #profileAvatarOverlay .standalone-avatar-preset-grid button {
+  color:var(--efhc-ct-accent)!important;
+}
+
+/* OWNER 0557: settings use the same flat, near-black USER Profile material.
+   Chroma is the only CT-dependent component; no separate tinted card backdrop.
+   The approved language picker v852 and its option/menu CSS are excluded. */
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id])
+[data-modal-portal="body"]:has(.efhc-profile-modal-theme):not(:has(.efhc-profile-avatar-editor)) .efhc-modal-sheet,
+html[data-interface-app-mode="user"][data-color-theme-id] #profileSettingsOverlay .standalone-settings-dialog {
+  --efhc-settings-profile-plane:color-mix(in srgb,#05070b 94%,var(--efhc-ct-accent) 6%);
+  background:var(--efhc-settings-profile-plane)!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+body:has(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id])
+[data-modal-portal="body"] .efhc-profile-modal-theme .efhc-card:has(.efhc-settings-row) {
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+html[data-interface-app-mode="user"][data-color-theme-id] #profileSettingsOverlay .standalone-settings-row,
+html[data-interface-app-mode="user"][data-color-theme-id] #profileSettingsOverlay .standalone-settings-row::before,
+html[data-interface-app-mode="user"][data-color-theme-id] #profileSettingsOverlay .standalone-settings-row::after {
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+
+/* Winner over legacy CT row-material rules in the real standalone shell. */
+html[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+#profileSettingsOverlay .standalone-settings-row,
+html[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+#profileSettingsOverlay .standalone-settings-row::before,
+html[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id]
+#profileSettingsOverlay .standalone-settings-row::after {
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}

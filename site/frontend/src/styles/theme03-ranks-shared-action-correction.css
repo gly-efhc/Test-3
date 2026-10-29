@@ -1,0 +1,45 @@
+/* OWNER Ranks shared action material correction — 2026-10-14 / FRONTEND_v678.
+   Theme03 must NOT own a private visual design for Refresh / Find Me.
+   Theme01/02/04-13 standalone computed reference is identical: neutral dark
+   secondary material, neutral border/text, no own shadow. Geometry remains
+   theme/variant-owned (e.g. Theme11 pill shape). Focus follows active theme. */
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] [data-ranks-refresh-action],
+  .efhc-ranks-shell[data-kg="KG-03"] [data-ranks-show-me-action],
+  #ranksPage[data-kg="KG-03"] #rankRefresh,
+  #ranksPage[data-kg="KG-03"] #findMyRank
+) {
+  border-color:rgba(148,163,184,.18) !important;
+  background-image:none !important;
+  background-color:rgba(15,23,42,.72) !important;
+  color:#d4dfec !important;
+  box-shadow:none !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] [data-ranks-refresh-action],
+  .efhc-ranks-shell[data-kg="KG-03"] [data-ranks-show-me-action],
+  #ranksPage[data-kg="KG-03"] #rankRefresh,
+  #ranksPage[data-kg="KG-03"] #findMyRank
+):is(:hover,:active):not(:disabled),
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] [data-ranks-show-me-action][data-ranks-active="true"],
+  #ranksPage[data-kg="KG-03"] #findMyRank[data-ranks-active="true"]
+) {
+  border-color:rgba(148,163,184,.18) !important;
+  background-image:none !important;
+  background-color:rgba(15,23,42,.72) !important;
+  color:#d4dfec !important;
+  box-shadow:none !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] [data-ranks-refresh-action],
+  .efhc-ranks-shell[data-kg="KG-03"] [data-ranks-show-me-action],
+  #ranksPage[data-kg="KG-03"] #rankRefresh,
+  #ranksPage[data-kg="KG-03"] #findMyRank
+):focus-visible {
+  outline:2px solid var(--efhc-route-accent,var(--efhc-color-focus,#a78bfa)) !important;
+  outline-offset:2px !important;
+}

@@ -1,0 +1,26 @@
+{
+  "schema": "EFHC_GLOBAL_THEME_RANKS_ACTION_SHADOW_CONTRACT_V1",
+  "date": "2026-10-14",
+  "ownerDecision": "Synchronize Ranks Refresh and Find Me shadows across all Global Themes using Theme04 as the visual reference.",
+  "reference": {
+    "themeId": "04",
+    "computedBoxShadow": "none"
+  },
+  "scope": {
+    "themes": ["01","02","03","04","05","06","07","08","09","10","11","12","13"],
+    "actions": ["Ranks / Обновить", "Ranks / Найти меня"],
+    "property": "box-shadow"
+  },
+  "token": "--efhc-ranks-action-shadow",
+  "value": "none",
+  "preserveThemeOwned": ["background", "border", "color", "geometry", "active state"],
+  "productionSelectors": [
+    ".efhc-ranks-shell[data-kg] .efhc-btn-secondary",
+    ".efhc-ranks-shell[data-kg] .efhc-ranks-find-me"
+  ],
+  "standaloneSelectors": [
+    "#ranksPage[data-kg] .source-button.secondary",
+    "#ranksPage[data-kg] #rankRefresh",
+    "#ranksPage[data-kg] #findMyRank"
+  ]
+}

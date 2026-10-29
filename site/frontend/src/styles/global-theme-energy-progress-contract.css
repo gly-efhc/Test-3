@@ -1,0 +1,164 @@
+/* FRONTEND_ADMIN_CYCLE_0452 — OWNER Energy reset/local ownership contract V3.
+   Global Theme selection performs a one-time Energy reset: unique starting PB ID
+   for each Theme01..13 + EI-07 as the theme-coloured default icon. Manual PB
+   selection then owns its authored visual until the next Global Theme change. */
+
+/* Safety geometry for the entire Energy PB library. Width still comes from the
+   runtime progress percentage, but fill/effects are clipped strictly inside the
+   track frame. Variant geometry/chroma remains authored per PB. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+.efhc-energy-progress-track[data-pb] {
+  position:relative;
+  overflow:hidden !important;
+  box-sizing:border-box;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+.efhc-energy-progress-track[data-pb] .efhc-energy-progress-fill {
+  display:block;
+  min-width:0;
+  max-width:100% !important;
+  height:100%;
+  box-sizing:border-box;
+}
+
+/* Shared starting geometry: Theme01 PB-01 baseline with OWNER +10% height.
+   Each of the 13 themes receives a distinct starting PB ID. Existing PB-02..PB-23
+   retain their authored geometry and visual identity. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+.efhc-energy-stage .efhc-energy-progress-track:is(
+  [data-pb="PB-01"],
+  [data-pb="PB-24"], [data-pb="PB-25"], [data-pb="PB-26"], [data-pb="PB-27"],
+  [data-pb="PB-28"], [data-pb="PB-29"], [data-pb="PB-30"], [data-pb="PB-31"],
+  [data-pb="PB-32"], [data-pb="PB-33"], [data-pb="PB-34"], [data-pb="PB-35"]
+) {
+  height:.715rem !important;
+  border-color:rgba(148,163,184,.18) !important;
+  background:rgba(15,23,42,.84) !important;
+  border-radius:9999px !important;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.32) !important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+.efhc-energy-stage .efhc-energy-progress-track:is(
+  [data-pb="PB-01"],
+  [data-pb="PB-24"], [data-pb="PB-25"], [data-pb="PB-26"], [data-pb="PB-27"],
+  [data-pb="PB-28"], [data-pb="PB-29"], [data-pb="PB-30"], [data-pb="PB-31"],
+  [data-pb="PB-32"], [data-pb="PB-33"], [data-pb="PB-34"], [data-pb="PB-35"]
+) .efhc-energy-progress-fill {
+  border-radius:9999px !important;
+}
+
+/* Theme01..13 unique starting PB IDs. Same accent may intentionally be reused,
+   but the physical PB identity remains independent per theme. */
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-stage .efhc-energy-progress-track[data-pb="PB-01"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#5f96db,#6ea8ff) !important; box-shadow:0 0 12px rgba(110,168,255,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-stage .efhc-energy-progress-track[data-pb="PB-30"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#4e86d4,#73aefc) !important; box-shadow:0 0 12px rgba(115,174,252,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-stage .efhc-energy-progress-track[data-pb="PB-24"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#7c5cff,#a78bfa) !important; box-shadow:0 0 12px rgba(167,139,250,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-stage .efhc-energy-progress-track[data-pb="PB-25"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#1877a6,#229ed9) !important; box-shadow:0 0 12px rgba(34,158,217,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-stage .efhc-energy-progress-track[data-pb="PB-26"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#b68e32,#e5bf58) !important; box-shadow:0 0 12px rgba(229,191,88,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-stage .efhc-energy-progress-track[data-pb="PB-27"] .efhc-energy-progress-fill { background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 72%,#0b0e1b),var(--efhc-ct-accent)) !important; box-shadow:0 0 12px rgba(var(--efhc-ct-accent-rgb),.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-stage .efhc-energy-progress-track[data-pb="PB-31"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#5b91db,#7fb4ff) !important; box-shadow:0 0 12px rgba(127,180,255,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-stage .efhc-energy-progress-track[data-pb="PB-32"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#6962d9,#8f86ff) !important; box-shadow:0 0 12px rgba(143,134,255,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-stage .efhc-energy-progress-track[data-pb="PB-28"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#2e8f83,#58c7b4) !important; box-shadow:0 0 12px rgba(88,199,180,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-stage .efhc-energy-progress-track[data-pb="PB-33"] .efhc-energy-progress-fill { background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 72%,#0b0e1b),var(--efhc-ct-accent)) !important; box-shadow:0 0 12px rgba(var(--efhc-ct-accent-rgb),.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-stage .efhc-energy-progress-track[data-pb="PB-34"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#7c5cff,#a78bfa) !important; box-shadow:0 0 12px rgba(167,139,250,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-stage .efhc-energy-progress-track[data-pb="PB-35"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#7c5cff,#a78bfa) !important; box-shadow:0 0 12px rgba(167,139,250,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-stage .efhc-energy-progress-track[data-pb="PB-29"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#b89600,#ffd400) !important; box-shadow:0 0 12px rgba(255,212,0,.24) !important; }
+
+/* EI-07 is the Energy default icon for every current Global Theme. Only EI-07
+   consumes these theme tokens; EI has no other selectable designs. */
+[data-interface-app-mode="user"][data-global-theme-id="01"]{--efhc-energy-ei07-accent:#6ea8ff;--efhc-energy-ei07-rgb:110,168,255}
+[data-interface-app-mode="user"][data-global-theme-id="02"]{--efhc-energy-ei07-accent:#73aefc;--efhc-energy-ei07-rgb:115,174,252}
+[data-interface-app-mode="user"][data-global-theme-id="03"]{--efhc-energy-ei07-accent:#a78bfa;--efhc-energy-ei07-rgb:167,139,250}
+[data-interface-app-mode="user"][data-global-theme-id="04"]{--efhc-energy-ei07-accent:#229ed9;--efhc-energy-ei07-rgb:34,158,217}
+[data-interface-app-mode="user"][data-global-theme-id="05"]{--efhc-energy-ei07-accent:#e5bf58;--efhc-energy-ei07-rgb:229,191,88}
+[data-interface-app-mode="user"][data-global-theme-id="06"]{--efhc-energy-ei07-accent:#d946ef;--efhc-energy-ei07-rgb:217,70,239}
+[data-interface-app-mode="user"][data-global-theme-id="07"]{--efhc-energy-ei07-accent:#7fb4ff;--efhc-energy-ei07-rgb:127,180,255}
+[data-interface-app-mode="user"][data-global-theme-id="08"]{--efhc-energy-ei07-accent:#8f86ff;--efhc-energy-ei07-rgb:143,134,255}
+[data-interface-app-mode="user"][data-global-theme-id="09"]{--efhc-energy-ei07-accent:#58c7b4;--efhc-energy-ei07-rgb:88,199,180}
+[data-interface-app-mode="user"][data-global-theme-id="10"]{--efhc-energy-ei07-accent:#d946ef;--efhc-energy-ei07-rgb:217,70,239}
+[data-interface-app-mode="user"][data-global-theme-id="11"]{--efhc-energy-ei07-accent:#a78bfa;--efhc-energy-ei07-rgb:167,139,250}
+[data-interface-app-mode="user"][data-global-theme-id="12"]{--efhc-energy-ei07-accent:#a78bfa;--efhc-energy-ei07-rgb:167,139,250}
+[data-interface-app-mode="user"][data-global-theme-id="13"]{--efhc-energy-ei07-accent:#ffd400;--efhc-energy-ei07-rgb:255,212,0}
+
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-stage_coin[data-ei="EI-07"] {
+  color:var(--efhc-energy-ei07-accent) !important;
+  background:radial-gradient(circle at 35% 28%,rgba(var(--efhc-energy-ei07-rgb),.34),rgba(var(--efhc-energy-ei07-rgb),.14) 48%,rgba(11,14,27,.96) 75%) !important;
+  box-shadow:inset 0 0 0 1px rgba(var(--efhc-energy-ei07-rgb),.34),0 0 24px rgba(var(--efhc-energy-ei07-rgb),.20) !important;
+}
+
+/* Reserved Theme14/15 remain catalog capacity only, not visible dot-row slots. */
+.efhc-compact-theme-dots>span[data-reserved="true"],
+.source-global-theme-dots>span[data-reserved="true"] { display:none !important; }
+
+/* Cycle0464/05 — OWNER CT-owned decorative hue, baseline variants only.
+   EI-07 is the sole colour-managed starter icon; selected EI variants remain authored.
+   PB-01 is the only starter track eligible on Energy and Referrals; geometry,
+   shadows, fill and all other PB variants are unchanged. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-energy-stage_coin[data-ei="EI-07"]{
+  color:var(--efhc-ct-accent)!important;
+  background:radial-gradient(circle at 35% 28%,rgba(var(--efhc-ct-accent-rgb),.34),rgba(var(--efhc-ct-accent-rgb),.14) 48%,rgba(11,14,27,.96) 75%)!important;
+  box-shadow:inset 0 0 0 1px rgba(var(--efhc-ct-accent-rgb),.34),0 0 24px rgba(var(--efhc-ct-accent-rgb),.20)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-energy-stage .efhc-energy-progress-track[data-pb="PB-01"],
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-referrals-shell .efhc-energy-progress-track[data-referrals-progress-bar="true"][data-pb="PB-01"]{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;
+}
+
+/* Cycle0464/06 — progress geometry containment, all independently selected PB IDs.
+   The 30%-alpha CT rim remains limited to PB-01. Geometry and clipping must
+   work identically on Energy and Referrals, including manually selected PBs. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+:is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb]{
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+:is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb] > .efhc-energy-progress-fill{
+  display:block;
+  box-sizing:border-box;
+  min-width:0;
+  max-width:100%!important;
+  height:100%;
+}
+
+/* One PB identity has one outer rail height on both USER routes. The starter
+   family PB-01/PB-24..35 previously had .715rem on Energy only while
+   Referrals retained the legacy .46rem. Preserve the independent PB choice. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+.efhc-referrals-shell .efhc-energy-progress-track:is(
+  [data-pb="PB-01"],
+  [data-pb="PB-24"],[data-pb="PB-25"],[data-pb="PB-26"],[data-pb="PB-27"],
+  [data-pb="PB-28"],[data-pb="PB-29"],[data-pb="PB-30"],[data-pb="PB-31"],
+  [data-pb="PB-32"],[data-pb="PB-33"],[data-pb="PB-34"],[data-pb="PB-35"]
+){
+  height:.715rem!important;
+}
+
+/* Cycle0464/08: 10 unique theme starter identities on Energy and Referrals.
+   Explicit CT×PB match only: unrelated manually chosen design colors are retained.
+   The track material remains neutral, and the rim is 30% CT accent. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-01"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-01"]{border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;background-color:rgba(15,23,42,.84)!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-01"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-01"] > .efhc-energy-progress-fill{background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 72%,#0b0e1b),var(--efhc-ct-accent))!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-02"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-30"]{border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;background-color:rgba(15,23,42,.84)!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-02"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-30"] > .efhc-energy-progress-fill{background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 72%,#0b0e1b),var(--efhc-ct-accent))!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-03"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-24"]{border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;background-color:rgba(15,23,42,.84)!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-03"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-24"] > .efhc-energy-progress-fill{background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 72%,#0b0e1b),var(--efhc-ct-accent))!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-04"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-25"]{border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;background-color:rgba(15,23,42,.84)!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-04"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-25"] > .efhc-energy-progress-fill{background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 72%,#0b0e1b),var(--efhc-ct-accent))!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-05"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-26"]{border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;background-color:rgba(15,23,42,.84)!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-05"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-26"] > .efhc-energy-progress-fill{background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 72%,#0b0e1b),var(--efhc-ct-accent))!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-06"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-27"]{border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;background-color:rgba(15,23,42,.84)!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-06"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-27"] > .efhc-energy-progress-fill{background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 72%,#0b0e1b),var(--efhc-ct-accent))!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-07"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-31"]{border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;background-color:rgba(15,23,42,.84)!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-07"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-31"] > .efhc-energy-progress-fill{background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 72%,#0b0e1b),var(--efhc-ct-accent))!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-08"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-32"]{border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;background-color:rgba(15,23,42,.84)!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-08"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-32"] > .efhc-energy-progress-fill{background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 72%,#0b0e1b),var(--efhc-ct-accent))!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-09"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-28"]{border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;background-color:rgba(15,23,42,.84)!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-09"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-28"] > .efhc-energy-progress-fill{background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 72%,#0b0e1b),var(--efhc-ct-accent))!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-10"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-29"]{border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;background-color:rgba(15,23,42,.84)!important;}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-10"] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track[data-pb="PB-29"] > .efhc-energy-progress-fill{background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 72%,#0b0e1b),var(--efhc-ct-accent))!important;}
+/* Former gray aliases stay addressable for persisted selections but are no longer gray. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] :is(.efhc-energy-stage,.efhc-referrals-shell) .efhc-energy-progress-track:is([data-pb="PB-27"],[data-pb="PB-33"]) > .efhc-energy-progress-fill{background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 72%,#0b0e1b),var(--efhc-ct-accent))!important;}

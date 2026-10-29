@@ -1,0 +1,184 @@
+{
+  "schema": "EFHC_THEME04_BROWSER_SHOP_FORCED_STATES_V1",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0408",
+  "physicalHeadAudited": "FRONTEND_v631",
+  "theme": {
+    "id": "04",
+    "anchor": "#229ED9",
+    "name": "Classic Telegram Blue"
+  },
+  "scope": {
+    "surface": "Browser Shop",
+    "states": [
+      "hover",
+      "active",
+      "focus",
+      "focus-visible",
+      "selected",
+      "expanded",
+      "checked",
+      "disabled"
+    ],
+    "mutation": false
+  },
+  "classificationLaw": {
+    "source": "frontend/src/design-system/theme04-color-canon-classification.json",
+    "rule": "Exact normalized membership in Cycle0400 PASS/neutral/explicit-semantic whitelist; transparent allowed; every other introduced state color is FAIL. Hue-distance is not used.",
+    "baseFailOnly": true,
+    "responsiveDeduplication": "Identical Shop scene/path styles across 320/340/390 are tested once; repeated identical element styles inside a scene are represented once by scene/style/capability signature."
+  },
+  "coverage": {
+    "scenePasses": 9,
+    "selectedStateOwnerSignatures": 16,
+    "resolvedStateOwnerSignatures": 16,
+    "forcedStateTests": 80,
+    "stateGroupErrors": 0,
+    "stateTestErrors": 0,
+    "introducedFailFindings": 16,
+    "uniqueStateFailOwners": 2
+  },
+  "findingSummary": {
+    "byState": {
+      "focus-visible": 16
+    },
+    "byToken": {
+      "rgb(229, 151, 0)": 1,
+      "rgba(255, 211, 40, 0.72)": 15
+    },
+    "byProperty": {
+      "outlineColor": 16
+    }
+  },
+  "stateFailOwners": [
+    {
+      "type": "NO_CSS_OWNER",
+      "owner": "BROWSER_OR_USER_AGENT_DEFAULT",
+      "state": "focus-visible",
+      "property": "outlineColor",
+      "token": "rgb(229, 151, 0)",
+      "findingCount": 1,
+      "scenes": [
+        "shop-dark-default"
+      ],
+      "samplePaths": [
+        "#numberSearch"
+      ],
+      "declaration": null,
+      "variableChains": [],
+      "provenanceKind": "UNRESOLVED"
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "button:focus-visible, select:focus-visible, a:focus-visible",
+      "state": "focus-visible",
+      "property": "outlineColor",
+      "token": "rgba(255, 211, 40, 0.72)",
+      "findingCount": 15,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-order-detail",
+        "shop-profile-tab",
+        "shop-wallet-dialog"
+      ],
+      "samplePaths": [
+        "#changeWalletButton",
+        "#checkoutChangeWallet",
+        "#checkoutPay",
+        "#continueNumber",
+        "#showMoreOrders",
+        "#themeToggle",
+        "div.language-picker-menu > button.language-picker-option:nth-of-type(2)",
+        "div.wallet-choice-list > button:nth-of-type(1)",
+        "html > body > footer.site-footer > a",
+        "main.container > section.shop-toolbar:nth-of-type(1) > div.currencies:nth-of-type(2) > button:nth-of-type(1)",
+        "main.container > section.shop-toolbar:nth-of-type(1) > div.currencies:nth-of-type(2) > button:nth-of-type(2)",
+        "main.container > section.shop-toolbar:nth-of-type(1) > div.tabs:nth-of-type(1) > button:nth-of-type(1)"
+      ],
+      "declaration": {
+        "property": "outline-color",
+        "value": "rgba(255, 211, 40, 0.72)",
+        "important": false
+      },
+      "variableChains": [],
+      "provenanceKind": "DIRECT"
+    }
+  ],
+  "sceneCoverage": [
+    {
+      "sceneId": "shop-dark-default",
+      "stateGroups": 7,
+      "forcedStateTests": 34,
+      "introducedFailFindings": 7,
+      "stateGroupErrors": 0,
+      "stateTestErrors": 0
+    },
+    {
+      "sceneId": "shop-first-payment-choice",
+      "stateGroups": 2,
+      "forcedStateTests": 10,
+      "introducedFailFindings": 2,
+      "stateGroupErrors": 0,
+      "stateTestErrors": 0
+    },
+    {
+      "sceneId": "shop-first-product",
+      "stateGroups": 2,
+      "forcedStateTests": 10,
+      "introducedFailFindings": 2,
+      "stateGroupErrors": 0,
+      "stateTestErrors": 0
+    },
+    {
+      "sceneId": "shop-language-open",
+      "stateGroups": 1,
+      "forcedStateTests": 6,
+      "introducedFailFindings": 1,
+      "stateGroupErrors": 0,
+      "stateTestErrors": 0
+    },
+    {
+      "sceneId": "shop-modal-visible",
+      "stateGroups": 0,
+      "forcedStateTests": 0,
+      "introducedFailFindings": 0,
+      "stateGroupErrors": 0,
+      "stateTestErrors": 0
+    },
+    {
+      "sceneId": "shop-order-detail",
+      "stateGroups": 2,
+      "forcedStateTests": 10,
+      "introducedFailFindings": 2,
+      "stateGroupErrors": 0,
+      "stateTestErrors": 0
+    },
+    {
+      "sceneId": "shop-orders-tab",
+      "stateGroups": 0,
+      "forcedStateTests": 0,
+      "introducedFailFindings": 0,
+      "stateGroupErrors": 0,
+      "stateTestErrors": 0
+    },
+    {
+      "sceneId": "shop-profile-tab",
+      "stateGroups": 1,
+      "forcedStateTests": 5,
+      "introducedFailFindings": 1,
+      "stateGroupErrors": 0,
+      "stateTestErrors": 0
+    },
+    {
+      "sceneId": "shop-wallet-dialog",
+      "stateGroups": 1,
+      "forcedStateTests": 5,
+      "introducedFailFindings": 1,
+      "stateGroupErrors": 0,
+      "stateTestErrors": 0
+    }
+  ],
+  "decisionLaw": "Audit only. Findings do not authorize mutation. Cycle0409 consolidates all Theme04 FAIL evidence and stops at OWNER gate."
+}

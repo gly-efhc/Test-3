@@ -1,0 +1,86 @@
+{
+  "schema": "EFHC_COLOR_THEME_ENERGY_REFERRALS_PROGRESS_CONTRACT_V5",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0548",
+  "owner_decision_date": "2026-10-15",
+  "scope": "OWNER 0548: only EI-07 remains, no icon selector; two removed progress designs, 33 PB/RP selections, CT preserved.",
+  "ownership_model": "TARGET_COLOR_THEME_OWNS_CHROMA__CURRENT_RECOVERY_PRESERVES_AUTHORED_V684_VISUALS_UNTIL_NARROW_RENDERED_QUALIFIED_ADAPTER",
+  "color_authority": "color_theme_id / CT-01..CT-10 remains state/target authority; broad visual projection is temporarily rolled back after v685 cascade regression.",
+  "design_authority": "interface_variants",
+  "color_change_rule": "On actual CT change PB and RP choose their renamed theme starters; EI always stays EI-07; other designs remain independent.",
+  "common_initial_baseline": {
+    "global_design": "legacy Theme03 design set, only when stored design selection is absent",
+    "EI": "EI-07",
+    "PB": "PB-01",
+    "RP": "PB-01"
+  },
+  "shadow_canon": {
+    "ordinary_elevation": "0 14px 34px rgba(0,0,0,.26)",
+    "rule": "OWNER target remains one neutral shadow/elevation canon. v687 recovery restores authored v684 shadows together with the complete visual baseline; shadow normalization must be reintroduced narrowly and rendered-qualified, not by a global material repaint.",
+    "glow": "Glow is distinct from ordinary elevation: design owns presence/form/intensity; Color Theme owns hue."
+  },
+  "progress_library": {
+    "energy_PB_slots": 33,
+    "referrals_RP_slots": 33,
+    "state_independence": "PB and RP use the same universal progress design library but persist independently.",
+    "authored_unique_preservation": "34/35 historical authored progress models minus physical designs PB-08 and PB-17; 33 selectable geometries preserved via explicit style bindings.",
+    "compatibility_aliases": {
+      "PB-24": "PB-01",
+      "PB-25": "PB-01",
+      "PB-26": "PB-01",
+      "PB-27": "PB-01",
+      "PB-28": "PB-01",
+      "PB-29": "PB-01",
+      "PB-30": "PB-01",
+      "PB-31": "PB-01",
+      "PB-32": "PB-01",
+      "PB-33": "PB-01",
+      "PB-34": "PB-01",
+      "PB-35": "PB-01"
+    },
+    "artifact_provenance": "Артефакты тем/Cycle0455/PB24_PB35_COMPATIBILITY_MAP.json",
+    "fill_boundary": "Every PB/RP fill is clipped strictly inside the track frame at 0..100%."
+  },
+  "energy_icon": {
+    "initial": "EI-07",
+    "rule": "Only EI-07 remains in Energy for CT01–CT10, selection control removed.",
+    "asset_exception": null
+  },
+  "referrals_achievement": {
+    "connector": "COLOR-owned",
+    "circle_outline": "COLOR-owned",
+    "digits_and_check": "standard light",
+    "geometry": "DESIGN-owned"
+  },
+  "theme09": "CT-09 Teal #58C7B4; rejected Emerald #22C55E is historical only.",
+  "legacy_projection": "Legacy Theme01..13 runtime/selector projection remains compatibility-only until later visible 10-color migration; it does not own selected design IDs.",
+  "rendered_qualification": {
+    "recovery_baseline": "FRONTEND_v684",
+    "candidate": "FRONTEND_v687",
+    "authored_design_signatures_compared": 263,
+    "material_differences": 0,
+    "main_route_smoke": "6/6 PASS (Energy, Panels, Exchange, Tasks, Referrals, Ranks)",
+    "rejected_release": "FRONTEND_v685/v686 product runtime",
+    "status": "RECOVERY PASS / OWNER VISUAL GATE PENDING"
+  },
+  "recovery_provenance": "Артефакты тем/Cycle0455/regression-recovery/color-theme-shared-contract.v685-regression.css",
+  "owner_cycle0464_08_progress_selection": {
+    "rule": "On real CT change reset PB and RP to CT-unique starter; manual selection continues until next CT change; all other design variants persist",
+    "map": {
+      "CT-01": "PB-01",
+      "CT-02": "PB-28",
+      "CT-03": "PB-22",
+      "CT-04": "PB-23",
+      "CT-05": "PB-24",
+      "CT-06": "PB-25",
+      "CT-07": "PB-29",
+      "CT-08": "PB-30",
+      "CT-09": "PB-26",
+      "CT-10": "PB-27"
+    },
+    "legacy_gray_aliases": [
+      "PB-27",
+      "PB-33"
+    ],
+    "retention": "compatibility IDs preserved; no gray runtime gradient"
+  }
+}

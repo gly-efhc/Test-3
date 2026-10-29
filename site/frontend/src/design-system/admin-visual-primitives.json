@@ -1,0 +1,614 @@
+{
+  "schema": "EFHC_ADMIN_VISUAL_PRIMITIVES_V1",
+  "status": "Cycle0183 / 21 primitives / ADMIN_SUMMARY_KPI propagated to Deposits + Ads + Orders; static audit 76/76 PASS; OWNER visual qualification pending on new routes",
+  "releaseTarget": "FRONTEND_v386",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0183",
+  "rule": "Every ordinary Admin visual element maps to one primitive; page-specific CSS may own geometry/runtime but not invent an ordinary material. Semantic status/financial/category exceptions remain explicit.",
+  "ownerFrozenExemplars": [
+    {
+      "primitive": "ADMIN_KPI",
+      "route": "/admin",
+      "eam": "EAM-ADMIN-005",
+      "component": "AdminStatCard",
+      "ownerDecision": "OWNER FRONTEND_v371 whole-page /admin canon; existing AdminStatCard remains the KPI material authority.",
+      "material": [
+        "Inset",
+        "Border",
+        "Text",
+        "TextMuted"
+      ],
+      "frozenScope": "/admin KPI material/typography/anatomy as part of whole-page canon; semantic/financial states remain explicit exceptions."
+    },
+    {
+      "primitive": "ADMIN_KPI",
+      "route": "/admin/withdrawals",
+      "eam": "EAM-ADMIN-015",
+      "component": "AdminKpiCard / compact Withdrawals summary",
+      "ownerDecision": "OWNER Cycle0177 confirmed the physical Withdrawals compact KPI as canon exemplar. FRONTEND_v369 additionally makes its renderer-specific typography the exact size authority for Tasks KPI.",
+      "material": [
+        "Inset",
+        "Border",
+        "Text",
+        "TextMuted"
+      ],
+      "rendererMaterial": {
+        "production": [
+          "Inset",
+          "Border",
+          "Text",
+          "TextMuted"
+        ],
+        "standalone": [
+          "Card",
+          "Border",
+          "Text",
+          "TextMuted"
+        ]
+      },
+      "rendererTypography": {
+        "production": {
+          "label": "13px",
+          "value": "24px"
+        },
+        "standalone": {
+          "label": "calc(.52rem + 2px)",
+          "value": "calc(.66rem + 2px)"
+        }
+      }
+    },
+    {
+      "primitive": "ADMIN_KPI",
+      "route": "/admin/tasks",
+      "eam": "EAM-ADMIN-018",
+      "component": "AdminKpiCard / Tasks compact summary",
+      "ownerDecision": "OWNER Cycle0177 ordered Tasks font and numeric KPI values to be the same size as Withdrawals. Freeze is typography equivalence only; Tasks data/runtime and responsive structure remain protected.",
+      "material": [
+        "Inset",
+        "Border",
+        "Text",
+        "TextMuted"
+      ],
+      "rendererTypography": {
+        "production": {
+          "label": "13px",
+          "value": "24px"
+        },
+        "standalone": {
+          "label": "calc(.52rem + 2px)",
+          "value": "calc(.66rem + 2px)"
+        }
+      },
+      "frozenScope": "/admin/tasks ADMIN_KPI typography only; no global typography propagation."
+    },
+    {
+      "primitive": "ADMIN_PAGE",
+      "route": "/admin/system + /admin/diagnostics",
+      "eam": "EAM-ADMIN-024 / EAM-ADMIN-027",
+      "component": "AdminPage",
+      "ownerDecision": "OWNER Cycle0176 System and Diagnostics visual exemplar",
+      "material": [
+        "Page",
+        "Text"
+      ]
+    },
+    {
+      "primitive": "ADMIN_CHROME",
+      "route": "/admin/system + /admin/diagnostics",
+      "eam": "EAM-ADMIN-024 / EAM-ADMIN-027",
+      "component": "AdminPage header",
+      "ownerDecision": "OWNER Cycle0176 System and Diagnostics visual exemplar",
+      "material": [
+        "Chrome",
+        "BorderStrong",
+        "Text",
+        "Shadow"
+      ]
+    },
+    {
+      "primitive": "ADMIN_SECTION",
+      "route": "/admin/system + /admin/diagnostics",
+      "eam": "EAM-ADMIN-024 / EAM-ADMIN-027",
+      "component": "AdminSectionCard",
+      "ownerDecision": "OWNER Cycle0176 System and Diagnostics visual exemplar",
+      "material": [
+        "Card",
+        "Border",
+        "Text",
+        "Shadow"
+      ]
+    },
+    {
+      "primitive": "ADMIN_INSET",
+      "route": "/admin/system + /admin/diagnostics",
+      "eam": "EAM-ADMIN-024 / EAM-ADMIN-027",
+      "component": "AdminSystemHealthDashboardRuntime summary/health rows",
+      "ownerDecision": "OWNER Cycle0176 System and Diagnostics visual exemplar",
+      "material": [
+        "Inset",
+        "Border",
+        "Text",
+        "TextMuted"
+      ]
+    },
+    {
+      "primitive": "ADMIN_BUTTON_SECONDARY",
+      "route": "/admin/system + /admin/diagnostics",
+      "eam": "EAM-ADMIN-024 / EAM-ADMIN-027",
+      "component": "Button secondary",
+      "ownerDecision": "OWNER Cycle0176 System and Diagnostics visual exemplar",
+      "material": [
+        "AccentSoft",
+        "BorderStrong",
+        "Text"
+      ]
+    },
+    {
+      "primitive": "ADMIN_SECTION",
+      "route": "/admin/tasks",
+      "eam": "EAM-ADMIN-018",
+      "component": "Tasks main section",
+      "ownerDecision": "OWNER Cycle0177 supplied EFHC_ADMIN_TASKS_MINIMAL_v367.html as the better Tasks design and ordered it adapted immediately. Freeze applies only to the matching Tasks visual role/anatomy; it does not authorize global geometry propagation.",
+      "material": [
+        "Card",
+        "Border",
+        "Text",
+        "Shadow"
+      ],
+      "frozenScope": "/admin/tasks visual composition only; API/verifier/reward/default-inactive/runtime are protected; semantic badge states remain semantic exceptions."
+    },
+    {
+      "primitive": "ADMIN_CARD",
+      "route": "/admin/tasks",
+      "eam": "EAM-ADMIN-018",
+      "component": "Tasks compact task row",
+      "ownerDecision": "OWNER Cycle0177 supplied EFHC_ADMIN_TASKS_MINIMAL_v367.html as the better Tasks design and ordered it adapted immediately. Freeze applies only to the matching Tasks visual role/anatomy; it does not authorize global geometry propagation.",
+      "material": [
+        "Card",
+        "Border",
+        "Text"
+      ],
+      "frozenScope": "/admin/tasks visual composition only; API/verifier/reward/default-inactive/runtime are protected; semantic badge states remain semantic exceptions."
+    },
+    {
+      "primitive": "ADMIN_CONTROL",
+      "route": "/admin/tasks",
+      "eam": "EAM-ADMIN-018",
+      "component": "Tasks search/type/reward/target/provider controls",
+      "ownerDecision": "OWNER Cycle0177 supplied EFHC_ADMIN_TASKS_MINIMAL_v367.html as the better Tasks design and ordered it adapted immediately. Freeze applies only to the matching Tasks visual role/anatomy; it does not authorize global geometry propagation.",
+      "material": [
+        "Inset",
+        "Border",
+        "Text",
+        "Focus"
+      ],
+      "frozenScope": "/admin/tasks visual composition only; API/verifier/reward/default-inactive/runtime are protected; semantic badge states remain semantic exceptions."
+    },
+    {
+      "primitive": "ADMIN_BUTTON_PRIMARY",
+      "route": "/admin/tasks",
+      "eam": "EAM-ADMIN-018",
+      "component": "Tasks Create/Create-Save action",
+      "ownerDecision": "OWNER Cycle0177 supplied EFHC_ADMIN_TASKS_MINIMAL_v367.html as the better Tasks design and ordered it adapted immediately. Freeze applies only to the matching Tasks visual role/anatomy; it does not authorize global geometry propagation.",
+      "material": [
+        "Active",
+        "BorderStrong",
+        "Text"
+      ],
+      "frozenScope": "/admin/tasks visual composition only; API/verifier/reward/default-inactive/runtime are protected; semantic badge states remain semantic exceptions."
+    },
+    {
+      "primitive": "ADMIN_BUTTON_SECONDARY",
+      "route": "/admin/tasks",
+      "eam": "EAM-ADMIN-018",
+      "component": "Tasks Edit/overflow controls",
+      "ownerDecision": "OWNER Cycle0177 supplied EFHC_ADMIN_TASKS_MINIMAL_v367.html as the better Tasks design and ordered it adapted immediately. Freeze applies only to the matching Tasks visual role/anatomy; it does not authorize global geometry propagation.",
+      "material": [
+        "AccentSoft",
+        "BorderStrong",
+        "Text"
+      ],
+      "frozenScope": "/admin/tasks visual composition only; API/verifier/reward/default-inactive/runtime are protected; semantic badge states remain semantic exceptions."
+    },
+    {
+      "primitive": "ADMIN_BADGE",
+      "route": "/admin/tasks",
+      "eam": "EAM-ADMIN-018",
+      "component": "Tasks active/inactive/limit status badge anatomy",
+      "ownerDecision": "OWNER Cycle0177 corrected Tasks status coloring in FRONTEND_v370: active/inactive are ordinary ADMIN_BADGE Theme03 material; limit remains warning semantic exception. The minimal Tasks anatomy remains frozen.",
+      "material": [
+        "AccentSoft",
+        "Border",
+        "Text"
+      ],
+      "frozenScope": "/admin/tasks badge anatomy and ordinary active/inactive Theme03 material; limit/progress bars/registered special semantic indicators remain exceptions; API/verifier/reward/runtime protected.",
+      "stateAuthority": {
+        "active": "Theme03 ordinary",
+        "inactive": "Theme03 ordinary muted",
+        "limit": "warning semantic exception"
+      }
+    },
+    {
+      "primitive": "ADMIN_MODAL",
+      "route": "/admin/tasks",
+      "eam": "EAM-ADMIN-018",
+      "component": "Tasks universal create/edit modal / narrow bottom sheet",
+      "ownerDecision": "OWNER Cycle0177 supplied EFHC_ADMIN_TASKS_MINIMAL_v367.html as the better Tasks design and ordered it adapted immediately. Freeze applies only to the matching Tasks visual role/anatomy; it does not authorize global geometry propagation.",
+      "material": [
+        "Card",
+        "BorderStrong",
+        "Text",
+        "Shadow"
+      ],
+      "frozenScope": "/admin/tasks visual composition only; API/verifier/reward/default-inactive/runtime are protected; semantic badge states remain semantic exceptions."
+    },
+    {
+      "primitive": "ADMIN_PAGE",
+      "route": "/admin",
+      "eam": "EAM-ADMIN-001",
+      "component": "AdminPage / AdminHome",
+      "ownerDecision": "OWNER FRONTEND_v371 whole-page /admin canon",
+      "material": [
+        "Page",
+        "Text"
+      ],
+      "frozenScope": "whole /admin page visual frame; no business/runtime propagation"
+    },
+    {
+      "primitive": "ADMIN_CHROME",
+      "route": "/admin",
+      "eam": "EAM-ADMIN-001",
+      "component": "AdminPage header",
+      "ownerDecision": "OWNER FRONTEND_v371 whole-page /admin canon",
+      "material": [
+        "Chrome",
+        "BorderStrong",
+        "Text",
+        "Shadow"
+      ],
+      "frozenScope": "/admin header material/typography/spacing/anatomy"
+    },
+    {
+      "primitive": "ADMIN_SECTION",
+      "route": "/admin",
+      "eam": "EAM-ADMIN-004",
+      "component": "AdminSectionCard",
+      "ownerDecision": "OWNER FRONTEND_v371 whole-page /admin canon",
+      "material": [
+        "Card",
+        "Border",
+        "Text",
+        "Shadow"
+      ],
+      "frozenScope": "/admin sections material/typography/borders/radii/spacing"
+    },
+    {
+      "primitive": "ADMIN_BUTTON_SECONDARY",
+      "route": "/admin",
+      "eam": "EAM-ADMIN-001 / EAM-ADMIN-003",
+      "component": "AdminPage action + AdminAppButtonGrid module buttons",
+      "ownerDecision": "OWNER FRONTEND_v371 whole-page /admin canon",
+      "material": [
+        "AccentSoft",
+        "BorderStrong",
+        "Text"
+      ],
+      "frozenScope": "ordinary /admin secondary/module actions; category semantics remain local exceptions"
+    },
+    {
+      "primitive": "ADMIN_MODAL",
+      "route": "/admin",
+      "eam": "EAM-ADMIN-001",
+      "component": "AdminPromptModal reconcile dialog",
+      "ownerDecision": "OWNER FRONTEND_v371 whole-page /admin canon",
+      "material": [
+        "Card",
+        "BorderStrong",
+        "Text",
+        "Shadow"
+      ],
+      "frozenScope": "/admin reconcile modal ordinary visual anatomy; runtime protected"
+    }
+  ],
+  "primitives": [
+    {
+      "id": "ADMIN_PAGE",
+      "role": "Page",
+      "material": [
+        "Page",
+        "Text"
+      ]
+    },
+    {
+      "id": "ADMIN_CHROME",
+      "role": "primary page/window chrome",
+      "material": [
+        "Chrome",
+        "BorderStrong",
+        "Text",
+        "Shadow"
+      ]
+    },
+    {
+      "id": "ADMIN_SECTION",
+      "role": "large ordinary section",
+      "material": [
+        "Card",
+        "Border",
+        "Text",
+        "Shadow"
+      ]
+    },
+    {
+      "id": "ADMIN_CARD",
+      "role": "ordinary nested card",
+      "material": [
+        "Card",
+        "Border",
+        "Text"
+      ]
+    },
+    {
+      "id": "ADMIN_INSET",
+      "role": "nested quiet surface",
+      "material": [
+        "Inset",
+        "Border",
+        "Text"
+      ]
+    },
+    {
+      "id": "ADMIN_KPI",
+      "role": "metric/KPI card",
+      "material": [
+        "Inset",
+        "Border",
+        "Text",
+        "TextMuted"
+      ]
+    },
+    {
+      "id": "ADMIN_LIST_ROW",
+      "role": "ordinary operation/list row",
+      "material": [
+        "Inset",
+        "Border",
+        "Text"
+      ]
+    },
+    {
+      "id": "ADMIN_CONTROL",
+      "role": "input/select/textarea",
+      "material": [
+        "Inset",
+        "Border",
+        "Text",
+        "Focus"
+      ]
+    },
+    {
+      "id": "ADMIN_BUTTON_PRIMARY",
+      "role": "primary action",
+      "material": [
+        "Active",
+        "BorderStrong",
+        "Text"
+      ]
+    },
+    {
+      "id": "ADMIN_BUTTON_SECONDARY",
+      "role": "secondary/ghost action",
+      "material": [
+        "AccentSoft",
+        "BorderStrong",
+        "Text"
+      ]
+    },
+    {
+      "id": "ADMIN_BUTTON_DANGER",
+      "role": "destructive action",
+      "material": [
+        "SemanticDanger"
+      ],
+      "semanticExceptions": true
+    },
+    {
+      "id": "ADMIN_FILTER",
+      "role": "filter/tab/chip",
+      "material": [
+        "Inset",
+        "Border",
+        "Text",
+        "Selected"
+      ]
+    },
+    {
+      "id": "ADMIN_BADGE",
+      "role": "status/identity badge",
+      "material": [
+        "AccentSoft",
+        "Border",
+        "Text"
+      ],
+      "semanticExceptions": true
+    },
+    {
+      "id": "ADMIN_MODAL",
+      "role": "modal/prompt",
+      "material": [
+        "Card",
+        "BorderStrong",
+        "Text",
+        "Shadow"
+      ]
+    },
+    {
+      "id": "ADMIN_TITLE",
+      "role": "title/headline",
+      "material": [
+        "Text"
+      ]
+    },
+    {
+      "id": "ADMIN_TEXT",
+      "role": "main copy",
+      "material": [
+        "Text"
+      ]
+    },
+    {
+      "id": "ADMIN_TEXT_MUTED",
+      "role": "secondary copy",
+      "material": [
+        "TextMuted"
+      ]
+    },
+    {
+      "id": "ADMIN_NUMBER",
+      "role": "numeric value",
+      "material": [
+        "Text"
+      ]
+    },
+    {
+      "id": "ADMIN_SELECTED",
+      "role": "ordinary selected state",
+      "material": [
+        "AccentSoft",
+        "BorderStrong",
+        "Text"
+      ]
+    },
+    {
+      "id": "ADMIN_SEMANTIC_STATE",
+      "role": "success/warning/error/financial/category meaning",
+      "material": [
+        "SemanticException"
+      ],
+      "semanticExceptions": true
+    },
+    {
+      "id": "ADMIN_SUMMARY_KPI",
+      "name": "Сводные KPI-карточки",
+      "role": "OWNER accepted full summary KPI material",
+      "status": "OWNER ACCEPTED TASKS + VIP MATERIAL / CYCLE0183 PROPAGATION IMPLEMENTED TO DEPOSITS + ADS + ORDERS / STATIC AUDIT 76/76 PASS / OWNER VISUAL QUALIFICATION PENDING ON NEW ROUTES",
+      "material": [
+        "AccentSoft",
+        "BorderStrong",
+        "Shadow",
+        "Radius",
+        "Padding",
+        "KpiTypography"
+      ],
+      "frozenScope": "Full summary KPI visual material follows the OWNER-accepted Withdrawals/Tasks/VIP contract; data semantics and surrounding page layout remain route-owned.",
+      "contour": {
+        "border": "1px solid var(--efhc-admin-canon-border-strong)",
+        "box-shadow": "var(--efhc-admin-canon-shadow)"
+      },
+      "ownerAcceptedReference": {
+        "release": "FRONTEND_v378",
+        "route": "/admin/withdrawals",
+        "evidence": "OWNER: 4 рамки исправлены правильно"
+      },
+      "authorizedRoutes": [
+        "/admin/withdrawals",
+        "/admin/tasks",
+        "/admin/vip-nft",
+        "/admin/ads",
+        "/admin/efhc-deposits",
+        "/admin/shop"
+      ],
+      "cascadeQualificationV383": {
+        "release": "FRONTEND_v383",
+        "routes": [
+          "/admin/withdrawals",
+          "/admin/tasks",
+          "/admin/vip-nft"
+        ],
+        "renderers": [
+          "production",
+          "standalone"
+        ],
+        "finding": "Late contour owner wins border+shadow everywhere; background/geometry/typography remain route/component-owned and are not equivalent to Withdrawals.",
+        "browserEvidence": "NOT USED"
+      },
+      "cycle0181Correction": {
+        "release": "FRONTEND_v384",
+        "targets": [
+          "/admin/tasks",
+          "/admin/vip-nft"
+        ],
+        "renderers": [
+          "production",
+          "standalone"
+        ],
+        "cardContract": {
+          "production": "AccentSoft + BorderStrong + Shadow + 22px radius + 14px padding",
+          "standalone": "Card + BorderStrong + Shadow + .8rem radius + .62rem padding"
+        },
+        "typography": "production 13px label / 24px value; standalone Withdrawals-equivalent sizing; target values canonical Theme03 text",
+        "newBlanketOverride": false,
+        "ownerVisualQualification": "OWNER ACCEPTED in direct chat before Cycle0182"
+      },
+      "cycle0183Propagation": {
+        "release": "FRONTEND_v386",
+        "targets": [
+          "/admin/efhc-deposits",
+          "/admin/ads",
+          "/admin/shop?module=orders"
+        ],
+        "renderers": [
+          "production",
+          "standalone"
+        ],
+        "cardContract": {
+          "production": "AccentSoft + BorderStrong + Shadow + 22px radius + 14px padding + 13px label / 24px value",
+          "standalone": "Card + BorderStrong + Shadow + .8rem radius + .62rem padding + Withdrawals-equivalent typography"
+        },
+        "adsScope": "four primary Ads summary cards only; period views/revenue remain page-owned",
+        "shopScope": "existing Shop quartet is ADMIN_SUMMARY_KPI only while Orders tab is active; other Shop tabs remain page-owned",
+        "newBlanketOverride": false,
+        "ownerVisualQualification": "PENDING on FRONTEND_v386 external visual review",
+        "staticAudit": "PASS 76/76"
+      }
+    }
+  ],
+  "count": 21,
+  "ownerFrozenPageCanons": [
+    {
+      "route": "/admin",
+      "marker": "ADM-00",
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-003",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-005"
+      ],
+      "ownerDecision": "OWNER explicitly declared the current Administrative mode main page canonical in FRONTEND_v371.",
+      "frozenScope": "Whole visible /admin page composition and ordinary Theme03 material: page/chrome/section/KPI/module launcher typography, spacing, borders, radii, hierarchy and responsive anatomy. Bank reserve/circulation progress indicators and category/financial semantics remain protected special/local exceptions and are not generalized to other primitives.",
+      "propagationRule": "Equivalent ordinary Admin roles may reuse the same primitive material only after EAM owner-chain proof; do not copy /admin-specific layout or semantic indicators globally."
+    },
+    {
+      "route": "/admin/withdrawals",
+      "marker": "ADM-03",
+      "eam": [
+        "EAM-ADMIN-015"
+      ],
+      "ownerDecision": "OWNER explicitly accepted FRONTEND_v372 as visually good and ordered the current Withdrawals page saved as canon in FRONTEND_v373.",
+      "frozenScope": "Whole visible Withdrawals page composition and ordinary Theme03 material: AdminPage chrome, compact KPI anatomy/typography, operational dashboard/list hierarchy, primary operational window, row/control/button hierarchy, decision-modal composition, spacing, borders, radii and responsive anatomy.",
+      "protectedExceptions": "Withdrawal status/financial semantics, wallet-provider selection/launch, exact-D8 amount, payout evidence, approve/reject/manual-paid contracts and business/API/runtime remain local protected behavior.",
+      "propagationRule": "Reuse its compact KPI/list/modal primitives only through EAM-proven equivalent roles; do not copy payout semantics or wallet behavior to unrelated modules."
+    },
+    {
+      "route": "/admin/tasks",
+      "marker": "ADM-06",
+      "eam": [
+        "EAM-ADMIN-018"
+      ],
+      "ownerDecision": "OWNER explicitly accepted FRONTEND_v372 as visually good and ordered the current Tasks page saved as canon in FRONTEND_v373.",
+      "frozenScope": "Whole visible Tasks page composition and ordinary Theme03 material: AdminPage chrome, four compact KPI cards, one main section, search/status controls, compact task rows, Edit/overflow action hierarchy, ordinary active/inactive badges, universal create/edit modal and <=430px bottom-sheet anatomy, typography, spacing, borders and radii.",
+      "protectedExceptions": "Limit warning semantics, verifier/provider readiness, API/routes, exact-D8 EFHCb reward, create-inactive default, duplicate preflight, delete-history fail-closed behavior and public USER /tasks remain protected.",
+      "propagationRule": "Reuse the minimal list/filter/modal grammar for structurally equivalent Admin workbenches; do not copy task-specific verifier/reward semantics."
+    }
+  ],
+  "draftPrimitives": []
+}

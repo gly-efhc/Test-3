@@ -1,0 +1,76 @@
+{
+  "name": "EFHC Bot",
+  "short_name": "EFHC",
+  "description": "Energy for Humanity Coin simulation app",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#06140f",
+  "theme_color": "#0d2f22",
+  "icons": [
+    {
+      "src": "/assets/efhc/efhc_coin_192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/efhc/efhc_coin_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "id": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "categories": [
+    "finance",
+    "utilities",
+    "games"
+  ],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Energy",
+      "short_name": "Energy",
+      "url": "/?source=pwa-shortcut",
+      "icons": [
+        {
+          "src": "/assets/efhc/efhc_coin_192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Panels",
+      "short_name": "Panels",
+      "url": "/panels?source=pwa-shortcut",
+      "icons": [
+        {
+          "src": "/assets/efhc/efhc_coin_192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Exchange",
+      "short_name": "Exchange",
+      "url": "/exchange?source=pwa-shortcut",
+      "icons": [
+        {
+          "src": "/assets/efhc/efhc_coin_192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}

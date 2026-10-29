@@ -1,0 +1,564 @@
+{
+  "schema": "EFHC_THEME01_BOUNDED_CHROMA_CORRECTION_ACCEPTANCE_V1",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0394",
+  "release": "FRONTEND_v618",
+  "theme": {
+    "id": "01",
+    "name": "EFHC Canon",
+    "accent": "#6EA8FF",
+    "paletteLaw": "one approved decorative hue family plus neutral and exact protected semantic exceptions"
+  },
+  "sourceAudit": "frontend/src/design-system/theme01-chroma-provenance-audit.json",
+  "correction": {
+    "mode": "MINIMAL_OWNER_RULE_CORRECTION_NO_BROAD_PROJECTION",
+    "stylesheet": "frontend/src/styles/theme01-bounded-chroma-corrections.css",
+    "stylesheetSha256": "9610659c79b757e926bdf69fb7233f471f7db342d400a3012bd19b6e1b19bb9e",
+    "shopGlobalThemeBinding": "frontend/src/components/ShopLayout.tsx#data-global-theme-id",
+    "theme03Mutation": false,
+    "adminMutation": false,
+    "garbageCleanupPerformed": false
+  },
+  "coverage": {
+    "baseStyleOwners": 248,
+    "baseFailures": 0,
+    "interactiveStyleOwners": 1996,
+    "forcedStateTests": 10055,
+    "forcedStateFailures": 0
+  },
+  "result": {
+    "userTheme01BaseForeignFindings": 0,
+    "userTheme01ActiveBaseForeignFindings": 0,
+    "userTheme01ForcedStateForeignFindings": 0,
+    "technicalAdminExcludedForeignFindings": 63,
+    "technicalAdminExcludedActiveForeignFindings": 31,
+    "browserShopBaseForeignFindings": 0
+  },
+  "technicalAdminExclusion": {
+    "reason": "Standalone technical workbench/Admin QA is not USER Global Theme01 and remains frozen/out of Theme01 palette qualification.",
+    "exactPathPatterns": [
+      "^#adminQaDatasetBadge$",
+      "^#workbenchActivRouteToggle$",
+      "^#workbenchUserVisibility$",
+      "^#workbenchVipRouteToggle$",
+      "^aside\\.tech-workbench",
+      "^#techBankIntegrityPreview$"
+    ],
+    "findings": [
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#adminQaDatasetBadge",
+        "property": "backgroundColor",
+        "token": "rgba(22, 101, 52, 0.12)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#adminQaDatasetBadge",
+        "property": "color",
+        "token": "rgb(187, 247, 208)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#adminQaDatasetBadge",
+        "property": "borderTopColor",
+        "token": "rgba(74, 222, 128, 0.25)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#adminQaDatasetBadge",
+        "property": "borderRightColor",
+        "token": "rgba(74, 222, 128, 0.25)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#adminQaDatasetBadge",
+        "property": "borderBottomColor",
+        "token": "rgba(74, 222, 128, 0.25)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#adminQaDatasetBadge",
+        "property": "borderLeftColor",
+        "token": "rgba(74, 222, 128, 0.25)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#adminQaDatasetBadge",
+        "property": "outlineColor",
+        "token": "rgb(187, 247, 208)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#adminQaDatasetBadge",
+        "property": "caretColor",
+        "token": "rgb(187, 247, 208)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#adminQaDatasetBadge",
+        "property": "textDecorationColor",
+        "token": "rgb(187, 247, 208)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#adminQaDatasetBadge",
+        "property": "columnRuleColor",
+        "token": "rgb(187, 247, 208)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchActivRouteToggle",
+        "property": "backgroundColor",
+        "token": "rgba(88, 199, 180, 0.13)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchActivRouteToggle",
+        "property": "color",
+        "token": "rgb(191, 248, 238)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchActivRouteToggle",
+        "property": "borderTopColor",
+        "token": "rgba(88, 199, 180, 0.5)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchActivRouteToggle",
+        "property": "borderRightColor",
+        "token": "rgba(88, 199, 180, 0.5)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchActivRouteToggle",
+        "property": "borderBottomColor",
+        "token": "rgba(88, 199, 180, 0.5)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchActivRouteToggle",
+        "property": "borderLeftColor",
+        "token": "rgba(88, 199, 180, 0.5)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchActivRouteToggle",
+        "property": "outlineColor",
+        "token": "rgb(191, 248, 238)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchActivRouteToggle",
+        "property": "caretColor",
+        "token": "rgb(191, 248, 238)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchActivRouteToggle",
+        "property": "textDecorationColor",
+        "token": "rgb(191, 248, 238)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchActivRouteToggle",
+        "property": "columnRuleColor",
+        "token": "rgb(191, 248, 238)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchUserVisibility",
+        "property": "backgroundColor",
+        "token": "rgba(88, 199, 180, 0.13)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchUserVisibility",
+        "property": "color",
+        "token": "rgb(191, 248, 238)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchUserVisibility",
+        "property": "borderTopColor",
+        "token": "rgba(88, 199, 180, 0.5)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchUserVisibility",
+        "property": "borderRightColor",
+        "token": "rgba(88, 199, 180, 0.5)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchUserVisibility",
+        "property": "borderBottomColor",
+        "token": "rgba(88, 199, 180, 0.5)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchUserVisibility",
+        "property": "borderLeftColor",
+        "token": "rgba(88, 199, 180, 0.5)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchUserVisibility",
+        "property": "outlineColor",
+        "token": "rgb(191, 248, 238)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchUserVisibility",
+        "property": "caretColor",
+        "token": "rgb(191, 248, 238)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchUserVisibility",
+        "property": "textDecorationColor",
+        "token": "rgb(191, 248, 238)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchUserVisibility",
+        "property": "columnRuleColor",
+        "token": "rgb(191, 248, 238)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchVipRouteToggle",
+        "property": "backgroundColor",
+        "token": "rgba(88, 199, 180, 0.13)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchVipRouteToggle",
+        "property": "color",
+        "token": "rgb(191, 248, 238)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchVipRouteToggle",
+        "property": "borderTopColor",
+        "token": "rgba(88, 199, 180, 0.5)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchVipRouteToggle",
+        "property": "borderRightColor",
+        "token": "rgba(88, 199, 180, 0.5)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchVipRouteToggle",
+        "property": "borderBottomColor",
+        "token": "rgba(88, 199, 180, 0.5)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchVipRouteToggle",
+        "property": "borderLeftColor",
+        "token": "rgba(88, 199, 180, 0.5)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchVipRouteToggle",
+        "property": "outlineColor",
+        "token": "rgb(191, 248, 238)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchVipRouteToggle",
+        "property": "caretColor",
+        "token": "rgb(191, 248, 238)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchVipRouteToggle",
+        "property": "textDecorationColor",
+        "token": "rgb(191, 248, 238)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#workbenchVipRouteToggle",
+        "property": "columnRuleColor",
+        "token": "rgb(191, 248, 238)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "aside.tech-workbench > div.tech-page:nth-of-type(3) > section.admin-reference-section > div.admin-qa-v133 > div.admin-qa-v133_controls:nth-of-type(3) > button:nth-of-type(3)",
+        "property": "backgroundColor",
+        "token": "rgba(22, 101, 52, 0.16)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "aside.tech-workbench > div.tech-page:nth-of-type(3) > section.admin-reference-section > div.admin-qa-v133 > div.admin-qa-v133_controls:nth-of-type(3) > button:nth-of-type(3)",
+        "property": "color",
+        "token": "rgb(220, 252, 231)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "aside.tech-workbench > div.tech-page:nth-of-type(3) > section.admin-reference-section > div.admin-qa-v133 > div.admin-qa-v133_controls:nth-of-type(3) > button:nth-of-type(3)",
+        "property": "borderTopColor",
+        "token": "rgba(74, 222, 128, 0.42)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "aside.tech-workbench > div.tech-page:nth-of-type(3) > section.admin-reference-section > div.admin-qa-v133 > div.admin-qa-v133_controls:nth-of-type(3) > button:nth-of-type(3)",
+        "property": "borderRightColor",
+        "token": "rgba(74, 222, 128, 0.42)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "aside.tech-workbench > div.tech-page:nth-of-type(3) > section.admin-reference-section > div.admin-qa-v133 > div.admin-qa-v133_controls:nth-of-type(3) > button:nth-of-type(3)",
+        "property": "borderBottomColor",
+        "token": "rgba(74, 222, 128, 0.42)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "aside.tech-workbench > div.tech-page:nth-of-type(3) > section.admin-reference-section > div.admin-qa-v133 > div.admin-qa-v133_controls:nth-of-type(3) > button:nth-of-type(3)",
+        "property": "borderLeftColor",
+        "token": "rgba(74, 222, 128, 0.42)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "aside.tech-workbench > div.tech-page:nth-of-type(3) > section.admin-reference-section > div.admin-qa-v133 > div.admin-qa-v133_controls:nth-of-type(3) > button:nth-of-type(3)",
+        "property": "outlineColor",
+        "token": "rgb(220, 252, 231)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "aside.tech-workbench > div.tech-page:nth-of-type(3) > section.admin-reference-section > div.admin-qa-v133 > div.admin-qa-v133_controls:nth-of-type(3) > button:nth-of-type(3)",
+        "property": "caretColor",
+        "token": "rgb(220, 252, 231)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "aside.tech-workbench > div.tech-page:nth-of-type(3) > section.admin-reference-section > div.admin-qa-v133 > div.admin-qa-v133_controls:nth-of-type(3) > button:nth-of-type(3)",
+        "property": "textDecorationColor",
+        "token": "rgb(220, 252, 231)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "aside.tech-workbench > div.tech-page:nth-of-type(3) > section.admin-reference-section > div.admin-qa-v133 > div.admin-qa-v133_controls:nth-of-type(3) > button:nth-of-type(3)",
+        "property": "columnRuleColor",
+        "token": "rgb(220, 252, 231)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "aside.tech-workbench > div.tech-workbench_head:nth-of-type(1) > span.tech-workbench_badge",
+        "property": "borderTopColor",
+        "token": "rgba(239, 68, 68, 0.35)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "aside.tech-workbench > div.tech-workbench_head:nth-of-type(1) > span.tech-workbench_badge",
+        "property": "borderRightColor",
+        "token": "rgba(239, 68, 68, 0.35)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "aside.tech-workbench > div.tech-workbench_head:nth-of-type(1) > span.tech-workbench_badge",
+        "property": "borderBottomColor",
+        "token": "rgba(239, 68, 68, 0.35)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "aside.tech-workbench > div.tech-workbench_head:nth-of-type(1) > span.tech-workbench_badge",
+        "property": "borderLeftColor",
+        "token": "rgba(239, 68, 68, 0.35)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#techBankIntegrityPreview",
+        "property": "color",
+        "token": "rgb(88, 199, 180)",
+        "visuallyActive": true
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#techBankIntegrityPreview",
+        "property": "borderTopColor",
+        "token": "rgb(88, 199, 180)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#techBankIntegrityPreview",
+        "property": "borderRightColor",
+        "token": "rgb(88, 199, 180)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#techBankIntegrityPreview",
+        "property": "borderBottomColor",
+        "token": "rgb(88, 199, 180)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#techBankIntegrityPreview",
+        "property": "borderLeftColor",
+        "token": "rgb(88, 199, 180)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#techBankIntegrityPreview",
+        "property": "outlineColor",
+        "token": "rgb(88, 199, 180)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#techBankIntegrityPreview",
+        "property": "caretColor",
+        "token": "rgb(88, 199, 180)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#techBankIntegrityPreview",
+        "property": "textDecorationColor",
+        "token": "rgb(88, 199, 180)",
+        "visuallyActive": false
+      },
+      {
+        "surface": "frontend",
+        "sceneId": "ads-default",
+        "path": "#techBankIntegrityPreview",
+        "property": "columnRuleColor",
+        "token": "rgb(88, 199, 180)",
+        "visuallyActive": false
+      }
+    ]
+  },
+  "acceptance": {
+    "userTheme01PaletteQualified": true,
+    "browserShopPaletteQualified": true,
+    "protectedSemanticExceptionsPreserved": true,
+    "status": "QUALIFIED_MINIMAL_CORRECTION_COMPLETE"
+  },
+  "notes": [
+    "Cycle0394 does not delete the Cycle0393 provenance audit; that file remains the immutable before-correction evidence.",
+    "Matched-but-not-winning/dead-rule cleanup is deferred. OWNER requested minimal changes in this cycle.",
+    "No technical/Admin finding is recoloured to Theme01. Technical/Admin is excluded from USER Theme qualification instead."
+  ]
+}

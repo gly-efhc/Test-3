@@ -1,0 +1,529 @@
+import React, {
+  memo,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+
+import { EnergyVariantIcon } from
+  "../components/icons/EnergyVariantIcon";
+import {
+  FrontendButton,
+  FrontendErrorState,
+  FrontendLoadingState,
+} from "../components/shell/FrontendShell";
+import { useT } from "../hooks/useT";
+import type {
+  SnapshotStatus,
+  SyncSnapshot,
+} from "../hooks/useSnapshot";
+import { clamp, formatFixedDown } from "../lib/format";
+import { USER_LEVEL_SKINS } from "../lib/skins";
+import { useInterfaceVariantSurface } from
+  "../hooks/useInterfaceVariantSurface";
+import { useInterfaceCustomization } from
+  "../hooks/useInterfaceCustomization";
+import { COLOR_THEME_CATALOG } from "../lib/colorThemeRegistry";
+
+const SCALE = 8;
+const LIVE_TICK_MS = 333;
+const SMOOTH_RESET_MS = 800;
+
+function toScaled(v: string | number | null | undefined): bigint {
+  const s0 = formatFixedDown(v, SCALE);
+  const neg = s0.startsWith("-");
+  const raw = neg ? s0.slice(1) : s0;
+  const parts = raw.split(".");
+  const intPart = parts[0] || "0";
+  const frac = (parts[1] || "").padEnd(SCALE, "0");
+  const digits = `${intPart}${frac}`.replace(/^0+(?=\d)/, "");
+  const bi = BigInt(digits || "0");
+  return neg ? -bi : bi;
+}
+
+function fromScaled(v: bigint): string {
+  const neg = v < 0n;
+  const raw = (neg ? -v : v).toString();
+  const pad = raw.padStart(SCALE + 1, "0");
+  const intPart = pad.slice(0, -SCALE);
+  const frac = pad.slice(-SCALE);
+  const out = `${intPart}.${frac}`;
+  return neg ? `-${out}` : out;
+}
+
+function readStr(obj: any, path: string[], fallback: string): string {
+  let cur: any = obj;
+  for (const p of path) {
+    if (cur && typeof cur === "object" && p in cur) cur = cur[p];
+    else return fallback;
+  }
+  if (cur === null || cur === undefined) return fallback;
+  return String(cur);
+}
+
+function readIntStr(
+  obj: any,
+  path: string[],
+  fallback: string,
+): string {
+  let cur: any = obj;
+  for (const p of path) {
+    if (cur && typeof cur === "object" && p in cur) cur = cur[p];
+    else return fallback;
+  }
+  if (cur === null || cur === undefined) return fallback;
+  const s = String(cur).trim();
+  if (!s) return fallback;
+  return /^\d+$/.test(s) ? s : fallback;
+}
+
+type LiveBlockProps = {
+  server_now_iso: string | null;
+  lifetime_kwh: string;
+  gen_per_sec_effective: string;
+  active_panels: string;
+  available_kwh: string;
+  thresholds_scaled: bigint[];
+  hide_balances: boolean;
+  labels: {
+    energy: string;
+    total_generated: string;
+    progress: string;
+    kwh_suffix: string;
+    gen_rate: string;
+    panels_owned: string;
+    available_kwh_chip: string;
+  };
+};
+
+function LiveEnergyBlock(props: LiveBlockProps) {
+  const customization = useInterfaceCustomization();
+  const energyFrameSurface = useInterfaceVariantSurface<HTMLElement>("EG", {
+    registerDots: false,
+  });
+  const iconSurface = useInterfaceVariantSurface<HTMLDivElement>("EI", { registerDots: false });
+  const progressSurface = useInterfaceVariantSurface<HTMLDivElement>("PB", {
+    dotsPlacement: "above",
+  });
+  const e0ScaledRaw = useMemo(
+    () => toScaled(props.lifetime_kwh),
+    [props.lifetime_kwh],
+  );
+  const vScaledRaw = useMemo(
+    () => toScaled(props.gen_per_sec_effective),
+    [props.gen_per_sec_effective],
+  );
+  const vScaled = vScaledRaw < 0n ? 0n : vScaledRaw;
+
+  const stateRef = useRef<{
+    base_scaled: bigint;
+    base_client_ms: number;
+    smooth_delta: bigint;
+    smooth_start_ms: number;
+  }>({
+    base_scaled: e0ScaledRaw < 0n ? 0n : e0ScaledRaw,
+    base_client_ms: performance.now(),
+    smooth_delta: 0n,
+    smooth_start_ms: 0,
+  });
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    const now = performance.now();
+    const st = stateRef.current;
+    const dtMs = Math.max(0, now - st.base_client_ms);
+    const cur = st.base_scaled + (vScaled * BigInt(Math.floor(dtMs))) / 1000n;
+    const curSafe = cur < 0n ? 0n : cur;
+
+    const target = e0ScaledRaw < curSafe ? curSafe : e0ScaledRaw;
+    const delta = target - curSafe;
+
+    st.base_scaled = curSafe;
+    st.base_client_ms = now;
+    st.smooth_delta = delta;
+    st.smooth_start_ms = delta > 0n ? now : 0;
+    setTick((x) => x + 1);
+  }, [e0ScaledRaw, props.server_now_iso, vScaled]);
+
+  useEffect(() => {
+    if (!props.server_now_iso) return;
+    if (vScaled === 0n) {
+      if (stateRef.current.smooth_delta === 0n) return;
+    }
+    const id = window.setInterval(() => {
+      setTick((x) => x + 1);
+    }, LIVE_TICK_MS);
+    return () => window.clearInterval(id);
+  }, [props.server_now_iso, vScaled]);
+
+  const eLiveScaled = useMemo(() => {
+    const now = performance.now();
+    const st = stateRef.current;
+    const dtMs = Math.max(0, now - st.base_client_ms);
+    const add = (vScaled * BigInt(Math.floor(dtMs))) / 1000n;
+    let out = st.base_scaled + add;
+    if (st.smooth_delta > 0n && st.smooth_start_ms > 0) {
+      const rawT = now - st.smooth_start_ms;
+      const t01 = clamp(rawT / SMOOTH_RESET_MS, 0, 1);
+      const step = BigInt(Math.floor(t01 * 1000));
+      out += (st.smooth_delta * step) / 1000n;
+    }
+    return out < 0n ? 0n : out;
+  }, [props.server_now_iso, tick, vScaled]);
+
+  const level = useMemo(() => {
+    let current = 1;
+    for (let index = 1; index < props.thresholds_scaled.length; index += 1) {
+      const threshold = props.thresholds_scaled[index];
+      if (threshold !== undefined && eLiveScaled >= threshold) {
+        current = index + 1;
+      }
+    }
+    return current;
+  }, [eLiveScaled, props.thresholds_scaled]);
+
+  const levelName = USER_LEVEL_SKINS[level - 1]?.name || "Eco Initiate";
+
+  const startScaled = useMemo(() => {
+    return props.thresholds_scaled[level - 1] ?? 0n;
+  }, [level, props.thresholds_scaled]);
+
+  const endScaled = useMemo(() => {
+    if (level >= 12) return null;
+    return props.thresholds_scaled[level] ?? null;
+  }, [level, props.thresholds_scaled]);
+
+  const progressPct = useMemo(() => {
+    if (level >= 12) return 100;
+    if (!endScaled) return 50;
+    const span = endScaled - startScaled;
+    if (span <= 0n) return 50;
+
+    let num = eLiveScaled - startScaled;
+    if (num < 0n) num = 0n;
+    if (num > span) num = span;
+
+    const pct = (num * 100n) / span;
+    const v = parseInt(pct.toString(), 10);
+    const basePct = !Number.isFinite(v) ? 0 : v < 0 ? 0 : v > 100 ? 100 : v;
+    // FRONTEND_v127 owner decision: the user-level progress presentation is
+    // advanced by +50 percentage points, capped at 100. Level thresholds,
+    // generated kWh and backend economy semantics remain unchanged.
+    return Math.min(100, basePct + 50);
+  }, [eLiveScaled, endScaled, level, startScaled]);
+
+  const prefersReducedMotion = useMemo(() => {
+    if (typeof window === "undefined") return true;
+    const q = "(prefers-reduced-motion: reduce)";
+    return window.matchMedia(q).matches;
+  }, []);
+
+  const [displayPct, setDisplayPct] = useState(0);
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setDisplayPct(progressPct);
+      return;
+    }
+    setDisplayPct(0);
+    const id = window.requestAnimationFrame(() => {
+      setDisplayPct(progressPct);
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, [prefersReducedMotion, progressPct]);
+
+  const fillClassName = prefersReducedMotion
+    ? "efhc-energy-progress-fill efhc-no-motion"
+    : "efhc-energy-progress-fill";
+
+  const progressInLevel = useMemo(() => {
+    if (level >= 12) return "MAX";
+    if (!endScaled) return "0.00000000";
+    const span = endScaled - startScaled;
+    const raw = eLiveScaled - startScaled;
+    const v = raw < 0n ? 0n : raw > span ? span : raw;
+    return fromScaled(v);
+  }, [eLiveScaled, endScaled, level, startScaled]);
+
+  const remainingKwh = useMemo(() => {
+    if (level >= 12) return "MAX";
+    if (!endScaled) return "0.00000000";
+    const raw = endScaled - eLiveScaled;
+    const v = raw < 0n ? 0n : raw;
+    return fromScaled(v);
+  }, [eLiveScaled, endScaled, level]);
+
+  const heroText = useMemo(
+    () => fromScaled(eLiveScaled),
+    [eLiveScaled],
+  );
+
+  const heroFontPx = useMemo(() => {
+    const len = heroText.length;
+    const base = 38;
+    const cut = Math.max(0, len - 11) * 2;
+    return clamp(base - cut, 21, 38);
+  }, [heroText]);
+
+  const visibleProgressPct = displayPct;
+  const shownProgress = props.hide_balances
+    ? "••••••••"
+    : progressInLevel;
+  const shownRemaining = props.hide_balances
+    ? "••••••••"
+    : remainingKwh;
+  const shownRate = props.hide_balances
+    ? "••••••••"
+    : formatFixedDown(props.gen_per_sec_effective, 8);
+  const shownAvailable = props.hide_balances
+    ? "••••••••"
+    : formatFixedDown(props.available_kwh, 2);
+
+  return (
+    <section
+      ref={energyFrameSurface.ref}
+      {...energyFrameSurface.handlers}
+      className="efhc-energy-stage"
+      data-energy-mobile-stage="true"
+      data-eg={energyFrameSurface.variant}
+      data-energy-frame-theme-zone="stage-minus-local-zones"
+      data-global-header-boundary="excluded"
+    >
+      <div className="efhc-energy-stage_image" />
+      <div className="efhc-energy-stage_veil" />
+      {customization.mode === "editing" ? (
+        <div
+          className="efhc-energy-frame-theme-slots"
+          aria-hidden="true"
+          data-color-theme-indicators={COLOR_THEME_CATALOG.length}
+        >
+          {COLOR_THEME_CATALOG.map((theme) => (
+            <span
+              key={theme.id}
+              data-color-theme-id={theme.id}
+              data-active={customization.colorThemeId === theme.id ? "true" : "false"}
+              style={{ "--efhc-indicator-color": theme.accent } as React.CSSProperties}
+            />
+          ))}
+        </div>
+      ) : null}
+      <div className="efhc-energy-stage_body">
+        <div className="efhc-energy-stage_eyebrow">
+          {props.labels.energy}
+        </div>
+
+        <div className="efhc-energy-stage_meter">
+          <div className="efhc-energy-stage_icon-slot">
+            <div
+              ref={iconSurface.ref}
+              className="efhc-energy-stage_icon-hit-zone"
+              data-energy-icon-hit-zone="1cm"
+            >
+              <div
+                className="efhc-energy-stage_coin"
+                data-ei={iconSurface.variant}
+              >
+                <EnergyVariantIcon variant={iconSurface.variant} size={28} />
+              </div>
+            </div>
+          </div>
+          <div
+            className="efhc-energy-stage_value"
+            data-energy-value-safe="true"
+            style={{
+              fontSize: `${heroFontPx}px`,
+              lineHeight: 1.02,
+            }}
+          >
+            {props.hide_balances
+              ? "••••••••"
+              : heroText}
+          </div>
+        </div>
+
+        <div className="efhc-energy-stage_subtitle">
+          {props.labels.total_generated}
+        </div>
+
+        <div className="efhc-energy-stage_progress-head">
+          <span>{props.labels.progress}</span>
+          <span>{displayPct}%</span>
+        </div>
+
+        <div
+          ref={progressSurface.ref}
+          {...progressSurface.handlers}
+          className="efhc-energy-stage_progress-zone"
+          data-energy-progress-selection-zone="progress-top-to-stage-bottom"
+          data-pb={progressSurface.variant}
+        >
+          <div
+            className="efhc-energy-progress-track"
+            data-pb={progressSurface.variant}
+            data-level-progress-boost-pp="50"
+            data-level-progress-centered="true"
+          >
+            <div
+              className={fillClassName}
+              data-has-progress={visibleProgressPct > 0 ? "true" : "false"}
+              style={{ width: `${visibleProgressPct}%` }}
+            />
+          </div>
+
+          <div className="efhc-energy-stage_level" data-energy-level-name={levelName}>
+            <strong><span data-i18n-fixed-token="Lvl">Lvl</span> {level}</strong>
+            <span aria-hidden="true">·</span>
+            <b>{levelName}</b>
+          </div>
+
+          <div
+            className="efhc-energy-stage_range"
+            data-energy-range-safe="true"
+          >
+            <span>{formatFixedDown(fromScaled(startScaled), 2)}</span>
+            <span
+              className="efhc-energy-stage_range-center"
+              data-energy-range-center="remaining-to-next-level"
+              aria-label={level >= 12 ? "MAX" : `До следующего уровня: ${shownRemaining} ${props.labels.kwh_suffix}`}
+            >
+              {shownRemaining}
+              {remainingKwh === "MAX" ? "" : props.labels.kwh_suffix}
+            </span>
+            <span>
+              {endScaled
+                ? formatFixedDown(fromScaled(endScaled), 2)
+                : shownRemaining}
+            </span>
+          </div>
+
+          <div
+            className="efhc-energy-stage_chips"
+            data-energy-chip-count="3"
+          >
+          <div
+            className="efhc-energy-chip"
+            data-energy-chip="active-panels"
+          >
+            <span>{props.labels.panels_owned}</span>
+            <strong>{props.active_panels}</strong>
+          </div>
+          <div
+            className="efhc-energy-chip"
+            data-energy-chip="generation-rate"
+          >
+            <span>
+              {props.labels.gen_rate} <span data-i18n-fixed-token="kWh/с">kWh/с</span>
+            </span>
+            <strong className="tabular-nums">
+              {shownRate}
+            </strong>
+          </div>
+          <div
+            className="efhc-energy-chip"
+            data-energy-chip="available-kwh"
+          >
+            <span>{props.labels.available_kwh_chip}</span>
+            <strong className="tabular-nums">
+              {shownAvailable}
+            </strong>
+          </div>
+        </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const LiveEnergyHeroAndProgress = memo(LiveEnergyBlock);
+
+export default function EnergyPage(props: {
+  snap: SyncSnapshot | null;
+  snapshotStatus?: SnapshotStatus;
+  snapshotMode?: "live" | "browser-preview";
+  snapshotRefreshing?: boolean;
+  refreshSnapshot?: () => void;
+}) {
+  const t = useT();
+  const s = props.snap;
+  const snapshotStatus = props.snapshotStatus || "success";
+  const browserPreview = props.snapshotMode === "browser-preview";
+
+  const thresholdsKwh = useMemo(
+    () => USER_LEVEL_SKINS.map((item) => String(item.min_kwh)),
+    [],
+  );
+
+  const thresholdsScaled = useMemo(() => {
+    return thresholdsKwh.map((x) => toScaled(`${x}.00000000`));
+  }, [thresholdsKwh]);
+
+  if (snapshotStatus === "loading" && !browserPreview) {
+    return (
+      <div
+        className="efhc-energy-page"
+        data-energy-mobile-proof="390px"
+        data-energy-state="loading"
+      >
+        <FrontendLoadingState label={t("common.loading")} />
+      </div>
+    );
+  }
+
+  if ((snapshotStatus === "error" || !s) && !browserPreview) {
+    return (
+      <div
+        className="efhc-energy-page"
+        data-energy-mobile-proof="390px"
+        data-energy-state="recoverable-error"
+      >
+        <FrontendErrorState
+          title={t("common.data_unavailable")}
+          detail={t("common.load_error")}
+        />
+        <FrontendButton
+          tone="secondary"
+          onClick={() => props.refreshSnapshot?.()}
+        >
+          {t("common.refresh")}
+        </FrontendButton>
+      </div>
+    );
+  }
+
+  if (!s) return null;
+
+  const activePanels = readIntStr(s, ["panels", "active_count"], "0");
+
+  return (
+    <div
+      className="efhc-energy-page"
+      data-energy-mobile-proof="390px"
+      data-energy-state="content"
+    >
+      <LiveEnergyHeroAndProgress
+        server_now_iso={s.meta.server_now_iso}
+        lifetime_kwh={readStr(
+          s,
+          ["profile", "lifetime_generated_kwh"],
+          s.profile.total_generated_kwh,
+        )}
+        gen_per_sec_effective={s.meta.gen_per_sec_effective}
+        active_panels={activePanels}
+        available_kwh={s.profile.available_kwh}
+        thresholds_scaled={thresholdsScaled}
+        hide_balances={false}
+        labels={{
+          energy: t("energy.title"),
+          total_generated: t("energy.total_generated_hero"),
+          progress: t("energy.progress_label"),
+          kwh_suffix: t("energy.kwh_suffix_spaced"),
+          gen_rate: t("energy.gen_rate_card"),
+          panels_owned: t("energy.panels_owned"),
+          available_kwh_chip: t("energy.available_kwh_chip"),
+        }}
+      />
+    </div>
+  );
+}

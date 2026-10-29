@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "policy": "approved_assets_only",
+  "slots": [
+    {"id":"avatar-01","asset_path":"/assets/profile-avatars/avatar-01.webp","available":false},
+    {"id":"avatar-02","asset_path":"/assets/profile-avatars/avatar-02.webp","available":false},
+    {"id":"avatar-03","asset_path":"/assets/profile-avatars/avatar-03.webp","available":false},
+    {"id":"avatar-04","asset_path":"/assets/profile-avatars/avatar-04.webp","available":false},
+    {"id":"avatar-05","asset_path":"/assets/profile-avatars/avatar-05.webp","available":false},
+    {"id":"avatar-06","asset_path":"/assets/profile-avatars/avatar-06.webp","available":false},
+    {"id":"avatar-07","asset_path":"/assets/profile-avatars/avatar-07.webp","available":false},
+    {"id":"avatar-08","asset_path":"/assets/profile-avatars/avatar-08.webp","available":false},
+    {"id":"avatar-09","asset_path":"/assets/profile-avatars/avatar-09.webp","available":false},
+    {"id":"avatar-10","asset_path":"/assets/profile-avatars/avatar-10.webp","available":false}
+  ]
+}

@@ -1,0 +1,45 @@
+/* Theme 03 Energy micro-chroma qualification owner — Cycle0147.
+   Energy is a preservation zone. Global Theme03 owns only the EG-03 frame hue;
+   local EI/PB variants remain independent customization controls and intentionally
+   keep their authored visual identity. No geometry, business/runtime or palette
+   values are defined here; intensity remains Energy-component material authority. */
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-energy-stage[data-eg="EG-03"] {
+  --efhc-energy-frame-accent:var(--efhc-color-accent);
+  --efhc-energy-frame-edge:color-mix(in srgb,var(--efhc-color-accent) 30%,transparent);
+  --efhc-energy-frame-glow:color-mix(in srgb,var(--efhc-color-glow) 20%,transparent);
+  border-color:var(--efhc-energy-frame-edge);
+}
+
+/* Preserve the existing EG-03 eyebrow material while removing the remaining
+   dependency on the historical hard-coded accent RGB tuple for Theme03. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-energy-stage[data-eg="EG-03"] .efhc-energy-stage_eyebrow {
+  border-bottom-color:color-mix(in srgb,var(--efhc-color-accent) 70%,transparent);
+  color:var(--efhc-color-accent);
+  text-shadow:0 2px 18px color-mix(in srgb,var(--efhc-color-accent) 22%,transparent);
+}
+
+/* T3R-05: Lvl is ordinary readable material. Keep the violet contour but
+   use the existing near-black Inset role instead of a full violet fill. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-energy-stage[data-eg="EG-03"] .efhc-energy-stage_level strong {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+}
+
+/* T3R-05: Energy KPI chips are ordinary inset material. Violet remains only
+   their contour/accent; geometry and live values remain untouched. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-energy-stage[data-eg="EG-03"] .efhc-energy-chip {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-inset);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-energy-stage[data-eg="EG-03"] .efhc-energy-chip span {
+  color:var(--efhc-color-text-muted);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-energy-stage[data-eg="EG-03"] .efhc-energy-chip strong {
+  color:var(--efhc-color-text);
+}
+

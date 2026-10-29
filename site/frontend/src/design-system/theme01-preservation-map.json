@@ -1,0 +1,886 @@
+{
+  "schema": "EFHC_THEME01_PRESERVATION_MAP_V1",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0391",
+  "baselineRelease": "FRONTEND_v609",
+  "currentRecoveryHead": "FRONTEND_v614",
+  "ownerPolicy": "PRESERVE_EXISTING_GOOD_APPEARANCE_FIRST",
+  "baselineRuntimeSha256": "c237882b1d32e3f7f6b2b7e1ba55ee92f81b45741b7384427b9538eb85f11f76",
+  "matrixRows": 51,
+  "viewportEvidence": {
+    "320": "51/51 HARNESS_PROBE_PASS",
+    "340": "51/51 HARNESS_PROBE_PASS",
+    "390": "51/51 HARNESS_PROBE_PASS"
+  },
+  "summary": {
+    "preserveRows": 49,
+    "correctiveCandidates": 2,
+    "runtimeProjectionRequired": false,
+    "fullPaletteComplianceQualified": false
+  },
+  "preservationLaws": [
+    "FRONTEND_v609 Theme01 rendered character is OWNER-good and is the visual baseline.",
+    "Do not normalize authored blue-family shades (#6EA8FF, #3B82F6, #8BB9FF/#60A5FA family) merely to make one token family; same-family authored variation is preserved unless OWNER rejects it.",
+    "Dark neutral/slate secondary controls are not foreign colours by themselves and are preserved when they are part of the v609 baseline.",
+    "Success/warning/error/financial/provider/accessibility semantic colours remain protected exceptions and are not recoloured to blue.",
+    "Only confirmed foreign chroma is eligible for correction, and mutation requires OWNER approval after this audit.",
+    "Theme03 reference must not be copied into Theme01; Theme03 remains immutable and is used only as structural/audit reference."
+  ],
+  "confirmedFindings": [
+    {
+      "id": "T01-FC-001",
+      "severity": "VISUAL_REGRESSION_RISK",
+      "rows": [
+        "GT-SHOP-01",
+        "GT-SHOP-02"
+      ],
+      "status": "CONFIRMED_OWNER_APPROVAL_REQUIRED",
+      "finding": "Browser Shop dark surface under Theme01 inherits Theme03 violet token vector.",
+      "evidence": {
+        "GT-SHOP-01": {
+          "backgroundColor": "rgba(18, 16, 33, 0.86)",
+          "backgroundImage": "none",
+          "borderTopColor": "rgba(167, 139, 250, 0.24)",
+          "color": "rgb(248, 250, 252)",
+          "boxShadow": "rgba(38, 31, 16, 0.05) 0px 12.8px 40px 0px",
+          "outlineColor": "rgb(248, 250, 252)",
+          "display": "flex",
+          "visibility": "visible"
+        },
+        "GT-SHOP-02": {
+          "backgroundColor": "rgba(13, 11, 25, 0.96)",
+          "backgroundImage": "none",
+          "borderTopColor": "rgba(167, 139, 250, 0.24)",
+          "color": "rgb(248, 250, 252)",
+          "boxShadow": "none",
+          "outlineColor": "rgb(248, 250, 252)",
+          "display": "flex",
+          "visibility": "visible"
+        },
+        "sourceRootCause": "frontend/src/styles/generated/theme03-chroma-tokens.css binds Theme03 roles to all html[data-shop-theme=\"dark\"] and .efhc-shop-site[data-shop-theme=\"dark\"] without exact data-global-theme-id=\"03\" restriction."
+      },
+      "boundedCorrectionProposal": "In the correction cycle, keep Shop light mode and commerce semantic colours independent; bind dark Shop ordinary material to Theme01 EFHC-blue/dark authored family only when Theme01 is active, without changing geometry or payment/business runtime."
+    }
+  ],
+  "rows": [
+    {
+      "id": "GT-SHELL-01",
+      "area": "Shell",
+      "element": "Page / scroll canvas",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": ".efhc-independent-shell",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "radial-gradient(620px 260px at 50% -80px, rgba(59, 130, 246, 0.13), rgba(0, 0, 0, 0) 72%), linear-gradient(rgb(8, 13, 22), rgb(7, 11, 18) 68%, rgb(5, 8, 13))",
+        "borderTopColor": "rgb(248, 250, 252)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-SHELL-02",
+      "area": "Shell",
+      "element": "Header surface",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": ".efhc-game-header",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "radial-gradient(520px 170px at 76% -90px, color(srgb 0.431373 0.658824 1 / 0.25), rgba(0, 0, 0, 0) 70%)",
+        "borderTopColor": "rgba(110, 168, 255, 0.2)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.24) 0px 10px 28px 0px",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-SHELL-03",
+      "area": "Shell",
+      "element": "Header profile / balance / ordinary actions",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": ".efhc-game-header_profile",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.2)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-SHELL-04",
+      "area": "Shell",
+      "element": "Header primary action / HUB entry",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": ".efhc-header-action.primary",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.2)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-SHELL-05",
+      "area": "Shell",
+      "element": "Bottom Nav container",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": ".efhc-game-nav_grid",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "radial-gradient(520px 170px at 76% -90px, color(srgb 0.431373 0.658824 1 / 0.25), rgba(0, 0, 0, 0) 70%)",
+        "borderTopColor": "rgba(110, 168, 255, 0.2)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.34) 0px 12px 28px 0px",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-SHELL-06",
+      "area": "Shell",
+      "element": "Bottom Nav active item",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": ".efhc-game-nav_item[data-active=\"true\"]",
+      "computed": {
+        "backgroundColor": "color(srgb 0.431373 0.658824 1 / 0.1)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.34)",
+        "color": "rgb(110, 168, 255)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(110, 168, 255)"
+      }
+    },
+    {
+      "id": "GT-SHELL-07",
+      "area": "Shell",
+      "element": "Settings gear idle / editing",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#customizeButton",
+      "computed": {
+        "backgroundColor": "rgba(10, 16, 27, 0.92)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.28)",
+        "color": "rgb(220, 234, 255)",
+        "boxShadow": "rgba(0, 0, 0, 0.32) 0px 5px 16px 0px, rgba(255, 255, 255, 0.043) 0px 1px 0px 0px inset",
+        "outlineColor": "rgb(220, 234, 255)"
+      }
+    },
+    {
+      "id": "GT-PORTAL-01",
+      "area": "Overlay",
+      "element": "Direct top-up sheet",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#standaloneDirectDepositV218 .standalone-settings-dialog",
+      "computed": {
+        "backgroundColor": "rgb(11, 17, 29)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.28)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-ENERGY-01",
+      "area": "Energy",
+      "element": "Energy stage frame / eyebrow",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#energyPage .efhc-energy-stage",
+      "computed": {
+        "backgroundColor": "rgb(11, 17, 29)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.34)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.24) 0px 12px 30px 0px",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-ENERGY-02",
+      "area": "Energy",
+      "element": "Energy KPI / chips",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#energyPage .efhc-energy-chip",
+      "computed": {
+        "backgroundColor": "rgba(15, 23, 42, 0.72)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(148, 163, 184, 0.16)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-PANELS-01",
+      "area": "Panels",
+      "element": "Panels hero",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#panelsPage .panels-hero",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "radial-gradient(320px 150px at 100% 0px, color(srgb 0.431373 0.658823 1 / 0.2), rgba(0, 0, 0, 0) 70%)",
+        "borderTopColor": "rgba(110, 168, 255, 0.34)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px 10px 28px 0px, rgba(255, 255, 255, 0.024) 0px 1px 0px 0px inset",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-PANELS-02",
+      "area": "Panels",
+      "element": "Panels cards / panel tiles",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#panelsPage .panels-card",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "radial-gradient(360px 130px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.1), rgba(0, 0, 0, 0) 70%)",
+        "borderTopColor": "rgba(110, 168, 255, 0.2)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px 14px 36px 0px",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-PANELS-03",
+      "area": "Panels",
+      "element": "Portfolio tabs / filters",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#panelsPortfolioPage .panels-tabs",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgb(248, 250, 252)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-PANELS-04",
+      "area": "Panels",
+      "element": "Direction ↑/↓ control",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#panelsSortDirection",
+      "computed": {
+        "backgroundColor": "rgba(30, 41, 59, 0.72)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(148, 163, 184, 0.18)",
+        "color": "rgb(203, 213, 225)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(203, 213, 225)"
+      }
+    },
+    {
+      "id": "GT-PANELS-05",
+      "area": "Panels",
+      "element": "Activation / main action",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#activatePanel",
+      "computed": {
+        "backgroundColor": "rgba(59, 130, 246, 0.18)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.34)",
+        "color": "rgb(238, 246, 255)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(238, 246, 255)"
+      }
+    },
+    {
+      "id": "GT-EXCHANGE-01",
+      "area": "Exchange",
+      "element": "Exchange hero",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#exchangePage .exchange-hero-variant",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "radial-gradient(320px 150px at 100% 0px, color(srgb 0.431373 0.658823 1 / 0.2), rgba(0, 0, 0, 0) 70%)",
+        "borderTopColor": "rgba(110, 168, 255, 0.34)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px 10px 28px 0px",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-EXCHANGE-02",
+      "area": "Exchange",
+      "element": "Inputs / preview / history boundary",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#exchangeInput",
+      "computed": {
+        "backgroundColor": "rgba(6, 11, 20, 0.72)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.23)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-EXCHANGE-03",
+      "area": "Exchange",
+      "element": "Exchange primary actions",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#exchangeAction",
+      "computed": {
+        "backgroundColor": "rgba(59, 130, 246, 0.13)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.3)",
+        "color": "rgb(233, 243, 255)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(233, 243, 255)"
+      }
+    },
+    {
+      "id": "GT-TASKS-01",
+      "area": "Tasks",
+      "element": "Tasks hero",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#tasksPage .source-game-hero",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "radial-gradient(320px 150px at 100% 0px, color(srgb 0.431373 0.658823 1 / 0.2), rgba(0, 0, 0, 0) 70%)",
+        "borderTopColor": "rgba(110, 168, 255, 0.34)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px 10px 28px 0px",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-TASKS-02",
+      "area": "Tasks",
+      "element": "Bonus strip / stats / task rows",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#tasksPage .standalone-bonus-earnings-strip",
+      "computed": {
+        "backgroundColor": "rgba(8, 15, 26, 0.58)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.18)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-TASKS-03",
+      "area": "Tasks",
+      "element": "Task action / reward badge",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#tasksPage .source-task-card .source-button",
+      "computed": {
+        "backgroundColor": "rgba(59, 130, 246, 0.13)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.3)",
+        "color": "rgb(233, 243, 255)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(233, 243, 255)"
+      }
+    },
+    {
+      "id": "GT-REF-01",
+      "area": "Referrals",
+      "element": "Referrals hero / summary",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#referralsPage .source-game-hero",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "radial-gradient(320px 150px at 100% 0px, color(srgb 0.431373 0.658823 1 / 0.2), rgba(0, 0, 0, 0) 70%)",
+        "borderTopColor": "rgba(110, 168, 255, 0.34)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px 10px 28px 0px, rgba(255, 255, 255, 0.024) 0px 1px 0px 0px inset",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-REF-02",
+      "area": "Referrals",
+      "element": "Referral rows / segmented controls",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#referralTabs",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.2)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-REF-03",
+      "area": "Referrals",
+      "element": "Selected referral row / active state",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#referralTabs [data-active=\"true\"]",
+      "computed": {
+        "backgroundColor": "color(srgb 0.431373 0.658824 1 / 0.1)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.34)",
+        "color": "rgb(110, 168, 255)",
+        "boxShadow": "rgba(110, 168, 255, 0.2) 0px 0px 0px 1px inset",
+        "outlineColor": "rgb(110, 168, 255)"
+      }
+    },
+    {
+      "id": "GT-REF-04",
+      "area": "Referrals",
+      "element": "Load more / primary referral actions",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#loadMoreReferrals",
+      "computed": {
+        "backgroundColor": "rgba(15, 23, 42, 0.72)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(148, 163, 184, 0.18)",
+        "color": "rgb(212, 223, 236)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(212, 223, 236)"
+      }
+    },
+    {
+      "id": "GT-RANK-01",
+      "area": "Ranks",
+      "element": "Ranks hero / stats",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#ranksPage .source-game-hero",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.34)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px 10px 28px 0px, rgba(255, 255, 255, 0.024) 0px 1px 0px 0px inset",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-RANK-02",
+      "area": "Ranks",
+      "element": "Refresh / inactive Find me",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#rankRefresh",
+      "computed": {
+        "backgroundColor": "rgba(15, 23, 42, 0.72)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(148, 163, 184, 0.18)",
+        "color": "rgb(212, 223, 236)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(212, 223, 236)"
+      }
+    },
+    {
+      "id": "GT-RANK-03",
+      "area": "Ranks",
+      "element": "Active Find me",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#findMyRank",
+      "computed": {
+        "backgroundColor": "rgba(15, 23, 42, 0.72)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(148, 163, 184, 0.18)",
+        "color": "rgb(212, 223, 236)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(212, 223, 236)"
+      }
+    },
+    {
+      "id": "GT-RANK-04",
+      "area": "Ranks",
+      "element": "Load more",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#loadMoreRanks",
+      "computed": {
+        "backgroundColor": "rgba(15, 23, 42, 0.72)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(148, 163, 184, 0.18)",
+        "color": "rgb(212, 223, 236)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(212, 223, 236)"
+      }
+    },
+    {
+      "id": "GT-RANK-05",
+      "area": "Ranks",
+      "element": "Rank rows",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#rankList .source-rank-row",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.2)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px 10px 28px 0px, rgba(255, 255, 255, 0.024) 0px 1px 0px 0px inset",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-PROFILE-01",
+      "area": "Profile",
+      "element": "Profile hero / ordinary cards",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#profilePage .source-profile-hero",
+      "computed": {
+        "backgroundColor": "rgba(15, 23, 42, 0.72)",
+        "backgroundImage": "radial-gradient(340px 140px at 100% 0px, rgba(59, 130, 246, 0.08), rgba(0, 0, 0, 0) 72%), none",
+        "borderTopColor": "rgba(110, 168, 255, 0.2)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px 10px 26px 0px",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-PROFILE-02",
+      "area": "Profile",
+      "element": "Tabs / fields / trust grid / topbar",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#profileTabs",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.2)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px 10px 26px 0px",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-PROFILE-03",
+      "area": "Profile",
+      "element": "Active tab / hover / settings hover",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#profileTabs [data-active=\"true\"]",
+      "computed": {
+        "backgroundColor": "color(srgb 0.431373 0.658824 1 / 0.1)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.34)",
+        "color": "rgb(110, 168, 255)",
+        "boxShadow": "color(srgb 0.431373 0.658824 1 / 0.42) 0px 0px 0px 1px inset",
+        "outlineColor": "rgb(110, 168, 255)"
+      }
+    },
+    {
+      "id": "GT-WALLET-01",
+      "area": "Wallet",
+      "element": "Wallet rows / cards / rail",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#standaloneWalletList .standalone-wallet-card",
+      "computed": {
+        "backgroundColor": "rgba(59, 130, 246, 0.09)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.34)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-WALLET-02",
+      "area": "Wallet",
+      "element": "Primary wallet emphasis",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#standaloneWalletList .standalone-wallet-card[data-primary=\"true\"]",
+      "computed": {
+        "backgroundColor": "rgba(59, 130, 246, 0.09)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.34)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-HISTORY-01",
+      "area": "Balance/History",
+      "element": "Balance header",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#profilePage .efhc-history-balance-header",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.2)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-HISTORY-02",
+      "area": "Balance/History",
+      "element": "Rows / operations / filters",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#profilePage .efhc-history-bank-operation",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgb(248, 250, 252)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-HISTORY-03",
+      "area": "Balance/History",
+      "element": "Active filter",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#profilePage .efhc-history-filter--active",
+      "computed": {
+        "backgroundColor": "color(srgb 0.121173 0.185361 0.3045 / 0.71702)",
+        "backgroundImage": "none",
+        "borderTopColor": "color(srgb 0.431373 0.658824 1 / 0.5)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-HUB-01",
+      "area": "Hub",
+      "element": "Hub launch cards",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#hubPage .release-route-card",
+      "computed": {
+        "backgroundColor": "rgba(15, 23, 42, 0.72)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(148, 163, 184, 0.14)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-FAQ-01",
+      "area": "FAQ",
+      "element": "FAQ page / card / section rows",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#faqPage > .source-card",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "radial-gradient(360px 130px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.1), rgba(0, 0, 0, 0) 70%)",
+        "borderTopColor": "rgba(110, 168, 255, 0.2)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-FAQ-02",
+      "area": "FAQ",
+      "element": "FAQ search",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#faqSearch",
+      "computed": {
+        "backgroundColor": "rgba(6, 11, 20, 0.72)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.23)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-FAQ-03",
+      "area": "FAQ",
+      "element": "FAQ buttons hover/active",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#faqList .release-faq-item > summary",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgb(241, 245, 249)",
+        "color": "rgb(241, 245, 249)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(241, 245, 249)"
+      }
+    },
+    {
+      "id": "GT-WITHDRAW-01",
+      "area": "Withdraw",
+      "element": "Withdraw hero",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#withdrawPage .standalone-withdraw-hero",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "radial-gradient(320px 150px at 100% 0px, color(srgb 0.431373 0.658823 1 / 0.2), rgba(0, 0, 0, 0) 70%)",
+        "borderTopColor": "rgba(110, 168, 255, 0.34)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.22) 0px 12px 28px 0px",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-WITHDRAW-02",
+      "area": "Withdraw",
+      "element": "Form/cards/filters/history",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#withdrawPage .standalone-withdraw-create-card",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "radial-gradient(360px 130px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.1), rgba(0, 0, 0, 0) 70%)",
+        "borderTopColor": "rgba(110, 168, 255, 0.2)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.22) 0px 12px 28px 0px",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-ADS-01",
+      "area": "Ads",
+      "element": "Ads hero/cards/rail",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#adsPage .source-game-hero",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "radial-gradient(320px 150px at 100% 0px, color(srgb 0.431373 0.658823 1 / 0.2), rgba(0, 0, 0, 0) 70%)",
+        "borderTopColor": "rgba(110, 168, 255, 0.34)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px 10px 28px 0px",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-ADS-02",
+      "area": "Ads",
+      "element": "Ads primary action",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#adsPage .source-button",
+      "computed": {
+        "backgroundColor": "rgba(59, 130, 246, 0.13)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.3)",
+        "color": "rgb(233, 243, 255)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(233, 243, 255)"
+      }
+    },
+    {
+      "id": "GT-SHOP-01",
+      "area": "Browser Shop",
+      "element": "Browser Shop hero/account/payment/product surfaces",
+      "baselineStatus": "CORRECTIVE_CANDIDATE_OWNER_APPROVAL_REQUIRED",
+      "reason": "Dark Browser Shop under Theme01 resolves Theme03 violet semantic tokens; this is foreign chroma relative to OWNER-good EFHC-blue Theme01 and requires bounded correction only after OWNER approval.",
+      "selector": ".account",
+      "computed": {
+        "backgroundColor": "rgba(18, 16, 33, 0.86)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(167, 139, 250, 0.24)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(38, 31, 16, 0.05) 0px 12.8px 40px 0px",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-SHOP-02",
+      "area": "Browser Shop",
+      "element": "Checkout/wallet/order modals and controls",
+      "baselineStatus": "CORRECTIVE_CANDIDATE_OWNER_APPROVAL_REQUIRED",
+      "reason": "Dark Browser Shop under Theme01 resolves Theme03 violet semantic tokens; this is foreign chroma relative to OWNER-good EFHC-blue Theme01 and requires bounded correction only after OWNER approval.",
+      "selector": ".button.secondary",
+      "computed": {
+        "backgroundColor": "rgba(13, 11, 25, 0.96)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(167, 139, 250, 0.24)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-ERROR-01",
+      "area": "Errors",
+      "element": "Error card / retry action",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#errorPage .source-card",
+      "computed": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "radial-gradient(360px 130px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.1), rgba(0, 0, 0, 0) 70%)",
+        "borderTopColor": "rgba(110, 168, 255, 0.2)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "rgba(0, 0, 0, 0.2) 0px 10px 28px 0px",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-SETTINGS-01",
+      "area": "Settings",
+      "element": "Settings modal / language menu",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#profileSettingsOverlay .standalone-settings-dialog",
+      "computed": {
+        "backgroundColor": "rgb(11, 17, 29)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.28)",
+        "color": "rgb(248, 250, 252)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(248, 250, 252)"
+      }
+    },
+    {
+      "id": "GT-SETTINGS-02",
+      "area": "Settings",
+      "element": "Switch on / language active",
+      "baselineStatus": "PRESERVE_OWNER_GOOD",
+      "reason": "Rendered baseline is within OWNER-good Theme01 EFHC-blue / dark-neutral family or a protected neutral/semantic state; preserve without normalization.",
+      "selector": "#profileSettingsOverlay .standalone-setting-toggle[data-active=\"true\"]",
+      "computed": {
+        "backgroundColor": "rgba(59, 130, 246, 0.13)",
+        "backgroundImage": "none",
+        "borderTopColor": "rgba(110, 168, 255, 0.3)",
+        "color": "rgb(233, 243, 255)",
+        "boxShadow": "none",
+        "outlineColor": "rgb(233, 243, 255)"
+      }
+    }
+  ],
+  "auditMethodStatus": "SUPERSEDED_AS_FULL_AUDIT_BY_CYCLE0392_PHYSICAL_CENSUS",
+  "semanticIndexOnly": true,
+  "supersedingPhysicalCensus": "frontend/src/design-system/theme01-physical-element-census.json",
+  "supersedingLaw": "The 51-row map remains a semantic navigation index and historical preserve-first evidence. It cannot establish that only two foreign colours exist. Cycle0392 physical census and Cycle0393 chroma/provenance audit control completeness."
+}

@@ -1,0 +1,40 @@
+/* OWNER Cycle0553 / USER Profile CT-01..CT-10: material belongs to active CT, geometry unchanged. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-profile-page :is(.efhc-profile-tabs button,.efhc-profile-topbar button,.efhc-profile-settings-button,
+  .efhc-profile-action-card button) {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;
+  background-color:rgba(var(--efhc-ct-accent-rgb),.055)!important;
+  background-image:none!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-profile-page :is(.efhc-profile-tabs button[aria-selected="true"],.efhc-profile-tab--active,
+  button[aria-pressed="true"]) {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.62)!important;
+  background-color:rgba(var(--efhc-ct-accent-rgb),.18)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-profile-page .efhc-compact-language-picker_menu {
+  background-color:color-mix(in srgb,var(--efhc-ct-accent) 5%,#050508)!important;
+  background-image:none!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-profile-page button:not(.efhc-compact-language-picker_button):not(.efhc-compact-language-picker_option):focus-visible {
+  outline:2px solid var(--efhc-ct-accent)!important;
+  outline-offset:2px;
+}
+
+
+/* OWNER 0560: Profile selected locale has no selected-frame or selected-fill.
+   Keep the 16-locale layout, keyboard focus outline and CT01..CT10 checkmark.
+   Other consumers of CompactLanguagePicker (Shop) are untouched. */
+.efhc-profile-page .efhc-compact-language-picker_option[data-active="true"],
+.efhc-profile-modal-theme .efhc-compact-language-picker_option[data-active="true"] {
+  border-color:transparent!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+.efhc-profile-page .efhc-compact-language-picker_option[data-active="true"] > span:last-child,
+.efhc-profile-modal-theme .efhc-compact-language-picker_option[data-active="true"] > span:last-child {
+  color:var(--efhc-ct-accent)!important;
+}

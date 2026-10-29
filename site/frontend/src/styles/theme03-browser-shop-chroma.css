@@ -1,0 +1,190 @@
+/* FRONTEND_ADMIN_CYCLE_0382 — Browser Shop Theme03 role adapter.
+   Scope: ordinary dark-shop decorative material only. Commerce success/error/
+   warning semantics, product identity artwork, light mode, geometry and runtime
+   remain owned by their existing contracts. */
+
+/* Production external Browser Shop and standalone dark Shop consume the same
+   Theme03 semantic role vector. */
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"],
+html[data-shop-theme="dark"] {
+  --shop-bg:var(--efhc-color-page);
+  --shop-card:var(--efhc-color-card);
+  --shop-ink:var(--efhc-color-text);
+  --shop-muted:var(--efhc-color-text-muted);
+  --shop-line:var(--efhc-color-border);
+  --shop-soft:var(--efhc-color-inset);
+  --shop-accent:var(--efhc-color-accent);
+  --shop-yellow:var(--efhc-color-accent);
+}
+
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"] {
+  background:var(--efhc-color-page);
+  color:var(--efhc-color-text);
+}
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"] .efhc-shop-site_header {
+  background:var(--efhc-color-chrome);
+  border-color:var(--efhc-color-border);
+}
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"] :is(
+  .efhc-shop-site_language,
+  .efhc-shop-site_balance,
+  .efhc-shop-site_profile,
+  .efhc-shop-catalog-toolbar,
+  .efhc-shop-landing_account,
+  .efhc-shop-catalog-section,
+  .efhc-shop-account-panel,
+  .efhc-shop-checkout-modal,
+  .efhc-shop-wallet-modal,
+  .efhc-shop-order-modal
+) {
+  background:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+  border-color:var(--efhc-color-border);
+  box-shadow:var(--efhc-color-shadow);
+}
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"] :is(
+  .efhc-shop-text-product,
+  .efhc-shop-number-chooser,
+  .efhc-shop-number-grid button,
+  .efhc-shop-profile-grid article,
+  .efhc-shop-profile-wallets article,
+  .efhc-shop-order-list article,
+  .efhc-shop-wallet-list > button:not(.efhc-btn),
+  .efhc-shop-modal-close,
+  .efhc-shop-theme-toggle,
+  input,
+  select
+) {
+  background:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  border-color:var(--efhc-color-border);
+  box-shadow:none;
+}
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"] :is(
+  .efhc-shop-catalog-tabs button,
+  .efhc-shop-currency-switch button,
+  .efhc-btn-secondary
+) {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"] :is(
+  .efhc-shop-catalog-tabs button[aria-selected="true"],
+  .efhc-shop-currency-switch button[aria-pressed="true"],
+  .efhc-shop-number-grid button[aria-selected="true"],
+  .efhc-shop-wallet-list > button[data-active="true"],
+  .efhc-compact-language-picker_option[data-active="true"]
+) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-accent);
+}
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"] :is(
+  .efhc-btn-primary,
+  .efhc-shop-custom-buy
+) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"] .efhc-shop-text-product:hover:not(:disabled) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+}
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"] :is(
+  .efhc-shop-catalog-copy > header > span,
+  .efhc-shop-account-panel > header > span,
+  .efhc-shop-catalog-heading-copy > span,
+  .efhc-shop-checkout-modal > span,
+  .efhc-shop-wallet-modal > span
+) {
+  color:var(--efhc-color-accent);
+}
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"] .efhc-shop-catalog-visual:not(.is-nft) {
+  background:linear-gradient(145deg,var(--efhc-color-active),var(--efhc-color-inset));
+}
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"] .efhc-shop-package-thumb {
+  background:var(--efhc-color-inset);
+  border-color:var(--efhc-color-border);
+}
+.efhc-shop-site[data-interface-app-mode="shop-landing"][data-shop-theme="dark"] .efhc-shop-landing_notice:not(.is-success):not(.is-error) {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+}
+
+/* Standalone SHOP_vNNN parity. */
+html[data-shop-theme="dark"] body {
+  background:var(--efhc-color-page);
+  color:var(--efhc-color-text);
+}
+html[data-shop-theme="dark"] .site-header {
+  background:var(--efhc-color-chrome);
+  border-color:var(--efhc-color-border);
+}
+html[data-shop-theme="dark"] :is(
+  .shop-toolbar,
+  .account,
+  .catalog-section,
+  .account-panel,
+  .modal,
+  .language,
+  .profile-pill,
+  .theme-toggle
+) {
+  background:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+  border-color:var(--efhc-color-border);
+}
+html[data-shop-theme="dark"] :is(
+  .text-product,
+  .number-chooser,
+  .number-grid button,
+  .currencies button,
+  .custom-product input,
+  .number-head input,
+  .modal h2 input,
+  .wallet-choice-list button,
+  .profile-grid article,
+  .modal-close,
+  .button.secondary
+) {
+  background:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+  border-color:var(--efhc-color-border);
+  box-shadow:none;
+}
+html[data-shop-theme="dark"] :is(
+  .number-grid button[data-active="true"],
+  .currencies button[data-active="true"],
+  .language-picker-option[data-active="true"]
+) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-accent);
+}
+html[data-shop-theme="dark"] .button:not(.secondary) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+html[data-shop-theme="dark"] .text-product:hover:not(:disabled) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+}
+html[data-shop-theme="dark"] .section-image:not(.vip) {
+  background:linear-gradient(145deg,var(--efhc-color-active),var(--efhc-color-inset));
+}
+html[data-shop-theme="dark"] .product-thumb {
+  background:var(--efhc-color-inset);
+  border-color:var(--efhc-color-border);
+}
+html[data-shop-theme="dark"] .notice:not(.success):not(.error):not(.intent-card) {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-card);
+  color:var(--efhc-color-text);
+}

@@ -1,0 +1,319 @@
+/* OWNER protection perimeter — 2026-10-13.
+   Theme03 remains OWNER-FROZEN. This file does not redefine its palette.
+   It closes the standalone Ranks coverage gap by binding the real #ranksPage
+   source-* DOM to the already frozen Theme03 semantic roles. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #ranksPage[data-kg="KG-03"] {
+  --rest-accent:var(--efhc-color-accent);
+  --rest-accent-text:var(--efhc-color-focus);
+  --rest-edge:var(--efhc-color-border);
+  --rest-soft:var(--efhc-color-accent-soft);
+  --rest-shadow:var(--efhc-color-shadow);
+  background-image:radial-gradient(520px 220px at 100% 0,color-mix(in srgb,var(--efhc-color-glow) 12%,transparent),transparent 72%);
+  background-color:transparent;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #ranksPage[data-kg="KG-03"] .source-game-hero {
+  border-color:var(--efhc-color-border-strong) !important;
+  background-image:radial-gradient(320px 150px at 100% 0,color-mix(in srgb,var(--efhc-color-glow) 20%,transparent),transparent 70%),linear-gradient(180deg,var(--efhc-color-hero),var(--efhc-color-canvas)) !important;
+  background-color:var(--efhc-color-hero) !important;
+  box-shadow:var(--efhc-color-shadow) !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #ranksPage[data-kg="KG-03"] :is(.source-card,.source-rank-row) {
+  border-color:var(--efhc-color-border) !important;
+  background-image:none !important;
+  background-color:var(--efhc-color-card) !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #ranksPage[data-kg="KG-03"] .source-stat {
+  border-color:var(--efhc-color-border) !important;
+  background-image:none !important;
+  background-color:var(--efhc-color-inset) !important;
+  box-shadow:none !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #ranksPage[data-kg="KG-03"] .source-rank-medal {
+  border-color:var(--efhc-color-border) !important;
+  background:var(--efhc-color-accent-soft) !important;
+  color:var(--efhc-color-focus) !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #ranksPage[data-kg="KG-03"] .source-hero-title,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #ranksPage[data-kg="KG-03"] :is(.source-rank-name,.source-rank-energy) {
+  color:var(--efhc-color-text) !important;
+}
+
+/* OWNER Ranks full-surface recovery — 2026-10-13 / FRONTEND_v673.
+   Direct OWNER decision: the complete Ranks page is Theme03-owned. This external
+   protection layer does NOT mutate the frozen Theme03 implementation files or
+   role vector. It binds every ordinary Ranks visual owner in production and
+   standalone to that vector so later global/target-theme CSS cannot drain the
+   visible Violet Depth identity from the page. Ranking data/runtime/geometry are
+   intentionally untouched. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"],
+  #ranksPage[data-kg="KG-03"]
+) {
+  --efhc-theme-accent:var(--efhc-color-accent);
+  --efhc-theme-accent-soft:var(--efhc-color-accent-soft);
+  --efhc-theme-edge:var(--efhc-color-border);
+  --efhc-rest-accent:var(--efhc-color-accent);
+  --efhc-rest-accent-text:var(--efhc-color-focus);
+  --efhc-rest-edge:var(--efhc-color-border);
+  --efhc-rest-soft:var(--efhc-color-accent-soft);
+  --efhc-rest-hero:var(--efhc-color-hero);
+  --efhc-rest-card:var(--efhc-color-card);
+  --efhc-rest-shadow:var(--efhc-color-shadow);
+  color:var(--efhc-color-text);
+  background-image:radial-gradient(520px 220px at 100% 0,color-mix(in srgb,var(--efhc-color-glow) 14%,transparent),transparent 72%) !important;
+  background-color:var(--efhc-color-canvas) !important;
+}
+
+/* Hero is the strongest ordinary material on Ranks. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-game-hero,
+  #ranksPage[data-kg="KG-03"] .source-game-hero
+) {
+  border-color:var(--efhc-color-border-strong) !important;
+  background-image:radial-gradient(320px 150px at 100% 0,color-mix(in srgb,var(--efhc-color-glow) 22%,transparent),transparent 70%),linear-gradient(180deg,var(--efhc-color-hero),var(--efhc-color-canvas)) !important;
+  background-color:var(--efhc-color-hero) !important;
+  box-shadow:var(--efhc-color-shadow) !important;
+  color:var(--efhc-color-text) !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-game-title,
+  #ranksPage[data-kg="KG-03"] .source-hero-title,
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-card > .text-lg,
+  #ranksPage[data-kg="KG-03"] .source-card-title
+) {
+  color:var(--efhc-color-text) !important;
+}
+
+/* KPI rows are Inset: violet edge, near-black violet material, no foreign glow. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-game-stat,
+  #ranksPage[data-kg="KG-03"] .source-stat
+) {
+  border-color:var(--efhc-color-border) !important;
+  background-image:none !important;
+  background-color:var(--efhc-color-inset) !important;
+  box-shadow:none !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-game-stat_label,
+  #ranksPage[data-kg="KG-03"] .source-stat-label
+) {
+  color:var(--efhc-color-text-muted) !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-game-stat_value,
+  #ranksPage[data-kg="KG-03"] .source-stat-value
+) {
+  color:var(--efhc-color-text) !important;
+}
+
+/* Section cards are Card; repeated leaderboard rows are Inset. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-card,
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-ranks-me-card,
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-ranks-focused-card,
+  #ranksPage[data-kg="KG-03"] .source-card
+) {
+  border-color:var(--efhc-color-border) !important;
+  background-image:none !important;
+  background-color:var(--efhc-color-card) !important;
+  box-shadow:var(--efhc-color-shadow) !important;
+  color:var(--efhc-color-text) !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-rank-card,
+  #ranksPage[data-kg="KG-03"] .source-rank-row
+) {
+  border-color:var(--efhc-color-border) !important;
+  background-image:none !important;
+  background-color:var(--efhc-color-inset) !important;
+  box-shadow:none !important;
+  color:var(--efhc-color-text) !important;
+}
+
+/* The user's own row is a selected/active material, not a foreign highlight. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-rank-card[data-ranks-me="true"],
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-rank-card--mine,
+  #ranksPage[data-kg="KG-03"] .source-rank-row.is-mine
+) {
+  border-color:var(--efhc-color-border-strong) !important;
+  background:var(--efhc-color-active) !important;
+  box-shadow:none !important;
+}
+
+/* Ranking position is the Theme03 accent. Compact rows keep their approved
+   geometry: no medal tile is reintroduced. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-rank-position,
+  #ranksPage[data-kg="KG-03"] .source-rank-medal
+) {
+  border-color:transparent !important;
+  background:transparent !important;
+  color:var(--efhc-color-accent) !important;
+  box-shadow:none !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-rank-username,
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-rank-generated,
+  #ranksPage[data-kg="KG-03"] .source-rank-name,
+  #ranksPage[data-kg="KG-03"] .source-rank-energy
+) {
+  color:var(--efhc-color-text) !important;
+  text-shadow:none !important;
+}
+
+/* Default Ranks actions keep the Theme03 Tasks Execute colour material:
+   BorderStrong + AccentSoft + Text. Shadow ownership is centralized by the
+   cross-theme Ranks action contract using Theme04 as the reference.
+   Primary/load-more remains AccentSoft; active Find Me consumes Active. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-btn-secondary,
+  #ranksPage[data-kg="KG-03"] .source-button.secondary,
+  #ranksPage[data-kg="KG-03"] #rankRefresh,
+  #ranksPage[data-kg="KG-03"] #findMyRank
+) {
+  border-color:var(--efhc-color-border-strong) !important;
+  background-image:none !important;
+  background-color:var(--efhc-color-accent-soft) !important;
+  color:var(--efhc-color-text) !important;
+  box-shadow:var(--efhc-ranks-action-shadow,none) !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] .efhc-btn-primary,
+  #ranksPage[data-kg="KG-03"] #loadMoreRanks
+) {
+  border-color:var(--efhc-color-border) !important;
+  background-image:none !important;
+  background-color:var(--efhc-color-accent-soft) !important;
+  color:var(--efhc-color-accent) !important;
+  box-shadow:none !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-ranks-shell[data-kg="KG-03"] [data-ranks-show-me-action][data-ranks-active="true"],
+  #ranksPage[data-kg="KG-03"] #findMyRank[data-ranks-active="true"]
+) {
+  border-color:var(--efhc-color-border-strong) !important;
+  background:var(--efhc-color-active) !important;
+  color:var(--efhc-color-text) !important;
+  box-shadow:none !important;
+}
+
+/* Interactive states cannot fall back to another theme's blue/teal/gold. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #ranksPage[data-kg="KG-03"] .source-button:hover:not(:disabled),
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-ranks-shell[data-kg="KG-03"] :is(.efhc-btn-primary,.efhc-btn-secondary):hover:not(:disabled) {
+  border-color:var(--efhc-color-border-strong) !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #ranksPage[data-kg="KG-03"] .source-button:active:not(:disabled),
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-ranks-shell[data-kg="KG-03"] :is(.efhc-btn-primary,.efhc-btn-secondary):active:not(:disabled) {
+  background:var(--efhc-color-active) !important;
+  color:var(--efhc-color-text) !important;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #ranksPage[data-kg="KG-03"] :is(button,[role="button"]):focus-visible,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-ranks-shell[data-kg="KG-03"] :is(button,a,[role="button"]):focus-visible {
+  outline:2px solid var(--efhc-color-focus) !important;
+  outline-offset:2px !important;
+}
+
+/* Loading/empty helpers stay in the same semantic family. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-ranks-shell[data-kg="KG-03"] .efhc-skeleton,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #ranksPage[data-kg="KG-03"] .source-skeleton {
+  background:var(--efhc-color-accent-soft) !important;
+}
+
+/* OWNER Theme03 Ranks KG-03 fail-safe — 2026-10-14 / FRONTEND_v674.
+   KG-03 itself is the local Theme03 visual owner. These selectors intentionally
+   do NOT require the global-theme root attribute: if root/global state drifts
+   while Ranks still declares KG-03, the repeated leaderboard rows/actions may
+   not fall back to foreign blue. No palette literals: frozen roles are preferred;
+   local KG-03 semantic variables are the fail-safe fallback. */
+.efhc-ranks-shell[data-kg="KG-03"] .efhc-rank-card,
+#ranksPage[data-kg="KG-03"] .source-rank-row {
+  border-color:var(--efhc-color-border-strong,var(--efhc-rest-edge,var(--rest-edge))) !important;
+  background-image:none !important;
+  background-color:var(--efhc-color-inset,var(--efhc-rest-soft,var(--rest-soft))) !important;
+  box-shadow:none !important;
+}
+
+.efhc-ranks-shell[data-kg="KG-03"] :is(.efhc-rank-card[data-ranks-me="true"],.efhc-rank-card--mine),
+#ranksPage[data-kg="KG-03"] .source-rank-row.is-mine {
+  border-color:var(--efhc-color-border-strong,var(--efhc-rest-edge,var(--rest-edge))) !important;
+  background:var(--efhc-color-active,var(--efhc-rest-soft,var(--rest-soft))) !important;
+  box-shadow:none !important;
+}
+
+.efhc-ranks-shell[data-kg="KG-03"] .efhc-rank-position,
+#ranksPage[data-kg="KG-03"] .source-rank-medal {
+  border-color:transparent !important;
+  background:transparent !important;
+  color:var(--efhc-color-accent,var(--efhc-rest-accent,var(--rest-accent))) !important;
+  box-shadow:none !important;
+}
+
+.efhc-ranks-shell[data-kg="KG-03"] :is(.efhc-rank-username,.efhc-rank-generated),
+#ranksPage[data-kg="KG-03"] :is(.source-rank-name,.source-rank-energy) {
+  color:var(--efhc-color-text,var(--efhc-route-text,var(--text))) !important;
+  text-shadow:none !important;
+}
+
+.efhc-ranks-shell[data-kg="KG-03"] :is(.efhc-button-secondary,.efhc-ranks-find-me),
+#ranksPage[data-kg="KG-03"] :is(.source-button.secondary,#rankRefresh,#findMyRank) {
+  border-color:var(--efhc-color-border-strong,var(--efhc-rest-edge,var(--rest-edge))) !important;
+  background-image:none !important;
+  background-color:var(--efhc-color-accent-soft,var(--efhc-rest-soft,var(--rest-soft))) !important;
+  color:var(--efhc-color-text,var(--efhc-route-text,var(--text))) !important;
+  box-shadow:var(--efhc-ranks-action-shadow,none) !important;
+}
+
+.efhc-ranks-shell[data-kg="KG-03"] :is(.efhc-button-primary,.efhc-ranks-load-more),
+#ranksPage[data-kg="KG-03"] #loadMoreRanks {
+  border-color:var(--efhc-color-border-strong,var(--efhc-rest-edge,var(--rest-edge))) !important;
+  background-image:none !important;
+  background-color:var(--efhc-color-accent-soft,var(--efhc-rest-soft,var(--rest-soft))) !important;
+  color:var(--efhc-color-focus,var(--efhc-rest-accent-text,var(--rest-accent-text))) !important;
+  box-shadow:none !important;
+}
+
+#ranksPage[data-kg="KG-03"] #findMyRank[data-ranks-active="true"],
+.efhc-ranks-shell[data-kg="KG-03"] .efhc-ranks-find-me[data-ranks-active="true"] {
+  border-color:var(--efhc-color-border-strong,var(--efhc-rest-edge,var(--rest-edge))) !important;
+  background:var(--efhc-color-active,var(--efhc-rest-soft,var(--rest-soft))) !important;
+  color:var(--efhc-color-focus,var(--efhc-rest-accent-text,var(--rest-accent-text))) !important;
+}
+
+.efhc-ranks-shell[data-kg="KG-03"] :is(button,[role="button"]):focus-visible,
+#ranksPage[data-kg="KG-03"] :is(button,[role="button"]):focus-visible {
+  outline:2px solid var(--efhc-color-focus,var(--efhc-rest-accent,var(--rest-accent))) !important;
+  outline-offset:2px !important;
+}
+
+
+/* OWNER correction — 2026-10-14.
+   HUB is an ordinary Global Header action in Theme03 and must look identical on
+   every USER page. The frozen Theme03 shell historically promoted HUB to an
+   accent CTA; this late protection perimeter deliberately neutralizes only that
+   special treatment without touching Header geometry or HUB behaviour. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]
+.efhc-game-header[data-hs="HS-03"] :is(
+  .efhc-header-action.efhc-btn-primary,
+  .efhc-header-action.primary
+) {
+  border-color:color-mix(in srgb,var(--efhc-color-accent) 25%,transparent) !important;
+  background:var(--efhc-color-card) !important;
+  color:var(--efhc-color-text) !important;
+  box-shadow:none !important;
+}

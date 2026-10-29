@@ -1,0 +1,19 @@
+{
+  "schema": "EFHC_THEME_OWNER_ACCEPTANCE_V1",
+  "theme": {
+    "id": "02",
+    "name": "Deep Navy",
+    "accent": "#73AEFC"
+  },
+  "status": "OWNER_ACCEPTED_READY",
+  "ownerDecisionDate": "2026-10-08",
+  "acceptedPhysicalHead": "FRONTEND_v622",
+  "decision": "Theme02 is ready; proceed to Theme04.",
+  "effect": {
+    "formerPlannedAcceptanceCycle": "FRONTEND_ADMIN_CYCLE_0399",
+    "separateAcceptanceCycleRequired": false,
+    "futureTailCompactedByCycles": 1,
+    "nextThemeCycle": "FRONTEND_ADMIN_CYCLE_0399 — Theme04 classic Telegram Blue Complete Physical Element Census"
+  },
+  "historyLaw": "Completed Cycles0395-0398 and numbered reports remain immutable; only untouched future cycle identities are compacted."
+}

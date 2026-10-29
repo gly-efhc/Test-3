@@ -1,0 +1,21 @@
+/* OWNER Global Theme Ranks action shadow contract — 2026-10-14.
+   Reference: Theme04 current computed action shadow = none.
+   Synchronizes ONLY box-shadow for Ranks Refresh / Find Me across Theme01–Theme13.
+   Background, border, text colour, geometry and active-state material remain
+   theme-owned. One token is the sole shadow owner for these actions. */
+:is(
+  .efhc-ranks-shell[data-kg],
+  #ranksPage[data-kg]
+) {
+  --efhc-ranks-action-shadow:none;
+}
+
+:is(
+  .efhc-ranks-shell[data-kg] .efhc-btn-secondary,
+  .efhc-ranks-shell[data-kg] .efhc-ranks-find-me,
+  #ranksPage[data-kg] .source-button.secondary,
+  #ranksPage[data-kg] #rankRefresh,
+  #ranksPage[data-kg] #findMyRank
+) {
+  box-shadow:var(--efhc-ranks-action-shadow) !important;
+}

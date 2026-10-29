@@ -1,0 +1,66 @@
+{
+  "schema": "EFHC_THEME02_BOUNDED_CHROMA_CORRECTION_ACCEPTANCE_V1",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0397",
+  "release": "FRONTEND_v621",
+  "theme": {
+    "id": "02",
+    "name": "Deep Navy",
+    "accent": "#73AEFC",
+    "paletteLaw": "one approved decorative hue family plus neutral and exact protected semantic exceptions"
+  },
+  "sourceAudit": "frontend/src/design-system/theme02-chroma-provenance-audit.json",
+  "sourceAuditSha256": "d8bd7b30a48e37c3c50acb6de798dd8fee8ca8225765de73e5ecd7d62aa5bc1a",
+  "correction": {
+    "mode": "BOUNDED_SYSTEMIC_OWNER_CORRECTION_NO_BROAD_PROJECTION",
+    "stylesheet": "frontend/src/styles/theme02-bounded-chroma-corrections.css",
+    "stylesheetSha256": "5e7357102c952e7fe605ff34656ff1d31eb458492f6886686b5c95d0b7d05625",
+    "shopGlobalThemeBinding": "frontend/src/components/ShopLayout.tsx#data-global-theme-id",
+    "theme03Mutation": false,
+    "adminMutation": false,
+    "garbageCleanupPerformed": false,
+    "productBehaviorMutation": false
+  },
+  "sourceAuditCoverage": {
+    "baseOffPaletteStyleOwners": 250,
+    "baseForeignOwnerGroups": 211,
+    "interactiveStyleOwners": 2070,
+    "forcedStateTests": 10425,
+    "forcedStateForeignOwnerGroups": 455,
+    "groupErrors": 0,
+    "testErrors": 0
+  },
+  "postCorrectionEvidence": {
+    "baseStyleOwnersRechecked": 250,
+    "baseFailures": 0,
+    "nonFaqInteractiveOwnerGroupsFullStateRechecked": 1314,
+    "nonFaqForcedStateTests": 6645,
+    "faqFocusVisibleOwnerGroupsRechecked": 756,
+    "faqFocusVisibleTests": 756,
+    "stateFailures": 0,
+    "note": "FAQ Cycle0396 defect was specifically browser-default focus-visible orange. Cycle0397 rechecks that exact state on all 252 FAQ owners at 320/340/390; other non-FAQ interactive owners retain the full applicable forced-state set. Cycle0399 remains the roadmap full rendered/computed acceptance cycle."
+  },
+  "result": {
+    "userTheme02BaseForeignOwnerGroups": 0,
+    "browserShopBaseForeignOwnerGroups": 0,
+    "nonFaqIntroducedForeignStateFindings": 0,
+    "faqFocusVisibleIntroducedForeignStateFindings": 0,
+    "technicalAdminExcludedBaseForeignOwnerGroups": 7,
+    "technicalAdminExcludedForeignPropertyFindings": 63,
+    "technicalAdminExcludedActiveForeignPropertyFindings": 31
+  },
+  "technicalAdminExclusion": {
+    "reason": "Standalone technical workbench/Admin QA is not a USER Global Theme02 qualification surface and remains frozen/out of Cycle0397 correction scope.",
+    "exactPathPatterns": [
+      "^#adminQaDatasetBadge$",
+      "^#workbenchActivRouteToggle$",
+      "^#workbenchUserVisibility$",
+      "^#workbenchVipRouteToggle$",
+      "^aside\\.tech-workbench",
+      "^#techBankIntegrityPreview$"
+    ]
+  },
+  "acceptance": {
+    "status": "BOUNDED_CORRECTION_TARGETS_QUALIFIED_OWNER_GATE",
+    "ownerGateRequiredForNextConditionalCycle": true
+  }
+}

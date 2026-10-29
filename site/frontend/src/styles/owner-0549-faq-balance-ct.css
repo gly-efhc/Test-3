@@ -1,0 +1,62 @@
+/* OWNER 0549: ten USER color themes own FAQ FQ-06 inner frame chroma and
+   the Profile > Balance button materials. Design retains geometry;
+   finance/status semantics, other pages, Shop and frozen Admin stay unchanged. */
+
+/* FQ-06 is the sixth logical selection (physical FQ-13 material).
+   Include both React's tree and the standalone focused/index tree. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-faq-shell[data-fq="FQ-06"],#faqPage[data-fq="FQ-06"]) {
+  --fq-accent:var(--efhc-ct-accent);
+  --fq-edge:rgba(var(--efhc-ct-accent-rgb),.30);
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-faq-shell[data-fq="FQ-06"],#faqPage[data-fq="FQ-06"]) :is(
+  .efhc-faq-section-node,.efhc-faq-subsection-node,.efhc-faq-question-node,
+  .standalone-faq-index-row,.standalone-faq-back,
+  .release-faq-item,.release-faq-subsection,.release-faq-question
+) {
+  border-color:var(--fq-edge)!important;
+}
+/* Only the already-existing answer divider changes hue, never width/layout. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-faq-shell[data-fq="FQ-06"],#faqPage[data-fq="FQ-06"])
+:is(.efhc-faq-answer-block,.release-faq-answer) {
+  border-top-color:rgba(var(--efhc-ct-accent-rgb),.21)!important;
+}
+
+/* Normal Balance buttons: subtle dark CT tint with a visible CT border.
+   Excludes admin by anchoring to the public profile history tab. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-profile-page,#profilePage)[data-profile-active-tab="history"] :is(
+  .efhc-profile-topbar button,
+  .efhc-profile-tabs .efhc-profile-tab,
+  .efhc-history-head-actions > button,.efhc-history-head-actions > a,
+  .efhc-history-filter-row .efhc-history-filter,
+  .source-profile-topbar .source-button,
+  .source-profile-tabs button,
+  .standalone-history-head-actions .source-button,
+  .standalone-history-filters button
+) {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.31)!important;
+  background-color:rgba(var(--efhc-ct-accent-rgb),.045)!important;
+  background-image:none!important;
+}
+/* The React topbar historically sets border:0; its buttons need an actual
+   border before border-color can become visible. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-profile-page[data-profile-active-tab="history"] .efhc-profile-topbar button {
+  border-width:1px!important;
+  border-style:solid!important;
+}
+/* Active tab/filter has stronger CT material; semantic balance values and
+   inactive-control behavior are not recolored. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-profile-page,#profilePage)[data-profile-active-tab="history"] :is(
+  .efhc-profile-tab--active,.efhc-history-filter--active,
+  .source-profile-tabs button[data-active="true"],
+  .standalone-history-filters button[data-active="true"]
+) {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.54)!important;
+  background-color:rgba(var(--efhc-ct-accent-rgb),.13)!important;
+  background-image:none!important;
+}

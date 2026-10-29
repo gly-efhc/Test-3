@@ -1,0 +1,150 @@
+{
+  "schema": "EFHC_GLOBAL_THEME_ROLE_SCHEMA_V1",
+  "release": "FRONTEND_v615",
+  "ownerCycle": "FRONTEND_ADMIN_CYCLE_0468",
+  "status": "CT01_CT10_UNIFIED_USER_COLOR_POLICY",
+  "referenceTheme": "03",
+  "colorCanon": "frontend/src/design-system/global-theme-color-canon.json",
+  "matrix": "docs/SSOT/GLOBAL_THEME_ELEMENT_MATRIX.json",
+  "roleCount": 18,
+  "roleOrder": [
+    "canvas",
+    "page",
+    "chrome",
+    "chromeInset",
+    "hero",
+    "card",
+    "inset",
+    "active",
+    "accent",
+    "accentSoft",
+    "accentStrong",
+    "border",
+    "borderStrong",
+    "text",
+    "textMuted",
+    "shadow",
+    "glow",
+    "focus"
+  ],
+  "roles": {
+    "canvas": {
+      "class": "surface",
+      "meaning": "deep application canvas / outer USER background",
+      "projection": "theme-specific dark/base material; must remain visually distinct from nested material where the theme character requires depth"
+    },
+    "page": {
+      "class": "surface",
+      "meaning": "page-level material above canvas",
+      "projection": "theme-specific page plane; geometry unchanged"
+    },
+    "chrome": {
+      "class": "surface",
+      "meaning": "persistent shell chrome such as Header/Bottom Nav",
+      "projection": "theme-specific chrome material; no business/runtime change"
+    },
+    "chromeInset": {
+      "class": "surface",
+      "meaning": "nested ordinary controls inside persistent chrome",
+      "projection": "theme-specific nested chrome material"
+    },
+    "hero": {
+      "class": "surface",
+      "meaning": "top-level hero/summary material",
+      "projection": "theme-specific hero surface preserving hierarchy"
+    },
+    "card": {
+      "class": "surface",
+      "meaning": "ordinary parent card/sheet material",
+      "projection": "theme-specific card surface preserving owner geometry"
+    },
+    "inset": {
+      "class": "surface",
+      "meaning": "ordinary nested field/row/control material",
+      "projection": "theme-specific nested material; must not collapse into an unreadable visual hole"
+    },
+    "active": {
+      "class": "state_surface",
+      "meaning": "generic active/selected/pressed state material",
+      "projection": "restrained theme-tinted state; no blanket bright slab unless a future direct OWNER decision says otherwise"
+    },
+    "accent": {
+      "class": "decorative_color",
+      "meaning": "primary decorative contour/icon/text marker",
+      "projection": "approved canonical accent anchor of the target theme"
+    },
+    "accentSoft": {
+      "class": "decorative_color",
+      "meaning": "low-energy accent wash",
+      "projection": "theme-specific soft accent derived from that theme character, not copied mechanically from Theme03"
+    },
+    "accentStrong": {
+      "class": "decorative_color",
+      "meaning": "strong decorative/action accent",
+      "projection": "theme-specific strong accent constrained by the same hierarchy"
+    },
+    "border": {
+      "class": "edge",
+      "meaning": "ordinary decorative edge",
+      "projection": "theme-specific low-energy edge"
+    },
+    "borderStrong": {
+      "class": "edge",
+      "meaning": "emphasized decorative edge",
+      "projection": "theme-specific stronger edge"
+    },
+    "text": {
+      "class": "text",
+      "meaning": "primary readable text",
+      "projection": "preserve readable neutral hierarchy unless the target theme canon explicitly owns another value"
+    },
+    "textMuted": {
+      "class": "text",
+      "meaning": "secondary/muted readable text",
+      "projection": "preserve contrast hierarchy; do not turn into decorative accent by default"
+    },
+    "shadow": {
+      "class": "depth",
+      "meaning": "ordinary semantic elevation",
+      "projection": "theme-specific depth without geometry change"
+    },
+    "glow": {
+      "class": "decorative_color",
+      "meaning": "optional theme glow hue used only by owners that already permit glow",
+      "projection": "theme-specific hue; does not authorize new glow"
+    },
+    "focus": {
+      "class": "accessibility_edge",
+      "meaning": "theme-compatible focus emphasis",
+      "projection": "must preserve accessibility visibility; accessibility semantics remain protected"
+    }
+  },
+  "projectionTargets": [
+    "01",
+    "02",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13"
+  ],
+  "projectionLaws": [
+    "Theme03 is an immutable qualified reference unless a new direct OWNER decision explicitly reopens it.",
+    "For every target theme, current good rendered appearance is preserved first. The 18-role schema classifies/audits elements; it does not authorize visual copying from Theme03.",
+    "A target theme may be mutated only for a confirmed wrong/foreign colour identified by its audit and explicitly approved by OWNER.",
+    "Obsolete/garbage colour rules may be removed only after OWNER approves the corrected appearance; no cleanup refactor may precede visual approval.",
+    "Same-family authored colour variation and intentional neutral controls are preserved unless OWNER rejects them.",
+    "Geometry, layout, typography, business logic and runtime semantics remain outside colour-polish scope.",
+    "Admin is excluded and remains frozen; Energy EI/PB, financial/status/error/success, protected brand/provider colours and accessibility semantics remain independent exceptions.",
+    "Production and standalone acceptance is rendered/computed and compared with that theme preservation baseline. Source rule presence is not visual PASS."
+  ],
+  "foundationBoundary": {
+    "cycle0384": "Schema/lock/governance only. No target-theme runtime palette projection.",
+    "cycle0385": "Generator/adapter architecture, fail-closed projection guard and reusable 51-row Chromium harness are established. No target-theme runtime projection occurs in Cycle0385."
+  }
+}

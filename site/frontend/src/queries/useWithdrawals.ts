@@ -1,0 +1,126 @@
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+
+import { useAuthOwnerGlobalId } from "../auth/AuthSessionProvider";
+import {
+  cancelWithdrawRequest,
+  createWithdrawRequest,
+  getWalletBalanceHistory,
+  getWithdrawDetail,
+  getWithdrawOutcome,
+  getWithdrawalsPage,
+} from "../services/withdrawals.service";
+import type { GlobalId } from "../types/identity";
+import { queryKeys } from "./queryKeys";
+import type { DbId } from "../types/db-id";
+
+export function useWithdrawalsPage(args: {
+  statusFilter: string;
+}) {
+  const globalId = useAuthOwnerGlobalId();
+  return useInfiniteQuery({
+    queryKey: queryKeys.withdrawals.list(
+      globalId,
+      args.statusFilter,
+    ),
+    enabled: Boolean(globalId),
+    initialPageParam: null as string | null,
+    queryFn: ({ pageParam, signal }) => getWithdrawalsPage({
+      cursor: pageParam,
+      statusFilter: args.statusFilter,
+      signal,
+    }),
+    getNextPageParam: (lastPage) => lastPage.next_cursor ?? undefined,
+  });
+}
+
+export function useWithdrawDetail(requestId: DbId | null) {
+  return useQuery({
+    queryKey: queryKeys.withdrawals.detail(requestId),
+    enabled: Boolean(requestId),
+    queryFn: ({ signal }) => {
+      if (!requestId) throw new Error("WITHDRAW_REQUEST_ID_REQUIRED");
+      return getWithdrawDetail(requestId, signal);
+    },
+  });
+}
+
+export function useWalletBalanceHistory() {
+  const globalId = useAuthOwnerGlobalId();
+  return useQuery({
+    queryKey: queryKeys.withdrawals.history(globalId),
+    enabled: Boolean(globalId),
+    queryFn: ({ signal }) => getWalletBalanceHistory(5, signal),
+  });
+}
+
+export function useWithdrawOutcome(requestId: DbId | null) {
+  return useQuery({
+    queryKey: queryKeys.withdrawals.outcome(requestId),
+    enabled: Boolean(requestId),
+    queryFn: ({ signal }) => {
+      if (!requestId) throw new Error("WITHDRAW_REQUEST_ID_REQUIRED");
+      return getWithdrawOutcome(requestId, signal);
+    },
+  });
+}
+
+async function invalidateWithdrawQueries(
+  queryClient: ReturnType<typeof useQueryClient>,
+  globalId: GlobalId | null,
+  requestId?: DbId,
+) {
+  await Promise.all([
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.withdrawals.all(globalId),
+    }),
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.snapshot.current(globalId),
+    }),
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.profile.balanceHistory(globalId),
+    }),
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.profile.withdrawHistory(globalId),
+    }),
+    requestId
+      ? queryClient.invalidateQueries({
+        queryKey: queryKeys.withdrawals.detail(requestId),
+      })
+      : Promise.resolve(),
+  ]);
+}
+
+export function useCreateWithdrawRequest() {
+  const globalId = useAuthOwnerGlobalId();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: createWithdrawRequest,
+    onSuccess: async (result) => {
+      await invalidateWithdrawQueries(
+        queryClient,
+        globalId,
+        result.id,
+      );
+    },
+  });
+}
+
+export function useCancelWithdrawRequest() {
+  const globalId = useAuthOwnerGlobalId();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: cancelWithdrawRequest,
+    onSuccess: async (result) => {
+      await invalidateWithdrawQueries(
+        queryClient,
+        globalId,
+        result.id,
+      );
+    },
+  });
+}

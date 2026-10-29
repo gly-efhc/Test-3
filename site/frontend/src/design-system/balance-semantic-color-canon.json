@@ -1,0 +1,98 @@
+{
+  "schema": "EFHC_BALANCE_SEMANTIC_COLOR_CANON_V1",
+  "release": "FRONTEND_v392",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0189",
+  "status": "OWNER_PROTECTED_EXACT_SEMANTIC_CHROMA",
+  "authority": "Direct OWNER decision: Balance financial semantics must never be flattened into Theme03 violet",
+  "scope": {
+    "production": [
+      "Profile -> Balance / history banking operation center",
+      "/admin/users -> selected user -> Balance (shared ProfileHistorySection / HistoryOperationFeed)"
+    ],
+    "standalone": [
+      "FRONTEND_v591.html -> Profile -> Balance",
+      "FRONTEND_v591.html -> Admin Users -> Balance"
+    ],
+    "excluded": [
+      "ordinary Theme03 page/card/inset/border/text material",
+      "customer Shop unrelated surfaces"
+    ]
+  },
+  "semanticColors": {
+    "operationCredit": {
+      "meaning": "incoming / credit / top-up / accrual",
+      "foreground": "#9be7be",
+      "iconBackground": "rgba(52,211,153,.12)",
+      "requiredSign": "+",
+      "protected": true
+    },
+    "operationDebit": {
+      "meaning": "outgoing / debit / write-off / spending",
+      "foreground": "#fca5a5",
+      "iconBackground": "rgba(248,113,113,.10)",
+      "requiredSign": "−",
+      "protected": true
+    },
+    "statusDone": {
+      "meaning": "completed/success status",
+      "foreground": "#9be7be",
+      "protected": true
+    },
+    "statusPending": {
+      "meaning": "pending/processing status",
+      "foreground": "#e5bf58",
+      "protected": true
+    },
+    "statusFailed": {
+      "meaning": "failed/rejected/error status",
+      "foreground": "#fca5a5",
+      "protected": true
+    },
+    "balanceTotalMarker": {
+      "meaning": "total balance identity marker",
+      "border": "rgba(148,163,184,.52)",
+      "background": "rgba(148,163,184,.04)",
+      "core": "rgba(203,213,225,.82)",
+      "protected": true
+    },
+    "balanceMainMarker": {
+      "meaning": "main EFHCm balance identity marker",
+      "border": "rgba(110,168,255,.72)",
+      "background": "rgba(110,168,255,.05)",
+      "core": "#6ea8ff",
+      "protected": true
+    },
+    "balanceBonusMarker": {
+      "meaning": "bonus EFHCb balance identity marker",
+      "border": "rgba(216,180,93,.72)",
+      "background": "rgba(216,180,93,.05)",
+      "core": "#d8b45d",
+      "protected": true
+    },
+    "partialDataWarning": {
+      "meaning": "Balance source/partial-data warning",
+      "border": "rgba(229,191,88,.22)",
+      "background": "rgba(229,191,88,.06)",
+      "foreground": "#d9c786",
+      "protected": true
+    }
+  },
+  "sourceOwners": {
+    "productionCss": "frontend/src/styles/globals.css",
+    "theme03MaterialAdapter": "frontend/src/styles/theme03-balance-history-chroma.css",
+    "operationComponent": "frontend/src/components/profile/history/HistoryOperationFeed.tsx",
+    "balanceMarkerComponent": "frontend/src/components/profile/history/BalanceSummaryCard.tsx",
+    "historyComposition": "frontend/src/components/profile/ProfileHistorySection.tsx",
+    "standalone": "FRONTEND_v591.html"
+  },
+  "hardRules": [
+    "A Theme03/Admin/global recolor MUST NOT replace these semantic values with violet/accent roles.",
+    "Credit/top-up/accrual remains green and debit/write-off/spending remains red.",
+    "Done/pending/failed status colors remain green/gold/red respectively.",
+    "Total/main/bonus balance identity markers remain neutral/blue/gold respectively.",
+    "The partial-data warning remains warning-family gold.",
+    "These exceptions apply even when Balance is rendered inside /admin/users.",
+    "Changing any protected semantic value requires a new direct OWNER decision and corresponding canon/test update.",
+    "Ordinary Balance surfaces still follow the active Theme material canon; this registry freezes semantic identity colors only."
+  ]
+}

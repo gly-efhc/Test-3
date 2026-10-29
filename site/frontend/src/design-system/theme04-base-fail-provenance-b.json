@@ -1,0 +1,1483 @@
+{
+  "schema": "EFHC_THEME04_BASE_FAIL_PROVENANCE_B_V1",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0402",
+  "physicalHeadAudited": "FRONTEND_v625",
+  "theme": {
+    "id": "04",
+    "anchor": "#229ED9"
+  },
+  "scope": {
+    "routeFamilies": [
+      "Tasks",
+      "Referrals",
+      "Ranks"
+    ],
+    "scenes": [
+      "tasks-default",
+      "referrals-default",
+      "referrals-my",
+      "referrals-my-active",
+      "ranks-default",
+      "ranks-findme-active"
+    ],
+    "forcedStates": false,
+    "browserShop": false,
+    "mutation": false
+  },
+  "coverage": {
+    "physicalOwnerStyleGroups": 313,
+    "representativeOwnerSignatures": 45,
+    "resolvedRepresentativeSignatures": 45,
+    "provenanceErrors": 0,
+    "resolvedFailFindings": 263,
+    "winningOwners": 29,
+    "userWinningOwners": 24,
+    "frozenTechnicalAdminOwners": 5
+  },
+  "findingClassCounts": {
+    "FAIL_FOREIGN_CHROMA": 35,
+    "FAIL_OLD_TEAL": 228
+  },
+  "dominantVariableChains": [
+    {
+      "name": "--efhc-route-accent",
+      "computedValue": "#58c7b4",
+      "findingCount": 51
+    },
+    {
+      "name": "--rest-accent-text",
+      "computedValue": "#7ee3d0",
+      "findingCount": 15
+    },
+    {
+      "name": "--rest-edge",
+      "computedValue": "rgba(88,199,180,.30)",
+      "findingCount": 8
+    },
+    {
+      "name": "--efhc-route-accent-rgb",
+      "computedValue": "88,199,180",
+      "findingCount": 7
+    },
+    {
+      "name": "--efhc-tone-chrome",
+      "computedValue": "color-mix(in srgb,#58c7b4 25%,transparent)",
+      "findingCount": 4
+    },
+    {
+      "name": "--efhc-tone-card",
+      "computedValue": "color-mix(in srgb,#58c7b4 10%,transparent)",
+      "findingCount": 4
+    },
+    {
+      "name": "--efhc-tone-page",
+      "computedValue": "color-mix(in srgb,#58c7b4 12%,transparent)",
+      "findingCount": 3
+    },
+    {
+      "name": "--rest-soft",
+      "computedValue": "rgba(88,199,180,.09)",
+      "findingCount": 2
+    },
+    {
+      "name": "--efhc-tone-hero",
+      "computedValue": "color-mix(in srgb,#58c7b4 20%,transparent)",
+      "findingCount": 2
+    },
+    {
+      "name": "--efhc-chroma-inset-background-color",
+      "computedValue": "",
+      "findingCount": 1
+    }
+  ],
+  "winningOwners": [
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".admin-qa-v133_badge",
+      "scopeClass": "FROZEN_TECHNICAL_ADMIN",
+      "findingCount": 10,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(187, 247, 208)",
+        "rgba(22, 101, 52, 0.12)",
+        "rgba(74, 222, 128, 0.25)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "rgb(187, 247, 208)",
+          "findingCount": 5
+        },
+        {
+          "property": "background-color",
+          "value": "rgba(22, 101, 52, 0.12)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": "rgba(74, 222, 128, 0.25)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgba(74, 222, 128, 0.25)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgba(74, 222, 128, 0.25)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgba(74, 222, 128, 0.25)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#adminQaDatasetBadge"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".admin-qa-v133_controls button[data-active=\"true\"]",
+      "scopeClass": "FROZEN_TECHNICAL_ADMIN",
+      "findingCount": 10,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(220, 252, 231)",
+        "rgba(22, 101, 52, 0.16)",
+        "rgba(74, 222, 128, 0.42)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "rgb(220, 252, 231)",
+          "findingCount": 5
+        },
+        {
+          "property": "background-color",
+          "value": "rgba(22, 101, 52, 0.16)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": "rgba(74, 222, 128, 0.42)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgba(74, 222, 128, 0.42)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgba(74, 222, 128, 0.42)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgba(74, 222, 128, 0.42)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "aside.tech-workbench > div.tech-page:nth-of-type(3) > section.admin-reference-section > div.admin-qa-v133 > div.admin-qa-v133_controls:nth-of-type(3) > button:nth-of-type(3)"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".tech-bank-integrity-stress-v180 output",
+      "scopeClass": "FROZEN_TECHNICAL_ADMIN",
+      "findingCount": 9,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "rgb(88, 199, 180)",
+          "findingCount": 9
+        }
+      ],
+      "samplePaths": [
+        "#techBankIntegrityPreview"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".standalone-status-route-control .tech-action[data-active=\"true\"]",
+      "scopeClass": "FROZEN_TECHNICAL_ADMIN",
+      "findingCount": 5,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.13)",
+        "rgba(88, 199, 180, 0.5)"
+      ],
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "rgba(88, 199, 180, 0.13)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": "rgba(88, 199, 180, 0.5)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgba(88, 199, 180, 0.5)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgba(88, 199, 180, 0.5)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgba(88, 199, 180, 0.5)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#workbenchActivRouteToggle"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".tech-workbench_badge",
+      "scopeClass": "FROZEN_TECHNICAL_ADMIN",
+      "findingCount": 4,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(239, 68, 68, 0.35)"
+      ],
+      "declarations": [
+        {
+          "property": "border-top-color",
+          "value": "rgba(239, 68, 68, 0.35)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgba(239, 68, 68, 0.35)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgba(239, 68, 68, 0.35)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgba(239, 68, 68, 0.35)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "aside.tech-workbench > div.tech-workbench_head:nth-of-type(1) > span.tech-workbench_badge"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "[data-interface-app-mode=\"user\"][data-global-theme-id] .efhc-game-header_balance svg",
+      "scopeClass": "USER",
+      "findingCount": 27,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--efhc-route-accent) !important",
+          "findingCount": 27
+        }
+      ],
+      "samplePaths": [
+        "div.efhc-game-header_balance:nth-of-type(2) > svg",
+        "div.efhc-game-header_balance:nth-of-type(2) > svg > circle",
+        "div.efhc-game-header_balance:nth-of-type(2) > svg > path"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent",
+              "computedValue": "#58c7b4"
+            }
+          ],
+          "findingCount": 27
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.source-stat, .source-row, .source-rank-row, .source-profile-tabs, .source-segmented, .standalone-history-sheet > *, .source-history-boundary, .release-faq-item, .release-faq-subsection)",
+      "scopeClass": "USER",
+      "findingCount": 24,
+      "scenes": [
+        "ranks-default",
+        "ranks-findme-active",
+        "referrals-my-active"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 6
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 6
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 6
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 6
+        }
+      ],
+      "samplePaths": [
+        "#referralTabs",
+        "div.source-rank-list:nth-of-type(2) > article.source-rank-row.is-mine:nth-of-type(3)",
+        "div.source-rank-list:nth-of-type(2) > article.source-rank-row:nth-of-type(1)",
+        "div.source-route-page.unified-route-page:nth-of-type(7) > section.source-card:nth-of-type(3) > div.source-row:nth-of-type(1)",
+        "div.source-route-page.unified-route-page:nth-of-type(7) > section.source-game-hero:nth-of-type(1) > div.source-stats.two:nth-of-type(2) > div.source-stat:nth-of-type(1)",
+        "section.source-card:nth-of-type(2) > div.source-rank-row.is-mine:nth-of-type(2)"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.efhc-game-header, .efhc-header-divider, .efhc-game-nav, .efhc-game-nav_grid)",
+      "scopeClass": "USER",
+      "findingCount": 20,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "color(srgb 0.345098 0.780392 0.705882 / 0.25)",
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "background-image",
+          "value": "radial-gradient(520px 170px at 76% -90px,var(--efhc-tone-chrome),transparent 70%) !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 4
+        }
+      ],
+      "samplePaths": [
+        "#bottomNav",
+        "div.workspace:nth-of-type(1) > div.preview-column > div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider",
+        "div.workspace:nth-of-type(1) > div.preview-column > div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1)",
+        "div.workspace:nth-of-type(1) > div.preview-column > div.unified-shell > div.efhc-independent-shell > nav.efhc-game-nav"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-tone-chrome",
+              "computedValue": "color-mix(in srgb,#58c7b4 25%,transparent)"
+            }
+          ],
+          "findingCount": 4
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.source-card, .efhc-card, .panels-card, .exchange-card, .source-task-card, .referrals-card, .rank-card, .profile-card, .hub-card, .withdraw-card, .standalone-faq-index-row, .release-withdraw-item)",
+      "scopeClass": "USER",
+      "findingCount": 20,
+      "scenes": [
+        "ranks-default",
+        "referrals-default",
+        "referrals-my-active",
+        "tasks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "color(srgb 0.345098 0.780392 0.705882 / 0.1)",
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "background-image",
+          "value": "radial-gradient(360px 130px at 100% 0,var(--efhc-tone-card),transparent 70%) !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 4
+        }
+      ],
+      "samplePaths": [
+        "#myRankCard",
+        "div.source-route-page.unified-route-page:nth-of-type(6) > section.source-card:nth-of-type(2) > div.source-card:nth-of-type(3)",
+        "div.source-route-page.unified-route-page:nth-of-type(8) > section.source-card",
+        "div.source-task-list > article.source-task-card:nth-of-type(1)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-tone-card",
+              "computedValue": "color-mix(in srgb,#58c7b4 10%,transparent)"
+            }
+          ],
+          "findingCount": 4
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) .efhc-game-nav_item[data-active=\"true\"]",
+      "scopeClass": "USER",
+      "findingCount": 19,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "color(srgb 0.345098 0.780392 0.705882 / 0.1)",
+        "rgb(88, 199, 180)",
+        "rgba(88, 199, 180, 0.46)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--efhc-route-accent) !important",
+          "findingCount": 14
+        },
+        {
+          "property": "background-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.efhc-game-nav_grid > button.efhc-game-nav_item:nth-of-type(6)",
+        "div.efhc-game-nav_grid > button.efhc-game-nav_item:nth-of-type(6) > span.efhc-game-nav_label:nth-of-type(2)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent",
+              "computedValue": "#58c7b4"
+            }
+          ],
+          "findingCount": 14
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.efhc-game-header_profile, .efhc-game-header_balance, .efhc-header-action)",
+      "scopeClass": "USER",
+      "findingCount": 16,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 4
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 4
+        }
+      ],
+      "samplePaths": [
+        "#headerBalance",
+        "#profileBox",
+        "div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1) > div.efhc-game-header_actions:nth-of-type(3) > button.efhc-header-action.primary:nth-of-type(5)",
+        "div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1) > div.efhc-game-header_actions:nth-of-type(3) > button.efhc-header-action:nth-of-type(2)"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "#referralsPage[data-rg] .source-hero-icon",
+      "scopeClass": "USER",
+      "findingCount": 10,
+      "scenes": [
+        "referrals-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(126, 227, 208)",
+        "rgba(88, 199, 180, 0.09)",
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--rest-accent-text)",
+          "findingCount": 5
+        },
+        {
+          "property": "border-color",
+          "value": "var(--rest-edge)",
+          "findingCount": 4
+        },
+        {
+          "property": "background",
+          "value": "var(--rest-soft)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.source-route-page.unified-route-page:nth-of-type(6) > section.source-game-hero:nth-of-type(1) > div.source-hero-head:nth-of-type(1) > div.source-hero-icon:nth-of-type(2)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--rest-accent-text",
+              "computedValue": "#7ee3d0"
+            }
+          ],
+          "findingCount": 5
+        },
+        {
+          "chain": [
+            {
+              "name": "--rest-edge",
+              "computedValue": "rgba(88,199,180,.30)"
+            }
+          ],
+          "findingCount": 4
+        },
+        {
+          "chain": [
+            {
+              "name": "--rest-soft",
+              "computedValue": "rgba(88,199,180,.09)"
+            }
+          ],
+          "findingCount": 1
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "#referralsPage[data-rg] .source-segmented > button[data-active=\"true\"], #referralsPage[data-rg] #copyReferral",
+      "scopeClass": "USER",
+      "findingCount": 10,
+      "scenes": [
+        "referrals-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(126, 227, 208)",
+        "rgba(88, 199, 180, 0.09)",
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--rest-accent-text)",
+          "findingCount": 5
+        },
+        {
+          "property": "border-color",
+          "value": "var(--rest-edge)",
+          "findingCount": 4
+        },
+        {
+          "property": "background",
+          "value": "var(--rest-soft)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#copyReferral"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--rest-accent-text",
+              "computedValue": "#7ee3d0"
+            }
+          ],
+          "findingCount": 5
+        },
+        {
+          "chain": [
+            {
+              "name": "--rest-edge",
+              "computedValue": "rgba(88,199,180,.30)"
+            }
+          ],
+          "findingCount": 4
+        },
+        {
+          "chain": [
+            {
+              "name": "--rest-soft",
+              "computedValue": "rgba(88,199,180,.09)"
+            }
+          ],
+          "findingCount": 1
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.source-game-hero, .panels-hero, .exchange-hero, .profile-hero, .withdraw-hero)",
+      "scopeClass": "USER",
+      "findingCount": 10,
+      "scenes": [
+        "referrals-default",
+        "tasks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "color(srgb 0.345098 0.780392 0.705882 / 0.2)",
+        "rgba(88, 199, 180, 0.46)"
+      ],
+      "declarations": [
+        {
+          "property": "background-image",
+          "value": "radial-gradient(320px 150px at 100% 0,var(--efhc-tone-hero),transparent 70%) !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 2
+        }
+      ],
+      "samplePaths": [
+        "div.source-route-page.unified-route-page.efhc-tasks-global:nth-of-type(5) > section.source-game-hero",
+        "div.source-route-page.unified-route-page:nth-of-type(6) > section.source-game-hero:nth-of-type(1)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-tone-hero",
+              "computedValue": "color-mix(in srgb,#58c7b4 20%,transparent)"
+            }
+          ],
+          "findingCount": 2
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(.source-profile-tabs button[data-active=\"true\"], .source-segmented button[data-active=\"true\"], .panels-tab[data-active=\"true\"], [aria-current=\"true\"])",
+      "scopeClass": "USER",
+      "findingCount": 10,
+      "scenes": [
+        "referrals-my-active"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "color(srgb 0.345098 0.780392 0.705882 / 0.1)",
+        "rgb(88, 199, 180)",
+        "rgba(88, 199, 180, 0.46)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--efhc-route-accent) !important",
+          "findingCount": 5
+        },
+        {
+          "property": "background-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.source-segmented:nth-of-type(1) > button:nth-of-type(1)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent",
+              "computedValue": "#58c7b4"
+            }
+          ],
+          "findingCount": 5
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "#ranksPage[data-kg] .source-rank-row[data-ranks-card=\"compact-row-32\"] .source-rank-medal",
+      "scopeClass": "USER",
+      "findingCount": 9,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(126, 227, 208)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--rest-accent-text)",
+          "findingCount": 5
+        },
+        {
+          "property": "border-top-color",
+          "value": "initial",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "initial",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "initial",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "initial",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#rankMyMedal"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--rest-accent-text",
+              "computedValue": "#7ee3d0"
+            }
+          ],
+          "findingCount": 5
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "[data-interface-app-mode=\"user\"][data-global-theme-id] .efhc-game-nav_icon",
+      "scopeClass": "USER",
+      "findingCount": 8,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 2
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 2
+        }
+      ],
+      "samplePaths": [
+        "div.efhc-game-nav_grid > button.efhc-game-nav_item:nth-of-type(1) > span.efhc-game-nav_icon:nth-of-type(1)",
+        "div.efhc-game-nav_grid > button.efhc-game-nav_item:nth-of-type(6) > span.efhc-game-nav_icon:nth-of-type(1)"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "[data-interface-app-mode=\"user\"][data-global-theme-id] .efhc-status-indicator-context .efhc-game-header_status[data-active=\"true\"]",
+      "scopeClass": "USER",
+      "findingCount": 7,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)",
+        "rgba(88, 199, 180, 0.34)",
+        "rgba(88, 199, 180, 0.76)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--efhc-route-accent) !important",
+          "findingCount": 5
+        },
+        {
+          "property": "text-shadow",
+          "value": "0 0 5px rgba(var(--efhc-route-accent-rgb),.76),0 0 12px rgba(var(--efhc-route-accent-rgb),.34) !important",
+          "findingCount": 2
+        }
+      ],
+      "samplePaths": [
+        "#activBadge"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent",
+              "computedValue": "#58c7b4"
+            }
+          ],
+          "findingCount": 5
+        },
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent-rgb",
+              "computedValue": "88,199,180"
+            }
+          ],
+          "findingCount": 4
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".standalone-referral-share-grid [data-share-kind=\"viber\"]",
+      "scopeClass": "USER",
+      "findingCount": 5,
+      "scenes": [
+        "referrals-default"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(115, 96, 242)"
+      ],
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "rgb(115, 96, 242)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": "rgb(115, 96, 242)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgb(115, 96, 242)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgb(115, 96, 242)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgb(115, 96, 242)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.source-route-page.unified-route-page:nth-of-type(6) > section.source-card:nth-of-type(2) > div.standalone-referral-share-grid:nth-of-type(4) > button.source-button.secondary.referral-share-action:nth-of-type(3)"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".standalone-referral-share-grid [data-share-kind=\"whatsapp\"]",
+      "scopeClass": "USER",
+      "findingCount": 5,
+      "scenes": [
+        "referrals-default"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(37, 211, 102)"
+      ],
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "rgb(37, 211, 102)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": "rgb(37, 211, 102)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgb(37, 211, 102)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgb(37, 211, 102)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgb(37, 211, 102)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.source-route-page.unified-route-page:nth-of-type(6) > section.source-card:nth-of-type(2) > div.standalone-referral-share-grid:nth-of-type(4) > button.source-button.secondary.referral-share-action:nth-of-type(2)"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "[data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"13\"]) :is(.source-row, .source-stat, .source-profile-tabs, .source-segmented, .panel-field, .activation-values, .release-faq-item, .release-faq-subsection, .standalone-operation-day, .standalone-history-withdraw-row, .source-history-boundary)",
+      "scopeClass": "USER",
+      "findingCount": 5,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.04)",
+        "rgba(88, 199, 180, 0.3)"
+      ],
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "var(--efhc-chroma-inset-background-color,rgba(var(--efhc-route-accent-rgb),.04)) !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "aside.tech-workbench > div.tech-development-tools:nth-of-type(2) > div.standalone-referral-scenarios:nth-of-type(6) > div.source-row:nth-of-type(1)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-chroma-inset-background-color",
+              "computedValue": ""
+            }
+          ],
+          "findingCount": 1
+        },
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent-rgb",
+              "computedValue": "88,199,180"
+            }
+          ],
+          "findingCount": 1
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".efhc-game-header_status",
+      "scopeClass": "USER",
+      "findingCount": 4,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)"
+      ],
+      "declarations": [
+        {
+          "property": "border-top-color",
+          "value": "initial",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "initial",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "initial",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "initial",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#activBadge"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) #ranksPage[data-kg] .source-game-hero",
+      "scopeClass": "USER",
+      "findingCount": 4,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.46)"
+      ],
+      "declarations": [
+        {
+          "property": "border-top-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": " !important",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": " !important",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.source-route-page.unified-route-page:nth-of-type(7) > section.source-game-hero:nth-of-type(1)"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "SVG_PRESENTATION_CURRENTCOLOR",
+      "owner": "SVG presentation attribute currentColor",
+      "scopeClass": "USER",
+      "findingCount": 4,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)"
+      ],
+      "declarations": [
+        {
+          "property": "fill",
+          "value": "currentcolor",
+          "findingCount": 2
+        },
+        {
+          "property": "stroke",
+          "value": "currentcolor",
+          "findingCount": 2
+        }
+      ],
+      "samplePaths": [
+        "div.efhc-game-header_balance:nth-of-type(2) > svg > circle",
+        "div.efhc-game-header_balance:nth-of-type(2) > svg > path"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".efhc-energy-progress-fill",
+      "scopeClass": "USER",
+      "findingCount": 2,
+      "scenes": [
+        "referrals-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgb(88, 199, 180)",
+        "rgba(88, 199, 180, 0.24)"
+      ],
+      "declarations": [
+        {
+          "property": "background-image",
+          "value": "linear-gradient(90deg, rgb(95, 150, 219), rgb(88, 199, 180))",
+          "findingCount": 1
+        },
+        {
+          "property": "box-shadow",
+          "value": "rgba(88, 199, 180, 0.24) 0px 0px 12px",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.efhc-energy-progress-track:nth-of-type(2) > div.efhc-energy-progress-fill"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) :is(#panelsPage, #exchangePage, #tasksPage, #referralsPage, #ranksPage, #profilePage, #hubPage, #faqPage, #withdrawPage, [data-route-page=\"/ads\"], [data-route-page=\"/browser-shop\"], [data-route-page=\"/404\"], [data-route-page=\"/500\"])",
+      "scopeClass": "USER",
+      "findingCount": 2,
+      "scenes": [
+        "ranks-default",
+        "tasks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "color(srgb 0.345098 0.780392 0.705882 / 0.12)"
+      ],
+      "declarations": [
+        {
+          "property": "background-image",
+          "value": "radial-gradient(520px 220px at 100% 0,var(--efhc-tone-page),transparent 72%) !important",
+          "findingCount": 2
+        }
+      ],
+      "samplePaths": [
+        "#ranksPage",
+        "#tasksPage"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-tone-page",
+              "computedValue": "color-mix(in srgb,#58c7b4 12%,transparent)"
+            }
+          ],
+          "findingCount": 2
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "[data-interface-app-mode=\"user\"][data-global-theme-id=\"04\"] .efhc-game-header[data-hs=\"HS-04\"], [data-interface-app-mode=\"user\"][data-global-theme-id=\"04\"] .efhc-header-divider",
+      "scopeClass": "USER",
+      "findingCount": 2,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "rgba(88, 199, 180, 0.08)"
+      ],
+      "declarations": [
+        {
+          "property": "box-shadow",
+          "value": "0 10px 30px rgba(0,0,0,.24),inset 0 -1px 0 rgba(var(--efhc-route-accent-rgb),.08) !important",
+          "findingCount": 2
+        }
+      ],
+      "samplePaths": [
+        "div.workspace:nth-of-type(1) > div.preview-column > div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider",
+        "div.workspace:nth-of-type(1) > div.preview-column > div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > div.efhc-header-divider > div.efhc-game-header:nth-of-type(1)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-route-accent-rgb",
+              "computedValue": "88,199,180"
+            }
+          ],
+          "findingCount": 2
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".efhc-game-header_balance[data-hb=\"HB-13\"]",
+      "scopeClass": "USER",
+      "findingCount": 1,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(229, 191, 88, 0.18)"
+      ],
+      "declarations": [
+        {
+          "property": "box-shadow",
+          "value": "rgba(255, 255, 255, 0.04) 0px 1px 0px inset, rgba(229, 191, 88, 0.18) 0px -2px 0px inset",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#headerBalance"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".efhc-independent-shell[data-theme-chroma-canon=\"theme-03-tonal\"][data-interface-app-mode=\"user\"][data-global-theme-id]:not([data-global-theme-id=\"03\"]) .efhc-main",
+      "scopeClass": "USER",
+      "findingCount": 1,
+      "scenes": [
+        "ranks-default"
+      ],
+      "failClasses": [
+        "FAIL_OLD_TEAL"
+      ],
+      "tokens": [
+        "color(srgb 0.345098 0.780392 0.705882 / 0.12)"
+      ],
+      "declarations": [
+        {
+          "property": "background-image",
+          "value": "radial-gradient(34rem 14rem at 50% -8rem,var(--efhc-tone-page),transparent 72%) !important",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.workspace:nth-of-type(1) > div.preview-column > div.unified-shell > div.efhc-independent-shell > div.efhc-independent-shell_frame:nth-of-type(1) > main.efhc-main.unified-pages"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-tone-page",
+              "computedValue": "color-mix(in srgb,#58c7b4 12%,transparent)"
+            }
+          ],
+          "findingCount": 1
+        }
+      ]
+    }
+  ],
+  "humanSummary": {
+    "Tasks": "Base failures are dominated by shared Theme04 old-teal page/hero/card material inherited from the common route material layer.",
+    "Referrals": "Shared old-teal material is joined by referrals-specific teal controls/icon material and non-canonical WhatsApp green / Viber purple share-button chroma.",
+    "Ranks": "Shared old-teal material is joined by ranks-specific medal and hero material, including --rest-accent-text = #7ee3d0."
+  },
+  "decisionLaw": "Audit only. These provenance facts do not authorize mutation. Cycle0409 consolidates final correction scope."
+}

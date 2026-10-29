@@ -1,0 +1,308 @@
+{
+  "schema": "EFHC_ADMIN_THEME03_CANON_V1",
+  "status": "ACTIVE_CURRENT_FROZEN",
+  "sourceTheme": "03",
+  "sourceTheme03RoleSha256": "365ef46de8ea9e56e35e37638d563ecb781ca19b01d5f4d5ec3b94eb3a045ced",
+  "semanticModel": "Page / Canvas -> Hero -> Card -> Inset -> Accent / Active",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0344",
+  "release": "FRONTEND_v568",
+  "migratedPages": [
+    {
+      "route": "/admin",
+      "marker": "ADM-00",
+      "standaloneId": "adminPage",
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-003",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-005"
+      ]
+    },
+    {
+      "route": "/admin/users",
+      "marker": "ADM-01",
+      "standaloneId": "adminUsersPage",
+      "productionSelector": ".efhc-profile-page.efhc-admin-user-profile",
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-007",
+        "EAM-ADMIN-008",
+        "EAM-ADMIN-009",
+        "EAM-ADMIN-010",
+        "EAM-HISTORY-001",
+        "EAM-HISTORY-002"
+      ]
+    },
+    {
+      "route": "/admin/bank",
+      "marker": "ADM-02",
+      "standaloneId": "adminBankPage",
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-011",
+        "EAM-ADMIN-014"
+      ]
+    },
+    {
+      "route": "/admin/withdrawals",
+      "marker": "ADM-03",
+      "standaloneId": "adminWithdrawalsPage",
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-006",
+        "EAM-ADMIN-015"
+      ]
+    },
+    {
+      "route": "/admin/bonuses",
+      "marker": "ADM-04",
+      "standaloneId": "adminBonusesPage",
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-006",
+        "EAM-ADMIN-012"
+      ]
+    },
+    {
+      "route": "/admin/shop",
+      "marker": "ADM-05",
+      "standaloneId": "adminShopPage",
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-006",
+        "EAM-ADMIN-013"
+      ]
+    },
+    {
+      "route": "/admin/tasks",
+      "marker": "ADM-06",
+      "standaloneId": "adminDetailPage",
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-018"
+      ]
+    },
+    {
+      "route": "/admin/reports",
+      "marker": "ADM-07",
+      "standaloneId": "adminDetailPage",
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-005",
+        "EAM-ADMIN-006",
+        "EAM-ADMIN-016"
+      ]
+    },
+    {
+      "route": "/admin/referrals",
+      "marker": "ADM-08",
+      "standaloneId": "adminDetailPage",
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004"
+      ]
+    },
+    {
+      "route": "/admin/panels",
+      "marker": "ADM-09",
+      "standaloneId": "adminDetailPage",
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-019",
+        "EAM-ADMIN-020",
+        "EAM-ADMIN-021"
+      ]
+    },
+    {
+      "route": "/admin/hub",
+      "marker": "ADM-10",
+      "standaloneId": "adminDetailPage",
+      "portalSelectors": [
+        ".efhc-modal-overlay:has([data-admin-hub-editor-modal=\"v252\"])"
+      ],
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004",
+        "EAM-HUB-001"
+      ]
+    },
+    {
+      "route": "/admin/vip-nft",
+      "marker": "ADM-11",
+      "standaloneId": "adminDetailPage",
+      "portalSelectors": [
+        ".efhc-modal-overlay:has([data-admin-vip-decision-modal=\"v211\"])"
+      ],
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-006",
+        "EAM-ADMIN-017"
+      ]
+    },
+    {
+      "route": "/admin/efhc-deposits",
+      "marker": "ADM-12",
+      "standaloneId": "adminDetailPage",
+      "portalSelectors": [
+        ".efhc-modal-overlay:has([data-admin-prompt-marker=\"efhc-deposits-v348\"])"
+      ],
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-005",
+        "EAM-ADMIN-006",
+        "EAM-ADMIN-022"
+      ]
+    },
+    {
+      "route": "/admin/ads",
+      "marker": "ADM-13",
+      "standaloneId": "adminDetailPage",
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-005",
+        "EAM-ADMIN-023"
+      ]
+    },
+    {
+      "route": "/admin/system",
+      "marker": "ADM-15",
+      "standaloneId": "adminDetailPage",
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-005",
+        "EAM-ADMIN-024"
+      ],
+      "productionSelectorExact": ".efhc-admin-shell:has([data-admin-system-route=\"/admin/system\"])"
+    },
+    {
+      "route": "/admin/api-workbench",
+      "marker": "ADM-16",
+      "standaloneId": "adminApiWorkbenchPage",
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-005",
+        "EAM-ADMIN-025"
+      ],
+      "productionSelectorExact": ".efhc-admin-shell:has([data-admin-api-workbench-surface=\"v352\"])"
+    },
+    {
+      "route": "/admin/sale-packages",
+      "marker": "ADM-14",
+      "standaloneId": "adminDetailPage",
+      "portalSelectors": [
+        ".efhc-modal-overlay:has([data-admin-prompt-marker=\"sale-packages-editor-v352\"])",
+        ".efhc-modal-overlay:has([data-admin-prompt-marker=\"sale-packages-toggle-v352\"])"
+      ],
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-005",
+        "EAM-ADMIN-026"
+      ]
+    },
+    {
+      "route": "/admin/diagnostics",
+      "marker": "ADM-15",
+      "standaloneId": "adminDetailPage",
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-005",
+        "EAM-ADMIN-027"
+      ],
+      "productionSelectorExact": ".efhc-admin-shell:has([data-admin-system-route=\"/admin/diagnostics\"])"
+    },
+    {
+      "route": "/admin/emergency",
+      "marker": "ADM-19",
+      "standaloneId": "adminDetailPage",
+      "portalSelectors": [
+        ".efhc-modal-overlay:has([data-admin-prompt-marker=\"emergency-v363\"])"
+      ],
+      "eam": [
+        "EAM-ADMIN-001",
+        "EAM-ADMIN-002",
+        "EAM-ADMIN-004",
+        "EAM-ADMIN-005",
+        "EAM-ADMIN-028"
+      ]
+    }
+  ],
+  "protectedExceptions": [
+    "financial meaning",
+    "success/error/warning status",
+    "Admin category indicator identity",
+    "accessibility/focus",
+    "route/runtime/business contracts",
+    "Balance semantic color canon: credit green, debit red, done green, pending gold, failed red, total/main/bonus identity markers neutral/blue/gold; applies inside /admin/users Balance and standalone"
+  ],
+  "globalAdminHeader": {
+    "enabled": true,
+    "themeComposition": "HS-03/HB-03/SC-03",
+    "eam": [
+      "EAM-HDR-001",
+      "EAM-STATUS-001"
+    ],
+    "scope": "all admin-mode routes; global header only"
+  },
+  "currentLaws": {
+    "material": "All ordinary Admin material resolves through the frozen Admin Theme03 role vector; USER Theme03 calibration cannot recolour frozen Admin.",
+    "semanticExceptions": "Success, warning, danger, financial/category meaning and functional destructive states keep explicit semantic/local owners.",
+    "geometry": "Admin geometry/composition is frozen. Theme03 work may not change spacing, hierarchy, routes, business logic or runtime without direct OWNER instruction.",
+    "adminFreeze": "docs/SSOT/ADMIN_FREEZE_CANON.md",
+    "humanCanon": "docs/frontend/FRONTEND_ADMIN_THEME03_CANON.md",
+    "roleSource": "frontend/src/design-system/admin-theme03-canon.json#frozenRoles",
+    "adapter": "frontend/src/styles/admin-theme03-canon.css",
+    "generatedTokens": "frontend/src/styles/generated/admin-theme03-canon-tokens.css"
+  },
+  "frozenRoles": {
+    "canvas": "rgba(7,10,18,.98)",
+    "page": "rgba(12,10,24,.98)",
+    "chrome": "rgba(12,10,24,.98)",
+    "chromeInset": "rgba(28,20,53,.66)",
+    "hero": "rgba(16,19,36,.98)",
+    "card": "rgba(18,16,33,.86)",
+    "inset": "rgba(7,10,18,.98)",
+    "active": "linear-gradient(135deg,rgba(117,87,219,.42),rgba(89,64,182,.30))",
+    "accent": "#a78bfa",
+    "accentSoft": "rgba(124,92,255,.10)",
+    "accentStrong": "#7557db",
+    "border": "rgba(167,139,250,.24)",
+    "borderStrong": "rgba(167,139,250,.42)",
+    "text": "#f8fafc",
+    "textMuted": "#cbd5e1",
+    "shadow": "0 14px 34px rgba(0,0,0,.26)",
+    "glow": "#7c5cff",
+    "focus": "#c4b5fd"
+  },
+  "decoupledCycle": "FRONTEND_ADMIN_CYCLE_0382",
+  "decoupledRelease": "FRONTEND_v606"
+}

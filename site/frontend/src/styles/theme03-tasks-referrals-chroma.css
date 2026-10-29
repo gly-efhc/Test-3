@@ -1,0 +1,311 @@
+/* Theme 03 Tasks + Referrals chroma migration owner — Cycle0145.
+   Palette values live only in theme03-chroma.json. This adapter binds the
+   existing TG/RG visual families to semantic Theme03 roles without changing
+   geometry, copy, task/referral runtime, pagination or other Global Themes. */
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-tasks-shell[data-tg="TG-03"],
+  .efhc-referrals-shell[data-rg="RG-03"],
+  .efhc-referrals-my-page,
+  #tasksPage[data-tg="TG-03"],
+  #referralsPage[data-rg="RG-03"],
+  #referralsMyPage
+) {
+  --efhc-chroma-hero-border:var(--efhc-color-border-strong);
+  --efhc-chroma-hero-background-image:
+    radial-gradient(320px 150px at 100% 0,color-mix(in srgb,var(--efhc-color-glow) 20%,transparent),transparent 70%),
+    linear-gradient(180deg,var(--efhc-color-hero),var(--efhc-color-canvas));
+  --efhc-chroma-hero-background-color:var(--efhc-color-canvas);
+
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-card);
+
+  --efhc-chroma-inset-border:var(--efhc-color-border);
+  --efhc-chroma-inset-background-image:none;
+  --efhc-chroma-inset-background-color:var(--efhc-color-inset);
+
+  --efhc-active-control-border:var(--efhc-color-border-strong);
+  --efhc-active-control-background:var(--efhc-color-active);
+  --efhc-active-control-color:var(--efhc-color-accent);
+
+  background-image:radial-gradient(520px 220px at 100% 0,color-mix(in srgb,var(--efhc-color-glow) 12%,transparent),transparent 72%);
+  background-color:transparent;
+}
+
+/* TG-03: keep the approved compact task geometry and title hierarchy, while
+   moving decorative hero/card/stat/reward/action chroma onto Theme03 roles.
+   Cycle0380 narrows the top hero to the black-violet Hero/Border material: no
+   page-sized violet spotlight, no extra inset glow line, no geometry change. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-tasks-shell[data-tg="TG-03"],
+  #tasksPage[data-tg="TG-03"]
+) {
+  --efhc-chroma-hero-border:var(--efhc-color-border);
+  --efhc-chroma-hero-background-image:none;
+  --efhc-chroma-hero-background-color:var(--efhc-color-hero);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-tasks-shell[data-tg="TG-03"] .efhc-game-hero,
+  #tasksPage[data-tg="TG-03"] .source-game-hero
+) {
+  box-shadow:var(--efhc-color-shadow);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-tasks-shell[data-tg="TG-03"] :is(
+  .efhc-game-kicker,
+  .efhc-game-hero_icon
+) {
+  color:var(--efhc-color-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-tasks-shell[data-tg="TG-03"] .efhc-game-hero_icon {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-accent-soft);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-tasks-shell[data-tg="TG-03"] :is(
+  .efhc-game-stat,
+  .efhc-bonus-earnings-strip
+) {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-inset);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-tasks-shell[data-tg="TG-03"] .efhc-task-card_reward .efhc-badge {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-tasks-shell[data-tg="TG-03"] .efhc-task-card_bottom > .efhc-btn-primary {
+  border-color:var(--efhc-color-border-strong);
+  background:color-mix(in srgb,var(--efhc-color-accent) 13%,transparent);
+  color:var(--efhc-color-accent);
+  box-shadow:0 0 12px color-mix(in srgb,var(--efhc-color-glow) 10%,transparent);
+}
+
+/* RG-03 bridge: existing Referrals family geometry continues to consume
+   --efhc-rest-* variables, but those variables no longer own a local palette. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-referrals-shell[data-rg="RG-03"] {
+  --efhc-rest-accent:var(--efhc-color-accent);
+  --efhc-rest-accent-text:var(--efhc-color-focus);
+  --efhc-rest-edge:var(--efhc-color-border);
+  --efhc-rest-soft:var(--efhc-color-accent-soft);
+  --efhc-rest-hero:linear-gradient(180deg,var(--efhc-color-hero),var(--efhc-color-canvas));
+  --efhc-rest-card:var(--efhc-color-card);
+  --efhc-rest-shadow:var(--efhc-color-shadow);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-referrals-shell[data-rg="RG-03"],
+  .efhc-referrals-my-page
+) :is(.efhc-game-stat,.efhc-list-row,.efhc-referrals-link-card) {
+  border-color:var(--efhc-color-border);
+  background-color:var(--efhc-color-inset);
+}
+
+/* FRONTEND_ADMIN_CYCLE_0322 — nested invitation URL is an inset row, not a
+   card-level elevation owner. Keep its existing border/material/geometry and
+   remove only the coarse outer shadow. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-referrals-shell[data-rg="RG-03"] .efhc-referrals-link-card[data-referral-link-main="true"],
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #referralsPage[data-rg="RG-03"] [data-referrals-invite-boundary="deep-link-share"] > .source-card {
+  box-shadow:none;
+}
+
+/* Cycle0151 standalone parity: `/referrals/my` renders `.source-card`,
+   `.source-ref-row` and `.source-segmented` instead of production RG classes.
+   Give only those exact ordinary surfaces the Theme03 card/inset contracts; do
+   not add a new page haze or touch selected/semantic states. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #referralsMyPage .source-card {
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-card);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #referralsMyPage :is(.source-ref-row,.source-segmented) {
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-inset);
+  --efhc-chroma-inset-border:var(--efhc-color-border);
+  --efhc-chroma-inset-background-image:none;
+  --efhc-chroma-inset-background-color:var(--efhc-color-inset);
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-referrals-shell[data-rg="RG-03"],
+  .efhc-referrals-my-page
+) .efhc-referrals-tabs {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-card);
+  box-shadow:var(--efhc-color-shadow);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-referrals-shell[data-rg="RG-03"],
+  .efhc-referrals-my-page
+) .efhc-btn-primary:not([data-referral-share-kind]) {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-referrals-shell[data-rg="RG-03"],
+  .efhc-referrals-my-page
+) .efhc-btn-secondary {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-inset);
+  color:var(--efhc-color-text);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-referrals-shell[data-rg="RG-03"],
+  .efhc-referrals-my-page
+) .efhc-list-row--selected {
+  /* Cycle0383: the global Inset firewall owns these declarations with !important.
+     Rebind its existing semantic payload so the selected production row resolves
+     to the shared Active material instead of being flattened back to Inset. */
+  --efhc-chroma-inset-border:var(--efhc-color-border-strong);
+  --efhc-chroma-inset-background-image:var(--efhc-color-active);
+  --efhc-chroma-inset-background-color:transparent;
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-active);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-referrals-shell[data-rg="RG-03"] .efhc-energy-progress-track {
+  border-color:var(--efhc-color-border);
+  background:var(--efhc-color-inset);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-referrals-shell[data-rg="RG-03"] .efhc-energy-progress-fill,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-referrals-shell[data-rg="RG-03"] .efhc-referral-achievement-track > span {
+  background:var(--efhc-color-accent);
+  box-shadow:0 0 8px color-mix(in srgb,var(--efhc-color-glow) 24%,transparent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-referrals-shell[data-rg="RG-03"] .efhc-referral-achievement-node[data-referral-level-state="reached"] {
+  color:var(--efhc-color-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-referrals-shell[data-rg="RG-03"] .efhc-referral-achievement-node[data-referral-level-state="reached"] .efhc-referral-achievement-dot {
+  border-color:var(--efhc-color-border-strong);
+  background:var(--efhc-color-accent-soft);
+  box-shadow:0 0 9px color-mix(in srgb,var(--efhc-color-glow) 20%,transparent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-referrals-shell[data-rg="RG-03"] .efhc-referral-achievement-node[data-referral-level-state="next"] .efhc-referral-achievement-dot {
+  border-color:var(--efhc-color-border-strong);
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--efhc-color-accent) 13%,transparent);
+}
+
+/* Social share controls intentionally keep their service brand colours. They are
+   brand/semantic identity, not Theme03 decorative chroma. */
+
+/* Cycle0151 v317 — OWNER residual blue cleanup. Tasks/Referrals bonus totals and
+   the public Tasks execute action use the same existing Theme03 AccentSoft role.
+   EFHCb remains a financial label; only decorative surface/action chroma changes. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-tasks-shell[data-tg="TG-03"],
+  .efhc-referrals-shell[data-rg="RG-03"],
+  #tasksPage[data-tg="TG-03"],
+  #referralsPage[data-rg="RG-03"]
+) :is(.efhc-bonus-earnings-strip,.standalone-bonus-earnings-strip) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  box-shadow:none;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-tasks-shell[data-tg="TG-03"] .efhc-task-card_bottom > .efhc-btn-primary,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #tasksPage[data-tg="TG-03"] .source-task-card > .source-row > .source-button:not([disabled]) {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+/* Cycle0151 v319 — evidence-based residual cleanup. `/referrals` still exposed a
+   blue-toned My Referrals CTA in both production and standalone, and the
+   standalone bonus strips were outside the earlier `.efhc-bonus-earnings-strip`
+   selector chain. Reuse the existing Theme03 AccentSoft action/surface role
+   instead of creating a page-local violet. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] .efhc-referrals-shell[data-rg="RG-03"] .efhc-referrals-my-entry,
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #referralsPage[data-rg="RG-03"] [data-referrals-my-entrypoint="canonical"] {
+  border-color:var(--efhc-color-border-strong);
+  background-image:none;
+  background-color:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-text);
+  box-shadow:none;
+}
+
+
+/* FRONTEND_ADMIN_CYCLE_0380 — My Referrals Load more exact Theme03 CTA.
+   Production and standalone share AccentSoft/Border/Accent; tabs, refresh,
+   pagination behavior and geometry stay unchanged. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  .efhc-referrals-my-page [data-referrals-load-more="true"],
+  #referralsMyPage #loadMoreReferrals
+) {
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-accent);
+  box-shadow:none;
+}
+
+/* FRONTEND_ADMIN_CYCLE_0321 — bounded standalone Theme03 colour parity.
+   Only proven ordinary/decorative foreign-colour residuals are normalized.
+   Borders, shadows, Energy, Admin, geometry and semantics remain untouched. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #tasksPage[data-tg="TG-03"] .source-hero-icon {
+  background:var(--efhc-color-accent-soft);
+  color:var(--efhc-color-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #tasksPage[data-tg="TG-03"] .source-reward {
+  color:var(--efhc-color-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #referralsPage[data-rg="RG-03"] .standalone-referral-achievement-track > span {
+  background:var(--efhc-color-accent);
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #referralsPage[data-rg="RG-03"] .standalone-referral-achievement-nodes > div[data-state="reached"],
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] #referralsPage[data-rg="RG-03"] .standalone-referral-achievement-nodes > div[data-state="reached"] > b {
+  color:var(--efhc-color-accent);
+}
+
+
+
+/* FRONTEND_ADMIN_CYCLE_0383 — rendered acceptance residual: standalone referral rows.
+   `/referrals` source-ref-row participates in the generic card bridge, whose
+   declarations are !important. Override the semantic custom-property payload
+   on the exact row so the shared bridge resolves to Inset rather than Card. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"]
+#referralsPage[data-rg="RG-03"] .source-ref-row {
+  --efhc-chroma-card-border:var(--efhc-color-border);
+  --efhc-chroma-card-background-image:none;
+  --efhc-chroma-card-background-color:var(--efhc-color-inset);
+  border-color:var(--efhc-color-border);
+  background-image:none;
+  background-color:var(--efhc-color-inset);
+  box-shadow:none;
+}
+
+
+/* FRONTEND_ADMIN_CYCLE_0383 — rendered acceptance residual: standalone selected Referrals state.
+   The base segmented control retained a blue inset shadow after the shared Active
+   material won. Remove only that decorative legacy shadow; selection/runtime stay unchanged. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-global-theme-id="03"] :is(
+  #referralsPage[data-rg="RG-03"] .source-segmented button[data-active="true"],
+  #referralsMyPage .source-segmented button[data-active="true"]
+) {
+  box-shadow:none;
+}

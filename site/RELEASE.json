@@ -1,0 +1,17 @@
+{
+  "source_version": "FRONTEND_v866",
+  "source_archive_name": "FRONTEND_DEMO_IMPORT_v866.zip",
+  "source_archive_sha256": "0d1a4919fbf98799cda9f58e1560b5d4ea2f802b8c2f145be54c891de758ba45",
+  "runtime_files_imported": 581,
+  "excluded": [
+    "backend",
+    "docs",
+    "reports",
+    "ops",
+    "tests",
+    "workflow files from archive",
+    "root DEMO HTML",
+    "secrets",
+    "logs"
+  ]
+}

@@ -1,0 +1,31 @@
+export const UI_COPY_KEYS = {
+  walletConnected: "wallet_connected",
+  walletNotConnected: "wallet_not_connected",
+  walletRequired: "wallet_required",
+  purchaseFailed: "purchase_failed",
+  depositSuccess: "deposit_success",
+  withdrawalPending: "withdrawal_pending",
+  insufficientFunds: "insufficient_funds",
+  transactionInProgress: "transaction_in_progress",
+  primaryWallet: "primary_wallet",
+  networkFee: "network_fee",
+  transactionHash: "transaction_hash",
+  confirm: "confirm",
+  cancel: "cancel",
+  submit: "submit",
+  close: "close",
+  retry: "retry",
+  refresh: "refresh",
+  unexpectedError: "unexpected_error",
+  accessDenied: "access_denied",
+  sessionExpired: "session_expired",
+  noDataFound: "no_data_found",
+  loading: "loading",
+  taskBonus: "task_bonus",
+  referralBonus: "referral_bonus",
+  shopPurchase: "shop_purchase",
+  panelPurchase: "panel_purchase",
+} as const;
+
+export type UiCopyKey =
+  (typeof UI_COPY_KEYS)[keyof typeof UI_COPY_KEYS];

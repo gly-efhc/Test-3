@@ -1,0 +1,126 @@
+/* OWNER 0544: ten CT palettes share color ownership; PH/XH/FQ/HU retain geometry.
+   This contract is USER-only and never changes Admin, status semantics or finance. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-panels-hero[data-ph="PH-02"],.efhc-panels-hero[data-ph="PH-10"],
+  .efhc-panels-page[data-ph="PH-02"] .panels-hero,
+  .efhc-panels-page[data-ph="PH-10"] .panels-hero
+){
+  border-color:rgba(var(--efhc-ct-accent-rgb),.27)!important;
+  background:radial-gradient(420px 190px at 90% 0%,rgba(var(--efhc-ct-accent-rgb),.11),transparent 72%),rgba(10,16,28,.91)!important;
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-panels-hero[data-ph="PH-02"] .efhc-game-stat,
+  .efhc-panels-hero[data-ph="PH-10"] .efhc-game-stat,
+  .efhc-panels-page[data-ph="PH-02"] .panels-stat,
+  .efhc-panels-page[data-ph="PH-10"] .panels-stat,
+  .efhc-panels-page[data-ph="PH-10"] .panels-stats
+){border-color:rgba(var(--efhc-ct-accent-rgb),.19)!important;background:rgba(var(--efhc-ct-accent-rgb),.045)!important}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-panels-hero[data-ph="PH-02"] .efhc-game-kicker,
+  .efhc-panels-hero[data-ph="PH-10"] .efhc-game-kicker,
+  .efhc-panels-page[data-ph="PH-02"] .panels-kicker,
+  .efhc-panels-page[data-ph="PH-10"] .panels-kicker
+){color:var(--efhc-ct-accent)!important}
+/* Exchange XH-02: inside stats frame takes CT chroma; no shape change. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-exchange-hero[data-xh="XH-02"] .efhc-game-stats,
+  #exchangePage .exchange-hero-variant[data-xh="XH-02"] .source-stats
+){border-color:rgba(var(--efhc-ct-accent-rgb),.26)}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-exchange-hero[data-xh="XH-02"] .efhc-game-stat,
+  #exchangePage .exchange-hero-variant[data-xh="XH-02"] .source-stat
+){border-bottom-color:rgba(var(--efhc-ct-accent-rgb),.19)}
+/* FAQ FQ-02/03/04 share CT borders: their own geometry stays independent. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-faq-shell:is([data-fq="FQ-02"],[data-fq="FQ-03"],[data-fq="FQ-04"]),
+  #faqPage:is([data-fq="FQ-02"],[data-fq="FQ-03"],[data-fq="FQ-04"])
+){--fq-accent:var(--efhc-ct-accent);--fq-edge:rgba(var(--efhc-ct-accent-rgb),.24);--efhc-theme-edge:rgba(var(--efhc-ct-accent-rgb),.24)}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-faq-shell:is([data-fq="FQ-02"],[data-fq="FQ-03"],[data-fq="FQ-04"]) :is(.efhc-card,.efhc-faq-trust-rail,.efhc-faq-section-node,.efhc-faq-subsection-node,.efhc-faq-question-node,.efhc-faq-search-zone),
+  #faqPage:is([data-fq="FQ-02"],[data-fq="FQ-03"],[data-fq="FQ-04"]) :is(.source-card,.source-field,.standalone-faq-index-row,.standalone-faq-question,.release-faq-item,.release-faq-subsection)
+){border-color:rgba(var(--efhc-ct-accent-rgb),.24)}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-02"] .efhc-faq-subsection-node{border-left-color:rgba(var(--efhc-ct-accent-rgb),.30)}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-04"] .efhc-faq-section-node{border-left-color:var(--efhc-ct-accent)}
+/* One static HUB composition. CT controls color while HU-01 owns material. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-hub-page[data-hu="HU-01"] .efhc-hub-choice,
+  #hubPage[data-hu="HU-01"] .release-route-card
+){border-color:rgba(var(--efhc-ct-accent-rgb),.22)}
+/* CT-03 is no longer a frozen USER exception (OWNER Cycle0468, reaffirmed 0544).
+   Match the common Header/Energy material topology using CT-03's own chroma.
+   Do not target .efhc-admin* or the Admin visual canon. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id="CT-03"] .efhc-game-header{
+  background:radial-gradient(520px 170px at 76% -90px,rgba(var(--efhc-ct-accent-rgb),.25),transparent 70%)!important;
+  border-color:rgba(var(--efhc-ct-accent-rgb),.25)!important;
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id="CT-03"] :is(.efhc-game-header_profile,.efhc-game-header_balance){
+  background:transparent!important;
+  border-color:rgba(var(--efhc-ct-accent-rgb),.24)!important;
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id="CT-03"] .efhc-energy-stage{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.40)!important;
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id="CT-03"] .efhc-energy-stage_veil{
+  background-image:linear-gradient(rgba(6,8,8,.32),rgba(8,9,9,.58) 42%,rgba(8,8,8,.90) 100%),radial-gradient(360px 240px at 50% 36%,rgba(var(--efhc-ct-accent-rgb),.20),transparent 70%)!important;
+}
+
+/* OWNER 0545: FQ-02/03/04 borders share one CT color owner in USER surfaces.
+   Preserve independent FQ geometry, question states, and Admin material. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-faq-shell[data-fq="FQ-02"],
+  .efhc-faq-shell[data-fq="FQ-03"],
+  .efhc-faq-shell[data-fq="FQ-04"],
+  #faqPage[data-fq="FQ-02"],
+  #faqPage[data-fq="FQ-03"],
+  #faqPage[data-fq="FQ-04"]
+){
+  --fq-accent:var(--efhc-ct-accent);
+  --fq-edge:rgba(var(--efhc-ct-accent-rgb),.26);
+  --efhc-theme-edge:rgba(var(--efhc-ct-accent-rgb),.26);
+}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id] :is(
+  .efhc-faq-shell[data-fq="FQ-02"],.efhc-faq-shell[data-fq="FQ-03"],.efhc-faq-shell[data-fq="FQ-04"],
+  #faqPage[data-fq="FQ-02"],#faqPage[data-fq="FQ-03"],#faqPage[data-fq="FQ-04"]
+) :is(
+  .efhc-card,.efhc-faq-trust-rail,.efhc-faq-section-node,.efhc-faq-subsection-node,
+  .efhc-faq-question-node,.efhc-faq-search-zone,.efhc-faq-search-control,
+  .standalone-faq-search-field,.standalone-faq-index-row,.standalone-faq-back,
+  .release-faq-item,.release-faq-subsection,.release-faq-question,.source-card,.source-field
+){
+  border-color:var(--fq-edge)!important;
+}
+/* Structural accent rails are stronger than ordinary inner borders. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-faq-shell,#faqPage)[data-fq="FQ-02"] :is(.efhc-faq-subsection-node,.release-faq-subsection){border-left-color:rgba(var(--efhc-ct-accent-rgb),.34)!important}
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-faq-shell,#faqPage)[data-fq="FQ-04"] :is(.efhc-faq-section-node,.release-faq-item){border-left-color:var(--efhc-ct-accent)!important}
+/* Hide only the decorative overlay. Buttons, warning semantics and shadows remain. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+:is(.efhc-tasks-shell,.efhc-referrals-shell,.efhc-ranks-shell,.efhc-panels-page,.efhc-exchange-shell)
+.efhc-game-hero_glow{display:none!important}
+/* TG-03 top-right decorative radial is the reproducible Tasks flare.
+   Keep its underlying DESIGN-owned two-stop dark material intact. */
+:is(html,.efhc-independent-shell)[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg="TG-03"] .efhc-game-hero{
+  background-image:linear-gradient(180deg,rgba(16,19,36,.98),rgba(7,10,18,.98))!important;
+}
+
+/* OWNER 0546 — FQ01/FQ05 inner borders and handbook dividers inherit all ten CT accents.
+   Selection ID and physical style binding are separate; class-based anchors stay stable. */
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-01"] :is(.efhc-faq-section-node,.efhc-faq-subsection-node,.efhc-faq-question-node),
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-05"] :is(.efhc-faq-section-node,.efhc-faq-subsection-node,.efhc-faq-question-node) {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.32)!important;
+}
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-faq-shell[data-fq="FQ-05"] .efhc-faq-question-node {
+  border-top-color:rgba(var(--efhc-ct-accent-rgb),.40)!important;
+}
+
+/* OWNER 0546 — remove the owner-rejected decorative corner glow from USER hero
+   without applying the rule to Admin or actionable status/feedback indicators. */
+html[data-interface-app-mode="user"] :is(.efhc-game-hero_glow,.efhc-game-hero-glow),
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-game-hero_glow,.efhc-game-hero-glow) {
+  display:none!important;
+}
+html[data-interface-app-mode="user"][data-color-theme-id] :is(.efhc-game-hero,.efhc-faq-shell,.efhc-exchange-hero,.efhc-tasks-hero) {
+  background-image:none!important;
+}

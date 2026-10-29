@@ -1,0 +1,1036 @@
+{
+  "schema": "EFHC_THEME04_BROWSER_SHOP_BASE_FAIL_PROVENANCE_V1",
+  "cycle": "FRONTEND_ADMIN_CYCLE_0405",
+  "physicalHeadAudited": "FRONTEND_v628",
+  "theme": {
+    "id": "04",
+    "name": "Classic Telegram Blue",
+    "anchor": "#229ED9"
+  },
+  "scope": {
+    "surface": "Browser Shop",
+    "forcedStates": false,
+    "mutation": false
+  },
+  "coverage": {
+    "physicalOwnerStyleGroups": 1035,
+    "representativeOwnerSignatures": 42,
+    "resolvedRepresentativeSignatures": 42,
+    "provenanceErrors": 0,
+    "resolvedFailFindings": 252,
+    "winningOwners": 20,
+    "userShopWinningOwners": 20
+  },
+  "dominantVariableChains": [
+    {
+      "chain": [
+        {
+          "name": "--efhc-color-border",
+          "computedValue": "rgba(167,139,250,.24)"
+        }
+      ],
+      "findingCount": 96
+    },
+    {
+      "chain": [
+        {
+          "name": "--efhc-color-accent",
+          "computedValue": "#a78bfa"
+        }
+      ],
+      "findingCount": 19
+    },
+    {
+      "chain": [
+        {
+          "name": "--efhc-color-border-strong",
+          "computedValue": "rgba(167,139,250,.42)"
+        }
+      ],
+      "findingCount": 16
+    },
+    {
+      "chain": [
+        {
+          "name": "--efhc-color-inset",
+          "computedValue": "rgba(13,11,25,.96)"
+        }
+      ],
+      "findingCount": 14
+    },
+    {
+      "chain": [
+        {
+          "name": "--efhc-color-card",
+          "computedValue": "rgba(18,16,33,.86)"
+        }
+      ],
+      "findingCount": 9
+    },
+    {
+      "chain": [
+        {
+          "name": "--efhc-color-active",
+          "computedValue": "linear-gradient(135deg,rgba(34,25,61,.94),rgba(23,18,43,.96))"
+        }
+      ],
+      "findingCount": 8
+    },
+    {
+      "chain": [
+        {
+          "name": "--yellow",
+          "computedValue": "#ffd328"
+        }
+      ],
+      "findingCount": 2
+    },
+    {
+      "chain": [
+        {
+          "name": "--efhc-color-chrome",
+          "computedValue": "rgba(12,10,24,.98)"
+        }
+      ],
+      "findingCount": 1
+    },
+    {
+      "chain": [
+        {
+          "name": "--efhc-color-page",
+          "computedValue": "rgba(12,10,24,.98)"
+        }
+      ],
+      "findingCount": 1
+    }
+  ],
+  "winningOwners": [
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "html[data-shop-theme=\"dark\"] :is(.text-product, .number-chooser, .number-grid button, .currencies button, .custom-product input, .number-head input, .modal h2 input, .wallet-choice-list button, .profile-grid article, .modal-close, .button.secondary)",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 65,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-order-detail",
+        "shop-orders-tab",
+        "shop-profile-tab",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(13, 11, 25, 0.96)",
+        "rgba(167, 139, 250, 0.24)"
+      ],
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "var(--efhc-color-border)",
+          "findingCount": 52
+        },
+        {
+          "property": "background",
+          "value": "var(--efhc-color-inset)",
+          "findingCount": 13
+        }
+      ],
+      "samplePaths": [
+        "#changeWalletButton",
+        "#checkoutChangeWallet",
+        "#numberChooser",
+        "#numberSearch",
+        "#showMoreOrders",
+        "div.number-grid:nth-of-type(2) > button:nth-of-type(1)",
+        "div.profile-grid:nth-of-type(1) > article:nth-of-type(1)",
+        "div.text-products > button.text-product.product-line:nth-of-type(1)",
+        "div.vip-modes:nth-of-type(1) > button.text-product:nth-of-type(1)",
+        "div.wallet-choice-list > button:nth-of-type(1)",
+        "main.container > section.shop-toolbar:nth-of-type(1) > div.currencies:nth-of-type(2) > button:nth-of-type(2)",
+        "section.modal > button.modal-close"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-color-border",
+              "computedValue": "rgba(167,139,250,.24)"
+            }
+          ],
+          "findingCount": 52
+        },
+        {
+          "chain": [
+            {
+              "name": "--efhc-color-inset",
+              "computedValue": "rgba(13,11,25,.96)"
+            }
+          ],
+          "findingCount": 13
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "html[data-shop-theme=\"dark\"] :is(.shop-toolbar, .account, .catalog-section, .account-panel, .modal, .language, .profile-pill, .theme-toggle)",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 45,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-order-detail",
+        "shop-orders-tab",
+        "shop-profile-tab",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(167, 139, 250, 0.24)",
+        "rgba(18, 16, 33, 0.86)"
+      ],
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "var(--efhc-color-border)",
+          "findingCount": 36
+        },
+        {
+          "property": "background",
+          "value": "var(--efhc-color-card)",
+          "findingCount": 9
+        }
+      ],
+      "samplePaths": [
+        "#checkoutDialog",
+        "#ordersPanel",
+        "#packages",
+        "#profilePanel",
+        "#themeToggle",
+        "#vip",
+        "#walletDialog",
+        "main.container > section.account:nth-of-type(2)",
+        "main.container > section.shop-toolbar:nth-of-type(1)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-color-border",
+              "computedValue": "rgba(167,139,250,.24)"
+            }
+          ],
+          "findingCount": 36
+        },
+        {
+          "chain": [
+            {
+              "name": "--efhc-color-card",
+              "computedValue": "rgba(18,16,33,.86)"
+            }
+          ],
+          "findingCount": 9
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "html[data-shop-theme=\"dark\"] .site-footer a, html[data-shop-theme=\"dark\"] .brand, html[data-shop-theme=\"dark\"] .nav a",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 34,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-order-detail",
+        "shop-orders-tab",
+        "shop-profile-tab",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(247, 247, 244)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "rgb(247, 247, 244)",
+          "findingCount": 34
+        }
+      ],
+      "samplePaths": [
+        "html > body > footer.site-footer > a",
+        "html > body > header.site-header > div.header-inner > a.brand",
+        "html > body > header.site-header > div.header-inner > a.brand > span.brand-copy",
+        "html > body > header.site-header > div.header-inner > a.brand > span.brand-copy > strong"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "html[data-shop-theme=\"dark\"] :is(.number-grid button[data-active=\"true\"], .currencies button[data-active=\"true\"], .language-picker-option[data-active=\"true\"])",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 31,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-order-detail",
+        "shop-orders-tab",
+        "shop-profile-tab",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(167, 139, 250)",
+        "rgba(167, 139, 250, 0.42)",
+        "rgba(23, 18, 43, 0.96)",
+        "rgba(34, 25, 61, 0.94)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "var(--efhc-color-accent)",
+          "findingCount": 19
+        },
+        {
+          "property": "border-color",
+          "value": "var(--efhc-color-border-strong)",
+          "findingCount": 8
+        },
+        {
+          "property": "background",
+          "value": "var(--efhc-color-active)",
+          "findingCount": 4
+        }
+      ],
+      "samplePaths": [
+        "div.language-picker-menu > button.language-picker-option:nth-of-type(2)",
+        "div.language-picker-menu > button.language-picker-option:nth-of-type(2) > span:nth-of-type(1)",
+        "main.container > section.shop-toolbar:nth-of-type(1) > div.currencies:nth-of-type(2) > button:nth-of-type(1)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-color-accent",
+              "computedValue": "#a78bfa"
+            }
+          ],
+          "findingCount": 19
+        },
+        {
+          "chain": [
+            {
+              "name": "--efhc-color-border-strong",
+              "computedValue": "rgba(167,139,250,.42)"
+            }
+          ],
+          "findingCount": 8
+        },
+        {
+          "chain": [
+            {
+              "name": "--efhc-color-active",
+              "computedValue": "linear-gradient(135deg,rgba(34,25,61,.94),rgba(23,18,43,.96))"
+            }
+          ],
+          "findingCount": 4
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".modal > span",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 18,
+      "scenes": [
+        "shop-first-product",
+        "shop-modal-visible",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(135, 113, 12)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "rgb(135, 113, 12)",
+          "findingCount": 18
+        }
+      ],
+      "samplePaths": [
+        "section.modal > span",
+        "section.modal > span > span"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "html[data-shop-theme=\"dark\"] .button:not(.secondary)",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 12,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(167, 139, 250, 0.42)",
+        "rgba(23, 18, 43, 0.96)",
+        "rgba(34, 25, 61, 0.94)"
+      ],
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "var(--efhc-color-border-strong)",
+          "findingCount": 8
+        },
+        {
+          "property": "background",
+          "value": "var(--efhc-color-active)",
+          "findingCount": 4
+        }
+      ],
+      "samplePaths": [
+        "#checkoutPay",
+        "#continueNumber"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-color-border-strong",
+              "computedValue": "rgba(167,139,250,.42)"
+            }
+          ],
+          "findingCount": 8
+        },
+        {
+          "chain": [
+            {
+              "name": "--efhc-color-active",
+              "computedValue": "linear-gradient(135deg,rgba(34,25,61,.94),rgba(23,18,43,.96))"
+            }
+          ],
+          "findingCount": 4
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".section-copy header span, .account-panel header span",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 9,
+      "scenes": [
+        "shop-order-detail",
+        "shop-orders-tab",
+        "shop-profile-tab"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(135, 113, 12)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "rgb(135, 113, 12)",
+          "findingCount": 9
+        }
+      ],
+      "samplePaths": [
+        "section.account-panel:nth-of-type(3) > header > span"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".section-heading header span",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 9,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(135, 113, 12)"
+      ],
+      "declarations": [
+        {
+          "property": "color",
+          "value": "rgb(135, 113, 12)",
+          "findingCount": 9
+        }
+      ],
+      "samplePaths": [
+        "section.catalog-section:nth-of-type(1) > div.section-heading:nth-of-type(1) > header > span"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".tabs button[data-active=\"true\"], .currencies button[data-active=\"true\"]",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 5,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-order-detail",
+        "shop-orders-tab",
+        "shop-profile-tab",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(210, 175, 0)",
+        "rgb(255, 211, 40)"
+      ],
+      "declarations": [
+        {
+          "property": "background",
+          "value": "var(--yellow)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": "rgb(210, 175, 0)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgb(210, 175, 0)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgb(210, 175, 0)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgb(210, 175, 0)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "main.container > section.shop-toolbar:nth-of-type(1) > div.tabs:nth-of-type(1) > button:nth-of-type(1)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--yellow",
+              "computedValue": "#ffd328"
+            }
+          ],
+          "findingCount": 1
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "html[data-shop-theme=\"dark\"] .notice.success, html[data-shop-theme=\"dark\"] .success-card",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 5,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-order-detail",
+        "shop-orders-tab",
+        "shop-profile-tab",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(16, 35, 27)",
+        "rgb(40, 88, 64)"
+      ],
+      "declarations": [
+        {
+          "property": "background-color",
+          "value": "rgb(16, 35, 27)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-top-color",
+          "value": "rgb(40, 88, 64)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-right-color",
+          "value": "rgb(40, 88, 64)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-bottom-color",
+          "value": "rgb(40, 88, 64)",
+          "findingCount": 1
+        },
+        {
+          "property": "border-left-color",
+          "value": "rgb(40, 88, 64)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#notice"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "html[data-shop-theme=\"dark\"] .product-thumb",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 5,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(13, 11, 25, 0.96)",
+        "rgba(167, 139, 250, 0.24)"
+      ],
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "var(--efhc-color-border)",
+          "findingCount": 4
+        },
+        {
+          "property": "background",
+          "value": "var(--efhc-color-inset)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "div.text-products > button.text-product.product-line:nth-of-type(1) > span.product-thumb:nth-of-type(1)"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-color-border",
+              "computedValue": "rgba(167,139,250,.24)"
+            }
+          ],
+          "findingCount": 4
+        },
+        {
+          "chain": [
+            {
+              "name": "--efhc-color-inset",
+              "computedValue": "rgba(13,11,25,.96)"
+            }
+          ],
+          "findingCount": 1
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "html[data-shop-theme=\"dark\"] .site-header",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 5,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-order-detail",
+        "shop-orders-tab",
+        "shop-profile-tab",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(12, 10, 24, 0.98)",
+        "rgba(167, 139, 250, 0.24)"
+      ],
+      "declarations": [
+        {
+          "property": "border-color",
+          "value": "var(--efhc-color-border)",
+          "findingCount": 4
+        },
+        {
+          "property": "background",
+          "value": "var(--efhc-color-chrome)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "html > body > header.site-header"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-color-border",
+              "computedValue": "rgba(167,139,250,.24)"
+            }
+          ],
+          "findingCount": 4
+        },
+        {
+          "chain": [
+            {
+              "name": "--efhc-color-chrome",
+              "computedValue": "rgba(12,10,24,.98)"
+            }
+          ],
+          "findingCount": 1
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".catalog-section",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 2,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(38, 31, 16, 0.05)"
+      ],
+      "declarations": [
+        {
+          "property": "box-shadow",
+          "value": "rgba(38, 31, 16, 0.05) 0px 0.8rem 2.4rem",
+          "findingCount": 2
+        }
+      ],
+      "samplePaths": [
+        "#packages",
+        "#vip"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".account",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 1,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-order-detail",
+        "shop-orders-tab",
+        "shop-profile-tab",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(38, 31, 16, 0.05)"
+      ],
+      "declarations": [
+        {
+          "property": "box-shadow",
+          "value": "rgba(38, 31, 16, 0.05) 0px 0.8rem 2.5rem",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "main.container > section.account:nth-of-type(2)"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".brand",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 1,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-order-detail",
+        "shop-orders-tab",
+        "shop-profile-tab",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(247, 247, 244)"
+      ],
+      "declarations": [
+        {
+          "property": "text-decoration-color",
+          "value": "initial",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "html > body > header.site-header > div.header-inner > a.brand"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".brand-mark, .coin-mark",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 1,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-order-detail",
+        "shop-orders-tab",
+        "shop-profile-tab",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(255, 211, 40)"
+      ],
+      "declarations": [
+        {
+          "property": "background",
+          "value": "var(--yellow)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "#brandCoinImage"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--yellow",
+              "computedValue": "#ffd328"
+            }
+          ],
+          "findingCount": 1
+        }
+      ]
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".shop-toolbar",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 1,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-order-detail",
+        "shop-orders-tab",
+        "shop-profile-tab",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(38, 31, 16, 0.08)"
+      ],
+      "declarations": [
+        {
+          "property": "box-shadow",
+          "value": "rgba(38, 31, 16, 0.08) 0px 0.5rem 1.8rem",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "main.container > section.shop-toolbar:nth-of-type(1)"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": ".site-footer a",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 1,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-order-detail",
+        "shop-orders-tab",
+        "shop-profile-tab",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(247, 247, 244)"
+      ],
+      "declarations": [
+        {
+          "property": "text-decoration-color",
+          "value": "initial",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "html > body > footer.site-footer > a"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "html[data-shop-theme=\"dark\"] .section-image",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 1,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgb(31, 27, 8)"
+      ],
+      "declarations": [
+        {
+          "property": "background-image",
+          "value": "linear-gradient(145deg, rgb(31, 27, 8), rgb(17, 21, 28))",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "section.catalog-section:nth-of-type(2) > div.section-heading:nth-of-type(1) > figure.section-image.vip"
+      ],
+      "variableChains": []
+    },
+    {
+      "type": "CSS_SELECTOR",
+      "owner": "html[data-shop-theme=\"dark\"] body",
+      "scopeClass": "USER_SHOP",
+      "findingCount": 1,
+      "scenes": [
+        "shop-dark-default",
+        "shop-first-payment-choice",
+        "shop-first-product",
+        "shop-language-open",
+        "shop-modal-visible",
+        "shop-order-detail",
+        "shop-orders-tab",
+        "shop-profile-tab",
+        "shop-wallet-dialog"
+      ],
+      "failClasses": [
+        "FAIL_FOREIGN_CHROMA"
+      ],
+      "tokens": [
+        "rgba(12, 10, 24, 0.98)"
+      ],
+      "declarations": [
+        {
+          "property": "background",
+          "value": "var(--efhc-color-page)",
+          "findingCount": 1
+        }
+      ],
+      "samplePaths": [
+        "html > body"
+      ],
+      "variableChains": [
+        {
+          "chain": [
+            {
+              "name": "--efhc-color-page",
+              "computedValue": "rgba(12,10,24,.98)"
+            }
+          ],
+          "findingCount": 1
+        }
+      ]
+    }
+  ],
+  "humanSummary": [
+    "Browser Shop base FAIL provenance is fully resolved for the Cycle0400 FAIL token set.",
+    "The dominant Shop contamination is legacy dark-violet Theme material, especially border/inset/active variables based on #a78bfa and dark violet surfaces.",
+    "Separate yellow/gold owners remain in active tabs, coin/brand material and section imagery.",
+    "Green success/notice material and warm-white brand/footer text are also present in the FAIL set because no Theme04 explicit authority currently covers them.",
+    "Cycle0405 is audit-only: findings do not authorize visual correction; owner decisions remain deferred to Cycle0409 consolidation."
+  ],
+  "decisionLaw": "Finding != mutation. Correction authority remains OWNER-gated after Cycle0409 consolidation."
+}

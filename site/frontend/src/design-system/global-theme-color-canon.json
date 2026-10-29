@@ -1,0 +1,147 @@
+{
+  "schema": "EFHC_GLOBAL_THEME_COLOR_CANON_V1",
+  "release": "FRONTEND_v618",
+  "owner_status": "OWNER_APPROVED_PALETTE_ANCHORS / COMPLETE_CENSUS_PROTOCOL_ACTIVE / THEME03_REFERENCE_LOCKED / THEME01_PALETTE_QUALIFIED_CYCLE0394",
+  "authority": "Direct OWNER decisions through 2026-10-07 / Cycle0393 Complete Chroma + Cascade Provenance Audit",
+  "principles": {
+    "theme_format_preserved": true,
+    "duplicates_allowed": true,
+    "one_decorative_hue_family_per_theme": true,
+    "theme03_material_model": "Theme03 is the immutable qualified reference element/material architecture locked in Cycle0384. Themes 01-02/04-13 are projected in later bounded theme cycles using the shared 18-role schema while preserving each approved accent/palette character. Theme03 is not modified to fit target themes.",
+    "semantic_colors_exception": true,
+    "admin_protected": true,
+    "migration_note": "Cycle0394 applies only OWNER-approved minimal Theme01 owner-rule corrections. Post-correction base provenance and 10,055 forced-state tests show zero USER/Shop foreign chroma; technical/Admin workbench remains excluded and frozen. Broad projection remains forbidden.",
+    "palette_compliance_required": true,
+    "foreign_decorative_chroma_is_error": true,
+    "semantic_exception_requires_explicit_authority": true,
+    "physical_element_census_required_for_full_audit": true,
+    "palette_compliance_note": "For each Global Theme, owner-visible decorative chroma must belong to that theme approved palette/hue family. Cycle0393 proves that representative-row coverage is insufficient: base physical owners and forced interactive states must both resolve. A non-theme decorative hue is erroneous unless a current explicit machine canon owns a semantic exception."
+  },
+  "themes": [
+    {
+      "id": "01",
+      "name": "EFHC Canon",
+      "colorNameRu": "Голубой",
+      "accent": "#6EA8FF",
+      "accentRgb": "110,168,255",
+      "status": "OWNER_APPROVED_FROZEN",
+      "note": "OWNER confirmed predominant existing color; duplicate hue families are intentional."
+    },
+    {
+      "id": "02",
+      "name": "Deep Navy",
+      "colorNameRu": "Светло-синий",
+      "accent": "#73AEFC",
+      "accentRgb": "115,174,252",
+      "status": "OWNER_APPROVED_FROZEN",
+      "note": "OWNER confirmed predominant existing color; duplicate hue families are intentional."
+    },
+    {
+      "id": "03",
+      "name": "Violet Depth",
+      "colorNameRu": "Фиолетовый",
+      "accent": "#A78BFA",
+      "accentRgb": "167,139,250",
+      "status": "OWNER_APPROVED_FROZEN_REFERENCE_LOCKED_CYCLE0384",
+      "note": "Qualified in Cycle0383 and machine-locked by direct OWNER instruction in Cycle0384; no later target-theme projection may mutate this reference without a new direct OWNER decision."
+    },
+    {
+      "id": "04",
+      "name": "Ocean Teal",
+      "colorNameRu": "Классический синий Telegram",
+      "accent": "#229ED9",
+      "accentRgb": "34,158,217",
+      "status": "OWNER_APPROVED_FROZEN",
+      "note": "OWNER replacement from prior teal to classic Telegram Blue."
+    },
+    {
+      "id": "05",
+      "name": "Gold Prestige",
+      "colorNameRu": "Золотой",
+      "accent": "#E5BF58",
+      "accentRgb": "229,191,88",
+      "status": "OWNER_APPROVED_FROZEN",
+      "note": "OWNER confirmed predominant existing color; duplicate hue families are intentional."
+    },
+    {
+      "id": "06",
+      "name": "Graphite Minimal",
+      "colorNameRu": "Фуксия",
+      "accent": "#D946EF",
+      "accentRgb": "217,70,239",
+      "status": "OWNER_APPROVED_FROZEN",
+      "note": "OWNER Cycle0463: legacy design provenance retained; current compatibility color identity is CT-06 Fuchsia #D946EF. Gray #94A3B8 is reserved for inactive/disabled semantics."
+    },
+    {
+      "id": "07",
+      "name": "Aurora Glass",
+      "colorNameRu": "Небесно-голубой",
+      "accent": "#7FB4FF",
+      "accentRgb": "127,180,255",
+      "status": "OWNER_APPROVED_FROZEN",
+      "note": "OWNER confirmed predominant existing color; duplicate hue families are intentional."
+    },
+    {
+      "id": "08",
+      "name": "Compact Operator",
+      "colorNameRu": "Сине-фиолетовый / индиго",
+      "accent": "#8F86FF",
+      "accentRgb": "143,134,255",
+      "status": "OWNER_APPROVED_FROZEN",
+      "note": "OWNER confirmed predominant existing color; duplicate hue families are intentional."
+    },
+    {
+      "id": "09",
+      "name": "Modular Dashboard",
+      "colorNameRu": "Бирюзово-мятный / Modular Teal",
+      "accent": "#58C7B4",
+      "accentRgb": "88,199,180",
+      "status": "OWNER_APPROVED_FROZEN_SUPERSEDED_2026-10-15",
+      "note": "OWNER direct correction 2026-10-15: Emerald Green #22C55E rejected as visually too toxic; restore historical Modular Teal #58C7B4."
+    },
+    {
+      "id": "10",
+      "name": "Linear Ledger",
+      "colorNameRu": "Фуксия",
+      "accent": "#D946EF",
+      "accentRgb": "217,70,239",
+      "status": "OWNER_APPROVED_FROZEN",
+      "note": "OWNER Cycle0463: legacy design provenance retained; current compatibility color identity is CT-06 Fuchsia #D946EF. Gray #94A3B8 is reserved for inactive/disabled semantics."
+    },
+    {
+      "id": "11",
+      "name": "Soft Pill",
+      "colorNameRu": "Фиолетовый",
+      "accent": "#A78BFA",
+      "accentRgb": "167,139,250",
+      "status": "OWNER_APPROVED_FROZEN",
+      "note": "OWNER confirmed predominant existing color; duplicate hue families are intentional."
+    },
+    {
+      "id": "12",
+      "name": "Split Focus",
+      "colorNameRu": "Фиолетовый",
+      "accent": "#A78BFA",
+      "accentRgb": "167,139,250",
+      "status": "OWNER_APPROVED_FROZEN",
+      "note": "OWNER confirmed predominant existing color; duplicate hue families are intentional."
+    },
+    {
+      "id": "13",
+      "name": "Black / Gold Emblematic",
+      "colorNameRu": "Ярко-золотой",
+      "accent": "#FFD400",
+      "accentRgb": "255,212,0",
+      "status": "OWNER_APPROVED_FROZEN",
+      "note": "OWNER Cycle0464 iteration02: this legacy Theme13 #FFD400 identity remains historical provenance only. Current CT-10 Muted Gold #C5A15A is owned by the 10-theme registry; do not project this obsolete bright gold into active CT-10."
+    }
+  ],
+  "targetArchitectureSupersession": {
+    "ownerDate": "2026-10-15",
+    "cycle": "FRONTEND_ADMIN_CYCLE_0453",
+    "status": "TARGET_10_COLOR_REGISTRY_CANONICAL / THIS_13_THEME_LIST_RETAINED_FOR_CURRENT_RUNTIME_COMPATIBILITY",
+    "targetRegistry": "frontend/src/design-system/color-theme-registry.json",
+    "legacyMigrationMap": "frontend/src/design-system/legacy-global-theme-decoupling-map.json",
+    "law": "Color names only; Color Theme changes chroma only; selected designs persist. Current 13-theme list remains transitional runtime input until backward-compatible migration is implemented."
+  }
+}
