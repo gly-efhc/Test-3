@@ -1,0 +1,506 @@
+# EFHC Test-3 — read-only screenshot archive of the live published site.
+# Full-scroll revision: actively scrolls the document and inner scroll containers, storing sequential PNGs.
+# Fixes missing below-the-fold content in the first 92 screenshots; Chrome profile kept outside archive.
+# Upload to: .github/workflows/efhc-screenshot-archive.yml
+# Independent of the existing import and deployment workflows.
+name: EFHC — Screenshot archive (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      viewport:
+        description: "Screenshot sizes"
+        required: true
+        type: choice
+        default: both
+        options:
+          - both
+          - desktop
+          - mobile
+      wait_ms:
+        description: "Wait after each page navigation (ms, min 2500, max 18000)"
+        required: true
+        type: string
+        default: "7500"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: efhc-test3-screenshot-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  screenshots:
+    name: Capture published React pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout route definitions (read-only)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node 24 (native WebSocket; no npm installs)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Find preinstalled Chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BIN" || { echo 'Chrome not available on runner' >&2; exit 1; }
+          echo "CHROME_BIN=$BIN" >> "$GITHUB_ENV"
+          "$BIN" --version
+
+      - name: Render all public pages to PNG
+        id: capture
+        shell: bash
+        env:
+          SITE_URL: https://gly-efhc.github.io/Test-3/
+          SCREENSHOT_DIR: efhc-screenshots
+          SCREENSHOT_MODE: ${{ inputs.viewport }}
+          WAIT_MS: ${{ inputs.wait_ms }}
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/efhc-capture.mjs" <<'EFHC_CAPTURE_JS'
+          import {spawn} from 'node:child_process';
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import {setTimeout as delay} from 'node:timers/promises';
+
+          const root = path.resolve('site/frontend/src/pages');
+          const out = path.resolve(process.env.SCREENSHOT_DIR || 'efhc-screenshots');
+          const site = (process.env.SITE_URL || 'https://gly-efhc.github.io/Test-3/').replace(/\/?$/, '/');
+          const mode = process.env.SCREENSHOT_MODE || 'both';
+          const waitMs = Math.max(2500, Math.min(18000, Number(process.env.WAIT_MS || 7500)));
+          const limit = Number(process.env.EFHC_SCREENSHOT_LIMIT || 0);
+          const browser = process.env.CHROME_BIN;
+          if (!browser || !fs.existsSync(browser)) throw Error('CHROME_BIN is not configured');
+          if (!fs.existsSync(root)) throw Error('Pages source directory missing: ' + root);
+          if (!/^https:\/\/gly-efhc\.github\.io\/Test-3\/$/.test(site) && process.env.EFHC_LOCAL_TEST !== '1') {
+            throw Error('Unexpected public site URL: ' + site);
+          }
+          fs.mkdirSync(out, {recursive:true});
+
+          function visit(dir) {
+            let found=[];
+            for(const ent of fs.readdirSync(dir,{withFileTypes:true})) {
+              const abs=path.join(dir,ent.name);
+              if(ent.isDirectory()) found.push(...visit(abs));
+              else if(/\.(jsx?|tsx?)$/.test(ent.name)) {
+                const rel=path.relative(root,abs).replace(/\\/g,'/');
+                if(rel.startsWith('api/') || path.basename(rel).startsWith('_')) continue;
+                const without=rel.replace(/\.(jsx?|tsx?)$/,'').replace(/(?:^|\/)index$/,'');
+                if(without.includes('[') || without.includes(']')) {
+                  console.warn('DYNAMIC_ROUTE_SKIPPED',rel);
+                  continue;
+                }
+                found.push('/'+(without ? without+'/' : ''));
+              }
+            }
+            return found;
+          }
+          const routes = [...new Set(visit(root))].sort((a,b)=>a==='/'?-1:b==='/'?1:a.localeCompare(b));
+          const targets = routes.map(route=>({route,url:new URL(route.slice(1),site).href,kind:'react-route'}));
+          // Additional public documents and one known read-only query view.
+          targets.push({route:'/offline.html',url:new URL('offline.html',site).href,kind:'public-html'});
+          targets.push({route:'/offline-readonly.html',url:new URL('offline-readonly.html',site).href,kind:'public-html'});
+          if(routes.includes('/web-profile/')) targets.push({route:'/web-profile/?section=providers',url:new URL('web-profile/?section=providers',site).href,kind:'react-query'});
+          if(limit>0) targets.splice(limit);
+          const sizes = mode==='desktop' ? [{name:'desktop',width:1440,height:900}] : mode==='mobile' ? [{name:'mobile',width:390,height:844}] : [
+            {name:'desktop',width:1440,height:900}, {name:'mobile',width:390,height:844}
+          ];
+          const results=[];
+          const scrollOverlap = 0.20;
+          const scrollDelayMs = Math.max(200, Math.min(700, Number(process.env.SCROLL_WAIT_MS || 350)));
+          const maxScrollSteps = 100;
+          const maxFullPageHeight = 80000;
+          const pageTileHeight = 12000;
+
+          // Keep Chrome's transient profile OUTSIDE the screenshot archive.
+          // The GitHub-hosted runner removes RUNNER_TEMP after job completion.
+          // Removing a live Chrome profile synchronously caused ENOTEMPTY after 92/92 PASS.
+          const chromeProfile = path.join(process.env.RUNNER_TEMP || '/tmp', `efhc-screenshot-chrome-${process.pid}`);
+          const port = 19173;
+          const chrome = spawn(browser,[
+            '--headless=new','--no-sandbox','--disable-dev-shm-usage','--disable-gpu',
+            '--no-first-run','--no-default-browser-check','--disable-background-networking',
+            `--remote-debugging-port=${port}`,'--remote-allow-origins=*',
+            `--user-data-dir=${chromeProfile}`,'about:blank'
+          ], {stdio:'ignore'});
+          let socket;let callId=0;const pending=new Map();
+          async function endpoint(p,method='GET'){
+            const r=await fetch(`http://127.0.0.1:${port}${p}`, {method,signal:AbortSignal.timeout(5000)});
+            if(!r.ok)throw Error(`DevTools HTTP ${r.status}`); return r.json();
+          }
+          function send(method,params={}){
+            const id=++callId;
+            return new Promise((resolve,reject)=>{
+              const timer=setTimeout(()=>{pending.delete(id);reject(Error(`CDP_TIMEOUT ${method}`))},25000);
+              pending.set(id,{resolve(x){clearTimeout(timer);resolve(x.result||{})},reject(e){clearTimeout(timer);reject(e)}});
+              socket.send(JSON.stringify({id,method,params}));
+            });
+          }
+          function evalJs(expression){return send('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true});}
+          function fname(route) {
+            if(route==='/')return 'home';
+            const name=route.replace(/^\/+|\/+$/g,'').replace(/[?&=]/g,'__').replace(/[^a-zA-Z0-9_.-]/g,'_');
+            return name || 'unknown';
+          }
+          async function captureTo(filename,options={}) {
+            const result=await send('Page.captureScreenshot',{
+              format:'png',fromSurface:true,captureBeyondViewport:false,...options
+            });
+            if(!result.data)throw Error('No screenshot data returned');
+            const abs=path.join(out,filename);
+            fs.mkdirSync(path.dirname(abs),{recursive:true});
+            const bytes=Buffer.from(result.data,'base64');
+            if(bytes.length<2000)throw Error('Screenshot unusually small: '+filename);
+            fs.writeFileSync(abs,bytes);
+            return {file:filename.replace(/\\/g,'/'),bytes:bytes.length};
+          }
+          async function pageState(){
+            const r=await evalJs(`JSON.stringify((()=>{
+              const h=Math.max(document.documentElement.scrollHeight,document.body?.scrollHeight||0);
+              const client=window.innerHeight;
+              return {y:window.scrollY,scrollHeight:h,clientHeight:client,max:Math.max(0,h-client)};
+            })())`);
+            return JSON.parse(r.result.value);
+          }
+          // Capture *each* viewport while scrolling. A single CDP full-page clip does
+          // not reveal overflow:auto panes or lazily rendered/virtualized content.
+          async function captureDocumentScroll(record,target,size){
+            const part={area:'document',screenshots:[],reached_bottom:true,steps:0};
+            let state=await pageState();
+            const step=Math.max(130,Math.floor(state.clientHeight*(1-scrollOverlap)));
+            const name=fname(target.route);
+            let y=0;
+            let lastY=-1;
+            for(let n=0;n<maxScrollSteps;n++){
+              state=await pageState();
+              if(state.max<=30)break;
+              y=Math.min(state.max,n===0?0:y+step);
+              const r=await evalJs(`(()=>{window.scrollTo({top:${y},behavior:'instant'});return window.scrollY;})()`);
+              await delay(scrollDelayMs);
+              const actual=Number(r.result.value)||0;
+              if(n===0||actual>lastY+10){
+                const file=`scroll/${size.name}/${name}/document_${String(n).padStart(3,'0')}.png`;
+                const shot=await captureTo(file);
+                part.screenshots.push({...shot,position:actual});
+              }
+              lastY=actual;
+              part.steps++;
+              const later=await pageState();
+              // Account for content appearing below as the page scrolls.
+              if(actual>=later.max-3){
+                if(n>0)break;
+                // At least a second pass gives dynamically loaded content a chance.
+                await delay(scrollDelayMs);
+                const final=await pageState();
+                if(final.max<=actual+3)break;
+              }
+              if(actual<y-10 && n>0)break;
+            }
+            const end=await pageState();
+            part.reached_bottom=end.max<=3 || end.y>=end.max-3;
+            part.scroll_height=end.scrollHeight;
+            part.max_scroll=end.max;
+            // Restore to the top before discovering independently scrolling panes.
+            await evalJs('(()=>{window.scrollTo({top:0,behavior:"instant"});return true})()');
+            await delay(scrollDelayMs);
+            return part;
+          }
+          async function discoverScrollAreas(){
+            const r=await evalJs(`JSON.stringify((()=>{
+              let seq=0;const areas=[];
+              for(const e of document.querySelectorAll('body *')){
+                const rect=e.getBoundingClientRect();
+                const range=e.scrollHeight-e.clientHeight;
+                if(range<=40||e.clientWidth<100||e.clientHeight<100||rect.width<100||rect.height<100)continue;
+                // Include panes below the initial fold; scrollIntoView reveals them.
+                const overflow=getComputedStyle(e).overflowY;
+                if(!['auto','scroll','overlay','hidden'].includes(overflow))continue;
+                if(e===document.body||e===document.documentElement)continue;
+                const key=String(seq++);e.setAttribute('data-efhc-capture-scroll-id',key);
+                const label=(e.id?'#'+e.id:e.tagName.toLowerCase()+(typeof e.className==='string'?'.'+e.className.trim().split(/\\s+/).slice(0,2).join('.'):''));
+                areas.push({id:key,label,max:range,height:e.clientHeight,width:e.clientWidth});
+              }
+              areas.sort((a,b)=>b.max-a.max);
+              return areas.slice(0,12);
+            })())`);
+            return JSON.parse(r.result.value);
+          }
+          async function captureInnerScrolls(record,target,size){
+            const areas=await discoverScrollAreas();
+            const result=[];
+            const name=fname(target.route);
+            for(const area of areas){
+              const part={area:'inner-scroll',selector:area.label,id:area.id,
+                estimated_max_scroll:area.max,screenshots:[],steps:0,reached_bottom:false};
+              // Make sure even panes initially below the viewport are visible.
+              const setup=await evalJs(`(()=>{
+                const e=document.querySelector('[data-efhc-capture-scroll-id="${area.id}"]');
+                if(!e)return null;
+                e.scrollIntoView({block:'nearest',behavior:'instant'});
+                e.scrollTop=0;
+                return {max:e.scrollHeight-e.clientHeight,client:e.clientHeight};
+              })()`);
+              if(!setup.result.value){part.error='scrollable element vanished';result.push(part);continue}
+              await delay(scrollDelayMs);
+              const step=Math.max(100,Math.floor(Number(setup.result.value.client)*(1-scrollOverlap)));
+              let targetY=0,lastY=-1;
+              for(let n=0;n<maxScrollSteps;n++){
+                const next=await evalJs(`(()=>{
+                  const e=document.querySelector('[data-efhc-capture-scroll-id="${area.id}"]');
+                  if(!e)return null;
+                  const max=Math.max(0,e.scrollHeight-e.clientHeight);
+                  const y=Math.min(max,${targetY});e.scrollTop=y;
+                  return {y:e.scrollTop,max,client:e.clientHeight};
+                })()`);
+                const x=next.result.value;
+                if(!x){part.error='scrollable element vanished';break}
+                await delay(scrollDelayMs);
+                const check=await evalJs(`(()=>{
+                  const e=document.querySelector('[data-efhc-capture-scroll-id="${area.id}"]');
+                  return e?{y:e.scrollTop,max:Math.max(0,e.scrollHeight-e.clientHeight)}:null;
+                })()`);
+                const actual=check.result.value;
+                if(!actual){part.error='scrollable element vanished';break}
+                if(n===0||actual.y>lastY+10){
+                  const file=`scroll/${size.name}/${name}/pane_${area.id}_${String(n).padStart(3,'0')}.png`;
+                  part.screenshots.push({...await captureTo(file),position:actual.y,max:actual.max});
+                }
+                part.steps++;
+                const previous=lastY;
+                lastY=actual.y;
+                if(actual.y>=actual.max-3) {part.reached_bottom=true;break;}
+                if(n>0&&actual.y<=previous+3){part.error='Unable to advance inner scroller';break;}
+                targetY=actual.y+step;
+              }
+              const verify=await evalJs(`(()=>{
+                const e=document.querySelector('[data-efhc-capture-scroll-id="${area.id}"]');
+                if(!e)return null;
+                const z={y:e.scrollTop,max:Math.max(0,e.scrollHeight-e.clientHeight)};
+                e.scrollTop=0;return z;
+              })()`);
+              if(verify.result.value){
+                part.final_scroll=verify.result.value;
+                part.reached_bottom=part.reached_bottom||part.final_scroll.y>=part.final_scroll.max-3;
+              }
+              result.push(part);
+              if(!part.reached_bottom)console.warn('SCROLL_INCOMPLETE',size.name,target.route,area.label,part.final_scroll);
+            }
+            await evalJs('window.scrollTo({top:0,behavior:"instant"})');
+            return result;
+          }
+
+          async function shot(target,size){
+            const record={route:target.route,url:target.url,kind:target.kind,viewport:size.name,width:size.width,height:size.height,ok:false};
+            try{
+              await send('Emulation.setDeviceMetricsOverride',{width:size.width,height:size.height,deviceScaleFactor:1,mobile:size.name==='mobile'});
+              await send('Page.navigate',{url:target.url,transitionType:'typed'});
+              await delay(waitMs);
+              await evalJs(`(async()=>{await Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,1200))]);return true})()`);
+              const inspect=await evalJs(`JSON.stringify({href:location.href,pathname:location.pathname,title:document.title,hasRoot:!!document.getElementById('__next'),text:(document.body?.innerText||'').trim().slice(0,650),height:document.documentElement.scrollHeight,ready:document.readyState})`);
+              const details=JSON.parse(inspect.result.value);
+              Object.assign(record,{actual_url:details.href,title:details.title,text_sample:details.text.slice(0,250),document_height:details.height,root:details.hasRoot});
+              if(!details.pathname.startsWith('/Test-3/'))throw Error('Redirected outside /Test-3/: '+details.href);
+              if(target.kind!=='public-html' && !details.hasRoot)throw Error('React application root not found');
+              if(!details.text)throw Error('Rendered page has no visible text');
+              if(/This site can.t be reached|ERR_CONNECTION|Section not found|Application error: a client.side exception/i.test(details.text)) throw Error('Browser/app error page: '+details.text.slice(0,130));
+              // Scroll first: this triggers lazy-load, sticky transitions, and virtualized
+              // rows. The archive includes every captured viewport plus the long-page PNG.
+              record.scroll_captures=[];
+              record.scroll_areas=[];
+              const doc=await captureDocumentScroll(record,target,size);
+              record.scroll_areas.push(doc);
+              record.scroll_areas.push(...await captureInnerScrolls(record,target,size));
+              for(const area of record.scroll_areas) record.scroll_captures.push(...area.screenshots);
+              record.scroll_complete=record.scroll_areas.every(x=>x.reached_bottom);
+              record.scroll_images=record.scroll_captures.length;
+              await delay(scrollDelayMs);
+              const metrics=await send('Page.getLayoutMetrics');
+              const latest=await pageState();
+              const pageHeight=Math.max(size.height,Math.ceil(metrics.cssContentSize?.height||0),latest.scrollHeight);
+              const cappedHeight=Math.min(pageHeight,maxFullPageHeight);
+              record.full_height=pageHeight;
+              record.captured_height=cappedHeight;
+              record.page_parts=[];
+              if(pageHeight>maxFullPageHeight){
+                record.scroll_complete=false;
+                record.note=`Document exceeds ${maxFullPageHeight}px hard safety limit; viewport scroll screenshots retained`;
+              }
+              let idx=0;
+              for(let top=0;top<cappedHeight;top+=pageTileHeight){
+                const height=Math.min(pageTileHeight,cappedHeight-top);
+                const filename=idx===0
+                  ? `${size.name}/${fname(target.route)}.png`
+                  : `${size.name}/${fname(target.route)}__full_part_${String(idx).padStart(3,'0')}.png`;
+                const saved=await captureTo(filename,{
+                  captureBeyondViewport:true,
+                  clip:{x:0,y:top,width:size.width,height,scale:1}
+                });
+                record.page_parts.push({...saved,y:top,height});
+                idx++;
+              }
+              if(record.page_parts.length){
+                record.file=record.page_parts[0].file;
+                record.bytes=record.page_parts[0].bytes;
+              }
+              record.ok=record.scroll_complete && record.page_parts.length>0;
+              if(!record.scroll_complete)record.error='Not all scrolling regions reached their bottom; inspect scroll_areas';
+            }catch(e){record.error=String(e?.message||e);console.error('FAIL',size.name,target.route,record.error)}
+            results.push(record);
+            console.log(record.ok?'PASS':'FAIL',size.name,target.route,record.file||'');
+          }
+          try{
+            let alive=false;
+            for(let n=0;n<65;n++){
+              if(chrome.exitCode!==null)throw Error('Chrome exited on startup');
+              try{await endpoint('/json/version');alive=true;break;}catch{await delay(200)}
+            }
+            if(!alive)throw Error('Chrome remote debugging unavailable');
+            const tab=await endpoint('/json/new?about:blank','PUT');
+            socket=new WebSocket(tab.webSocketDebuggerUrl);
+            await new Promise((resolve,reject)=>{
+              const timer=setTimeout(()=>reject(Error('DevTools WebSocket timeout')),10000);
+              socket.addEventListener('open',()=>{clearTimeout(timer);resolve()},{once:true});
+              socket.addEventListener('error',()=>{clearTimeout(timer);reject(Error('DevTools WebSocket error'))},{once:true});
+            });
+            socket.addEventListener('message',(event)=>{
+              try{const item=JSON.parse(event.data);if(item.id && pending.has(item.id)){
+                const p=pending.get(item.id);pending.delete(item.id);
+                if(item.error)p.reject(Error(JSON.stringify(item.error)));else p.resolve(item);
+              }}catch(e){console.error('CDP event handling failed',e)}
+            });
+            await send('Page.enable');await send('Runtime.enable');
+            for(const target of targets)for(const size of sizes)await shot(target,size);
+          }catch(e){console.error('FATAL',e.stack||e);process.exitCode=1;}
+          finally{
+            try{socket?.close();}catch{}
+            try{chrome.kill('SIGTERM');}catch{}
+            // Do not delete the Chrome profile while Chrome is shutting down.
+            // This is an ephemeral hosted runner. Profile is outside the archive.
+            const total=targets.length*sizes.length;
+            const ok=results.filter(x=>x.ok).length;
+            const missing=results.filter(x=>!x.ok);
+            const viewportCaptures=results.reduce((s,x)=>s+(x.scroll_images||0),0);
+            const documentCaptures=results.reduce((s,x)=>s+(x.page_parts?.length||0),0);
+            const manifest={schema:'efhc-screenshot-v2-full-scroll',source:'published GitHub Pages',site,created_at:new Date().toISOString(),workflow_sha:process.env.GITHUB_SHA||null,
+              routes_discovered:routes.length,targets:targets.length,viewports:sizes.map(x=>x.name),expected_screenshots:total,screenshots_succeeded:ok,screenshots_failed:missing.length,scroll_viewport_captures:viewportCaptures,full_page_image_parts:documentCaptures,complete:ok===total,results};
+            fs.mkdirSync(path.join(out,'report'),{recursive:true});
+            fs.writeFileSync(path.join(out,'report','manifest.json'),JSON.stringify(manifest,null,2)+'\n');
+            const lines=[
+              '# EFHC — Screenshots of published Test-3', '',
+              `Source: ${site}`,`Captured: ${manifest.created_at}`,`Repository checkout: ${manifest.workflow_sha||'unknown'}`,
+              'Screenshots represent the published website at capture time; the deployed version may differ from the repository checkout.',
+              `Routes from source: ${routes.length}; additional views: ${targets.length-routes.length}.`,
+              `Screenshots: ${ok}/${total}.`,
+              'Desktop: 1440 × 900; Mobile: 390 × 844. Actively scrolls page and visible inner scroll containers, capturing each viewport with 20% overlap.',
+              `Saved scroll-viewport images: ${viewportCaptures}; saved full-page PNG parts: ${documentCaptures}.`,
+              `Full-page documents tiled every ${pageTileHeight}px, limit ${maxFullPageHeight}px; incomplete scrolling is reported as a failure.`,
+              'Read-only capture. No purchases, account actions, admin edits or wallet operations are performed.',
+              'These are page/route screenshots, NOT all interactive tabs, overlays, design variants or authenticated states.',
+              '', '## Failed screenshots',
+              ...(!missing.length ? ['None'] : missing.map(x=>`- ${x.viewport} ${x.route}: ${x.error}`)), ''
+            ];
+            fs.writeFileSync(path.join(out,'report','README.md'),lines.join('\n'));
+            function csv(x){return '"'+String(x??'').replace(/"/g,'""')+'"'}
+            fs.writeFileSync(path.join(out,'report','routes.csv'),[
+              ['route','viewport','status','file','title','url','error'].join(','),
+              ...results.map(x=>[x.route,x.viewport,x.ok?'PASS':'FAIL',x.file||'',x.title||'',x.url,x.error||''].map(csv).join(','))
+            ].join('\n')+'\n');
+            console.log(`SCREENSHOT_RESULT=${ok}/${total} SCROLL_PNGS=${viewportCaptures} FULLPAGE_PARTS=${documentCaptures} PUBLISHED=${site}`);
+            if(ok!==total)process.exitCode=1;
+          }
+          EFHC_CAPTURE_JS
+          set +e
+          node "$RUNNER_TEMP/efhc-capture.mjs"
+          STATUS=$?
+          set -e
+          echo "capture_exit_code=$STATUS" >> "$GITHUB_OUTPUT"
+          # Keep the archive step running even if some screenshots fail;
+          # the manifest will describe failures precisely.
+          exit 0
+
+      - name: Generate screenshot ZIP and job summary
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PYCODE'
+          import html, json, os, pathlib, zipfile
+          directory=pathlib.Path('efhc-screenshots')
+          directory.mkdir(exist_ok=True)
+          manifest=directory/'report'/'manifest.json'
+          if manifest.exists():
+              data=json.loads(manifest.read_text(encoding='utf-8'))
+              cards=[]
+              for entry in data['results']:
+                  if not entry.get('file'):
+                      continue
+                  link=html.escape(entry['file'], quote=True)
+                  label=html.escape(entry['route'] + ' — ' + entry['viewport'])
+                  cards.append(f'<article><a href="{link}" target="_blank"><img loading="lazy" src="{link}" alt="{label}"></a><p>{label} — full page</p></article>')
+                  for index,shot in enumerate(entry.get('scroll_captures', [])):
+                      sub=html.escape(shot['file'],quote=True)
+                      desc=html.escape(f"{entry['route']} — {entry['viewport']} — scroll #{index+1} (y={shot.get('position', '?')})")
+                      cards.append(f'<article><a href="{sub}" target="_blank"><img loading="lazy" src="{sub}" alt="{desc}"></a><p>{desc}</p></article>')
+              gallery='''<!doctype html><html lang="ru"><meta charset="utf-8"><title>EFHC Test-3 — screenshots</title>
+              <style>body{background:#101217;color:#eee;font:16px sans-serif;padding:20px}h1{font-size:24px}
+              main{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:16px}
+              article{background:#1d2027;border-radius:12px;padding:12px;min-width:0}
+              img{width:100%;height:250px;object-fit:contain;object-position:top;background:#050607}
+              p{overflow-wrap:anywhere;font-size:13px}a{color:#eee}</style>
+              <h1>EFHC Test-3 — screenshots</h1><p>Исходная публикация: https://gly-efhc.github.io/Test-3/</p><main>''' + ''.join(cards) + '</main></html>'
+              (directory/'INDEX.html').write_text(gallery,encoding='utf-8')
+          archive=pathlib.Path('EFHC_TEST3_SCREENSHOTS.zip')
+          with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as z:
+              for f in sorted(directory.rglob('*')):
+                  if f.is_file() and 'temporary-chrome-profile' not in f.relative_to(directory).parts:
+                      z.write(f, f.relative_to(directory))
+          if manifest.exists():
+              data=json.loads(manifest.read_text(encoding='utf-8'))
+              summary=(f"### EFHC screenshot archive\n\n"
+                       f"Published site: {data['site']}\n\n"
+                       f"Screenshots: **{data['screenshots_succeeded']} / {data['expected_screenshots']}**\n\n"
+                       f"Missing: **{data['screenshots_failed']}**\n\n"
+                       f"Sequential scroll screenshots: **{data.get('scroll_viewport_captures',0)}**\n\n"
+                       f"Full-page PNG parts: **{data.get('full_page_image_parts',0)}**\n\n"
+                       f"Download ZIP from this run's Artifacts section.\n")
+          else:
+              summary='### EFHC screenshot archive\n\nCapture failed before creating a manifest. Check logs.\n'
+          print(summary)
+          with open(os.environ['GITHUB_STEP_SUMMARY'],'a',encoding='utf-8') as f:
+              f.write(summary)
+          print(f'ARCHIVE={archive} BYTES={archive.stat().st_size}')
+          PYCODE
+
+      - name: Upload ZIP (including any partial screenshots and diagnostics)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: EFHC-Test3-Screenshots-${{ github.run_number }}
+          path: EFHC_TEST3_SCREENSHOTS.zip
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Verify screenshot coverage
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${{ steps.capture.outputs.capture_exit_code }}" = "0" || {
+            echo 'Screenshot capture had one or more failures. See report/manifest.json in ZIP.' >&2
+            exit 1
+          }
+          python3 - <<'PYCODE'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('efhc-screenshots/report/manifest.json').read_text())
+          assert d['complete'], f"Only {d['screenshots_succeeded']}/{d['expected_screenshots']} screenshots completed"
+          print('EFHC_SCREENSHOT_ARCHIVE_COMPLETE=PASS')
+          PYCODE
