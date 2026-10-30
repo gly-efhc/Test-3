@@ -2,13 +2,17 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 const read = (p) => readFileSync(new URL(p, import.meta.url), "utf8");
-test("Pages preview records route changes without enabling the production hash guard", () => {
+// Rebased in v888: the v877 expectation that Pages disables Back was the
+// regression itself. Preserve this test filename for test-history continuity.
+test("Pages and Android share the same navigation guard on every route", () => {
   const src = read("../lib/appBackNavigation.ts");
-  const observe = src.indexOf('router.events.on("routeChangeComplete", onRouteChange)');
-  const skip = src.indexOf('if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1") {');
-  assert.ok(observe > 0 && skip > observe);
-  assert.ok(src.includes('return () => router.events.off("routeChangeComplete", onRouteChange);'));
-  assert.ok(src.includes('navigateBackWithinApp'));
+  assert.match(src, /router\.events\.on\("routeChangeComplete", onRouteChange\)/);
+  assert.match(src, /window\.addEventListener\("popstate", onPopState, true\)/);
+  assert.match(src, /document\.addEventListener\("backbutton", onNativeBack\)/);
+  assert.match(src, /bridgeWindow\.__EFHC_ANDROID_BACK__ = bridgeHandler/);
+  assert.match(src, /window\.history\.pushState\(/);
+  assert.doesNotMatch(src, /if \(process\.env\.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1"\) \{\s*return \(\) =>/);
+  assert.doesNotMatch(src, /efhc-app-back-guard/);
 });
 test("Modal portal stands above onboarding and can be scrolled entirely within viewport", () => {
   const css = read("../styles/reconstruction-dialog-navigation-v877.css");

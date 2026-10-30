@@ -797,6 +797,7 @@ export function Layout(
         {!isAdminRoute && (
           <nav
             ref={bottomNavElementRef}
+            data-regression-nav-canon="v888"
             className={
               "fixed bottom-0 left-0 right-0 z-30 " +
               "efhc-nav efhc-game-nav"
@@ -840,7 +841,13 @@ export function Layout(
 
         <div
           className="efhc-customization-control-dock"
+          data-regression-dock-canon="v888"
           data-has-bottom-nav={!isAdminRoute ? "true" : "false"}
+          style={{
+            bottom: !isAdminRoute && bottomNavViewportHeight !== null
+              ? `${bottomNavViewportHeight + 9}px`
+              : undefined,
+          }}
           data-user-floating-boundary={
             isAdminRoute ? undefined : "shared-shell"
           }

@@ -1,0 +1,124 @@
+/* EFHC recovery v888: source-backed surgical correction, not a theme reset.
+   The nav is a child of FrontendShellRoot (.efhc-independent-shell),
+   but is OUTSIDE its inner FrontendShellFrame. Earlier selectors DO match;
+   the actual defect is the computed style/cascade and insufficient browser
+   acceptance tests. Never claim that selector matching failed.
+   BN/HS/HB/CT custom variant overrides remain protected. */
+
+/* The nav is a sibling of the *inner frame* but child of shell root.
+   Match its rendered DOM directly to stabilize base geometry across pages. */
+nav.efhc-game-nav[data-regression-nav-canon="v888"] {
+  position:fixed;
+  bottom:0;
+  left:50%;
+  right:auto;
+  width:min(100%,34rem);
+  transform:translateX(-50%);
+  z-index:30;
+  background:transparent;
+  pointer-events:none;
+  box-sizing:border-box;
+}
+nav.efhc-game-nav[data-regression-nav-canon="v888"] .efhc-game-nav_inner {
+  width:100%;max-width:34rem;margin:0 auto;
+  padding:.28rem .32rem calc(.32rem + var(--efhc-safe-bottom));
+  pointer-events:auto;
+}
+nav.efhc-game-nav[data-regression-nav-canon="v888"] .efhc-game-nav_grid {
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:.18rem;padding:.2rem;
+  border:1px solid rgba(110,168,255,.22);
+  border-radius:1rem;
+  background:rgba(8,13,22,.96);
+  box-shadow:0 12px 28px rgba(0,0,0,.34);
+}
+nav.efhc-game-nav[data-regression-nav-canon="v888"] .efhc-game-nav_item {
+  position:relative;display:flex;min-width:0;min-height:3.25rem;
+  flex-direction:column;align-items:center;justify-content:center;
+  gap:.14rem;padding:.25rem .02rem .22rem;
+  border:1px solid transparent;border-radius:.78rem;
+  cursor:pointer;
+}
+nav.efhc-game-nav[data-regression-nav-canon="v888"] .efhc-game-nav_icon {
+  display:grid;width:2.72rem;height:1.62rem;place-items:center;
+  border-radius:999px;
+}
+nav.efhc-game-nav[data-regression-nav-canon="v888"] .efhc-game-nav_icon svg {
+  width:1.28rem;height:1.28rem;stroke-width:1.8;
+}
+nav.efhc-game-nav[data-regression-nav-canon="v888"] .efhc-game-nav_label {
+  max-width:100%;overflow:hidden;
+  font-size:clamp(.5rem,1.45vw,.59rem);font-weight:700;
+  line-height:1;text-overflow:ellipsis;white-space:nowrap;
+}
+/* Default BN-01 source uses compact 52px hit cells. Prior scoped
+   migrated 3.6rem min-height outranked the real nav DOM and expanded
+   the bar. Only BN-01 is corrected; other BN variants stay independent. */
+nav.efhc-game-nav[data-regression-nav-canon="v888"] .efhc-game-nav_grid[data-bn="BN-01"] .efhc-game-nav_item {
+  min-height:3.25rem !important;
+  height:3.25rem;
+}
+nav.efhc-game-nav[data-regression-nav-canon="v888"] .efhc-game-nav_grid[data-bn="BN-01"] .efhc-game-nav_item[data-active="true"]::after {
+  content:none !important;
+}
+
+
+/* The canonical rendered DOM computed on Chromium at 390px is 2 equal
+   170.609px columns, despite earlier un-overridden CSS rules showing
+   1fr/.82fr. Keep the measured final cascade; protect avatar/actions. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+ .efhc-game-header[data-canon-header-cycle="0007"] {
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  grid-template-areas:"profile balance" "actions actions";
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+ .efhc-game-header[data-canon-header-cycle="0007"] .efhc-game-header_profile {
+  min-width:0;grid-template-columns:2.35rem minmax(0,1fr);
+  gap:.55rem;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+ .efhc-game-header[data-canon-header-cycle="0007"] .efhc-game-header_balance {
+  min-width:0;max-width:100% !important;
+  overflow:hidden;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+ .efhc-game-header[data-canon-header-cycle="0007"] .efhc-game-header_profile-copy {
+  min-width:0;overflow:visible;
+}
+/* Root cause visible in computed geometry: generic 44px button min-height
+   makes the name row + statuses 59.7px tall inside a 53px profile card.
+   The profile itself remains clickable; only its nested name button is
+   exempted from the global 44px touch min-height to restore status layout. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+ .efhc-game-header[data-canon-header-cycle="0007"] .efhc-game-header_profile-name-button {
+  min-height:0 !important;
+  height:auto !important;
+  padding:0 !important;
+  line-height:normal;
+}
+
+.efhc-independent-shell[data-interface-app-mode="user"]
+ .efhc-game-header[data-canon-header-cycle="0007"] .efhc-game-header_statuses {
+  min-width:0;max-width:100%;gap:.38rem;overflow:visible;
+  flex-wrap:nowrap;white-space:nowrap;
+}
+
+/* The 10 CT setting stays visible at the right CORNER of the actual 544px
+   application frame, not a hard-coded 390px simulation frame. */
+.efhc-customization-control-dock[data-regression-dock-canon="v888"] {
+  position:fixed;
+  right:max(.58rem,calc((100vw - 544px)/2 + .58rem));
+  bottom:calc(4.72rem + var(--efhc-safe-bottom));
+  z-index:98;
+  width:max-content;
+  pointer-events:none;
+}
+.efhc-customization-control-dock[data-regression-dock-canon="v888"][data-has-bottom-nav="false"] {
+  bottom:calc(.8rem + var(--efhc-safe-bottom));
+}
+.efhc-customization-control-dock[data-regression-dock-canon="v888"] > button {
+  pointer-events:auto;
+}
+@media(max-width:544px){
+ .efhc-customization-control-dock[data-regression-dock-canon="v888"] {right:.58rem;}
+}

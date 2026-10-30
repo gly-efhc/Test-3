@@ -42,8 +42,17 @@ export function demoPanelsSummary(): PanelsSummaryResponse {
   };
 }
 
-export function demoPanelsPage(tab: PanelTab, cursor: string | null): PanelsPageResponse {
+/** The frozen standalone sorts its entire 60-panel collection *before*
+ * slicing the 20-record window. The optional direction applies only to the
+ * isolated DEMO adapter; production API order and cursors are untouched.
+ * Default is legacy source-order for old callers and clock tests. */
+export function demoPanelsPage(
+  tab: PanelTab,
+  cursor: string | null,
+  sortDirection: "oldest" | "newest" = "newest",
+): PanelsPageResponse {
   const rows = demoPanelRows(tab);
+  if (sortDirection === "oldest") rows.reverse();
   const offset = cursor === null ? 0 : Number(cursor);
   if (!Number.isInteger(offset) || offset < 0 || offset > rows.length) {
     throw new Error("Invalid DEMO cursor");
@@ -93,6 +102,7 @@ export function demoTasksCatalog(): TaskCatalogItem[] {
   })) as TaskCatalogItem[];
 }
 export function demoMyTasks(): MyTaskItem[] { return []; }
+export function demoTaskPreviewBalanceD8(): string { return fixtures.tasks.bonus_balance_d8; }
 export function demoTaskEarnings(): TaskEarningsResponse {
   return {
     total_bonus_earned: fixtures.tasks.earnings.total_bonus_earned,

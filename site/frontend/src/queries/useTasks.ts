@@ -15,6 +15,7 @@ import type { GlobalId } from "../types/identity";
 import { queryKeys } from "./queryKeys";
 import { useFrozenDemoTables } from "../reconstruction/useFrozenDemoTables";
 import { demoTasksCatalog, demoMyTasks, demoTaskEarnings } from "../reconstruction/demoTables";
+import { isDemoPreviewEnabled } from "../reconstruction/demoUnifiedStore";
 
 async function invalidateTaskState(
   queryClient: ReturnType<typeof useQueryClient>,
@@ -35,35 +36,35 @@ async function invalidateTaskState(
 
 export function useTasksCatalog() {
   const globalId = useAuthOwnerGlobalId();
-  const demo = useFrozenDemoTables() && !globalId;
+  const demo = useFrozenDemoTables();
   return useQuery({
     queryKey: queryKeys.tasks.catalog,
     enabled: (process.env.NEXT_PUBLIC_EFHC_E2E_TONCONNECT_MOCK !== "1" ||
       process.env.NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF !== "1") || demo,
     staleTime: 60_000,
-    queryFn: demo ? demoTasksCatalog : getTasksCatalog,
+    queryFn: demo && !isDemoPreviewEnabled() ? demoTasksCatalog : getTasksCatalog,
   });
 }
 
 export function useTaskEarnings() {
   const globalId = useAuthOwnerGlobalId();
-  const demo = useFrozenDemoTables() && !globalId;
+  const demo = useFrozenDemoTables();
   return useQuery({
     queryKey: queryKeys.tasks.earnings(globalId),
     enabled: Boolean(globalId) || demo,
     staleTime: 10_000,
-    queryFn: demo ? demoTaskEarnings : getTaskEarnings,
+    queryFn: demo && !isDemoPreviewEnabled() ? demoTaskEarnings : getTaskEarnings,
   });
 }
 
 export function useMyTasks() {
   const globalId = useAuthOwnerGlobalId();
-  const demo = useFrozenDemoTables() && !globalId;
+  const demo = useFrozenDemoTables();
   return useQuery({
     queryKey: queryKeys.tasks.mine(globalId),
     enabled: Boolean(globalId) || demo,
     staleTime: 10_000,
-    queryFn: demo ? demoMyTasks : getMyTasks,
+    queryFn: demo && !isDemoPreviewEnabled() ? demoMyTasks : getMyTasks,
   });
 }
 

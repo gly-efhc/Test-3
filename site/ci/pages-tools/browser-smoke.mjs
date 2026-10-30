@@ -77,9 +77,243 @@ try {
   });
   await send('Page.enable');await send('Runtime.enable');
   await inspect('/');
+  // OWNER hard gate: check RENDERED COMPUTED geometry at smartphone size.
+  // Prior source-grep tests all passed while the UI regressed.
+  await send('Emulation.setDeviceMetricsOverride',{
+    width:390,height:844,deviceScaleFactor:1,mobile:true,
+  });
+  await inspect('/');
+  const geometryExpr=`JSON.stringify((()=>{
+    const r=(selector)=>document.querySelector(selector)?.getBoundingClientRect();
+    const profile=r('.efhc-game-header_profile');
+    const balance=r('.efhc-game-header_balance');
+    const statuses=r('.efhc-game-header_statuses');
+    const nav=r('nav[data-regression-nav-canon="v888"]');
+    const item=r('.efhc-game-nav_item');
+    const gear=r('.efhc-interface-customization-button');
+    return {profileW:profile?.width,balanceW:balance?.width,
+      navH:nav?.height,itemH:item?.height,
+      navCount:document.querySelectorAll('nav[data-regression-nav-canon="v888"] .efhc-game-nav_item').length,
+      gearGap:gear?window.innerWidth-gear.right:null,
+      gearOpacity:gear?getComputedStyle(document.querySelector('.efhc-interface-customization-button')).opacity:null,
+      statusCount:document.querySelectorAll('.efhc-game-header_statuses .efhc-game-header_status').length,
+      statusWithinProfile:!!(statuses&&profile && statuses.bottom<=profile.bottom+.75 && statuses.top>=profile.top-.75),
+      viewport:window.innerWidth};
+  })())`;
+  const geometryReply=await send('Runtime.evaluate',{expression:geometryExpr,returnByValue:true});
+  const geom=JSON.parse(geometryReply.result.result.value);
+  if(geom.navCount!==6 || geom.itemH < 49 || geom.itemH > 56 || geom.navH < 62)
+    throw Error('OWNER_BOTTOM_NAV_RENDERED_REGRESSION '+JSON.stringify(geom));
+  if(!geom.profileW || !geom.balanceW || Math.abs(geom.profileW-geom.balanceW)>1.1 || geom.statusCount!==2 || !geom.statusWithinProfile)
+    throw Error('OWNER_HEADER_PROFILE_STATUS_REGRESSION '+JSON.stringify(geom));
+  if(geom.gearGap===null || geom.gearGap>19 || geom.gearGap<0 || Number(geom.gearOpacity)<.95)
+    throw Error('OWNER_CT_GEAR_CORNER_REGRESSION '+JSON.stringify(geom));
+  console.log('PASS OWNER RENDERED SHELL 390x844',JSON.stringify(geom));
+  // Real React navigation and Android bridge, not a source-only check.
+  const clickPanels=await send('Runtime.evaluate',{expression:
+    `Boolean(document.querySelector('nav a[data-nav-key="panels"]')?.click())`,returnByValue:true});
+  await sleep(2400);
+  const pathAfterClick=await send('Runtime.evaluate',{expression:'location.pathname',returnByValue:true});
+  if(pathAfterClick.result.result.value!=='/Test-3/panels/')
+    throw Error('OWNER_NAV_PANELS_CLICK_FAILED '+pathAfterClick.result.result.value);
+  const bridge=await send('Runtime.evaluate',{expression:
+    'typeof window.__EFHC_ANDROID_BACK__ === "function" && (window.__EFHC_ANDROID_BACK__(),true)',
+    returnByValue:true});
+  if(bridge.result.result.value!==true) throw Error('OWNER_ANDROID_BACK_BRIDGE_MISSING');
+  await sleep(2000);
+  const pathAfterBack=await send('Runtime.evaluate',{expression:'location.pathname',returnByValue:true});
+  if(pathAfterBack.result.result.value!=='/Test-3/')
+    throw Error('OWNER_ANDROID_BACK_NAVIGATION_FAILED '+pathAfterBack.result.result.value);
+  console.log('PASS OWNER NAV AND BACK end-to-end');
   await inspect('/panels/');
+  // Recovery of cycle 0010 must be proven on the rendered React,
+  // not by a JSX/CSS source-grep. Only the source PA-01 variant
+  // has the canonical two-column mobile activation values.
+  const panelStyleReply=await send('Runtime.evaluate',{expression:
+    `JSON.stringify((()=>{const card=document.querySelector('.efhc-panels-activation-card');
+      const values=card?.querySelector(':scope > .grid > .grid');
+      const figures=values?[...values.querySelectorAll('.tabular-nums')]:[];
+      const rect=card?.getBoundingClientRect();
+      return {variant:card?.getAttribute('data-pa')||'',
+        columns:values?getComputedStyle(values).gridTemplateColumns:'',
+        figures:figures.map(el=>({text:el.textContent?.trim()||'',
+          overflow:el.scrollWidth>el.clientWidth+1})),
+        height:rect?.height||null};})())`,returnByValue:true});
+  const pa=JSON.parse(panelStyleReply.result.result.value);
+  if(!pa.variant)throw Error('OWNER_PANELS_ACTIVATION_VARIANT_MISSING '+JSON.stringify(pa));
+  if(pa.variant==='PA-01') {
+    const columns=pa.columns.trim().split(/\s+/);
+    if(columns.length!==2 || pa.figures.length!==2 || pa.figures.some(f=>f.overflow))
+      throw Error('OWNER_PANELS_PA01_RENDERED_GEOMETRY_REGRESSION '+JSON.stringify(pa));
+    console.log('PASS OWNER PANELS PA-01 RENDERED GEOMETRY',JSON.stringify(pa));
+  } else {
+    console.log('NOT_APPLICABLE OWNER PANELS PA-01: active independent variant',pa.variant);
+  }
+  // RECON_CYCLE_0011: actual React portfolio, not HTML fixture or
+  // source-only tests. DEMO data must be sorted before 20-row cursor
+  // pagination, preserve scroll position, expose distinct archive
+  // records and keep both directions functional.
+  await inspect('/panels/portfolio/');
+  const readPortfolio=async()=>{
+    const reply=await send('Runtime.evaluate',{expression:
+      `JSON.stringify((()=>{const root=document.querySelector('[data-panels-portfolio-route]');
+        const list=root?.querySelector('[data-panels-scroll-mode="canonical-window"]');
+        const ids=[...(list?.querySelectorAll('[data-panel-identity]')||[])].map(el=>el.getAttribute('data-panel-identity'));
+        const first=list?.querySelector('.efhc-panel-tile');
+        const date=first?.querySelector('[data-panel-card-field="activated-at"] .font-semibold');
+        const head=first?.querySelector('[data-panel-card-field="panel-id"]');
+        const rect=first?.getBoundingClientRect();
+        return {mode:root?.getAttribute('data-panels-layout'),tab:list?.getAttribute('data-panels-list'),
+          ids,scrollTop:list?.scrollTop??null,viewport:list?.clientHeight??null,
+          firstHeight:rect?.height??null,firstDate:date?.textContent?.trim()||'',
+          firstText:head?.textContent?.trim()||'',
+          firstDateOverflow:date?date.scrollWidth>date.clientWidth+1:null,
+          nestedScroll:list?list.scrollHeight>list.clientHeight:false};})())`,returnByValue:true});
+    return JSON.parse(reply.result.result.value);
+  };
+  let portfolio=await readPortfolio();
+  if(portfolio.mode!=='portfolio-page'||portfolio.ids.length!==20||portfolio.ids[0]!=='PNL-000000060')
+    throw Error('OWNER_PORTFOLIO_INITIAL_OLDEST_20_REGRESSION '+JSON.stringify(portfolio));
+  if(!portfolio.nestedScroll||portfolio.firstDateOverflow||!/\d{2}:\d{2}:\d{2} UTC/.test(portfolio.firstDate))
+    throw Error('OWNER_PORTFOLIO_CARD_DATE_GEOMETRY_REGRESSION '+JSON.stringify(portfolio));
+  for(const expected of [40,60]) {
+    await send('Runtime.evaluate',{expression:
+      `(()=>{const e=document.querySelector('[data-panels-scroll-mode="canonical-window"]');
+        if(!e)return false;e.scrollTop=e.scrollHeight;e.dispatchEvent(new Event('scroll',{bubbles:true}));return true;})()`,returnByValue:true});
+    let loaded=false;
+    for(let check=0;check<15;check++){
+      await sleep(200);
+      portfolio=await readPortfolio();
+      if(portfolio.ids.length===expected){loaded=true;break;}
+    }
+    if(!loaded)throw Error('OWNER_PORTFOLIO_20_20_20_PAGE_LOAD_FAILED '+expected+' '+JSON.stringify(portfolio));
+    if(portfolio.ids[0]!=='PNL-000000060'||new Set(portfolio.ids).size!==expected)
+      throw Error('OWNER_PORTFOLIO_SCROLL_ANCHOR_OR_DUPLICATE '+JSON.stringify(portfolio));
+  }
+  await send('Runtime.evaluate',{expression:
+    `(()=>{document.querySelector('[data-panels-tab-button="archive"]')?.click();return true;})()`,returnByValue:true});
+  await sleep(900);
+  portfolio=await readPortfolio();
+  if(portfolio.tab!=='archive'||portfolio.ids.length!==20||portfolio.ids[0]!=='PNL-000000160')
+    throw Error('OWNER_PORTFOLIO_ARCHIVE_OLDEST_PAGE_FAILED '+JSON.stringify(portfolio));
+  await send('Runtime.evaluate',{expression:
+    `(()=>{document.querySelector('[data-panels-sort-direction="oldest"]')?.click();return true;})()`,returnByValue:true});
+  await sleep(900);
+  portfolio=await readPortfolio();
+  if(portfolio.tab!=='archive'||portfolio.ids[0]!=='PNL-000000101')
+    throw Error('OWNER_PORTFOLIO_ARCHIVE_NEWEST_PAGE_FAILED '+JSON.stringify(portfolio));
+  console.log('PASS OWNER REACT PORTFOLIO DEMO 60+60 / 20+20+20 / SORT / UTC / SCROLL');
   await inspect('/ranks/');
+  // RECON_CYCLE_0012: physical React Ranks hero, not synthetic CSS.
+  // The existing 220-row leaderboard and its appearance are immutable
+  // for this scope; check its data only, without rewriting rows.
+  const readRanksHero=async()=>{
+    const reply=await send('Runtime.evaluate',{expression:
+      `JSON.stringify((()=>{const root=document.querySelector('.efhc-ranks-shell[data-kg]');
+        const hero=root?.querySelector('[data-ranks-hero-summary="cycle0012-responsive"]');
+        const stats=[...(hero?.querySelectorAll('.efhc-game-stat')||[])];
+        const values=stats.map(el=>el.querySelector('.efhc-game-stat_value'));
+        const energy=hero?.querySelector('[data-ranks-hero-energy-d8]');
+        const scoreRows=[...(root?.querySelectorAll('[data-ranks-leaderboard="paged-full"] [data-ranks-card="compact-row-32"]')||[])];
+        const refresh=hero?.querySelector('[data-ranks-refresh-action]');
+        const find=root?.querySelector('[data-ranks-show-me-action]');
+        const rect=e=>e?.getBoundingClientRect();
+        return {hero:!!hero,heroWidth:rect(hero)?.width||0,
+          statCount:stats.length,fullEnergy:energy?.textContent?.trim()||'',
+          overflow:values.some(el=>!el||el.scrollWidth>el.clientWidth+1)||stats.some(el=>el.scrollWidth>el.clientWidth+1),
+          valueClipped:values.some(el=>el&&getComputedStyle(el).overflow==='hidden'),
+          refresh:!!refresh&&!refresh.disabled,find:!!find&&!find.disabled,
+          rows:scoreRows.length,topPositions:scoreRows.slice(0,4).map(e=>e.querySelector('.efhc-rank-position')?.textContent?.trim()),
+          viewport:innerWidth};})())`,returnByValue:true});
+    return JSON.parse(reply.result.result.value);
+  };
+  for(const width of [390,360]) {
+    await send('Emulation.setDeviceMetricsOverride',{width,height:844,deviceScaleFactor:1,mobile:true});
+    await sleep(700);
+    const ranksHero=await readRanksHero();
+    if(!ranksHero.hero||ranksHero.statCount!==2||ranksHero.overflow||ranksHero.valueClipped||
+        !ranksHero.refresh||!ranksHero.find||ranksHero.heroWidth>width+1||
+        !ranksHero.fullEnergy.includes('8123.12345678')||ranksHero.rows<100||
+        ranksHero.topPositions[0]!=='1'||ranksHero.topPositions[1]!=='2'||ranksHero.topPositions[2]!=='2')
+      throw Error('OWNER_RANKS_HERO_OR_DEMO_REGRESSION '+JSON.stringify(ranksHero));
+    console.log('PASS OWNER RANKS HERO RESPONSIVE '+width,JSON.stringify(ranksHero));
+  }
+  await send('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
+  // Verify full 220-row DEMO pagination without touching the established row layout.
+  let ranksHero=await readRanksHero();
+  for(let attempt=0;attempt<4&&ranksHero.rows<220;attempt++) {
+    await send('Runtime.evaluate',{expression:
+      `(()=>{const b=document.querySelector('[data-ranks-load-more="true"]');
+        if(!b||b.disabled)return false;b.click();return true;})()`,returnByValue:true});
+    await sleep(1300);ranksHero=await readRanksHero();
+  }
+  if(ranksHero.rows!==220)
+    throw Error('OWNER_RANKS_220_DEMO_PAGINATION_REGRESSION '+JSON.stringify(ranksHero));
+  console.log('PASS OWNER RANKS 220 DEMO ITEMS');
   await inspect('/tasks/');
+  // RECON_CYCLE_0013: actual compiled React task controls, not frozen HTML.
+  // All modifications below are ephemeral DOM theme probes in this Chrome
+  // run; source, backend, wallet, production and user settings untouched.
+  const tasksProbe=async()=>{
+    const reply=await send('Runtime.evaluate',{expression:
+      `JSON.stringify((()=>{const shell=document.querySelector('.efhc-independent-shell');
+        const page=document.querySelector('.efhc-tasks-shell[data-tasks-cycle0013]');
+        const hero=page?.querySelector('.efhc-game-hero');
+        const cards=[...(page?.querySelectorAll('[data-task-card="earning"]')||[])];
+        const buttons=cards.map(e=>e.querySelector('.efhc-task-card_bottom>button'));
+        const b=cards[0]?.querySelector('.efhc-task-card_reward .efhc-badge');
+        const rect=e=>e?.getBoundingClientRect();
+        return {demo:page?.getAttribute('data-demo-task-mode'),count:cards.length,
+          enabled:buttons.filter(e=>e&&!e.disabled).length,
+          heroImage:hero?getComputedStyle(hero).backgroundImage:'',
+          heroRadius:hero?getComputedStyle(hero).borderRadius:'',
+          themeAccent:b?getComputedStyle(b).color:'',
+          overflow:cards.some((e,i)=>!buttons[i]||rect(buttons[i]).right>rect(e).right+1)||
+            (page?.scrollWidth||0)>(page?.clientWidth||0)+1,
+          theme:shell?.getAttribute('data-color-theme-id'),
+          variant:page?.getAttribute('data-tg')};})())`,returnByValue:true});
+    return JSON.parse(reply.result.result.value);
+  };
+  for(const width of [360,390,430]) {
+    await send('Emulation.setDeviceMetricsOverride',{width,height:844,deviceScaleFactor:1,mobile:true});
+    await sleep(250);
+    const themes=new Set();const variants=new Set();
+    for(let ti=1;ti<=10;ti++) {
+      for(const tg of ['TG-01','TG-02','TG-03','TG-09']) {
+        const theme='CT-'+String(ti).padStart(2,'0');
+        await send('Runtime.evaluate',{expression:
+          `(()=>{const r=document.querySelector('.efhc-independent-shell');
+            const p=document.querySelector('.efhc-tasks-shell');
+            r?.setAttribute('data-color-theme-id',${JSON.stringify(theme)});
+            p?.setAttribute('data-tg',${JSON.stringify(tg)});
+            return true;})()`,returnByValue:true});
+        const result=await tasksProbe();
+        if(result.count!==5||result.enabled!==5||result.overflow||result.demo!=='isolated-preview')
+          throw Error('OWNER_TASKS_RUNTIME_OR_RESPONSIVE_FAIL '+width+' '+JSON.stringify(result));
+        themes.add(result.themeAccent);
+        if(ti===1) variants.add(result.heroImage+'|'+result.heroRadius);
+      }
+    }
+    if(themes.size!==10||variants.size!==4)
+      throw Error('OWNER_TASKS_CT_OR_TG_NOT_DISTINCT '+width+' themes='+themes.size+' variants='+variants.size);
+    console.log('PASS OWNER TASKS REACT 10 CT x 4 TG '+width);
+  }
+  await send('Page.navigate',{url:url.replace(/\/$/,'')+'/tasks/'});
+  await sleep(5000);
+  const taskDemo=await tasksProbe();
+  if(taskDemo.count!==5||taskDemo.enabled!==5||taskDemo.demo!=='isolated-preview')
+    throw Error('OWNER_TASKS_REAL_DEMO_ACTIONS_DISABLED '+JSON.stringify(taskDemo));
+  // First button opens local DEMO task dialog (never real claim or Ad API).
+  await send('Runtime.evaluate',{expression:
+    `(()=>{document.querySelector('.efhc-tasks-shell [data-task-code="demo_join_telegram"] .efhc-task-card_bottom>button')?.click();return true})()`,returnByValue:true});
+  await sleep(400);
+  const taskModal=await send('Runtime.evaluate',{expression:
+    `JSON.stringify({open:!!document.querySelector('[role="dialog"]'),confirm:
+       [...document.querySelectorAll('[role="dialog"] button')].some(b=>b.textContent.includes('Подтвердить (DEMO)'))})`,returnByValue:true});
+  const taskDialog=JSON.parse(taskModal.result.result.value);
+  if(!taskDialog.open||!taskDialog.confirm)
+    throw Error('OWNER_TASKS_DEMO_ACTION_DIALOG_MISSING '+JSON.stringify(taskDialog));
+  console.log('PASS OWNER TASKS DEMO LOCAL ACTION');
   await inspect('/faq/');
   await inspect('/hub/');
 await inspect('/admin/');

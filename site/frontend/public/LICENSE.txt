@@ -1,0 +1,19 @@
+EFHC — ENERGY FOR HUMANITY COIN
+PROPRIETARY SOURCE CODE AND VISUAL ASSET NOTICE
+Copyright (c) 2026 EFHC project copyright holder(s). All rights reserved.
+
+NO LICENSE GRANTED. Except where permitted by mandatory applicable law or by a
+separate express written permission from the applicable copyright holder(s),
+no person is authorized to copy, reproduce, distribute, publish, sublicense,
+sell, commercially exploit, modify, adapt, create derivative works from,
+or incorporate into another product any source code, interface design,
+illustration, logo, icon, audio, text, or other protected EFHC project material.
+
+Public availability of a repository, web application, or download does not
+constitute permission to reuse protected material. A public-facing demo may be
+viewed and interacted with for evaluation; no license to its source or assets
+is implied. Independent third-party components retain their respective
+licenses and rights; this notice does not override those licenses.
+
+Contact the authorized EFHC copyright holder(s) to request permission.
+No warranty is given.

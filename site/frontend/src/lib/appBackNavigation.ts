@@ -4,7 +4,6 @@ import type { NextRouter } from "next/router";
 const APP_BACK_BASE = "__efhcAppBackBaseV1";
 const APP_BACK_GUARD = "__efhcAppBackGuardV1";
 const APP_BACK_STACK_KEY = "efhc_app_back_stack_v1";
-const APP_BACK_GUARD_HASH = "#efhc-app-back-guard";
 const MAX_STACK_DEPTH = 48;
 
 type AppHistoryState = Record<string, unknown> & {
@@ -105,114 +104,104 @@ export function navigateBackWithinApp(router: NextRouter): Promise<boolean> {
   return router.push(target, undefined, { scroll: false });
 }
 
+// Browser history is a transport, not the authority for in-app navigation.
+// Every route, including direct-entry /Test-3/ routes, keeps a same-URL guard
+// entry. Native Android WebView Back, PWA Back and browser Back first consume
+// that guard and then use the project-owned route stack. Never push a hash:
+// Next.js basePath + hash guard previously produced broken nested /Test-3 paths.
 export function useAppBackNavigation(router: NextRouter): void {
-  const armingRef = useRef(false);
   const routerRef = useRef(router);
   routerRef.current = router;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    // GitHub Pages is an isolated read-only preview hosted below /Test-3/.
-    // Its browser history must remain browser-owned: the production back-guard
-    // otherwise appends the Pages basePath repeatedly through router.push().
-    // Only the explicit build-time Pages mode bypasses this guard.
-    // Route history is needed by on-screen Back controls in *both* runtimes.
-    // Only the Android/Telegram protective hash guard is disabled on Pages;
-    // disabling the route stack here previously broke every Pages Back button.
-    rememberRoute(routerRef.current.asPath || routerRef.current.pathname);
-    const onRouteChange = (url: string): void => rememberRoute(url);
-    router.events.on("routeChangeComplete", onRouteChange);
-    if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1") {
-      return () => router.events.off("routeChangeComplete", onRouteChange);
-    }
     let disposed = false;
+    let armingFrame = 0;
+    const bridgeWindow = window as AndroidBridgeWindow;
 
-    const armGuard = async (): Promise<void> => {
-      if (disposed || armingRef.current) return;
-      armingRef.current = true;
-      try {
-        // Back resolves before React publishes its next public router snapshot.
-        const route = window.location.pathname + window.location.search;
-        const baseState = (
-          window.history.state || {}
-        ) as AppHistoryState;
-        window.history.replaceState(
-          {
-            ...baseState,
-            [APP_BACK_BASE]: true,
-            [APP_BACK_GUARD]: false,
-          },
-          "",
-          route,
-        );
-        await routerRef.current.push(
-          `${route}${APP_BACK_GUARD_HASH}`,
-          undefined,
-          { shallow: true, scroll: false },
-        );
-        if (disposed) return;
-        const guardState = (
-          window.history.state || {}
-        ) as AppHistoryState;
-        window.history.replaceState(
-          {
-            ...guardState,
-            [APP_BACK_BASE]: false,
-            [APP_BACK_GUARD]: true,
-          },
-          "",
-          route,
-        );
-      } finally {
-        armingRef.current = false;
+    const armSameUrlGuard = (): void => {
+      if (disposed) return;
+      const url = window.location.pathname + window.location.search + window.location.hash;
+      const currentState = (window.history.state || {}) as AppHistoryState;
+      if (currentState[APP_BACK_GUARD]) return;
+      // Preserve Next.js's original state (including __N / key), so its own
+      // router.push can keep managing the real path and Next hydration.
+      window.history.replaceState({
+        ...currentState, [APP_BACK_BASE]: true, [APP_BACK_GUARD]: false,
+      }, "", url);
+      window.history.pushState({
+        ...currentState, [APP_BACK_BASE]: false, [APP_BACK_GUARD]: true,
+      }, "", url);
+    };
+    const scheduleGuard = (): void => {
+      window.cancelAnimationFrame(armingFrame);
+      armingFrame = window.requestAnimationFrame(armSameUrlGuard);
+    };
+    const onRouteChange = (url: string): void => {
+      rememberRoute(url);
+      scheduleGuard();
+    };
+    rememberRoute(routerRef.current.asPath || routerRef.current.pathname);
+    router.events.on("routeChangeComplete", onRouteChange);
+
+    // Native Back should close the topmost modal first, then navigate to the
+    // previous EFHC route. All financial actions remain in their own handlers.
+    const backInsideApp = (): void => {
+      const modal = document.querySelector('[role="dialog"][aria-modal="true"]');
+      if (modal) {
+        document.dispatchEvent(new KeyboardEvent("keydown", {
+          key: "Escape", bubbles: true, cancelable: true,
+        }));
+        scheduleGuard();
+        return;
       }
+      void navigateBackWithinApp(routerRef.current).then(scheduleGuard);
     };
 
+    // The capture-phase listener wins over Next's bubbling popstate handler.
+    // On a guard pop, Next must not also navigate using the underlying browser
+    // history or leave the app. stopImmediatePropagation is intentional.
+    const onPopState = (event: PopStateEvent): void => {
+      if (disposed) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      backInsideApp();
+    };
+    window.addEventListener("popstate", onPopState, true);
     router.beforePopState(() => {
-      // Browser/WebView history can contain the Telegram host, an external
-      // document or the native shell before the first EFHC entry. Never let
-      // Android/PWA Back delegate that decision to browser history. Resolve
-      // Back through the internal EFHC route stack and block the native pop.
-      window.setTimeout(() => {
-        if (disposed) return;
-        void navigateBackWithinApp(routerRef.current).then(() => {
-          if (!disposed) void armGuard();
-        });
-      }, 0);
+      // Defensive fallback if a host dispatches popstate outside our capture.
+      backInsideApp();
       return false;
     });
-
     const onNativeBack = (event: Event): void => {
       event.preventDefault?.();
-      void navigateBackWithinApp(routerRef.current);
+      backInsideApp();
     };
     document.addEventListener("backbutton", onNativeBack);
-
-    const bridgeWindow = window as AndroidBridgeWindow;
-    const bridgeHandler = (): void => {
-      void navigateBackWithinApp(routerRef.current);
-    };
+    const bridgeHandler = (): void => backInsideApp();
     bridgeWindow.__EFHC_ANDROID_BACK__ = bridgeHandler;
-
-    void armGuard();
+    scheduleGuard();
 
     return () => {
       disposed = true;
+      window.cancelAnimationFrame(armingFrame);
       router.beforePopState(() => true);
       router.events.off("routeChangeComplete", onRouteChange);
+      window.removeEventListener("popstate", onPopState, true);
       document.removeEventListener("backbutton", onNativeBack);
       if (bridgeWindow.__EFHC_ANDROID_BACK__ === bridgeHandler) {
         delete bridgeWindow.__EFHC_ANDROID_BACK__;
       }
     };
-    // Next's public router changes after our own shallow guard push. Bind to
-    // its stable event bus, and read the current router in Back callbacks.
   }, [router.events]);
 }
 
 export const APP_BACK_NAVIGATION_CONTRACT = {
   bridge: "window.__EFHC_ANDROID_BACK__",
   native_event: "backbutton",
+  browser_event: "popstate",
+  history_guard: "same-url-state",
   root_fallback: "/",
   storage: "sessionStorage",
+  pages_mode: "enabled",
 } as const;

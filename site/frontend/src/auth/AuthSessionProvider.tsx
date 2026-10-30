@@ -239,5 +239,25 @@ export function useAuthSessionController(): AuthSessionController {
 }
 export function useAuthOwnerGlobalId():
   AuthSessionContext["global_id"] | null {
-  return useAuthSessionController().context?.global_id ?? null;
+  const authenticated = useAuthSessionController().context?.global_id ?? null;
+  // No demo credential is put into AuthSession. This is just the 10-digit
+  // account selector for the isolated public-Pages backend simulator.
+  const [demoId, setDemoId] = useState<AuthSessionContext["global_id"] | null>(null);
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" ||
+        process.env.NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF !== "1") return;
+    let active = true;
+    let unsubscribe: (() => void) | null = null;
+    void Promise.all([
+      import("../reconstruction/demoUnifiedStore"),
+      import("../types/identity"),
+    ]).then(([store, identity]) => {
+      if (!active || !store.isDemoPreviewEnabled()) return;
+      const update = () => setDemoId(identity.parseGlobalId(store.readDemoState().selected_global_id));
+      unsubscribe = store.subscribeDemoState(update);
+      update();
+    });
+    return () => { active = false; unsubscribe?.(); };
+  }, []);
+  return authenticated ?? demoId;
 }

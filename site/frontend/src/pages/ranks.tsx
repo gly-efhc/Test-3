@@ -188,6 +188,7 @@ export default function RanksPage(props: {
       data-ranks-referral-leaderboard="removed"
     >
       <GameHero
+        data-ranks-hero-summary="cycle0012-responsive"
         title={t("ranks.title")}
         icon="★"
         right={
@@ -209,7 +210,7 @@ export default function RanksPage(props: {
           />
           <GameStat
             label={myMetricLabel}
-            value={myMetric}
+            value={<span data-ranks-hero-energy-d8="true">{myMetric}</span>}
           />
         </GameStatsGrid>
       </GameHero>

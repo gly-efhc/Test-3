@@ -16,17 +16,15 @@ test('Panels main source is mapped to frozen HTML without touching the My Panels
  assert.match(s,/className="w-full efhc-panels-portfolio-entry"/);
 });
 
-test('public DEMO activation is explicit preview and cannot mutate data',()=>{
+test('public DEMO panel activation uses isolated intercepted API and Global ID ledger',()=>{
  const s=read('pages/panels.tsx');
- assert.match(s,/const demoPreview = useFrozenDemoTables\(\) && !globalId/);
- const guard=s.indexOf('if (demoPreview) {',s.indexOf('const activatePanel = async'));
- const mutation=s.indexOf('await activationMutation.mutateAsync');
- assert.ok(guard>0 && mutation>guard);
- const preview=s.slice(guard,s.indexOf('const idk = newIdempotencyKey()'));
- assert.match(preview,/toast\("DEMO:/);
- assert.match(preview,/return;/);
- assert.doesNotMatch(preview,/mutateAsync|newIdempotencyKey/);
- assert.match(s,/data-panels-demo-preview=\{demoPreview \? "read-only" : undefined\}/);
+ assert.match(s,/const demoPreview = useFrozenDemoTables\(\)/);
+ assert.match(s,/await activationMutation\.mutateAsync\(idk\)/);
+ assert.doesNotMatch(s,/баланс и панели не изменены/);
+ const guard=read('lib/api.ts');
+ assert.match(guard,/isDemoPreviewEnabled\(\)/);
+ assert.match(guard,/demoApiRequest\(path, method/);
+ assert.match(read('reconstruction/demoApi.ts'),/p==="\/panels\/activate"/);
 });
 
 test('production panel activation still requires owner Global ID + idempotency',()=>{

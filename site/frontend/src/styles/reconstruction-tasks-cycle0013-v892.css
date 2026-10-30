@@ -1,0 +1,93 @@
+/* Cycle 0013. Local React TASKS surface only. The frozen HTML remains read-only.
+   CT owns hue, TG owns material/geometry. Do not change production task reward semantics. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent:var(--efhc-ct-accent,#6ea8ff);
+  --tasks-cycle-edge:rgba(var(--efhc-ct-accent-rgb,110,168,255),.34);
+  --tasks-cycle-wash:rgba(var(--efhc-ct-accent-rgb,110,168,255),.055);
+  min-width:0;
+}
+/* Three visually distinct top designs plus fourth TG-09 authored style binding.
+   Preserve shared hero/header content and avoid global cascade mutations. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg="TG-01"]:is(.efhc-tasks-shell,#tasksPage) .efhc-game-hero:is(.efhc-game-hero,#source-game-hero) {
+  border-color:var(--tasks-cycle-edge)!important;
+  background-color:rgba(9,16,28,.92)!important;
+  background-image:none!important;
+  border-radius:14px;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg="TG-02"]:is(.efhc-tasks-shell,#tasksPage) .efhc-game-hero:is(.efhc-game-hero,#source-game-hero) {
+  border-color:var(--tasks-cycle-edge)!important;
+  background-color:rgba(8,17,29,.92)!important;
+  background-image:linear-gradient(115deg,var(--tasks-cycle-wash),transparent 67%)!important;
+  border-radius:19px;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg="TG-03"]:is(.efhc-tasks-shell,#tasksPage) .efhc-game-hero:is(.efhc-game-hero,#source-game-hero) {
+  border-color:var(--tasks-cycle-edge)!important;
+  background-color:rgba(11,15,26,.97)!important;
+  background-image:none!important;
+  border-radius:10px;
+  box-shadow:inset 0 0 0 1px var(--tasks-cycle-wash)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg="TG-09"]:is(.efhc-tasks-shell,#tasksPage) .efhc-game-hero:is(.efhc-game-hero,#source-game-hero) {
+  border-color:var(--tasks-cycle-edge)!important;
+  background-color:rgba(12,20,34,.92)!important;
+  background-image:linear-gradient(145deg,var(--tasks-cycle-wash),rgba(8,12,20,.85) 80%)!important;
+  border-radius:22px;
+}
+/* The card action must use CT01..CT10 accent, not a fixed old-theme fill.
+   Avoid changing action width or approval of TG-04 authored geometry. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg] .efhc-task-card_bottom>.efhc-btn-primary:not(:disabled) {
+  border:1px solid var(--tasks-cycle-edge)!important;
+  background-color:var(--tasks-cycle-wash)!important;
+  background-image:none!important;
+  color:#f8fafc!important;
+  box-shadow:none!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg] .efhc-task-card_reward .efhc-badge {
+  border-color:var(--tasks-cycle-edge)!important;
+  background-color:var(--tasks-cycle-wash)!important;
+  color:var(--tasks-cycle-accent)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg] .efhc-task-card {
+  border-color:rgba(var(--efhc-ct-accent-rgb,110,168,255),.2)!important;
+  max-width:100%;
+  min-width:0;
+}
+.efhc-tasks-shell[data-tg] .efhc-tasks-demo-banner {
+  display:flex;align-items:center;justify-content:space-between;gap:.6rem;
+  border:1px solid var(--tasks-cycle-edge);border-radius:12px;
+  background:var(--tasks-cycle-wash);padding:.55rem .7rem;
+  font-size:.72rem;line-height:1.4;color:#e2e8f0;
+}
+.efhc-tasks-shell[data-tg] .efhc-tasks-demo-banner button {flex:0 0 auto;min-height:36px}
+.efhc-tasks-demo-actions {display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
+.efhc-tasks-demo-description {color:#e2e8f0;line-height:1.5;margin:.5rem 0}
+@media(max-width:380px){
+  .efhc-tasks-shell[data-tg] .efhc-tasks-demo-banner {flex-wrap:wrap}
+  .efhc-tasks-shell[data-tg] .efhc-tasks-demo-banner button {width:100%}
+}
+
+/* The historical mobile floating design control must not permanently cover
+   the last task action: allow the inner Tasks list to scroll into safe space. */
+.efhc-tasks-shell[data-tg] .efhc-tasks-grid.efhc-compact-list-limit {
+  scroll-padding-bottom:4rem;
+  padding-bottom:4rem;
+  overscroll-behavior:contain;
+}
+/* Existing signed-in users can have unavailable tasks. Do not render a blue
+   button with nearly invisible text in this state (old CT01 ~1.04:1). */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg] .efhc-task-card_bottom>.efhc-btn-primary:disabled {
+  opacity:1!important;
+  border-color:rgba(148,163,184,.34)!important;
+  background-color:rgba(15,23,42,.9)!important;
+  background-image:none!important;
+  color:#cbd5e1!important;
+  box-shadow:none!important;
+}

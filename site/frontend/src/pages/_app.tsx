@@ -43,6 +43,9 @@ import "../styles/reconstruction-canon-v866-frames-header-v878.css";
 import "../styles/reconstruction-v866-header-cycle0007.css";
 import "../styles/reconstruction-v866-energy-header-cycle0008.css";
 import "../styles/reconstruction-v866-panels-cycle0010.css";
+import "../styles/reconstruction-regression-recovery-v888.css";
+import "../styles/reconstruction-ranks-hero-cycle0012-v891.css";
+import "../styles/reconstruction-tasks-cycle0013-v892.css";
 import React, {
   type Dispatch,
   type SetStateAction,
@@ -443,6 +446,18 @@ function AppInner(props: {
 
   const router = useRouter();
   useAppBackNavigation(router);
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" ||
+        process.env.NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF !== "1") return;
+    // Start one asynchronous canonical data initialization after first paint.
+    // Production never mounts the browser database or fake Global ID.
+    const timer = window.setTimeout(() => {
+      void import("../reconstruction/demoUnifiedStore").then(store => {
+        if (store.isDemoPreviewEnabled()) void store.bootstrapDemoIndexedDb().catch(() => undefined);
+      });
+    }, 1400);
+    return () => clearTimeout(timer);
+  }, []);
   const isBrowserShop = router.pathname === "/browser-shop" || router.pathname.startsWith("/browser-shop/");
   const [adminVisualProofPath, setAdminVisualProofPath] = useState<
     string | null

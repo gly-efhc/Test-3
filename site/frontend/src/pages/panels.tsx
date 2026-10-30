@@ -45,7 +45,7 @@ export default function PanelsPage(props: {
   const t = useT();
   const router = useRouter();
   const globalId = useAuthOwnerGlobalId();
-  const demoPreview = useFrozenDemoTables() && !globalId;
+  const demoPreview = useFrozenDemoTables();
   const customization = useInterfaceCustomization();
   const heroSurface = useInterfaceVariantSurface<HTMLElement>("PH");
   const activationSurface = useInterfaceVariantSurface<HTMLDivElement>("PA");
@@ -87,12 +87,9 @@ export default function PanelsPage(props: {
       t("panels.subtitle_price_100"),
     );
     if (!ok) return;
-    // A public Pages preview must never create a panel, debit a balance, or
-    // claim successful activation. The real mutation remains owner-authorized.
-    if (demoPreview) {
-      toast("DEMO: подтверждение показано; баланс и панели не изменены.", "info");
-      return;
-    }
+    // Both PUBLIC DEMO and production use the same UI action. The public Pages
+    // API adapter creates a LOCAL simulated panel and D8 ledger debit; it can
+    // never reach production billing, TON or a real external wallet.
     const idk = newIdempotencyKey();
     try {
       await activationMutation.mutateAsync(idk);

@@ -47,7 +47,7 @@ export function InterfaceCustomizationButton(props: {
       type="button"
       className="efhc-interface-customization-button"
       data-interface-customization-control="true"
-      data-visible={customization.buttonVisible ? "true" : "false"}
+      data-visible="true"
       data-mode={customization.mode}
       data-has-bottom-nav={props.hasBottomNav ? "true" : "false"}
       aria-label={editing ? "Сохранить оформление" : "Настроить оформление"}

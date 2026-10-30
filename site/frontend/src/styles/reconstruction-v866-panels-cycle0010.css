@@ -26,3 +26,138 @@
   gap: .42rem;
 }
 /* Preserve selected theme tokens and the OWNER-locked My Panels button. */
+
+/* OWNER recovery of cycle 0010 from verified 390px screenshots and the
+ * physically rendered frozen v866 DOM. The generic max-width:400px rule in
+ * globals.css mistakenly stacks the default PA-01 activation value pair and
+ * enlarges the card. Restore PA-01 geometry only; PA-02… retain their
+ * individual design rules. CTA/portfolio handlers and D8 data are untouched.
+ * Visual reference (viewport 410, shell 388): v866 activation values are
+ * 165.1px + 165.1px; card padding 13.12px; CTA height 40px.
+ */
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] {
+  padding: .82rem;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] > .text-lg.font-semibold.mb-2 {
+  font-size: .98rem;
+  line-height: normal;
+  margin-bottom: .55rem;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] > .grid {
+  row-gap: .62rem;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] > .grid > .grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .55rem;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] > .grid > .grid > div {
+  min-width: 0;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] > .grid > .grid .efhc-text-muted2 {
+  font-size: .6rem;
+  line-height: normal;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] > .grid > .grid .tabular-nums {
+  font-size: .72rem;
+  font-weight: 850;
+  line-height: normal;
+  margin-top: .16rem;
+  min-width: 0;
+  white-space: nowrap;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] > .grid > .efhc-text-muted {
+  font-size: .66rem;
+  line-height: 1.35;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] .efhc-panels-activate {
+  min-height: 40px;
+  height: 40px;
+}
+
+
+/* RECON_CYCLE_0011: restore source PC-01 portfolio density from v866
+ * `panel-tile` (not a global card reset). PC-02...PC-13 are independent.
+ * Frozen source on 390px: 2x date cells + 2x D8/timer cells, 0.66rem
+ * values, 0.57rem captions, 0.74rem tile padding, 0.86rem radius.
+ * These selectors only reach /panels/portfolio and PC-01; protected
+ * Energy/CTA/Referrals/Exchange/Withdraw never receive this CSS. */
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] {
+  overflow-anchor:auto;
+  scroll-padding-top:.1rem;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-tile {
+  padding:.74rem;
+  border-radius:.86rem;
+  min-width:0;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-tile_head {
+  gap:.6rem;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-tile_head .font-semibold {
+  font-size:.78rem;
+  font-weight:850;
+  line-height:1.25;
+  white-space:nowrap;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-tile_head .text-xs {
+  font-size:.57rem;
+  line-height:1.25;
+  margin-top:.12rem;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] :is(.efhc-panel-tile_dates,.efhc-panel-tile_stats) {
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.48rem;
+  margin-top:.64rem;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] :is(.efhc-panel-tile_dates,.efhc-panel-tile_stats) > div {
+  min-width:0;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] :is(.efhc-panel-tile_dates,.efhc-panel-tile_stats) .text-xs {
+  font-size:.57rem;
+  line-height:1.25;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] :is(.efhc-panel-tile_dates,.efhc-panel-tile_stats) :is(.font-semibold,.efhc-panel-countdown-live) {
+  display:block;
+  margin-top:.14rem;
+  min-width:0;
+  font-size:clamp(.58rem,2.75vw,.66rem);
+  font-weight:750;
+  line-height:1.25;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font-variant-numeric:tabular-nums;
+}
+
+/* The source panel badge is 1.45rem high and 0.57rem text. Fix only
+ * PC-01; the archived Activ token stays neutral via data-active=false. */
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-tile_head .efhc-panel-activ-status {
+  height:1.45rem;
+  min-height:1.45rem;
+  padding:.2rem .48rem;
+  font-size:.57rem;
+  line-height:1;
+}
+/* D8 is a complete monetary/energy string; never silently ellipsize it.
+ * Date captions may use source-defined ellipsis only at narrow widths. */
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] [data-panel-card-field="generated-kwh"] .font-semibold {
+  overflow:visible;
+  text-overflow:clip;
+}
+/* PC-01 source shows plain countdown text with no decorative dot or minimum
+ * 1.35rem line. This legacy runtime rule enlarged the final stats row. */
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-countdown-live {
+  min-height:0;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-countdown-live::before {
+  content:none;
+}

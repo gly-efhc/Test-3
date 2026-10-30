@@ -419,6 +419,10 @@ export default function WebProfilePage(props: Props) {
           >
             Подключить Telegram · DEMO
           </Button>
+          <Button type="button" variant="secondary" data-global-id-demo-entry="true"
+            onClick={() => { void router.push("/demo-lab"); }}>
+            Global ID · таблицы DEMO
+          </Button>
           <Button
             type="button"
             variant="secondary"

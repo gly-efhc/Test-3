@@ -106,6 +106,29 @@ export async function apiRequest<T>(
   method: HttpMethod,
   opts: ApiRequestOptions = {},
 ): Promise<T> {
+  // An explicitly selected TEST backend must never fall through into production
+  // if its public-preview gates are absent or disabled.
+  if (process.env.NEXT_PUBLIC_EFHC_TEST_MODE === "neon" &&
+      !(process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" &&
+        process.env.NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF === "1")) {
+    throw new ApiError({status:503,code:"NEON_TEST_REQUIRES_PUBLIC_PREVIEW"});
+  }
+  // In the frozen public Pages build ALL business requests use isolated DEMO
+  // or explicit Neon test API. No request may fall through to production.
+  if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" &&
+      process.env.NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF === "1") {
+    const { isDemoPreviewEnabled } = await import("../reconstruction/demoUnifiedStore");
+    if (isDemoPreviewEnabled()) {
+      // Explicit real Neon test mode wins over browser-only DEMO. No fallback
+      // on auth/network errors; otherwise a failed DB test could look successful.
+      const {isNeonStagingRequested,neonStagingApiRequest} = await import("../reconstruction/neonStagingBridge");
+      if(isNeonStagingRequested())return await neonStagingApiRequest<T>(path,method,opts.body,opts.idempotencyKey);
+      const { demoApiRequest } = await import("../reconstruction/demoApi");
+      return await demoApiRequest(path, method, opts.body, opts.idempotencyKey) as T;
+    }
+    // A missing bootstrap flag is NOT permission to access production.
+    throw new ApiError({status:503,code:"PUBLIC_DEMO_NOT_BOOTSTRAPPED"});
+  }
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     ...(opts.headers || {}),

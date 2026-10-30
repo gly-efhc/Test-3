@@ -35,7 +35,9 @@ function formatUtcMinute(iso: string | null | undefined): string {
   const yy = String(d.getUTCFullYear());
   const hh = pad2(d.getUTCHours());
   const mi = pad2(d.getUTCMinutes());
-  return `${dd}.${mm}.${yy} ${hh}:${mi} UTC`;
+  const ss = pad2(d.getUTCSeconds());
+  // v866 standalone formats Russian UTC dates with the comma and seconds.
+  return `${dd}.${mm}.${yy}, ${hh}:${mi}:${ss} UTC`;
 }
 
 const SECONDS_PER_DAY = 86400;
@@ -76,7 +78,7 @@ export default function PanelsPortfolioPage(props: {
   );
   const [tick, setTick] = useState(0);
   const [nowUtcMs, setNowUtcMs] = useState<number | null>(null);
-  const listQuery = usePanelsList(tab);
+  const listQuery = usePanelsList(tab, sortDirection);
 
   const items = useMemo(
     () => listQuery.data?.pages.flatMap((page) => page.items) ?? [],
@@ -117,7 +119,8 @@ export default function PanelsPortfolioPage(props: {
     tab: "active" | "archive";
     itemCount: number;
     scrollTop: number;
-    scrollHeight: number;
+    visibleId: string | null;
+    topOffset: number;
   } | null>(null);
 
   useEffect(() => {
@@ -155,14 +158,21 @@ export default function PanelsPortfolioPage(props: {
     if (!node || loading || !canLoadMore) return;
     const remainingPx = node.scrollHeight - node.scrollTop - node.clientHeight;
     if (remainingPx > 180) return;
-    if (sortDirection === "oldest") {
-      pendingScrollAnchorRef.current = {
-        tab,
-        itemCount: items.length,
-        scrollTop: node.scrollTop,
-        scrollHeight: node.scrollHeight,
-      };
-    }
+    // Preserve the visible card, never add *all new content height* to
+    // scrollTop: with normal append that old approach skipped whole cards.
+    const viewportTop = node.getBoundingClientRect().top;
+    const visible = Array.from(
+      node.querySelectorAll<HTMLElement>("[data-panel-identity]"),
+    ).find((element) => element.getBoundingClientRect().bottom > viewportTop);
+    pendingScrollAnchorRef.current = {
+      tab,
+      itemCount: items.length,
+      scrollTop: node.scrollTop,
+      visibleId: visible?.dataset.panelIdentity ?? null,
+      topOffset: visible
+        ? visible.getBoundingClientRect().top - viewportTop
+        : 0,
+    };
     void listQuery.fetchNextPage();
   };
 
@@ -175,8 +185,17 @@ export default function PanelsPortfolioPage(props: {
       return;
     }
     if (items.length <= anchor.itemCount) return;
-    const addedHeight = Math.max(0, node.scrollHeight - anchor.scrollHeight);
-    node.scrollTop = anchor.scrollTop + addedHeight;
+    const visible = Array.from(
+      node.querySelectorAll<HTMLElement>("[data-panel-identity]"),
+    ).find((element) => element.dataset.panelIdentity === anchor.visibleId);
+    if (visible) {
+      node.scrollTop +=
+        visible.getBoundingClientRect().top -
+        node.getBoundingClientRect().top -
+        anchor.topOffset;
+    } else {
+      node.scrollTop = anchor.scrollTop;
+    }
     pendingScrollAnchorRef.current = null;
   }, [items.length, tab]);
 
@@ -314,6 +333,7 @@ export default function PanelsPortfolioPage(props: {
               <div
                 key={p.id}
                 className="efhc-panel-tile"
+                data-panel-identity={p.public_id ?? String(p.id)}
                 data-panel-card={tab}
                 data-panel-countdown-contract="1282"
               >

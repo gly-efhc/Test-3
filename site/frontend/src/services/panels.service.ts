@@ -30,12 +30,16 @@ export async function getPanelsPage(args: {
   tab: PanelTab;
   cursor?: string | null;
   signal?: AbortSignal;
+  demoSortDirection?: "oldest" | "newest";
 }): Promise<PanelsPageResponse> {
   const base =
     args.tab === "active" ? PANELS_ACTIVE_PATH : PANELS_ARCHIVE_PATH;
   const params = new URLSearchParams();
   params.set("limit", "20");
   if (args.cursor) params.set("cursor", args.cursor);
+  if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" && args.demoSortDirection) {
+    params.set("demo_sort", args.demoSortDirection);
+  }
   const q = `?${params.toString()}`;
   const raw = await apiRequest<unknown>(base + q, "GET", {
     signal: args.signal,
