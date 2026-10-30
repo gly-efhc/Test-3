@@ -133,6 +133,30 @@ export function demoLedgerMutation(amount:string,kind:"credit"|"debit",balance:"
  * the browser simulation; all are created in IndexedDB even when canon initially has zero rows.
  * Admin QA 1000-user tables are loaded lazily from the EXACT frozen generator output.
  */
+/** Keep the selected public DEMO identity coherent between local demo state
+ * and the materialized IndexedDB sample. This is never a production ledger.
+ * Do not mark initial seeding complete if the transaction fails.
+ */
+async function mirrorSelectedDemoAccount(db:IDBDatabase,state:DemoControlState):Promise<void>{
+ const globalId=state.selected_global_id;
+ if(!/^\d{10}$/.test(globalId))throw new Error("DEMO_GLOBAL_ID_INVALID");
+ const account=state.accounts[globalId]||seedAccount(globalId);
+ if(account.global_id!==globalId)throw new Error("DEMO_OWNER_MISMATCH");
+ await new Promise<void>((resolve,reject)=>{
+  const tx=db.transaction(["accounts","balances","wallet_links"],"readwrite");
+  tx.objectStore("accounts").put({...account,id:globalId,global_id:globalId});
+  tx.objectStore("balances").put({id:globalId,global_id:globalId,
+    main_balance:account.main_balance,bonus_balance:account.bonus_balance,
+    available_kwh:account.available_kwh,total_generated_kwh:account.total_generated_kwh});
+  for(const wallet of account.wallets){
+   tx.objectStore("wallet_links").put({...wallet,id:`${globalId}:${wallet.id}`});
+  }
+  tx.oncomplete=()=>resolve();
+  tx.onerror=()=>reject(tx.error||new Error("DEMO_MIRROR_FAILED"));
+  tx.onabort=()=>reject(tx.error||new Error("DEMO_MIRROR_ABORTED"));
+ });
+}
+
 export async function bootstrapDemoIndexedDb():Promise<void>{
  if(!isDemoPreviewEnabled()||typeof indexedDB==="undefined")return;
  const db=await new Promise<IDBDatabase>((resolve,reject)=>{
@@ -195,7 +219,7 @@ export async function bootstrapDemoIndexedDb():Promise<void>{
     });
    }
   }
-  await mirrorSelectedDemoAccount(readDemoState()).catch(()=>undefined);
+  await mirrorSelectedDemoAccount(db,readDemoState());
   await new Promise<void>((resolve,reject)=>{
    const tx=db.transaction("settings","readwrite");
    tx.objectStore("settings").put({id:"canon_seed_complete",source_sha256:frozen.source_sha256,global_id:DEMO_GLOBAL_ID,rows:Object.fromEntries(Object.entries(seededTables).map(([name,rows])=>[name,rows.length]))});
