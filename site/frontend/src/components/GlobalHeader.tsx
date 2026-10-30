@@ -262,6 +262,10 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
     : total;
   const balanceFit = useMeasuredBalanceFont(displayedTotal);
 
+  // This changes navigation visibility only, not account RBAC or permissions.
+  // The Admin page renderer remains guarded by _app.tsx.
+  const showAdminDemoEntry = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1";
+  const showAdminEntry = props.isAdmin || showAdminDemoEntry;
   const username = props.username || "TG";
   const balanceDensity =
     displayedTotal.length >= 19
@@ -300,69 +304,66 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
         data-header-theme-owner="global-theme-plus-individual-override"
         data-header-shell-source={headerComposition.shell}
       >
-        <button
-          type="button"
-          onClick={props.onAvatar}
+        {/* DOM hierarchy restored from frozen FRONTEND_v866.html:
+            container > avatar button + copy > name button + statuses.
+            Preserve the same onAvatar action on both controls. */}
+        <div
           className="efhc-game-header_profile"
-          aria-label={t("profile.menu_button")}
+          data-profile-layout="username-then-lvl-activ-vip"
         >
-          <div className="efhc-game-header_avatar">
-            {props.avatar ? (
-              <UnifiedAvatar value={props.avatar} size={36} alt="" />
-            ) : props.avatarUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={props.avatarUrl}
-                alt=""
-                className="h-full w-full object-cover"
-                referrerPolicy="no-referrer"
-              />
-            ) : props.avatarEnergyVariant ? (
-              <span className="efhc-game-header_avatar-energy" aria-hidden="true">
-                <span
-                  className="efhc-energy-stage_coin"
-                  data-ei={props.avatarEnergyVariant}
-                >
-                  <EnergyVariantIcon
-                    variant={props.avatarEnergyVariant}
-                    size={22}
-                  />
+          <button
+            type="button"
+            className="efhc-game-header_profile-avatar-button"
+            onClick={props.onAvatar}
+            aria-label={t("profile.menu_button")}
+          >
+            <span className="efhc-game-header_avatar">
+              {props.avatar ? (
+                <UnifiedAvatar value={props.avatar} size={36} alt="" />
+              ) : props.avatarUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={props.avatarUrl}
+                  alt=""
+                  className="h-full w-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              ) : props.avatarEnergyVariant && process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" ? (
+                <span className="efhc-game-header_avatar-energy" aria-hidden="true">
+                  <span className="efhc-energy-stage_coin" data-ei={props.avatarEnergyVariant}>
+                    <EnergyVariantIcon variant={props.avatarEnergyVariant} size={22} />
+                  </span>
                 </span>
-              </span>
-            ) : (
-              <span className="efhc-game-header_avatar-energy" aria-hidden="true">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="8" r="3.2" />
-                  <path d="M5.5 19c.7-4 2.85-5.9 6.5-5.9s5.8 1.9 6.5 5.9" />
-                </svg>
-              </span>
-            )}
-          </div>
-          <div className="min-w-0 text-left">
-            <div
-              className={
-                "truncate text-sm font-bold text-[var(--tg-text)]"
-              }
+              ) : (
+                <span className="efhc-game-header_avatar-canon-fallback" aria-hidden="true">
+                  <svg width="30" height="30" viewBox="0 0 36 36" fill="none">
+                    <circle cx="18" cy="12.2" r="7.1" fill="currentColor" />
+                    <path d="M4.1 32c1.5-8.8 6.5-12.7 13.9-12.7S30.4 23.2 31.9 32" fill="currentColor" />
+                  </svg>
+                </span>
+              )}
+            </span>
+          </button>
+          <div className="efhc-game-header_profile-copy">
+            <button
+              type="button"
+              className="efhc-game-header_profile-name-button"
+              onClick={props.onAvatar}
               title={username}
+              aria-label={t("profile.menu_button")}
             >
-              {username}
-            </div>
+              <span className="profile-name truncate text-sm font-bold text-[var(--tg-text)]">
+                {username}
+              </span>
+            </button>
             <div
-              className="efhc-game-header_statuses efhc-status-indicator-context mt-1 flex items-center"
+              className="efhc-game-header_statuses efhc-status-indicator-context"
               data-sc={headerComposition.statuses}
               data-header-theme-owned="statuses"
+              aria-label="User level and statuses"
             >
-              <span className="text-[11px] text-[var(--tg-hint)]">
-                <span data-i18n-fixed-token="Lvl">Lvl</span> {lvl}
+              <span className="level-label" data-i18n-fixed-token="Lvl">
+                Lvl {lvl}
               </span>
               <StatusIndicator
                 kind="activ"
@@ -376,7 +377,7 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
               />
             </div>
           </div>
-        </button>
+        </div>
 
         <button
           type="button"
@@ -409,9 +410,9 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
         <div
           className="efhc-game-header_actions"
           data-header-action-layout="balanced-grid"
-          data-action-count={props.isAdmin ? "5" : "4"}
+          data-action-count={showAdminEntry ? "5" : "4"}
         >
-          {props.isAdmin ? (
+          {showAdminEntry ? (
             <button
               type="button"
               onClick={onModeSwitch}
@@ -423,7 +424,7 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
               <HeaderActionIcon
                 kind={props.appMode === "admin" ? "user" : "admin"}
               />
-              <span>{props.appMode === "admin" ? "USER" : t("nav.admin")}</span>
+              <span>{props.appMode === "admin" ? "USER" : showAdminDemoEntry && !props.isAdmin ? "ADMIN DEMO" : t("nav.admin")}</span>
             </button>
           ) : null}
           <button

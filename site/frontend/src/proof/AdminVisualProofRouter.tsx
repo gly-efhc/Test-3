@@ -19,6 +19,8 @@ function proofPage(
 const ADMIN_PROOF_COMPONENTS: Record<string, AdminPageComponent> = {
   "/admin": proofPage(() => import("../pages/admin")),
   "/admin/ads": proofPage(() => import("../pages/admin/ads")),
+  "/admin/api-workbench": proofPage(() => import("../pages/admin/api-workbench")),
+  "/admin/emergency": proofPage(() => import("../pages/admin/emergency")),
   "/admin/bonuses": proofPage(() => import("../pages/admin/bonuses")),
   "/admin/bank": proofPage(() => import("../pages/admin/bank")),
   "/admin/diagnostics": proofPage(
@@ -65,6 +67,21 @@ export function AdminVisualProofRouter(props: {
       data-admin-visual-proof-route={props.path}
       data-admin-visual-proof-harness="managed-urlblocklist"
     >
+      {process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? (
+        <div
+          role="status"
+          data-efhc-admin-readonly-demo="true"
+          style={{
+            padding: "8px 12px", marginBottom: "12px", borderRadius: "10px",
+            background: "rgba(194,142,33,.14)",
+            border: "1px solid rgba(226,185,79,.32)",
+            color: "#f4dfa4", fontSize: "12px", lineHeight: 1.4,
+          }}
+        >
+          ADMIN · Визуальный DEMO-просмотр (только чтение). Реальные
+          полномочия, платежи, изменения данных и API недоступны.
+        </div>
+      ) : null}
       <Component {...props.pageProps} />
     </div>
   );

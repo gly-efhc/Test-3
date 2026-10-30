@@ -447,6 +447,23 @@ function AppInner(props: {
     const candidate = (window as typeof window & {
       __EFHC_ADMIN_PROOF_PATH__?: string;
     }).__EFHC_ADMIN_PROOF_PATH__;
+    // Public Pages is a deliberately read-only visual lab. Never reuse this
+    // bypass for production or authenticated Admin access.
+    const pagesAdminPreview =
+      process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" &&
+      process.env.NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF === "1";
+    const visualRoutes = new Set([
+      "/admin", "/admin/ads", "/admin/api-workbench", "/admin/bonuses", "/admin/bank",
+      "/admin/diagnostics", "/admin/efhc-deposits", "/admin/emergency", "/admin/hub",
+      "/admin/logs", "/admin/panels", "/admin/referrals",
+      "/admin/reports", "/admin/sale-packages", "/admin/shop",
+      "/admin/system", "/admin/tasks", "/admin/users",
+      "/admin/vip-nft", "/admin/user-history", "/admin/withdrawals",
+    ]);
+    if (pagesAdminPreview && visualRoutes.has(router.pathname)) {
+      setAdminVisualProofPath(router.pathname);
+      return;
+    }
     if (!candidate?.startsWith("/admin")) return;
 
     const hostname = window.location.hostname;
@@ -459,7 +476,25 @@ function AppInner(props: {
     if (configuredProof || localAutomationProof) {
       setAdminVisualProofPath(candidate);
     }
-  }, []);
+  }, [router.pathname]);
+
+  // On static public Pages, resolve the visual preview path synchronously.
+  // No administrator identity, credentials, or backend permissions are granted.
+  const pagesPreviewAdminPath =
+    process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" &&
+    process.env.NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF === "1" &&
+    [
+      "/admin", "/admin/ads", "/admin/api-workbench", "/admin/bonuses",
+      "/admin/bank", "/admin/diagnostics", "/admin/efhc-deposits",
+      "/admin/emergency", "/admin/hub", "/admin/logs", "/admin/panels",
+      "/admin/referrals", "/admin/reports", "/admin/sale-packages",
+      "/admin/shop", "/admin/system", "/admin/tasks", "/admin/users",
+      "/admin/vip-nft", "/admin/user-history", "/admin/withdrawals",
+    ].includes(router.pathname)
+      ? router.pathname
+      : null;
+  const effectiveAdminVisualProofPath =
+    pagesPreviewAdminPath || adminVisualProofPath;
 
   // Snapshot is cached via React Query.
   const {
@@ -573,21 +608,21 @@ function AppInner(props: {
     });
   }, [shellProgress]);
 
-  const isAdminRoute = Boolean(adminVisualProofPath)
+  const isAdminRoute = Boolean(effectiveAdminVisualProofPath)
     || router.pathname === "/admin"
     || router.pathname.startsWith("/admin/");
   const adminGuardCanDecide = adminAccessState !== "checking";
   const adminRouteBlocked = isAdminRoute
     && adminGuardCanDecide
     && !isAdmin
-    && !adminVisualProofPath;
+    && !effectiveAdminVisualProofPath;
   const adminRouteChecking = isAdminRoute
     && !adminGuardCanDecide
-    && !adminVisualProofPath;
+    && !effectiveAdminVisualProofPath;
 
   useEffect(() => {
     if (
-      adminVisualProofPath
+      effectiveAdminVisualProofPath
       || !isAdminRoute
       || !adminGuardCanDecide
       || isAdmin
@@ -597,7 +632,7 @@ function AppInner(props: {
     void router.replace("/");
   }, [
     adminGuardCanDecide,
-    adminVisualProofPath,
+    effectiveAdminVisualProofPath,
     isAdmin,
     isAdminRoute,
     router,
@@ -728,7 +763,7 @@ function AppInner(props: {
         telegramAvatarUrl={telegramAvatarUrl}
         snapshot={visibleSnap}
         isVip={isVip}
-        isAdmin={isAdmin || Boolean(adminVisualProofPath)}
+        isAdmin={isAdmin || Boolean(effectiveAdminVisualProofPath)}
         settings={settings}
         setLang={handleSetLang}
         setSettings={setSettings}
@@ -737,9 +772,9 @@ function AppInner(props: {
         <ErrorBoundary title="EFHC Mini App" t={t}>
           {adminRouteBlocked || adminRouteChecking ? (
             <AdminRouteGuardState checking={adminRouteChecking} t={t} />
-          ) : adminVisualProofPath ? (
+          ) : effectiveAdminVisualProofPath ? (
             <AdminVisualProofRouter
-              path={adminVisualProofPath}
+              path={effectiveAdminVisualProofPath}
               pageProps={{
                 ...pageProps,
                 snap: visibleSnap,

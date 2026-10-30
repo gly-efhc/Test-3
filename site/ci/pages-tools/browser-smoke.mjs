@@ -39,7 +39,7 @@ async function inspect(path) {
   const address=url.replace(/\/$/,'')+path;
   await send('Page.navigate',{url:address});
   await sleep(8500);
-  const expr=`JSON.stringify({href:location.href,path:location.pathname,title:document.title,text:(document.body?.innerText||'').slice(0,600),root:!!document.getElementById('__next'),html:!!document.documentElement,onboarding:!!document.querySelector('[data-onboarding-tour]'),energy:(document.querySelector('.efhc-energy-stage_value')?.textContent||'').trim(),balance:(document.querySelector('.efhc-game-header_balance-value')?.textContent||'').trim()})`;
+  const expr=`JSON.stringify({href:location.href,path:location.pathname,title:document.title,text:(document.body?.innerText||'').slice(0,600),root:!!document.getElementById('__next'),html:!!document.documentElement,onboarding:!!document.querySelector('[data-onboarding-tour]'),energy:(document.querySelector('.efhc-energy-stage_value')?.textContent||'').trim(),balance:(document.querySelector('.efhc-game-header_balance-value')?.textContent||'').trim(),profileTag:(document.querySelector('.efhc-game-header_profile')?.tagName||''),profileAvatarButton:!!document.querySelector('.efhc-game-header_profile > button.efhc-game-header_profile-avatar-button'),profileNameButton:!!document.querySelector('.efhc-game-header_profile-copy > button.efhc-game-header_profile-name-button'),migration:document.querySelector('.efhc-independent-shell')?.getAttribute('data-efhc-canon-migration')||'',profileDisplay:(()=>{const e=document.querySelector('.efhc-game-header_profile');return e?getComputedStyle(e).display:''})(),adminDemo:!!document.querySelector('[data-efhc-admin-readonly-demo]'),providerDemo:!!document.querySelector('[data-efhc-provider-demo=\"readonly-simulation\"]')})`;
   const result=await send('Runtime.evaluate',{expression:expr,returnByValue:true});
   const data=JSON.parse(result.result.result.value);
   const count=(data.path.match(/\/Test-3/g)||[]).length;
@@ -50,8 +50,12 @@ async function inspect(path) {
     if (data.onboarding) throw Error('PAGES_CANON_PREVIEW_OBSCURED_BY_ONBOARDING');
     if (!data.energy.startsWith('8123.')) throw Error('PAGES_FROZEN_ENERGY_FIXTURE_MISSING: '+data.energy);
     if (data.balance !== '12345678.12345678') throw Error('PAGES_FROZEN_BALANCE_FIXTURE_MISSING: '+data.balance);
+    if (data.profileTag !== 'DIV' || !data.profileAvatarButton || !data.profileNameButton) throw Error('PAGES_CANON_PROFILE_DOM_MISMATCH: '+JSON.stringify(data));
+    if (data.migration !== 'v872' || data.profileDisplay !== 'grid') throw Error('PAGES_CANON_PROFILE_CSS_NOT_ACTIVE: '+JSON.stringify(data));
   }
-  console.log('PASS HEADLESS CHROME ROUTE',data.href, 'textchars='+data.text.length);
+  if (path === '/admin/' && !data.adminDemo) throw Error('PAGES_ADMIN_PREVIEW_MISSING');
+if (path.startsWith('/web-profile/') && !data.providerDemo) throw Error('PAGES_PROVIDER_DEMO_MISSING');
+console.log('PASS HEADLESS CHROME ROUTE',data.href, 'textchars='+data.text.length);
   return data;
 }
 try {
@@ -78,6 +82,8 @@ try {
   await inspect('/tasks/');
   await inspect('/faq/');
   await inspect('/hub/');
+await inspect('/admin/');
+await inspect('/web-profile/?section=providers');
   console.log('EFHC_PAGES_CHROME_RUNTIME_SMOKE=PASS');
 } catch(e) {
   console.error('EFHC_PAGES_CHROME_RUNTIME_SMOKE=FAIL',e.stack||String(e));

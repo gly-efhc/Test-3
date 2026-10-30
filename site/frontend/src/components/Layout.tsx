@@ -715,7 +715,7 @@ export function Layout(
         data-tma-shell-polish="viewport-theme-backbutton-safe-area"
         data-public-shell-route={isAdminRoute ? "admin" : "public"}
         data-interface-app-mode={appMode}
-        data-efhc-canon-migration={appMode === "user" ? "v871" : undefined}
+        data-efhc-canon-migration={appMode === "user" ? "v872" : undefined}
         data-interface-customization-mode={customization.mode}
         data-global-theme-id={isAdminRoute ? undefined : customization.globalThemeId}
         data-color-theme-id={isAdminRoute ? undefined : customization.colorThemeId}

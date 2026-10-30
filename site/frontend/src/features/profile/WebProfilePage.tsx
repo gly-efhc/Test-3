@@ -16,6 +16,7 @@ import {
 } from "../../components/ui/GameShell";
 import { LayoutContext } from "../../components/Layout";
 import { ProfileModal } from "../../components/ProfileModal";
+import { AccountProvidersDemo } from "./AccountProvidersDemo";
 import type { Lang } from "../../lib/i18n";
 import { getUserLevel } from "../../lib/skins";
 import { formatD8ToHuman, sumScaledDown } from "../../lib/format";
@@ -99,7 +100,7 @@ type Props = {
   setSettings: (settings: UserSettings) => void;
 };
 
-type Tab = "profile" | "wallet" | "history" | "faq";
+type Tab = "profile" | "wallet" | "history" | "faq" | "providers";
 
 function readAmount(value: string | undefined): string {
   return formatD8ToHuman(value || "0");
@@ -183,8 +184,9 @@ export default function WebProfilePage(props: Props) {
   const historyExporting = historyExport.isPending;
   const section = String(router.query.section || "profile");
   const activeTab: Tab =
-    section === "wallet" || section === "history"
-      ? section
+    section === "wallet" || section === "history" ||
+    (section === "providers" && process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1")
+      ? section as Tab
       : "profile";
   const legalParam = String(router.query.legal || "");
   const routedLegalKind: LegalPolicyKind | null =
@@ -319,7 +321,7 @@ export default function WebProfilePage(props: Props) {
         </button>
         <strong>{t("profile.page_title")}</strong>
         <div className="efhc-profile-topbar_actions">
-          {ctx.isAdmin ? (
+          {ctx.isAdmin || process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? (
             <button
               type="button"
               onClick={() => void router.push("/admin")}
@@ -407,9 +409,29 @@ export default function WebProfilePage(props: Props) {
         </div>
       </section>
 
+      {process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? (
+        <div className="efhc-profile-demo-link-row" data-efhc-demo-identity-entry="true">
+          <Button
+            type="button"
+            variant="secondary"
+            data-telegram-connect-demo-entry="true"
+            onClick={() => setTab("providers")}
+          >
+            Подключить Telegram · DEMO
+          </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            data-admin-demo-entry="true"
+            onClick={() => { void router.push("/admin"); }}
+          >
+            Открыть Admin · DEMO
+          </Button>
+        </div>
+      ) : null}
       <div
         className="efhc-profile-tabs"
-        data-profile-primary-navigation="profile-wallet-history-faq"
+        data-profile-primary-navigation="profile-wallet-history-faq-providers-demo"
       >
         <TabButton
           active={activeTab === "profile"}
@@ -429,6 +451,14 @@ export default function WebProfilePage(props: Props) {
           trustSurface="history"
           onClick={() => setTab("history")}
         />
+        {process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? (
+          <TabButton
+            active={activeTab === "providers"}
+            label="Аккаунты"
+            trustSurface="providers"
+            onClick={() => setTab("providers")}
+          />
+        ) : null}
         <TabButton
           active={false}
           label={t("faq.title")}
@@ -436,6 +466,10 @@ export default function WebProfilePage(props: Props) {
           onClick={() => void router.push("/faq")}
         />
       </div>
+
+      {activeTab === "providers" && process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? (
+        <AccountProvidersDemo />
+      ) : null}
 
       {activeTab === "wallet" ? (
         <section
@@ -555,6 +589,16 @@ export default function WebProfilePage(props: Props) {
                 getLabel={(lang) => t(`profile.lang.${lang}`)}
                 onChange={updateLang}
               />
+              {process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? (
+                <Button
+                  type="button"
+                  variant="secondary"
+                  data-provider-preview-entry="true"
+                  onClick={() => setTab("providers")}
+                >
+                  Привязанные аккаунты · DEMO
+                </Button>
+              ) : null}
               <Button
                 href="/faq"
                 variant="secondary"

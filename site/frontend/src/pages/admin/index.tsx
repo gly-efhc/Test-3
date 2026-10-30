@@ -52,6 +52,25 @@ const OPERATION_MODULES: AdminAppItem[] = [
 
 const ADMIN_MODULES: AdminAppItem[] = [...CORE_MODULES, ...OPERATION_MODULES];
 
+// Values mirror the zero-state in the frozen v866 Admin home; never present
+// fictional banking statistics as live financial records.
+const DEMO_ADMIN_OVERVIEW: Overview = {
+  ok: true,
+  ts: "DEMO",
+  counters: { users_total: 0 },
+  facts: {
+    bank_metrics_ready: "1",
+    bank_metrics_reserve_efhc: "0.00000000",
+    bank_metrics_circulation_efhc: "0.00000000",
+    bank_metrics_reserve_pct: "0",
+    bank_metrics_circulation_pct: "0",
+    panels_total_active: "0",
+    users_total_generated_kwh: "0.00000000",
+    users_total__main__efhc: "0.00000000",
+  },
+};
+const IS_PUBLIC_PAGES_DEMO = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1";
+
 const ADMIN_CATEGORY_LEGEND = [
   { key: "finance", label: "Финансы" },
   { key: "analytics", label: "Аналитика" },
@@ -89,6 +108,10 @@ export default function AdminHome() {
 
   const load = useCallback(async () => {
     setMessage(null);
+    if (IS_PUBLIC_PAGES_DEMO) {
+      setOverview(DEMO_ADMIN_OVERVIEW);
+      return;
+    }
     try {
       setOverview(await adminApiRequest<Overview>(ADMIN_REPORTS_OVERVIEW_PATH, "GET"));
     } catch (error: unknown) {
@@ -101,6 +124,11 @@ export default function AdminHome() {
 
   async function runReconcile() {
     setMessage(null);
+    if (IS_PUBLIC_PAGES_DEMO) {
+      setMessage("DEMO: проверка входящих TON отображена без запроса и без изменений данных.");
+      setReconcileOpen(false);
+      return;
+    }
     try {
       const lastHours = Math.max(1, Math.min(168, Number(reconcile.last_hours || "6")));
       await adminApiRequest(ADMIN_TON_RECONCILE_PATH, "POST", {
@@ -137,7 +165,7 @@ export default function AdminHome() {
       ) : null}
 
       <AdminSectionCard title="Банк и оборот" subtitle="Два главных показателя системы по текущему банковскому snapshot.">
-        <div className="efhc-admin-home-bank-charts" data-admin-home-bank-charts="reserve-left-circulation-right" data-eam-family="EAM-ADMIN-003">
+        <div className="efhc-admin-home-bank-charts admin-home-bank-charts-v218" data-admin-home-bank-charts="reserve-left-circulation-right" data-efhc-admin-canon-bank="v866" data-eam-family="EAM-ADMIN-003">
           {[
             { key: "reserve", label: "Резерв Банка EFHC", amount: facts.bank_metrics_reserve_efhc, percent: facts.bank_metrics_reserve_pct },
             { key: "circulation", label: "В обороте EFHC", amount: facts.bank_metrics_circulation_efhc, percent: facts.bank_metrics_circulation_pct },
@@ -152,7 +180,7 @@ export default function AdminHome() {
         </div>
       </AdminSectionCard>
 
-      <div className="grid gap-3 md:grid-cols-4" data-admin-business-summary="true">
+      <div className="admin-reference-stats grid gap-3 md:grid-cols-4" data-admin-business-summary="true" data-efhc-admin-canon-home-stats="v866">
         <AdminStatCard label="Пользователи" value={overview?.counters?.users_total === undefined ? "—" : String(overview.counters.users_total)} meta="всего" hint="Общее количество пользователей в системе." tone="success" />
         <AdminStatCard label="Активные панели" value={overview?.facts?.panels_total_active || "—"} meta="текущее состояние" hint="Количество активных пользовательских панелей." tone="neutral" />
         <AdminStatCard label="Сгенерировано kWh" value={overview?.facts?.users_total_generated_kwh || "—"} meta="всего" hint="Суммарная генерация пользователей." tone="neutral" />
