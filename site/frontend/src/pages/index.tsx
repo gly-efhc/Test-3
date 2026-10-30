@@ -278,7 +278,7 @@ function LiveEnergyBlock(props: LiveBlockProps) {
     : formatFixedDown(props.gen_per_sec_effective, 8);
   const shownAvailable = props.hide_balances
     ? "••••••••"
-    : formatFixedDown(props.available_kwh, 2);
+    : formatFixedDown(props.available_kwh, 8);
 
   return (
     <section

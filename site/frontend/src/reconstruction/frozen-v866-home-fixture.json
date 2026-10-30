@@ -1,0 +1,28 @@
+{
+  "schema": "efhc.visual-canon-home-fixture.v1",
+  "source": "FRONTEND_v866.html",
+  "source_sha256": "9b6371f5fb62939596b78206f95031c447e9f2b375e62b30704403bb25102aef",
+  "source_dom_ids": {
+    "balanceValue": "12345678.12345678",
+    "energyValue": "8123.12345678",
+    "panelCount": "12",
+    "rateValue": "0.00001337",
+    "availableValue": "421.12500000"
+  },
+  "browser_sample": {
+    "viewport": "390x844",
+    "user_level": 9,
+    "active_panels": 60,
+    "status": "DEMO_USER_RUNTIME_FIXTURE"
+  },
+  "pages_preview": {
+    "main_balance": "12345678.12345678",
+    "bonus_balance": "0.00000000",
+    "total_generated_kwh": "8123.12345678",
+    "available_kwh": "421.12500000",
+    "gen_per_sec_effective": "0.00001337",
+    "active_panels": 60,
+    "is_vip": true,
+    "has_activ": true
+  }
+}

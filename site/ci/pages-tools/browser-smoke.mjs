@@ -39,13 +39,18 @@ async function inspect(path) {
   const address=url.replace(/\/$/,'')+path;
   await send('Page.navigate',{url:address});
   await sleep(8500);
-  const expr=`JSON.stringify({href:location.href,path:location.pathname,title:document.title,text:(document.body?.innerText||'').slice(0,600),root:!!document.getElementById('__next'),html:!!document.documentElement})`;
+  const expr=`JSON.stringify({href:location.href,path:location.pathname,title:document.title,text:(document.body?.innerText||'').slice(0,600),root:!!document.getElementById('__next'),html:!!document.documentElement,onboarding:!!document.querySelector('[data-onboarding-tour]'),energy:(document.querySelector('.efhc-energy-stage_value')?.textContent||'').trim(),balance:(document.querySelector('.efhc-game-header_balance-value')?.textContent||'').trim()})`;
   const result=await send('Runtime.evaluate',{expression:expr,returnByValue:true});
   const data=JSON.parse(result.result.result.value);
   const count=(data.path.match(/\/Test-3/g)||[]).length;
   if (count !== 1 || !data.path.startsWith('/Test-3/')) throw Error('RECURSIVE_BASEPATH_OR_REDIRECT: '+data.href);
   if (!data.root || !data.html) throw Error('REACT_MOUNT_MISSING: '+data.href);
   if (/Section not found|Internal Server Error/i.test(data.text)) throw Error('REACT_ROUTE_ERROR: '+data.text);
+  if (path === '/') {
+    if (data.onboarding) throw Error('PAGES_CANON_PREVIEW_OBSCURED_BY_ONBOARDING');
+    if (!data.energy.startsWith('8123.')) throw Error('PAGES_FROZEN_ENERGY_FIXTURE_MISSING: '+data.energy);
+    if (data.balance !== '12345678.12345678') throw Error('PAGES_FROZEN_BALANCE_FIXTURE_MISSING: '+data.balance);
+  }
   console.log('PASS HEADLESS CHROME ROUTE',data.href, 'textchars='+data.text.length);
   return data;
 }
@@ -68,6 +73,9 @@ try {
   });
   await send('Page.enable');await send('Runtime.enable');
   await inspect('/');
+  await inspect('/panels/');
+  await inspect('/ranks/');
+  await inspect('/tasks/');
   await inspect('/faq/');
   await inspect('/hub/');
   console.log('EFHC_PAGES_CHROME_RUNTIME_SMOKE=PASS');

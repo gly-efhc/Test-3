@@ -37,6 +37,7 @@ import "../styles/owner-0553-profile-ct.css";
 import "../styles/owner-0556-profile-settings-avatar.css";
 import "../styles/owner-0557-avatar-ring.css";
 import "../styles/hub-demo-react-parity.css";
+import "../styles/reconstruction-canon-v866-user-shell.css";
 import React, {
   type Dispatch,
   type SetStateAction,
@@ -347,7 +348,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <link rel="manifest" href="/manifest.webmanifest" />
+        {process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" ? <link rel="manifest" href="/manifest.webmanifest" /> : null}
         <meta name="theme-color" content="black" />
         <meta name="application-name" content="EFHC Bot" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -775,7 +776,7 @@ function AppInner(props: {
             />
           )}
         </ErrorBoundary>
-        <OnboardingTour t={t} />
+        {process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" ? <OnboardingTour t={t} /> : null}
       </Layout>
     </>
   );
