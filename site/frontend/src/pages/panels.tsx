@@ -30,6 +30,7 @@ import { useInterfaceCustomization } from
   "../hooks/useInterfaceCustomization";
 import { useInterfaceVariantSurface } from
   "../hooks/useInterfaceVariantSurface";
+import { useFrozenDemoTables } from "../reconstruction/useFrozenDemoTables";
 
 const PANELS_ROUTE_STATIC_GUARD = {
   active: "/panels/active",
@@ -44,6 +45,7 @@ export default function PanelsPage(props: {
   const t = useT();
   const router = useRouter();
   const globalId = useAuthOwnerGlobalId();
+  const demoPreview = useFrozenDemoTables() && !globalId;
   const customization = useInterfaceCustomization();
   const heroSurface = useInterfaceVariantSurface<HTMLElement>("PH");
   const activationSurface = useInterfaceVariantSurface<HTMLDivElement>("PA");
@@ -78,13 +80,19 @@ export default function PanelsPage(props: {
 
   const activatePanel = async () => {
     if (customization.mutationBlocked) return;
-    if (!globalId || activating || !canActivatePanel) return;
+    if (activating || !canActivatePanel || (!globalId && !demoPreview)) return;
     const ok = await confirm(
       "purchase",
       t("panels.activate_panel"),
       t("panels.subtitle_price_100"),
     );
     if (!ok) return;
+    // A public Pages preview must never create a panel, debit a balance, or
+    // claim successful activation. The real mutation remains owner-authorized.
+    if (demoPreview) {
+      toast("DEMO: подтверждение показано; баланс и панели не изменены.", "info");
+      return;
+    }
     const idk = newIdempotencyKey();
     try {
       await activationMutation.mutateAsync(idk);
@@ -138,6 +146,7 @@ export default function PanelsPage(props: {
   return (
     <GamePageShell
       className="efhc-panels-shell"
+      data-panels-canon-scope="main-v866"
       data-panels-layout="activation-with-portfolio-entry"
       data-panels-route-active={PANELS_ROUTE_STATIC_GUARD.active}
       data-panels-route-archive={PANELS_ROUTE_STATIC_GUARD.archive}
@@ -148,6 +157,7 @@ export default function PanelsPage(props: {
         ref={heroSurface.ref}
         {...heroSurface.handlers}
         className="efhc-panels-hero"
+        data-panels-hero-source="panelsHero"
         data-ph={heroSurface.variant}
         kicker={t("panels.game_kicker")}
         title={t("panels.title")}
@@ -196,6 +206,7 @@ export default function PanelsPage(props: {
         {...activationSurface.handlers}
         title={t("panels.activate_panel")}
         className="efhc-panels-activation-card"
+        data-panels-activation-source="panels-activation-card"
         data-pa={activationSurface.variant}
         data-panels-mvp-activation="cycle-1556"
       >
@@ -229,6 +240,7 @@ export default function PanelsPage(props: {
             onClick={activatePanel}
             disabled={activating || !canActivatePanel}
             className="efhc-panels-activate efhc-theme03-cta"
+            data-panels-demo-preview={demoPreview ? "read-only" : undefined}
             data-panel-activation-cta="100-efhc"
             data-panel-activation-debit="bonus-first-main-second"
             aria-label={t("panels.buy_panel")}

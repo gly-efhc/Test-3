@@ -259,12 +259,6 @@ function LiveEnergyBlock(props: LiveBlockProps) {
     [eLiveScaled],
   );
 
-  const heroFontPx = useMemo(() => {
-    const len = heroText.length;
-    const base = 38;
-    const cut = Math.max(0, len - 11) * 2;
-    return clamp(base - cut, 21, 38);
-  }, [heroText]);
 
   const visibleProgressPct = displayPct;
   const shownProgress = props.hide_balances
@@ -289,6 +283,7 @@ function LiveEnergyBlock(props: LiveBlockProps) {
       data-eg={energyFrameSurface.variant}
       data-energy-frame-theme-zone="stage-minus-local-zones"
       data-global-header-boundary="excluded"
+      data-canon-energy-cycle="0008"
     >
       <div className="efhc-energy-stage_image" />
       <div className="efhc-energy-stage_veil" />
@@ -331,10 +326,7 @@ function LiveEnergyBlock(props: LiveBlockProps) {
           <div
             className="efhc-energy-stage_value"
             data-energy-value-safe="true"
-            style={{
-              fontSize: `${heroFontPx}px`,
-              lineHeight: 1.02,
-            }}
+            data-canon-energy-type="css-source-v866"
           >
             {props.hide_balances
               ? "••••••••"
@@ -363,6 +355,7 @@ function LiveEnergyBlock(props: LiveBlockProps) {
             data-pb={progressSurface.variant}
             data-level-progress-boost-pp="50"
             data-level-progress-centered="true"
+            data-progress-canon-cycle="0008"
           >
             <div
               className={fillClassName}

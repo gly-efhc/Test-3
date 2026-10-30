@@ -207,6 +207,8 @@ function formatMegabytes(bytes: number): string {
 export function PwaRuntimeStatus(props: {
   t: (key: string) => string;
   enabled?: boolean;
+  /** OWNER cycle 0009: keep PWA side-effects without any technical popup. */
+  headless?: boolean;
 }) {
   const router = useRouter();
   const { t } = props;
@@ -520,6 +522,9 @@ export function PwaRuntimeStatus(props: {
       root.style.removeProperty("--efhc-pwa-floating-height");
     };
   }, [floatingVisible]);
+  // Technical cache/persistence/update/offline cards are not product UI.
+  // Keep registration, navigation learning and safe update effects operational.
+  if (props.headless) return null;
   if (
     !cacheVisible &&
     !waiting &&

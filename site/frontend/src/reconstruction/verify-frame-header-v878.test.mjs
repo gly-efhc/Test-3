@@ -26,8 +26,9 @@ test('canonical Header family, name size/weight and statuses are defined', () =>
   assert.doesNotMatch(header, /profile-name truncate text-sm font-bold/);
 });
 test('header user actions return to four without hiding admin preview', () => {
-  assert.match(header, /const showAdminEntry = props\.isAdmin;/);
-  assert.match(header, /data-action-count=\{showAdminEntry \? "5" : "4"\}/);
+  // Current OWNER decision cycle 0008 supersedes temporary fifth Admin cell.
+  assert.match(header, /data-action-count="4"/);
+  assert.doesNotMatch(header, /showAdminEntry|onModeSwitch/);
   assert.match(profile, /data-admin-demo-entry="true"/);
   assert.match(profile, /data-telegram-connect-demo-entry="true"/);
 });

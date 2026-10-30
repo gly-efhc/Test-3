@@ -1,0 +1,28 @@
+/* RECON_CYCLE_0010 — Panels source DOM contract only.
+ * Source: frozen FRONTEND_v866.html; variant color/material authority preserved.
+ * The previously truncated effective kWh rate must display the full D8 number
+ * rather than applying ellipsis or clipping to financial/energy values.
+ */
+.efhc-panels-shell[data-panels-canon-scope="main-v866"] .efhc-panels-hero .efhc-game-stats {
+  min-width: 0;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"] .efhc-panels-hero .efhc-game-stat {
+  min-width: 0;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"] .efhc-panels-hero .efhc-game-stat_value {
+  max-width: 100%;
+  min-width: 0;
+  overflow: visible;
+  text-overflow: clip;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  white-space: normal;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+/* In the base v866 PH-01 layout, the three stats are full-width rows.
+ * The grid shape of other PH variants is not overwritten. */
+.efhc-panels-shell[data-panels-canon-scope="main-v866"] .efhc-panels-hero[data-ph="PH-01"] .efhc-game-stats {
+  grid-template-columns: minmax(0, 1fr);
+  gap: .42rem;
+}
+/* Preserve selected theme tokens and the OWNER-locked My Panels button. */

@@ -18,7 +18,16 @@ type AndroidBridgeWindow = Window & {
 
 function pathWithoutHash(value: string): string {
   const index = value.indexOf("#");
-  return index >= 0 ? value.slice(0, index) : value;
+  const route = index >= 0 ? value.slice(0, index) : value;
+  // Next router.push must receive a *logical* route. GitHub Pages adds its
+  // /Test-3 prefix independently. Recover stale session stack entries that
+  // accidentally captured one or multiple copies of this deployment prefix.
+  if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1") return route;
+  let canonical = route;
+  while (canonical === "/Test-3" || canonical.startsWith("/Test-3/") || canonical.startsWith("/Test-3?")) {
+    canonical = canonical.slice("/Test-3".length) || "/";
+  }
+  return canonical;
 }
 
 function readRouteStack(): string[] {

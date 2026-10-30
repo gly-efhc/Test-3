@@ -16,8 +16,9 @@ test('four visible user actions remain in frozen v866 order with real callbacks'
   assert.match(header,/onClick=\{props\.onOpenWallet\}/);
   assert.match(header,/onClick=\{onDepositClick\}/);
   assert.match(header,/onClick=\{onHub\}/);
-  assert.match(header,/data-action-count=\{showAdminEntry \? "5" : "4"\}/);
-  assert.match(header,/const showAdminEntry = props\.isAdmin/);
+  // Superseded by OWNER cycle 0008: no fifth Admin action in ANY mode.
+  assert.match(header,/data-action-count="4"/);
+  assert.doesNotMatch(header,/showAdminEntry|onModeSwitch/);
 });
 test('only approved Header geometry is scoped to User and only cycle 0007',()=>{
   assert.match(header,/data-canon-header-cycle="0007"/);

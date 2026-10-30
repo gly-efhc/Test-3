@@ -31,7 +31,6 @@ type Props = {
   mainBalance: string;
   bonusBalance: string;
   walletConnected: boolean;
-  isAdmin: boolean;
   appMode: InterfaceAppMode;
   onAvatar: () => void;
   onDeposit: () => void;
@@ -39,7 +38,7 @@ type Props = {
 };
 
 function HeaderActionIcon(props: {
-  kind: "admin" | "user" | "faq" | "wallet" | "deposit" | "hub";
+  kind: "faq" | "wallet" | "deposit" | "hub";
 }) {
   const common = {
     width: 18,
@@ -52,22 +51,6 @@ function HeaderActionIcon(props: {
     strokeLinejoin: "round" as const,
     "aria-hidden": true,
   };
-  if (props.kind === "admin") {
-    return (
-      <svg {...common}>
-        <path d="M4 20v-9l8-5 8 5v9" />
-        <path d="M9 20v-6h6v6M8 9h8" />
-      </svg>
-    );
-  }
-  if (props.kind === "user") {
-    return (
-      <svg {...common}>
-        <circle cx="12" cy="8" r="3.2" />
-        <path d="M5.5 19c.7-4 2.85-5.9 6.5-5.9s5.8 1.9 6.5 5.9" />
-      </svg>
-    );
-  }
   if (props.kind === "faq") {
     return (
       <svg {...common}>
@@ -262,12 +245,8 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
     : total;
   const balanceFit = useMeasuredBalanceFont(displayedTotal);
 
-  // This changes navigation visibility only, not account RBAC or permissions.
-  // The Admin page renderer remains guarded by _app.tsx.
-  const showAdminDemoEntry = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1";
-  // The v866 header canon has exactly four user action cells.
-  // Pages Admin preview remains reachable from the profile page, not a fifth cell.
-  const showAdminEntry = props.isAdmin;
+  // OWNER 2026-10-30: Admin entry belongs in Profile, NEVER in Header.
+  // RBAC and DEMO preview routing are owned by Profile/_app and are unchanged.
   const username = props.username || "TG";
   const balanceDensity =
     displayedTotal.length >= 19
@@ -286,11 +265,6 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
     router.push("/faq").catch(() => undefined);
   };
 
-  const onModeSwitch = () => {
-    const href = props.appMode === "admin" ? "/" : "/admin";
-    router.push(href).catch(() => undefined);
-  };
-
   const onDepositClick = () => {
     props.onDeposit();
   };
@@ -304,6 +278,7 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
         data-hs={headerComposition.shell}
         data-header-theme-variant={headerThemeVariant}
         data-canon-header-cycle="0007"
+        data-header-owner-cycle="0008"
         data-header-theme-owner="global-theme-plus-individual-override"
         data-header-shell-source={headerComposition.shell}
       >
@@ -413,23 +388,9 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
         <div
           className="efhc-game-header_actions"
           data-header-action-layout="balanced-grid"
-          data-action-count={showAdminEntry ? "5" : "4"}
+          data-action-count="4"
+          data-admin-entry-owner="profile-only"
         >
-          {showAdminEntry ? (
-            <button
-              type="button"
-              onClick={onModeSwitch}
-              className="efhc-header-action efhc-btn-secondary"
-              aria-label={props.appMode === "admin" ? "User mode" : t("nav.admin")}
-              title={props.appMode === "admin" ? "User mode" : t("nav.admin")}
-              data-interface-mode-switch={props.appMode}
-            >
-              <HeaderActionIcon
-                kind={props.appMode === "admin" ? "user" : "admin"}
-              />
-              <span>{props.appMode === "admin" ? "USER" : showAdminDemoEntry && !props.isAdmin ? "ADMIN DEMO" : t("nav.admin")}</span>
-            </button>
-          ) : null}
           <button
             type="button"
             onClick={onFaq}

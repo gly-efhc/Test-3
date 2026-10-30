@@ -853,7 +853,7 @@ export function ProfileModal(props: Props) {
         </Modal>
 
         {props.isAdmin ? (
-          <div className="flex justify-end">
+          <div className="flex justify-end" data-admin-entry-owner="profile-only" data-admin-global-id-gate="future-backend-authoritative">
             <Button onClick={props.onOpenAdmin}>{t("profile.admin_panel")}</Button>
           </div>
         ) : null}

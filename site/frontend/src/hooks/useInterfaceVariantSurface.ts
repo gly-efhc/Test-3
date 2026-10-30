@@ -63,7 +63,7 @@ export function useInterfaceVariantSurface<T extends HTMLElement>(
     handlers: {
       "data-interface-variant-surface": "true",
       "data-interface-variant-group": group,
-      "aria-disabled": active ? true : undefined,
+      "data-interface-selection-active": active ? "true" : undefined,
       "data-interface-variant-readonly": interactive ? undefined : "true",
       onPointerDownCapture: (event: React.PointerEvent<T>) => {
         if (!active) return;

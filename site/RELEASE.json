@@ -1,8 +1,8 @@
 {
-  "source_version": "FRONTEND_RECONSTRUCTION_v884",
-  "source_archive_name": "FRONTEND_RECONSTRUCTION_REPO_v884.zip",
-  "source_archive_sha256": "6df80bcd318ada914490b22e6ad60aeb577db0448ee0de4d5eba1713f9f36803",
-  "runtime_files_imported": 603,
+  "source_version": "FRONTEND_RECONSTRUCTION_v887",
+  "source_archive_name": "FRONTEND_RECONSTRUCTION_REPO_v887.zip",
+  "source_archive_sha256": "49a989d160b4a0582a8be56457f2ea34263faec96ea085154fb27702559ebbb4",
+  "runtime_files_imported": 608,
   "pages_workflow_sha256": "8c76266a0b8dc213fa174702fe3926c5e3d8ad8a46b02cff77221e8e2d3a7673",
   "pages_tools_path": "site/ci/pages-tools",
   "pages_tools_sha256": {

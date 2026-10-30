@@ -186,8 +186,15 @@ export function Modal(
       window.innerWidth - rect.right,
       event.clientX - drag.startX,
     ));
-    const dy = Math.max(-rect.top, Math.min(
+    // A virtual keyboard can shrink the visible viewport without changing
+    // window.innerHeight. Never drag a sheet behind the keyboard or OS chrome.
+    const viewportTop = window.visualViewport?.offsetTop ?? 0;
+    const viewportBottom = window.visualViewport
+      ? viewportTop + window.visualViewport.height
+      : window.innerHeight;
+    const dy = Math.max(viewportTop - rect.top, Math.min(
       window.innerHeight - rect.bottom,
+      viewportBottom - rect.bottom,
       event.clientY - drag.startY,
     ));
     const x = drag.originX + dx;

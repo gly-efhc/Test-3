@@ -758,7 +758,6 @@ export function Layout(
           mainBalance={props.snapshot?.profile?.main_balance || "0"}
           bonusBalance={props.snapshot?.profile?.bonus_balance || "0"}
           walletConnected={walletConnected}
-          isAdmin={props.isAdmin}
           appMode={appMode}
           onAvatar={() => {
             onTap("tap");

@@ -11,8 +11,10 @@ const providers=read('src/features/profile/AccountProvidersDemo.tsx');
 const proof=read('src/proof/AdminVisualProofRouter.tsx');
 const admin=read('src/pages/admin/index.tsx');
 const freeze=read('tests/regression/current-admin-freeze.test.mjs');
-assert.match(header,/showAdminDemoEntry/);
-assert.match(header,/ADMIN DEMO/);
+// OWNER 2026-10-30 supersedes the former temporary fifth Header ADMIN DEMO button.
+assert.match(header,/data-action-count="4"/);
+assert.doesNotMatch(header,/showAdminDemoEntry|ADMIN DEMO|onModeSwitch/);
+assert.match(profile,/data-admin-demo-entry="true"/);
 assert.match(app,/effectiveAdminVisualProofPath/);
 assert.match(app,/NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1"/);
 assert.match(app,/adminRouteBlocked/);

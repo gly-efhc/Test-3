@@ -41,6 +41,8 @@ import "../styles/reconstruction-canon-v866-user-shell.css";
 import "../styles/reconstruction-dialog-navigation-v877.css";
 import "../styles/reconstruction-canon-v866-frames-header-v878.css";
 import "../styles/reconstruction-v866-header-cycle0007.css";
+import "../styles/reconstruction-v866-energy-header-cycle0008.css";
+import "../styles/reconstruction-v866-panels-cycle0010.css";
 import React, {
   type Dispatch,
   type SetStateAction,
@@ -750,7 +752,7 @@ function AppInner(props: {
         />
       ) : null}
       <BackgroundMusicController enabled={settingsHydrated && settings.music_enabled} />
-      <PwaRuntimeStatus t={t} enabled={browserSupportsServiceWorker()} />
+      <PwaRuntimeStatus t={t} enabled={browserSupportsServiceWorker()} headless />
       {telegramProviderId && effectiveSplashReady ? (
         <SkinBackgroundController
           onChange={setShopSkinBgUrl}

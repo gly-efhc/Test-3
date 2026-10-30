@@ -22,7 +22,7 @@ export function useGlobalThemeSurface<T extends HTMLElement>() {
     globalThemeId: customization.globalThemeId,
     handlers: {
       "data-global-theme-surface": "true",
-      "aria-disabled": active ? true : undefined,
+      "data-interface-selection-active": active ? "true" : undefined,
       onPointerDownCapture: (event: React.PointerEvent<T>) => {
         if (!active || isNestedLocalSurface(event)) return;
         pointerStartRef.current = {
