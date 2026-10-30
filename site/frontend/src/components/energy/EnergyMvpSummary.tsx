@@ -7,7 +7,7 @@ import {
 } from "../shell/FrontendShell";
 import {
   cmp8,
-  formatFixedDown,
+  format8,
 } from "../../lib/format";
 import type { SyncSnapshot } from "../../services/snapshot.service";
 
@@ -64,7 +64,7 @@ export function EnergyMvpSummary(props: {
   const hidden = "••••••••";
   const value = (raw: string) => props.hideBalances
     ? hidden
-    : formatFixedDown(raw, 2);
+    : format8(raw);
 
   const metrics = [
     {

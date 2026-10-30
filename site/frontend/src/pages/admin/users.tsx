@@ -14,7 +14,7 @@ import { TelegramStatusBadge } from "../../components/ui/telegram/TelegramStatus
 import { useT } from "../../hooks/useT";
 import {
   formatD8ToHuman,
-  formatFixedDown,
+  format8,
   fromScaledBigint,
   sumScaledDown,
   toScaledBigintDown,
@@ -588,8 +588,8 @@ export default function AdminUsersPage() {
           <GameSection>
             <GameStatsGrid>
               <GameStat label="Активные панели" value={String(selected.active_panels_count)} />
-              <GameStat label="Сгенерировано" value={formatFixedDown(selected.total_generated_kwh, 2)} note="kWh" />
-              <GameStat label="Доступно" value={formatFixedDown(selected.available_kwh, 2)} note="kWh" />
+              <GameStat label="Сгенерировано" value={format8(selected.total_generated_kwh)} note="kWh" />
+              <GameStat label="Доступно" value={format8(selected.available_kwh)} note="kWh" />
             </GameStatsGrid>
           </GameSection>
           <section className="efhc-card p-3.5 efhc-admin-user-profile-data-static" data-eam-family="EAM-ADMIN-007">

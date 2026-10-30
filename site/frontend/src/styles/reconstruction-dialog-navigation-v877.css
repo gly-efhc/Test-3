@@ -1,0 +1,56 @@
+/* EFHC v877: resilient portal dialogs across mobile/browser/Android screens.
+ * Styling confined to existing React modal portal, not frozen HTML v866. */
+[data-modal-portal="body"].efhc-modal-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  z-index: 2147483100 !important; /* above onboarding (2147483000), below native OS */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  padding: max(12px, env(safe-area-inset-top, 0px)) 12px
+    max(12px, env(safe-area-inset-bottom, 0px)) !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+[data-modal-portal="body"].efhc-modal-overlay > .efhc-modal-sheet {
+  position: relative;
+  flex: 0 1 auto;
+  width: min(100%, 40rem);
+  max-width: calc(100vw - 24px);
+  max-height: calc(100dvh - 32px) !important;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin: auto;
+  border-radius: 1rem;
+}
+[data-modal-portal="body"].efhc-modal-overlay > .efhc-modal-sheet > .efhc-modal-header {
+  flex: 0 0 auto;
+  min-height: 44px;
+  touch-action: none;
+  cursor: move;
+  user-select: none;
+}
+[data-modal-portal="body"].efhc-modal-overlay > .efhc-modal-sheet > .efhc-modal-header button {
+  touch-action: manipulation;
+  cursor: pointer;
+}
+[data-modal-portal="body"].efhc-modal-overlay > .efhc-modal-sheet > .efhc-modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+@media (max-height: 480px) {
+  [data-modal-portal="body"].efhc-modal-overlay {
+    align-items: flex-start !important;
+  }
+}

@@ -13,12 +13,16 @@ export const sourceCanonSha256 = fixtures.source_sha256;
 
 const dayMs = 86_400_000;
 const lifetimeMs = 180 * dayMs;
+// FRONTEND_v866.html declares `const standalonePanelSeedNow = Date.now()` ONCE
+// when its DEMO tables are initialized. Keep panel timestamps stable across
+// pagination, refetch, tab changes and React remounts within this browser session.
+// Do not use this preview clock for production settlement or ledger logic.
+const demoPanelSeedNowMs = Date.now();
 function demoPanelRows(tab: PanelTab): PanelsPageResponse["items"] {
-  const now = Date.now();
   return fixtures.panels[tab].map((row, index) => {
     const activatedMs = tab === "active"
-      ? now - (index + 1) * dayMs
-      : now - (index + 1) * dayMs - lifetimeMs;
+      ? demoPanelSeedNowMs - (index + 1) * dayMs
+      : demoPanelSeedNowMs - (index + 1) * dayMs - lifetimeMs;
     const expiresMs = activatedMs + lifetimeMs;
     return {
       ...row,

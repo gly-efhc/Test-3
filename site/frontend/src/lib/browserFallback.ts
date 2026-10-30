@@ -20,8 +20,12 @@ export function getBrowserFallbackSnapshot(): SyncSnapshot {
       bonus_balance: canon?.bonus_balance ?? "0.00000000",
       available_kwh: canon?.available_kwh ?? "0.00000000",
       total_generated_kwh: canon?.total_generated_kwh ?? "0.00000000",
-      gen_per_sec_base: "0.00000000",
-      gen_per_sec_vip: "0.00000000",
+      // Pages fixture is a single coherent preview: the visible VIP/base rate
+      // must match the effective rate displayed by the Energy dashboard.
+      gen_per_sec_base: canon && !canon.is_vip
+        ? canon.gen_per_sec_effective : "0.00000000",
+      gen_per_sec_vip: canon?.is_vip
+        ? canon.gen_per_sec_effective : "0.00000000",
     },
     panels: {
       active_count: canon?.active_panels ?? 0,

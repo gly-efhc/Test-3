@@ -1,6 +1,7 @@
 import React from "react";
 
 import type { DashboardMiniChartPoint } from "./MiniCharts";
+import { format8 } from "../../lib/format";
 import {
   buildLeaderboardVisualItem,
   SimLeaderboardList,
@@ -92,8 +93,7 @@ function scoreLabel(
   item: RanksRuntimeItem,
   labels: RanksDashboardRuntimeLabels,
 ): string {
-  const value = scoreValue(item);
-  return `${value.toFixed(2)} ${labels.generatedUnit}`;
+  return `${format8(item.total_generated_kwh)} ${labels.generatedUnit}`;
 }
 
 function nextVisibleGoal(rankPos: number | null): string {
@@ -185,7 +185,7 @@ function visualItemFromRankItem(
     id: `${item.rank_pos}-${displayName.replace(/[^a-zA-Z0-9_-]/g, "_")}`,
     position: item.rank_pos,
     displayName,
-    scoreLabel: score.toFixed(2),
+    scoreLabel: format8(item.total_generated_kwh),
     scoreUnit,
     mine: Boolean(me && item.global_id === me.global_id),
     vip: item.is_vip,

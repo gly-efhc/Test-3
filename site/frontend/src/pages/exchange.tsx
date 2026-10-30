@@ -16,7 +16,7 @@ import type { SyncSnapshot } from "../hooks/useSnapshot";
 import { LayoutContext } from "../components/Layout";
 import { useT } from "../hooks/useT";
 import { hapticError, hapticSuccess } from "../lib/telegram";
-import { cmp8, format8, formatFixedDown, formatD8ToHuman } from "../lib/format";
+import { cmp8, format8, formatD8ToHuman } from "../lib/format";
 import { ExchangePanel } from "../components/ExchangePanel";
 import {
   useExchangeConvert,
@@ -120,7 +120,7 @@ export default function ExchangePage(props: {
           <GameStatsGrid>
             <GameStat
               label={t("exchange.dashboard_available")}
-              value={formatFixedDown(availableKwh, 2)}
+              value={format8(availableKwh)}
             />
             <GameStat label={t("exchange.rate")} value="1 kWh = 1 EFHCm" />
             <GameStat

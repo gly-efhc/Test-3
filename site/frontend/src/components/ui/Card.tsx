@@ -21,6 +21,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       <div
         {...rest}
         ref={ref}
+        data-canon-frame="source-card"
         className={`efhc-card p-4 ${hl} ${className || ""}`}
       >
         {title ? (

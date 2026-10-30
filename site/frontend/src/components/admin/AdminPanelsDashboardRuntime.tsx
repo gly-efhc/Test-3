@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 
-import { formatFixedDown, sumScaledDown } from "../../lib/format";
+import { format8, sumScaledDown } from "../../lib/format";
 import {
   AdminActionTable,
   AdminDashboardGrid,
@@ -180,8 +180,8 @@ export function AdminPanelsDashboardRuntime(
     (item) => item.is_active && !item.expires_at,
   ).length;
   const attentionTotal = expiringSoon + missingExpiry;
-  const generatedTotal = formatFixedDown(sumDecimal(props.items, "generated_kwh"), 2);
-  const baseRateTotal = formatFixedDown(sumDecimal(props.items, "base_gen_per_sec"), 2);
+  const generatedTotal = format8(sumDecimal(props.items, "generated_kwh"));
+  const baseRateTotal = format8(sumDecimal(props.items, "base_gen_per_sec"));
   const lifecycle = averageLifecyclePercent(props.items);
   const lifecycleLabel = lifecycle === null ? "нет дат" : `${lifecycle}%`;
   const hasSnapshot = Boolean(props.items.length);

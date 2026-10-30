@@ -265,7 +265,9 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
   // This changes navigation visibility only, not account RBAC or permissions.
   // The Admin page renderer remains guarded by _app.tsx.
   const showAdminDemoEntry = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1";
-  const showAdminEntry = props.isAdmin || showAdminDemoEntry;
+  // The v866 header canon has exactly four user action cells.
+  // Pages Admin preview remains reachable from the profile page, not a fifth cell.
+  const showAdminEntry = props.isAdmin;
   const username = props.username || "TG";
   const balanceDensity =
     displayedTotal.length >= 19
@@ -301,6 +303,7 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
         className="efhc-game-header"
         data-hs={headerComposition.shell}
         data-header-theme-variant={headerThemeVariant}
+        data-canon-header-cycle="0007"
         data-header-theme-owner="global-theme-plus-individual-override"
         data-header-shell-source={headerComposition.shell}
       >
@@ -352,7 +355,7 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
               title={username}
               aria-label={t("profile.menu_button")}
             >
-              <span className="profile-name truncate text-sm font-bold text-[var(--tg-text)]">
+              <span className="profile-name">
                 {username}
               </span>
             </button>
@@ -431,6 +434,7 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
             type="button"
             onClick={onFaq}
             className="efhc-header-action efhc-btn-secondary"
+            data-action="FAQ"
             aria-label={t("faq.title")}
             title={t("faq.title")}
           >
@@ -441,6 +445,7 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
             type="button"
             onClick={props.onOpenWallet}
             className="efhc-header-action efhc-btn-secondary"
+            data-action="Wallet"
             aria-label={t("wallet.title")}
             title={t("wallet.title")}
           >
@@ -451,6 +456,7 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
             type="button"
             onClick={onDepositClick}
             className="efhc-header-action efhc-btn-secondary"
+            data-action="Deposit"
             aria-label={t("deposit.direct_title")}
             title={t("deposit.direct_title")}
           >
@@ -461,6 +467,7 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
             type="button"
             onClick={onHub}
             className="efhc-header-action efhc-btn-primary"
+            data-action="HUB"
             aria-label="Hub"
             title="Hub"
             data-i18n-fixed-token="Hub"

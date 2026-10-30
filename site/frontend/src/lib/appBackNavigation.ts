@@ -107,10 +107,16 @@ export function useAppBackNavigation(router: NextRouter): void {
     // Its browser history must remain browser-owned: the production back-guard
     // otherwise appends the Pages basePath repeatedly through router.push().
     // Only the explicit build-time Pages mode bypasses this guard.
-    if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1") return;
-    let disposed = false;
-
+    // Route history is needed by on-screen Back controls in *both* runtimes.
+    // Only the Android/Telegram protective hash guard is disabled on Pages;
+    // disabling the route stack here previously broke every Pages Back button.
     rememberRoute(routerRef.current.asPath || routerRef.current.pathname);
+    const onRouteChange = (url: string): void => rememberRoute(url);
+    router.events.on("routeChangeComplete", onRouteChange);
+    if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1") {
+      return () => router.events.off("routeChangeComplete", onRouteChange);
+    }
+    let disposed = false;
 
     const armGuard = async (): Promise<void> => {
       if (disposed || armingRef.current) return;
@@ -166,11 +172,6 @@ export function useAppBackNavigation(router: NextRouter): void {
       }, 0);
       return false;
     });
-
-    const onRouteChange = (url: string): void => {
-      rememberRoute(url);
-    };
-    router.events.on("routeChangeComplete", onRouteChange);
 
     const onNativeBack = (event: Event): void => {
       event.preventDefault?.();

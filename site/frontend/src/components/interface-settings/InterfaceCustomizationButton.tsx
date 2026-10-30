@@ -6,14 +6,17 @@ function GearIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
-        d="M12 8.4a3.6 3.6 0 1 0 0 7.2 3.6 3.6 0 0 0 0-7.2Z"
+        d="M12 15.25A3.25 3.25 0 1 0 12 8.75a3.25 3.25 0 0 0 0 6.5Z"
         stroke="currentColor"
-        strokeWidth="1.7"
+        strokeWidth="1.85"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
-        d="M19.2 13.1v-2.2l-2-.7a6.8 6.8 0 0 0-.6-1.4l.9-1.9-1.6-1.6-1.9.9a6.8 6.8 0 0 0-1.4-.6l-.7-2H9.7l-.7 2a6.8 6.8 0 0 0-1.4.6l-1.9-.9-1.6 1.6.9 1.9a6.8 6.8 0 0 0-.6 1.4l-2 .7v2.2l2 .7c.1.5.3 1 .6 1.4l-.9 1.9 1.6 1.6 1.9-.9c.4.3.9.5 1.4.6l.7 2h2.2l.7-2c.5-.1 1-.3 1.4-.6l1.9.9 1.6-1.6-.9-1.9c.3-.4.5-.9.6-1.4l2-.7Z"
+        d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.86 2.86-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .62 1.7 1.7 0 0 0-.38 1.08V21h-4v-.1a1.7 1.7 0 0 0-1.38-1.66 1.7 1.7 0 0 0-1.62.5l-.06.06-2.86-2.86.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.62-1 1.7 1.7 0 0 0-1.08-.38H3v-4h.1A1.7 1.7 0 0 0 4.76 8.24a1.7 1.7 0 0 0-.5-1.62l-.06-.06L7.06 3.7l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.62A1.7 1.7 0 0 0 10.38 2.9V3h4v-.1A1.7 1.7 0 0 0 15.76 4.56a1.7 1.7 0 0 0 1.62-.5l.06-.06 2.86 2.86-.06.06A1.7 1.7 0 0 0 19.4 9c.1.38.32.72.62 1 .3.24.68.38 1.08.38h.1v4h-.1A1.7 1.7 0 0 0 19.4 15Z"
         stroke="currentColor"
-        strokeWidth="1.35"
+        strokeWidth="1.85"
+        strokeLinecap="round"
         strokeLinejoin="round"
       />
     </svg>
@@ -24,9 +27,9 @@ function CheckIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
-        d="m5.2 12.4 4.3 4.3L19 7.3"
+        d="m5.5 12.5 4.1 4.1L18.8 7.4"
         stroke="currentColor"
-        strokeWidth="2.2"
+        strokeWidth="1.85"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

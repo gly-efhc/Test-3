@@ -14152,10 +14152,10 @@ html[data-efhc-onboarding] .efhc-pwa-runtime-status{
   bottom: calc(5.65rem + env(safe-area-inset-bottom, 0px));
   z-index: 90;
   display: grid;
-  width: 2.25rem;
-  height: 2.25rem;
-  min-width: 2.25rem;
-  min-height: 2.25rem;
+  width: 2.22rem;
+  height: 2.22rem;
+  min-width: 2.22rem;
+  min-height: 2.22rem;
   place-items: center;
   padding: 0;
   border: 1px solid rgba(110, 168, 255, .32);
@@ -14172,8 +14172,13 @@ html[data-efhc-onboarding] .efhc-pwa-runtime-status{
     border-color .18s ease, background .18s ease;
 }
 .efhc-interface-customization-button svg {
-  width: 1.05rem;
-  height: 1.05rem;
+  width: 1.04rem;
+  height: 1.04rem;
+  stroke: currentColor;
+  stroke-width: 1.85;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
 }
 .efhc-interface-customization-button[data-has-bottom-nav="false"] {
   bottom: calc(.8rem + env(safe-area-inset-bottom, 0px));
@@ -14922,10 +14927,10 @@ html[data-efhc-onboarding] .efhc-pwa-runtime-status{
    No global theme CSS, no element overrides, no generated variants. */
 .efhc-global-theme-control {
   display: grid;
-  width: 2.25rem;
-  height: 2.25rem;
-  min-width: 2.25rem;
-  min-height: 2.25rem;
+  width: 2.22rem;
+  height: 2.22rem;
+  min-width: 2.22rem;
+  min-height: 2.22rem;
   place-items: center;
   padding: 0;
   border: 1px solid rgba(167, 139, 250, .42);

@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useMemo, useState } from "react";
 
 import type { SyncSnapshot } from "../../hooks/useSnapshot";
-import { formatFixedDown } from "../../lib/format";
+import { format8 } from "../../lib/format";
 import { hapticTap } from "../../lib/telegram";
 
 type FocusMode = "overview" | "panels" | "exchange";
@@ -45,7 +45,7 @@ function human(
   hidden: boolean,
 ): string {
   if (hidden) return "••••••••";
-  return formatFixedDown(String(value || "0"), 2);
+  return format8(value ?? "0");
 }
 
 export function PublicEnergyInteractiveOverview(props: Props) {

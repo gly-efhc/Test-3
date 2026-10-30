@@ -13,7 +13,7 @@ import { Skeleton } from "../components/ui/Skeleton";
 import { useT } from "../hooks/useT";
 import { useInterfaceVariantSurface } from "../hooks/useInterfaceVariantSurface";
 import type { SyncSnapshot } from "../hooks/useSnapshot";
-import { formatFixedDown } from "../lib/format";
+import { format8 } from "../lib/format";
 import { publicApiErrorMessage } from "../lib/publicError";
 import { hapticSelection, hapticSoft } from "../lib/telegram";
 import {
@@ -40,7 +40,7 @@ function rankIdentity(item: RankItem): string {
 }
 
 function rankMetric(item: RankItem): string {
-  return `${formatFixedDown(item.total_generated_kwh, 2)} kWh`;
+  return `${format8(item.total_generated_kwh)} kWh`;
 }
 
 function RankRow(props: {
@@ -170,7 +170,7 @@ export default function RanksPage(props: {
     }
   };
 
-  const myMetric = `${formatFixedDown(me.total_generated_kwh, 2)} kWh`;
+  const myMetric = `${format8(me.total_generated_kwh)} kWh`;
   const myMetricLabel = t("ranks.my_energy");
 
   return (

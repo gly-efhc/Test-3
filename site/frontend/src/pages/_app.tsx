@@ -38,6 +38,9 @@ import "../styles/owner-0556-profile-settings-avatar.css";
 import "../styles/owner-0557-avatar-ring.css";
 import "../styles/hub-demo-react-parity.css";
 import "../styles/reconstruction-canon-v866-user-shell.css";
+import "../styles/reconstruction-dialog-navigation-v877.css";
+import "../styles/reconstruction-canon-v866-frames-header-v878.css";
+import "../styles/reconstruction-v866-header-cycle0007.css";
 import React, {
   type Dispatch,
   type SetStateAction,

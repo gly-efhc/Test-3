@@ -23,6 +23,17 @@ type ModalInertSnapshot = {
 
 const modalBackgroundInertSnapshots = new Map<HTMLElement, ModalInertSnapshot>();
 let modalBackgroundObserver: MutationObserver | null = null;
+let modalBodyScrollLocks = 0;
+let modalOriginalBodyOverflow = "";
+
+type ModalDragState = {
+  pointerId: number;
+  startX: number;
+  startY: number;
+  originX: number;
+  originY: number;
+  originRect: DOMRect;
+};
 
 function modalOpenOverlays(): HTMLElement[] {
   return Array.from(
@@ -112,6 +123,86 @@ export function Modal(
   const closeButtonRef = React.useRef<HTMLButtonElement>(null);
   const initiatorRef = React.useRef<HTMLElement | null>(null);
   const wasOpenRef = React.useRef(false);
+  const dragRef = React.useRef<ModalDragState | null>(null);
+  const dragOffsetRef = React.useRef({ x: 0, y: 0 });
+
+  // Lock only background scrolling. Long dialogs remain independently scrollable.
+  React.useEffect(() => {
+    if (!props.open || typeof document === "undefined") return;
+    if (modalBodyScrollLocks === 0) {
+      modalOriginalBodyOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+    }
+    modalBodyScrollLocks += 1;
+    return () => {
+      modalBodyScrollLocks = Math.max(0, modalBodyScrollLocks - 1);
+      if (modalBodyScrollLocks === 0) {
+        document.body.style.overflow = modalOriginalBodyOverflow;
+      }
+    };
+  }, [props.open]);
+
+  React.useEffect(() => {
+    if (!props.open) {
+      dragRef.current = null;
+      dragOffsetRef.current = { x: 0, y: 0 };
+      return;
+    }
+    const reset = () => {
+      dragRef.current = null;
+      dragOffsetRef.current = { x: 0, y: 0 };
+      if (sheetRef.current) sheetRef.current.style.transform = "";
+    };
+    // Layout viewport may change when the keyboard opens or device rotates.
+    window.addEventListener("resize", reset);
+    return () => window.removeEventListener("resize", reset);
+  }, [props.open]);
+
+  const onDragStart = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.button !== 0 || event.target instanceof Element &&
+      event.target.closest("button, a, input, select, textarea, [data-no-modal-drag]")) return;
+    const sheet = sheetRef.current;
+    if (!sheet) return;
+    const rect = sheet.getBoundingClientRect();
+    dragRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      originX: dragOffsetRef.current.x,
+      originY: dragOffsetRef.current.y,
+      originRect: rect,
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+    event.preventDefault();
+  };
+
+  const onDragMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    const sheet = sheetRef.current;
+    if (!sheet) return;
+    const rect = drag.originRect;
+    const dx = Math.max(-rect.left, Math.min(
+      window.innerWidth - rect.right,
+      event.clientX - drag.startX,
+    ));
+    const dy = Math.max(-rect.top, Math.min(
+      window.innerHeight - rect.bottom,
+      event.clientY - drag.startY,
+    ));
+    const x = drag.originX + dx;
+    const y = drag.originY + dy;
+    dragOffsetRef.current = { x, y };
+    sheet.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+  };
+
+  const onDragEnd = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (dragRef.current?.pointerId !== event.pointerId) return;
+    dragRef.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
 
   React.useEffect(() => {
     if (typeof document === "undefined") return;
@@ -208,7 +299,14 @@ export function Modal(
         className="efhc-modal efhc-modal-sheet w-full"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="efhc-modal-header">
+        <div
+          className="efhc-modal-header"
+          data-modal-drag-handle="true"
+          onPointerDown={onDragStart}
+          onPointerMove={onDragMove}
+          onPointerUp={onDragEnd}
+          onPointerCancel={onDragEnd}
+        >
           <div className="efhc-modal-title">{props.title}</div>
           <button
             ref={closeButtonRef}

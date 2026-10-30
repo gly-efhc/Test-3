@@ -25,6 +25,7 @@ export const GamePageShell = React.forwardRef<
     <div
       {...rest}
       ref={ref}
+      data-canon-template="v866"
       className={`efhc-game-page ${className || ""}`}
     >
       {children}
@@ -48,6 +49,7 @@ export const GameHero = React.forwardRef<HTMLElement, HeroProps>(
       <section
         {...rest}
         ref={ref}
+        data-canon-frame="source-game-hero"
         className={`efhc-game-hero ${className || ""}`}
       >
         <div className="efhc-game-hero_glow" aria-hidden="true" />
@@ -91,6 +93,7 @@ export function GameStatsGrid(
 ) {
   return (
     <div
+      data-canon-frame="source-stats"
       className={
         props.compact ? "efhc-game-stats compact" : "efhc-game-stats"
       }
@@ -106,7 +109,7 @@ export function GameStat(props: {
   note?: React.ReactNode;
 }) {
   return (
-    <div className="efhc-game-stat">
+    <div className="efhc-game-stat" data-canon-frame="source-stat">
       <div className="efhc-game-stat_label">{props.label}</div>
       <div className="efhc-game-stat_value">{props.value}</div>
       {props.note ? (
@@ -128,6 +131,7 @@ export function GameSection(
   return (
     <section
       {...rest}
+      data-canon-frame="source-card"
       className={`efhc-game-section ${className || ""}`}
     >
       {title ? (
@@ -147,7 +151,7 @@ export function GameNotice(props: {
   onAction?: () => void;
 }) {
   return (
-    <div className="efhc-game-notice">
+    <div className="efhc-game-notice" data-canon-frame="source-notice">
       <div className="efhc-game-notice_title">{props.title}</div>
       {props.detail ? (
         <div className="efhc-game-notice_detail">
@@ -175,7 +179,7 @@ export function GameActionCard(props: {
   onPrimary: () => void;
 }) {
   return (
-    <article className="efhc-game-action-card">
+    <article className="efhc-game-action-card" data-canon-frame="source-card">
       <div className="efhc-game-action-card_icon" aria-hidden="true">
         {props.icon || "⚡"}
       </div>
@@ -215,6 +219,7 @@ export function GameProductCard(props: {
   return (
     <article
       className="efhc-game-product-card"
+      data-canon-frame="source-card"
       data-game-product-card="web3-large"
       data-product-card-no-raw-payment="true"
       data-product-card-has-image={props.imageUrl ? "true" : "false"}
@@ -272,7 +277,7 @@ export function GameDetails(
   }>,
 ) {
   return (
-    <details className={`efhc-game-details ${props.className || ""}`}>
+    <details data-canon-frame="source-card" className={`efhc-game-details ${props.className || ""}`}>
       <summary>
         <span>{props.summary}</span>
       </summary>

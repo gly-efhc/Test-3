@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 
 import { useLargeAdminFilter } from "../../hooks/admin/useLargeAdminFilter";
-import { formatFixedDown, formatD8ToHuman, sumScaledDown } from "../../lib/format";
+import { format8, formatD8ToHuman, sumScaledDown } from "../../lib/format";
 import {
   AdminDashboardGrid,
   AdminDashboardToolbar,
@@ -320,11 +320,11 @@ export function AdminUsersDashboardRuntime(
             </span>
             <span>
               <b>Доступно kWh</b>
-              <strong>{formatFixedDown(availableKwh, 2)}</strong>
+              <strong>{format8(availableKwh)}</strong>
             </span>
             <span>
               <b>Сгенерировано kWh</b>
-              <strong>{formatFixedDown(generatedKwh, 2)}</strong>
+              <strong>{format8(generatedKwh)}</strong>
             </span>
             <span>
               <b>Баланс выбранного пользователя</b>

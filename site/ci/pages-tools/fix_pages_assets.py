@@ -2,13 +2,14 @@
 """Normalize original root-absolute public asset URLs for project Pages basePath.
 
 Do not rewrite actual React routes, JSON fixtures or API endpoints.
+# /faq is a Next route; only /faq/*.json translation assets are rewritten.
 """
 import argparse
 from pathlib import Path
 import re
 import sys
 
-PATTERN = re.compile(r'(["\'`(=])/(assets|locale|faq|audio|fonts|images|icons|favicon\.ico|manifest\.webmanifest)(?=[/?#"\'`\s)])')
+PATTERN = re.compile(r'(["\'`(=])/(assets|locale|faq/[A-Za-z0-9_-]+\.json|audio|fonts|images|icons|favicon\.ico|manifest\.webmanifest)(?=[/?#"\'`\s)])')
 
 def main():
     ap=argparse.ArgumentParser()

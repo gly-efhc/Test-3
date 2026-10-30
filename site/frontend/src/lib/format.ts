@@ -25,15 +25,22 @@ export function formatFixedDown(
   v: string | number | null | undefined,
   decimals: number,
 ): string {
+  if (!Number.isInteger(decimals) || decimals < 0 || decimals > 8) {
+    throw new Error("INVALID_DECIMALS");
+  }
+  // D8 is an atomic financial boundary: never silently truncate a ninth digit.
+  if (decimals === 8) return format8(v);
   const s = normalizeDecimalStr(v);
+  if (!/^[+-]?\d+(?:\.\d+)?$/.test(s)) {
+    throw new Error("INVALID_DECIMAL_STRING");
+  }
   const neg = s.startsWith("-");
-  const raw = neg ? s.slice(1) : s;
-  const parts = raw.split(".");
-  const intPart = parts[0].replace(/\D/g, "") || "0";
-  const frac = (parts[1] || "").replace(/\D/g, "");
-  const cut = frac.padEnd(decimals, "0").slice(0, decimals);
-  const res = `${intPart}.${cut}`;
-  return neg ? `-${res}` : res;
+  const raw = /^[+-]/.test(s) ? s.slice(1) : s;
+  const [integer, fraction = ""] = raw.split(".");
+  const intPart = integer.replace(/^0+(?=\d)/, "");
+  const truncated = fraction.padEnd(decimals, "0").slice(0, decimals);
+  const res = decimals > 0 ? `${intPart}.${truncated}` : intPart;
+  return neg && !/^0(?:\.0+)?$/.test(res) ? `-${res}` : res;
 }
 
 export function toScaledBigintDown(

@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 
 import type { DashboardMiniChartPoint } from "./MiniCharts";
+import { format8, sumScaledDown } from "../../lib/format";
 import {
   SimActivityStrip,
   SimCountdownProgress,
@@ -203,10 +204,10 @@ function formatKwhDisplay(value: string): string {
 
 function loadedGeneratedTotal(panels: PanelsPortfolioRuntimePanel[]): string {
   const sum = panels.reduce(
-    (acc, panel) => acc + toNumber(panel.generated_kwh),
-    0,
+    (acc, panel) => sumScaledDown(acc, panel.generated_kwh, 8),
+    "0.00000000",
   );
-  return `${sum.toFixed(8)} kWh`;
+  return `${format8(sum)} kWh`;
 }
 
 export function PanelsPortfolioRuntime(props: PanelsPortfolioRuntimeProps) {

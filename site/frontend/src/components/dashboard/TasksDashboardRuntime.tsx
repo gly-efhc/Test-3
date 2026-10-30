@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { format8 } from "../../lib/format";
 
 import {
   SimActivityStrip,
@@ -91,8 +92,13 @@ function sumTasks(tasks: TasksDashboardTask[]): TaskTotals {
 }
 
 function formatReward(value: number): string {
-  if (!Number.isFinite(value)) return "0";
-  return value.toFixed(8).replace(/\.0+$/, "").replace(/(\.\d*?)0+$/, "$1");
+  if (!Number.isFinite(value)) return "0.00000000";
+  try {
+    return format8(String(value));
+  } catch {
+    // Invalid reward is not a zero and must not silently be displayed as one.
+    return "—";
+  }
 }
 
 function filterTasks(

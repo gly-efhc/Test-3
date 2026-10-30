@@ -1,0 +1,218 @@
+/* FRONTEND_RECONSTRUCTION_v878 — frozen-v866 source template and Header typography.
+ * Authority: external FRONTEND_v866.html SHA-256
+ * 9b6371f5fb62939596b78206f95031c447e9f2b375e62b30704403bb25102aef
+ * DOM reference: source-route-page, source-game-hero, source-stats,
+ * source-stat, source-card and source-notice in the first <style> of v866.
+ * User-only; design variants and CT01–CT10 retain color ownership.
+ * Baseline is measured against canon; browser parity is NOT certified.
+ */
+
+/* Inter is the frozen HTML's first-choice font. The browser can fall back to
+ * system-ui when Inter is unavailable; do not fetch external font files. */
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-game-header {
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-game-header_profile .profile-name {
+  display:block;
+  overflow:hidden;
+  color:var(--tg-text);
+  font-family:inherit;
+  font-size:.875rem;
+  font-weight:800;
+  line-height:normal;
+  letter-spacing:normal;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-game-header_statuses {
+  display:flex;
+  align-items:center;
+  gap:.38rem;
+  margin-top:.23rem;
+  flex-wrap:nowrap;
+  white-space:nowrap;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-game-header_statuses .level-label {
+  padding:0;
+  border:0;
+  background:transparent;
+  color:var(--tg-hint);
+  font-family:inherit;
+  font-size:.64rem;
+  font-weight:400;
+  line-height:1;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-game-header_statuses .efhc-game-header_status {
+  display:inline-block;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  font-family:inherit;
+  font-size:.59rem;
+  font-weight:800;
+  line-height:1;
+  box-shadow:none;
+  white-space:nowrap;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-game-header .efhc-header-action {
+  min-height:2.35rem;
+  padding:.4rem .32rem;
+  border-radius:.78rem;
+  font-family:inherit;
+  font-size:max(.75rem,12px);
+  font-weight:800;
+  line-height:1;
+  letter-spacing:normal;
+}
+/* The approved user header contains four actions. No fifth Admin cell:
+ * the Pages-only Admin Preview entry is inside Web Profile. */
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-game-header_actions[data-action-count="4"] {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:.38rem;
+}
+
+/* Canon's source-route-page is a grid with .72rem spacing. Only shared
+ * React templates opt into this mapping via explicit data-canon attributes. */
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-game-page[data-canon-template="v866"] {
+  display:grid;
+  width:100%;
+  gap:.72rem;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-game-page[data-canon-template="v866"]
+  :is(.efhc-game-hero,.efhc-game-section,.efhc-game-notice,.efhc-game-action-card,
+      .efhc-game-product-card,.efhc-game-details,[data-canon-frame="source-card"].efhc-card) {
+  min-width:0;
+  border-width:1px;
+  border-style:solid;
+  border-color:var(--efhc-route-border,rgba(110,168,255,.18));
+  border-radius:1rem;
+  background-color:var(--efhc-route-surface,rgba(12,20,34,.82));
+  box-shadow:0 10px 28px rgba(0,0,0,.20);
+}
+/* Standalone source-game-hero geometry. Keep inherited CT chroma,
+ * and do not change variant-owned effects when explicitly configured. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-game-page[data-canon-template="v866"] .efhc-game-hero[data-canon-frame="source-game-hero"] {
+  overflow:hidden;
+  border-radius:1rem;
+  background-image:linear-gradient(145deg,rgba(17,31,52,.18),rgba(9,16,28,.12));
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-game-page[data-canon-template="v866"] .efhc-game-hero_content {
+  padding:.85rem;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-game-page[data-canon-template="v866"] .efhc-game-hero_head {
+  gap:.75rem;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-game-page[data-canon-template="v866"] .efhc-game-hero_body {
+  margin-top:.7rem;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-game-page[data-canon-template="v866"] .efhc-game-kicker {
+  font-size:.65rem;
+  font-weight:850;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-game-page[data-canon-template="v866"] .efhc-game-title {
+  margin-top:.16rem;
+  font-size:1.3rem;
+  font-weight:900;
+  line-height:1.08;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-game-page[data-canon-template="v866"] .efhc-game-detail {
+  margin-top:.28rem;
+  font-size:.72rem;
+  line-height:1.35;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-game-page[data-canon-template="v866"] .efhc-game-stats[data-canon-frame="source-stats"] {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:.45rem;
+  margin-top:.7rem;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-game-page[data-canon-template="v866"] .efhc-game-stats.compact[data-canon-frame="source-stats"] {
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-game-page[data-canon-template="v866"] .efhc-game-stat[data-canon-frame="source-stat"] {
+  min-width:0;
+  padding:.55rem;
+  border:1px solid var(--efhc-route-border,rgba(148,163,184,.12));
+  border-radius:.75rem;
+  background:var(--efhc-route-inset,rgba(15,23,42,.6));
+  box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-game-page[data-canon-template="v866"] .efhc-game-stat_label {
+  font-size:.59rem;
+  line-height:1.2;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-game-page[data-canon-template="v866"] .efhc-game-stat_value {
+  margin-top:.25rem;
+  font-size:.73rem;
+  font-weight:850;
+  line-height:1.18;
+  font-variant-numeric:tabular-nums;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-game-page[data-canon-template="v866"] [data-canon-frame="source-card"].efhc-card {
+  padding:.8rem;
+}
+/* Ordinary React cards (including FAQ/profile) use the same source-card
+ * baseline even outside GamePageShell; route/theme-specific canon rules retain
+ * precedence through their own selectors where they are stronger. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-card[data-canon-frame="source-card"] {
+  min-width:0;
+  border-width:1px;
+  border-style:solid;
+  border-color:var(--efhc-route-border,rgba(110,168,255,.18));
+  border-radius:1rem;
+  background-color:var(--efhc-route-surface,rgba(12,20,34,.82));
+  padding:.8rem;
+}
+/* Panel HERO uses a different frame family in frozen HTML. Preserve its PH
+ * variant and chroma while bringing the baseline geometry under canonical
+ * source panels rather than making a new visual alias. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-panels-shell.efhc-game-page[data-canon-template="v866"] .efhc-panels-hero {
+  border-radius:1.18rem;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-panels-shell.efhc-game-page[data-canon-template="v866"] .efhc-panels-hero .efhc-game-hero_content {
+  padding:.88rem;
+}
+/* Protect compact mobile frames and avoid horizontal scroll. */
+@media(max-width:430px){
+  .efhc-independent-shell[data-interface-app-mode="user"]
+    .efhc-game-page[data-canon-template="v866"] .efhc-game-stat[data-canon-frame="source-stat"] {
+    overflow-wrap:anywhere;
+  }
+}
+
+/* Frozen v866 panels-hero source .panels-stats has two columns and the last
+ * of three stats fills a full row. Do not infer geometry from color themes. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-panels-shell.efhc-game-page[data-canon-template="v866"]
+  .efhc-game-stats[data-canon-frame="source-stats"] {
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.48rem;
+  margin-top:.75rem;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-panels-shell.efhc-game-page[data-canon-template="v866"]
+  .efhc-game-stats[data-canon-frame="source-stats"] > .efhc-game-stat:last-child {
+  grid-column:1/-1;
+}
