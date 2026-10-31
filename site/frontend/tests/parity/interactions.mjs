@@ -52,6 +52,9 @@ try{
    await page.waitForTimeout(80);
   }
   for(const box of samples)assert.ok(Math.abs(box.width-width)<1,JSON.stringify(samples));
+  const title=await page.locator('.efhc-admin-header h1').boundingBox();
+  const actions=await page.locator('.efhc-admin-header .efhc-admin-actions').boundingBox();
+  assert.ok(title&&actions&&(title.y+title.height<=actions.y+1||actions.y+actions.height<=title.y+1||title.x+title.width<=actions.x+1||actions.x+actions.width<=title.x+1),'Admin title overlaps its actions');
  },{width});
  for(const width of [360,430,768,1440])await check(`gear anchored to shell corner ${width}`,async page=>{
   await open(page);
