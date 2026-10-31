@@ -320,6 +320,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         {!isBrowserShop ? (
           <link rel="stylesheet" href={`${router.basePath}/FRONTEND_v866.css`} data-efhc-visual-authority="frozen-v866" />
+          <link rel="stylesheet" href={`${router.basePath}/owner-bottom-nav-no-active-dot.css`} data-efhc-owner-nav="no-active-dot" />
         ) : null}
         {process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" ? <link rel="manifest" href="/manifest.webmanifest" /> : null}
         <meta name="theme-color" content="black" />
