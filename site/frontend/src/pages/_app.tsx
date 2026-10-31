@@ -6,6 +6,17 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import "../styles/globals.css";
+// OWNER visual recovery: existing approved scoped styles, in contractual cascade order.
+import "../styles/reconstruction-canon-v866-user-shell.css";
+import "../styles/reconstruction-dialog-navigation-v877.css";
+import "../styles/reconstruction-canon-v866-frames-header-v878.css";
+import "../styles/reconstruction-v866-header-cycle0007.css";
+import "../styles/reconstruction-v866-energy-header-cycle0008.css";
+import "../styles/reconstruction-v866-panels-cycle0010.css";
+import "../styles/reconstruction-ranks-hero-cycle0012-v891.css";
+import "../styles/reconstruction-tasks-cycle0013-v892.css";
+import "../styles/reconstruction-regression-recovery-v888.css";
+import "../styles/reconstruction-cycle0014-bottom-nav-dot-owner.css";
 import React, {
   type Dispatch,
   type SetStateAction,
@@ -112,6 +123,8 @@ export function reportWebVitals(metric: NextWebVitalsMetric): void {
 }
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  const isBrowserShop = router.pathname === "/browser-shop" || router.pathname.startsWith("/browser-shop/");
   const [queryClient] = useState(() => createEfhcQueryClient());
 
   const [tcManifestUrl, setTcManifestUrl] = useState<HttpsUrl>(() => {

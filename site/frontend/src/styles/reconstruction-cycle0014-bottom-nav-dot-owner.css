@@ -4,6 +4,7 @@
 .efhc-independent-shell[data-interface-app-mode="user"]
   nav.efhc-game-nav .efhc-game-nav_grid[data-bn="BN-20"]
   .efhc-game-nav_item[data-active="true"]::after {
-  content: none;
-  box-shadow: none;
+  content: none !important;
+  display: none !important;
+  box-shadow: none !important;
 }
