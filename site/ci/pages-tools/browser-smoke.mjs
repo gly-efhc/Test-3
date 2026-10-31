@@ -22,6 +22,7 @@ const pending = new Map();
 let nextId = 0;
 let currentRoute = '/';
 let lastSnapshot = null;
+let lastNavProbe = null;
 const runtimeEvents = [];
 const routeChecks = [];
 const diagnosticDir = process.env.EFHC_CI_DIAGNOSTIC_DIR ||
@@ -39,7 +40,7 @@ function safePath(input) {
 function diagnosticSummary(status, error) {
   return {schema: 'efhc.ci.browser-diagnostics.v1', status, stage: 'chrome-runtime',
     route: currentRoute, error: error ? limitText(error?.message || error) : null,
-    lastSnapshot, routeChecks, events:runtimeEvents,
+    lastSnapshot, lastNavProbe, routeChecks, events:runtimeEvents,
     environment:{runtime:'GitHub Pages isolated DEMO', node:process.version,
       backend:'not executed', network:'external blocked'},
     note:'No tokens, cookies, user storage, secrets, query strings or page screenshots collected.'};
@@ -161,12 +162,32 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
     throw Error('OWNER_CT_GEAR_CORNER_REGRESSION '+JSON.stringify(geom));
   console.log('PASS OWNER RENDERED SHELL 390x844',JSON.stringify(geom));
   // Real React navigation and Android bridge, not a source-only check.
+  // Layout.NavItem uses data-nav-key={item.key}, where the Panels item key
+  // is "nav.panels" (NOT "panels"). A missing probe must fail precisely
+  // rather than silently invoking optional chaining and accusing routing.
+  const navProbeReply=await send('Runtime.evaluate',{expression:
+    `JSON.stringify((()=>{
+      const anchors=[...document.querySelectorAll('nav[data-regression-nav-canon="v888"] a[data-nav-key]')];
+      const anchor=document.querySelector('nav[data-regression-nav-canon="v888"] a[data-nav-key="nav.panels"]');
+      return {found:!!anchor,keys:anchors.map(a=>a.getAttribute('data-nav-key')),
+        hrefPath:anchor?new URL(anchor.href,location.href).pathname:null,
+        disabled:!!anchor?.hasAttribute('disabled'),
+        routeBefore:location.pathname};
+    })())`,returnByValue:true});
+  const navProbe=JSON.parse(navProbeReply.result.result.value);
+  lastNavProbe=navProbe;
+  if(!navProbe.found) throw Error('OWNER_NAV_PANELS_BUTTON_MISSING '+JSON.stringify(navProbe));
+  if(!/^\/Test-3\/panels\/?$/.test(navProbe.hrefPath||''))
+    throw Error('OWNER_NAV_PANELS_HREF_MISMATCH '+JSON.stringify(navProbe));
   const clickPanels=await send('Runtime.evaluate',{expression:
-    `Boolean(document.querySelector('nav a[data-nav-key="panels"]')?.click())`,returnByValue:true});
+    `(()=>{const anchor=document.querySelector('nav a[data-nav-key="nav.panels"]');
+      if(!anchor)return false;anchor.click();return true;})()`,returnByValue:true});
+  if(clickPanels.result.result.value!==true)
+    throw Error('OWNER_NAV_PANELS_CLICK_DISPATCH_FAILED '+JSON.stringify(navProbe));
   await sleep(2400);
   const pathAfterClick=await send('Runtime.evaluate',{expression:'location.pathname',returnByValue:true});
   if(pathAfterClick.result.result.value!=='/Test-3/panels/')
-    throw Error('OWNER_NAV_PANELS_CLICK_FAILED '+pathAfterClick.result.result.value);
+    throw Error('OWNER_NAV_PANELS_CLICK_FAILED actual='+pathAfterClick.result.result.value+' '+JSON.stringify(navProbe));
   const bridge=await send('Runtime.evaluate',{expression:
     'typeof window.__EFHC_ANDROID_BACK__ === "function" && (window.__EFHC_ANDROID_BACK__(),true)',
     returnByValue:true});
