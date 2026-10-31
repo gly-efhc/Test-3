@@ -57,8 +57,7 @@ export default function HubPage() {
 
   return (
     <GamePageShell
-      id="hubPage"
-      className="efhc-hub-page source-route-page unified-route-page"
+      className="efhc-hub-page efhc-hub-actions"
       data-hu="HU-01"
       data-public-surface="hub"
       data-hub-runtime="dynamic-active-links-v251"
@@ -67,7 +66,7 @@ export default function HubPage() {
       data-hub-commerce-copy="forbidden-before-exit"
     >
       <section
-        className="efhc-hub-choice-grid release-route-grid efhc-hub-standalone-actions"
+        className="efhc-hub-choice-grid"
         data-hub-link-slot-grid="two-per-row-active-only"
         aria-label="Hub"
         data-i18n-fixed-token="Hub"
@@ -79,7 +78,7 @@ export default function HubPage() {
             <button
               key={String(link.id)}
               type="button"
-              className="efhc-hub-choice release-route-card"
+              className="efhc-hub-choice"
               data-hub-link-id={String(link.id)}
               data-hub-link-code={link.code}
               data-hub-link-url={link.url}
