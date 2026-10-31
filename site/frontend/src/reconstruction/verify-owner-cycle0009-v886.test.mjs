@@ -27,8 +27,10 @@ test("PWA status is mounted headless; runtime registration remains", () => {
 });
 test("Back routing removes stale repeated Pages path prefixes", () => {
   const src = read("../lib/appBackNavigation.ts");
-  assert.match(src, /NEXT_PUBLIC_EFHC_PAGES_PREVIEW/);
-  assert.match(src, /while \(canonical === "\/Test-3"/);
+  assert.match(src, /stripPagesBasePath\(route\)/);
+  const base = read("../lib/publicAssetPath.ts");
+  assert.match(base, /NEXT_PUBLIC_EFHC_PAGES_PREVIEW/);
+  assert.match(base, /while \(path === base/);
   assert.match(src, /rememberRoute\(routerRef\.current/);
   assert.match(src, /router\.events\.on\("routeChangeComplete"/);
   assert.match(src, /router\.push\(target, undefined, \{ scroll: false \}\)/);
