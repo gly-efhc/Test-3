@@ -366,8 +366,11 @@ export default function App({ Component, pageProps }: AppProps) {
         manifestUrl={tcManifestUrl}
         returnUrl={tcReturnUrl}
         restoreConnection={
-          process.env.NEXT_PUBLIC_EFHC_E2E_DISABLE_TONCONNECT_RESTORE
-            === "1"
+          // GitHub Pages is now a real wallet-integration TEST surface.
+          // Honor the E2E disable flag only outside the deployed Pages app;
+          // the already-registered v907 YAML still sets it to 1.
+          process.env.NEXT_PUBLIC_EFHC_E2E_DISABLE_TONCONNECT_RESTORE === "1"
+            && process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1"
             ? false
             : undefined
         }

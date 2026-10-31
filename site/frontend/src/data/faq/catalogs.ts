@@ -2252,7 +2252,7 @@ export const faqCatalogByLang: Record<Lang, FaqCatalog> = {
                               {
                                               id: "13-1",
                                               question: "What can I do in Hub?",
-                                              answer: "Hub has two actions: Top Up and EFHC VIP NFT. Details of the external paths appear only after leaving Hub."
+                                              answer: "Hub has four protected links (Shop, EFHC VIP NFT, CEO EFHC, Admin), plus unlimited additional active links configured by Admin. Purchase details remain outside Hub."
                                             },
                               {
                                               id: "13-2",

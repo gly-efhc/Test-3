@@ -44,14 +44,18 @@ test('v907: template surfaces are keyboard focusable only in edit mode',()=>{
  assert.match(s,/"aria-label":\s*active/);
  assert.match(s,/event\.target !== ref\.current/);
 });
-test('v907: real public TONConnect manifest, no authenticated binding or payments',()=>{
+test('v908: actual TONConnect transport remains available in Pages with server-authoritative identity',()=>{
  const layout=fs.readFileSync(path.join(root,'src/components/Layout.tsx'),'utf8');
  const adapter=fs.readFileSync(path.join(root,'src/lib/wallet-provider/adapters/TonConnectAdapter.ts'),'utf8');
  const app=fs.readFileSync(path.join(root,'src/services/appShell.service.ts'),'utf8');
- assert.match(layout,/const pagesDemo = process\.env\.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1"/);
- assert.match(layout,/mode === "binding" && !pagesDemo/);
- assert.match(adapter,/public-demo-transaction-disabled/);
- assert.match(adapter,/NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1"\) return null/);
+ assert.doesNotMatch(layout,/__EFHC_TONCONNECT_USER_ACTIVATED_UNTIL__/);
+ assert.doesNotMatch(layout,/подключение только для просмотра адреса/);
+ assert.match(layout,/await prepareProof\(\)\.catch/);
+ assert.match(layout,/setWalletHint\(t\("wallet.restore_requires_proof"\)\)/);
+ assert.doesNotMatch(adapter,/public-demo-transaction-disabled/);
+ assert.doesNotMatch(adapter,/NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1"/);
+ assert.match(adapter,/bindVerifiedTonConnectWallet/);
+ assert.match(adapter,/sendTonConnectTransaction\(requireUi\(\), tx\)/);
  assert.match(app,/tonconnect-manifest\.json/);
  assert.match(app,/new URL\(pages \?/);
 });

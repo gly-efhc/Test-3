@@ -314,6 +314,24 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
   portfolio=await readPortfolio();
   if(portfolio.tab!=='archive'||portfolio.ids[0]!=='PNL-000000101')
     throw Error('OWNER_PORTFOLIO_ARCHIVE_NEWEST_PAGE_FAILED '+JSON.stringify(portfolio));
+  // R06-O01: a still screenshot of Archive's first 20 rows is not
+  // evidence that the entire 60-row history can be reached.
+  for(const expected of [40,60]){
+    await send('Runtime.evaluate',{expression:
+      `(()=>{const e=document.querySelector('[data-panels-scroll-mode="canonical-window"]');
+        if(!e)return false;e.scrollTop=e.scrollHeight;e.dispatchEvent(new Event('scroll',{bubbles:true}));return true;})()`,returnByValue:true});
+    let loaded=false;
+    for(let attempt=0;attempt<15;attempt++){
+      await sleep(200);portfolio=await readPortfolio();
+      if(portfolio.ids.length>expected)throw Error('OWNER_PORTFOLIO_ARCHIVE_OVERFETCH '+JSON.stringify({expected,actual:portfolio.ids.length}));
+      if(portfolio.ids.length===expected){await sleep(450);portfolio=await readPortfolio();
+        if(portfolio.ids.length===expected){loaded=true;break;}}
+    }
+    if(!loaded||new Set(portfolio.ids).size!==expected||portfolio.ids[0]!=='PNL-000000101')
+      throw Error('OWNER_PORTFOLIO_ARCHIVE_20_20_20_FAILED '+JSON.stringify({expected,actual:portfolio.ids.length,first:portfolio.ids[0]}));
+  }
+  if(portfolio.ids.at(-1)!=='PNL-000000160')
+    throw Error('OWNER_PORTFOLIO_ARCHIVE_LAST_RECORD_MISSING '+JSON.stringify({last:portfolio.ids.at(-1),count:portfolio.ids.length}));
   console.log('PASS OWNER REACT PORTFOLIO DEMO 60+60 / 20+20+20 / SORT / UTC / SCROLL');
   });
   await runIndependentCheck('ranks-responsive',async()=>{
@@ -328,12 +346,22 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
         const stats=[...(hero?.querySelectorAll('.efhc-game-stat')||[])];
         const values=stats.map(el=>el.querySelector('.efhc-game-stat_value'));
         const energy=hero?.querySelector('[data-ranks-hero-energy-d8]');
+        const energyRange=energy?.ownerDocument.createRange();
+        if(energyRange)energyRange.selectNodeContents(energy);
+        const energyFragments=energyRange?[...energyRange.getClientRects()].filter(r=>r.width>0&&r.height>0):[];
+        const energyRect=energy?.getBoundingClientRect();
+        const energyParentRect=energy?.parentElement?.getBoundingClientRect();
+        const energyWrapOrClip=!!energy&&(
+          energyFragments.length!==1||
+          !!energyRect&&!!energyParentRect&&(
+            energyRect.left<energyParentRect.left-1||energyRect.right>energyParentRect.right+1));
         const scoreRows=[...(root?.querySelectorAll('[data-ranks-leaderboard="paged-full"] [data-ranks-card="compact-row-32"]')||[])];
         const refresh=hero?.querySelector('[data-ranks-refresh-action]');
         const find=root?.querySelector('[data-ranks-show-me-action]');
         const rect=e=>e?.getBoundingClientRect();
         return {hero:!!hero,heroWidth:rect(hero)?.width||0,
           statCount:stats.length,fullEnergy:energy?.textContent?.trim()||'',
+          energyWrapOrClip,energyFragments:energyFragments.map(r=>({width:r.width,y:r.y})),
           overflow:values.some(el=>!el||el.scrollWidth>el.clientWidth+1)||stats.some(el=>el.scrollWidth>el.clientWidth+1),
           valueClipped:values.some(el=>el&&getComputedStyle(el).overflow==='hidden'),
           statComputed:values.map(el=>el ? {overflow:getComputedStyle(el).overflow,
@@ -349,7 +377,7 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
     await send('Emulation.setDeviceMetricsOverride',{width,height:844,deviceScaleFactor:1,mobile:true});
     await sleep(700);
     const ranksHero=await readRanksHero();
-    if(!ranksHero.hero||ranksHero.statCount!==2||ranksHero.overflow||ranksHero.valueClipped||
+    if(!ranksHero.hero||ranksHero.statCount!==2||ranksHero.overflow||ranksHero.valueClipped||ranksHero.energyWrapOrClip||
         !ranksHero.refresh||!ranksHero.find||ranksHero.heroWidth>width+1||
         !ranksHero.fullEnergy.includes('8123.12345678')||ranksHero.rows<100||
         ranksHero.topPositions[0]!=='1'||ranksHero.topPositions[1]!=='2'||ranksHero.topPositions[2]!=='2')
@@ -366,12 +394,22 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
         const stats=[...(hero?.querySelectorAll('.efhc-game-stat')||[])];
         const values=stats.map(el=>el.querySelector('.efhc-game-stat_value'));
         const energy=hero?.querySelector('[data-ranks-hero-energy-d8]');
+        const energyRange=energy?.ownerDocument.createRange();
+        if(energyRange)energyRange.selectNodeContents(energy);
+        const energyFragments=energyRange?[...energyRange.getClientRects()].filter(r=>r.width>0&&r.height>0):[];
+        const energyRect=energy?.getBoundingClientRect();
+        const energyParentRect=energy?.parentElement?.getBoundingClientRect();
+        const energyWrapOrClip=!!energy&&(
+          energyFragments.length!==1||
+          !!energyRect&&!!energyParentRect&&(
+            energyRect.left<energyParentRect.left-1||energyRect.right>energyParentRect.right+1));
         const scoreRows=[...(root?.querySelectorAll('[data-ranks-leaderboard="paged-full"] [data-ranks-card="compact-row-32"]')||[])];
         const refresh=hero?.querySelector('[data-ranks-refresh-action]');
         const find=root?.querySelector('[data-ranks-show-me-action]');
         const rect=e=>e?.getBoundingClientRect();
         return {hero:!!hero,heroWidth:rect(hero)?.width||0,
           statCount:stats.length,fullEnergy:energy?.textContent?.trim()||'',
+          energyWrapOrClip,energyFragments:energyFragments.map(r=>({width:r.width,y:r.y})),
           overflow:values.some(el=>!el||el.scrollWidth>el.clientWidth+1)||stats.some(el=>el.scrollWidth>el.clientWidth+1),
           valueClipped:values.some(el=>el&&getComputedStyle(el).overflow==='hidden'),
           statComputed:values.map(el=>el ? {overflow:getComputedStyle(el).overflow,
@@ -392,7 +430,7 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
         if(!b||b.disabled)return false;b.click();return true;})()`,returnByValue:true});
     await sleep(1300);ranksHero=await readRanksHero();
   }
-  if(ranksHero.rows!==220)
+  if(ranksHero.rows!==220||ranksHero.energyWrapOrClip)
     throw Error('OWNER_RANKS_220_DEMO_PAGINATION_REGRESSION '+JSON.stringify(ranksHero));
   console.log('PASS OWNER RANKS 220 DEMO ITEMS');
   });

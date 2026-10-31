@@ -25,7 +25,7 @@ def main():
     if base and base + '/_next/' not in content:
         raise ValueError('Next static asset basePath was not applied')
     if not (root / 'efhc-demo-safety.js').is_file():
-        raise ValueError('Read-only network safety file missing')
+        raise ValueError('Isolated DEMO bootstrap file missing')
     forbidden = [
         p for p in root.rglob('*')
         if p.is_file() and (

@@ -94,7 +94,7 @@ export function createTonConnectAdapter(args: {
       await ui.connectWallet(wallet.walletKey);
     },
     async bindWallet(proofState: PreparedWalletProof | null) {
-      if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1") return null;
+      // A binding is authoritative only after a verified server TonProof.
       const current = session();
       if (
         !current
@@ -111,11 +111,8 @@ export function createTonConnectAdapter(args: {
       await disconnectTonConnect(requireUi());
     },
     async sendTransaction(tx: WalletTransactionRequest) {
-      // A public demo may display a real wallet session but MUST NEVER sign
-      // or submit a payment, withdrawal, proof-binding or Jetton transfer.
-      if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1") {
-        throw new WalletAdapterUnavailableError("tonconnect:public-demo-transaction-disabled");
-      }
+      // User-confirmed transactions use the actual wallet transport and the
+      // existing upstream business-contract checks; no Pages blanket block.
       try {
         const out = await sendTonConnectTransaction(requireUi(), tx);
         return { ...out, provider: "tonconnect" as const };

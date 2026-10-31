@@ -26,138 +26,16 @@ module.exports = {
 };
 '''
 
-SAFETY = r'''/* EFHC Pages DEMO: block external and live operations. */
-(function () {
-  'use strict';
-  var base = '__BASE_PATH__';
-  var nativeFetch = window.fetch.bind(window);
-  // Real wallet discovery is opt-in; all EFHC business APIs and transactions stay blocked.
-  // Bridge origins come ONLY from the official TonConnect registry.
-  var tonRegistry = 'https://raw.githubusercontent.com/ton-connect/wallets-list/main/wallets-v2.json';
-  var tonBridgeOrigins = new Set();
-  var tonWalletOrigins = new Set();
-  var nativeEventSource = window.EventSource;
-  var nativeWebSocket = window.WebSocket;
-  function isTonBridge(url) {
-    return url.protocol === 'https:' && tonBridgeOrigins.has(url.origin) &&
-      (url.pathname.startsWith('/bridge') || url.pathname.startsWith('/events'));
-  }
-  function canLaunchWallet(url) {
-    return Date.now() < (window.__EFHC_TONCONNECT_USER_ACTIVATED_UNTIL__ || 0) &&
-      ((url.protocol === 'https:' && tonWalletOrigins.has(url.origin)) || url.protocol === 'ton:');
-  }
-  function registerTonWallets(list) {
-    if (!Array.isArray(list)) return;
-    list.forEach(function(wallet) {
-      (Array.isArray(wallet.bridge) ? wallet.bridge : []).forEach(function(bridge) {
-        try {
-          var url = new URL(bridge.url || '');
-          if (url.protocol === 'https:' && (url.pathname.startsWith('/bridge') || url.pathname.startsWith('/events'))) {
-            tonBridgeOrigins.add(url.origin);
-          }
-        } catch (_) {}
-      });
-      try {
-        var url = new URL(wallet.universal_url || '');
-        if (url.protocol === 'https:') tonWalletOrigins.add(url.origin);
-      } catch (_) {}
-    });
-  }
-
-  var apiHub = JSON.stringify([
-    {id:1,code:'efhc_buy',title:'EFHC Shop',url:'#',sort_order:1,is_active:true},
-    {id:2,code:'vip_getgems',title:'EFHC VIP NFT',url:'#',sort_order:2,is_active:true},
-    {id:3,code:'efhc_ceo',title:'EFHC CEO',url:'#',sort_order:3,is_active:true},
-    {id:4,code:'efhc_admin',title:'EFHC Admin',url:'#',sort_order:4,is_active:true}
-  ]);
-  function apiResponse(path) {
-    var data = path.endsWith('/hub/links') ? apiHub : '{"detail":"EFHC_DEMO_READ_ONLY","demo":true}';
-    return new Response(data, {status: path.endsWith('/hub/links') ? 200 : 503,
-      headers: {'content-type':'application/json;charset=utf-8','cache-control':'no-store'}});
-  }
-  function isStatic(path) {
-    return path.startsWith(base + '/_next/') || path.startsWith(base + '/assets/') ||
-      path.startsWith(base + '/locale/') || path.startsWith(base + '/faq/') ||
-      path.startsWith(base + '/audio/') || path.startsWith(base + '/fonts/') ||
-      path === base + '/manifest.webmanifest' || path === base + '/favicon.ico';
-  }
-  window.__EFHC_DEMO_READ_ONLY__ = true;
-  window.fetch = function(resource, init) {
-    var raw = typeof resource === 'string' ? resource : resource && resource.url;
-    var url;
-    try { url = new URL(raw || '', location.href); } catch (_) { return Promise.resolve(apiResponse('/invalid')); }
-    var method = String(init && init.method || resource && resource.method || 'GET').toUpperCase();
-    if (url.pathname.startsWith('/api/') || url.pathname.startsWith(base + '/api/'))
-      return Promise.resolve(apiResponse(url.pathname));
-    if (url.href === tonRegistry && method === 'GET') {
-      return nativeFetch(resource, init).then(function(response) {
-        try { response.clone().json().then(registerTonWallets).catch(function(){}); } catch (_) {}
-        return response;
-      });
-    }
-    if (isTonBridge(url) && ['GET','POST'].includes(method)) return nativeFetch(resource, init);
-    if (url.origin !== location.origin || !['GET','HEAD'].includes(method))
-      return Promise.resolve(apiResponse('/blocked'));
-    if (isStatic(url.pathname) || url.pathname.startsWith(base + '/'))
-      return nativeFetch(resource, init);
-    return Promise.resolve(apiResponse('/blocked'));
-  };
-  var nativeOpen = XMLHttpRequest.prototype.open;
-  var nativeSend = XMLHttpRequest.prototype.send;
-  XMLHttpRequest.prototype.open = function(method,url) {
-    this.__efhcBlocked = true;
-    try {
-      var parsed = new URL(url, location.href);
-      this.__efhcBlocked = !(isTonBridge(parsed) && ['GET','POST'].includes(String(method).toUpperCase())) &&
-        (parsed.origin !== location.origin ||
-         !['GET','HEAD'].includes(String(method).toUpperCase()) ||
-         parsed.pathname.startsWith('/api/') || parsed.pathname.startsWith(base+'/api/'));
-    } catch (_) {}
-    if (!this.__efhcBlocked) return nativeOpen.apply(this, arguments);
-    return nativeOpen.call(this, 'GET', 'data:application/json,{"detail":"EFHC_DEMO_READ_ONLY"}', true);
-  };
-  XMLHttpRequest.prototype.send = function() {return nativeSend.apply(this,arguments);};
-  try { navigator.sendBeacon = function(){return false;}; } catch (_) {}
-  window.WebSocket = function(url) {
-    try {
-      var value = new URL(url, location.href);
-      if (value.protocol === 'wss:' && tonBridgeOrigins.has('https://' + value.host) &&
-          (value.pathname.startsWith('/bridge') || value.pathname.startsWith('/events'))) {
-        return new nativeWebSocket(url);
-      }
-    } catch (_) {}
-    throw new Error('EFHC_DEMO_NETWORK_DISABLED');
-  };
-  window.EventSource = function(url, options) {
-    try {if (isTonBridge(new URL(url, location.href))) return new nativeEventSource(url, options);} catch (_) {}
-    throw new Error('EFHC_DEMO_NETWORK_DISABLED');
-  };
-  var nativeWindowOpen = window.open;
-  window.open = function(url) {
-    try {
-      var dest = new URL(url || '',location.href);
-      if (dest.origin !== location.origin && !canLaunchWallet(dest)) return null;
-    } catch (_) {return null;}
-    return nativeWindowOpen.apply(window,arguments);
-  };
-  document.addEventListener('click',function(event) {
-    var target=event.target;
-    var a=target && target.closest && target.closest('a[href]');
-    if (!a) return;
-    try {
-      var url=new URL(a.href,location.href);
-      if ((url.origin !== location.origin || (!url.pathname.startsWith(base+'/') && url.pathname !== base)) &&
-          !canLaunchWallet(url)) {
-        event.preventDefault(); event.stopPropagation();
-      }
-    } catch(_) {event.preventDefault();}
-  },true);
-  try {
-    if(navigator.serviceWorker) {
-      navigator.serviceWorker.register = function(){return Promise.reject(new Error('EFHC_DEMO_NO_SERVICE_WORKER'));};
-    }
-  } catch(_) {}
-})();
+# The old v907 global interception shim blocked TONConnect bridges,
+# real TEST API requests, external HUB destinations, XHR, WebSockets and
+# window.open even after a direct user gesture. This restores the
+# browser transport and leaves identity, RBAC and payment validation in
+# the real application/backend, instead of emulating a failed request.
+SAFETY = r'''/* EFHC Pages: isolated DEMO account bootstrap only.
+This flag selects local DEMO when no explicit authenticated TEST API
+is configured; it is NOT a network, wallet or navigation firewall.
+Real server actions remain protected by the API/identity contracts. */
+window.__EFHC_DEMO_READ_ONLY__ = true;
 '''
 
 
@@ -175,7 +53,7 @@ def main():
         shutil.rmtree(target)
     shutil.copytree(source, target)
     # v868 owns the fixes in actual React source; no temporary TS/route hacks.
-    # Pages-only behavior is selected by NEXT_PUBLIC_EFHC_PAGES_PREVIEW.
+    # Pages-only data routing is selected by NEXT_PUBLIC_EFHC_PAGES_PREVIEW.
     # Static image paths still require the subpath prefix on project Pages.
     splash = target / 'src/components/SplashScreen.tsx'
     splash_text = splash.read_text(encoding='utf-8')
@@ -203,8 +81,7 @@ def main():
         raise ValueError('Expected runtime-config script not found in actual _document.tsx')
     content = content.replace('src="/public-runtime-config.js"',
                               f'src="{base}/efhc-demo-safety.js"', 1)
-    # Remove Telegram SDK remote script; mock mode has no external network.
-    content = content.replace('<script src="https://telegram.org/js/telegram-web-app.js" async />', '')
+    # Retain the existing Telegram runtime; public Pages remains an ordinary browser host.
     # Static assets referenced directly from document are not basePath-rewritten by Next.
     content = content.replace('href="/assets/', f'href="{base}/assets/')
     doc.write_text(content, encoding='utf-8')
@@ -223,7 +100,7 @@ def main():
     (target / 'public/sw.js').unlink(missing_ok=True)
     (target / 'public/runtime-config.json').unlink(missing_ok=True)
     (target / 'public/manifest.webmanifest').unlink(missing_ok=True)
-    # The packaged browser demo never receives live service URLs.
+    # TEST service origins remain controlled by explicit frontend configuration.
     print(f'EFHC_PAGES_TEMP_BUILD_READY base={base!r} source={source} target={target}')
 
 

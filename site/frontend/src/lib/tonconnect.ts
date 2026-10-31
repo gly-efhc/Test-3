@@ -176,8 +176,8 @@ export async function fetchTonConnectWallets(
   tonConnectUI: any,
 ): Promise<TonConnectWalletView[]> {
   const e2eDisabled =
-    process.env.NEXT_PUBLIC_EFHC_E2E_DISABLE_TONCONNECT_RESTORE
-    === "1";
+    process.env.NEXT_PUBLIC_EFHC_E2E_DISABLE_TONCONNECT_RESTORE === "1"
+    && process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1";
   if (e2eDisabled) return [];
   if (!tonConnectUI?.getWallets) return [];
   const raw = await tonConnectUI.getWallets();

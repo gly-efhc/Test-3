@@ -18,8 +18,14 @@
   overflow-wrap: anywhere;
   font-variant-numeric: tabular-nums;
 }
+/* RECON_CYCLE_0012 continuation, R06-001: an exact D8 amount must never
+   split at arbitrary digits. Only the Ranks hero numeric span is atomic;
+   all numeric precision, ranking rows and KG/CT materials remain unchanged. */
 .efhc-ranks-shell[data-kg] [data-ranks-hero-energy-d8="true"] {
-  overflow-wrap: anywhere;
+  display: inline-block;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 @container efhc-ranks-summary (max-width: 440px) {
   /* A pair of readable full-width summary rows instead of squeezed columns.
