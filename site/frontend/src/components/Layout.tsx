@@ -275,6 +275,26 @@ export function Layout(
   const walletConnected = Boolean(walletsMe.data?.is_connected);
   const isAdminRoute = router.pathname.startsWith("/admin");
   const appMode: InterfaceAppMode = isAdminRoute ? "admin" : "user";
+
+  // The original v866 CSS binds Color Theme tokens on html[data-color-theme-id].
+  // React's inner shell has the same attributes, but alone it cannot satisfy
+  // those source selectors. Mirror identities only: do not recreate or override CSS.
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    document.documentElement.dataset.interfaceAppMode = appMode;
+    if (appMode === "user") {
+      document.documentElement.dataset.colorThemeId = customization.colorThemeId;
+      document.documentElement.dataset.globalThemeId = customization.globalThemeId;
+    } else {
+      delete document.documentElement.dataset.colorThemeId;
+      delete document.documentElement.dataset.globalThemeId;
+    }
+    return () => {
+      delete document.documentElement.dataset.interfaceAppMode;
+      delete document.documentElement.dataset.colorThemeId;
+      delete document.documentElement.dataset.globalThemeId;
+    };
+  }, [appMode, customization.colorThemeId, customization.globalThemeId]);
   const [bottomNavViewportHeight, setBottomNavViewportHeight] = useState<
     number | null
   >(null);
