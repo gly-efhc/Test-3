@@ -68,6 +68,7 @@ import {
   type HttpsUrl,
 } from "../services/appShell.service";
 import { useAppBackNavigation } from "../lib/appBackNavigation";
+import { isBrowserShopRoute } from "../lib/appRoutes";
 import { InterfaceCustomizationProvider } from
   "../components/interface-settings/InterfaceCustomizationProvider";
 
@@ -113,7 +114,7 @@ export function reportWebVitals(metric: NextWebVitalsMetric): void {
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const isBrowserShop = router.pathname === "/browser-shop" || router.pathname.startsWith("/browser-shop/");
+  const isBrowserShop = isBrowserShopRoute(router.pathname);
   const [queryClient] = useState(() => createEfhcQueryClient());
 
   const [tcManifestUrl, setTcManifestUrl] = useState<HttpsUrl>(() => {
@@ -429,7 +430,7 @@ function AppInner(props: {
     }, 1400);
     return () => clearTimeout(timer);
   }, []);
-  const isBrowserShop = router.pathname === "/browser-shop" || router.pathname.startsWith("/browser-shop/");
+  const isBrowserShop = isBrowserShopRoute(router.pathname);
   const [adminVisualProofPath, setAdminVisualProofPath] = useState<
     string | null
   >(null);
