@@ -35,7 +35,7 @@ test('versioned retains all 4 embedded Pages tools; registered loads versioned i
  assert.notEqual(a,b);
 });
 test('security checks exist and mark missing backend checks NOT_AVAILABLE',()=>{
- for (const name of ['frontend-typecheck','frontend-tonconnect-regression','npm-dependency-audit','pages-python-compile','pages-flake8','pages-bandit','pages-ruff','backend-compile','backend-bandit','backend-flake8','backend-ruff','backend-mypy','backend-pip-audit','backend-pytest','frontend-performance-budgets','frontend-release-assets']) assert.ok(py.includes(name),name);
+ for (const name of ['frontend-typecheck','frontend-tonconnect-public-regression','frontend-tonconnect-private-acceptance','npm-dependency-audit','pages-python-compile','pages-flake8','pages-bandit','pages-ruff','backend-compile','backend-bandit','backend-flake8','backend-ruff','backend-mypy','backend-pip-audit','backend-pytest','frontend-performance-budgets','frontend-release-assets']) assert.ok(py.includes(name),name);
  assert.match(py,/NOT_AVAILABLE/);
  assert.match(py,/TOOL_ERROR/);
  assert.match(py,/quality-\{args.phase\}\.json/);

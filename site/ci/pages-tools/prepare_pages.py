@@ -5,9 +5,10 @@ The imported source tree site/frontend is never changed by this script.
 """
 import argparse
 import json
-from pathlib import Path
+import os
 import shutil
 import sys
+from pathlib import Path
 
 NEXT_CONFIG = '''/** EFHC isolated GitHub Pages DEMO; generated for an ephemeral build only. */
 const basePath = process.env.EFHC_DEMO_BASEPATH || '';
@@ -30,6 +31,39 @@ SAFETY = r'''/* EFHC Pages DEMO: block external and live operations. */
   'use strict';
   var base = '__BASE_PATH__';
   var nativeFetch = window.fetch.bind(window);
+  // Real wallet discovery is opt-in; all EFHC business APIs and transactions stay blocked.
+  // Bridge origins come ONLY from the official TonConnect registry.
+  var tonRegistry = 'https://raw.githubusercontent.com/ton-connect/wallets-list/main/wallets-v2.json';
+  var tonBridgeOrigins = new Set();
+  var tonWalletOrigins = new Set();
+  var nativeEventSource = window.EventSource;
+  var nativeWebSocket = window.WebSocket;
+  function isTonBridge(url) {
+    return url.protocol === 'https:' && tonBridgeOrigins.has(url.origin) &&
+      (url.pathname.startsWith('/bridge') || url.pathname.startsWith('/events'));
+  }
+  function canLaunchWallet(url) {
+    return Date.now() < (window.__EFHC_TONCONNECT_USER_ACTIVATED_UNTIL__ || 0) &&
+      ((url.protocol === 'https:' && tonWalletOrigins.has(url.origin)) || url.protocol === 'ton:');
+  }
+  function registerTonWallets(list) {
+    if (!Array.isArray(list)) return;
+    list.forEach(function(wallet) {
+      (Array.isArray(wallet.bridge) ? wallet.bridge : []).forEach(function(bridge) {
+        try {
+          var url = new URL(bridge.url || '');
+          if (url.protocol === 'https:' && (url.pathname.startsWith('/bridge') || url.pathname.startsWith('/events'))) {
+            tonBridgeOrigins.add(url.origin);
+          }
+        } catch (_) {}
+      });
+      try {
+        var url = new URL(wallet.universal_url || '');
+        if (url.protocol === 'https:') tonWalletOrigins.add(url.origin);
+      } catch (_) {}
+    });
+  }
+
   var apiHub = JSON.stringify([
     {id:1,code:'efhc_buy',title:'EFHC Shop',url:'#',sort_order:1,is_active:true},
     {id:2,code:'vip_getgems',title:'EFHC VIP NFT',url:'#',sort_order:2,is_active:true},
@@ -55,6 +89,13 @@ SAFETY = r'''/* EFHC Pages DEMO: block external and live operations. */
     var method = String(init && init.method || resource && resource.method || 'GET').toUpperCase();
     if (url.pathname.startsWith('/api/') || url.pathname.startsWith(base + '/api/'))
       return Promise.resolve(apiResponse(url.pathname));
+    if (url.href === tonRegistry && method === 'GET') {
+      return nativeFetch(resource, init).then(function(response) {
+        try { response.clone().json().then(registerTonWallets).catch(function(){}); } catch (_) {}
+        return response;
+      });
+    }
+    if (isTonBridge(url) && ['GET','POST'].includes(method)) return nativeFetch(resource, init);
     if (url.origin !== location.origin || !['GET','HEAD'].includes(method))
       return Promise.resolve(apiResponse('/blocked'));
     if (isStatic(url.pathname) || url.pathname.startsWith(base + '/'))
@@ -67,20 +108,36 @@ SAFETY = r'''/* EFHC Pages DEMO: block external and live operations. */
     this.__efhcBlocked = true;
     try {
       var parsed = new URL(url, location.href);
-      this.__efhcBlocked = parsed.origin !== location.origin ||
-        !['GET','HEAD'].includes(String(method).toUpperCase()) ||
-        parsed.pathname.startsWith('/api/') || parsed.pathname.startsWith(base+'/api/');
+      this.__efhcBlocked = !(isTonBridge(parsed) && ['GET','POST'].includes(String(method).toUpperCase())) &&
+        (parsed.origin !== location.origin ||
+         !['GET','HEAD'].includes(String(method).toUpperCase()) ||
+         parsed.pathname.startsWith('/api/') || parsed.pathname.startsWith(base+'/api/'));
     } catch (_) {}
     if (!this.__efhcBlocked) return nativeOpen.apply(this, arguments);
     return nativeOpen.call(this, 'GET', 'data:application/json,{"detail":"EFHC_DEMO_READ_ONLY"}', true);
   };
   XMLHttpRequest.prototype.send = function() {return nativeSend.apply(this,arguments);};
   try { navigator.sendBeacon = function(){return false;}; } catch (_) {}
-  window.WebSocket = function(){throw new Error('EFHC_DEMO_NETWORK_DISABLED');};
-  window.EventSource = function(){throw new Error('EFHC_DEMO_NETWORK_DISABLED');};
+  window.WebSocket = function(url) {
+    try {
+      var value = new URL(url, location.href);
+      if (value.protocol === 'wss:' && tonBridgeOrigins.has('https://' + value.host) &&
+          (value.pathname.startsWith('/bridge') || value.pathname.startsWith('/events'))) {
+        return new nativeWebSocket(url);
+      }
+    } catch (_) {}
+    throw new Error('EFHC_DEMO_NETWORK_DISABLED');
+  };
+  window.EventSource = function(url, options) {
+    try {if (isTonBridge(new URL(url, location.href))) return new nativeEventSource(url, options);} catch (_) {}
+    throw new Error('EFHC_DEMO_NETWORK_DISABLED');
+  };
   var nativeWindowOpen = window.open;
   window.open = function(url) {
-    try {if (new URL(url || '',location.href).origin !== location.origin) return null;} catch (_) {return null;}
+    try {
+      var dest = new URL(url || '',location.href);
+      if (dest.origin !== location.origin && !canLaunchWallet(dest)) return null;
+    } catch (_) {return null;}
     return nativeWindowOpen.apply(window,arguments);
   };
   document.addEventListener('click',function(event) {
@@ -89,7 +146,8 @@ SAFETY = r'''/* EFHC Pages DEMO: block external and live operations. */
     if (!a) return;
     try {
       var url=new URL(a.href,location.href);
-      if(url.origin !== location.origin || (!url.pathname.startsWith(base+'/') && url.pathname !== base)) {
+      if ((url.origin !== location.origin || (!url.pathname.startsWith(base+'/') && url.pathname !== base)) &&
+          !canLaunchWallet(url)) {
         event.preventDefault(); event.stopPropagation();
       }
     } catch(_) {event.preventDefault();}
@@ -124,8 +182,10 @@ def main():
     logo_src = 'src="/assets/efhc/canon/efhc_logo_canon.svg"'
     if splash_text.count(logo_src) != 1:
         raise ValueError('Splash logo path changed: review basePath manually')
-    splash.write_text(splash_text.replace(logo_src,
-        f'src="{base}/assets/efhc/canon/efhc_logo_canon.svg"', 1), encoding='utf-8')
+    splash.write_text(
+        splash_text.replace(logo_src, f'src="{base}/assets/efhc/canon/efhc_logo_canon.svg"', 1),
+        encoding='utf-8',
+    )
     print('EFHC_PAGES_SPLASH_LOGO_BASEPATH=PASS')
     # All edits above apply exclusively to the ephemeral build-copy.
     (target / 'next.config.js').write_text(NEXT_CONFIG, encoding='utf-8')
@@ -144,12 +204,22 @@ def main():
     content = content.replace('src="/public-runtime-config.js"',
                               f'src="{base}/efhc-demo-safety.js"', 1)
     # Remove Telegram SDK remote script; mock mode has no external network.
-    content = content.replace('<script src="https://telegram.org/js/telegram-web-app.js" async />','')
+    content = content.replace('<script src="https://telegram.org/js/telegram-web-app.js" async />', '')
     # Static assets referenced directly from document are not basePath-rewritten by Next.
     content = content.replace('href="/assets/', f'href="{base}/assets/')
     doc.write_text(content, encoding='utf-8')
     safety = SAFETY.replace('__BASE_PATH__', base)
     (target / 'public/efhc-demo-safety.js').write_text(safety, encoding='utf-8')
+    owner = os.environ.get('GITHUB_REPOSITORY_OWNER', 'gly-efhc')
+    if not owner or not owner.replace('-', '').isalnum():
+        raise ValueError('Invalid Pages owner in TONConnect manifest')
+    public_url = f'https://{owner}.github.io{base}'
+    manifest = {'url': public_url, 'name': 'EFHC Browser DEMO',
+                'iconUrl': public_url + '/icon.png',
+                'termsOfUseUrl': public_url + '/web-profile/?legal=terms',
+                'privacyPolicyUrl': public_url + '/web-profile/?legal=privacy'}
+    (target / 'public/tonconnect-manifest.json').write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     (target / 'public/sw.js').unlink(missing_ok=True)
     (target / 'public/runtime-config.json').unlink(missing_ok=True)
     (target / 'public/manifest.webmanifest').unlink(missing_ok=True)

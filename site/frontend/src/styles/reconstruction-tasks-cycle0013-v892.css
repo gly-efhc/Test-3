@@ -48,7 +48,7 @@
   box-shadow:none!important;
 }
 .efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
-.efhc-tasks-shell[data-tg] .efhc-task-card_reward .efhc-badge {
+.efhc-tasks-shell[data-tg] .efhc-task-card_reward > span:last-child {
   border-color:var(--tasks-cycle-edge)!important;
   background-color:var(--tasks-cycle-wash)!important;
   color:var(--tasks-cycle-accent)!important;

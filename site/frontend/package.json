@@ -52,7 +52,7 @@
   },
   "overrides": {
     "axios": "$axios",
-    "follow-redirects": "^1.16.1",
+    "follow-redirects": "^1.16.2",
     "postcss": "$postcss",
     "@ton/ton": {
       "zod": "$zod"

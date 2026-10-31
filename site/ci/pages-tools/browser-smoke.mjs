@@ -408,7 +408,7 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
         const hero=page?.querySelector('.efhc-game-hero');
         const cards=[...(page?.querySelectorAll('[data-task-card="earning"]')||[])];
         const buttons=cards.map(e=>e.querySelector('.efhc-task-card_bottom>button'));
-        const b=cards[0]?.querySelector('.efhc-task-card_reward .efhc-badge');
+        const b=cards[0]?.querySelector('.efhc-task-card_reward > span:last-child');
         const rect=e=>e?.getBoundingClientRect();
         return {demo:page?.getAttribute('data-demo-task-mode'),count:cards.length,
           enabled:buttons.filter(e=>e&&!e.disabled).length,
@@ -435,7 +435,7 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
             p?.setAttribute('data-tg',${JSON.stringify(tg)});
             return true;})()`,returnByValue:true});
         const result=await tasksProbe();
-        if(result.count!==5||result.enabled!==5||result.overflow||result.demo!=='isolated-preview')
+        if(result.count!==5||result.enabled!==5||result.overflow||result.demo!=='global-id-unified-preview')
           throw Error('OWNER_TASKS_RUNTIME_OR_RESPONSIVE_FAIL '+width+' '+JSON.stringify(result));
         themes.add(result.themeAccent);
         if(ti===1) variants.add(result.heroImage+'|'+result.heroRadius);
@@ -454,7 +454,7 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
         const hero=page?.querySelector('.efhc-game-hero');
         const cards=[...(page?.querySelectorAll('[data-task-card="earning"]')||[])];
         const buttons=cards.map(e=>e.querySelector('.efhc-task-card_bottom>button'));
-        const b=cards[0]?.querySelector('.efhc-task-card_reward .efhc-badge');
+        const b=cards[0]?.querySelector('.efhc-task-card_reward > span:last-child');
         const rect=e=>e?.getBoundingClientRect();
         return {demo:page?.getAttribute('data-demo-task-mode'),count:cards.length,
           enabled:buttons.filter(e=>e&&!e.disabled).length,
@@ -470,7 +470,7 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
   await send('Page.navigate',{url:url.replace(/\/$/,'')+'/tasks/'});
   await sleep(5000);
   const taskDemo=await tasksProbe();
-  if(taskDemo.count!==5||taskDemo.enabled!==5||taskDemo.demo!=='isolated-preview')
+  if(taskDemo.count!==5||taskDemo.enabled!==5||taskDemo.demo!=='global-id-unified-preview')
     throw Error('OWNER_TASKS_REAL_DEMO_ACTIONS_DISABLED '+JSON.stringify(taskDemo));
   // First button opens local DEMO task dialog (never real claim or Ad API).
   await send('Runtime.evaluate',{expression:

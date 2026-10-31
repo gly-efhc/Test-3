@@ -65,6 +65,11 @@ export function useInterfaceVariantSurface<T extends HTMLElement>(
       "data-interface-variant-group": group,
       "data-interface-selection-active": active ? "true" : undefined,
       "data-interface-variant-readonly": interactive ? undefined : "true",
+      // Interactive surfaces must be keyboard-focusable; indicators are visual
+      // only and never become an invisible keyboard trap.
+      tabIndex: active ? 0 : undefined,
+      role: active ? "button" : undefined,
+      "aria-label": active ? `Шаблон ${group}: ${customization.effective[group]}. Enter — следующий, стрелка влево — предыдущий` : undefined,
       onPointerDownCapture: (event: React.PointerEvent<T>) => {
         if (!active) return;
         if (isNestedControl(event)) return;
@@ -113,7 +118,7 @@ export function useInterfaceVariantSurface<T extends HTMLElement>(
         customization.next(group);
       },
       onKeyDownCapture: (event: React.KeyboardEvent<T>) => {
-        if (!active) return;
+        if (!active || event.target !== ref.current) return;
         if (isNestedControl(event)) return;
         if (event.key === "ArrowLeft" || (event.shiftKey && event.key === "Enter")) {
           event.preventDefault();

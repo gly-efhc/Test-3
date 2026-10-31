@@ -346,6 +346,12 @@ export function Layout(
       setProofAccepted(false);
       return;
     }
+    if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1") {
+      setConnectionPhase("connected");
+      setProofAccepted(false);
+      setWalletHint("TONConnect DEMO: кошелёк доступен только для просмотра адреса; он не привязан к аккаунту");
+      return;
+    }
     if (hasBoundWallet) {
       setConnectionPhase("connected");
       setProofAccepted(true);
@@ -613,22 +619,31 @@ export function Layout(
     const wallets = await listWallets()
       .catch(() => [] as WalletView[]);
     setAvailableWallets(wallets);
-    const prepared = mode === "binding"
+    const pagesDemo = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1";
+    // Public Pages has no authenticated proof endpoint. Allow wallet discovery
+    // without claiming a binding, but never invoke a live proof or business API.
+    const prepared = mode === "binding" && !pagesDemo
       ? await prepareProof().catch(() => null)
       : null;
     setProofState(prepared);
-    if (mode === "binding" && !prepared) {
+    if (mode === "binding" && !prepared && !pagesDemo) {
       setConnectionPhase("error");
       setWalletHint(t("wallet.proof_failed"));
       setWalletModalOpened(false);
       restoreTelegramMainButtonAfterWalletModal();
       return;
     }
-    setConnectionPhase("proof_ready");
-    setWalletHint(mode === "binding" ? t("wallet.proof_ready") : t("wallet.connection_ready"));
+    setConnectionPhase(pagesDemo ? "disconnected" : "proof_ready");
+    setWalletHint(pagesDemo
+      ? "TONConnect DEMO: подключение только для просмотра адреса; без подтверждения личности, привязки и платежей"
+      : mode === "binding" ? t("wallet.proof_ready") : t("wallet.connection_ready"));
   }
 
   async function connectSelectedWallet(wallet: WalletView) {
+    // Restrict external wallet hand-off to an explicit real user selection.
+    if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1") {
+      (window as Window & { __EFHC_TONCONNECT_USER_ACTIVATED_UNTIL__?:number }).__EFHC_TONCONNECT_USER_ACTIVATED_UNTIL__ = Date.now() + 30_000;
+    }
     setConnectionPhase("connecting");
     setWalletHint(t("wallet.connection_waiting"));
     try {

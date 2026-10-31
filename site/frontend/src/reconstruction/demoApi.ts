@@ -6,7 +6,7 @@ import canonical from "./demo-tables-v866.json";
 import admin from "./demo-admin-seed-v866.json";
 import {demoPanelsPage, demoPanelsSummary, demoMyRankWithTop, demoRankTopPage, demoRankContext} from "./demoTables";
 import {DEMO_GLOBAL_ID, d8, formatD8, isDemoPreviewEnabled, readDemoAccount, readDemoState,
-  writeDemoAccount, demoLedgerMutation, nextDemoId, type DemoAccountState} from "./demoUnifiedStore";
+  writeDemoAccount, demoLedgerMutation, demoIndexedHistoryPage, nextDemoId, type DemoAccountState} from "./demoUnifiedStore";
 
 export class PreviewApiError extends Error {
   constructor(public readonly status:number,public readonly code:string){super(`DEMO_${code}`);this.name="PreviewApiError";}
@@ -98,6 +98,35 @@ function shopProfile(a:DemoAccountState){return {global_id:a.global_id,wallets:a
  profile_mode:"web_profile",bot_open_url:null,wallet_sync_url:null,telegram_sync_url:null,
  flow_truth:flowTruth(a.wallets.length>0),active_payment:null,intent_history:[],latest_withdraw_request_id:null,latest_withdraw_status:null,latest_withdraw_outcome:null};}
 
+/** Demo history is a VIEW of real frozen IndexedDB transactions + new local
+ * browser-only ledger movements. It never creates transactions in Neon. */
+async function readDemoCombinedHistory(a:DemoAccountState,q:URLSearchParams,empty:boolean,limit=50){
+ const rawOffset=Number(q.get("cursor")||"0");
+ if(!Number.isSafeInteger(rawOffset)||rawOffset<0)throw new PreviewApiError(400,"BAD_CURSOR");
+ const windowSize=Math.min(50,Math.max(1,Number(q.get("limit")||limit)||limit));
+ if(empty)return {items:[] as Record<string,unknown>[],next_cursor:null};
+ const local=a.ledger as unknown as Record<string,unknown>[];
+ const localWindow=local.slice(rawOffset,rawOffset+windowSize);
+ const remaining=windowSize-localWindow.length;
+ let historic:Record<string,unknown>[]=[];
+ let historicTotal=0;
+ if(typeof indexedDB!=="undefined"){
+  const afterLocal=Math.max(0,rawOffset-local.length);
+  const page=await demoIndexedHistoryPage(a.global_id,afterLocal,Math.max(1,remaining));
+  historicTotal=page.total;
+  if(remaining>0)historic=page.items;
+ }
+ const records=[...localWindow,...historic];
+ const end=rawOffset+records.length;
+ return {items:records,next_cursor:end<local.length+historicTotal?String(end):null};
+}
+function demoHistoricBalanceEntry(row:Record<string,unknown>){
+ return {id:String(row.id),amount_efhc:String(row.amount_efhc||row.amount||zero),
+  direction:row.direction==="debit"?"debit":"credit",
+  balance_type:row.balance_type==="bonus"?"bonus":"main",
+  reason:String(row.reason||row.type||"history"),
+  created_at:String(row.created_at||row.occurred_at||new Date(Number(row.createdAt)||Date.now()).toISOString())};
+}
 export async function demoApiRequest(path:string,method:string,body:unknown=undefined,idempotencyKey?:string):Promise<unknown>{
  if(!isDemoPreviewEnabled())throw new PreviewApiError(403,"PREVIEW_DISABLED");
  const route=new URL(path,"https://efhc.preview.invalid");
@@ -177,7 +206,10 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
   const id=Number(p.split("/")[2]);must(a.wallets.some(w=>w.id===id),"WALLET_NOT_FOUND",404);
   writeDemoAccount(cur=>({...cur,wallets:cur.wallets.filter(w=>w.id!==id)}));return {ok:true};
  }
- if(p==="/wallets/balance-history"&&readOnly)return cursorPage(empty?[]:a.ledger,q,50);
+ if(p==="/wallets/balance-history"&&readOnly){
+  const rows=await readDemoCombinedHistory(a,q,empty);
+  return {...rows,items:rows.items.map(demoHistoricBalanceEntry)};
+ }
  if(p==="/exchange/history"&&readOnly)return cursorPage(empty?[]:a.exchanges,q,50);
  if(p==="/exchange/preview"&&readOnly)return exchangePreview(a);
  if(p==="/exchange/convert"&&method==="POST"){
@@ -217,9 +249,15 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
   must(Boolean(record),"WITHDRAW_NOT_FOUND",404);return withdrawalOut(record!);
  }
  if(p==="/profile/history"&&readOnly){
-  const rows=a.ledger.map(r=>({id:String(r.id),source:"balance",kind:r.reason,occurred_at:r.created_at,status:"completed",
-   direction:r.direction,balance_type:r.balance_type,amount_efhc:r.amount_efhc,amount_asset:r.amount_efhc,asset:r.balance_type==="bonus"?"EFHCb":"EFHCm",reason:r.reason}));
-  return {...cursorPage(empty?[]:rows,q,50),page_size:50};
+  const rows=await readDemoCombinedHistory(a,q,empty);
+  return {...rows,items:rows.items.map(row=>{
+   const b=demoHistoricBalanceEntry(row);
+   const asset=b.balance_type==="bonus"?"EFHCb":"EFHCm";
+   return {id:b.id,source:String(row.source||"balance"),kind:String(row.type||b.reason),
+    occurred_at:b.created_at,status:String(row.status||"completed"),direction:b.direction,
+    balance_type:b.balance_type,amount_efhc:b.amount_efhc,amount_asset:b.amount_efhc,
+    asset,reason:b.reason};
+  }),page_size:50};
  }
  if(p==="/auth/profile-photos"&&readOnly)return {items:[]};
  if(p==="/hub/links"&&readOnly)return (admin.hubLinks as Record<string,unknown>[]).filter(x=>x.is_active).slice(0,2);

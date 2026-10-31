@@ -44,13 +44,19 @@ export default function DemoLabPage(){
  // eslint-disable-next-line react-hooks/exhaustive-deps
  },[remote,ready]);
  const loadDatabase=async()=>{
-  setLoading(true);setMessage("Формирование IndexedDB из оригинального генератора HTML v866…");
+  setLoading(true);setMessage("Проверка 39 IndexedDB-таблиц и загрузка канонических DEMO-записей…");
   try{
    await bootstrapDemoIndexedDb();const result:Record<string,number>={};
    for(const name of DEMO_TABLE_NAMES)result[name]=await demoTableCount(name);
    setCounts(result);setMessage("Все таблицы созданы и заполнены по доступным данным эталона v866");
   }catch(err){setMessage(err instanceof Error?err.message:String(err));}finally{setLoading(false);}
  };
+ // Automatically expose real counts on the Pages laboratory. The root App
+ // triggers the same bootstrap; the store deduplicates concurrent calls.
+ useEffect(()=>{if(ready&&!remote)void loadDatabase();
+ // One initialization per selected mode, not per mutable balance/counter.
+ // eslint-disable-next-line react-hooks/exhaustive-deps
+ },[ready,remote]);
  if(!ready)return <main style={{padding:20,maxWidth:760,margin:"auto"}}><h1>DEMO Laboratory</h1><p>Доступен только в изолированном публичном Pages-DEMO.</p></main>;
  const a=readDemoAccount();
  const field:React.CSSProperties={background:"var(--tg-secondary-bg,#162334)",color:"inherit",border:"1px solid var(--tg-hint-color,#70829b)",padding:"10px 12px",borderRadius:10,minWidth:0};
@@ -89,7 +95,8 @@ export default function DemoLabPage(){
   </section>
   {!remote&&<section style={{margin:"22px 0"}}><h2 style={{fontSize:18}}>Таблицы и Global-ID связи</h2>
     <p>Из эталона v866: 1000 пользователей, 27 500 транзакций и связанные истории. Первое заполнение выполняется локально в IndexedDB; после заполнения оно сохраняется между страницами.</p>
-    <button style={button} disabled={loading||remote} onClick={()=>void loadDatabase()}>{loading?"Создание таблиц…":"Создать / проверить все таблицы"}</button>
+    <button style={button} disabled={loading||remote} onClick={()=>void loadDatabase()}>{loading?"Загрузка канонических таблиц…":"Создать / проверить все таблицы"}</button>
+    <div role="status" aria-live="polite">{loading?"Загрузка данных v866 в IndexedDB; на мобильных устройствах обработка 65 000 записей может выполняться постепенно.":""}</div>
     <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(165px,1fr))",gap:7,marginTop:12}}>
      {DEMO_TABLE_NAMES.map(n=><div key={n} style={{...field,padding:8}}><b style={{overflowWrap:"anywhere"}}>{n}</b><div>{counts[n]===undefined?"—":counts[n]}</div></div>)}
     </div>

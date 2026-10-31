@@ -36,7 +36,7 @@ test('DEMO account mirroring rejects wrong Global ID and a failed transaction',a
  await assert.rejects(mirror({},{selected_global_id:'0000657667',accounts:{'0000657667':{global_id:'8000000001'}}}),/DEMO_OWNER_MISMATCH/);
  const db={transaction:()=>{const transaction={objectStore:()=>({put:()=>{}})};queueMicrotask(()=>transaction.onabort?.());return transaction;}};
  await assert.rejects(mirror(db,{selected_global_id:'0000657667',accounts:{}}),/DEMO_MIRROR_ABORTED/);
- assert.match(file,/await mirrorSelectedDemoAccount\(db,readDemoState\(\)\);/);
+ assert.match(file,/await mirrorSelectedDemoAccount\(db,current\);/);
  assert.doesNotMatch(file,/mirrorSelectedDemoAccount\(readDemoState\(\)\)/);
 });
 test('same strict English EFHC company license in FULL root and imported public frontend',()=>{

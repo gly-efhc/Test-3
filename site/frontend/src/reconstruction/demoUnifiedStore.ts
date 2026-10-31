@@ -8,7 +8,10 @@ import homeCanon from "./frozen-v866-home-fixture.json";
 
 export const DEMO_GLOBAL_ID = "0000657667";
 export const DEMO_DB_NAME = "EFHC_REACT_DEMO_CANON_V866";
+// Local simulated account-state format and IndexedDB physical schema are independent.
+// v3 repairs browsers where an early table reader created empty v2 stores.
 export const DEMO_SCHEMA_VERSION = 2;
+export const DEMO_DB_VERSION = 3;
 export const DEMO_STORAGE_KEY = "efhc:react:unified-demo:v893";
 export const DEMO_SCENARIOS = ["filled", "empty", "loading", "error", "no_wallet"] as const;
 export type DemoScenario = typeof DEMO_SCENARIOS[number];
@@ -180,25 +183,56 @@ async function mirrorSelectedDemoAccount(db:IDBDatabase,state:DemoControlState):
  });
 }
 
-export async function bootstrapDemoIndexedDb():Promise<void>{
- if(!isDemoPreviewEnabled()||typeof indexedDB==="undefined")return;
- const db=await new Promise<IDBDatabase>((resolve,reject)=>{
-  const request=indexedDB.open(DEMO_DB_NAME,DEMO_SCHEMA_VERSION);
+/** Every reader opens the same schema-upgrading path. A read before bootstrap cannot
+ * poison a fresh database with an empty same-version object-store catalog. */
+async function openDemoDatabase():Promise<IDBDatabase>{
+ if(typeof indexedDB==="undefined")throw new Error("DEMO_INDEXEDDB_UNAVAILABLE");
+ return await new Promise<IDBDatabase>((resolve,reject)=>{
+  const request=indexedDB.open(DEMO_DB_NAME,DEMO_DB_VERSION);
   request.onupgradeneeded=()=>{
    const instance=request.result;
    for(const name of DEMO_TABLE_NAMES){
-     const object=instance.objectStoreNames.contains(name)?request.transaction!.objectStore(name):instance.createObjectStore(name,{keyPath:"id"});
-     if(!object.indexNames.contains("by_global_id"))object.createIndex("by_global_id","global_id",{unique:false});
+    const object=instance.objectStoreNames.contains(name)?request.transaction!.objectStore(name):instance.createObjectStore(name,{keyPath:"id"});
+    if(!object.indexNames.contains("by_global_id"))object.createIndex("by_global_id","global_id",{unique:false});
    }
   };
-  request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);
+  request.onsuccess=()=>resolve(request.result);
+  request.onerror=()=>reject(request.error||new Error("DEMO_DATABASE_OPEN_FAILED"));
+  request.onblocked=()=>reject(new Error("DEMO_DATABASE_UPGRADE_BLOCKED_CLOSE_OTHER_TABS"));
  });
+}
+let databaseBootstrap:Promise<void>|null=null;
+let lastMirroredGlobalId:string|null=null;
+let selectedMirror:Promise<void>|null=null;
+export async function bootstrapDemoIndexedDb():Promise<void>{
+ if(!isDemoPreviewEnabled())return;
+ if(!databaseBootstrap){
+  databaseBootstrap=bootstrapDemoDatabaseContents().catch(error=>{
+   databaseBootstrap=null;
+   throw error;
+  });
+ }
+ await databaseBootstrap;
+ // A subsequent Global ID selection must update the corresponding logical
+ // stores without re-seeding the 27,500 historical transactions.
+ if(lastMirroredGlobalId!==readDemoState().selected_global_id){
+  if(!selectedMirror){selectedMirror=(async()=>{
+   const db=await openDemoDatabase();
+   try {const state=readDemoState();await mirrorSelectedDemoAccount(db,state);
+    lastMirroredGlobalId=state.selected_global_id;
+   } finally {db.close();}
+  })().finally(()=>{selectedMirror=null;});}
+  await selectedMirror;
+ }
+}
+async function bootstrapDemoDatabaseContents():Promise<void>{
+ const db=await openDemoDatabase();
  try {
   const status=await new Promise<unknown>((resolve,reject)=>{
     const tx=db.transaction("settings","readonly"),r=tx.objectStore("settings").get("canon_seed_complete");
     r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);
   });
-  if(status){await mirrorSelectedDemoAccount(db,readDemoState());return;}
+  if(status){const current=readDemoState();await mirrorSelectedDemoAccount(db,current);lastMirroredGlobalId=current.selected_global_id;return;}
   const pathname=window.location.pathname.replace(/\/[^/]*\/?$/, "/");
   // This is fetched only in public Pages; the 1000-user, 65k-row fixture is NOT in initial JS.
   const base=pathname.split("/").filter(Boolean)[0]==="Test-3"?"/Test-3":"";
@@ -242,7 +276,9 @@ export async function bootstrapDemoIndexedDb():Promise<void>{
     });
    }
   }
-  await mirrorSelectedDemoAccount(db,readDemoState());
+  const current=readDemoState();
+  await mirrorSelectedDemoAccount(db,current);
+  lastMirroredGlobalId=current.selected_global_id;
   await new Promise<void>((resolve,reject)=>{
    const tx=db.transaction("settings","readwrite");
    tx.objectStore("settings").put({id:"canon_seed_complete",source_sha256:frozen.source_sha256,global_id:DEMO_GLOBAL_ID,rows:Object.fromEntries(Object.entries(seededTables).map(([name,rows])=>[name,rows.length]))});
@@ -251,7 +287,9 @@ export async function bootstrapDemoIndexedDb():Promise<void>{
  } finally {db.close();}
 }
 export async function demoTableCount(name:DemoTableName):Promise<number>{
- const db=await new Promise<IDBDatabase>((resolve,reject)=>{const r=indexedDB.open(DEMO_DB_NAME,DEMO_SCHEMA_VERSION);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});
+ if(!isDemoPreviewEnabled()||!DEMO_TABLE_NAMES.includes(name))throw new Error("DEMO_TABLE_READ_DENIED");
+ await bootstrapDemoIndexedDb();
+ const db=await openDemoDatabase();
  try{return await new Promise<number>((resolve,reject)=>{const tx=db.transaction(name,"readonly"),r=tx.objectStore(name).count();r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}finally{db.close();}
 }
 
@@ -278,10 +316,8 @@ export function completeDemoAd():DemoAccountState {
  * Never loads full 27,500-row collections into a React component. */
 export async function demoTableRows(name:DemoTableName,globalId:string,limit=20):Promise<Record<string,unknown>[]> {
  if(!isDemoPreviewEnabled()||!DEMO_TABLE_NAMES.includes(name)||!/^[0-9]{10}$/.test(globalId))throw new Error("DEMO_TABLE_READ_DENIED");
- const db=await new Promise<IDBDatabase>((resolve,reject)=>{
-  const request=indexedDB.open(DEMO_DB_NAME,DEMO_SCHEMA_VERSION);
-  request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);
- });
+ await bootstrapDemoIndexedDb();
+ const db=await openDemoDatabase();
  try{return await new Promise<Record<string,unknown>[]>((resolve,reject)=>{
   const tx=db.transaction(name,"readonly"),object=tx.objectStore(name);
   const globalCatalogs=new Set<DemoTableName>(["task_catalog","shop_items","hub_links","ad_providers","skins","faq","settings"]);
@@ -289,5 +325,33 @@ export async function demoTableRows(name:DemoTableName,globalId:string,limit=20)
     ?object.index("by_global_id").getAll(IDBKeyRange.only(globalId),Math.min(50,Math.max(1,limit)))
     :object.getAll(undefined,Math.min(50,Math.max(1,limit)));
   request.onsuccess=()=>resolve(request.result as Record<string,unknown>[]);request.onerror=()=>reject(request.error);
+ })}finally{db.close();}
+}
+
+/** Read a bounded, stable window of historical DEMO rows for the selected account.
+ * Never promotes a browser Global ID into a server identity. */
+export async function demoIndexedHistoryPage(globalId:string,offset:number,limit:number):Promise<{items:Record<string,unknown>[];total:number}>{
+ if(!isDemoPreviewEnabled()||!/^[0-9]{10}$/.test(globalId)||!Number.isInteger(offset)||offset<0||!Number.isInteger(limit)||limit<1||limit>50)
+  throw new Error("DEMO_HISTORY_ARGUMENT_INVALID");
+ await bootstrapDemoIndexedDb();
+ const db=await openDemoDatabase();
+ try{return await new Promise((resolve,reject)=>{
+  const tx=db.transaction("ledger_entries","readonly");
+  const index=tx.objectStore("ledger_entries").index("by_global_id");
+  const key=IDBKeyRange.only(globalId);
+  let total=0,records:Record<string,unknown>[]=[];
+  const count=index.count(key);
+  count.onsuccess=()=>{total=count.result;const cursor=index.openCursor(key);
+   let skipped=false;
+   cursor.onsuccess=()=>{
+    const item=cursor.result;
+    if(!item||records.length>=limit){resolve({items:records,total});return;}
+    if(!skipped&&offset){skipped=true;item.advance(offset);return;}
+    skipped=true;records.push(item.value as Record<string,unknown>);item.continue();
+   };
+   cursor.onerror=()=>reject(cursor.error||new Error("DEMO_HISTORY_CURSOR_FAILED"));
+  };
+  count.onerror=()=>reject(count.error||new Error("DEMO_HISTORY_COUNT_FAILED"));
+  tx.onabort=()=>reject(tx.error||new Error("DEMO_HISTORY_ABORTED"));
  })}finally{db.close();}
 }
