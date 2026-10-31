@@ -14,7 +14,6 @@ import {
   hapticSelection,
   hapticSuccess,
   hapticTap,
-  telegramBackButtonShow,
   telegramConfirm,
 } from "../lib/telegram";
 import {
@@ -35,7 +34,6 @@ import {
   FrontendShellRoot,
 } from "./shell/FrontendShell";
 import { NetworkStatus } from "./NetworkStatus";
-import { navigateBackWithinApp } from "../lib/appBackNavigation";
 import { GlobalThemeControl } from
   "./interface-settings/GlobalThemeControl";
 import { InterfaceCustomizationButton } from
@@ -456,30 +454,6 @@ export function Layout(
     restoreTelegramMainButtonAfterWalletModal();
   }, [depositOpen, walletModalOpened]);
 
-  useEffect(() => {
-    if (!depositOpen) return;
-    const off = telegramBackButtonShow(() => {
-      setDepositOpen(false);
-    });
-    return () => off();
-  }, [depositOpen]);
-
-  useEffect(() => {
-    const publicRootRoute = router.pathname === "/";
-    if (isAdminRoute || depositOpen || walletModalOpened || publicRootRoute) {
-      return;
-    }
-    const off = telegramBackButtonShow(() => {
-      navigateBackWithinApp(router);
-    });
-    return () => off();
-  }, [
-    depositOpen,
-    isAdminRoute,
-    router,
-    router.pathname,
-    walletModalOpened,
-  ]);
 
   function toast(
     msg: string,

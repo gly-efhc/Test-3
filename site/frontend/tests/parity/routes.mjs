@@ -1,0 +1,43 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import {createRequire} from 'node:module';
+const require=createRequire(process.env.EFHC_BROWSER_TOOLS||import.meta.url),{chromium}=require('playwright-core');
+const base=process.env.EFHC_REACT_URL||'http://127.0.0.1:19240/Test-3/';assert.match(base,/^http:\/\/127\.0\.0\.1:\d+\/Test-3\/$/);
+const entries=await fs.readdir(new URL('../../src/pages/',import.meta.url),{recursive:true});
+const routes=entries.filter(p=>p.endsWith('.tsx')&&!p.startsWith('api/')&&!p.split('/').some(x=>x.startsWith('_'))).map(p=>p.replace(/\.tsx$/,'').replace(/(^|\/)index$/,'')).sort();
+const browser=await chromium.launch({executablePath:process.env.CHROME_BIN||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
+const context=await browser.newContext({viewport:{width:390,height:844}}),page=await context.newPage();page.setDefaultTimeout(5000);
+await page.route('**/*',r=>new URL(r.request().url()).origin===new URL(base).origin?r.continue():r.abort());
+const results=[];let errors=[];page.on('pageerror',e=>errors.push(e.message));
+try{
+ for(const route of routes){
+  errors=[];
+  try{
+   await page.goto(base+(route?route+'/':''),{waitUntil:'domcontentloaded'});
+   await page.waitForFunction(()=>document.getElementById('__next')?.childElementCount>0);
+   await page.waitForTimeout(250);
+   assert.deepEqual(errors,[],`runtime exception on ${route}`);
+   const links=await page.locator('a[href]').evaluateAll(nodes=>nodes.map(n=>({href:n.getAttribute('href'),disabled:n.getAttribute('aria-disabled')})));
+   for(const link of links)if(link.href.startsWith('/'))assert.ok(link.href.startsWith('/Test-3/')||link.href==='/Test-3',`unprefixed app link: ${route} ${link.href}`);
+   results.push({route:'/'+route,status:'PASS',links:links.length});console.log('PASS route audit','/'+route,'links',links.length);
+  }catch(e){results.push({route:'/'+route,status:'FAIL',error:e.message});console.error('FAIL route audit','/'+route,e.message)}
+ }
+ // Navigation is exercised in the same running React application, including
+ // entry to and exit from Admin; a sequence of full reloads cannot catch stale
+ // renderer state, so it is deliberately a separate check.
+ try{
+  await page.goto(base);await page.waitForSelector('.efhc-game-nav');await page.waitForTimeout(500);
+  for(const key of ['panels','exchange','tasks','referrals','ranks','energy']){
+   await page.locator(`[data-nav-key="nav.${key}"]`).click();
+   const expected=key==='energy'?'/':`/${key}`;
+   await page.waitForFunction(expected=>document.querySelector('.efhc-independent-shell')?.dataset.themePageRoute===expected,expected);
+  }
+  await page.locator('.efhc-game-header_profile-name-button').click();await page.waitForSelector('.efhc-profile-page');
+  await page.getByRole('button',{name:/^(Admin|Админ)$/}).first().click();await page.waitForSelector('[data-admin-visual-proof-route="/admin"]');
+  await page.locator('[data-app-navigation="exit-admin"]').click();await page.waitForSelector('.efhc-energy-stage');
+  assert.equal(await page.locator('[data-admin-visual-proof-route]').count(),0);
+  results.push({route:'same-session-navigation',status:'PASS'});console.log('PASS same-session navigation including Admin exit');
+ }catch(e){results.push({route:'same-session-navigation',status:'FAIL',error:e.message});console.error('FAIL same-session navigation',e.message)}
+}finally{await browser.close()}
+if(process.env.EFHC_PARITY_ARTIFACTS){await fs.mkdir(process.env.EFHC_PARITY_ARTIFACTS,{recursive:true});await fs.writeFile(process.env.EFHC_PARITY_ARTIFACTS+'/route-results.json',JSON.stringify({results},null,2)+'\n')}
+if(results.some(x=>x.status==='FAIL'))process.exitCode=1;

@@ -6,6 +6,7 @@
 // Guard marker: History shortcut
 // Guard marker: Open Web-Profile
 // Guard marker: return `Active payment · ${asset}`;
+import Router from "next/router";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { primeBackgroundMusicFromGesture } from "./BackgroundMusicController";
 import { Modal } from "./ui/Modal";
@@ -184,7 +185,7 @@ function addFixed8(a: string, b: string): string {
 
 function openInternalRoute(path: string): void {
   if (typeof window !== "undefined") {
-    window.location.assign(path);
+    void Router.push(path);
   }
 }
 
@@ -534,7 +535,7 @@ export function ProfileModal(props: Props) {
   function openWithdrawPage(): void {
     if (typeof window === "undefined") return;
     props.onClose();
-    window.location.assign("/withdraw");
+    void Router.push("/withdraw");
   }
 
 
@@ -655,7 +656,7 @@ export function ProfileModal(props: Props) {
                 .replace("{{bonus}}", props.bonusBalance)
             }
             compact
-            onClick={() => window.location.assign("/web-profile")}
+            onClick={() => void Router.push("/web-profile")}
             rightSlot={
               <TelegramStatusBadge
                 label={t("profile.account_center_badge")}
@@ -671,7 +672,7 @@ export function ProfileModal(props: Props) {
                 : activePaymentSubtitle
             }
             compact
-            onClick={() => window.location.assign("/web-profile")}
+            onClick={() => void Router.push("/web-profile")}
             rightSlot={
               <TelegramStatusBadge
                 label={getActivePaymentStateLabel(shopTruth) ===
@@ -711,7 +712,7 @@ export function ProfileModal(props: Props) {
                 : t("profile.history_shortcut_empty")
             }
             compact
-            onClick={() => window.location.assign("/web-profile")}
+            onClick={() => void Router.push("/web-profile")}
             rightSlot={
               <TelegramStatusBadge
                 label={t("history.title")}

@@ -50,9 +50,11 @@ export function useInterfaceVariantSurface<T extends HTMLElement>(
     && customization.isGroupActive(group);
   const isNestedControl = (event: React.SyntheticEvent<T>) => {
     const target = event.target;
-    return target instanceof Element
-      && target.closest('[data-interface-customization-control="true"]') !== null
-      && target.closest('[data-interface-variant-surface="true"]') === ref.current;
+    if (!(target instanceof Element)) return false;
+    // Capture runs from the outer surface inward. Only the nearest surface
+    // owns a gesture; EG must not consume a tap intended for its nested PB.
+    return target.closest('[data-interface-variant-surface="true"][data-interface-selection-active="true"]') !== ref.current
+      || target.closest('[data-interface-customization-control="true"], [data-app-navigation]') !== null;
   };
 
   return useMemo(() => ({

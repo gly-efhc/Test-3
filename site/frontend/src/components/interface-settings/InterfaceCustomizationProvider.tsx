@@ -255,11 +255,20 @@ export function InterfaceCustomizationProvider(
       setDraftColorThemeId(savedColorThemeId);
       setDraftOverrides(props.settings.theme_overrides);
     };
+    const onBackRequest = (event: Event) => {
+      if (mode !== "editing") return;
+      event.preventDefault();
+      discardDraft();
+    };
     router.events.on("routeChangeStart", discardDraft);
-    return () => router.events.off("routeChangeStart", discardDraft);
+    document.addEventListener("efhc:back-request", onBackRequest);
+    return () => {
+      router.events.off("routeChangeStart", discardDraft);
+      document.removeEventListener("efhc:back-request", onBackRequest);
+    };
   }, [
     router.events, saved, savedThemeId, savedColorThemeId,
-    props.settings.theme_overrides,
+    props.settings.theme_overrides, mode,
   ]);
 
   const isGroupActive = useCallback(
@@ -436,6 +445,7 @@ export function InterfaceCustomizationProvider(
       const target = event.target as Element | null;
       if (
         target?.closest('[data-interface-customization-control="true"]')
+        || target?.closest('[data-app-navigation]')
         || target?.closest('[data-interface-variant-surface="true"]')
         || target?.closest('[data-global-theme-surface="true"]')
       ) {

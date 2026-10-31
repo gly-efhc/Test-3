@@ -1,9 +1,20 @@
 {
-  "checkpoint": "v866-shell-01",
+  "checkpoint": "v866-interactions-02",
   "status": "intermediate-owner-visual-review",
   "reference": "FRONTEND_v866.html",
   "reference_sha256": "9b6371f5fb62939596b78206f95031c447e9f2b375e62b30704403bb25102aef",
   "baseline_react_commit": "094701cb30d706cf75a7446d568bde4ec82780d7",
-  "scope": "USER shared shell, header selections, color authority and viewport sizing",
-  "full_application_parity": "not-yet-accepted"
+  "scope": "route navigation, Android/Telegram Back, Admin exit and sizing, floating controls, splash and partial template recovery",
+  "full_application_parity": "not-yet-accepted",
+  "previous_checkpoint": "v866-shell-01",
+  "owner_accepted_components": {
+    "Header": {
+      "status": "fixed-owner-accepted",
+      "checkpoint": "v866-shell-01"
+    },
+    "HUB": {
+      "status": "fixed-owner-accepted",
+      "checkpoint": "v866-shell-01"
+    }
+  }
 }

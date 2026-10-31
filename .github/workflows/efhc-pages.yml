@@ -342,7 +342,11 @@ jobs:
           trap 'kill "$server"' EXIT
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:19243/Test-3/ -o /dev/null && break || sleep 1; done
           export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
-          EFHC_REACT_URL=http://127.0.0.1:19243/Test-3/ node site/frontend/tests/parity/browser.mjs
+          export EFHC_REACT_URL=http://127.0.0.1:19243/Test-3/
+          node site/frontend/tests/parity/browser.mjs
+          node site/frontend/tests/parity/interactions.mjs
+          node site/frontend/tests/parity/templates.mjs
+          node site/frontend/tests/parity/routes.mjs
 
       - name: Retain USER recovery review artifacts
         if: always()

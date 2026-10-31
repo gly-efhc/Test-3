@@ -1,18 +1,22 @@
 import { useEffect, useRef } from "react";
 import type { NextRouter } from "next/router";
+import { telegramBackButtonShow, getTelegramWebApp } from "./telegram";
 
 const APP_BACK_BASE = "__efhcAppBackBaseV1";
 const APP_BACK_GUARD = "__efhcAppBackGuardV1";
+const APP_BACK_LAYER = "__efhcAppBackLayerV1";
 const APP_BACK_STACK_KEY = "efhc_app_back_stack_v1";
 const MAX_STACK_DEPTH = 48;
 
 type AppHistoryState = Record<string, unknown> & {
   [APP_BACK_BASE]?: boolean;
   [APP_BACK_GUARD]?: boolean;
+  [APP_BACK_LAYER]?: boolean;
 };
 
 type AndroidBridgeWindow = Window & {
   __EFHC_ANDROID_BACK__?: () => void;
+  __EFHC_ANDROID_EXIT__?: () => void;
 };
 
 function pathWithoutHash(value: string): string {
@@ -21,12 +25,14 @@ function pathWithoutHash(value: string): string {
   // Next router.push must receive a *logical* route. GitHub Pages adds its
   // /Test-3 prefix independently. Recover stale session stack entries that
   // accidentally captured one or multiple copies of this deployment prefix.
-  if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1") return route;
   let canonical = route;
-  while (canonical === "/Test-3" || canonical.startsWith("/Test-3/") || canonical.startsWith("/Test-3?")) {
+  while (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1"
+      && (canonical === "/Test-3" || canonical.startsWith("/Test-3/") || canonical.startsWith("/Test-3?"))) {
     canonical = canonical.slice("/Test-3".length) || "/";
   }
-  return canonical;
+  const query = canonical.indexOf("?");
+  const pathname = query < 0 ? canonical : canonical.slice(0, query);
+  return (pathname.replace(/\/+$/, "") || "/") + (query < 0 ? "" : canonical.slice(query));
 }
 
 function readRouteStack(): string[] {
@@ -65,10 +71,17 @@ function rememberRoute(value: string): void {
   writeRouteStack([...stack, route]);
 }
 
-function previousRoute(currentValue: string): string {
+function previousRoute(currentValue: string, fallback?: string): string {
   const current = pathWithoutHash(currentValue);
   try {
     const parsed = new URL(current, "https://efhc.local");
+    if (parsed.pathname === "/faq") {
+      const key = ["item", "subsection", "section"].find((name) => parsed.searchParams.has(name));
+      if (key) {
+        parsed.searchParams.delete(key);
+        return parsed.pathname + (parsed.searchParams.size ? `?${parsed.searchParams}` : "");
+      }
+    }
     if (parsed.pathname === "/admin/users" && parsed.searchParams.has("section")) {
       parsed.searchParams.delete("section");
       const query = parsed.searchParams.toString();
@@ -81,33 +94,84 @@ function previousRoute(currentValue: string): string {
   const index = stack.lastIndexOf(current);
   if (index > 0) return stack[index - 1];
   if (stack.length > 1) return stack[stack.length - 2];
-  if (current.startsWith("/admin/") && current !== "/admin") return "/admin";
+  if (fallback) return pathWithoutHash(fallback);
+  if (current.startsWith("/admin/")) return "/admin";
+  if (current.startsWith("/referrals/")) return "/referrals";
+  if (current.startsWith("/panels/")) return "/panels";
+  if (current.startsWith("/browser-shop/")) return "/browser-shop";
   return "/";
 }
 
-export function navigateBackWithinApp(router: NextRouter): Promise<boolean> {
-  if (typeof window === "undefined") {
-    return router.push("/");
+function visibleDialog(): Element | undefined {
+  return Array.from(document.querySelectorAll<HTMLElement>('[role="dialog"][aria-modal="true"]'))
+    .filter((element) => element.getClientRects().length > 0).at(-1);
+}
+
+function hasBackLayer(): boolean {
+  return Boolean(visibleDialog())
+    || document.documentElement.dataset.customizationMode === "editing"
+    || Boolean(document.querySelector('[data-interface-customization-mode="editing"]'));
+}
+
+function consumeBackLayer(): boolean {
+  if (visibleDialog()) {
+    document.dispatchEvent(new KeyboardEvent("keydown", {
+      key: "Escape", bubbles: true, cancelable: true,
+    }));
+    return true;
   }
+  const request = new Event("efhc:back-request", { cancelable: true });
+  document.dispatchEvent(request);
+  return request.defaultPrevented;
+}
+
+export function navigateHomeWithinApp(router: NextRouter): Promise<boolean> {
+  if (typeof window !== "undefined") writeRouteStack(["/"]);
+  return router.replace("/", undefined, { scroll: false });
+}
+
+export function exitAppHost(router: NextRouter): Promise<boolean> {
+  if (typeof window === "undefined") return Promise.resolve(false);
+  const telegram = getTelegramWebApp();
+  const telegramHost = Boolean(telegram?.initData || telegram?.initDataUnsafe?.user
+    || (telegram?.platform && telegram.platform !== "unknown"));
+  if (telegramHost && typeof telegram?.close === "function") {
+    telegram.close();
+    return Promise.resolve(true);
+  }
+  const nativeApp = (navigator as Navigator & { app?: { exitApp?: () => void } }).app;
+  if (typeof nativeApp?.exitApp === "function") {
+    nativeApp.exitApp();
+    return Promise.resolve(true);
+  }
+  // Ordinary browser tabs are owned by the browser. At root, let Back return
+  // to the previous document instead of rearming a same-URL navigation trap.
+  if (window.history.length > 1) {
+    window.history.back();
+    return Promise.resolve(true);
+  }
+  return navigateHomeWithinApp(router);
+}
+
+export function navigateBackWithinApp(router: NextRouter, fallback?: string): Promise<boolean> {
+  if (typeof window === "undefined") return router.replace(fallback || "/");
+  if (consumeBackLayer()) return Promise.resolve(true);
   const current = pathWithoutHash(router.asPath || router.pathname);
-  if (current === "/") {
-    return router.replace("/", undefined, { scroll: false });
-  }
-
-  const target = previousRoute(current);
+  if (current === "/") return exitAppHost(router);
+  const target = previousRoute(current, fallback);
   if (target === current) return Promise.resolve(false);
-
-  // Android/system back must stay inside EFHC navigation. Browser history
-  // may contain Telegram, an external browser document or the host shell;
-  // router.back() can therefore close/leave the application. The internal
-  // route stack is the authority for app-level Back.
-  return router.push(target, undefined, { scroll: false });
+  // Consume the logical stack BEFORE navigating. A direct Admin child must
+  // not reappear when Back is pressed again on the fallback Admin menu.
+  const stack = readRouteStack();
+  const index = stack.lastIndexOf(target);
+  writeRouteStack(index >= 0 ? stack.slice(0, index + 1) : [target]);
+  return router.replace(target, undefined, { scroll: false });
 }
 
 // Browser history is a transport, not the authority for in-app navigation.
-// Every route, including direct-entry /Test-3/ routes, keeps a same-URL guard
-// entry. Native Android WebView Back, PWA Back and browser Back first consume
-// that guard and then use the project-owned route stack. Never push a hash:
+// Direct-entry child routes keep a same-URL guard until Back reaches root.
+// Normal internal navigation uses its existing history entries without adding
+// duplicates. Native Android/WebView Back shares the logical route stack. Never push a hash:
 // Next.js basePath + hash guard previously produced broken nested /Test-3 paths.
 export function useAppBackNavigation(router: NextRouter): void {
   const routerRef = useRef(router);
@@ -117,62 +181,73 @@ export function useAppBackNavigation(router: NextRouter): void {
     if (typeof window === "undefined") return;
     let disposed = false;
     let armingFrame = 0;
+    let releasingLayerGuard = false;
+    let navigationInFlight = false;
     const bridgeWindow = window as AndroidBridgeWindow;
 
     const armSameUrlGuard = (): void => {
-      if (disposed) return;
+      if (disposed || navigationInFlight) return;
+      const layer = hasBackLayer();
+      const current = pathWithoutHash(routerRef.current.asPath || routerRef.current.pathname);
+      if (!layer && (readRouteStack().length > 1 || current === "/")) return;
       const url = window.location.pathname + window.location.search + window.location.hash;
       const currentState = (window.history.state || {}) as AppHistoryState;
       if (currentState[APP_BACK_GUARD]) return;
       // Preserve Next.js's original state (including __N / key), so its own
       // router.push can keep managing the real path and Next hydration.
       window.history.replaceState({
-        ...currentState, [APP_BACK_BASE]: true, [APP_BACK_GUARD]: false,
+        ...currentState, [APP_BACK_BASE]: true, [APP_BACK_GUARD]: false, [APP_BACK_LAYER]: false,
       }, "", url);
       window.history.pushState({
-        ...currentState, [APP_BACK_BASE]: false, [APP_BACK_GUARD]: true,
+        ...currentState, [APP_BACK_BASE]: false, [APP_BACK_GUARD]: true, [APP_BACK_LAYER]: layer,
       }, "", url);
     };
     const scheduleGuard = (): void => {
       window.cancelAnimationFrame(armingFrame);
       armingFrame = window.requestAnimationFrame(armSameUrlGuard);
     };
+    const onRouteChangeStart = () => { navigationInFlight = true; };
     const onRouteChange = (url: string): void => {
+      navigationInFlight = false;
       rememberRoute(url);
       scheduleGuard();
     };
     rememberRoute(routerRef.current.asPath || routerRef.current.pathname);
+    router.events.on("routeChangeStart", onRouteChangeStart);
     router.events.on("routeChangeComplete", onRouteChange);
 
     // Native Back should close the topmost modal first, then navigate to the
     // previous EFHC route. All financial actions remain in their own handlers.
     const backInsideApp = (): void => {
-      const modal = document.querySelector('[role="dialog"][aria-modal="true"]');
-      if (modal) {
-        document.dispatchEvent(new KeyboardEvent("keydown", {
-          key: "Escape", bubbles: true, cancelable: true,
-        }));
-        scheduleGuard();
-        return;
-      }
       void navigateBackWithinApp(routerRef.current).then(scheduleGuard);
     };
 
-    // The capture-phase listener wins over Next's bubbling popstate handler.
-    // On a guard pop, Next must not also navigate using the underlying browser
-    // history or leave the app. stopImmediatePropagation is intentional.
-    const onPopState = (event: PopStateEvent): void => {
-      if (disposed) return;
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      backInsideApp();
-    };
-    window.addEventListener("popstate", onPopState, true);
-    router.beforePopState(() => {
-      // Defensive fallback if a host dispatches popstate outside our capture.
+    // Next skips its callback on the first same-URL pop (Safari handling).
+    // Keep a fallback for that event, but consume every browser Back only once.
+    let browserBackHandled = false;
+    const handleBrowserBack = (): boolean => {
+      if (disposed) return true;
+      if (releasingLayerGuard) {
+        releasingLayerGuard = false;
+        return false;
+      }
+      if (pathWithoutHash(routerRef.current.asPath) === "/" && !hasBackLayer()) return true;
       backInsideApp();
       return false;
+    };
+    router.beforePopState(() => {
+      const allow = handleBrowserBack();
+      if (!allow) {
+        browserBackHandled = true;
+        window.setTimeout(() => { browserBackHandled = false; }, 0);
+      }
+      return allow;
     });
+    const onPopState = (event: PopStateEvent) => {
+      if (browserBackHandled) return;
+      if (!handleBrowserBack()) event.stopImmediatePropagation();
+    };
+    window.addEventListener("popstate", onPopState, true);
     const onNativeBack = (event: Event): void => {
       event.preventDefault?.();
       backInsideApp();
@@ -180,13 +255,57 @@ export function useAppBackNavigation(router: NextRouter): void {
     document.addEventListener("backbutton", onNativeBack);
     const bridgeHandler = (): void => backInsideApp();
     bridgeWindow.__EFHC_ANDROID_BACK__ = bridgeHandler;
+    const exitHandler = () => { void exitAppHost(routerRef.current); };
+    bridgeWindow.__EFHC_ANDROID_EXIT__ = exitHandler;
+    let offTelegramBack = () => {};
+    let boundTelegram: unknown;
+    const connectTelegramBack = () => {
+      const host = getTelegramWebApp();
+      if (!host || boundTelegram === host) return;
+      offTelegramBack();
+      boundTelegram = host;
+      offTelegramBack = telegramBackButtonShow(bridgeHandler);
+    };
+    const telegramScript = document.querySelector('script[src*="telegram.org/js/telegram-web-app.js"]');
+    telegramScript?.addEventListener("load", connectTelegramBack);
+    connectTelegramBack();
+    // A modal/editing layer needs one same-URL history entry even at root,
+    // so the Android browser Back action can dismiss it before leaving EFHC.
+    // Release only layer-owned entries after an explicit close/save; direct-
+    // entry route guards remain available for hierarchical Back.
+    const syncBackLayer = () => {
+      if (disposed || navigationInFlight) return;
+      if (hasBackLayer()) { scheduleGuard(); return; }
+      const state = (window.history.state || {}) as AppHistoryState;
+      if (state[APP_BACK_GUARD] && state[APP_BACK_LAYER] && !releasingLayerGuard) {
+        releasingLayerGuard = true;
+        window.history.back();
+      }
+    };
+    const layersObserver = typeof MutationObserver === "undefined"
+      ? null : new MutationObserver(syncBackLayer);
+    layersObserver?.observe(document.body, {
+      childList: true, subtree: true, attributes: true,
+      attributeFilter: ["aria-hidden", "open", "hidden", "data-interface-customization-mode"],
+    });
+    layersObserver?.observe(document.documentElement, {
+      attributes: true, attributeFilter: ["data-customization-mode"],
+    });
+    const onRouteError = () => { navigationInFlight = false; syncBackLayer(); };
+    router.events.on("routeChangeError", onRouteError);
     scheduleGuard();
 
     return () => {
       disposed = true;
+      layersObserver?.disconnect();
+      offTelegramBack();
+      telegramScript?.removeEventListener("load", connectTelegramBack);
+      if (bridgeWindow.__EFHC_ANDROID_EXIT__ === exitHandler) delete bridgeWindow.__EFHC_ANDROID_EXIT__;
       window.cancelAnimationFrame(armingFrame);
       router.beforePopState(() => true);
+      router.events.off("routeChangeStart", onRouteChangeStart);
       router.events.off("routeChangeComplete", onRouteChange);
+      router.events.off("routeChangeError", onRouteError);
       window.removeEventListener("popstate", onPopState, true);
       document.removeEventListener("backbutton", onNativeBack);
       if (bridgeWindow.__EFHC_ANDROID_BACK__ === bridgeHandler) {
@@ -202,6 +321,7 @@ export const APP_BACK_NAVIGATION_CONTRACT = {
   browser_event: "popstate",
   history_guard: "same-url-state",
   root_fallback: "/",
+  root_exit: "host-close-or-browser-back",
   storage: "sessionStorage",
   pages_mode: "enabled",
 } as const;

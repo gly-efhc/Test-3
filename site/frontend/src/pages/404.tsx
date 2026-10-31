@@ -1,10 +1,12 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { EmptyState } from "../components/ui/EmptyState";
 import { useT } from "../hooks/useT";
 import { useInterfaceVariantSurface } from "../hooks/useInterfaceVariantSurface";
 
 export default function NotFoundPage() {
   const t = useT();
+  const router = useRouter();
   const errorSurface = useInterfaceVariantSurface<HTMLElement>("ER", {
     dotsPlacement: "below",
   });
@@ -21,7 +23,7 @@ export default function NotFoundPage() {
           title={t("common.route_not_found_title")}
           detail={t("common.route_not_found_detail")}
           actionLabel={t("common.go_home")}
-          onAction={() => window.location.assign("/")}
+          onAction={() => { void router.replace("/"); }}
         />
         <p className="mt-3 text-sm efhc-text-muted2">
           {t("error.system_theme_note")}

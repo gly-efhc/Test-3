@@ -1,4 +1,3 @@
-import { resolveInterfaceVariantStyle } from "../lib/interfaceVariantRegistry";
 import React, { useContext, useMemo } from "react";
 import { useRouter } from "next/router";
 
@@ -19,7 +18,6 @@ import { BonusEarningsStrip } from "../components/ui/BonusEarningsStrip";
 import { useT } from "../hooks/useT";
 import { useInterfaceVariantSurface } from "../hooks/useInterfaceVariantSurface";
 import { useInterfaceCustomization } from "../hooks/useInterfaceCustomization";
-import { useGlobalThemeSurface } from "../hooks/useGlobalThemeSurface";
 import { useTD } from "../hooks/useTD";
 import type { SyncSnapshot } from "../hooks/useSnapshot";
 import { formatD8ToHuman } from "../lib/format";
@@ -81,7 +79,7 @@ export default function ReferralsPage(props: {
   const router = useRouter();
   const ctx = useContext(LayoutContext);
   const customization = useInterfaceCustomization();
-  const referralsGlobalSurface = useGlobalThemeSurface<HTMLDivElement>();
+  const referralsSurface = useInterfaceVariantSurface<HTMLDivElement>("RG");
   const referralProgressSurface = useInterfaceVariantSurface<HTMLDivElement>(
     "RP",
     { dotsPlacement: "above" },
@@ -130,10 +128,10 @@ export default function ReferralsPage(props: {
   return (
     <GamePageShell
       className="efhc-referrals-shell"
-      ref={referralsGlobalSurface.ref}
-      data-rg={resolveInterfaceVariantStyle("RG", customization.effective.RG)}
+      ref={referralsSurface.ref}
+      data-rg={referralsSurface.variant}
       data-global-theme-id={customization.globalThemeId}
-      {...referralsGlobalSurface.handlers}
+      {...referralsSurface.handlers}
       data-public-visual-beauty="tasks-referrals-ranks"
       data-public-surface="referrals"
       data-referrals-runtime="react-query-linkage-1558"

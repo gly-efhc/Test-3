@@ -638,7 +638,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
   function openWebProfile() {
     rememberCheckout(token, selectedSku, globalMethod);
     const returnTo = typeof window === "undefined" ? "/browser-shop" : window.location.pathname + window.location.search;
-    window.location.assign(`/web-profile?return_to=${encodeURIComponent(returnTo)}`);
+    void router.push(`/web-profile?return_to=${encodeURIComponent(returnTo)}`);
   }
   async function linkWebAccount(selection?: CheckoutSelection) {
     setLocalError(""); setLocalNotice("");

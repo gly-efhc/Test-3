@@ -12,6 +12,7 @@ import {
 import { Skeleton } from "../components/ui/Skeleton";
 import { useT } from "../hooks/useT";
 import { useInterfaceVariantSurface } from "../hooks/useInterfaceVariantSurface";
+import { rankStyleId } from "../lib/interfaceVariantRegistry";
 import type { SyncSnapshot } from "../hooks/useSnapshot";
 import { format8 } from "../lib/format";
 import { publicApiErrorMessage } from "../lib/publicError";
@@ -177,7 +178,7 @@ export default function RanksPage(props: {
     <GamePageShell
       className="efhc-ranks-shell"
       ref={ranksSurface.ref}
-      data-kg={ranksSurface.variant}
+      data-kg={rankStyleId(ranksSurface.selection)}
       {...ranksSurface.handlers}
       data-public-visual-beauty="tasks-referrals-ranks"
       data-public-surface="ranks"

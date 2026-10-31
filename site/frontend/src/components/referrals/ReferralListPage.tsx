@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import { useRouter } from "next/router";
 import { useInterfaceVariantSurface } from "../../hooks/useInterfaceVariantSurface";
 import { Card } from "../ui/Card";
@@ -20,7 +20,6 @@ import {
   hapticSelection,
   hapticSoft,
   isTelegramMiniApp,
-  telegramBackButtonShow,
 } from "../../lib/telegram";
 
 type Props = {
@@ -41,13 +40,6 @@ export function ReferralListPage(props: Props) {
     { dotsPlacement: "above" },
   );
 
-  useEffect(() => {
-    const off = telegramBackButtonShow(() => {
-      hapticSelection(ctx.settings.haptics_enabled);
-      void router.push("/referrals");
-    });
-    return () => off();
-  }, [ctx.settings.haptics_enabled, router]);
 
   const statsQ = useReferralStats();
   const listQ = useReferralList(props.tab);

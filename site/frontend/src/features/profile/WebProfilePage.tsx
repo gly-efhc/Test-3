@@ -46,7 +46,7 @@ import { LegalPolicyView } from
   "../../components/profile/LegalPolicyView";
 import type { LegalPolicyKind } from
   "../../data/legalPolicies";
-import { navigateBackWithinApp } from
+import { navigateBackWithinApp, navigateHomeWithinApp } from
   "../../lib/appBackNavigation";
 
 const SETTINGS_GEAR_INNER_PATH =
@@ -136,7 +136,7 @@ function reasonLabel(
 }
 
 function goHome(router: ReturnType<typeof useRouter>) {
-  void router.push("/");
+  void navigateHomeWithinApp(router);
 }
 
 function goBack(router: ReturnType<typeof useRouter>) {
@@ -172,7 +172,7 @@ export default function WebProfilePage(props: Props) {
   const router = useRouter();
   const ctx = useContext(LayoutContext);
   const profileSurface = useInterfaceVariantSurface<HTMLDivElement>(
-    "WG",
+    "PM",
     { dotsPlacement: "below" },
   );
   const t = ctx.t;
@@ -305,9 +305,11 @@ export default function WebProfilePage(props: Props) {
 
   return (
     <div
-      className="efhc-profile-page"
+      className="efhc-profile-page efhc-profile-modal-theme"
+      id="profilePage"
       ref={profileSurface.ref}
-      data-wg={profileSurface.variant}
+      data-wg="WG-01"
+      data-pm={profileSurface.variant}
       {...profileSurface.handlers}
       data-public-visual-trust="profile-wallet-history-faq"
       data-profile-active-tab={activeTab}
@@ -316,7 +318,7 @@ export default function WebProfilePage(props: Props) {
       data-public-no-raw-payload="true"
     >
       <div className="efhc-profile-topbar">
-        <button type="button" onClick={() => goBack(router)}>
+        <button type="button" data-app-navigation="back" onClick={() => goBack(router)}>
           ← {t("profile.back")}
         </button>
         <strong>{t("profile.page_title")}</strong>
@@ -329,7 +331,7 @@ export default function WebProfilePage(props: Props) {
               {t("nav.admin")}
             </button>
           ) : null}
-          <button type="button" onClick={() => goHome(router)}>
+          <button type="button" data-app-navigation="exit-profile" onClick={() => goHome(router)}>
             {t("profile.exit")}
           </button>
         </div>

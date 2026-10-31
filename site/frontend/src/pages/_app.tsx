@@ -344,6 +344,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <link rel="stylesheet" href={`${router.basePath}/react-viewport.css`} data-efhc-visual-adapter="react-host" />
         </>
       ) : null}
+      {!isBrowserShop ? <link rel="stylesheet" href={`${router.basePath}/react-runtime-layout.css`} data-efhc-visual-adapter="runtime-layout" /> : null}
       <WalletProvider
         manifestUrl={tcManifestUrl}
         returnUrl={tcReturnUrl}
@@ -449,6 +450,10 @@ function AppInner(props: {
   >(null);
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (!router.pathname.startsWith("/admin")) {
+      setAdminVisualProofPath(null);
+      return;
+    }
     const candidate = (window as typeof window & {
       __EFHC_ADMIN_PROOF_PATH__?: string;
     }).__EFHC_ADMIN_PROOF_PATH__;
@@ -499,7 +504,7 @@ function AppInner(props: {
       ? router.pathname
       : null;
   const effectiveAdminVisualProofPath =
-    pagesPreviewAdminPath || adminVisualProofPath;
+    pagesPreviewAdminPath || (adminVisualProofPath === router.pathname ? adminVisualProofPath : null);
 
   // Snapshot is cached via React Query.
   const {

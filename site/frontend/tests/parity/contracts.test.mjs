@@ -60,3 +60,7 @@ test('frozen v866 CSS retains exact source extraction hashes',()=>{
   assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),expected.sha256,name);
  }
 });
+
+test('rank selections use the authored style identities from HTML v866',()=>{
+ for(const selection of canon.REGISTRY.KG)assert.equal(registry.rankStyleId(selection),canon.RANK_STYLE_ID_BY_SELECTION[selection]);
+});

@@ -7,7 +7,7 @@ import { TelegramStatusBadge } from "../ui/telegram/TelegramStatusBadge";
 import { useT } from "../../hooks/useT";
 import { useInterfaceVariantSurface } from "../../hooks/useInterfaceVariantSurface";
 import { getAdminThemePageMarker } from "../../lib/adminThemePageRegistry";
-import { navigateBackWithinApp } from "../../lib/appBackNavigation";
+import { navigateBackWithinApp, navigateHomeWithinApp } from "../../lib/appBackNavigation";
 import { ADMIN_REPORTS_OVERVIEW_PATH } from "../../lib/api/generated/adminSeams";
 import { useAdminLinkedTransport } from "../../queries/useAdminLinkedTransport";
 
@@ -120,16 +120,20 @@ export function AdminPage(
           {props.backHref ? (
             <Button
               variant="secondary"
-              onClick={() => navigateBackWithinApp(router)}
+              data-app-navigation="back"
+              onClick={() => navigateBackWithinApp(router, props.backHref)}
             >
               ← Назад
             </Button>
           ) : null}
           {router.pathname !== "/admin" ? (
-            <Button href="/admin" variant="secondary">
+            <Button href="/admin" variant="secondary" data-app-navigation="admin-menu">
               ☰ Меню
             </Button>
           ) : null}
+          <Button variant="secondary" data-app-navigation="exit-admin" onClick={() => void navigateHomeWithinApp(router)}>
+            В приложение
+          </Button>
         </div>
       </div>
       {props.infoBlock ? (
