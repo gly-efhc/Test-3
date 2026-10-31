@@ -1,4 +1,5 @@
 import { publicRuntimeValue } from "../../lib/public-runtime";
+import { APP_ROUTES, browserShopRouteFor } from "../../lib/appRoutes";
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { LayoutContext } from "../../components/Layout";
 import { useRouter } from "next/router";
@@ -197,6 +198,9 @@ function methodLabel(method: PayMethod): string { return method === "TON" ? "TON
 function priceLabel(item: BrowserShopCatalogItem, method: PayMethod): string {
   const price = String(item.methods?.[method]?.price || "").trim();
   return price ? `${methodLabel(method)} ${price}` : "—";
+}
+function priceAmountOnly(item: BrowserShopCatalogItem, method: PayMethod): string {
+  return String(item.methods?.[method]?.price || "").trim() || "—";
 }
 function customRateLabel(item: BrowserShopCatalogItem, method: PayMethod): string {
   const rate = String(item.methods?.[method]?.price || "").trim();
@@ -512,7 +516,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
     if (orderId !== null && orderId !== undefined) {
       setConfirmedOrderId(String(orderId));
       // OWNER v224: после подтверждённой покупки сразу открыть отдельную страницу «Мои заказы».
-      if (router.pathname !== "/browser-shop/orders") void router.push("/browser-shop/orders");
+      if (router.pathname !== APP_ROUTES.browserShopOrders) void router.push(APP_ROUTES.browserShopOrders);
     }
   }, [activeStatus?.flow_truth?.order_id, profileQ.refetch, router, state]);
   useEffect(() => {
@@ -634,7 +638,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
 
   function openWebProfile() {
     rememberCheckout(token, selectedSku, globalMethod);
-    const returnTo = typeof window === "undefined" ? "/browser-shop" : window.location.pathname + window.location.search;
+    const returnTo = typeof window === "undefined" ? APP_ROUTES.browserShop : window.location.pathname + window.location.search;
     window.location.assign(`/web-profile?return_to=${encodeURIComponent(returnTo)}`);
   }
   async function linkWebAccount(selection?: CheckoutSelection) {
@@ -662,7 +666,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
     catch { setLocalError(t("portal.browser_shop.order_id_copy_failed")); }
   }
   function navigateShopPage(page: ShopPageView) {
-    const path = page === "orders" ? "/browser-shop/orders" : page === "profile" ? "/browser-shop/profile" : "/browser-shop";
+    const path = browserShopRouteFor(page);
     rememberCheckout(token, selectedSku, globalMethod);
     void router.push(path);
   }
@@ -861,7 +865,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
         if (selection.vipNumber) setReservedVipNumber(selection.vipNumber);
         setCheckout(null);
         // OWNER v224: подтверждённый ShopOrder сразу показываем в отдельном журнале заказов.
-        if (orderId) void router.push("/browser-shop/orders");
+        if (orderId) void router.push(APP_ROUTES.browserShopOrders);
       } catch (caught) {
         if (isInsufficientEfhcFunds(caught)) setLocalNotice(t("portal.browser_shop.insufficient_funds"));
         else setLocalError(t("portal.browser_shop.efhc_purchase_failed"));
@@ -1198,7 +1202,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
       data-browser-shop-ttl={ttl || "none"} data-wallet-transaction={walletTxPhase} data-tonconnect-transaction={walletTxPhase}
       data-browser-shop-no-bottom-menu="true" data-browser-shop-readiness={readinessState || "unknown"}
       data-browser-shop-resume-intent={resumeIntent ? "true" : "false"} data-browser-shop-canonical-center={canonicalCenter}
-      data-browser-shop-public-route={activeTab === "orders" ? "/browser-shop/orders" : activeTab === "profile" ? "/browser-shop/profile" : "/browser-shop"} data-browser-shop-renderer="canonical-production-external"
+      data-browser-shop-public-route={activeTab === "orders" ? APP_ROUTES.browserShopOrders : activeTab === "profile" ? APP_ROUTES.browserShopProfile : APP_ROUTES.browserShop} data-browser-shop-renderer="canonical-production-external"
       data-browser-shop-vps-surface="separate-document-same-host" data-browser-shop-fixed-packages="10-50-100-150-200-250-300-350-500-750-1000-1500-2000-2500-3000" data-browser-shop-package-model="15-fixed-plus-exchange-plus-vip-17-total"
       data-browser-shop-vip-number-model="four-digit-sku-0001-9999-0000-display-only"
       data-browser-shop-vip-price-model="six-admin-prices-two-sku-tiers"
@@ -1247,7 +1251,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
                   const item = packageCatalog.find((candidate) => fixedEfhcPackageSlot(candidate) === amount) || null;
                   const enabled = Boolean(item && methodAllowed(item, globalMethod) && !busy);
                   const displayTitle = `${amount} EFHCm`;
-                  return <button key={amount} type="button" className="efhc-shop-text-product" data-checkout-sku={item?.sku || `EFHC_PACKAGE_${amount}`} data-browser-shop-pay-method={globalMethod} data-browser-shop-package-slot={amount} disabled={!enabled} onClick={() => { if (item) openCheckout({ item, method: globalMethod }); }}><span className="efhc-shop-product-main"><img className="efhc-shop-package-thumb" src="/assets/efhc/efhc_coin_256.png" alt="" /><span className="efhc-shop-product-copy"><strong>{displayTitle}</strong><small>{item ? localized(item, "description", t("portal.browser_shop.package_default_subtitle")) : t("portal.browser_shop.package_default_subtitle")}</small></span></span><span className="efhc-shop-product-price"><small>{methodLabel(globalMethod)}</small><b>{item && enabled ? priceLabel(item, globalMethod) : t("portal.browser_shop.unavailable")}</b></span></button>;
+                  return <button key={amount} type="button" className="efhc-shop-text-product" data-checkout-sku={item?.sku || `EFHC_PACKAGE_${amount}`} data-browser-shop-pay-method={globalMethod} data-browser-shop-package-slot={amount} disabled={!enabled} onClick={() => { if (item) openCheckout({ item, method: globalMethod }); }}><span className="efhc-shop-product-main"><img className="efhc-shop-package-thumb" src="/assets/efhc/efhc_coin_256.png" alt="" /><span className="efhc-shop-product-copy"><strong>{displayTitle}</strong><small>{item ? localized(item, "description", t("portal.browser_shop.package_default_subtitle")) : t("portal.browser_shop.package_default_subtitle")}</small></span></span><span className="efhc-shop-product-price"><small>{methodLabel(globalMethod)}</small><b>{item && enabled ? priceAmountOnly(item, globalMethod) : t("portal.browser_shop.unavailable")}</b></span></button>;
                 })}
                 {(() => {
                   const item = packageCatalog.find(isCustomEfhcPackage) || null;
@@ -1262,8 +1266,8 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
             <div className="efhc-shop-catalog-heading"><figure className="efhc-shop-catalog-visual is-nft" data-vip-display-number="0000-unavailable"><img src={VIP_0000_IMAGE} alt="EFHC VIP NFT 0000" referrerPolicy="no-referrer" onError={(event) => { const image = event.currentTarget; if (image.dataset.fallback === "true") return; image.dataset.fallback = "true"; image.src = "/assets/efhc/efhc_coin_256.png"; }} /><figcaption>EFHC VIP NFT · 0000</figcaption></figure><header className="efhc-shop-catalog-heading-copy"><span>VIP NFT</span><h2 id="vipTitle">EFHC VIP NFT</h2><p>{t("portal.browser_shop.vip_0000_detail")}</p></header></div>
             <div className="efhc-shop-catalog-copy">
               <div className="efhc-shop-vip-modes">
-                {vipAnyItem ? <button type="button" className="efhc-shop-text-product" disabled={!methodAllowed(vipAnyItem, globalMethod) || busy} onClick={() => openCheckout({ item: vipAnyItem, method: globalMethod, vipMode: "any" })}><span className="efhc-shop-product-copy"><strong>{t("portal.browser_shop.vip_any_title")}</strong><small>{t("portal.browser_shop.vip_any_detail")}</small></span><span className="efhc-shop-product-price"><small>{methodLabel(globalMethod)}</small><b>{methodAllowed(vipAnyItem, globalMethod) ? priceLabel(vipAnyItem, globalMethod) : t("portal.browser_shop.unavailable")}</b></span></button> : null}
-                <button type="button" className="efhc-shop-text-product" disabled={!vipSelectedPriceItem || !vipNumberItems.length || !methodAllowed(vipSelectedPriceItem, globalMethod) || busy} onClick={() => document.getElementById("vipNumberChooser")?.scrollIntoView({ behavior: "smooth", block: "center" })}><span className="efhc-shop-product-copy"><strong>{t("portal.browser_shop.vip_select_title")}</strong><small>{t("portal.browser_shop.vip_select_detail")}</small></span><span className="efhc-shop-product-price"><small>{methodLabel(globalMethod)}</small><b>{vipSelectedPriceItem && methodAllowed(vipSelectedPriceItem, globalMethod) ? priceLabel(vipSelectedPriceItem, globalMethod) : t("portal.browser_shop.unavailable")}</b></span></button>
+                {vipAnyItem ? <button type="button" className="efhc-shop-text-product" disabled={!methodAllowed(vipAnyItem, globalMethod) || busy} onClick={() => openCheckout({ item: vipAnyItem, method: globalMethod, vipMode: "any" })}><span className="efhc-shop-product-copy"><strong>{t("portal.browser_shop.vip_any_title")}</strong><small>{t("portal.browser_shop.vip_any_detail")}</small></span><span className="efhc-shop-product-price"><small>{methodLabel(globalMethod)}</small><b>{methodAllowed(vipAnyItem, globalMethod) ? priceAmountOnly(vipAnyItem, globalMethod) : t("portal.browser_shop.unavailable")}</b></span></button> : null}
+                <button type="button" className="efhc-shop-text-product" disabled={!vipSelectedPriceItem || !vipNumberItems.length || !methodAllowed(vipSelectedPriceItem, globalMethod) || busy} onClick={() => document.getElementById("vipNumberChooser")?.scrollIntoView({ behavior: "smooth", block: "center" })}><span className="efhc-shop-product-copy"><strong>{t("portal.browser_shop.vip_select_title")}</strong><small>{t("portal.browser_shop.vip_select_detail")}</small></span><span className="efhc-shop-product-price"><small>{methodLabel(globalMethod)}</small><b>{vipSelectedPriceItem && methodAllowed(vipSelectedPriceItem, globalMethod) ? priceAmountOnly(vipSelectedPriceItem, globalMethod) : t("portal.browser_shop.unavailable")}</b></span></button>
               </div>
               <div id="vipNumberChooser" className="efhc-shop-number-chooser" data-vip-inventory-count={vipNumberItems.length}>
                 <div className="efhc-shop-number-chooser-head"><div><strong>{t("portal.browser_shop.vip_numbers_title")}</strong><small>{Math.min(vipNumberItems.length, VIP_NUMBER_PAGE)} {t("portal.browser_shop.vip_numbers_shown_suffix")}</small></div><input value={vipSearch} onChange={(event) => setVipSearch(event.target.value)} inputMode="numeric" maxLength={4} placeholder={t("portal.browser_shop.vip_number_search")} aria-label={t("portal.browser_shop.vip_number_search_aria")} /></div>

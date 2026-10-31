@@ -1,3 +1,4 @@
+import { APP_ROUTES } from "../lib/appRoutes";
 import { useRouter } from "next/router";
 import React, {
   useCallback,
@@ -46,7 +47,7 @@ const SAFE_PREFETCH_ROUTES = new Set([
   "/web-profile",
 ]);
 const FINANCIAL_ROUTES = new Set([
-  "/browser-shop",
+  APP_ROUTES.browserShop,
   "/exchange",
   "/panels",
   "/panels/portfolio",

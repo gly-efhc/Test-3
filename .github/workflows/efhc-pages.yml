@@ -6,6 +6,11 @@ name: EFHC — React DEMO Pages (manual)
 on:
   workflow_dispatch:
 
+env:
+  # One Actions Variable controls the deployment prefix for build, assets and smoke checks.
+  NEXT_PUBLIC_EFHC_PAGES_BASE_PATH: ${{ vars.EFHC_PAGES_BASE_PATH || '/Test-3' }}
+  EFHC_DEMO_BASEPATH: ${{ vars.EFHC_PAGES_BASE_PATH || '/Test-3' }}
+
 permissions:
   contents: read
 
@@ -104,7 +109,7 @@ jobs:
           python3 "$RUNNER_TEMP/efhc-pages-tools/prepare_pages.py" \
             --source site/frontend \
             --target "$RUNNER_TEMP/efhc-demo-build" \
-            --base-path "/${REPO_NAME}"
+            --base-path "$NEXT_PUBLIC_EFHC_PAGES_BASE_PATH"
 
       - name: Install exact frontend dependencies
         shell: bash
@@ -163,11 +168,13 @@ jobs:
           NEXT_TELEMETRY_DISABLED: '1'
           NEXT_PUBLIC_EFHC_E2E_TONCONNECT_MOCK: '0'
           NEXT_PUBLIC_EFHC_PAGES_PREVIEW: '1'
+          NEXT_PUBLIC_EFHC_SHOP_URL: ${{ vars.EFHC_SHOP_URL || 'https://gly-efhc.github.io/shop' }}
+          NEXT_PUBLIC_EFHC_TEST_MODE: ${{ vars.EFHC_TEST_MODE || 'demo' }}
+          NEXT_PUBLIC_EFHC_TEST_API_ORIGIN: ${{ vars.EFHC_TEST_API_ORIGIN || '' }}
           NEXT_PUBLIC_EFHC_E2E_DISABLE_TONCONNECT_RESTORE: '1'
           NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF: '1'
           NEXT_PUBLIC_EFHC_OBSERVABILITY_VISUAL_PROOF: '1'
           NODE_OPTIONS: '--max-old-space-size=6144'
-          EFHC_DEMO_BASEPATH: /${{ github.event.repository.name }}
         run: |
           set -euo pipefail
           cd "$RUNNER_TEMP/efhc-demo-build"
@@ -182,7 +189,7 @@ jobs:
           set -euo pipefail
           python3 "$RUNNER_TEMP/efhc-pages-tools/fix_pages_assets.py" \
             --directory "$RUNNER_TEMP/efhc-demo-build/out" \
-            --base-path "/${REPO_NAME}" 2>&1 \
+            --base-path "$NEXT_PUBLIC_EFHC_PAGES_BASE_PATH" 2>&1 \
             | tee "$RUNNER_TEMP/efhc-pages-diagnostics/asset-fix.log"
 
       - name: Fail closed if real React static export is missing
@@ -193,7 +200,7 @@ jobs:
           set -euo pipefail
           python3 "$RUNNER_TEMP/efhc-pages-tools/verify_export.py" \
             --directory "$RUNNER_TEMP/efhc-demo-build/out" \
-            --base-path "/${REPO_NAME}" 2>&1 \
+            --base-path "$NEXT_PUBLIC_EFHC_PAGES_BASE_PATH" 2>&1 \
             | tee "$RUNNER_TEMP/efhc-pages-diagnostics/verify-export.log"
 
       - name: Collect post-build quality findings (non-blocking)
@@ -228,14 +235,23 @@ jobs:
           export CHROME_BIN
           node --check "$RUNNER_TEMP/efhc-pages-tools/browser-smoke.mjs" 2>&1 \
             | tee "$LOG_DIR/browser-smoke-syntax.log"
-          mkdir -p "$RUNNER_TEMP/efhc-pages-http"
-          ln -sfn "$RUNNER_TEMP/efhc-demo-build/out" "$RUNNER_TEMP/efhc-pages-http/Test-3"
-          cd "$RUNNER_TEMP/efhc-pages-http"
+          PAGES_BASE="${NEXT_PUBLIC_EFHC_PAGES_BASE_PATH%/}"
+          if [ "$NEXT_PUBLIC_EFHC_PAGES_BASE_PATH" = "/" ]; then PAGES_BASE=""; fi
+          WEB_ROOT="$RUNNER_TEMP/efhc-pages-http"
+          mkdir -p "$WEB_ROOT"
+          if [ -n "$PAGES_BASE" ]; then
+            REL="${PAGES_BASE#/}"
+            mkdir -p "$WEB_ROOT/$(dirname "$REL")"
+            ln -sfn "$RUNNER_TEMP/efhc-demo-build/out" "$WEB_ROOT/$REL"
+          else
+            WEB_ROOT="$RUNNER_TEMP/efhc-demo-build/out"
+          fi
+          cd "$WEB_ROOT"
           python3 -m http.server 19240 --bind 127.0.0.1 >"$LOG_DIR/local-http.log" 2>&1 &
           HTTP_PID=$!
           trap 'kill "$HTTP_PID" 2>/dev/null || true' EXIT
           node "$RUNNER_TEMP/efhc-pages-tools/browser-smoke.mjs" \
-            'http://127.0.0.1:19240/Test-3/' 2>&1 | tee "$LOG_DIR/browser-smoke.log"
+            "http://127.0.0.1:19240${PAGES_BASE}/" 2>&1 | tee "$LOG_DIR/browser-smoke.log"
 
       - name: Summarize pre-deploy diagnostics, including failures
         if: always()

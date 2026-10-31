@@ -1,6 +1,7 @@
 export type PublicRuntimeKey =
   | "NEXT_PUBLIC_TWA_RETURN_URL"
-  | "NEXT_PUBLIC_TON_RPC_ENDPOINT";
+  | "NEXT_PUBLIC_TON_RPC_ENDPOINT"
+  | "NEXT_PUBLIC_EFHC_SHOP_URL";
 
 declare global {
   interface Window {
@@ -16,6 +17,9 @@ export function publicRuntimeValue(key: PublicRuntimeKey): string {
   // Preserve direct npm/dev deployments and existing configured defaults.
   if (key === "NEXT_PUBLIC_TWA_RETURN_URL") {
     return process.env.NEXT_PUBLIC_TWA_RETURN_URL || "";
+  }
+  if (key === "NEXT_PUBLIC_EFHC_SHOP_URL") {
+    return process.env.NEXT_PUBLIC_EFHC_SHOP_URL || "";
   }
   return process.env.NEXT_PUBLIC_TON_RPC_ENDPOINT || "";
 }

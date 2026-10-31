@@ -220,7 +220,7 @@ export default function ReferralsPage(props: {
             >
               <span className="efhc-referrals-share-button_label">
                 <img
-                  src={`/brands/${kind}.svg`}
+                  src={`${router.basePath}/brands/${kind}.svg`}
                   alt=""
                   aria-hidden="true"
                   className="efhc-referrals-share-button_logo"

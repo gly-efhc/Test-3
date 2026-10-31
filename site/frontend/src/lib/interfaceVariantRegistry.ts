@@ -1,3 +1,4 @@
+import { APP_ROUTES } from "./appRoutes";
 import type {
   InterfaceVariantGroup,
   InterfaceVariantSettings,
@@ -229,7 +230,7 @@ export function getRouteInterfaceGroups(
   if (pathname === "/withdraw") return ["HS", "WD", "BN"];
   if (pathname === "/ads") return ["HS", "AD", "BN"];
   if (pathname.startsWith("/admin")) return ["HS", "AM"];
-  if (pathname === "/browser-shop") return ["HS", "BS"];
+  if (pathname === APP_ROUTES.browserShop) return ["HS", "BS"];
   if (["/404", "/500", "/_error"].includes(pathname)) {
     return ["HS", "ER", "BN"];
   }

@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { APP_ROUTES } from "../lib/appRoutes";
 import type { Dict, Lang } from "../lib/i18n";
 import { tFromDicts } from "../lib/i18n";
 import { CompactLanguagePicker } from "./profile/CompactLanguagePicker";
@@ -91,12 +92,12 @@ export function ShopLayout(
   const { avatar } = useAvatarPreference();
   const avatarUrl = avatar.kind === "image" ? avatar.src : null;
   const mainBalance = props.snapshot?.profile?.main_balance || "0";
-  const canonicalPath = ["/browser-shop", "/browser-shop/orders", "/browser-shop/profile"].includes(router.pathname)
+  const canonicalPath = ([APP_ROUTES.browserShop, APP_ROUTES.browserShopOrders, APP_ROUTES.browserShopProfile] as readonly string[]).includes(router.pathname)
     ? router.pathname
-    : "/browser-shop";
-  const canonicalTitle = router.pathname === "/browser-shop/orders"
+    : APP_ROUTES.browserShop;
+  const canonicalTitle = router.pathname === APP_ROUTES.browserShopOrders
     ? t("portal.browser_shop.nav_orders")
-    : router.pathname === "/browser-shop/profile"
+    : router.pathname === APP_ROUTES.browserShopProfile
       ? t("portal.browser_shop.nav_profile")
       : t("portal.browser_shop.storefront_title");
 
@@ -155,8 +156,8 @@ export function ShopLayout(
               <img src="/assets/efhc/efhc_coin_64.png" alt="" />
               <span><strong>EFHC</strong><small>Energy For Humanity</small></span>
             </Link>
-            <nav className="efhc-shop-site_nav" aria-label={t("portal.browser_shop.storefront_title")} data-shop-quick-nav={canonicalPath === "/browser-shop" ? "visible" : "hidden"}>
-              {canonicalPath === "/browser-shop" ? <>
+            <nav className="efhc-shop-site_nav" aria-label={t("portal.browser_shop.storefront_title")} data-shop-quick-nav={canonicalPath === APP_ROUTES.browserShop ? "visible" : "hidden"}>
+              {canonicalPath === APP_ROUTES.browserShop ? <>
                 <a href="#packages">{t("portal.browser_shop.ready_packages_title")}</a>
                 <a href="#vip">VIP NFT</a>
               </> : null}
@@ -176,7 +177,7 @@ export function ShopLayout(
                 <small>EFHC</small>
                 <strong>{mainBalance}</strong>
               </div>
-              <Link href="/browser-shop/profile" className="efhc-shop-site_profile" aria-label={t("portal.browser_shop.nav_profile")}>
+              <Link href={APP_ROUTES.browserShopProfile} className="efhc-shop-site_profile" aria-label={t("portal.browser_shop.nav_profile")}>
                 <span className="efhc-shop-site_avatar">
                   <UnifiedAvatar value={avatar} size={36} alt="" />
                 </span>

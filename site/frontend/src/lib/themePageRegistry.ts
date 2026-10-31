@@ -1,3 +1,5 @@
+import { APP_ROUTES } from "./appRoutes";
+
 export type ThemePageDescriptor = {
   marker: string;
   groups: readonly string[];
@@ -21,7 +23,7 @@ const USER_THEME_PAGES: Readonly<Record<string, ThemePageDescriptor>> = Object.f
   "/faq": { marker: "THM-10", groups: ["FQ"], kind: "user" },
   "/withdraw": { marker: "THM-11", groups: ["WD"], kind: "user" },
   "/ads": { marker: "THM-12", groups: ["AD"], kind: "user" },
-  "/browser-shop": { marker: "THM-13", groups: ["BS", "HS"], kind: "user" },
+  [APP_ROUTES.browserShop]: { marker: "THM-13", groups: ["BS", "HS"], kind: "user" },
   "/404": { marker: "THM-14", groups: ["ER"], kind: "user" },
   "/500": { marker: "THM-15", groups: ["ER"], kind: "user" },
 });
@@ -48,7 +50,7 @@ export const GLOBAL_THEME_PAGE_PATHS = Object.freeze([
   "/faq",
   "/withdraw",
   "/ads",
-  "/browser-shop",
+  APP_ROUTES.browserShop,
   "/404",
   "/500",
   "/_error",

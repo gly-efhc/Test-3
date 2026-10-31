@@ -36,6 +36,7 @@ import {
 } from "./shell/FrontendShell";
 import { NetworkStatus } from "./NetworkStatus";
 import { navigateBackWithinApp } from "../lib/appBackNavigation";
+import { isBrowserShopRoute } from "../lib/appRoutes";
 import { GlobalThemeControl } from
   "./interface-settings/GlobalThemeControl";
 import { InterfaceCustomizationButton } from
@@ -275,6 +276,26 @@ export function Layout(
   const walletConnected = Boolean(walletsMe.data?.is_connected);
   const isAdminRoute = router.pathname.startsWith("/admin");
   const appMode: InterfaceAppMode = isAdminRoute ? "admin" : "user";
+
+  // The original v866 CSS binds Color Theme tokens on html[data-color-theme-id].
+  // React's inner shell has the same attributes, but alone it cannot satisfy
+  // those source selectors. Mirror identities only: do not recreate or override CSS.
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    document.documentElement.dataset.interfaceAppMode = appMode;
+    if (appMode === "user") {
+      document.documentElement.dataset.colorThemeId = customization.colorThemeId;
+      document.documentElement.dataset.globalThemeId = customization.globalThemeId;
+    } else {
+      delete document.documentElement.dataset.colorThemeId;
+      delete document.documentElement.dataset.globalThemeId;
+    }
+    return () => {
+      delete document.documentElement.dataset.interfaceAppMode;
+      delete document.documentElement.dataset.colorThemeId;
+      delete document.documentElement.dataset.globalThemeId;
+    };
+  }, [appMode, customization.colorThemeId, customization.globalThemeId]);
   const [bottomNavViewportHeight, setBottomNavViewportHeight] = useState<
     number | null
   >(null);
@@ -320,7 +341,7 @@ export function Layout(
     };
   }, [isAdminRoute]);
   const showBrowserLoginDemo = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" && !props.telegramProviderId &&
-    router.pathname !== "/browser-shop" &&
+    !isBrowserShopRoute(router.pathname) &&
     !isAdminRoute;
 
   const avatarUrl = resolvedAvatar.kind === "image" ? resolvedAvatar.src : null;

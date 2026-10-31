@@ -68,6 +68,7 @@ import {
   type HttpsUrl,
 } from "../services/appShell.service";
 import { useAppBackNavigation } from "../lib/appBackNavigation";
+import { isBrowserShopRoute } from "../lib/appRoutes";
 import { InterfaceCustomizationProvider } from
   "../components/interface-settings/InterfaceCustomizationProvider";
 
@@ -112,6 +113,8 @@ export function reportWebVitals(metric: NextWebVitalsMetric): void {
 }
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  const isBrowserShop = isBrowserShopRoute(router.pathname);
   const [queryClient] = useState(() => createEfhcQueryClient());
 
   const [tcManifestUrl, setTcManifestUrl] = useState<HttpsUrl>(() => {
@@ -317,7 +320,10 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         {!isBrowserShop ? (
-          <link rel="stylesheet" href={`${router.basePath}/FRONTEND_v866.css`} data-efhc-visual-authority="frozen-v866" />
+          <>
+            <link rel="stylesheet" href={`${router.basePath}/FRONTEND_v866.css`} data-efhc-visual-authority="frozen-v866" />
+            <link rel="stylesheet" href={`${router.basePath}/owner-bottom-nav-no-active-dot.css`} data-efhc-owner-nav="no-active-dot" />
+          </>
         ) : null}
         {process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" ? <link rel="manifest" href="/manifest.webmanifest" /> : null}
         <meta name="theme-color" content="black" />
@@ -424,7 +430,7 @@ function AppInner(props: {
     }, 1400);
     return () => clearTimeout(timer);
   }, []);
-  const isBrowserShop = router.pathname === "/browser-shop" || router.pathname.startsWith("/browser-shop/");
+  const isBrowserShop = isBrowserShopRoute(router.pathname);
   const [adminVisualProofPath, setAdminVisualProofPath] = useState<
     string | null
   >(null);
@@ -493,7 +499,7 @@ function AppInner(props: {
   const authSession = useAuthSessionController();
   const globalId = useAuthOwnerGlobalId();
   const [adminAccessState, setAdminAccessState] = useState<
-    "checking" | "allowed" | "denied"
+    "checking" | "allowed" | "denied" | "unavailable"
   >("checking");
 
   useEffect(() => {
@@ -515,7 +521,7 @@ function AppInner(props: {
       })
       .catch(() => {
         if (!active) return;
-        setAdminAccessState("denied");
+        setAdminAccessState("unavailable");
       });
     return () => { active = false; };
   }, [authSession.status, globalId]);
@@ -599,8 +605,10 @@ function AppInner(props: {
     || router.pathname.startsWith("/admin/");
   const adminGuardCanDecide = adminAccessState !== "checking";
   const adminRouteBlocked = isAdminRoute
-    && adminGuardCanDecide
-    && !isAdmin
+    && adminAccessState === "denied"
+    && !effectiveAdminVisualProofPath;
+  const adminRouteUnavailable = isAdminRoute
+    && adminAccessState === "unavailable"
     && !effectiveAdminVisualProofPath;
   const adminRouteChecking = isAdminRoute
     && !adminGuardCanDecide
@@ -612,6 +620,7 @@ function AppInner(props: {
       || !isAdminRoute
       || !adminGuardCanDecide
       || isAdmin
+      || adminAccessState !== "denied"
     ) {
       return;
     }
@@ -620,6 +629,7 @@ function AppInner(props: {
     adminGuardCanDecide,
     effectiveAdminVisualProofPath,
     isAdmin,
+    adminAccessState,
     isAdminRoute,
     router,
   ]);
@@ -756,8 +766,8 @@ function AppInner(props: {
         shopSkinBgUrl={shopSkinBgUrl}
       >
         <ErrorBoundary title="EFHC Mini App" t={t}>
-          {adminRouteBlocked || adminRouteChecking ? (
-            <AdminRouteGuardState checking={adminRouteChecking} t={t} />
+          {adminRouteBlocked || adminRouteChecking || adminRouteUnavailable ? (
+            <AdminRouteGuardState checking={adminRouteChecking} unavailable={adminRouteUnavailable} t={t} />
           ) : effectiveAdminVisualProofPath ? (
             <AdminVisualProofRouter
               path={effectiveAdminVisualProofPath}
@@ -806,20 +816,23 @@ function AppInner(props: {
 
 function AdminRouteGuardState(props: {
   checking: boolean;
+  unavailable: boolean;
   t: (key: string) => string;
 }) {
-  const title = props.checking
+  const title = props.checking || props.unavailable
     ? props.t("admin_guard.checking_title")
     : props.t("admin_guard.blocked_title");
-  const text = props.checking
-    ? props.t("admin_guard.checking_text")
-    : props.t("admin_guard.blocked_text");
+  const text = props.unavailable
+    ? props.t("common.load_error")
+    : props.checking
+      ? props.t("admin_guard.checking_text")
+      : props.t("admin_guard.blocked_text");
 
   return (
     <section
       className="admin-route-guard"
       data-admin-client-route-guard="1329"
-      data-admin-route-guard-state={props.checking ? "checking" : "blocked"}
+      data-admin-route-guard-state={props.unavailable ? "unavailable" : props.checking ? "checking" : "blocked"}
     >
       <div className="admin-route-guard_card">
         <span className="admin-route-guard_eyebrow">EFHC Admin</span>
