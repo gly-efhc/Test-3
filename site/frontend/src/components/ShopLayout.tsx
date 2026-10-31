@@ -92,7 +92,7 @@ export function ShopLayout(
   const { avatar } = useAvatarPreference();
   const avatarUrl = avatar.kind === "image" ? avatar.src : null;
   const mainBalance = props.snapshot?.profile?.main_balance || "0";
-  const canonicalPath = [APP_ROUTES.browserShop, APP_ROUTES.browserShopOrders, APP_ROUTES.browserShopProfile].includes(router.pathname)
+  const canonicalPath = ([APP_ROUTES.browserShop, APP_ROUTES.browserShopOrders, APP_ROUTES.browserShopProfile] as readonly string[]).includes(router.pathname)
     ? router.pathname
     : APP_ROUTES.browserShop;
   const canonicalTitle = router.pathname === APP_ROUTES.browserShopOrders
