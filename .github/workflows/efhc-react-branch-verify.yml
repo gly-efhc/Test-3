@@ -1,0 +1,57 @@
+name: EFHC React branch qualification
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'site/frontend/**'
+      - 'site/ci/pages-tools/**'
+      - '.github/workflows/efhc-react-branch-verify.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: efhc-react-verify-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: React v866 canonical CSS build and export
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: site/frontend/package-lock.json
+      - name: Prepare exact React Pages source
+        run: |
+          python3 site/ci/pages-tools/prepare_pages.py --source site/frontend --target "$RUNNER_TEMP/efhc-react-build" --base-path /Test-3
+      - name: Install locked dependencies
+        working-directory: ${{ runner.temp }}/efhc-react-build
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Verify CSS routing and canonical source
+        working-directory: ${{ runner.temp }}/efhc-react-build
+        run: |
+          node --test src/reconstruction/verify-v866-canonical-css-branch-v915.test.mjs
+          node --test src/reconstruction/verify-*.test.mjs
+      - name: Build and static-export actual React
+        working-directory: ${{ runner.temp }}/efhc-react-build
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+          NEXT_PUBLIC_EFHC_E2E_TONCONNECT_MOCK: '0'
+          NEXT_PUBLIC_EFHC_PAGES_PREVIEW: '1'
+          NEXT_PUBLIC_EFHC_E2E_DISABLE_TONCONNECT_RESTORE: '0'
+          NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF: '1'
+          NEXT_PUBLIC_EFHC_OBSERVABILITY_VISUAL_PROOF: '1'
+          NODE_OPTIONS: --max-old-space-size=6144
+          EFHC_DEMO_BASEPATH: /Test-3
+        run: ./node_modules/.bin/next build --webpack
+      - name: Verify actual exported pages
+        run: |
+          python3 site/ci/pages-tools/fix_pages_assets.py --directory "$RUNNER_TEMP/efhc-react-build/out" --base-path /Test-3
+          python3 site/ci/pages-tools/verify_export.py --directory "$RUNNER_TEMP/efhc-react-build/out" --base-path /Test-3
