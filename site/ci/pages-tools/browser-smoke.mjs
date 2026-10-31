@@ -256,9 +256,19 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
     for(let check=0;check<15;check++){
       await sleep(200);
       portfolio=await readPortfolio();
-      if(portfolio.ids.length===expected){loaded=true;break;}
+      if(portfolio.ids.length>expected)
+        throw Error('OWNER_PORTFOLIO_PAGE_OVERFETCH '+JSON.stringify({expected,actual:portfolio.ids.length,tab:portfolio.tab,first:portfolio.ids[0],last:portfolio.ids.at(-1),scrollTop:portfolio.scrollTop}));
+      if(portfolio.ids.length===expected){
+        // 40 must remain 40 after the render/scroll events settle:
+        // a single bottom gesture must not auto-fetch the third page.
+        await sleep(450);
+        portfolio=await readPortfolio();
+        if(portfolio.ids.length>expected)
+          throw Error('OWNER_PORTFOLIO_PAGE_OVERFETCH '+JSON.stringify({expected,actual:portfolio.ids.length,tab:portfolio.tab,first:portfolio.ids[0],last:portfolio.ids.at(-1),scrollTop:portfolio.scrollTop}));
+        if(portfolio.ids.length===expected){loaded=true;break;}
+      }
     }
-    if(!loaded)throw Error('OWNER_PORTFOLIO_20_20_20_PAGE_LOAD_FAILED '+expected+' '+JSON.stringify(portfolio));
+    if(!loaded)throw Error('OWNER_PORTFOLIO_20_20_20_PAGE_LOAD_FAILED '+expected+' '+JSON.stringify({expected,actual:portfolio.ids.length,first:portfolio.ids[0],last:portfolio.ids.at(-1),scrollTop:portfolio.scrollTop}));
     if(portfolio.ids[0]!=='PNL-000000060'||new Set(portfolio.ids).size!==expected)
       throw Error('OWNER_PORTFOLIO_SCROLL_ANCHOR_OR_DUPLICATE '+JSON.stringify(portfolio));
   }

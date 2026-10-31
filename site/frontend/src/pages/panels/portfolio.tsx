@@ -13,6 +13,7 @@ import { EmptyState } from "../../components/ui/EmptyState";
 import { GamePageShell } from "../../components/ui/GameShell";
 import { LayoutContext } from "../../components/Layout";
 import { publicApiErrorMessage } from "../../lib/publicError";
+import { shouldRequestNextPanelPage, type PanelPaginationTrigger } from "../../reconstruction/panelPaginationGate";
 import { usePanelsList } from "../../queries/usePanels";
 import { useT } from "../../hooks/useT";
 import type { SyncSnapshot } from "../../hooks/useSnapshot";
@@ -122,6 +123,16 @@ export default function PanelsPortfolioPage(props: {
     visibleId: string | null;
     topOffset: number;
   } | null>(null);
+  // Guard against repeated scroll events advancing more than one 20-row
+  // page. A new page needs a NEW bottom approach after a meaningful scroll;
+  // merely re-rendering or restoring the visible panel cannot trigger it.
+  const lastPageTriggerRef = useRef<PanelPaginationTrigger | null>(null);
+  const inFlightPageTriggerRef = useRef<PanelPaginationTrigger | null>(null);
+  const resetPageTrigger = () => {
+    lastPageTriggerRef.current = null;
+    inFlightPageTriggerRef.current = null;
+    pendingScrollAnchorRef.current = null;
+  };
 
   useEffect(() => {
     if (!serverNowIso) {
@@ -155,9 +166,26 @@ export default function PanelsPortfolioPage(props: {
 
   const loadNextPanelsAtScrollEnd = () => {
     const node = panelListViewportRef.current;
-    if (!node || loading || !canLoadMore) return;
-    const remainingPx = node.scrollHeight - node.scrollTop - node.clientHeight;
-    if (remainingPx > 180) return;
+    if (!node || !shouldRequestNextPanelPage({
+      tab,
+      direction: sortDirection,
+      itemCount: items.length,
+      scrollTop: node.scrollTop,
+      clientHeight: node.clientHeight,
+      scrollHeight: node.scrollHeight,
+      lastTrigger: lastPageTriggerRef.current,
+      inFlight: inFlightPageTriggerRef.current !== null,
+      loading,
+      canLoadMore,
+    })) return;
+    const request: PanelPaginationTrigger = {
+      tab, direction: sortDirection,
+      itemCount: items.length, scrollTop: node.scrollTop,
+    };
+    // The refs must be locked BEFORE fetchNextPage: an immediately repeated
+    // scroll event can otherwise fetch the third batch in the same gesture.
+    lastPageTriggerRef.current = request;
+    inFlightPageTriggerRef.current = request;
     // Preserve the visible card, never add *all new content height* to
     // scrollTop: with normal append that old approach skipped whole cards.
     const viewportTop = node.getBoundingClientRect().top;
@@ -173,7 +201,20 @@ export default function PanelsPortfolioPage(props: {
         ? visible.getBoundingClientRect().top - viewportTop
         : 0,
     };
-    void listQuery.fetchNextPage();
+    void listQuery.fetchNextPage().then(
+      () => {
+        if (inFlightPageTriggerRef.current === request) {
+          inFlightPageTriggerRef.current = null;
+        }
+      },
+      () => {
+        if (inFlightPageTriggerRef.current === request) {
+          inFlightPageTriggerRef.current = null;
+          // A failed request may be retried by another bottom scroll.
+          lastPageTriggerRef.current = null;
+        }
+      },
+    );
   };
 
   useLayoutEffect(() => {
@@ -240,7 +281,7 @@ export default function PanelsPortfolioPage(props: {
             aria-label={t("panels.tab_active_aria")}
             onClick={() => {
               hapticSelection(settings.haptics_enabled);
-              pendingScrollAnchorRef.current = null;
+              resetPageTrigger();
               const node = panelListViewportRef.current;
               if (node) node.scrollTop = 0;
               setTab("active");
@@ -254,7 +295,7 @@ export default function PanelsPortfolioPage(props: {
             aria-label={t("panels.tab_archive_aria")}
             onClick={() => {
               hapticSelection(settings.haptics_enabled);
-              pendingScrollAnchorRef.current = null;
+              resetPageTrigger();
               const node = panelListViewportRef.current;
               if (node) node.scrollTop = 0;
               setTab("archive");
@@ -286,7 +327,7 @@ export default function PanelsPortfolioPage(props: {
             )}
             onClick={() => {
               hapticSelection(settings.haptics_enabled);
-              pendingScrollAnchorRef.current = null;
+              resetPageTrigger();
               setSortDirection((current) =>
                 current === "oldest" ? "newest" : "oldest",
               );
