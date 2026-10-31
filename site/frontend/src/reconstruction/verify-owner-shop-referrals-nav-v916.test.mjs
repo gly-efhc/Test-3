@@ -18,7 +18,7 @@ test("Shop external address is configured once and defaults to OWNER canonical U
 
 test("Referral social SVG icons work beneath GitHub Pages basePath", () => {
   const refs = src("pages/referrals.tsx");
-  assert.match(refs, /publicAssetPath\(\`\/brands\/\$\{kind\}\.svg\`\)/);
+  assert.match(refs, /router\.basePath\}\/brands\/\$\{kind\}\.svg/);
   for(const name of ["telegram","whatsapp","viber","facebook","x"]) {
     assert.ok(existsSync(resolve(import.meta.dirname, "../../public/brands", name+".svg")), name);
   }
