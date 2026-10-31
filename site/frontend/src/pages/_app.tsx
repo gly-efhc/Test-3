@@ -114,6 +114,7 @@ export function reportWebVitals(metric: NextWebVitalsMetric): void {
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const isBrowserShop = router.pathname === "/browser-shop" || router.pathname.startsWith("/browser-shop/");
+  const isAdminRoute = router.pathname.startsWith("/admin");
   const [queryClient] = useState(() => createEfhcQueryClient());
 
   const [tcManifestUrl, setTcManifestUrl] = useState<HttpsUrl>(() => {
@@ -318,7 +319,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        {!isBrowserShop ? (
+        {isAdminRoute ? (
           <>
             <link rel="stylesheet" href={`${router.basePath}/FRONTEND_v866.css`} data-efhc-visual-authority="frozen-v866" />
             <link rel="stylesheet" href={`${router.basePath}/react-shell-mobile-viewport-v923.css`} data-efhc-visual-patch="mobile-width-only-v923" />
@@ -331,6 +332,18 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="EFHC Bot" />
       </Head>
+      {/* A stylesheet link is allowed in body. Keep USER visual authority after
+          Next's generated head CSS on both SSR and client navigation. next/head
+          puts these links BEFORE the compiled legacy CSS, reversing the canon.
+          Admin retains its existing stylesheet order; Shop owns its own styles. */}
+      {!isAdminRoute && !isBrowserShop ? (
+        <>
+          <link rel="stylesheet" href={`${router.basePath}/FRONTEND_v866.css`} data-efhc-visual-authority="frozen-v866" />
+          <link rel="stylesheet" href={`${router.basePath}/react-shell-mobile-viewport-v923.css`} data-efhc-visual-patch="mobile-width-only-v923" />
+          <link rel="stylesheet" href={`${router.basePath}/v866-react-shell.css`} data-efhc-visual-adapter="user-shell" />
+          <link rel="stylesheet" href={`${router.basePath}/react-viewport.css`} data-efhc-visual-adapter="react-host" />
+        </>
+      ) : null}
       <WalletProvider
         manifestUrl={tcManifestUrl}
         returnUrl={tcReturnUrl}

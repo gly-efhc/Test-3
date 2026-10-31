@@ -298,15 +298,10 @@ export function loadSettings(): UserSettings {
     if (raw) return normalizeSettings(JSON.parse(raw) || {});
     // Source-derived first-visit values for the public visual comparison ONLY.
     // Once the owner selects settings, the persisted values take precedence.
-    // Frozen v866: language=ru, HS-03, SC-02, CT-01, HB-01, BN-01.
+    // Frozen v866 starts from COMMON_DEFAULTS (selection IDs, not CSS style IDs).
     if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1") {
       const preview = resetSettings();
       preview.lang = "ru";
-      preview.interface_variants = {
-        ...preview.interface_variants,
-        HS: "HS-03",
-        SC: "SC-02",
-      };
       return preview;
     }
     return resetSettings();

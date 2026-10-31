@@ -1,10 +1,15 @@
-# EFHC Test-3 — manually build and deploy the committed React frontend.
+# EFHC Test-3 — build and deploy committed React after USER recovery gates.
 # OWNER one-time bootstrap. The ZIP updates site/ci/pages-tools without modifying this workflow.
 # Requires GitHub Pages / GitHub Actions to be enabled.
-name: EFHC — React DEMO Pages (manual)
+name: EFHC — React DEMO Pages
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/workflows/efhc-pages.yml"
 
 permissions:
   contents: read
@@ -31,7 +36,7 @@ jobs:
       - name: Checkout imported React source
         uses: actions/checkout@v7
         with:
-          ref: main
+          ref: ${{ github.sha }}
           persist-credentials: false
 
       - name: Initialize Pages pre-deploy diagnostics
@@ -113,6 +118,15 @@ jobs:
           cd "$RUNNER_TEMP/efhc-demo-build"
           npm ci --ignore-scripts --no-audit --no-fund 2>&1 \
             | tee "$RUNNER_TEMP/efhc-pages-diagnostics/npm-ci.log"
+
+      - name: Require v866 contract and shared-shell integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/efhc-demo-build"
+          npm run test:html-react-parity
+          cd "$GITHUB_WORKSPACE"
+          EFHC_FRONTEND_DEPENDENCIES="$RUNNER_TEMP/efhc-demo-build/package.json" node site/ci/parity/generate_shell.mjs --check
 
       - name: Set up Python for isolated quality scanners
         uses: actions/setup-python@v5
@@ -312,6 +326,31 @@ jobs:
           path: ${{ runner.temp }}/efhc-pages-diagnostics/
           if-no-files-found: warn
           retention-days: 14
+
+      - name: Require rendered USER recovery checks before publication
+        shell: bash
+        env:
+          EFHC_BROWSER_TOOLS: ${{ runner.temp }}/efhc-browser-tools/package.json
+          EFHC_PARITY_ARTIFACTS: ${{ runner.temp }}/efhc-parity-artifacts
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/efhc-browser-tools" playwright-core@1.64.1 --ignore-scripts --no-audit --no-fund
+          mkdir -p "$RUNNER_TEMP/efhc-parity-http"
+          ln -sfn "$RUNNER_TEMP/efhc-demo-build/out" "$RUNNER_TEMP/efhc-parity-http/Test-3"
+          python3 -m http.server 19243 --bind 127.0.0.1 --directory "$RUNNER_TEMP/efhc-parity-http" > "$RUNNER_TEMP/efhc-parity-http.log" 2>&1 &
+          server=$!
+          trap 'kill "$server"' EXIT
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:19243/Test-3/ -o /dev/null && break || sleep 1; done
+          export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
+          EFHC_REACT_URL=http://127.0.0.1:19243/Test-3/ node site/frontend/tests/parity/browser.mjs
+
+      - name: Retain USER recovery review artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: efhc-parity-${{ github.sha }}
+          path: ${{ runner.temp }}/efhc-parity-artifacts/
+          if-no-files-found: warn
 
       - name: Upload compiled React to Pages
         uses: actions/upload-pages-artifact@v5

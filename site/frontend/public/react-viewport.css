@@ -1,0 +1,45 @@
+/* The HTML workbench has .unified-shell as its layout child. React has #__next.
+   Without an explicit width, the workbench flex-body shrink-wraps #__next and
+   the USER shell stops tracking the viewport. Only the React USER host matches. */
+html[data-interface-app-mode="user"] #__next {
+  width: 100%;
+  min-width: 0;
+}
+
+/* v866 :root typography, bounded to the React USER renderer. */
+.efhc-independent-shell[data-interface-app-mode="user"] {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: normal;
+}
+
+/* The legacy generic 44px button floor expands the name line and avatar inside
+   the profile card. v866 sizes the enclosing card and these two inner controls
+   independently; restore their intrinsic height without changing other buttons. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+:is(.efhc-game-header_profile-name-button, .efhc-game-header_profile-avatar-button) {
+  min-height: 0;
+}
+
+/* The source frame has no second physical border inside the shell. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+> .efhc-independent-shell_frame {
+  border: 0;
+}
+
+/* v866's authored preview is 390px wide. Phones use their actual viewport;
+   desktop retains that centered composition instead of stretching the app. */
+@media (min-width: 821px) {
+  .efhc-independent-shell[data-public-shell-route="public"][data-interface-app-mode="user"] {
+    width: 390px;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+  .efhc-independent-shell[data-public-shell-route="public"][data-interface-app-mode="user"]
+  > .efhc-game-nav {
+    position: absolute;
+    inset-inline: 0;
+    width: 100%;
+    max-width: none;
+  }
+}

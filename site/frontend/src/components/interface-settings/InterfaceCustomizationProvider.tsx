@@ -9,6 +9,7 @@ import React, {
   useState,
 } from "react";
 import { useRouter } from "next/router";
+import { resolveHeaderThemeComposition } from "../../lib/headerThemeComposition";
 import type { UserSettings } from "../../lib/settings";
 import {
   cycleInterfaceVariant,
@@ -449,6 +450,28 @@ export function InterfaceCustomizationProvider(
   const effective = mode === "editing" ? draft : saved;
   const globalThemeId = mode === "editing" ? draftThemeId : savedThemeId;
   const colorThemeId = mode === "editing" ? draftColorThemeId : savedColorThemeId;
+  // v866 has document-level token owners as well as shell-level selectors.
+  // Mirror the active USER state, then restore the previous document state on
+  // route changes/unmount so Shop and frozen Admin do not inherit USER chroma.
+  useEffect(() => {
+    if (router.pathname.startsWith("/admin") || router.pathname.startsWith("/browser-shop")) return;
+    const root = document.documentElement;
+    const attributes: Record<string, string> = {
+      "data-interface-app-mode": "user",
+      "data-customization-mode": mode,
+      "data-color-theme-id": colorThemeId,
+      "data-global-theme-id": globalThemeId,
+      "data-status-color": resolveHeaderThemeComposition(effective.HS).statuses,
+    };
+    const previous = Object.keys(attributes).map((name) => [name, root.getAttribute(name)] as const);
+    for (const [name, value] of Object.entries(attributes)) root.setAttribute(name, value);
+    return () => {
+      for (const [name, value] of previous) {
+        if (value === null) root.removeAttribute(name);
+        else root.setAttribute(name, value);
+      }
+    };
+  }, [router.pathname, mode, colorThemeId, globalThemeId, effective.HS]);
   const value = useMemo<ContextValue>(() => ({
     mode,
     saved,

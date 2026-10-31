@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "performance-budgets": "node scripts/budgets.mjs",
     "release-assets:verify": "node scripts/verify-production-assets.mjs",
-    "test:frontend-regression": "node --test tests/regression/current-*.test.mjs",
+    "test:frontend-regression": "node --test tests/parity/contracts.test.mjs tests/regression/current-*.test.mjs",
     "check:frontend-regression": "npm run test:frontend-regression",
     "check:reports-scope": "python ../ops/reports/check_frontend_reports_scope.py --root ..",
     "check:archive-scope": "python ../ops/release/check_frontend_archive_scope.py --root ..",
@@ -18,7 +18,8 @@
     "test:tonconnect-update-acceptance": "node --test tests/regression/current-tonconnect-wallet-source.test.mjs tests/regression/current-tonconnect-sdk-engine.test.mjs tests/regression/current-tonconnect-ci-safety.test.mjs tests/regression/current-tonconnect-least-privilege.test.mjs",
     "check:tonconnect-update-acceptance": "npm run test:tonconnect-update-acceptance",
     "music:playlist": "node scripts/generate-background-playlist.mjs",
-    "demo:sync-hub": "node scripts/sync-hub-demo-parity.mjs"
+    "demo:sync-hub": "node scripts/sync-hub-demo-parity.mjs",
+    "test:html-react-parity": "node --test tests/parity/contracts.test.mjs"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.59.0",

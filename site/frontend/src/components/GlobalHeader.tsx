@@ -216,7 +216,7 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
   );
   const headerThemeVariant = props.appMode === "admin"
     ? "HS-03"
-    : headerThemeSurface.variant;
+    : headerThemeSurface.selection;
   const headerComposition = resolveHeaderThemeComposition(headerThemeVariant);
 
   const total = useMemo(

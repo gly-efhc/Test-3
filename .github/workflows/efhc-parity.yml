@@ -1,0 +1,75 @@
+name: EFHC — HTML v866 / React parity
+
+on:
+  push:
+    branches: ['recovery/**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: efhc-parity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  parity:
+    name: v866 contracts, build and rendered React
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: site/frontend/package-lock.json
+      - name: Prepare actual React with Pages base path
+        run: python3 site/ci/pages-tools/prepare_pages.py --source site/frontend --target "$RUNNER_TEMP/efhc-parity-build" --base-path /Test-3
+      - name: Install locked dependencies and browser driver
+        run: |
+          cd "$RUNNER_TEMP/efhc-parity-build"
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm install --prefix "$RUNNER_TEMP/efhc-browser-tools" playwright-core@1.64.1 --ignore-scripts --no-audit --no-fund
+      - name: Check immutable HTML contracts and generated shared shell
+        run: |
+          cd "$RUNNER_TEMP/efhc-parity-build"
+          npm run test:html-react-parity
+          cd "$GITHUB_WORKSPACE"
+          EFHC_FRONTEND_DEPENDENCIES="$RUNNER_TEMP/efhc-parity-build/package.json" node site/ci/parity/generate_shell.mjs --check
+      - name: Build React for the exact source revision
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+          NEXT_PUBLIC_EFHC_PAGES_PREVIEW: '1'
+          NEXT_PUBLIC_EFHC_E2E_TONCONNECT_MOCK: '0'
+          NEXT_PUBLIC_EFHC_E2E_DISABLE_TONCONNECT_RESTORE: '1'
+          NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF: '1'
+          NEXT_PUBLIC_EFHC_OBSERVABILITY_VISUAL_PROOF: '1'
+          EFHC_DEMO_BASEPATH: /Test-3
+        run: |
+          cd "$RUNNER_TEMP/efhc-parity-build"
+          ./node_modules/.bin/next build --webpack
+      - name: Check actual rendered selections, colors, sizing and routes
+        env:
+          EFHC_BROWSER_TOOLS: ${{ runner.temp }}/efhc-browser-tools/package.json
+          EFHC_PARITY_ARTIFACTS: ${{ runner.temp }}/efhc-parity-artifacts
+        run: |
+          python3 site/ci/pages-tools/fix_pages_assets.py --directory "$RUNNER_TEMP/efhc-parity-build/out" --base-path /Test-3
+          mkdir -p "$RUNNER_TEMP/efhc-parity-http"
+          ln -s "$RUNNER_TEMP/efhc-parity-build/out" "$RUNNER_TEMP/efhc-parity-http/Test-3"
+          python3 -m http.server 19240 --bind 127.0.0.1 --directory "$RUNNER_TEMP/efhc-parity-http" > "$RUNNER_TEMP/efhc-parity-http.log" 2>&1 &
+          server=$!
+          trap 'kill "$server"' EXIT
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:19240/Test-3/ -o /dev/null && break || sleep 1; done
+          export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
+          node site/frontend/tests/parity/browser.mjs
+      - name: Retain visual review and precise results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: efhc-parity-${{ github.sha }}
+          path: ${{ runner.temp }}/efhc-parity-artifacts/
+          if-no-files-found: warn
