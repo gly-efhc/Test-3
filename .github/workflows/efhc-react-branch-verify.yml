@@ -80,7 +80,7 @@ jobs:
           cat >"$ROOT/Test-3/__efhc_visual_theme03.html" <<'EFHC_CT03'
           <!doctype html><meta charset="utf-8"><script>
           localStorage.setItem('EFHC_USER_SETTINGS_V1',JSON.stringify({
-            lang:'ru',theme_mode:'dark',color_theme_id:'CT-03',global_theme_id:'03',
+            lang:'ru',theme_mode:'dark',interface_settings_version:4,color_theme_id:'CT-03',global_theme_id:'03',
             interface_variants:{HS:'HS-03',SC:'SC-02',HU:'HU-01'}
           }));
           location.replace('/Test-3/hub/');
