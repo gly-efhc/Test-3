@@ -69,7 +69,7 @@ const DEMO_ADMIN_OVERVIEW: Overview = {
     users_total__main__efhc: "0.00000000",
   },
 };
-const IS_PUBLIC_PAGES_DEMO = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1";
+const IS_PUBLIC_PAGES_DEMO = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" && process.env.NEXT_PUBLIC_EFHC_TEST_MODE !== "neon";
 
 const ADMIN_CATEGORY_LEGEND = [
   { key: "finance", label: "Финансы" },
