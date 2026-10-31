@@ -1,3 +1,4 @@
+import { APP_ROUTES } from "../appRoutes";
 import { publicRuntimeValue } from "../public-runtime";
 
 /** OWNER canonical browser storefront. One env/runtime setting changes its address everywhere.
@@ -34,7 +35,7 @@ export function resolveShopDestination(redirectUrl?: string | null): string {
   }
   if (raw.startsWith("/") && !raw.startsWith("//")) {
     const legacy = raw.split(/[?#]/, 1)[0].replace(/\/$/, "");
-    if (legacy === "/browser-shop" || legacy === "/shop") {
+    if (legacy === APP_ROUTES.browserShop || legacy === "/shop") {
       const target = new URL(base);
       const parsed = new URL(raw, "https://example.invalid");
       target.search = parsed.search;
