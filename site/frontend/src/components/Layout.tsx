@@ -36,6 +36,7 @@ import {
 } from "./shell/FrontendShell";
 import { NetworkStatus } from "./NetworkStatus";
 import { navigateBackWithinApp } from "../lib/appBackNavigation";
+import { isBrowserShopRoute } from "../lib/appRoutes";
 import { GlobalThemeControl } from
   "./interface-settings/GlobalThemeControl";
 import { InterfaceCustomizationButton } from
@@ -340,7 +341,7 @@ export function Layout(
     };
   }, [isAdminRoute]);
   const showBrowserLoginDemo = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" && !props.telegramProviderId &&
-    router.pathname !== "/browser-shop" &&
+    !isBrowserShopRoute(router.pathname) &&
     !isAdminRoute;
 
   const avatarUrl = resolvedAvatar.kind === "image" ? resolvedAvatar.src : null;
