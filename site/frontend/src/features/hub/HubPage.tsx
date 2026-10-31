@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useT } from "../../hooks/useT";
 import { hapticMedium, hapticSoft, openTelegramLink } from "../../lib/telegram";
 import { useShopLauncher } from "../../queries/useShopLauncher";
+import { resolveShopDestination, externalShopUrl } from "../../lib/portal/shopDestination";
 import { usePublicHubLinks } from "../../queries/useHub";
 import type { HubPublicLink } from "../../services/hub.service";
 import { GamePageShell } from "../../components/ui/GameShell";
@@ -46,6 +47,10 @@ export default function HubPage() {
       } catch {
         hapticSoft(true);
       }
+      return;
+    }
+    if (isShopLink(link)) {
+      openTelegramLink(resolveShopDestination(link.url || externalShopUrl()));
       return;
     }
     if (link.url.startsWith("/")) {
