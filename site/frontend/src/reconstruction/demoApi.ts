@@ -86,6 +86,56 @@ function buildCatalog(){
   {sku:"EFHC_VIP_NFT",title:"EFHC VIP NFT",description:"Выпуск NFT только моделируется",item_type:"NFT_VIP",ton_enabled:true,usdt_enabled:true,
     methods:{TON:{price:"100.00"},USDT:{price:"150.00"},EFHC:{price:"500.00000000"}},image_url:null,category:"vip",badge:"VIP NFT",status:"live",action_mode:"checkout",delivery_mode:"manual",quantity_efhc:null,sort_order:5000}];
 }
+/** Canonical seventeen positions from the same storefront fixture.  The 26
+ * archived orders originate from the frozen v866 DEMO seed, never production.
+ * All Admin mutations are refused by the dispatcher below. */
+function demoAdminShopCatalog(){
+ return buildCatalog().map((item,index)=>{
+  const methods=item.methods as Record<string,{price?:string}>;
+  return {
+  ...item, id:String(7100+index), code:item.sku,
+  is_active:item.status==="live",active:item.status==="live",
+  price_ton:methods.TON?.price||"",price_usdt:methods.USDT?.price||"",
+  price_efhc:methods.EFHC?.price||"",
+  pay_currencies:Object.keys(methods),
+  // No production ownership or settlement may be inferred from a DEMO catalog.
+  history_count:0,history_tail:[],created_at:null,updated_at:null,
+ };
+ });
+}
+function demoAdminShopOrders(){
+ return admin.shopOrders.map((item)=>({
+  ...item,id:String(item.id),order_id:String(item.id),
+  item_code:String(item.item_code||""),
+  global_id:String(item.global_id||""),
+  test_fixture:true,
+ }));
+}
+function demoAdminShopCounters(){
+ const rows=demoAdminShopOrders();
+ const count=(...states:string[])=>rows.filter(row=>states.includes(String(row.status).toUpperCase())).length;
+ return {total:rows.length,pending:count("PENDING","CREATED"),
+  paid_auto:count("PAID","PAID_AUTO","PAID_CONFIRMED"),
+  pending_manual:count("PAID_PENDING_MANUAL"),
+  approved:count("APPROVED","FULFILLED","COMPLETED"),
+  rejected:count("REJECTED","FAILED"),cancelled:count("CANCELLED","CANCELED")};
+}
+/** Financial DEMO mutations must not debit or credit twice on retries. The
+ * replay table belongs to the selected local Global ID and is persisted by
+ * demoUnifiedStore. It is never a substitute for backend idempotency. */
+function requireDemoRequestKey(value:string|undefined):string {
+ must(typeof value==="string"&&value.trim().length>0&&value.length<=256,"IDEMPOTENCY_KEY_REQUIRED",400);
+ return value!;
+}
+function readDemoReplay(a:DemoAccountState,key:string,fingerprint:string):unknown|undefined {
+ const record=Object.prototype.hasOwnProperty.call(a.operation_replays||{},key)?a.operation_replays![key]:undefined;
+ if(!record)return undefined;
+ must(record.fingerprint===fingerprint,"IDEMPOTENCY_KEY_CONFLICT",409);
+ return record.response;
+}
+function saveDemoReplay(key:string,fingerprint:string,response:unknown):void {
+ writeDemoAccount(current=>({...current,operation_replays:{...current.operation_replays,[key]:{fingerprint,response}}}));
+}
 function flowTruth(walletLinked:boolean){return {
  handoff_configured:true,handoff_mode:"connected",wallet_linked:walletLinked,wallet_sync_required:false,
  wallet_ready:walletLinked,wallet_blocked:!walletLinked,action_allowed:walletLinked,action_denied:!walletLinked,
@@ -136,6 +186,38 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
  if(control.scenario==="error"&&!p.startsWith("/auth/"))throw new PreviewApiError(503,"SCENARIO_ERROR");
  const a=readDemoAccount();const empty=control.scenario==="empty",now=stamp();
  const readOnly=method.toUpperCase()==="GET";
+ // The public Admin surface is a visual/fixture preview. No browser-side Admin
+ // role or unverified POST may mutate local ledgers or reach the real backend.
+ if(p.startsWith("/admin/")&&!readOnly)throw new PreviewApiError(403,"ADMIN_PUBLIC_DEMO_READ_ONLY");
+ // Evidence-based, account-scoped Admin journal in PUBLIC DEMO only.
+ // Never pretend to expose global operator logs or data from another Global ID;
+ // origin is the same local ledger/history already shown in Profile.
+ if(p==="/admin/logs/transfers"&&readOnly){
+  const scopedId=q.get("global_id");
+  if(scopedId && scopedId!==a.global_id){return {ok:true,items:[],next_cursor:null};}
+  const page=await readDemoCombinedHistory(a,q,empty,20);
+  return {ok:true,next_cursor:page.next_cursor,items:page.items.map(row=>{
+   const record=demoHistoricBalanceEntry(row);
+   return {id:record.id,global_id:a.global_id,amount:record.amount_efhc,
+     direction:record.direction==="debit"?"user_debit":"user_credit",
+     balance_type:record.balance_type,reason:record.reason,
+     created_at:record.created_at};
+  })};
+ }
+ if(p==="/admin/shop/items"&&readOnly)return demoAdminShopCatalog();
+ if(p==="/admin/shop/orders/status-counters"&&readOnly)return demoAdminShopCounters();
+ if(p==="/admin/shop/orders"&&readOnly){
+  const gid=q.get("global_id"),rows=demoAdminShopOrders();
+  return cursorPage(gid?rows.filter(row=>row.global_id===gid):rows,q,20);
+ }
+ if(/^\/admin\/shop\/order\/\d+$/.test(p)&&readOnly){
+  const id=p.split("/").pop(),row=demoAdminShopOrders().find(item=>item.order_id===id);
+  must(Boolean(row),"ADMIN_DEMO_ORDER_NOT_FOUND",404);return row;
+ }
+ if(/^\/admin\/shop\/orders\/user\/\d{10}$/.test(p)&&readOnly){
+  const gid=p.split("/").pop();return demoAdminShopOrders().filter(item=>item.global_id===gid);
+ }
+
  // All state changes (including DEMO-only ones) are tied to selected ten-digit Global ID.
  if(p==="/sync/me"&&method==="POST")return snapshot(empty?{...a,available_kwh:zero,main_balance:zero,bonus_balance:zero,total_generated_kwh:zero,activated_panels:0}:a);
  if(p==="/user/me/panels-summary"&&readOnly)return empty?{active_count:0,total_generated_by_panels:zero,nearest_expire_at:null}:{...demoPanelsSummary(),active_count:60+a.activated_panels};
@@ -213,12 +295,18 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
  if(p==="/exchange/history"&&readOnly)return cursorPage(empty?[]:a.exchanges,q,50);
  if(p==="/exchange/preview"&&readOnly)return exchangePreview(a);
  if(p==="/exchange/convert"&&method==="POST"){
-  const data=body as {amount_kwh?:string};const amount=d8(data?.amount_kwh||"0");
-  must(amount>0n&&d8(a.available_kwh)>=amount,"EXCHANGE_AMOUNT_INVALID",409);
-  const credited=formatD8(amount);demoLedgerMutation(credited,"credit","main","exchange_kwh");const id=nextDemoId();
+  const key=requireDemoRequestKey(idempotencyKey);
+  const data=body as {amount_kwh?:string}|undefined;
+  // Missing amount is the canonical EXCHANGE_ALL; an explicit amount is partial.
+  const amount=data?.amount_kwh===undefined?d8(a.available_kwh):d8(data.amount_kwh);
+  const credited=formatD8(amount),fingerprint=`exchange:${data?.amount_kwh===undefined?"all":credited}`;
+  const replay=readDemoReplay(a,key,fingerprint);if(replay!==undefined)return replay;
+  must(!empty&&amount>0n&&d8(a.available_kwh)>=amount,"EXCHANGE_AMOUNT_INVALID",409);
+  demoLedgerMutation(credited,"credit","main","exchange_kwh");const id=nextDemoId();
   const next=writeDemoAccount(cur=>({...cur,available_kwh:formatD8(d8(cur.available_kwh)-amount),exchanges:[{
    id:String(id),created_at:now,amount_kwh:credited,amount_efhc:credited,reason:"exchange_kwh"},...cur.exchanges]}));
-  return {ok:true,exchanged_kwh:credited,credited_efhc:credited,new_available_kwh:next.available_kwh,new__main__balance:next.main_balance,log_id:String(id),detail:"DEMO only"};
+  const out={ok:true,exchanged_kwh:credited,credited_efhc:credited,new_available_kwh:next.available_kwh,new__main__balance:next.main_balance,log_id:String(id),detail:"DEMO only"};
+  saveDemoReplay(key,fingerprint,out);return out;
  }
  if((p==="/withdraw/list"||p==="/withdraw/list/me")&&readOnly){
   const rows=a.withdrawals.filter(r=>!q.get("status_filter")||q.get("status_filter")==="all"||r.status===q.get("status_filter"));
@@ -228,21 +316,33 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
   const found=a.withdrawals.find(r=>String(r.id)===p.split("/")[2]);must(Boolean(found),"WITHDRAW_NOT_FOUND",404);return found;
  }
  if(p==="/withdraw/request"&&method==="POST"){
-  const data=body as {amount:string;wallet_id:string|number};const value=d8(data.amount);
-  must(value>0n&&d8(a.main_balance)>=value,"WITHDRAW_INSUFFICIENT_BALANCE",409);
-  const wallet=a.wallets.find(w=>String(w.id)===String(data.wallet_id));must(Boolean(wallet),"WITHDRAW_WALLET_MISSING",400);
-  demoLedgerMutation(data.amount,"debit","main","withdraw_hold");const id=nextDemoId();
-  const record={id:String(id),global_id:a.global_id,amount:formatD8(value),status:"pending",created_at:now,updated_at:now,
-   idempotency_key:idempotencyKey||`demo-${id}`,hold_done:true,refund_done:false,payout_ref:null,wallet_address:wallet!.wallet_address};
-  writeDemoAccount(cur=>({...cur,withdrawals:[record,...cur.withdrawals]}));return record;
+  const key=requireDemoRequestKey(idempotencyKey);
+  const data=body as {amount:string;wallet_id?:string|number|null}|undefined;
+  must(Boolean(data?.amount),"WITHDRAW_AMOUNT_REQUIRED",400);
+  const value=d8(data!.amount),normalized=formatD8(value);
+  const walletId=data!.wallet_id??a.wallets.find(w=>w.is_primary&&w.is_active)?.id;
+  const fingerprint=`withdraw:${normalized}:${walletId??"none"}`;
+  const replay=readDemoReplay(a,key,fingerprint);if(replay!==undefined)return replay;
+  must(!empty&&value>=d8("10.00000000"),"WITHDRAW_BELOW_MINIMUM",409);
+  must(d8(a.main_balance)>=value,"WITHDRAW_INSUFFICIENT_BALANCE",409);
+  const wallet=control.scenario==="no_wallet"?undefined:a.wallets.find(w=>String(w.id)===String(walletId)&&w.is_active&&w.proof_verified);
+  must(Boolean(wallet),"WITHDRAW_WALLET_MISSING",400);
+  demoLedgerMutation(normalized,"debit","main","withdraw_hold");const id=nextDemoId();
+  const record={id:String(id),global_id:a.global_id,amount:normalized,status:"pending",created_at:now,updated_at:now,
+   idempotency_key:key,hold_done:true,refund_done:false,payout_ref:null,wallet_address:wallet!.wallet_address};
+  writeDemoAccount(cur=>({...cur,withdrawals:[record,...cur.withdrawals]}));
+  saveDemoReplay(key,fingerprint,record);return record;
  }
  if(/^\/withdraw\/\d+\/cancel$/.test(p)&&method==="POST"){
-  const id=p.split("/")[2],record=a.withdrawals.find(r=>String(r.id)===id);
+  const key=requireDemoRequestKey(idempotencyKey),id=p.split("/")[2];
+  const fingerprint=`cancel-withdraw:${id}`;
+  const replay=readDemoReplay(a,key,fingerprint);if(replay!==undefined)return replay;
+  const record=a.withdrawals.find(r=>String(r.id)===id);
   must(Boolean(record)&&record!.status==="pending","WITHDRAW_NOT_CANCELLABLE",409);
   demoLedgerMutation(String(record!.amount),"credit","main","withdraw_refund");
   let updated:Record<string,unknown>={};writeDemoAccount(cur=>({...cur,withdrawals:cur.withdrawals.map(row=>{
    if(String(row.id)!==id)return row;updated={...row,status:"cancelled",updated_at:now,refund_done:true};return updated;
-  })}));return updated;
+  })}));saveDemoReplay(key,fingerprint,updated);return updated;
  }
  if((p.startsWith("/v1/me/withdraw-outcomes/")||p.startsWith("/api/v1/me/withdraw-outcomes/"))&&readOnly){
   const id=p.split("/").pop();const record=a.withdrawals.find(r=>String(r.id)===id);

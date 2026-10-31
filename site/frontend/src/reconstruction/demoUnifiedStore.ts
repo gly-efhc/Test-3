@@ -34,6 +34,8 @@ export type DemoAccountState = {
   total_generated_kwh:string; completed_tasks:string[]; ad_views:number; ad_date_utc:string;
   wallets:DemoWallet[]; ledger:DemoLedger[]; withdrawals:Record<string,unknown>[];
   exchanges:Record<string,unknown>[]; activated_panels:number;
+  /** Local-only replay guard for demo financial actions; never a production ledger. */
+  operation_replays?:Record<string,{fingerprint:string;response:unknown}>;
 };
 export type DemoControlState = {
   schema_version:number; selected_global_id:string; scenario:DemoScenario;
