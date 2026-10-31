@@ -15,10 +15,11 @@ test('active bottom navigation retains route state but has no active point',()=>
  assert.match(src,/aria-current=\{props\.active \? "page" : undefined\}/);
  assert.match(src,/data-active=\{props\.active \? "true" : "false"\}/);
  assert.doesNotMatch(src,/className="efhc-game-nav_active-indicator"/);
- const css=read('styles/reconstruction-cycle0014-bottom-nav-dot-owner.css');
+ const css=fs.readFileSync(path.resolve(root,'../public/owner-bottom-nav-no-active-dot.css'),'utf8');
  assert.match(css,/data-bn="BN-20"/);
- assert.match(css,/content: none/);
- assert.match(read('pages/_app.tsx'),/reconstruction-cycle0014-bottom-nav-dot-owner\.css/);
+ assert.match(css,/content: none !important/);
+ assert.match(css,/efhc-game-nav_active-indicator/);
+ assert.match(read('pages/_app.tsx'),/owner-bottom-nav-no-active-dot\.css/);
 });
 test('Pages demo tasks and panel pagination depend on preview, never wallet mock',()=>{
  const hook=read('reconstruction/useFrozenDemoTables.ts');
