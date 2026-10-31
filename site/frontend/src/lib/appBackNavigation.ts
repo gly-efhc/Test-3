@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import type { NextRouter } from "next/router";
+import { stripPagesBasePath } from "./publicAssetPath";
 
 const APP_BACK_BASE = "__efhcAppBackBaseV1";
 const APP_BACK_GUARD = "__efhcAppBackGuardV1";
@@ -18,15 +19,8 @@ type AndroidBridgeWindow = Window & {
 function pathWithoutHash(value: string): string {
   const index = value.indexOf("#");
   const route = index >= 0 ? value.slice(0, index) : value;
-  // Next router.push must receive a *logical* route. GitHub Pages adds its
-  // /Test-3 prefix independently. Recover stale session stack entries that
-  // accidentally captured one or multiple copies of this deployment prefix.
-  if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1") return route;
-  let canonical = route;
-  while (canonical === "/Test-3" || canonical.startsWith("/Test-3/") || canonical.startsWith("/Test-3?")) {
-    canonical = canonical.slice("/Test-3".length) || "/";
-  }
-  return canonical;
+  // The configured deployment prefix belongs to the host, not Next logical routing.
+  return stripPagesBasePath(route);
 }
 
 function readRouteStack(): string[] {
