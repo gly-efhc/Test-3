@@ -496,7 +496,7 @@ function AppInner(props: {
   const authSession = useAuthSessionController();
   const globalId = useAuthOwnerGlobalId();
   const [adminAccessState, setAdminAccessState] = useState<
-    "checking" | "allowed" | "denied"
+    "checking" | "allowed" | "denied" | "unavailable"
   >("checking");
 
   useEffect(() => {
@@ -518,7 +518,7 @@ function AppInner(props: {
       })
       .catch(() => {
         if (!active) return;
-        setAdminAccessState("denied");
+        setAdminAccessState("unavailable");
       });
     return () => { active = false; };
   }, [authSession.status, globalId]);
@@ -602,8 +602,10 @@ function AppInner(props: {
     || router.pathname.startsWith("/admin/");
   const adminGuardCanDecide = adminAccessState !== "checking";
   const adminRouteBlocked = isAdminRoute
-    && adminGuardCanDecide
-    && !isAdmin
+    && adminAccessState === "denied"
+    && !effectiveAdminVisualProofPath;
+  const adminRouteUnavailable = isAdminRoute
+    && adminAccessState === "unavailable"
     && !effectiveAdminVisualProofPath;
   const adminRouteChecking = isAdminRoute
     && !adminGuardCanDecide
@@ -615,6 +617,7 @@ function AppInner(props: {
       || !isAdminRoute
       || !adminGuardCanDecide
       || isAdmin
+      || adminAccessState !== "denied"
     ) {
       return;
     }
@@ -623,6 +626,7 @@ function AppInner(props: {
     adminGuardCanDecide,
     effectiveAdminVisualProofPath,
     isAdmin,
+    adminAccessState,
     isAdminRoute,
     router,
   ]);
@@ -759,8 +763,8 @@ function AppInner(props: {
         shopSkinBgUrl={shopSkinBgUrl}
       >
         <ErrorBoundary title="EFHC Mini App" t={t}>
-          {adminRouteBlocked || adminRouteChecking ? (
-            <AdminRouteGuardState checking={adminRouteChecking} t={t} />
+          {adminRouteBlocked || adminRouteChecking || adminRouteUnavailable ? (
+            <AdminRouteGuardState checking={adminRouteChecking} unavailable={adminRouteUnavailable} t={t} />
           ) : effectiveAdminVisualProofPath ? (
             <AdminVisualProofRouter
               path={effectiveAdminVisualProofPath}
@@ -809,20 +813,23 @@ function AppInner(props: {
 
 function AdminRouteGuardState(props: {
   checking: boolean;
+  unavailable: boolean;
   t: (key: string) => string;
 }) {
-  const title = props.checking
+  const title = props.checking || props.unavailable
     ? props.t("admin_guard.checking_title")
     : props.t("admin_guard.blocked_title");
-  const text = props.checking
-    ? props.t("admin_guard.checking_text")
-    : props.t("admin_guard.blocked_text");
+  const text = props.unavailable
+    ? props.t("common.load_error")
+    : props.checking
+      ? props.t("admin_guard.checking_text")
+      : props.t("admin_guard.blocked_text");
 
   return (
     <section
       className="admin-route-guard"
       data-admin-client-route-guard="1329"
-      data-admin-route-guard-state={props.checking ? "checking" : "blocked"}
+      data-admin-route-guard-state={props.unavailable ? "unavailable" : props.checking ? "checking" : "blocked"}
     >
       <div className="admin-route-guard_card">
         <span className="admin-route-guard_eyebrow">EFHC Admin</span>
