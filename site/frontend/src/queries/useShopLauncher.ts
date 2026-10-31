@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+import { resolveShopDestination } from "../lib/portal/shopDestination";
 import {
   openShopExternal,
   openVipNftExternal,
@@ -27,7 +28,7 @@ export function useShopLauncher() {
       // Product/catalog UI belongs exclusively to the separate browser document
       // served from the same VPS at canonical /browser-shop.
       const access = await createShopLauncherAccess();
-      openShopExternal(access.redirect_url);
+      openShopExternal(resolveShopDestination(access.redirect_url));
       return "browser_shop_opened";
     },
     onSuccess: async () => {
