@@ -112,6 +112,9 @@ export function reportWebVitals(metric: NextWebVitalsMetric): void {
 }
 
 export default function App({ Component, pageProps }: AppProps) {
+  // Build-only restoration for v914: the frozen visual source is unchanged.
+  const router = useRouter();
+  const isBrowserShop = router.pathname === "/browser-shop" || router.pathname.startsWith("/browser-shop/");
   const [queryClient] = useState(() => createEfhcQueryClient());
 
   const [tcManifestUrl, setTcManifestUrl] = useState<HttpsUrl>(() => {
