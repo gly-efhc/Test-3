@@ -25,6 +25,27 @@ let lastSnapshot = null;
 let lastNavProbe = null;
 const runtimeEvents = [];
 const routeChecks = [];
+const checkFailures = [];
+const checkOutcomes = [];
+async function runIndependentCheck(name, task) {
+  try {
+    await task();
+    checkOutcomes.push({section:name,status:'PASS'});
+    console.log('EFHC_BROWSER_SECTION_PASS='+name);
+  } catch(error) {
+    const failure={section:name, route:currentRoute,
+      message:limitText(error?.message || error)};
+    checkFailures.push(failure);
+    checkOutcomes.push({section:name,status:'FAIL'});
+    track('test-failure',name+': '+failure.message);
+    console.error('::error title=EFHC '+name+'::'+failure.message);
+    console.error('EFHC_BROWSER_SECTION_FAIL='+JSON.stringify(failure));
+    if (/CDP timeout|CDP socket timeout|Chrome exited unexpectedly|WebSocket is not open/i.test(failure.message)) {
+      throw Error('EFHC_BROWSER_INFRA_BLOCKER '+failure.message);
+    }
+  }
+}
+
 const diagnosticDir = process.env.EFHC_CI_DIAGNOSTIC_DIR ||
   join(process.env.RUNNER_TEMP || '/tmp', 'efhc-pages-diagnostics');
 const limitText = value => String(value ?? '').slice(0, 240);
@@ -40,6 +61,7 @@ function safePath(input) {
 function diagnosticSummary(status, error) {
   return {schema: 'efhc.ci.browser-diagnostics.v1', status, stage: 'chrome-runtime',
     route: currentRoute, error: error ? limitText(error?.message || error) : null,
+    checkFailures, checkOutcomes,
     lastSnapshot, lastNavProbe, routeChecks, events:runtimeEvents,
     environment:{runtime:'GitHub Pages isolated DEMO', node:process.version,
       backend:'not executed', network:'external blocked'},
@@ -128,6 +150,7 @@ try {
   } catch {}
 });
 await send('Page.enable');await send('Runtime.enable');await send('Network.enable');
+  await runIndependentCheck('shell-rendered-geometry',async()=>{
   await inspect('/');
   // OWNER hard gate: check RENDERED COMPUTED geometry at smartphone size.
   // Prior source-grep tests all passed while the UI regressed.
@@ -161,6 +184,9 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
   if(geom.gearGap===null || geom.gearGap>19 || geom.gearGap<0 || Number(geom.gearOpacity)<.95)
     throw Error('OWNER_CT_GEAR_CORNER_REGRESSION '+JSON.stringify(geom));
   console.log('PASS OWNER RENDERED SHELL 390x844',JSON.stringify(geom));
+  });
+  await runIndependentCheck('shell-navigation-and-back',async()=>{
+  await inspect('/');
   // Real React navigation and Android bridge, not a source-only check.
   // Layout.NavItem uses data-nav-key={item.key}, where the Panels item key
   // is "nav.panels" (NOT "panels"). A missing probe must fail precisely
@@ -197,6 +223,8 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
   if(pathAfterBack.result.result.value!=='/Test-3/')
     throw Error('OWNER_ANDROID_BACK_NAVIGATION_FAILED '+pathAfterBack.result.result.value);
   console.log('PASS OWNER NAV AND BACK end-to-end');
+  });
+  await runIndependentCheck('panels-activation',async()=>{
   await inspect('/panels/');
   // Recovery of cycle 0010 must be proven on the rendered React,
   // not by a JSX/CSS source-grep. Only the source PA-01 variant
@@ -221,6 +249,8 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
   } else {
     console.log('NOT_APPLICABLE OWNER PANELS PA-01: active independent variant',pa.variant);
   }
+  });
+  await runIndependentCheck('panels-portfolio',async()=>{
   // RECON_CYCLE_0011: actual React portfolio, not HTML fixture or
   // source-only tests. DEMO data must be sorted before 20-row cursor
   // pagination, preserve scroll position, expose distinct archive
@@ -285,6 +315,8 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
   if(portfolio.tab!=='archive'||portfolio.ids[0]!=='PNL-000000101')
     throw Error('OWNER_PORTFOLIO_ARCHIVE_NEWEST_PAGE_FAILED '+JSON.stringify(portfolio));
   console.log('PASS OWNER REACT PORTFOLIO DEMO 60+60 / 20+20+20 / SORT / UTC / SCROLL');
+  });
+  await runIndependentCheck('ranks-responsive',async()=>{
   await inspect('/ranks/');
   // RECON_CYCLE_0012: physical React Ranks hero, not synthetic CSS.
   // The existing 220-row leaderboard and its appearance are immutable
@@ -304,6 +336,10 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
           statCount:stats.length,fullEnergy:energy?.textContent?.trim()||'',
           overflow:values.some(el=>!el||el.scrollWidth>el.clientWidth+1)||stats.some(el=>el.scrollWidth>el.clientWidth+1),
           valueClipped:values.some(el=>el&&getComputedStyle(el).overflow==='hidden'),
+          statComputed:values.map(el=>el ? {overflow:getComputedStyle(el).overflow,
+            textOverflow:getComputedStyle(el).textOverflow,
+            whiteSpace:getComputedStyle(el).whiteSpace,
+            clientWidth:el.clientWidth,scrollWidth:el.scrollWidth} : null),
           refresh:!!refresh&&!refresh.disabled,find:!!find&&!find.disabled,
           rows:scoreRows.length,topPositions:scoreRows.slice(0,4).map(e=>e.querySelector('.efhc-rank-position')?.textContent?.trim()),
           viewport:innerWidth};})())`,returnByValue:true});
@@ -320,6 +356,33 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
       throw Error('OWNER_RANKS_HERO_OR_DEMO_REGRESSION '+JSON.stringify(ranksHero));
     console.log('PASS OWNER RANKS HERO RESPONSIVE '+width,JSON.stringify(ranksHero));
   }
+  });
+  await runIndependentCheck('ranks-pagination',async()=>{
+  await inspect('/ranks/');
+  const readRanksHero=async()=>{
+    const reply=await send('Runtime.evaluate',{expression:
+      `JSON.stringify((()=>{const root=document.querySelector('.efhc-ranks-shell[data-kg]');
+        const hero=root?.querySelector('[data-ranks-hero-summary="cycle0012-responsive"]');
+        const stats=[...(hero?.querySelectorAll('.efhc-game-stat')||[])];
+        const values=stats.map(el=>el.querySelector('.efhc-game-stat_value'));
+        const energy=hero?.querySelector('[data-ranks-hero-energy-d8]');
+        const scoreRows=[...(root?.querySelectorAll('[data-ranks-leaderboard="paged-full"] [data-ranks-card="compact-row-32"]')||[])];
+        const refresh=hero?.querySelector('[data-ranks-refresh-action]');
+        const find=root?.querySelector('[data-ranks-show-me-action]');
+        const rect=e=>e?.getBoundingClientRect();
+        return {hero:!!hero,heroWidth:rect(hero)?.width||0,
+          statCount:stats.length,fullEnergy:energy?.textContent?.trim()||'',
+          overflow:values.some(el=>!el||el.scrollWidth>el.clientWidth+1)||stats.some(el=>el.scrollWidth>el.clientWidth+1),
+          valueClipped:values.some(el=>el&&getComputedStyle(el).overflow==='hidden'),
+          statComputed:values.map(el=>el ? {overflow:getComputedStyle(el).overflow,
+            textOverflow:getComputedStyle(el).textOverflow,
+            whiteSpace:getComputedStyle(el).whiteSpace,
+            clientWidth:el.clientWidth,scrollWidth:el.scrollWidth} : null),
+          refresh:!!refresh&&!refresh.disabled,find:!!find&&!find.disabled,
+          rows:scoreRows.length,topPositions:scoreRows.slice(0,4).map(e=>e.querySelector('.efhc-rank-position')?.textContent?.trim()),
+          viewport:innerWidth};})())`,returnByValue:true});
+    return JSON.parse(reply.result.result.value);
+  };
   await send('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
   // Verify full 220-row DEMO pagination without touching the established row layout.
   let ranksHero=await readRanksHero();
@@ -332,6 +395,8 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
   if(ranksHero.rows!==220)
     throw Error('OWNER_RANKS_220_DEMO_PAGINATION_REGRESSION '+JSON.stringify(ranksHero));
   console.log('PASS OWNER RANKS 220 DEMO ITEMS');
+  });
+  await runIndependentCheck('tasks-themes-and-variants',async()=>{
   await inspect('/tasks/');
   // RECON_CYCLE_0013: actual compiled React task controls, not frozen HTML.
   // All modifications below are ephemeral DOM theme probes in this Chrome
@@ -380,6 +445,28 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
       throw Error('OWNER_TASKS_CT_OR_TG_NOT_DISTINCT '+width+' themes='+themes.size+' variants='+variants.size);
     console.log('PASS OWNER TASKS REACT 10 CT x 4 TG '+width);
   }
+  });
+  await runIndependentCheck('tasks-demo-action',async()=>{
+  const tasksProbe=async()=>{
+    const reply=await send('Runtime.evaluate',{expression:
+      `JSON.stringify((()=>{const shell=document.querySelector('.efhc-independent-shell');
+        const page=document.querySelector('.efhc-tasks-shell[data-tasks-cycle0013]');
+        const hero=page?.querySelector('.efhc-game-hero');
+        const cards=[...(page?.querySelectorAll('[data-task-card="earning"]')||[])];
+        const buttons=cards.map(e=>e.querySelector('.efhc-task-card_bottom>button'));
+        const b=cards[0]?.querySelector('.efhc-task-card_reward .efhc-badge');
+        const rect=e=>e?.getBoundingClientRect();
+        return {demo:page?.getAttribute('data-demo-task-mode'),count:cards.length,
+          enabled:buttons.filter(e=>e&&!e.disabled).length,
+          heroImage:hero?getComputedStyle(hero).backgroundImage:'',
+          heroRadius:hero?getComputedStyle(hero).borderRadius:'',
+          themeAccent:b?getComputedStyle(b).color:'',
+          overflow:cards.some((e,i)=>!buttons[i]||rect(buttons[i]).right>rect(e).right+1)||
+            (page?.scrollWidth||0)>(page?.clientWidth||0)+1,
+          theme:shell?.getAttribute('data-color-theme-id'),
+          variant:page?.getAttribute('data-tg')};})())`,returnByValue:true});
+    return JSON.parse(reply.result.result.value);
+  };
   await send('Page.navigate',{url:url.replace(/\/$/,'')+'/tasks/'});
   await sleep(5000);
   const taskDemo=await tasksProbe();
@@ -396,14 +483,25 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
   if(!taskDialog.open||!taskDialog.confirm)
     throw Error('OWNER_TASKS_DEMO_ACTION_DIALOG_MISSING '+JSON.stringify(taskDialog));
   console.log('PASS OWNER TASKS DEMO LOCAL ACTION');
-  await inspect('/faq/');
-  await inspect('/hub/');
-await inspect('/admin/');
-await inspect('/web-profile/?section=providers');
+  });
+  await runIndependentCheck('route-faq',async()=>{await inspect('/faq/');});
+  await runIndependentCheck('route-hub',async()=>{await inspect('/hub/');});
+  await runIndependentCheck('route-admin',async()=>{await inspect('/admin/');});
+  await runIndependentCheck('route-provider',async()=>{await inspect('/web-profile/?section=providers');});
+  console.log('EFHC_BROWSER_CHECK_SUMMARY='+JSON.stringify({
+    total:checkOutcomes.length,passed:checkOutcomes.filter(x=>x.status==='PASS').length,
+    failed:checkFailures.length,results:checkOutcomes}));
+  if (checkFailures.length) {
+    throw Error('EFHC_BROWSER_REGRESSION_AGGREGATE count='+checkFailures.length+
+      ' sections='+checkFailures.map(f=>f.section).join(','));
+  }
   console.log('EFHC_PAGES_CHROME_RUNTIME_SMOKE=PASS');
 recordDiagnostics('PASS',null);
 } catch(e) {
-  recordDiagnostics('FAIL',e);
+  console.log('EFHC_BROWSER_CHECK_SUMMARY='+JSON.stringify({
+  total:checkOutcomes.length,passed:checkOutcomes.filter(x=>x.status==='PASS').length,
+  failed:checkFailures.length,results:checkOutcomes,infraError:limitText(e?.message||e)}));
+recordDiagnostics('FAIL',e);
 console.error('::error title=EFHC browser regression::'+limitText(e?.message||e));
 console.error('EFHC_PAGES_CHROME_RUNTIME_SMOKE=FAIL',e.stack||String(e));
   process.exitCode=1;

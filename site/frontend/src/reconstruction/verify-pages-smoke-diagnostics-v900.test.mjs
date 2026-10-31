@@ -42,7 +42,7 @@ test('v900 only untouched legacy primary sample is migrated',()=>{
  assert.match(src,/old\.ledger\.length\|\|old\.withdrawals\.length/);
  assert.match(src,/old\.completed_tasks\.length/);
 });
-test('v900 versioned Pages YAML emits bounded JSON diagnostics on failure and preserves strict hard gate',()=>{
+test('v905 keeps v900 diagnostic assertions but switches Chrome to OWNER-authorized nonblocking predeploy',()=>{
  assert.match(yaml,/EFHC_CI_DIAGNOSTIC_JSON=/);
  assert.match(yaml,/Runtime\.exceptionThrown/);
  assert.match(yaml,/Network\.responseReceived/);
@@ -50,6 +50,8 @@ test('v900 versioned Pages YAML emits bounded JSON diagnostics on failure and pr
  assert.match(yaml,/EFHC_PAGES_CHROME_RUNTIME_SMOKE=FAIL/);
  assert.match(yaml,/EFHC_CI_DIAGNOSTICS_WRITE_FAIL/);
  assert.match(yaml,/actions\/upload-artifact@v4/);
- assert.match(yaml,/ACTIVE AFTER EXPLICIT OWNER WORKFLOW BOOTSTRAP ONLY/);
+ assert.match(yaml,/name: Collect Chrome route and UI failures before Pages \(non-blocking\)/);
+ assert.match(yaml,/name: Upload pre-deploy diagnostic logs, even when tests fail/);
+ assert.match(yaml,/EFHC_CI_DIAGNOSTIC_DIR/);
  assert.match(yaml,/^          cat > "\$RUNNER_TEMP\/efhc-pages-tools\/browser-smoke\.mjs"/m);
 });

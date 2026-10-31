@@ -1,12 +1,12 @@
 {
-  "source_version": "FRONTEND_RECONSTRUCTION_v902",
-  "source_archive_name": "FRONTEND_RECONSTRUCTION_REPO_v902.zip",
-  "source_archive_sha256": "23a3a4ca6b15c862e75fc319edfd365f547f0edb29192b0e6bad5a4953123a7a",
-  "runtime_files_imported": 633,
-  "pages_workflow_sha256": "48eade4b8ae5f4fdf209cd5a792d5e948b60efdc33a423f10495405588e553c9",
+  "source_version": "FRONTEND_RECONSTRUCTION_v905",
+  "source_archive_name": "FRONTEND_RECONSTRUCTION_REPO_v905.zip",
+  "source_archive_sha256": "ae5cacd8a16c4862023facf30e3fdf9c8546d405b1c0c447e8db78f3f7d04a67",
+  "runtime_files_imported": 635,
+  "pages_workflow_sha256": "22be3bd90ae6cac7573ce578aea671a0a39349981058dfdc869d784cdb64facc",
   "pages_tools_path": "site/ci/pages-tools",
   "pages_tools_sha256": {
-    "browser-smoke.mjs": "2171b6d33d1da056929b9074c06e66b8de03d215278423d3e781adee78e328bf",
+    "browser-smoke.mjs": "1db3d74c03f0228f1135e93f5a1a87f46a45bf152cb746623494205204594ce1",
     "fix_pages_assets.py": "0d1edef02b3675c4f550b8eeb2b6cead559bc3380f4f25783995d3fc4bba5327",
     "prepare_pages.py": "5844a9d2c0b01b011446f352d70f53251b37c565c3cb8fd1dd447f3a63cd5dcf",
     "verify_export.py": "11fd93e49c370f680692b6b726b4fce71bef82a999a72f4a428ee79a50f73ae4"
