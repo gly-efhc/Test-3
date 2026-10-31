@@ -94,6 +94,14 @@ jobs:
           sha256sum "$ROOT/Test-3/SHOP_v866.html" | tee "$DEST/SHOP_v866.sha256"
           test "$(cut -d' ' -f1 "$DEST/SHOP_v866.sha256")" = 1c9f0916f562c0d3c407670741fc8f555d43cc26684c2472d242175d60722b46
           timeout 30s "$BROWSER" --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --hide-scrollbars --window-size=440,915 --virtual-time-budget=5000 --screenshot="$DEST/SHOP_v866.html.png" "http://127.0.0.1:19248/Test-3/SHOP_v866.html" >"$DEST/SHOP_v866.html.log" 2>&1 || echo "CAPTURE_FAIL:SHOP_v866.html" | tee -a "$DEST/failed.log"
+          # Browser DOM asset parity: each SVG must be served with /Test-3 prefix.
+          for kind in telegram whatsapp viber facebook x; do
+            curl --fail --silent --show-error "http://127.0.0.1:19248/Test-3/brands/${kind}.svg" >/dev/null
+          done
+          if grep -E 'GET /brands/(telegram|whatsapp|viber|facebook|x)\.svg HTTP/.* 404' "$DEST/local-http.log"; then
+            echo "::error::Referral SVGs bypassed Next basePath" >&2
+            exit 1
+          fi
           ls -lah "$DEST"/*.png || true
       - name: Preserve mobile screenshots for source-parity inspection
         if: always()
@@ -115,8 +123,13 @@ jobs:
         if: always()
         env:
           SOURCE_OUTCOME: ${{ steps.source_regressions.outcome }}
+          VISUAL_OUTCOME: ${{ steps.visual_capture.outcome }}
         run: |
           echo "EFHC_BRANCH_LEGACY_REGRESSION_OUTCOME=$SOURCE_OUTCOME"
+          if [ "$VISUAL_OUTCOME" != success ]; then
+            echo "::error::Actual Chrome capture or referral asset loading failed. Do not merge."
+            exit 1
+          fi
           if [ "$SOURCE_OUTCOME" != success ]; then
             echo "::error::Source regression tests failed; build outcome remains separately visible. Do not merge."
             exit 1
