@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { useRouter } from "next/router";
+import { APP_ROUTES } from "../../lib/appRoutes";
 
 import { useT } from "../../hooks/useT";
 import { hapticMedium, hapticSoft, openTelegramLink } from "../../lib/telegram";
@@ -41,7 +42,7 @@ export default function HubPage() {
 
   async function openHubLink(link: HubPublicLink) {
     hapticMedium(true);
-    if (isShopLink(link) && link.url === "/hub/efhc-handoff") {
+    if (isShopLink(link) && link.url === APP_ROUTES.hubShopHandoff) {
       try {
         await shopLauncher.mutateAsync();
       } catch {
