@@ -1,3 +1,4 @@
+import { publicAssetPath } from "../lib/publicAssetPath";
 import { resolveInterfaceVariantStyle } from "../lib/interfaceVariantRegistry";
 import React, { useContext, useMemo } from "react";
 import { useRouter } from "next/router";
@@ -220,7 +221,7 @@ export default function ReferralsPage(props: {
             >
               <span className="efhc-referrals-share-button_label">
                 <img
-                  src={`/brands/${kind}.svg`}
+                  src={publicAssetPath(`/brands/${kind}.svg`)}
                   alt=""
                   aria-hidden="true"
                   className="efhc-referrals-share-button_logo"
