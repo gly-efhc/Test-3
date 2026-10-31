@@ -10,6 +10,6 @@ test("canonical DEMO CSS routing uses variables owned by App", () => {
   assert.ok(firstHead > 0, "canonical CSS Head missing in App");
   const preceding = outer.slice(0, firstHead);
   assert.match(preceding, /const router\s*=\s*useRouter\(\)/);
-  assert.match(preceding, /const isBrowserShop\s*=\s*router\.pathname/);
+  assert.match(preceding, /const isBrowserShop\s*=\s*(?:router\.pathname|isBrowserShopRoute\(router\.pathname\))/);
   assert.match(outer.slice(firstHead), /FRONTEND_v866\.css/);
 });
