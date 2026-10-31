@@ -4,6 +4,7 @@
  */
 import frozen from "./demo-tables-v866.json";
 import admin from "./demo-admin-seed-v866.json";
+import homeCanon from "./frozen-v866-home-fixture.json";
 
 export const DEMO_GLOBAL_ID = "0000657667";
 export const DEMO_DB_NAME = "EFHC_REACT_DEMO_CANON_V866";
@@ -44,6 +45,11 @@ export function isDemoPreviewEnabled():boolean {
     && (window as Window & { __EFHC_DEMO_READ_ONLY__?:boolean }).__EFHC_DEMO_READ_ONLY__ === true;
 }
 const zero="0.00000000";
+/** Frozen v866 header shows EFHCm + EFHCb. The task fixture separately owns the
+ * 78 EFHCb sample; subtract it from the frozen header total instead of replacing
+ * the bonus ledger. These are public DEMO values, never Neon/production balances. */
+export const DEMO_CANON_TOTAL_BALANCE = homeCanon.source_dom_ids.balanceValue;
+export const DEMO_CANON_BONUS_BALANCE = frozen.tasks.bonus_balance_d8;
 export function d8(value: string | number):bigint {
   const text=String(value).trim().replace(",", ".");
   if(!/^-?\d+(?:\.\d{1,8})?$/.test(text))throw new Error("DEMO_INVALID_D8");
@@ -53,6 +59,11 @@ export function d8(value: string | number):bigint {
 export function formatD8(value:bigint):string {
   const negative=value<0n;const positive=negative?-value:value;
   return `${negative?"-":""}${positive/100000000n}.${String(positive%100000000n).padStart(8,"0")}`;
+}
+export function primaryDemoMainBalance():string {
+  const main=d8(DEMO_CANON_TOTAL_BALANCE)-d8(DEMO_CANON_BONUS_BALANCE);
+  if(main<0n)throw new Error("DEMO_CANON_BALANCE_INVALID");
+  return formatD8(main);
 }
 function seedAccount(globalId=DEMO_GLOBAL_ID):DemoAccountState {
   const isPrimary=globalId===DEMO_GLOBAL_ID;
@@ -64,7 +75,7 @@ function seedAccount(globalId=DEMO_GLOBAL_ID):DemoAccountState {
     {id:3,global_id:globalId,wallet_address:"UQTONSPACE3EFHC00000000000000000000000000000000",wallet_app:"telegram-wallet",is_primary:false,is_active:true,proof_verified:true,created_at:"2026-10-29T12:00:00Z"},
   ]:[];
   return {
-    global_id:globalId,main_balance:isPrimary?"12345.00000000":formatD8(d8(String(1200+(index%113)*17.125))),
+    global_id:globalId,main_balance:isPrimary?primaryDemoMainBalance():formatD8(d8(String(1200+(index%113)*17.125))),
     bonus_balance:isPrimary?frozen.tasks.bonus_balance_d8:formatD8(d8(String(25+(index%47)*1.75))),
     available_kwh:isPrimary?"421.12500000":zero,total_generated_kwh:isPrimary?frozen.ranks.me.total_generated_kwh:formatD8(d8(String(5000+index*19.375))),
     completed_tasks:[],ad_views:0,ad_date_utc:new Date().toISOString().slice(0,10),
@@ -85,10 +96,22 @@ export function readDemoState():DemoControlState {
  try {
   const stored=JSON.parse(window.localStorage.getItem(DEMO_STORAGE_KEY)||"null") as DemoControlState|null;
   if(stored&&stored.schema_version===DEMO_SCHEMA_VERSION&&/^\d{10}$/.test(stored.selected_global_id)&&DEMO_SCENARIOS.includes(stored.scenario)){
-    cache=stored;return cache;
+    cache=migrateUntouchedLegacyPrimary(stored);
+    if(cache!==stored){try{window.localStorage.setItem(DEMO_STORAGE_KEY,JSON.stringify(cache));}catch{/* quota */}}
+    return cache;
   }
  }catch{ /* fallback to canon */ }
  cache=seedDemoState();return cache;
+}
+/** Migrate only the untouched v893/v899 primary sample. Never overwrite an
+ * account with a ledger, task awards, withdrawals or user changes. */
+function migrateUntouchedLegacyPrimary(state:DemoControlState):DemoControlState {
+ const old=state.accounts[DEMO_GLOBAL_ID];
+ if(!old||old.main_balance!=="12345.00000000"||old.bonus_balance!==DEMO_CANON_BONUS_BALANCE||
+    old.available_kwh!=="421.12500000"||old.total_generated_kwh!==frozen.ranks.me.total_generated_kwh||
+    old.ledger.length||old.withdrawals.length||old.exchanges.length||old.completed_tasks.length||
+    old.activated_panels!==0||old.ad_views!==0)return state;
+ return {...state,accounts:{...state.accounts,[DEMO_GLOBAL_ID]:{...old,main_balance:primaryDemoMainBalance()}}};
 }
 function save(state:DemoControlState):void {
  cache=state;
@@ -175,7 +198,7 @@ export async function bootstrapDemoIndexedDb():Promise<void>{
     const tx=db.transaction("settings","readonly"),r=tx.objectStore("settings").get("canon_seed_complete");
     r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);
   });
-  if(status)return;
+  if(status){await mirrorSelectedDemoAccount(db,readDemoState());return;}
   const pathname=window.location.pathname.replace(/\/[^/]*\/?$/, "/");
   // This is fetched only in public Pages; the 1000-user, 65k-row fixture is NOT in initial JS.
   const base=pathname.split("/").filter(Boolean)[0]==="Test-3"?"/Test-3":"";

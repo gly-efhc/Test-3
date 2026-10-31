@@ -1,6 +1,7 @@
 // Temporary GitHub Pages React runtime smoke. No external dependencies or accounts.
 import { spawn } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
 
 const url = process.argv[2];
@@ -19,6 +20,37 @@ const chrome = spawn(binary, [
 let socket;
 const pending = new Map();
 let nextId = 0;
+let currentRoute = '/';
+let lastSnapshot = null;
+const runtimeEvents = [];
+const routeChecks = [];
+const diagnosticDir = process.env.EFHC_CI_DIAGNOSTIC_DIR ||
+  join(process.env.RUNNER_TEMP || '/tmp', 'efhc-pages-diagnostics');
+const limitText = value => String(value ?? '').slice(0, 240);
+function track(kind, value) {
+  if (runtimeEvents.length >= 80) return;
+  runtimeEvents.push({kind, route: currentRoute, value: limitText(value)});
+}
+function safePath(input) {
+  try {const u = new URL(input); return u.origin === 'http://127.0.0.1:19240'
+    ? u.pathname : u.protocol + '//' + u.hostname + u.pathname; }
+  catch {return '[invalid-url]';}
+}
+function diagnosticSummary(status, error) {
+  return {schema: 'efhc.ci.browser-diagnostics.v1', status, stage: 'chrome-runtime',
+    route: currentRoute, error: error ? limitText(error?.message || error) : null,
+    lastSnapshot, routeChecks, events:runtimeEvents,
+    environment:{runtime:'GitHub Pages isolated DEMO', node:process.version,
+      backend:'not executed', network:'external blocked'},
+    note:'No tokens, cookies, user storage, secrets, query strings or page screenshots collected.'};
+}
+function recordDiagnostics(status,error) {
+  const summary = diagnosticSummary(status,error);
+  try {mkdirSync(diagnosticDir,{recursive:true});
+    writeFileSync(join(diagnosticDir,'browser-smoke.json'),JSON.stringify(summary,null,2)+'\n');}
+  catch(writeError) {console.error('EFHC_CI_DIAGNOSTICS_WRITE_FAIL',limitText(writeError?.message));}
+  console.log('EFHC_CI_DIAGNOSTIC_JSON='+JSON.stringify(summary));
+}
 function close() { try { socket?.close(); } catch {} try { chrome.kill('SIGTERM'); } catch {} }
 process.on('SIGINT',()=>{close();process.exit(130)});
 process.on('SIGTERM',()=>{close();process.exit(143)});
@@ -36,12 +68,20 @@ async function send(method, params={}) {
   });
 }
 async function inspect(path) {
+  currentRoute = path;
   const address=url.replace(/\/$/,'')+path;
   await send('Page.navigate',{url:address});
   await sleep(8500);
   const expr=`JSON.stringify({href:location.href,path:location.pathname,title:document.title,text:(document.body?.innerText||'').slice(0,600),root:!!document.getElementById('__next'),html:!!document.documentElement,onboarding:!!document.querySelector('[data-onboarding-tour]'),energy:(document.querySelector('.efhc-energy-stage_value')?.textContent||'').trim(),balance:(document.querySelector('.efhc-game-header_balance-value')?.textContent||'').trim(),profileTag:(document.querySelector('.efhc-game-header_profile')?.tagName||''),profileAvatarButton:!!document.querySelector('.efhc-game-header_profile > button.efhc-game-header_profile-avatar-button'),profileNameButton:!!document.querySelector('.efhc-game-header_profile-copy > button.efhc-game-header_profile-name-button'),migration:document.querySelector('.efhc-independent-shell')?.getAttribute('data-efhc-canon-migration')||'',profileDisplay:(()=>{const e=document.querySelector('.efhc-game-header_profile');return e?getComputedStyle(e).display:''})(),adminDemo:!!document.querySelector('[data-efhc-admin-readonly-demo]'),providerDemo:!!document.querySelector('[data-efhc-provider-demo=\"readonly-simulation\"]')})`;
   const result=await send('Runtime.evaluate',{expression:expr,returnByValue:true});
   const data=JSON.parse(result.result.result.value);
+  lastSnapshot = {path:data.path, title:limitText(data.title), root:data.root,
+    energy:data.energy, balance:data.balance, profileTag:data.profileTag,
+    profileAvatarButton:data.profileAvatarButton, profileNameButton:data.profileNameButton,
+    migration:data.migration, profileDisplay:data.profileDisplay,
+    adminDemo:data.adminDemo, providerDemo:data.providerDemo};
+  routeChecks.push({path, actualPath:data.path, mounted:data.root,
+    energy:data.energy, balance:data.balance});
   const count=(data.path.match(/\/Test-3/g)||[]).length;
   if (count !== 1 || !data.path.startsWith('/Test-3/')) throw Error('RECURSIVE_BASEPATH_OR_REDIRECT: '+data.href);
   if (!data.root || !data.html) throw Error('REACT_MOUNT_MISSING: '+data.href);
@@ -49,7 +89,7 @@ async function inspect(path) {
   if (path === '/') {
     if (data.onboarding) throw Error('PAGES_CANON_PREVIEW_OBSCURED_BY_ONBOARDING');
     if (!data.energy.startsWith('8123.')) throw Error('PAGES_FROZEN_ENERGY_FIXTURE_MISSING: '+data.energy);
-    if (data.balance !== '12345678.12345678') throw Error('PAGES_FROZEN_BALANCE_FIXTURE_MISSING: '+data.balance);
+    if (data.balance !== '12345678.12345678') throw Error('PAGES_FROZEN_BALANCE_FIXTURE_MISSING expected=12345678.12345678 actual='+data.balance+' route='+data.path);
     if (data.profileTag !== 'DIV' || !data.profileAvatarButton || !data.profileNameButton) throw Error('PAGES_CANON_PROFILE_DOM_MISMATCH: '+JSON.stringify(data));
     if (data.migration !== 'v872' || data.profileDisplay !== 'grid') throw Error('PAGES_CANON_PROFILE_CSS_NOT_ACTIVE: '+JSON.stringify(data));
   }
@@ -75,7 +115,18 @@ try {
   socket.addEventListener('message',ev=>{
     try {const m=JSON.parse(ev.data);if(m.id&&pending.has(m.id)){const p=pending.get(m.id);pending.delete(m.id);m.error?p.reject(Error(JSON.stringify(m.error))):p.resolve(m);}}catch{}
   });
-  await send('Page.enable');await send('Runtime.enable');
+  socket.addEventListener('message',ev=>{
+  try {const m=JSON.parse(ev.data);
+    if(m.method==='Runtime.exceptionThrown')track('js-exception',m.params?.exceptionDetails?.text);
+    if(m.method==='Runtime.consoleAPICalled' && m.params?.type==='error')
+      track('console-error',m.params?.args?.map(a=>a.value||a.description||a.type).join(' '));
+    if(m.method==='Network.loadingFailed' && !m.params?.canceled)
+      track('request-failed',m.params?.errorText);
+    if(m.method==='Network.responseReceived' && m.params?.response?.status>=400)
+      track('http-error',String(m.params.response.status)+' '+safePath(m.params.response.url));
+  } catch {}
+});
+await send('Page.enable');await send('Runtime.enable');await send('Network.enable');
   await inspect('/');
   // OWNER hard gate: check RENDERED COMPUTED geometry at smartphone size.
   // Prior source-grep tests all passed while the UI regressed.
@@ -319,7 +370,10 @@ try {
 await inspect('/admin/');
 await inspect('/web-profile/?section=providers');
   console.log('EFHC_PAGES_CHROME_RUNTIME_SMOKE=PASS');
+recordDiagnostics('PASS',null);
 } catch(e) {
-  console.error('EFHC_PAGES_CHROME_RUNTIME_SMOKE=FAIL',e.stack||String(e));
+  recordDiagnostics('FAIL',e);
+console.error('::error title=EFHC browser regression::'+limitText(e?.message||e));
+console.error('EFHC_PAGES_CHROME_RUNTIME_SMOKE=FAIL',e.stack||String(e));
   process.exitCode=1;
 } finally {close()}

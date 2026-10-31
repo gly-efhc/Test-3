@@ -8,6 +8,7 @@ const ts=require('typescript');
 const base=path.resolve(import.meta.dirname);
 const canon=JSON.parse(fs.readFileSync(path.join(base,'demo-tables-v866.json'),'utf8'));
 const admin=JSON.parse(fs.readFileSync(path.join(base,'demo-admin-seed-v866.json'),'utf8'));
+const home=JSON.parse(fs.readFileSync(path.join(base,'frozen-v866-home-fixture.json'),'utf8'));
 const local=new Map();
 globalThis.window={
  __EFHC_DEMO_READ_ONLY__:true,
@@ -29,6 +30,7 @@ function load(name){
  const mockRequire=(target)=>{
   if(target==='./demo-tables-v866.json')return canon;
   if(target==='./demo-admin-seed-v866.json')return admin;
+  if(target==='./frozen-v866-home-fixture.json')return home;
   if(target==='./demoUnifiedStore')return load('demoUnifiedStore');
   if(target==='./demoTables')return {
    demoPanelsPage:(tab,cursor,sort='oldest')=>{
