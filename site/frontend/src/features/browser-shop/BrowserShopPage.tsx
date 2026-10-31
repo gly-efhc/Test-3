@@ -1,4 +1,5 @@
 import { publicRuntimeValue } from "../../lib/public-runtime";
+import { APP_ROUTES, browserShopRouteFor } from "../../lib/appRoutes";
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { LayoutContext } from "../../components/Layout";
 import { useRouter } from "next/router";
@@ -515,7 +516,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
     if (orderId !== null && orderId !== undefined) {
       setConfirmedOrderId(String(orderId));
       // OWNER v224: после подтверждённой покупки сразу открыть отдельную страницу «Мои заказы».
-      if (router.pathname !== "/browser-shop/orders") void router.push("/browser-shop/orders");
+      if (router.pathname !== APP_ROUTES.browserShopOrders) void router.push(APP_ROUTES.browserShopOrders);
     }
   }, [activeStatus?.flow_truth?.order_id, profileQ.refetch, router, state]);
   useEffect(() => {
@@ -637,7 +638,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
 
   function openWebProfile() {
     rememberCheckout(token, selectedSku, globalMethod);
-    const returnTo = typeof window === "undefined" ? "/browser-shop" : window.location.pathname + window.location.search;
+    const returnTo = typeof window === "undefined" ? APP_ROUTES.browserShop : window.location.pathname + window.location.search;
     window.location.assign(`/web-profile?return_to=${encodeURIComponent(returnTo)}`);
   }
   async function linkWebAccount(selection?: CheckoutSelection) {
@@ -665,7 +666,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
     catch { setLocalError(t("portal.browser_shop.order_id_copy_failed")); }
   }
   function navigateShopPage(page: ShopPageView) {
-    const path = page === "orders" ? "/browser-shop/orders" : page === "profile" ? "/browser-shop/profile" : "/browser-shop";
+    const path = browserShopRouteFor(page);
     rememberCheckout(token, selectedSku, globalMethod);
     void router.push(path);
   }
@@ -864,7 +865,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
         if (selection.vipNumber) setReservedVipNumber(selection.vipNumber);
         setCheckout(null);
         // OWNER v224: подтверждённый ShopOrder сразу показываем в отдельном журнале заказов.
-        if (orderId) void router.push("/browser-shop/orders");
+        if (orderId) void router.push(APP_ROUTES.browserShopOrders);
       } catch (caught) {
         if (isInsufficientEfhcFunds(caught)) setLocalNotice(t("portal.browser_shop.insufficient_funds"));
         else setLocalError(t("portal.browser_shop.efhc_purchase_failed"));
@@ -1201,7 +1202,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
       data-browser-shop-ttl={ttl || "none"} data-wallet-transaction={walletTxPhase} data-tonconnect-transaction={walletTxPhase}
       data-browser-shop-no-bottom-menu="true" data-browser-shop-readiness={readinessState || "unknown"}
       data-browser-shop-resume-intent={resumeIntent ? "true" : "false"} data-browser-shop-canonical-center={canonicalCenter}
-      data-browser-shop-public-route={activeTab === "orders" ? "/browser-shop/orders" : activeTab === "profile" ? "/browser-shop/profile" : "/browser-shop"} data-browser-shop-renderer="canonical-production-external"
+      data-browser-shop-public-route={activeTab === "orders" ? APP_ROUTES.browserShopOrders : activeTab === "profile" ? APP_ROUTES.browserShopProfile : APP_ROUTES.browserShop} data-browser-shop-renderer="canonical-production-external"
       data-browser-shop-vps-surface="separate-document-same-host" data-browser-shop-fixed-packages="10-50-100-150-200-250-300-350-500-750-1000-1500-2000-2500-3000" data-browser-shop-package-model="15-fixed-plus-exchange-plus-vip-17-total"
       data-browser-shop-vip-number-model="four-digit-sku-0001-9999-0000-display-only"
       data-browser-shop-vip-price-model="six-admin-prices-two-sku-tiers"
