@@ -12,7 +12,10 @@
   "faq_authority": "OWNER_APPROVED_CHECKED_IN_FRONTEND_RUNTIME",
   "ssot_role": "DUPLICATE_CONTROL_ONLY_NO_RUNTIME_WRITE",
   "files": {
-    ".efhc-build-id": "34679a337f99b37ae5bd97c8d4931dff28af2b48715cfac65f57357463a180ae",
+    ".efhc-build-id": [
+      "34679a337f99b37ae5bd97c8d4931dff",
+      "28af2b48715cfac65f57357463a180ae"
+    ],
     "public/faq/da.json": "d25fca93925a55c268cc4dbd20156c81b95b717d7fa757838a098b2997acdf5b",
     "public/faq/de.json": "c1265fe44aeb7031433a3d66d090ede628c52a0a573f8aa765bc58d9505e9fb9",
     "public/faq/en.json": "2e60121e9ff2bb92e6229cda1f3d0f5199adf1160ef6228318319166885d2a34",

@@ -1,0 +1,353 @@
+/* RECON V923: bounded React-only injection, included after immutable v866 lab CSS.
+   Exact source-backed rules follow unchanged for Panels and Tasks.
+   No global old CSS imports, no palette or design overrides. */
+
+/* BEGIN SOURCE: src/styles/reconstruction-v866-panels-cycle0010.css */
+/* RECON_CYCLE_0010 — Panels source DOM contract only.
+ * Source: frozen FRONTEND_v866.html; variant color/material authority preserved.
+ * The previously truncated effective kWh rate must display the full D8 number
+ * rather than applying ellipsis or clipping to financial/energy values.
+ */
+.efhc-panels-shell[data-panels-canon-scope="main-v866"] .efhc-panels-hero .efhc-game-stats {
+  min-width: 0;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"] .efhc-panels-hero .efhc-game-stat {
+  min-width: 0;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"] .efhc-panels-hero .efhc-game-stat_value {
+  max-width: 100%;
+  min-width: 0;
+  overflow: visible;
+  text-overflow: clip;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  white-space: normal;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+/* In the base v866 PH-01 layout, the three stats are full-width rows.
+ * The grid shape of other PH variants is not overwritten. */
+.efhc-panels-shell[data-panels-canon-scope="main-v866"] .efhc-panels-hero[data-ph="PH-01"] .efhc-game-stats {
+  grid-template-columns: minmax(0, 1fr);
+  gap: .42rem;
+}
+/* Preserve selected theme tokens and the OWNER-locked My Panels button. */
+
+/* OWNER recovery of cycle 0010 from verified 390px screenshots and the
+ * physically rendered frozen v866 DOM. The generic max-width:400px rule in
+ * globals.css mistakenly stacks the default PA-01 activation value pair and
+ * enlarges the card. Restore PA-01 geometry only; PA-02… retain their
+ * individual design rules. CTA/portfolio handlers and D8 data are untouched.
+ * Visual reference (viewport 410, shell 388): v866 activation values are
+ * 165.1px + 165.1px; card padding 13.12px; CTA height 40px.
+ */
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] {
+  padding: .82rem;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] > .text-lg.font-semibold.mb-2 {
+  font-size: .98rem;
+  line-height: normal;
+  margin-bottom: .55rem;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] > .grid {
+  row-gap: .62rem;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] > .grid > .grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .55rem;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] > .grid > .grid > div {
+  min-width: 0;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] > .grid > .grid .efhc-text-muted2 {
+  font-size: .6rem;
+  line-height: normal;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] > .grid > .grid .tabular-nums {
+  font-size: .72rem;
+  font-weight: 850;
+  line-height: normal;
+  margin-top: .16rem;
+  min-width: 0;
+  white-space: nowrap;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] > .grid > .efhc-text-muted {
+  font-size: .66rem;
+  line-height: 1.35;
+}
+.efhc-panels-shell[data-panels-canon-scope="main-v866"]
+  .efhc-panels-activation-card[data-pa="PA-01"] .efhc-panels-activate {
+  min-height: 40px;
+  height: 40px;
+}
+
+
+/* RECON_CYCLE_0011: restore source PC-01 portfolio density from v866
+ * `panel-tile` (not a global card reset). PC-02...PC-13 are independent.
+ * Frozen source on 390px: 2x date cells + 2x D8/timer cells, 0.66rem
+ * values, 0.57rem captions, 0.74rem tile padding, 0.86rem radius.
+ * These selectors only reach /panels/portfolio and PC-01; protected
+ * Energy/CTA/Referrals/Exchange/Withdraw never receive this CSS. */
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] {
+  overflow-anchor:auto;
+  scroll-padding-top:.1rem;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-tile {
+  padding:.74rem;
+  border-radius:.86rem;
+  min-width:0;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-tile_head {
+  gap:.6rem;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-tile_head .font-semibold {
+  font-size:.78rem;
+  font-weight:850;
+  line-height:1.25;
+  white-space:nowrap;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-tile_head .text-xs {
+  font-size:.57rem;
+  line-height:1.25;
+  margin-top:.12rem;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] :is(.efhc-panel-tile_dates,.efhc-panel-tile_stats) {
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.48rem;
+  margin-top:.64rem;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] :is(.efhc-panel-tile_dates,.efhc-panel-tile_stats) > div {
+  min-width:0;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] :is(.efhc-panel-tile_dates,.efhc-panel-tile_stats) .text-xs {
+  font-size:.57rem;
+  line-height:1.25;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] :is(.efhc-panel-tile_dates,.efhc-panel-tile_stats) :is(.font-semibold,.efhc-panel-countdown-live) {
+  display:block;
+  margin-top:.14rem;
+  min-width:0;
+  font-size:clamp(.58rem,2.75vw,.66rem);
+  font-weight:750;
+  line-height:1.25;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font-variant-numeric:tabular-nums;
+}
+
+/* The source panel badge is 1.45rem high and 0.57rem text. Fix only
+ * PC-01; the archived Activ token stays neutral via data-active=false. */
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-tile_head .efhc-panel-activ-status {
+  height:1.45rem;
+  min-height:1.45rem;
+  padding:.2rem .48rem;
+  font-size:.57rem;
+  line-height:1;
+}
+/* D8 is a complete monetary/energy string; never silently ellipsize it.
+ * Date captions may use source-defined ellipsis only at narrow widths. */
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] [data-panel-card-field="generated-kwh"] .font-semibold {
+  overflow:visible;
+  text-overflow:clip;
+}
+/* PC-01 source shows plain countdown text with no decorative dot or minimum
+ * 1.35rem line. This legacy runtime rule enlarged the final stats row. */
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-countdown-live {
+  min-height:0;
+}
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-countdown-live::before {
+  content:none;
+}
+
+/* END SOURCE: src/styles/reconstruction-v866-panels-cycle0010.css */
+
+/* BEGIN SOURCE: src/styles/reconstruction-tasks-cycle0013-v892.css */
+/* Cycle 0013. Local React TASKS surface only. The frozen HTML remains read-only.
+   CT owns hue, TG owns material/geometry. Do not change production task reward semantics. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent:var(--efhc-ct-accent,#6ea8ff);
+  --tasks-cycle-edge:rgba(var(--efhc-ct-accent-rgb,110,168,255),.34);
+  --tasks-cycle-wash:rgba(var(--efhc-ct-accent-rgb,110,168,255),.055);
+  min-width:0;
+}
+/* Three visually distinct top designs plus fourth TG-09 authored style binding.
+   Preserve shared hero/header content and avoid global cascade mutations. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg="TG-01"]:is(.efhc-tasks-shell,#tasksPage) .efhc-game-hero:is(.efhc-game-hero,#source-game-hero) {
+  border-color:var(--tasks-cycle-edge)!important;
+  background-color:rgba(9,16,28,.92)!important;
+  background-image:none!important;
+  border-radius:14px;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg="TG-02"]:is(.efhc-tasks-shell,#tasksPage) .efhc-game-hero:is(.efhc-game-hero,#source-game-hero) {
+  border-color:var(--tasks-cycle-edge)!important;
+  background-color:rgba(8,17,29,.92)!important;
+  background-image:linear-gradient(115deg,var(--tasks-cycle-wash),transparent 67%)!important;
+  border-radius:19px;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg="TG-03"]:is(.efhc-tasks-shell,#tasksPage) .efhc-game-hero:is(.efhc-game-hero,#source-game-hero) {
+  border-color:var(--tasks-cycle-edge)!important;
+  background-color:rgba(11,15,26,.97)!important;
+  background-image:none!important;
+  border-radius:10px;
+  box-shadow:inset 0 0 0 1px var(--tasks-cycle-wash)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg="TG-09"]:is(.efhc-tasks-shell,#tasksPage) .efhc-game-hero:is(.efhc-game-hero,#source-game-hero) {
+  border-color:var(--tasks-cycle-edge)!important;
+  background-color:rgba(12,20,34,.92)!important;
+  background-image:linear-gradient(145deg,var(--tasks-cycle-wash),rgba(8,12,20,.85) 80%)!important;
+  border-radius:22px;
+}
+/* The card action must use CT01..CT10 accent, not a fixed old-theme fill.
+   Avoid changing action width or approval of TG-04 authored geometry. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg] .efhc-task-card_bottom>.efhc-btn-primary:not(:disabled) {
+  border:1px solid var(--tasks-cycle-edge)!important;
+  background-color:var(--tasks-cycle-wash)!important;
+  background-image:none!important;
+  color:#f8fafc!important;
+  box-shadow:none!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg] .efhc-task-card_reward > span:last-child {
+  border-color:var(--tasks-cycle-edge)!important;
+  background-color:var(--tasks-cycle-wash)!important;
+  color:var(--tasks-cycle-accent)!important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg] .efhc-task-card {
+  border-color:rgba(var(--efhc-ct-accent-rgb,110,168,255),.2)!important;
+  max-width:100%;
+  min-width:0;
+}
+.efhc-tasks-shell[data-tg] .efhc-tasks-demo-banner {
+  display:flex;align-items:center;justify-content:space-between;gap:.6rem;
+  border:1px solid var(--tasks-cycle-edge);border-radius:12px;
+  background:var(--tasks-cycle-wash);padding:.55rem .7rem;
+  font-size:.72rem;line-height:1.4;color:#e2e8f0;
+}
+.efhc-tasks-shell[data-tg] .efhc-tasks-demo-banner button {flex:0 0 auto;min-height:36px}
+.efhc-tasks-demo-actions {display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
+.efhc-tasks-demo-description {color:#e2e8f0;line-height:1.5;margin:.5rem 0}
+@media(max-width:380px){
+  .efhc-tasks-shell[data-tg] .efhc-tasks-demo-banner {flex-wrap:wrap}
+  .efhc-tasks-shell[data-tg] .efhc-tasks-demo-banner button {width:100%}
+}
+
+/* The historical mobile floating design control must not permanently cover
+   the last task action: allow the inner Tasks list to scroll into safe space. */
+.efhc-tasks-shell[data-tg] .efhc-tasks-grid.efhc-compact-list-limit {
+  scroll-padding-bottom:4rem;
+  padding-bottom:4rem;
+  overscroll-behavior:contain;
+}
+/* Existing signed-in users can have unavailable tasks. Do not render a blue
+   button with nearly invisible text in this state (old CT01 ~1.04:1). */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-tasks-shell[data-tg] .efhc-task-card_bottom>.efhc-btn-primary:disabled {
+  opacity:1!important;
+  border-color:rgba(148,163,184,.34)!important;
+  background-color:rgba(15,23,42,.9)!important;
+  background-image:none!important;
+  color:#cbd5e1!important;
+  box-shadow:none!important;
+}
+
+/* RECON V923 BINDINGS: 10 SOURCE-EXACT CT chroma assignments on the React
+   Tasks surface. DOM theme probes update .efhc-independent-shell, not html.
+   Geometry, material and GT/TG selections are never modified by this map. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-01"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #6ea8ff;
+  --tasks-cycle-edge: rgba(110,168,255,.34);
+  --tasks-cycle-wash: rgba(110,168,255,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-02"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #73aefc;
+  --tasks-cycle-edge: rgba(115,174,252,.34);
+  --tasks-cycle-wash: rgba(115,174,252,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-03"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #a78bfa;
+  --tasks-cycle-edge: rgba(167,139,250,.34);
+  --tasks-cycle-wash: rgba(167,139,250,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-04"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #229ed9;
+  --tasks-cycle-edge: rgba(34,158,217,.34);
+  --tasks-cycle-wash: rgba(34,158,217,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-05"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #e5bf58;
+  --tasks-cycle-edge: rgba(229,191,88,.34);
+  --tasks-cycle-wash: rgba(229,191,88,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-06"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #d946ef;
+  --tasks-cycle-edge: rgba(217,70,239,.34);
+  --tasks-cycle-wash: rgba(217,70,239,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-07"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #7fb4ff;
+  --tasks-cycle-edge: rgba(127,180,255,.34);
+  --tasks-cycle-wash: rgba(127,180,255,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-08"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #8f86ff;
+  --tasks-cycle-edge: rgba(143,134,255,.34);
+  --tasks-cycle-wash: rgba(143,134,255,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-09"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #58c7b4;
+  --tasks-cycle-edge: rgba(88,199,180,.34);
+  --tasks-cycle-wash: rgba(88,199,180,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-10"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #c5a15a;
+  --tasks-cycle-edge: rgba(197,161,90,.34);
+  --tasks-cycle-wash: rgba(197,161,90,.055);
+}
+
+/* END SOURCE: src/styles/reconstruction-tasks-cycle0013-v892.css */
+
+/* EFHC RECON v923: MOBILE WIDTH ONLY. Source frozen CSS and CT01..CT10 remain unchanged.
+   Root cause verified from frozen lab stylesheet: @media(max-width:820px) caps
+   .efhc-independent-shell to 390px. Production React is not the HTML lab preview.
+   Mobile browser needs actual viewport width; visual colors/materials unchanged. */
+@media (max-width: 820px) {
+  .efhc-independent-shell[data-public-shell-route="public"][data-interface-app-mode="user"] {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    --efhc-app-width: 100%;
+  }
+  .efhc-independent-shell[data-public-shell-route="public"][data-interface-app-mode="user"]
+  > .efhc-independent-shell_frame {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+  }
+  .efhc-independent-shell[data-public-shell-route="public"][data-interface-app-mode="user"]
+  > .efhc-game-nav {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* OWNER approved BN-20 active-state without a decorative dot.
+   Scope is exact variant and state, not a global Bottom Nav reset. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-game-nav_grid[data-bn="BN-20"] .efhc-game-nav_item[data-active="true"]::after {
+  content: none !important;
+  display: none !important;
+}

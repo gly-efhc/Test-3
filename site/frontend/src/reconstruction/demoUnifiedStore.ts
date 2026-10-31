@@ -235,9 +235,10 @@ async function bootstrapDemoDatabaseContents():Promise<void>{
     r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);
   });
   if(status){const current=readDemoState();await mirrorSelectedDemoAccount(db,current);lastMirroredGlobalId=current.selected_global_id;return;}
-  const pathname=window.location.pathname.replace(/\/[^/]*\/?$/, "/");
-  // This is fetched only in public Pages; the 1000-user, 65k-row fixture is NOT in initial JS.
-  const base=pathname.split("/").filter(Boolean)[0]==="Test-3"?"/Test-3":"";
+  const pathname=window.location.pathname;
+  // Pages basePath must be derived from the original pathname BEFORE stripping the route.
+  // The former regex collapsed /Test-3/ to / and issued a false /demo/ 404.
+  const base=/^\/Test-3(?:\/|$)/.test(pathname)?"/Test-3":"";
   const result=await fetch(`${base}/demo/frozen-admin-1000-v866.json`,{credentials:"omit"});
   if(!result.ok)throw new Error(`DEMO_CANON_TABLES_HTTP_${result.status}`);
   const fixture=await result.json() as Record<string,unknown>;

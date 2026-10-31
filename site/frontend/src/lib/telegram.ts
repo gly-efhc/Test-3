@@ -437,7 +437,7 @@ export function telegramMainButtonSet(
   const mb = tg?.MainButton;
   if (!mb) return;
   try {
-    if (typeof opts.text === "string") mb.setText?.(opts.text);
+    if (typeof opts.text === "string" && opts.text.trim()) mb.setText?.(opts.text);
   } catch {
     // ignore
   }
@@ -542,6 +542,8 @@ export async function telegramCloudStorageGet(
 ): Promise<string | null> {
   if (!_cloud_storage_key_allowed(key)) return null;
   const tg = getTelegramWebApp();
+  // SDK object exists on ordinary webpages but CloudStorage is unsupported there.
+  if (tg?.platform === "unknown" || tg?.platform === "web" && !tg?.initData) return null;
   const cs = tg?.CloudStorage;
   if (!cs?.getItem) return null;
   return await new Promise((resolve) => {
@@ -562,6 +564,7 @@ export async function telegramCloudStorageSet(
 ): Promise<boolean> {
   if (!_cloud_storage_key_allowed(key)) return false;
   const tg = getTelegramWebApp();
+  if (tg?.platform === "unknown" || tg?.platform === "web" && !tg?.initData) return false;
   const cs = tg?.CloudStorage;
   if (!cs?.setItem) return false;
   return await new Promise((resolve) => {

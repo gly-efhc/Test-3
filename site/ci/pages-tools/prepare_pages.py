@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Transform an ephemeral COPY of actual React source for safe static export.
 
 The imported source tree site/frontend is never changed by this script.

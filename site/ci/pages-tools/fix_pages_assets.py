@@ -9,7 +9,7 @@ from pathlib import Path
 
 PATTERN = re.compile(
     r'(["\'`(=])/(assets|locale|faq/[A-Za-z0-9_-]+\.json|'
-    r'audio|fonts|images|icons|favicon\.ico|manifest\.webmanifest)'
+    r'audio|fonts|images|icons|skins|demo|favicon\.ico|manifest\.webmanifest)'
     r'(?=[/?#"\'`\s)])'
 )
 

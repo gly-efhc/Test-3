@@ -319,9 +319,13 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         {!isBrowserShop ? (
-          <link rel="stylesheet" href={`${router.basePath}/FRONTEND_v866.css`} data-efhc-visual-authority="frozen-v866" />
+          <>
+            <link rel="stylesheet" href={`${router.basePath}/FRONTEND_v866.css`} data-efhc-visual-authority="frozen-v866" />
+            <link rel="stylesheet" href={`${router.basePath}/react-shell-mobile-viewport-v923.css`} data-efhc-visual-patch="mobile-width-only-v923" />
+          </>
         ) : null}
         {process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" ? <link rel="manifest" href="/manifest.webmanifest" /> : null}
+        <link rel="icon" href={`${router.basePath}/favicon.ico`} />
         <meta name="theme-color" content="black" />
         <meta name="application-name" content="EFHC Bot" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

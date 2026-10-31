@@ -91,3 +91,57 @@
   color:#cbd5e1!important;
   box-shadow:none!important;
 }
+
+/* RECON V923 BINDINGS: 10 SOURCE-EXACT CT chroma assignments on the React
+   Tasks surface. DOM theme probes update .efhc-independent-shell, not html.
+   Geometry, material and GT/TG selections are never modified by this map. */
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-01"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #6ea8ff;
+  --tasks-cycle-edge: rgba(110,168,255,.34);
+  --tasks-cycle-wash: rgba(110,168,255,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-02"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #73aefc;
+  --tasks-cycle-edge: rgba(115,174,252,.34);
+  --tasks-cycle-wash: rgba(115,174,252,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-03"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #a78bfa;
+  --tasks-cycle-edge: rgba(167,139,250,.34);
+  --tasks-cycle-wash: rgba(167,139,250,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-04"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #229ed9;
+  --tasks-cycle-edge: rgba(34,158,217,.34);
+  --tasks-cycle-wash: rgba(34,158,217,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-05"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #e5bf58;
+  --tasks-cycle-edge: rgba(229,191,88,.34);
+  --tasks-cycle-wash: rgba(229,191,88,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-06"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #d946ef;
+  --tasks-cycle-edge: rgba(217,70,239,.34);
+  --tasks-cycle-wash: rgba(217,70,239,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-07"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #7fb4ff;
+  --tasks-cycle-edge: rgba(127,180,255,.34);
+  --tasks-cycle-wash: rgba(127,180,255,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-08"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #8f86ff;
+  --tasks-cycle-edge: rgba(143,134,255,.34);
+  --tasks-cycle-wash: rgba(143,134,255,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-09"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #58c7b4;
+  --tasks-cycle-edge: rgba(88,199,180,.34);
+  --tasks-cycle-wash: rgba(88,199,180,.055);
+}
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-10"] .efhc-tasks-shell[data-tg] {
+  --tasks-cycle-accent: #c5a15a;
+  --tasks-cycle-edge: rgba(197,161,90,.34);
+  --tasks-cycle-wash: rgba(197,161,90,.055);
+}
