@@ -1,0 +1,20 @@
+/* OWNER cycle 0014 / 31.10.2026.
+   Remove added dots/stripes on active bottom navigation buttons across all
+   BN variants. Preserve six destinations, icons, labels, aria-current,
+   selected button material/color, and click behavior. This is an intentional
+   OWNER override applied after the frozen v866 stylesheet. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+  nav.efhc-game-nav .efhc-game-nav_item[data-active="true"]::before,
+.efhc-independent-shell[data-interface-app-mode="user"]
+  nav.efhc-game-nav .efhc-game-nav_item[data-active="true"]::after,
+.efhc-independent-shell[data-interface-app-mode="user"]
+  nav.efhc-game-nav .efhc-game-nav_grid[data-bn="BN-20"]
+  .efhc-game-nav_item[data-active="true"]::after {
+  content: none !important;
+  display: none !important;
+  box-shadow: none !important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+  nav.efhc-game-nav .efhc-game-nav_active-indicator {
+  display: none !important;
+}
