@@ -1,3 +1,4 @@
+import { publicAssetPath } from "./publicAssetPath";
 import enEmbedded from "../../public/locale/en.json";
 import ruEmbedded from "../../public/locale/ru.json";
 
@@ -80,7 +81,7 @@ type LocaleCacheEntry = {
 };
 
 async function localeChecksum(lang: Lang): Promise<string> {
-  const response = await fetch("/pwa-build.json", {
+  const response = await fetch(publicAssetPath("/pwa-build.json"), {
     cache: "no-store",
   });
   if (!response.ok) return "";

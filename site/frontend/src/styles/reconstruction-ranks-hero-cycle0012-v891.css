@@ -74,3 +74,28 @@
   white-space: normal;
   overflow-wrap: anywhere;
 }
+
+/* RECON_CYCLE_0014 LOG-111666933666: real narrow Pages Chrome revealed the
+   earlier 2-column stat layout still squeezed a D8 value under 108px.
+   Make *only* the Ranks hero small-layout rows full width; KG material and
+   ranking entries retain their authored styling and exact D8 precision. */
+@container efhc-ranks-summary (max-width: 440px) {
+  .efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-ranks-shell[data-kg] [data-ranks-hero-summary="cycle0012-responsive"]
+  .efhc-game-stat {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .efhc-independent-shell[data-interface-app-mode="user"]
+  .efhc-ranks-shell[data-kg] [data-ranks-hero-summary="cycle0012-responsive"]
+  .efhc-game-stat_value {
+    text-align: left;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .efhc-ranks-shell[data-kg] [data-ranks-hero-energy-d8="true"] {
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    font-size: clamp(.65rem, 3.0cqi, .88rem);
+  }
+}

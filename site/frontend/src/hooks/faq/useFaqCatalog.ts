@@ -1,3 +1,4 @@
+import { publicAssetPath } from "../../lib/publicAssetPath";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
@@ -70,7 +71,7 @@ export function useFaqCatalog(lang: Lang) {
       emitRuntimeProgress({ channel: "faq", value: 5 });
       let catalog: FaqCatalog;
       try {
-        const response = await fetch(`/faq/${lang}.json`, {
+        const response = await fetch(publicAssetPath(`/faq/${lang}.json`), {
           cache: "default",
         });
         catalog = await readCatalog(response, (value) => {

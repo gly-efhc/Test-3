@@ -6,46 +6,6 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import "../styles/globals.css";
-import "../styles/generated/theme03-chroma-tokens.css";
-import "../styles/theme03-shell-chroma.css";
-import "../styles/theme03-panels-exchange-chroma.css";
-import "../styles/theme03-tasks-referrals-chroma.css";
-import "../styles/theme03-ranks-profile-chroma.css";
-import "../styles/theme03-energy-chroma.css";
-import "../styles/theme03-faq-chroma.css";
-import "../styles/theme03-balance-history-chroma.css";
-import "../styles/theme03-browser-shop-chroma.css";
-import "../styles/generated/global-theme-projections.css";
-import "../styles/theme01-bounded-chroma-corrections.css";
-import "../styles/theme02-bounded-chroma-corrections.css";
-import "../styles/theme04-bounded-chroma-corrections.css";
-import "../styles/global-theme-page-kicker-contract.css";
-import "../styles/global-theme-ranks-action-shadow-contract.css";
-import "../styles/theme03-ranks-shared-action-correction.css";
-import "../styles/referrals-social-brand-contract.css";
-import "../styles/universal-frame-material-contract.css";
-import "../styles/panels-ph12-chroma-contract.css";
-import "../styles/global-theme-owner-coverage.css";
-import "../styles/global-theme-energy-progress-contract.css";
-import "../styles/global-theme-owner-0544.css";
-import "../styles/generated/admin-theme03-canon-tokens.css";
-import "../styles/admin-theme03-canon.css";
-import "../styles/owner-0549-faq-balance-ct.css";
-import "../styles/owner-0550-faq-withdraw-ct.css";
-import "../styles/owner-0551-user-polish.css";
-import "../styles/owner-0553-profile-ct.css";
-import "../styles/owner-0556-profile-settings-avatar.css";
-import "../styles/owner-0557-avatar-ring.css";
-import "../styles/hub-demo-react-parity.css";
-import "../styles/reconstruction-canon-v866-user-shell.css";
-import "../styles/reconstruction-dialog-navigation-v877.css";
-import "../styles/reconstruction-canon-v866-frames-header-v878.css";
-import "../styles/reconstruction-v866-header-cycle0007.css";
-import "../styles/reconstruction-v866-energy-header-cycle0008.css";
-import "../styles/reconstruction-v866-panels-cycle0010.css";
-import "../styles/reconstruction-regression-recovery-v888.css";
-import "../styles/reconstruction-ranks-hero-cycle0012-v891.css";
-import "../styles/reconstruction-tasks-cycle0013-v892.css";
 import React, {
   type Dispatch,
   type SetStateAction,
@@ -356,6 +316,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
+        {!isBrowserShop ? (
+          <link rel="stylesheet" href={`${router.basePath}/FRONTEND_v866.css`} data-efhc-visual-authority="frozen-v866" />
+        ) : null}
         {process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" ? <link rel="manifest" href="/manifest.webmanifest" /> : null}
         <meta name="theme-color" content="black" />
         <meta name="application-name" content="EFHC Bot" />

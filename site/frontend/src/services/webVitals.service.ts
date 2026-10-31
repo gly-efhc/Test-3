@@ -1,3 +1,4 @@
+import { publicAssetPath } from "../lib/publicAssetPath";
 import type { NextWebVitalsMetric } from "next/app";
 
 const STORAGE_KEY = "efhc_web_vitals_v2";
@@ -165,7 +166,7 @@ function persistSummary(summary: VitalSummary): void {
 
 async function resolveBuildId(): Promise<string> {
   if (buildIdPromise) return buildIdPromise;
-  buildIdPromise = fetch("/pwa-build.json", {
+  buildIdPromise = fetch(publicAssetPath("/pwa-build.json"), {
     cache: "no-store",
     credentials: "same-origin",
   })

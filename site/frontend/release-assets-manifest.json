@@ -46,6 +46,6 @@
     "public/locale/tr.json": "a8296c12deaf013de6e4c1b604b4205f80a9b2e6e394aeb331655c6e24aa7134",
     "public/locale/uk.json": "e047e235961fbab6d859c765a5611c7d95a40fc49278a61f1b345c2f16bed861",
     "public/pwa-build.json": "08214aa9207a58334a53f9c69f14f3f27a128e1c8103c45c7d11b1f033bf30c8",
-    "src/data/faq/catalogs.ts": "dd4b0ac676c0f0918af1f5c3965bedad5246eaf37a23253898dedc745324b36f"
+    "src/data/faq/catalogs.ts": "21cca71ac9a02dd5110d88134c53844b07113d232c2c69a9b8087e1020a41026"
   }
 }

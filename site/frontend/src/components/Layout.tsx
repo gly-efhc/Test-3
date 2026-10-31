@@ -181,10 +181,6 @@ function NavItem(props: {
     >
       <span className="efhc-game-nav_icon">{props.icon}</span>
       <span className="efhc-game-nav_label">{props.visualLabel}</span>
-      <span
-        className="efhc-game-nav_active-indicator"
-        aria-hidden="true"
-      />
     </Link>
   );
 }

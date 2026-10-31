@@ -1,0 +1,9 @@
+/* RECON_CYCLE_0014 — OWNER explicitly removed the small active dot from
+   bottom navigation. Protect all six routes and all non-dot active styles.
+   BN-20 creates a second dot through ::after, separate from the old span. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+  nav.efhc-game-nav .efhc-game-nav_grid[data-bn="BN-20"]
+  .efhc-game-nav_item[data-active="true"]::after {
+  content: none;
+  box-shadow: none;
+}

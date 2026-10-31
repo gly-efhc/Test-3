@@ -1,3 +1,4 @@
+import { publicAssetPath } from "../lib/publicAssetPath";
 type ImageSupport = {
   avif: boolean;
   buildId: string;
@@ -50,7 +51,7 @@ function supports(dataUrl: string): Promise<boolean> {
 
 async function buildId(): Promise<string> {
   try {
-    const response = await fetch("/pwa-build.json", {
+    const response = await fetch(publicAssetPath("/pwa-build.json"), {
       cache: "no-store",
       credentials: "same-origin",
     });

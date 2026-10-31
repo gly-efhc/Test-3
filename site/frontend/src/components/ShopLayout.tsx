@@ -143,6 +143,7 @@ export function ShopLayout(
         data-browser-shop-canonical-route={canonicalPath}
       >
         <Head>
+          <link rel="stylesheet" href={`${router.basePath}/SHOP_v866.css`} data-efhc-visual-authority="frozen-shop-v866" />
           <title>{canonicalTitle}</title>
           <meta name="description" content={t("portal.browser_shop.subtitle")} />
           <link rel="canonical" href={`https://efhc.app${canonicalPath}`} />

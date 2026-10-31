@@ -6,7 +6,7 @@ export function useFrozenDemoTables(): boolean {
   useEffect(() => {
     const runtime = window as Window & { __EFHC_DEMO_READ_ONLY__?: boolean };
     setEnabled(
-      process.env.NEXT_PUBLIC_EFHC_E2E_TONCONNECT_MOCK === "1" &&
+      process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" &&
       process.env.NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF === "1" &&
       runtime.__EFHC_DEMO_READ_ONLY__ === true,
     );
