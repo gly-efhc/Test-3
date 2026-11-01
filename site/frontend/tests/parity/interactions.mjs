@@ -13,7 +13,7 @@ async function check(name,run,{width=390,height=844,telegram=false,settings={}}=
  const page=await context.newPage();page.setDefaultTimeout(5000);
  await page.route('**/*',r=>new URL(r.request().url()).origin===new URL(base).origin?r.continue():r.abort());
  await page.addInitScript(({defaults,settings,telegram})=>{
-  localStorage.setItem('EFHC_USER_SETTINGS_V1',JSON.stringify({lang:'ru',interface_settings_version:4,color_theme_id:'CT-01',interface_variants:defaults,music_enabled:false,...settings}));
+  if(!localStorage.getItem('EFHC_USER_SETTINGS_V1')) localStorage.setItem('EFHC_USER_SETTINGS_V1',JSON.stringify({lang:'ru',interface_settings_version:4,color_theme_id:'CT-01',interface_variants:defaults,music_enabled:false,...settings}));
   if(telegram){
    const listeners=new Set();window.__efhcHostTest={closed:0,back:()=>[...listeners].forEach(fn=>fn())};
    window.Telegram={WebApp:{platform:'android',initData:'',initDataUnsafe:{},themeParams:{},ready(){},expand(){},onEvent(){},offEvent(){},close(){window.__efhcHostTest.closed++},BackButton:{show(){},hide(){},onClick(fn){listeners.add(fn)},offClick(fn){listeners.delete(fn)}}}};
