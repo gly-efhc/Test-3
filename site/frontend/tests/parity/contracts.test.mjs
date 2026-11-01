@@ -6,6 +6,7 @@ import crypto from 'node:crypto';
 import vm from 'node:vm';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
+import {expectedSelectionOrder} from './progress-order.mjs';
 const root=fileURLToPath(new URL('../../',import.meta.url));
 const require=createRequire(process.env.EFHC_FRONTEND_DEPENDENCIES || new URL('../../package.json',import.meta.url));
 const ts=require('typescript');
@@ -24,6 +25,19 @@ const registry=load('src/lib/interfaceVariantRegistry.ts');
 const colors=load('src/lib/colorThemeRegistry.ts');
 const headers=load('src/lib/headerThemeComposition.ts');
 const json=value=>JSON.parse(JSON.stringify(value));
+test('OWNER: first ten progress positions are accepted CT starters; all saved IDs retain their models',()=>{
+ for(const group of ['PB','RP']){
+  const expected=expectedSelectionOrder(group,canon);
+  assert.deepEqual(json(registry.INTERFACE_VARIANT_SLOT_REGISTRY[group]),expected,`${group} dot positions`);
+  for(let i=0;i<expected.length;i++){
+   const selected=expected[i];
+   assert.equal(registry.cycleInterfaceVariant({...canon.DEFAULTS,[group]:selected},group,1)[group],expected[(i+1)%expected.length]);
+   assert.equal(registry.cycleInterfaceVariant({...canon.DEFAULTS,[group]:selected},group,-1)[group],expected[(i+expected.length-1)%expected.length]);
+   assert.equal(registry.normalizeInterfaceVariants({[group]:selected})[group],selected,'saved selection migrated unnecessarily');
+   assert.equal(registry.resolveInterfaceVariantStyle(group,selected),canon.SOURCE_STYLE[group][selected]||selected);
+  }
+ }
+});
 test('all 29 design families, 236 selections and defaults match HTML v866',()=>{
  assert.deepEqual(json(registry.INTERFACE_VARIANT_REGISTRY),canon.REGISTRY);
  assert.deepEqual(json(registry.DEFAULT_INTERFACE_VARIANTS),canon.DEFAULTS);

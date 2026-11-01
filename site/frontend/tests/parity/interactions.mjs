@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {createRequire} from 'node:module';
+import {expectedSelectionOrder} from './progress-order.mjs';
 const require=createRequire(process.env.EFHC_BROWSER_TOOLS||import.meta.url);
 const {chromium}=require('playwright-core');
 const canon=JSON.parse(await fs.readFile(new URL('./v866-contract.json',import.meta.url)));
@@ -30,6 +31,36 @@ async function open(page,route=''){
 }
 const routePath=page=>page.evaluate(()=>location.pathname.replace(/^\/Test-3/,'').replace(/\/$/,'')||'/');
 try{
+ for(const lang of ['en','ru','uk','de','fr','es','it','tr','pl','da','hi','id','sw','pt','ko','ja'])await check(`Energy uses rendered kWh casing in ${lang}`,async page=>{
+  await open(page);
+  const labels=page.locator('.efhc-energy-stage_subtitle,.efhc-energy-stage_range-center,[data-energy-chip="generation-rate"] > span,[data-energy-chip="available-kwh"] > span');
+  let count=0;
+  for(const label of await labels.all()){
+   const units=(await label.innerText()).match(/kwh/gi)||[];
+   for(const unit of units){assert.equal(unit,'kWh','CSS or translation changed the physical unit casing');count++;}
+  }
+  assert.ok(count>=3,'Energy units missing');
+ },{settings:{lang}});
+ for(const [route,group] of [['','PB'],['referrals/','RP']])await check(`${group} first ten positions follow CT order without synchronizing manual choices`,async page=>{
+  await open(page,route);await page.mouse.move(12,12);
+  await page.locator('.efhc-interface-customization-button').click();
+  const surface=page.locator(`[data-interface-variant-group="${group}"]`);
+  const dots=page.locator('.efhc-interface-variant-dots').filter({has:page.locator(':scope > span:nth-child(33)')});
+  const order=expectedSelectionOrder(group,canon);
+  for(let i=0;i<10;i++){
+   const selected=order[i],physical=canon.SOURCE_STYLE[group][selected]||selected;
+   assert.equal(await surface.getAttribute('data-pb'),physical);
+   await page.waitForFunction(i=>{const row=[...document.querySelectorAll('.efhc-interface-variant-dots')].find(e=>e.children.length===33);return row&&[...row.children].findIndex(e=>e.dataset.active==='true')===i},i);
+   assert.equal(await dots.locator('> span').count(),33);
+   if(i<9)await surface.press('ArrowRight');
+  }
+  await page.locator('.efhc-interface-customization-button').click();
+  await page.reload();await page.waitForSelector(`[data-interface-variant-group="${group}"]`);
+  assert.equal(await page.locator(`[data-interface-variant-group="${group}"]`).getAttribute('data-pb'),canon.SOURCE_STYLE[group][order[9]]);
+  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).interface_variants);
+  assert.equal(saved[group],order[9]);
+  assert.equal(saved[group==='PB'?'RP':'PB'],group==='PB'?'RP-01':'PB-01');
+ });
  await check('Energy Lvl has the final HTML plain-text material in all ten themes',async page=>{
   await open(page);
   await page.mouse.move(12,12);
