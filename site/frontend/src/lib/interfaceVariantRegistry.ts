@@ -203,6 +203,30 @@ export function cycleInterfaceVariant(
   };
 }
 
+// OWNER 2026-11-01: the theme-starter family has one authored topology.
+// Retain every historical ID for settings/CT starters, but expose it only once
+// in manual design selection. The immutable source registry remains unchanged.
+export function getSelectableInterfaceVariants(group: InterfaceVariantGroup): readonly string[] {
+  const source = INTERFACE_VARIANT_REGISTRY[group];
+  return group === "PB" || group === "RP" ? source.slice(0, 21) : source;
+}
+
+export function visibleInterfaceVariant(group: InterfaceVariantGroup, selection: string): string {
+  const variants = getSelectableInterfaceVariants(group);
+  return variants.includes(selection) ? selection : variants[0];
+}
+
+export function cycleVisibleInterfaceVariant(
+  settings: InterfaceVariantSettings,
+  group: InterfaceVariantGroup,
+  direction: 1 | -1,
+): InterfaceVariantSettings {
+  if (group !== "PB" && group !== "RP") return cycleInterfaceVariant(settings, group, direction);
+  const variants = getSelectableInterfaceVariants(group);
+  const index = variants.indexOf(visibleInterfaceVariant(group, settings[group]));
+  return { ...settings, [group]: variants[(index + direction + variants.length) % variants.length] };
+}
+
 export function getRouteInterfaceGroups(
   pathname: string,
 ): readonly InterfaceVariantGroup[] {

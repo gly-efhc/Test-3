@@ -5,6 +5,7 @@ import {createRequire} from 'node:module';
 const require=createRequire(process.env.EFHC_BROWSER_TOOLS||import.meta.url);
 const {chromium}=require('playwright-core');
 const canon=JSON.parse(await fs.readFile(new URL('./v866-contract.json',import.meta.url)));
+const starters=JSON.parse(await fs.readFile(new URL('../../src/design-system/global-theme-energy-progress-contract.json',import.meta.url))).owner_cycle0464_08_progress_selection.map;
 const base=process.env.EFHC_REACT_URL||'http://127.0.0.1:19240/Test-3/';
 assert.match(base,/^http:\/\/127\.0\.0\.1:\d+\/Test-3\/$/);
 const browser=await chromium.launch({executablePath:process.env.CHROME_BIN||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
@@ -18,6 +19,16 @@ try{
    await page.goto(base+route,{waitUntil:'domcontentloaded'});
    await page.waitForSelector('.efhc-energy-progress-track');
    await page.waitForSelector('.efhc-entry-splash',{state:'hidden'});
+   await page.locator('.efhc-interface-customization-button').click();
+   for(const theme of canon.COLOR_THEME_CATALOG){
+    await page.waitForFunction(id=>document.documentElement.dataset.colorThemeId===id,theme.id);
+    const selection=group==='PB'?starters[theme.id]:starters[theme.id].replace('PB-','RP-');
+    const style=canon.SOURCE_STYLE[group][selection]||selection;
+    await page.waitForFunction(({group,style})=>document.querySelector(group==='PB'?'.efhc-energy-stage .efhc-energy-progress-track':'[data-referrals-progress-bar]')?.dataset.pb===style,{group,style});
+    await page.locator('[data-color-theme-control="true"]').click();
+   }
+   await page.locator('.efhc-interface-customization-button').click();
+   results.push({group,status:'PASS',check:'ten theme starters through UI'});
    for(const width of [320,390,1440]){
     await page.setViewportSize({width,height:844});
     const samples=await page.evaluate(({canon,group})=>{

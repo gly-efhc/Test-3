@@ -64,3 +64,24 @@ test('frozen v866 CSS retains exact source extraction hashes',()=>{
 test('rank selections use the authored style identities from HTML v866',()=>{
  for(const selection of canon.REGISTRY.KG)assert.equal(registry.rankStyleId(selection),canon.RANK_STYLE_ID_BY_SELECTION[selection]);
 });
+
+test('OWNER-approved PB/RP switchers omit starter duplicates without losing persisted IDs',()=>{
+ for(const group of ['PB','RP']){
+  const visible=registry.getSelectableInterfaceVariants(group);
+  assert.deepEqual(json(visible),canon.REGISTRY[group].slice(0,21));
+  for(const selection of canon.REGISTRY[group]){
+   assert.equal(registry.normalizeInterfaceVariant(group,selection),selection);
+   const next=registry.cycleVisibleInterfaceVariant({...canon.DEFAULTS,[group]:selection},group,1);
+   assert.ok(visible.includes(next[group]));
+   assert.equal(next[group],visible[(Math.max(0,visible.indexOf(selection))+1)%visible.length]);
+  }
+  assert.equal(registry.cycleVisibleInterfaceVariant({...canon.DEFAULTS,[group]:visible[0]},group,-1)[group],visible.at(-1));
+ }
+ assert.deepEqual(json(registry.getSelectableInterfaceVariants('HS')),canon.REGISTRY.HS);
+});
+
+test('ten CT progress starters retain the source selection bindings',()=>{
+ const source=JSON.parse(fs.readFileSync(path.join(root,'src/design-system/global-theme-energy-progress-contract.json')));
+ assert.deepEqual(json(colors.COLOR_THEME_PROGRESS_STARTER),source.owner_cycle0464_08_progress_selection.map);
+ for(const selection of Object.values(colors.COLOR_THEME_PROGRESS_STARTER))assert.ok(canon.REGISTRY.PB.includes(selection));
+});

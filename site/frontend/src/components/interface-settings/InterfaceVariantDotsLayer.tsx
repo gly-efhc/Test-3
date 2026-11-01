@@ -6,8 +6,9 @@ import React, {
 import { createPortal } from "react-dom";
 import {
   getInterfaceVariantAuthoredSlotCount,
+  getSelectableInterfaceVariants,
+  visibleInterfaceVariant,
   INTERFACE_VARIANT_SLOT_REGISTRY,
-  INTERFACE_VARIANT_REGISTRY,
 } from "../../lib/interfaceVariantRegistry";
 import type {
   InterfaceCustomizationMode,
@@ -86,14 +87,15 @@ export function InterfaceVariantDotsLayer(props: {
   ]);
 
   const content = useMemo(() => positions.map((surface) => {
-    const compact = surface.group === "HI" || surface.group === "XH";
+    const progress = surface.group === "PB" || surface.group === "RP";
+    const compact = progress || surface.group === "HI" || surface.group === "XH";
     const variants = compact
-      ? INTERFACE_VARIANT_REGISTRY[surface.group]
+      ? getSelectableInterfaceVariants(surface.group)
       : INTERFACE_VARIANT_SLOT_REGISTRY[surface.group];
-    const current = props.effective[surface.group];
+    const current = progress ? visibleInterfaceVariant(surface.group, props.effective[surface.group]) : props.effective[surface.group];
     const slotCount = getInterfaceVariantAuthoredSlotCount(surface.group);
     const displayCount = compact
-      ? INTERFACE_VARIANT_REGISTRY[surface.group].length : slotCount;
+      ? getSelectableInterfaceVariants(surface.group).length : slotCount;
     if (displayCount < 2) return null;
     return (
       <div

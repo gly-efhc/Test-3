@@ -18,7 +18,10 @@ try{
    await page.locator('.efhc-interface-customization-button').click();
    const surface=page.locator(`[data-interface-variant-group="${group}"]`).first();await surface.waitFor({state:'attached'});
    const signatures=new Set();
-   for(const selection of canon.REGISTRY[group]){
+   // OWNER removed duplicate theme-starter positions from the manual PB/RP UI.
+   // progress.mjs still renders all 33 persisted IDs against all ten CTs.
+   const selections=(group==='PB'||group==='RP')?canon.REGISTRY[group].slice(0,21):canon.REGISTRY[group];
+   for(const selection of selections){
     let style=canon.SOURCE_STYLE[group][selection]||selection;
     if(group==='KG')style=canon.RANK_STYLE_ID_BY_SELECTION[style];
     const attribute='data-'+(group==='RP'?'pb':group.toLowerCase());
@@ -27,7 +30,7 @@ try{
     signatures.add(signature);
     await surface.press('ArrowRight');
    }
-   results.push({group,status:'PASS',selections:canon.REGISTRY[group].length,renderedSignatures:signatures.size});console.log('PASS template cycle',group,canon.REGISTRY[group].length,'signatures',signatures.size);
+   results.push({group,status:'PASS',selections:selections.length,renderedSignatures:signatures.size});console.log('PASS template cycle',group,selections.length,'signatures',signatures.size);
   }catch(e){results.push({group,status:'FAIL',error:e.message});console.error('FAIL template cycle',group,e.message)}finally{await context.close()}
  }
 }finally{await browser.close()}
