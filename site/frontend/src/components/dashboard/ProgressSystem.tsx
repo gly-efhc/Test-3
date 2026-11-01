@@ -182,11 +182,6 @@ export function DashboardProgressBar(props: DashboardProgressBarProps) {
       <div className="efhc-dashboard-progress__track">
         <span style={{ width: `${normalized.percent}%` }} />
       </div>
-      {props.source ? (
-        <small className="efhc-dashboard-progress__source">
-          {props.source}
-        </small>
-      ) : null}
     </div>
   );
 }
@@ -221,7 +216,6 @@ export function DashboardSegmentedProgress(
           );
         })}
       </div>
-      {props.source ? <small>{props.source}</small> : null}
     </div>
   );
 }
@@ -247,7 +241,6 @@ export function DashboardCircularProgress(
         </strong>
       </div>
       {props.label ? <span>{props.label}</span> : null}
-      {props.source ? <small>{props.source}</small> : null}
     </div>
   );
 }
@@ -284,7 +277,6 @@ export function DashboardCountdownProgress(
           ? `${Math.round(normalized.percent)}% ${props.elapsedLabel}`
           : `${Math.round(normalized.percent)}%`}
       </small>
-      {props.source ? <small>{props.source}</small> : null}
     </div>
   );
 }
@@ -318,7 +310,6 @@ export function DashboardMilestoneProgress(
           </li>
         ))}
       </ol>
-      {props.source ? <small>{props.source}</small> : null}
     </div>
   );
 }

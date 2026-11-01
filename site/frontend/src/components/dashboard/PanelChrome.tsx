@@ -99,10 +99,9 @@ export function PanelChrome(props: PanelChromeProps) {
       <div className={props.bodyClassName ?? "efhc-panel-chrome__body"}>
         {props.children}
       </div>
-      {props.footer || props.source || props.updatedAt ? (
+      {props.footer || props.updatedAt ? (
         <footer className="efhc-panel-chrome__footer">
           {props.footer}
-          {props.source ? <span>{props.source}</span> : null}
           {props.updatedAt ? <span>{props.updatedAt}</span> : null}
         </footer>
       ) : null}

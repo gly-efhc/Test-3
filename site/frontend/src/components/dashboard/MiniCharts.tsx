@@ -139,9 +139,6 @@ function miniChartShell(
         </div>
       ) : null}
       {props.children}
-      {props.source ? (
-        <small className="efhc-mini-chart__source">{props.source}</small>
-      ) : null}
       {props.synthetic && props.emptyLabel ? (
         <small className="efhc-mini-chart__synthetic">
           {props.emptyLabel}

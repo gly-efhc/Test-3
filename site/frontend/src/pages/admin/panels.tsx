@@ -272,7 +272,7 @@ export default function AdminPanelsPage() {
     if (!reason?.trim()) return;
     setOperationNotice("");
     setSearchError(
-      `${panelPublicId(panel)}: операция не отправлена. EFHC_Bot_v174.63 выполняет защитную деактивацию через PATCH /admin/panels/{panel_id}/deactivate и требует Idempotency-Key, но текущий HTTP-контракт не принимает обязательную причину администратора. Поэтому действие безопасно заблокировано до появления поля причины в каноническом API.`,
+      `${panelPublicId(panel)}: деактивация недоступна — сервис не принимает обязательную причину. Данные не изменены.`,
     );
   }
 
@@ -281,7 +281,7 @@ export default function AdminPanelsPage() {
     if (!reason?.trim()) return;
     setOperationNotice("");
     setSearchError(
-      `${panelPublicId(panel)}: операция не отправлена. EFHC_Bot_v174.63 выполняет повторную активацию мёртвой Панели через PATCH /admin/panels/{panel_id}/activate и требует Idempotency-Key, но текущий HTTP-контракт не принимает обязательную причину администратора. Поэтому действие безопасно заблокировано до появления поля причины в каноническом API.`,
+      `${panelPublicId(panel)}: повторная активация недоступна — сервис не принимает обязательную причину. Данные не изменены.`,
     );
   }
 
