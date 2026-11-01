@@ -1,0 +1,16 @@
+[
+  {
+    "group": "PB",
+    "status": "PASS",
+    "choices": 33,
+    "headerSurfaces": 9,
+    "rejectedAdaptersLoaded": false
+  },
+  {
+    "group": "RP",
+    "status": "PASS",
+    "choices": 33,
+    "headerSurfaces": 9,
+    "rejectedAdaptersLoaded": false
+  }
+]
