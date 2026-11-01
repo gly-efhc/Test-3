@@ -27,7 +27,7 @@ function themeColor(token){
  }
  return alpha===1?color:`color-mix(in srgb,${color} ${Number((alpha*100).toFixed(2))}%,transparent)`;
 }
-function chroma(value){return value.replace(/#[\da-f]{3,8}\b|\brgba?\(\s*[\d.]+\s*,[^()]*\)/gi,themeColor);}
+export function chroma(value){return value.replace(/#[\da-f]{3,8}\b|\brgba?\(\s*[\d.]+\s*,[^()]*\)/gi,themeColor);}
 function extract(container){
  const result=container.clone({nodes:[]});
  for(const node of container.nodes||[]){

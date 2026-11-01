@@ -34,3 +34,4 @@ if(process.argv.includes('--check')){
  console.log('V866_REACT_SHELL_DERIVATION=PASS');
 }else fs.writeFileSync(destination,adapter);
 await import('./generate_progress.mjs');
+await import('./generate_referrals.mjs');

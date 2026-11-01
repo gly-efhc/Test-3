@@ -2,7 +2,6 @@ import React, { useContext, useMemo } from "react";
 import { useRouter } from "next/router";
 
 import { LayoutContext } from "../components/Layout";
-import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { EmptyState } from "../components/ui/EmptyState";
@@ -135,11 +134,12 @@ export default function ReferralsPage(props: {
       data-public-visual-beauty="tasks-referrals-ranks"
       data-public-surface="referrals"
       data-referrals-runtime="react-query-linkage-1558"
+      data-referrals-v866="true"
     >
       <GameHero
-        kicker={t("referrals.game_kicker")}
+        kicker={t("referrals.partner_system")}
         title={t("referrals.title")}
-        detail={td("desc.referrals.invite_short")}
+        detail={t("referrals.standalone_detail")}
       >
         <GameStatsGrid compact>
           <GameStat
@@ -175,13 +175,13 @@ export default function ReferralsPage(props: {
       ) : null}
 
       <Card
-        title={t("referrals.invite_title")}
+        title={t("referrals.invite_user_title")}
         className="efhc-referrals-invite-card"
         data-referrals-invite-boundary="deep-link-share-1558"
         data-referrals-invite-canon="1295"
       >
         <div className="text-sm efhc-text-muted2">
-          {td("desc.referrals.invite_short")}
+          {t("referrals.invite_user_detail")}
         </div>
         <div
           className="efhc-referrals-link-card mt-3 rounded-2xl border efhc-pill-border p-3"
@@ -232,12 +232,15 @@ export default function ReferralsPage(props: {
       <Card
         ref={referralProgressSurface.ref}
         {...referralProgressSurface.handlers}
-        title={t("referrals.level_title")}
         data-pb={referralProgressSurface.variant}
         data-referrals-progress-levels="1297"
         data-referrals-achievements="visible"
         data-referrals-progress-selection-scope="whole-levels-card"
       >
+        <div className="efhc-referral-level-heading">
+          <h2 className="efhc-referral-card-title">{t("referrals.achievement_levels_title")}</h2>
+          <span className="efhc-referral-level-pill"><span data-i18n-fixed-token="Lvl">Lvl</span> {stats ? stats.level : "—"}</span>
+        </div>
         {statsQ.isLoading ? (
           <div className="grid gap-3">
             <Skeleton className="h-6" />
@@ -245,20 +248,6 @@ export default function ReferralsPage(props: {
           </div>
         ) : (
           <div className="grid gap-3">
-            <div className="flex items-center justify-between gap-3">
-              <div
-                className="text-lg font-bold"
-                data-referrals-current-lvl="true"
-              >
-                <span data-i18n-fixed-token="Lvl">Lvl</span> {stats ? stats.level : "—"}
-              </div>
-              <Badge>
-                {stats?.active_referrals ?? 0}
-                {stats?.next_level_min
-                  ? ` / ${stats.next_level_min}`
-                  : ` / ${stats?.max_active_for_unit_bonus ?? 10000}`}
-              </Badge>
-            </div>
             <div
               className="efhc-energy-progress-track"
               data-pb={referralProgressSurface.variant}
@@ -277,21 +266,8 @@ export default function ReferralsPage(props: {
             <div className="text-sm efhc-text-muted2">
               {stats?.next_level === null
                 ? t("referrals.max_level")
-                : `${t("referrals.to_next")}: ${stats?.refs_to_next ?? 0}`}
+                : `${t("referrals.to_next")}: Lvl ${stats?.next_level ?? "—"} · ${stats?.refs_to_next ?? 0} ${t("referrals.required_active_short")}`}
             </div>
-            <div
-              className="rounded-2xl border efhc-pill-border p-3 text-sm"
-              data-referral-bonus-wording="1298"
-              data-referral-bonus-map="direct-plus-level-cumulative"
-            >
-              <div className="font-semibold">
-                {t("referrals.bonus_rule_title")}
-              </div>
-              <div className="mt-1 efhc-text-muted2">
-                {t("referrals.bonus_rule_active")}
-              </div>
-            </div>
-
             <div
               className="efhc-referral-achievement-rail"
               data-referrals-level-scale="visual-lvl-1-5"
@@ -316,13 +292,13 @@ export default function ReferralsPage(props: {
                         {reached ? "✓" : step.level}
                       </span>
                       <strong><span data-i18n-fixed-token="Lvl">Lvl</span> {step.level}</strong>
-                      <small>{step.required_active}</small>
+                      <small>{new Intl.NumberFormat(ctx.lang).format(step.required_active)}</small>
                     </div>
                   );
                 })}
               </div>
               <div className="efhc-referral-achievement-caption">
-                {t("referrals.required_active_short")}
+                {t("referrals.required_active_long")}
               </div>
             </div>
           </div>
@@ -330,6 +306,10 @@ export default function ReferralsPage(props: {
       </Card>
 
       <GameDetails summary={t("referrals.system_title")}>
+        <div data-referral-bonus-wording="1298" data-referral-bonus-map="direct-plus-level-cumulative">
+          <strong>{t("referrals.bonus_rule_title")}</strong>
+          <p className="text-sm efhc-text-muted2">{t("referrals.bonus_rule_active")}</p>
+        </div>
         <div className="text-sm efhc-text-muted2">
           {td("desc.referrals.system_short")}
         </div>

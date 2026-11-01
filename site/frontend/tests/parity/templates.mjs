@@ -37,3 +37,4 @@ try{
 if(process.env.EFHC_PARITY_ARTIFACTS){await fs.mkdir(process.env.EFHC_PARITY_ARTIFACTS,{recursive:true});await fs.writeFile(process.env.EFHC_PARITY_ARTIFACTS+'/template-results.json',JSON.stringify({results},null,2)+'\n')}
 if(results.some(x=>x.status==='FAIL'))process.exitCode=1;
 await import('./progress.mjs');
+await import('./referrals.mjs');
