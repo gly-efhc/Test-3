@@ -1,12 +1,12 @@
 {
-  "checkpoint": "v866-referrals-colors-05",
+  "checkpoint": "v866-referrals-colors-theme-control-06",
   "status": "intermediate-owner-visual-review",
   "reference": "FRONTEND_v866.html",
   "reference_sha256": "9b6371f5fb62939596b78206f95031c447e9f2b375e62b30704403bb25102aef",
   "baseline_react_commit": "094701cb30d706cf75a7446d568bde4ec82780d7",
-  "scope": "Remove the remaining self-introduced Referrals recoloring and restore original source contexts/priorities; Header and PB/RP rollback preserved",
+  "scope": "Remove the remaining self-introduced Referrals recoloring and restore original source contexts/priorities; Header and PB/RP rollback preserved; OWNER-directed color selector auto-hide after 3000ms inactivity",
   "full_application_parity": "not-yet-accepted",
-  "previous_checkpoint": "v866-progress-header-rollback-04",
+  "previous_checkpoint": "v866-referrals-colors-05",
   "owner_accepted_components": {
     "Header": {
       "status": "fixed-owner-accepted",
@@ -45,5 +45,7 @@
     "referrals_materials": "source colors and declaration priorities preserved",
     "scope": "Referrals only",
     "owner_acceptance": "pending Pages visual review"
-  }
+  },
+  "application_rules": "site/APPLICATION_RULES.md",
+  "color_selector_auto_hide_ms": 3000
 }

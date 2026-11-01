@@ -135,6 +135,7 @@ try{
  });
  await check('Color selector hides after 3 seconds, reappears on activity and preserves the draft',async page=>{
   await open(page);await page.clock.install();
+  await page.clock.pauseAt(new Date(Date.now()+100));
   await page.locator('.efhc-interface-customization-button').click();
   const selector=page.locator('[data-color-theme-control="true"]');
   await selector.waitFor({state:'visible'});
