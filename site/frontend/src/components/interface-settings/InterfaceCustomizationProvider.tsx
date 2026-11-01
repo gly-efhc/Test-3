@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { resolveHeaderThemeComposition } from "../../lib/headerThemeComposition";
 import type { UserSettings } from "../../lib/settings";
 import {
-  cycleVisibleInterfaceVariant,
+  cycleInterfaceVariant,
   getRouteInterfaceGroups,
   normalizeInterfaceVariant,
   normalizeInterfaceVariants,
@@ -314,12 +314,12 @@ export function InterfaceCustomizationProvider(
 
   const next = useCallback((group: InterfaceVariantGroup) => {
     if (!isGroupActive(group)) return;
-    setDraft((current) => cycleVisibleInterfaceVariant(current, group, 1));
+    setDraft((current) => cycleInterfaceVariant(current, group, 1));
   }, [isGroupActive]);
 
   const previous = useCallback((group: InterfaceVariantGroup) => {
     if (!isGroupActive(group)) return;
-    setDraft((current) => cycleVisibleInterfaceVariant(current, group, -1));
+    setDraft((current) => cycleInterfaceVariant(current, group, -1));
   }, [isGroupActive]);
 
   const applyThemeSelection = useCallback((themeId: string) => {

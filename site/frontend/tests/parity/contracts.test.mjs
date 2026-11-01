@@ -65,23 +65,12 @@ test('rank selections use the authored style identities from HTML v866',()=>{
  for(const selection of canon.REGISTRY.KG)assert.equal(registry.rankStyleId(selection),canon.RANK_STYLE_ID_BY_SELECTION[selection]);
 });
 
-test('OWNER-approved PB/RP switchers omit starter duplicates without losing persisted IDs',()=>{
- for(const group of ['PB','RP']){
-  const visible=registry.getSelectableInterfaceVariants(group);
-  assert.deepEqual(json(visible),canon.REGISTRY[group].slice(0,21));
-  for(const selection of canon.REGISTRY[group]){
-   assert.equal(registry.normalizeInterfaceVariant(group,selection),selection);
-   const next=registry.cycleVisibleInterfaceVariant({...canon.DEFAULTS,[group]:selection},group,1);
-   assert.ok(visible.includes(next[group]));
-   assert.equal(next[group],visible[(Math.max(0,visible.indexOf(selection))+1)%visible.length]);
-  }
-  assert.equal(registry.cycleVisibleInterfaceVariant({...canon.DEFAULTS,[group]:visible[0]},group,-1)[group],visible.at(-1));
- }
- assert.deepEqual(json(registry.getSelectableInterfaceVariants('HS')),canon.REGISTRY.HS);
-});
-
-test('ten CT progress starters retain the source selection bindings',()=>{
- const source=JSON.parse(fs.readFileSync(path.join(root,'src/design-system/global-theme-energy-progress-contract.json')));
- assert.deepEqual(json(colors.COLOR_THEME_PROGRESS_STARTER),source.owner_cycle0464_08_progress_selection.map);
- for(const selection of Object.values(colors.COLOR_THEME_PROGRESS_STARTER))assert.ok(canon.REGISTRY.PB.includes(selection));
+// OWNER rollback: preserve the pre-block selection/state implementation and
+// prevent accidental activation of the explicitly rejected visual adapters.
+test('OWNER-rejected progress and Header adapters stay detached after rollback',()=>{
+ const expected={"src/lib/interfaceVariantRegistry.ts": "33e19a99a82b2e3142bef9567e6e748f06e9bfb279add4f2ec951fea47fcd773", "src/components/interface-settings/InterfaceCustomizationProvider.tsx": "235a699fed368ce2c7790b1566dcb3b6eb5a3e7719cf98f95643b0334402dcbd", "src/components/interface-settings/InterfaceVariantDotsLayer.tsx": "e1b45f4406aa1dd2b603f13d6a736dc2a8d1735dd0356e6345120e5f53834f0d", "src/pages/index.tsx": "31fc0fbba4a10b444ed18ab885953482b05fb2d0ff2b9f6a46929e845dd22116"};
+ for(const [file,hash] of Object.entries(expected))assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex'),hash,file);
+ const app=fs.readFileSync(path.join(root,'src/pages/_app.tsx'),'utf8');
+ assert.doesNotMatch(app,/v866-react-progress\.css|react-header-transparent\.css/);
+ for(const group of ['PB','RP'])assert.equal(registry.INTERFACE_VARIANT_REGISTRY[group].length,33);
 });

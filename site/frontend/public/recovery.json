@@ -1,21 +1,16 @@
 {
-  "checkpoint": "v866-progress-referrals-header-03",
-  "status": "intermediate-owner-visual-review",
+  "checkpoint": "v866-progress-header-rollback-04",
+  "status": "owner-rejected-progress-header-reverted",
   "reference": "FRONTEND_v866.html",
   "reference_sha256": "9b6371f5fb62939596b78206f95031c447e9f2b375e62b30704403bb25102aef",
   "baseline_react_commit": "094701cb30d706cf75a7446d568bde4ec82780d7",
-  "scope": "authored PB/RP recovery, CT-owned colors, unique progress switchers, Referrals templates/copy, removal of temporary UI notes and OWNER-approved transparent Header",
+  "scope": "Progress and Header fully reverted to pre-block implementation; other Referrals/copy changes retained",
   "full_application_parity": "not-yet-accepted",
-  "previous_checkpoint": "v866-interactions-02",
+  "previous_checkpoint": "v866-progress-referrals-header-03",
   "owner_accepted_components": {
     "Header": {
       "status": "fixed-owner-accepted",
-      "checkpoint": "v866-shell-01",
-      "current_change": {
-        "scope": "OWNER-approved removal of all backplates, visible borders and shadows; content and controls preserved",
-        "authorized_on": "2026-11-01",
-        "status": "awaiting-owner-visual-review"
-      }
+      "checkpoint": "v866-shell-01"
     },
     "HUB": {
       "status": "fixed-owner-accepted",
@@ -33,11 +28,16 @@
       "all_page_templates": "fixed-owner-accepted"
     }
   },
-  "progress_contract": {
-    "visible_designs_per_group": 21,
-    "persisted_ids_per_group": 33,
-    "color_themes": 10,
-    "theme_color_ownership": "all-variants",
-    "geometry_tolerance_percent": 15
+  "rollback": {
+    "owner_decision": "100% regression; full rollback of progress and Header",
+    "baseline_commit": "66f86561f6f5a2dcceca9640285814055aaa3882",
+    "rejected_engineering_commit": "5de342a42e2f55b3d00ee7089f0f90c92b5f6f6a",
+    "areas": [
+      "PB",
+      "RP",
+      "Header"
+    ],
+    "status": "source-reverted-pending-native-verification",
+    "manual_progress_selections_per_group": 33
   }
 }

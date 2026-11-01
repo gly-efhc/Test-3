@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
-import {chroma} from './generate_progress.mjs';
+import {chroma} from './referrals_chroma.mjs';
 const root=fileURLToPath(new URL('../../frontend/',import.meta.url));
 const require=createRequire(process.env.EFHC_FRONTEND_DEPENDENCIES||path.join(root,'package.json'));
 const postcss=require('postcss'),source=postcss.parse(fs.readFileSync(path.join(root,'public/FRONTEND_v866.css'),'utf8'));
