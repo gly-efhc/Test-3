@@ -158,6 +158,10 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
     width:390,height:844,deviceScaleFactor:1,mobile:true,
   });
   await inspect('/');
+  // OWNER: geometry must be measured after genuine activity, because the
+  // idle gear is intentionally hidden after three seconds.
+  await send('Runtime.evaluate',{expression:"window.dispatchEvent(new Event('pointermove'))"});
+  await sleep(260);
   const geometryExpr=`JSON.stringify((()=>{
     const r=(selector)=>document.querySelector(selector)?.getBoundingClientRect();
     const profile=r('.efhc-game-header_profile');
@@ -165,12 +169,14 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
     const statuses=r('.efhc-game-header_statuses');
     const nav=r('nav[data-regression-nav-canon="v888"]');
     const item=r('.efhc-game-nav_item');
+    const gearElement=document.querySelector('.efhc-interface-customization-button');
     const gear=r('.efhc-interface-customization-button');
     return {profileW:profile?.width,balanceW:balance?.width,
       navH:nav?.height,itemH:item?.height,
       navCount:document.querySelectorAll('nav[data-regression-nav-canon="v888"] .efhc-game-nav_item').length,
       gearGap:gear?window.innerWidth-gear.right:null,
-      gearOpacity:gear?getComputedStyle(document.querySelector('.efhc-interface-customization-button')).opacity:null,
+      gearOpacity:gearElement?getComputedStyle(gearElement).opacity:null,
+      gearState:gearElement?.getAttribute('data-visible')??null,
       statusCount:document.querySelectorAll('.efhc-game-header_statuses .efhc-game-header_status').length,
       statusWithinProfile:!!(statuses&&profile && statuses.bottom<=profile.bottom+.75 && statuses.top>=profile.top-.75),
       viewport:window.innerWidth};
@@ -181,9 +187,21 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
     throw Error('OWNER_BOTTOM_NAV_RENDERED_REGRESSION '+JSON.stringify(geom));
   if(!geom.profileW || !geom.balanceW || Math.abs(geom.profileW-geom.balanceW)>1.1 || geom.statusCount!==2 || !geom.statusWithinProfile)
     throw Error('OWNER_HEADER_PROFILE_STATUS_REGRESSION '+JSON.stringify(geom));
-  if(geom.gearGap===null || geom.gearGap>19 || geom.gearGap<0 || Number(geom.gearOpacity)<.95)
+  if(geom.gearGap===null || geom.gearGap>19 || geom.gearGap<0 || geom.gearState!=='true' || Number(geom.gearOpacity)<.95)
     throw Error('OWNER_CT_GEAR_CORNER_REGRESSION '+JSON.stringify(geom));
-  console.log('PASS OWNER RENDERED SHELL 390x844',JSON.stringify(geom));
+  // Do not skip the new idle behavior: prove that the *same* gear hides
+  // after inactivity without intercepting taps.
+  await sleep(3300);
+  const hiddenReply=await send('Runtime.evaluate',{expression:`JSON.stringify((()=>{
+    const el=document.querySelector('.efhc-interface-customization-button');
+    const css=el?getComputedStyle(el):null;
+    return {visible:el?.getAttribute('data-visible')??null,opacity:css?.opacity??null,
+      pointerEvents:css?.pointerEvents??null};
+  })())`,returnByValue:true});
+  const hidden=JSON.parse(hiddenReply.result.result.value);
+  if(hidden.visible!=='false' || Number(hidden.opacity)>.06 || hidden.pointerEvents!=='none')
+    throw Error('OWNER_CT_GEAR_IDLE_AUTOHIDE_REGRESSION '+JSON.stringify(hidden));
+  console.log('PASS OWNER RENDERED SHELL 390x844',JSON.stringify({geometry:geom,idleGear:hidden}));
   });
   await runIndependentCheck('shell-navigation-and-back',async()=>{
   await inspect('/');
