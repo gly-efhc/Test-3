@@ -17,3 +17,14 @@
   background:repeating-linear-gradient(90deg,#6ea8ff 0 12px,transparent 12px 15px),#1e3a5f;
   box-shadow:none;
 }
+
+/* OWNER: Energy Lvl exactly as the shown HTML screenshot, without a pill.
+ * Direct Cycle0468 iteration02 declarations; only the #energyPage context
+ * is mapped to its React page class. Referrals pills are outside this scope.
+ */
+html[data-interface-app-mode="user"][data-color-theme-id]
+.efhc-energy-page .efhc-energy-stage[data-eg] .efhc-energy-stage_level strong {
+  border:0!important;border-radius:0!important;padding:0!important;
+  background:transparent!important;background-image:none!important;
+  box-shadow:none!important;text-shadow:none!important;color:#f8fafc!important;
+}

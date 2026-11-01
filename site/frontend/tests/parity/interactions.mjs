@@ -30,6 +30,23 @@ async function open(page,route=''){
 }
 const routePath=page=>page.evaluate(()=>location.pathname.replace(/^\/Test-3/,'').replace(/\/$/,'')||'/');
 try{
+ await check('Energy Lvl has the final HTML plain-text material in all ten themes',async page=>{
+  await open(page);
+  await page.mouse.move(12,12);
+  await page.locator('.efhc-interface-customization-button').click();
+  for(let i=0;i<10;i++){
+   const actual=await page.locator('.efhc-energy-stage_level strong').evaluate(el=>{
+    const s=getComputedStyle(el);return {text:el.textContent,background:s.backgroundColor,image:s.backgroundImage,borders:[s.borderTopWidth,s.borderRightWidth,s.borderBottomWidth,s.borderLeftWidth],shadow:s.boxShadow,color:s.color};
+   });
+   assert.match(actual.text,/Lvl\s*\d+/);
+   assert.equal(actual.background,'rgba(0, 0, 0, 0)');
+   assert.equal(actual.image,'none');
+   assert.deepEqual(actual.borders,['0px','0px','0px','0px']);
+   assert.equal(actual.shadow,'none');
+   assert.equal(actual.color,'rgb(248, 250, 252)');
+   await page.locator('[data-color-theme-control="true"]').click();
+  }
+ });
  for(const width of [320,390,1440]) await check(`PB-04 source segments and bounded height on both pages at ${width}px`,async page=>{
   // Expected material comes from immutable source CSS, not the candidate adapter.
   const css=await fs.readFile(new URL('../../public/FRONTEND_v866.css',import.meta.url),'utf8');
