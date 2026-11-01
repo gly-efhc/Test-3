@@ -133,6 +133,30 @@ try{
   assert.equal(await routePath(page),'/web-profile');
   assert.equal(await page.locator('[role="dialog"][aria-modal="true"]').count(),0);
  });
+ await check('Color selector hides after 3 seconds, reappears on activity and preserves the draft',async page=>{
+  await open(page);await page.clock.install();
+  await page.locator('.efhc-interface-customization-button').click();
+  const selector=page.locator('[data-color-theme-control="true"]');
+  await selector.waitFor({state:'visible'});
+  await page.clock.runFor(2999);
+  assert.equal(await selector.isVisible(),true,'selector hid before 3 seconds');
+  await page.clock.runFor(1);
+  await selector.waitFor({state:'hidden',timeout:1500});
+  assert.equal(await page.locator('.efhc-independent-shell').getAttribute('data-interface-customization-mode'),'editing','auto-hide must not end editing');
+  assert.equal(await page.locator('.efhc-interface-customization-button').isVisible(),true,'save control must remain available');
+  await page.mouse.move(12,12);await selector.waitFor({state:'visible'});
+  await page.clock.runFor(2500);await page.mouse.move(20,20);
+  await page.clock.runFor(2999);
+  assert.equal(await selector.isVisible(),true,'activity did not reset the 3-second timer');
+  await page.clock.runFor(1);await selector.waitFor({state:'hidden',timeout:1500});
+  await page.mouse.move(30,30);await selector.waitFor({state:'visible'});
+  await selector.click();await page.waitForFunction(()=>document.documentElement.dataset.colorThemeId==='CT-02');
+  await page.clock.runFor(3000);await selector.waitFor({state:'hidden',timeout:1500});
+  assert.equal(await page.locator('html').getAttribute('data-color-theme-id'),'CT-02','auto-hide lost the chosen theme');
+  await page.locator('.efhc-interface-customization-button').click();
+  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).color_theme_id),'CT-02');
+  assert.equal(await selector.count(),0,'selector must stay absent outside editing');
+ });
 }finally{await browser.close()}
 if(process.env.EFHC_PARITY_ARTIFACTS){await fs.mkdir(process.env.EFHC_PARITY_ARTIFACTS,{recursive:true});await fs.writeFile(process.env.EFHC_PARITY_ARTIFACTS+'/interaction-results.json',JSON.stringify({results},null,2)+'\n')}
 if(results.some(r=>r.status==='FAIL'))process.exitCode=1;
