@@ -1,0 +1,19 @@
+/* Incremental shared PB/RP recovery. First verified model: physical PB-04.
+ * Material copied verbatim from immutable FRONTEND_v866.css, PB-04 rule.
+ * Root cause: legacy public Energy selectors outrank the authored selector.
+ * The USER/page/model scope restores that rule without changing other models.
+ * OWNER: manual model owns its authored colors; choice remains independent.
+ * OWNER size exception: .715rem canonical starter height, on both pages.
+ * No reset, palette normalizer, cascade layer, or descendant-wide overrides.
+ */
+.efhc-independent-shell[data-interface-app-mode="user"]
+:is(.efhc-energy-page,.efhc-referrals-shell)
+.efhc-energy-progress-track[data-pb="PB-04"] {
+  height:.715rem;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+:is(.efhc-energy-page,.efhc-referrals-shell)
+.efhc-energy-progress-track[data-pb="PB-04"] > .efhc-energy-progress-fill {
+  background:repeating-linear-gradient(90deg,#6ea8ff 0 12px,transparent 12px 15px),#1e3a5f;
+  box-shadow:none;
+}

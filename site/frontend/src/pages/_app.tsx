@@ -343,6 +343,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <link rel="stylesheet" href={`${router.basePath}/v866-react-shell.css`} data-efhc-visual-adapter="user-shell" />
           <link rel="stylesheet" href={`${router.basePath}/react-viewport.css`} data-efhc-visual-adapter="react-host" />
           <link rel="stylesheet" href={`${router.basePath}/v866-react-referrals.css`} data-efhc-visual-adapter="referrals" />
+          <link rel="stylesheet" href={`${router.basePath}/v866-react-progress-models.css`} data-efhc-visual-adapter="progress-models" />
         </>
       ) : null}
       {!isBrowserShop ? <>
