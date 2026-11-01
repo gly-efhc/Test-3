@@ -75,12 +75,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -191,12 +186,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -307,12 +297,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -423,12 +408,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -539,12 +519,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -655,12 +630,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -771,12 +741,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -887,12 +852,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -1003,12 +963,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -1119,12 +1074,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -1235,12 +1185,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -1351,12 +1296,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -1467,12 +1407,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.431373 0.658824 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            196,
-            163,
-            92,
-            61
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -1583,12 +1518,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.45098 0.682353 0.988235 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -1699,12 +1629,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.45098 0.682353 0.988235 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -1815,12 +1740,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.45098 0.682353 0.988235 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -1931,12 +1851,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.45098 0.682353 0.988235 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -2047,12 +1962,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.45098 0.682353 0.988235 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -2163,12 +2073,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.45098 0.682353 0.988235 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -2279,12 +2184,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.45098 0.682353 0.988235 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -2395,12 +2295,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.45098 0.682353 0.988235 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -2511,12 +2406,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.45098 0.682353 0.988235 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -2627,12 +2517,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.45098 0.682353 0.988235 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -2743,12 +2628,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.45098 0.682353 0.988235 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -2859,12 +2739,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.45098 0.682353 0.988235 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -2975,12 +2850,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.45098 0.682353 0.988235 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            196,
-            163,
-            92,
-            61
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -3091,12 +2961,7 @@
             0
           ],
           "image": "none",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -3207,12 +3072,7 @@
             0
           ],
           "image": "none",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -3323,12 +3183,7 @@
             0
           ],
           "image": "none",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -3439,12 +3294,7 @@
             0
           ],
           "image": "none",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -3555,12 +3405,7 @@
             0
           ],
           "image": "none",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -3671,12 +3516,7 @@
             0
           ],
           "image": "none",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -3787,12 +3627,7 @@
             0
           ],
           "image": "none",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -3903,12 +3738,7 @@
             0
           ],
           "image": "none",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -4019,12 +3849,7 @@
             0
           ],
           "image": "none",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -4135,12 +3960,7 @@
             0
           ],
           "image": "none",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -4251,12 +4071,7 @@
             0
           ],
           "image": "none",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -4367,12 +4182,7 @@
             0
           ],
           "image": "none",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -4483,12 +4293,7 @@
             0
           ],
           "image": "none",
-          "border": [
-            196,
-            163,
-            92,
-            61
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -4599,12 +4404,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.133333 0.619608 0.85098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -4715,12 +4515,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.133333 0.619608 0.85098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -4831,12 +4626,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.133333 0.619608 0.85098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -4947,12 +4737,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.133333 0.619608 0.85098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -5063,12 +4848,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.133333 0.619608 0.85098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -5179,12 +4959,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.133333 0.619608 0.85098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -5295,12 +5070,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.133333 0.619608 0.85098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -5411,12 +5181,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.133333 0.619608 0.85098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -5527,12 +5292,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.133333 0.619608 0.85098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -5643,12 +5403,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.133333 0.619608 0.85098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -5759,12 +5514,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.133333 0.619608 0.85098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -5875,12 +5625,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.133333 0.619608 0.85098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -5991,12 +5736,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.133333 0.619608 0.85098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            196,
-            163,
-            92,
-            61
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -6107,12 +5847,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.898039 0.74902 0.345098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -6223,12 +5958,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.898039 0.74902 0.345098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -6339,12 +6069,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.898039 0.74902 0.345098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -6455,12 +6180,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.898039 0.74902 0.345098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -6571,12 +6291,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.898039 0.74902 0.345098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -6687,12 +6402,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.898039 0.74902 0.345098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -6803,12 +6513,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.898039 0.74902 0.345098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -6919,12 +6624,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.898039 0.74902 0.345098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -7035,12 +6735,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.898039 0.74902 0.345098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -7151,12 +6846,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.898039 0.74902 0.345098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -7267,12 +6957,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.898039 0.74902 0.345098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -7383,12 +7068,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.898039 0.74902 0.345098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -7499,12 +7179,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.898039 0.74902 0.345098 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            196,
-            163,
-            92,
-            61
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -7615,12 +7290,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.85098 0.27451 0.937255 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -7731,12 +7401,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.85098 0.27451 0.937255 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -7847,12 +7512,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.85098 0.27451 0.937255 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -7963,12 +7623,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.85098 0.27451 0.937255 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -8079,12 +7734,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.85098 0.27451 0.937255 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -8195,12 +7845,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.85098 0.27451 0.937255 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -8311,12 +7956,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.85098 0.27451 0.937255 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -8427,12 +8067,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.85098 0.27451 0.937255 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -8543,12 +8178,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.85098 0.27451 0.937255 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -8659,12 +8289,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.85098 0.27451 0.937255 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -8775,12 +8400,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.85098 0.27451 0.937255 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -8891,12 +8511,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.85098 0.27451 0.937255 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -9007,12 +8622,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.85098 0.27451 0.937255 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            196,
-            163,
-            92,
-            61
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -9123,12 +8733,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.498039 0.705882 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -9239,12 +8844,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.498039 0.705882 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -9355,12 +8955,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.498039 0.705882 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -9471,12 +9066,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.498039 0.705882 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -9587,12 +9177,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.498039 0.705882 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -9703,12 +9288,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.498039 0.705882 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -9819,12 +9399,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.498039 0.705882 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -9935,12 +9510,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.498039 0.705882 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -10051,12 +9621,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.498039 0.705882 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -10167,12 +9732,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.498039 0.705882 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -10283,12 +9843,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.498039 0.705882 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -10399,12 +9954,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.498039 0.705882 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -10515,12 +10065,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.498039 0.705882 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            196,
-            163,
-            92,
-            61
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -10631,12 +10176,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.560784 0.52549 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -10747,12 +10287,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.560784 0.52549 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -10863,12 +10398,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.560784 0.52549 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -10979,12 +10509,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.560784 0.52549 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -11095,12 +10620,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.560784 0.52549 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -11211,12 +10731,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.560784 0.52549 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -11327,12 +10842,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.560784 0.52549 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -11443,12 +10953,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.560784 0.52549 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -11559,12 +11064,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.560784 0.52549 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -11675,12 +11175,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.560784 0.52549 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -11791,12 +11286,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.560784 0.52549 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -11907,12 +11397,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.560784 0.52549 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -12023,12 +11508,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.560784 0.52549 1 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            196,
-            163,
-            92,
-            61
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -12139,12 +11619,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.345098 0.780392 0.705882 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -12255,12 +11730,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.345098 0.780392 0.705882 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -12371,12 +11841,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.345098 0.780392 0.705882 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -12487,12 +11952,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.345098 0.780392 0.705882 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -12603,12 +12063,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.345098 0.780392 0.705882 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -12719,12 +12174,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.345098 0.780392 0.705882 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -12835,12 +12285,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.345098 0.780392 0.705882 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -12951,12 +12396,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.345098 0.780392 0.705882 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -13067,12 +12507,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.345098 0.780392 0.705882 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -13183,12 +12618,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.345098 0.780392 0.705882 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -13299,12 +12729,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.345098 0.780392 0.705882 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -13415,12 +12840,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.345098 0.780392 0.705882 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            248,
-            250,
-            252,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -13531,12 +12951,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.345098 0.780392 0.705882 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            196,
-            163,
-            92,
-            61
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -13647,12 +13062,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.772549 0.631373 0.352941 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -13763,12 +13173,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.772549 0.631373 0.352941 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -13879,12 +13284,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.772549 0.631373 0.352941 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -13995,12 +13395,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.772549 0.631373 0.352941 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -14111,12 +13506,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.772549 0.631373 0.352941 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -14227,12 +13617,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.772549 0.631373 0.352941 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -14343,12 +13728,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.772549 0.631373 0.352941 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -14459,12 +13839,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.772549 0.631373 0.352941 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -14575,12 +13950,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.772549 0.631373 0.352941 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -14691,12 +14061,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.772549 0.631373 0.352941 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -14807,12 +14172,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.772549 0.631373 0.352941 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -14923,12 +14283,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.772549 0.631373 0.352941 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            255,
-            255,
-            255,
-            255
-          ]
+          "border": null
         },
         "hero": {
           "background": [
@@ -15039,12 +14394,7 @@
             0
           ],
           "image": "radial-gradient(520px 220px at 100% 0px, color(srgb 0.772549 0.631373 0.352941 / 0.12), rgba(0, 0, 0, 0) 72%)",
-          "border": [
-            196,
-            163,
-            92,
-            61
-          ]
+          "border": null
         },
         "hero": {
           "background": [

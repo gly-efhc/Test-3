@@ -3,12 +3,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
-import {chroma} from './referrals_chroma.mjs';
 const root=fileURLToPath(new URL('../../frontend/',import.meta.url));
 const require=createRequire(process.env.EFHC_FRONTEND_DEPENDENCIES||path.join(root,'package.json'));
 const postcss=require('postcss'),source=postcss.parse(fs.readFileSync(path.join(root,'public/FRONTEND_v866.css'),'utf8'));
 const user='.efhc-independent-shell[data-interface-app-mode="user"]';
 const page='.efhc-referrals-shell[data-referrals-v866="true"]';
+// Preserve source ID specificity without adding a live ID that would alter RP.
+const sourcePage=`:is(#referralsPage,${page})`;
 const map={
  '.source-game-hero':'.efhc-game-hero','.source-hero-head':'.efhc-game-hero_head',
  '.source-hero-kicker':'.efhc-game-kicker','.source-hero-title':'.efhc-game-title','.source-hero-detail':'.efhc-game-detail',
@@ -23,10 +24,10 @@ const map={
 };
 function project(selector){
  const own=/#referralsPage|\.efhc-referrals-shell/.test(selector);
- const generic=/^\.(?:source-(?:game-hero|hero-(?:head|kicker|title|detail)|stats|stat(?:-label|-value)?|card(?:-title)?|row|muted|value|button|pill)|standalone-(?:referral-achievement|bonus-earnings-strip)|efhc-referral-achievement-[a-z-]+)\b/.test(selector);
+ const generic=/\.(?:source-(?:game-hero|hero-(?:head|kicker|title|detail)|stats|stat(?:-label|-value)?|card(?:-title)?|row|muted|value|button|pill)|standalone-(?:referral-achievement|bonus-earnings-strip)|efhc-referral-achievement-[a-z-]+)\b/.test(selector);
  if(!own&&!generic)return null;
  if(/efhc-energy-progress|data-referrals-progress-bar/.test(selector))return null;
- let result=selector.replace(/#referralsPage|\.efhc-referrals-shell/g,page);
+ let result=selector.replace(/\.efhc-referrals-shell/g,page).replace(/#referralsPage/g,sourcePage);
  for(const [from,to] of Object.entries(map).sort((a,b)=>b[0].length-a[0].length))result=result.split(from).join(to);
  result=result.replace(/\.standalone-referral-achievement-/g,'.efhc-referral-achievement-').replace(/\[data-state=/g,'[data-referral-level-state=').replace(/(\.efhc-referral-achievement-nodes\s*>\s*div\s*>\s*)b\b/g,'$1.efhc-referral-achievement-dot');
  if(result.includes('.efhc-referral-achievement-nodes'))result=result.replace(/(^|[\s>+~])b(?=$|[\s.:[>+~])/g,'$1.efhc-referral-achievement-dot');
@@ -34,7 +35,7 @@ function project(selector){
  // target itself to this page, including the root and pseudo-elements.
  const pseudo=result.match(/(::[a-z-]+(?:\([^)]*\))?)$/)?.[1]||'';
  if(pseudo)result=result.slice(0,-pseudo.length);
- const target=own?`${user} :is(${result})`:`${user} ${page} :is(${result})`;
+ const target=own?`${user} :is(${result})`:`${user} :where(${page}) :is(${result})`;
  return `${target}:where(${page},${page} *)${pseudo}`;
 }
 function extract(container){
@@ -42,16 +43,13 @@ function extract(container){
  for(const node of container.nodes||[]){
   if(node.type==='rule'){
    const selectors=postcss.list.comma(node.selector).map(project).filter(Boolean);if(!selectors.length)continue;
-   const rule=node.clone({selector:selectors.join(',\n')});rule.walkDecls(d=>{
-    d.value=chroma(d.value).replace(/var\(--tg-button\)/g,'var(--efhc-ct-accent)').replace(/var\(--tg-(?:bg|secondary-bg)\)/g,'#0d0d0d');
-    d.important=true;
-   });result.append(rule);
+   // Preserve authored values and priorities; do not recolor text/materials.
+   result.append(node.clone({selector:selectors.join(',\n')}));
   }else if(node.type==='atrule'&&['media','supports','container'].includes(node.name)){const nested=extract(node);if(nested.nodes.length)result.append(nested);}
  }
  return result;
 }
-const css=`/* Generated from frozen FRONTEND_v866.css. Referrals only; CT owns chroma. */
-@layer efhc-v866-referrals {
+const css=`/* Generated from frozen FRONTEND_v866.css. Referrals only; original authored values and priorities preserved. */
 ${extract(source)}
 ${user} ${page} {display:grid!important;gap:.65rem!important;min-width:0!important;}
 /* The authored hero owns its padding; React's extra wrappers add no second inset. */
@@ -60,7 +58,6 @@ ${user} ${page} .efhc-game-hero_body {margin-top:0!important;}
 ${user} ${page} .efhc-game-hero_glow {display:none!important;}
 ${user} ${page} .efhc-referrals-link-card {margin-top:.55rem!important;padding:.62rem!important;background:rgba(5,10,18,.5)!important;}
 ${user} ${page} .efhc-referral-card-title {margin:0!important;}
-}
 `;
 const dest=path.join(root,'public/v866-react-referrals.css');
 if(process.argv.includes('--check')){if(fs.readFileSync(dest,'utf8')!==css)throw Error('v866 referrals adapter drift');console.log('V866_REACT_REFERRALS_DERIVATION=PASS')}else fs.writeFileSync(dest,css);

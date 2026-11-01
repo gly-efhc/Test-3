@@ -33,7 +33,7 @@ try{
      for(const [role,selector] of Object.entries({kicker:'.efhc-game-kicker',title:'.efhc-game-title',detail:'.efhc-game-detail',statLabel:'.efhc-game-stat_label',statValue:'.efhc-game-stat_value',inviteDetail:'.efhc-text-muted2',cardTitle:'.efhc-card > .text-lg.font-semibold',caption:'.efhc-referral-achievement-caption'})){
       const n=root.querySelector(selector);if(!n)throw Error('Missing React role '+role);textColors[role]=rgba(getComputedStyle(n).color);
      }
-     const materials={};for(const [role,selector] of Object.entries({root:'.efhc-referrals-shell',hero:'.efhc-game-hero',stat:'.efhc-game-stat',inviteCard:'.efhc-referrals-invite-card'})){const n=role==='root'?root:root.querySelector(selector),c=getComputedStyle(n);materials[role]={background:rgba(c.backgroundColor),image:c.backgroundImage,border:rgba(c.borderTopColor)}}
+     const materials={};for(const [role,selector] of Object.entries({root:'.efhc-referrals-shell',hero:'.efhc-game-hero',stat:'.efhc-game-stat',inviteCard:'.efhc-referrals-invite-card'})){const n=role==='root'?root:root.querySelector(selector),c=getComputedStyle(n);materials[role]={background:rgba(c.backgroundColor),image:c.backgroundImage,border:parseFloat(c.borderTopWidth)>0&&c.borderTopStyle!=='none'?rgba(c.borderTopColor):null}}
 
      output.push({theme:theme.id,variant,overflow:document.documentElement.scrollWidth>innerWidth+1,width:rect.width,signature:JSON.stringify([frame.borderRadius,frame.backgroundImage,frame.backgroundColor,hero.borderRadius,hero.borderWidth,hero.backgroundImage,hero.boxShadow,hero.backdropFilter,cards]),brands,textColors,materials});
     }
