@@ -91,7 +91,24 @@ try{
    assert.ok(await page.locator('.efhc-game-nav').isVisible());
   }
  });
+ await load({...state,interface_variants:contract.DEFAULTS,color_theme_id:'CT-01'},'referrals/');
+ for(const width of [320,390,1440])await check(`referral social icons load inside their buttons ${width}px`,async()=>{
+  await page.setViewportSize({width,height:844});
+  await page.waitForFunction(()=>[...document.querySelectorAll('[data-referral-share-kind] img')].length===5&&[...document.querySelectorAll('[data-referral-share-kind] img')].every(img=>img.complete));
+  const icons=await page.locator('[data-referral-share-kind]').evaluateAll(buttons=>buttons.map(button=>{
+   const img=button.querySelector('img'),box=button.getBoundingClientRect(),icon=img.getBoundingClientRect();
+   return{kind:button.dataset.referralShareKind,src:img.getAttribute('src'),loaded:img.naturalWidth>0&&img.naturalHeight>0,width:icon.width,height:icon.height,inside:icon.left>=box.left&&icon.right<=box.right&&icon.top>=box.top&&icon.bottom<=box.bottom};
+  }));
+  assert.deepEqual(icons.map(icon=>icon.kind),['telegram','whatsapp','viber','facebook','x']);
+  for(const icon of icons){
+   assert.ok(icon.loaded,`broken referral icon: ${JSON.stringify(icon)}`);
+   assert.equal(icon.src,new URL(`brands/${icon.kind}.svg`,base).pathname);
+   assert.ok(icon.width>0&&icon.height>0&&icon.inside,`referral icon outside its button: ${JSON.stringify(icon)}`);
+  }
+ });
  if(process.env.EFHC_PARITY_ARTIFACTS){
+  await page.setViewportSize({width:390,height:844});
+  await page.screenshot({path:process.env.EFHC_PARITY_ARTIFACTS+'/react-referrals-390.png',fullPage:true});
   await fs.mkdir(process.env.EFHC_PARITY_ARTIFACTS,{recursive:true});
   await load({...state,interface_variants:contract.DEFAULTS});
   await page.setViewportSize({width:390,height:844});
