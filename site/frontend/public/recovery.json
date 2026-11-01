@@ -1,12 +1,12 @@
 {
-  "checkpoint": "v866-progress-header-rollback-04",
-  "status": "owner-rejected-progress-header-reverted",
+  "checkpoint": "v866-referrals-colors-05",
+  "status": "intermediate-owner-visual-review",
   "reference": "FRONTEND_v866.html",
   "reference_sha256": "9b6371f5fb62939596b78206f95031c447e9f2b375e62b30704403bb25102aef",
   "baseline_react_commit": "094701cb30d706cf75a7446d568bde4ec82780d7",
-  "scope": "Progress and Header fully reverted to pre-block implementation; other Referrals/copy changes retained",
+  "scope": "Remove the remaining self-introduced Referrals recoloring and restore original source contexts/priorities; Header and PB/RP rollback preserved",
   "full_application_parity": "not-yet-accepted",
-  "previous_checkpoint": "v866-progress-referrals-header-03",
+  "previous_checkpoint": "v866-progress-header-rollback-04",
   "owner_accepted_components": {
     "Header": {
       "status": "fixed-owner-accepted",
@@ -39,5 +39,11 @@
     ],
     "status": "source-reverted-pending-native-verification",
     "manual_progress_selections_per_group": 33
+  },
+  "corrected_own_regressions": {
+    "referrals_text": "original HTML colors restored; independent browser measurements cover 8 roles",
+    "referrals_materials": "source colors and declaration priorities preserved",
+    "scope": "Referrals only",
+    "owner_acceptance": "pending Pages visual review"
   }
 }
