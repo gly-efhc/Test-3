@@ -133,6 +133,26 @@ try{
   assert.equal(await routePath(page),'/web-profile');
   assert.equal(await page.locator('[role="dialog"][aria-modal="true"]').count(),0);
  });
+ await check('OWNER: gear auto-hides only in idle, returns on activity, save remains visible',async page=>{
+  await open(page);
+  const gear=page.locator('.efhc-interface-customization-button');
+  assert.equal(await gear.getAttribute('data-visible'),'true','gear is not initially visible');
+  await page.waitForTimeout(3250);
+  assert.equal(await gear.getAttribute('data-visible'),'false','gear must hide after idle timeout');
+  assert.equal(await gear.evaluate(el=>getComputedStyle(el).pointerEvents),'none','hidden gear intercepts taps');
+  await page.mouse.move(12,12);
+  await page.waitForFunction(()=>document.querySelector('.efhc-interface-customization-button')?.dataset.visible==='true');
+  await page.waitForTimeout(3250);
+  assert.equal(await gear.getAttribute('data-visible'),'false','gear did not reset hide timer');
+  await page.evaluate(()=>window.dispatchEvent(new Event('touchstart')));
+  await page.waitForFunction(()=>document.querySelector('.efhc-interface-customization-button')?.dataset.visible==='true');
+  await gear.click();
+  await page.waitForFunction(()=>document.querySelector('.efhc-independent-shell')?.dataset.interfaceCustomizationMode==='editing');
+  await page.waitForTimeout(3250);
+  assert.equal(await gear.getAttribute('data-visible'),'true','editing save button auto-hid');
+  assert.equal(await gear.getAttribute('aria-label'),'Сохранить оформление');
+  assert.equal(await page.locator('[data-color-theme-control="true"]').isVisible(),true,'globe vanished with gear');
+ });
  await check('OWNER: globe is always visible during editing and cycles all 10 color themes',async page=>{
   await open(page);await page.clock.install();
   await page.locator('.efhc-interface-customization-button').click();
