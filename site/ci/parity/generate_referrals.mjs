@@ -23,12 +23,13 @@ const map={
 };
 function project(selector){
  const own=/#referralsPage|\.efhc-referrals-shell/.test(selector);
- const generic=/^\.(?:source-(?:game-hero|hero-(?:head|kicker|title|detail)|stats|stat(?:-label|-value)?|card(?:-title)?|row|muted|value|button|pill)|standalone-(?:referral-achievement|bonus-earnings-strip))\b/.test(selector);
+ const generic=/^\.(?:source-(?:game-hero|hero-(?:head|kicker|title|detail)|stats|stat(?:-label|-value)?|card(?:-title)?|row|muted|value|button|pill)|standalone-(?:referral-achievement|bonus-earnings-strip)|efhc-referral-achievement-[a-z-]+)\b/.test(selector);
  if(!own&&!generic)return null;
  if(/efhc-energy-progress|data-referrals-progress-bar/.test(selector))return null;
  let result=selector.replace(/#referralsPage|\.efhc-referrals-shell/g,page);
  for(const [from,to] of Object.entries(map).sort((a,b)=>b[0].length-a[0].length))result=result.split(from).join(to);
  result=result.replace(/\.standalone-referral-achievement-/g,'.efhc-referral-achievement-').replace(/\[data-state=/g,'[data-referral-level-state=').replace(/(\.efhc-referral-achievement-nodes\s*>\s*div\s*>\s*)b\b/g,'$1.efhc-referral-achievement-dot');
+ if(result.includes('.efhc-referral-achievement-nodes'))result=result.replace(/(^|[\s>+~])b(?=$|[\s.:[>+~])/g,'$1.efhc-referral-achievement-dot');
  // Mixed :is() lists in the source include other routes. Constrain the final
  // target itself to this page, including the root and pseudo-elements.
  const pseudo=result.match(/(::[a-z-]+(?:\([^)]*\))?)$/)?.[1]||'';
@@ -41,7 +42,10 @@ function extract(container){
  for(const node of container.nodes||[]){
   if(node.type==='rule'){
    const selectors=postcss.list.comma(node.selector).map(project).filter(Boolean);if(!selectors.length)continue;
-   const rule=node.clone({selector:selectors.join(',\n')});rule.walkDecls(d=>{d.value=chroma(d.value);d.important=true});result.append(rule);
+   const rule=node.clone({selector:selectors.join(',\n')});rule.walkDecls(d=>{
+    d.value=chroma(d.value).replace(/var\(--tg-button\)/g,'var(--efhc-ct-accent)').replace(/var\(--tg-(?:bg|secondary-bg)\)/g,'#0d0d0d');
+    d.important=true;
+   });result.append(rule);
   }else if(node.type==='atrule'&&['media','supports','container'].includes(node.name)){const nested=extract(node);if(nested.nodes.length)result.append(nested);}
  }
  return result;
