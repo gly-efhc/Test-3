@@ -346,7 +346,10 @@ export default function App({ Component, pageProps }: AppProps) {
           <link rel="stylesheet" href={`${router.basePath}/v866-react-referrals.css`} data-efhc-visual-adapter="referrals" />
         </>
       ) : null}
-      {!isBrowserShop ? <link rel="stylesheet" href={`${router.basePath}/react-runtime-layout.css`} data-efhc-visual-adapter="runtime-layout" /> : null}
+      {!isBrowserShop ? <>
+        <link rel="stylesheet" href={`${router.basePath}/react-runtime-layout.css`} data-efhc-visual-adapter="runtime-layout" />
+        <link rel="stylesheet" href={`${router.basePath}/react-header-transparent.css`} data-efhc-visual-adapter="owner-header-surfaces" />
+      </> : null}
       <WalletProvider
         manifestUrl={tcManifestUrl}
         returnUrl={tcReturnUrl}

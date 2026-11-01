@@ -38,3 +38,4 @@ if(process.env.EFHC_PARITY_ARTIFACTS){await fs.mkdir(process.env.EFHC_PARITY_ART
 if(results.some(x=>x.status==='FAIL'))process.exitCode=1;
 await import('./progress.mjs');
 await import('./referrals.mjs');
+await import('./header.mjs');
