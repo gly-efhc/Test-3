@@ -177,6 +177,12 @@ try{
   await page.locator('.efhc-interface-customization-button').click();
   assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).color_theme_id),'CT-02','save did not persist the theme');
   assert.equal(await selector.count(),0,'globe must be absent outside editing');
+  // OWNER acceptance: the selection survives an actual route reload.
+  await page.clock.resume();
+  await page.reload({waitUntil:'domcontentloaded'});
+  await page.waitForFunction(()=>document.documentElement.dataset.colorThemeId==='CT-02');
+  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).color_theme_id),'CT-02','saved selection must survive reload');
+  assert.equal(await page.locator('[data-color-theme-control="true"]').count(),0,'globe must remain absent after reload outside editing');
  });
 
 }finally{await browser.close()}
