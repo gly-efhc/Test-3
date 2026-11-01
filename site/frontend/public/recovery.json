@@ -15,6 +15,14 @@
     "HUB": {
       "status": "fixed-owner-accepted",
       "checkpoint": "v866-shell-01"
+    },
+    "Мои панели": {
+      "status": "fixed-owner-accepted",
+      "route": "/panels/portfolio",
+      "accepted_on": "2026-11-01",
+      "basis": "direct-owner-visual-acceptance",
+      "template_groups": ["PT", "PC"],
+      "all_page_templates": "fixed-owner-accepted"
     }
   }
 }
