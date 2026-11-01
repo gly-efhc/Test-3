@@ -407,7 +407,7 @@ function LiveEnergyBlock(props: LiveBlockProps) {
             data-energy-chip="generation-rate"
           >
             <span>
-              {props.labels.gen_rate} <EnergyUnitText text="kWh/с" />
+              {props.labels.gen_rate} <EnergyUnitText text="kWh/s" />
             </span>
             <strong className="tabular-nums">
               {shownRate}

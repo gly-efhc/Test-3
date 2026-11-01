@@ -92,7 +92,7 @@ test('OWNER-rejected progress and Header adapters stay detached after rollback',
   .replace('import { EnergyUnitText } from "../components/energy/EnergyUnitText";\n','')
   .replace('<EnergyUnitText text={props.labels.total_generated} />','{props.labels.total_generated}')
   .replace('<EnergyUnitText text={props.labels.kwh_suffix} />','props.labels.kwh_suffix')
-  .replace('<EnergyUnitText text="kWh/с" />','<span data-i18n-fixed-token="kWh/с">kWh/с</span>')
+  .replace('<EnergyUnitText text="kWh/s" />','<span data-i18n-fixed-token="kWh/с">kWh/с</span>')
   .replace('<EnergyUnitText text={props.labels.available_kwh_chip} />','{props.labels.available_kwh_chip}');
  assert.equal(crypto.createHash('sha256').update(energy).digest('hex'),'31fc0fbba4a10b444ed18ab885953482b05fb2d0ff2b9f6a46929e845dd22116','Energy changed beyond approved unit labels');
 });

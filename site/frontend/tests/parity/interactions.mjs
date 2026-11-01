@@ -40,6 +40,7 @@ try{
    for(const unit of units){assert.equal(unit,'kWh','CSS or translation changed the physical unit casing');count++;}
   }
   assert.ok(count>=3,'Energy units missing');
+  assert.match(await page.locator('[data-energy-chip="generation-rate"] > span').innerText(),/kWh\/s$/,'rate unit must be identical in every language and retain lowercase Latin s');
  },{settings:{lang}});
  for(const [route,group] of [['','PB'],['referrals/','RP']])await check(`${group} first ten positions follow CT order without synchronizing manual choices`,async page=>{
   await open(page,route);await page.mouse.move(12,12);
