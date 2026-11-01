@@ -17,6 +17,8 @@ try{
    await page.waitForFunction(()=>document.getElementById('__next')?.childElementCount>0);
    await page.waitForTimeout(250);
    assert.deepEqual(errors,[],`runtime exception on ${route}`);
+   const visibleText=await page.locator('body').innerText();
+   assert.doesNotMatch(visibleText,/\bDEMO\b|Демо-просмотр|каноническ|каноничн|IndexedDB|Маршруты React/i,`temporary engineering copy on ${route}`);
    const links=await page.locator('a[href]').evaluateAll(nodes=>nodes.map(n=>({href:n.getAttribute('href'),disabled:n.getAttribute('aria-disabled')})));
    for(const link of links)if(link.href.startsWith('/'))assert.ok(link.href.startsWith('/Test-3/')||link.href==='/Test-3',`unprefixed app link: ${route} ${link.href}`);
    results.push({route:'/'+route,status:'PASS',links:links.length});console.log('PASS route audit','/'+route,'links',links.length);

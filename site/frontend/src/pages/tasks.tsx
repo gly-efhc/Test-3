@@ -107,7 +107,7 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
     if (!isDemoPreview || !adOpen || adPhase !== "viewing" || demoAdSeconds !== 0) return;
     completeDemoAd();
     setAdPhase("rewarded");
-    setMessage("DEMO: просмотр подтверждён; тестовый EFHCb добавлен только в интерфейсе.");
+    setMessage("Просмотр завершён.");
   }, [isDemoPreview, adOpen, adPhase, demoAdSeconds]);
 
 
@@ -170,8 +170,8 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
 
 
   const buttonLabel = (item: TaskCatalogItem): string => {
-    if (isDemoPreview && !isAdTask(item) && demoState.completed.includes(item.code)) return "Выполнено (DEMO)";
-    if (isDemoPreview && isAdTask(item) && demoState.adViews >= DEMO_AD_LIMIT) return "Лимит (DEMO)";
+    if (isDemoPreview && !isAdTask(item) && demoState.completed.includes(item.code)) return "Выполнено";
+    if (isDemoPreview && isAdTask(item) && demoState.adViews >= DEMO_AD_LIMIT) return "Лимит";
     if (busyCode === item.code) return t("common.loading");
     return t("tasks.action_execute");
   };
@@ -302,7 +302,7 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
     if (isDemoPreview) {
       // Refresh preserves preview progress; only a new browser session resets it.
       setDemoState((current) => normalizeDemoTaskState(current));
-      setMessage("DEMO: задания обновлены, тестовый прогресс сохранён.");
+      setMessage("Задания обновлены.");
     }
   };
 
@@ -332,8 +332,7 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
       </GameHero>
 
       {isDemoPreview ? (
-        <div className="efhc-tasks-demo-banner" role="status" data-tasks-preview-banner="true">
-          DEMO — действия и награды моделируются в этом браузере. Реальные EFHCb и баланс не изменяются.
+        <div className="efhc-tasks-refresh">
           <Button variant="secondary" onClick={refresh}>Обновить</Button>
         </div>
       ) : null}
@@ -387,10 +386,10 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
       <Modal
         open={Boolean(isDemoPreview && demoTargetTask)}
         onClose={() => setDemoTargetTask(null)}
-        title="Выполнение задания — DEMO"
+        title="Выполнение задания"
       >
         <p className="efhc-tasks-demo-description">{demoTargetTask ? titleOf(demoTargetTask) : ""}</p>
-        <p className="efhc-tasks-demo-description">Подтвердите тестовое выполнение. Это не является доказательством настоящего выполнения и не начисляет токены.</p>
+        <p className="efhc-tasks-demo-description">Подтвердите выполнение задания.</p>
         <div className="efhc-tasks-demo-actions">
           {demoTargetTask && /^https:\/\//i.test(targetOf(demoTargetTask)) ? (
             <Button variant="secondary" onClick={() => {
@@ -401,9 +400,9 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
           <Button onClick={() => {
             if (!demoTargetTask) return;
             completeDemoTask(demoTargetTask.code);
-            setMessage("DEMO: задание отмечено выполненным, только в локальном интерфейсе.");
+            setMessage("Задание выполнено.");
             setDemoTargetTask(null);
-          }}>Подтвердить (DEMO)</Button>
+          }}>Подтвердить</Button>
           <Button variant="secondary" onClick={() => setDemoTargetTask(null)}>Закрыть</Button>
         </div>
       </Modal>
@@ -414,7 +413,7 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
         title={t("tasks.ad_modal_title")}
       >
         <div className="efhc-ad-countdown" data-ad-countdown="state">
-          {isDemoPreview ? (adPhase === "rewarded" ? "DEMO: просмотр завершён" : `DEMO: просмотр — ${demoAdSeconds} сек.`) : adPhaseLabel()}
+          {isDemoPreview ? (adPhase === "rewarded" ? "Просмотр завершён" : `Просмотр — ${demoAdSeconds} сек.`) : adPhaseLabel()}
         </div>
         <div className="mt-4">
           <Button disabled={busyCode === adTaskCode} onClick={() => setAdOpen(false)} className="w-full">{t("common.close")}</Button>

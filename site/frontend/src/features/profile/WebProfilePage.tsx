@@ -419,11 +419,11 @@ export default function WebProfilePage(props: Props) {
             data-telegram-connect-demo-entry="true"
             onClick={() => setTab("providers")}
           >
-            Подключить Telegram · DEMO
+            Подключить Telegram
           </Button>
           <Button type="button" variant="secondary" data-global-id-demo-entry="true"
             onClick={() => { void router.push("/demo-lab"); }}>
-            Global ID · таблицы DEMO
+            Данные аккаунта
           </Button>
           <Button
             type="button"
@@ -431,7 +431,7 @@ export default function WebProfilePage(props: Props) {
             data-admin-demo-entry="true"
             onClick={() => { void router.push("/admin"); }}
           >
-            Открыть Admin · DEMO
+            Открыть Admin
           </Button>
         </div>
       ) : null}
@@ -602,7 +602,7 @@ export default function WebProfilePage(props: Props) {
                   data-provider-preview-entry="true"
                   onClick={() => setTab("providers")}
                 >
-                  Привязанные аккаунты · DEMO
+                  Привязанные аккаунты
                 </Button>
               ) : null}
               <Button

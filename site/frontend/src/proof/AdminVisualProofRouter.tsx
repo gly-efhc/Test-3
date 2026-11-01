@@ -66,22 +66,8 @@ export function AdminVisualProofRouter(props: {
     <div
       data-admin-visual-proof-route={props.path}
       data-admin-visual-proof-harness="managed-urlblocklist"
+      data-efhc-admin-readonly-demo={process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? "true" : undefined}
     >
-      {process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? (
-        <div
-          role="status"
-          data-efhc-admin-readonly-demo="true"
-          style={{
-            padding: "8px 12px", marginBottom: "12px", borderRadius: "10px",
-            background: "rgba(194,142,33,.14)",
-            border: "1px solid rgba(226,185,79,.32)",
-            color: "#f4dfa4", fontSize: "12px", lineHeight: 1.4,
-          }}
-        >
-          ADMIN · Визуальный DEMO-просмотр (только чтение). Реальные
-          полномочия, платежи, изменения данных и API недоступны.
-        </div>
-      ) : null}
       <Component {...props.pageProps} />
     </div>
   );

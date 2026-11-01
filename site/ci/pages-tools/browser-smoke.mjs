@@ -516,7 +516,7 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
   await sleep(400);
   const taskModal=await send('Runtime.evaluate',{expression:
     `JSON.stringify({open:!!document.querySelector('[role="dialog"]'),confirm:
-       [...document.querySelectorAll('[role="dialog"] button')].some(b=>b.textContent.includes('Подтвердить (DEMO)'))})`,returnByValue:true});
+       [...document.querySelectorAll('[role="dialog"] button')].some(b=>b.textContent.trim()==='Подтвердить')})`,returnByValue:true});
   const taskDialog=JSON.parse(taskModal.result.result.value);
   if(!taskDialog.open||!taskDialog.confirm)
     throw Error('OWNER_TASKS_DEMO_ACTION_DIALOG_MISSING '+JSON.stringify(taskDialog));

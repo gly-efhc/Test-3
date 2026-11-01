@@ -34,7 +34,7 @@ export default function DemoLabPage(){
   try{const x=await neonStagingControl<{global_id:string}>("/api/staging/login","POST",{password:testPassword});setTestPassword("");setRemoteStatus("Neon TEST: оператор авторизован; Global ID "+x.global_id);selectDemoGlobalId(x.global_id);await refreshTestSnapshot();}
   catch(e){setRemoteStatus("Вход не выполнен: "+String(e));} };
  const handleTestSchema=async()=>{try{const x=await neonStagingControl<{total:number;tables:{schema:string;name:string}[]}>("/api/staging/schema");setRemoteSchema(x);setRemoteStatus("Получена фактическая структура Neon TEST");}catch(e){setRemoteStatus("Ошибка доступа: "+String(e));}};
- const withAction=(callback:()=>void)=>{try{callback();setMessage("DEMO: локальное состояние обновлено");void client.invalidateQueries();}catch(error){setMessage(error instanceof Error?error.message:String(error));}};
+ const withAction=(callback:()=>void)=>{try{callback();setMessage("Данные обновлены");void client.invalidateQueries();}catch(error){setMessage(error instanceof Error?error.message:String(error));}};
  useEffect(()=>{if(!remote||!ready)return;
   void neonStagingControl<{global_id:string}>("/api/staging/session").then(x=>{
     selectDemoGlobalId(x.global_id);setRemoteStatus("Neon TEST: действующая сессия "+x.global_id);
@@ -44,7 +44,7 @@ export default function DemoLabPage(){
  // eslint-disable-next-line react-hooks/exhaustive-deps
  },[remote,ready]);
  const loadDatabase=async()=>{
-  setLoading(true);setMessage("Проверка 39 IndexedDB-таблиц и загрузка канонических DEMO-записей…");
+  setLoading(true);setMessage("Загрузка данных…");
   try{
    await bootstrapDemoIndexedDb();const result:Record<string,number>={};
    for(const name of DEMO_TABLE_NAMES)result[name]=await demoTableCount(name);
@@ -57,17 +57,16 @@ export default function DemoLabPage(){
  // One initialization per selected mode, not per mutable balance/counter.
  // eslint-disable-next-line react-hooks/exhaustive-deps
  },[ready,remote]);
- if(!ready)return <main style={{padding:20,maxWidth:760,margin:"auto"}}><h1>DEMO Laboratory</h1><p>Доступен только в изолированном публичном Pages-DEMO.</p></main>;
+ if(!ready)return <main style={{padding:20,maxWidth:760,margin:"auto"}}><h1>Настройки просмотра</h1><p>Загрузка…</p></main>;
  const a=readDemoAccount();
  const field:React.CSSProperties={background:"var(--tg-secondary-bg,#162334)",color:"inherit",border:"1px solid var(--tg-hint-color,#70829b)",padding:"10px 12px",borderRadius:10,minWidth:0};
  const button:React.CSSProperties={...field,cursor:"pointer",background:"var(--efhc-ct-accent,#618dff)",color:"#07101e",fontWeight:650};
  return <main data-demo-lab="v894-neon-ready" style={{maxWidth:800,margin:"0 auto",padding:"20px 16px 120px",color:"var(--tg-text-color,#fff)",fontSize:14}}>
-  <h1 style={{margin:"0 0 6px",fontSize:23}}>EFHC · DEMO: таблицы и режимы</h1>
-  <p style={{opacity:.8}}>{remote?"Подключённый режим Neon TEST. Global ID выбирается только авторизованным сервером; до готовности схемы финансовые записи запрещены.":"Автономный DEMO: изменения только в браузере. Global ID — ключ тестовых связей, не подтверждение личности."} Admin/SuperAdmin — визуальные сценарии, не настоящие полномочия.</p>
+  <h1 style={{margin:"0 0 6px",fontSize:23}}>Настройки просмотра</h1>
   {remote&&<section data-neon-test-operator style={{display:"grid",gap:8,border:"1px solid var(--efhc-ct-accent,#618dff)",padding:12,borderRadius:12}}>
-   <h2 style={{fontSize:18}}>Neon TEST · серверное подключение</h2>
-   <label>Пароль оператора тестового API<input type="password" autoComplete="off" value={testPassword} onChange={e=>setTestPassword(e.target.value)} style={{width:"100%",minHeight:42}} /></label>
-   <div style={{display:"flex",gap:8,flexWrap:"wrap"}}><button onClick={()=>void handleTestLogin()}>Войти в TEST</button><button onClick={()=>void handleTestSchema()}>Проверить таблицы Neon</button><button onClick={()=>void neonStagingControl("/api/staging/logout","POST").then(()=>{clearNeonStagingSession();setTestSnapshot(null);setRemoteSchema(null);setRemoteStatus("Выход выполнен");}).catch(e=>setRemoteStatus(String(e)))}>Выйти</button></div>
+   <h2 style={{fontSize:18}}>Подключение к сервису</h2>
+   <label>Пароль оператора<input type="password" autoComplete="off" value={testPassword} onChange={e=>setTestPassword(e.target.value)} style={{width:"100%",minHeight:42}} /></label>
+   <div style={{display:"flex",gap:8,flexWrap:"wrap"}}><button onClick={()=>void handleTestLogin()}>Войти</button><button onClick={()=>void handleTestSchema()}>Проверить данные</button><button onClick={()=>void neonStagingControl("/api/staging/logout","POST").then(()=>{clearNeonStagingSession();setTestSnapshot(null);setRemoteSchema(null);setRemoteStatus("Выход выполнен");}).catch(e=>setRemoteStatus(String(e)))}>Выйти</button></div>
    <p role="status">{remoteStatus}</p>
    {remoteSchema&&<div><p>Фактические таблицы: {remoteSchema.total}</p><div style={{maxHeight:200,overflow:"auto",fontSize:12}}>{remoteSchema.tables.map(t=><div key={t.schema+"."+t.name}>{t.schema}.{t.name}</div>)}</div></div>}
   </section>}
@@ -77,8 +76,8 @@ export default function DemoLabPage(){
     <button style={button} onClick={()=>{if(remote){void neonStagingControl<{global_id:string}>("/api/staging/select-global-id","POST",{global_id:candidate}).then(x=>{selectDemoGlobalId(x.global_id);setRemoteStatus("Neon TEST: выбран "+x.global_id);void refreshTestSnapshot();void client.invalidateQueries();}).catch(e=>setRemoteStatus("GID не выбран: "+String(e)));}else{withAction(()=>selectDemoGlobalId(candidate));}}}>Выбрать</button></div></label>
    <label>Сценарий данных<select style={{...field,width:"100%",marginTop:5}} disabled={remote} value={state?.scenario||"filled"} onChange={e=>withAction(()=>setDemoScenario(e.target.value as DemoScenario))}>
     <option value="filled">Заполненные данные</option><option value="empty">Пустые таблицы</option><option value="loading">Задержка ответов</option><option value="error">Ошибка сервиса</option><option value="no_wallet">Без кошелька</option></select></label>
-   <label>Роль в визуальном DEMO (не RBAC)<select style={{...field,width:"100%",marginTop:5}} disabled={remote} value={state?.role||"user"} onChange={e=>withAction(()=>setDemoRole(e.target.value as DemoRole))}>
-    <option value="user">User</option><option value="admin">Admin · preview</option><option value="superadmin">SuperAdmin · preview</option></select></label>
+   <label>Роль<select style={{...field,width:"100%",marginTop:5}} disabled={remote} value={state?.role||"user"} onChange={e=>withAction(()=>setDemoRole(e.target.value as DemoRole))}>
+    <option value="user">User</option><option value="admin">Admin</option><option value="superadmin">SuperAdmin</option></select></label>
    <div style={{display:"grid",gridTemplateColumns:"repeat(2,minmax(0,1fr))",gap:10}}>
      <div style={{...field}}>Основной EFHCm <b style={{display:"block",fontSize:17,overflowWrap:"anywhere"}}>{remote?(testSnapshot?.profile.main_balance??"Только после подключения"):a.main_balance}</b></div>
      <div style={{...field}}>Бонус EFHCb <b style={{display:"block",fontSize:17,overflowWrap:"anywhere"}}>{remote?(testSnapshot?.profile.bonus_balance??"—"):a.bonus_balance}</b></div>
@@ -87,22 +86,21 @@ export default function DemoLabPage(){
    </div>
    <label>Сумма тестового начисления/списания<input style={{...field,width:"100%",marginTop:5}} value={amount} onChange={e=>setAmount(e.target.value)} /></label>
    <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-    <button style={button} disabled={remote} onClick={()=>withAction(()=>demoLedgerMutation(amount,"credit","main","demo_topup"))}>+ EFHCm (DEMO)</button>
-    <button style={button} disabled={remote} onClick={()=>withAction(()=>demoLedgerMutation(amount,"debit","main","demo_debit"))}>− EFHCm (DEMO)</button>
-    <button style={button} disabled={remote} onClick={()=>withAction(()=>demoLedgerMutation(amount,"credit","bonus","demo_bonus"))}>+ EFHCb (DEMO)</button>
-    <button style={{...button,background:"transparent",color:"inherit"}} disabled={remote} onClick={()=>withAction(resetDemoDatabase)}>Сбросить DEMO</button>
+    <button style={button} disabled={remote} onClick={()=>withAction(()=>demoLedgerMutation(amount,"credit","main","demo_topup"))}>+ EFHCm</button>
+    <button style={button} disabled={remote} onClick={()=>withAction(()=>demoLedgerMutation(amount,"debit","main","demo_debit"))}>− EFHCm</button>
+    <button style={button} disabled={remote} onClick={()=>withAction(()=>demoLedgerMutation(amount,"credit","bonus","demo_bonus"))}>+ EFHCb</button>
+    <button style={{...button,background:"transparent",color:"inherit"}} disabled={remote} onClick={()=>withAction(resetDemoDatabase)}>Сбросить данные</button>
    </div>
   </section>
   {!remote&&<section style={{margin:"22px 0"}}><h2 style={{fontSize:18}}>Таблицы и Global-ID связи</h2>
-    <p>Из эталона v866: 1000 пользователей, 27 500 транзакций и связанные истории. Первое заполнение выполняется локально в IndexedDB; после заполнения оно сохраняется между страницами.</p>
-    <button style={button} disabled={loading||remote} onClick={()=>void loadDatabase()}>{loading?"Загрузка канонических таблиц…":"Создать / проверить все таблицы"}</button>
-    <div role="status" aria-live="polite">{loading?"Загрузка данных v866 в IndexedDB; на мобильных устройствах обработка 65 000 записей может выполняться постепенно.":""}</div>
+    <button style={button} disabled={loading||remote} onClick={()=>void loadDatabase()}>{loading?"Загрузка данных…":"Обновить данные"}</button>
+    <div role="status" aria-live="polite">{loading?"Загрузка данных…":""}</div>
     <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(165px,1fr))",gap:7,marginTop:12}}>
      {DEMO_TABLE_NAMES.map(n=><div key={n} style={{...field,padding:8}}><b style={{overflowWrap:"anywhere"}}>{n}</b><div>{counts[n]===undefined?"—":counts[n]}</div></div>)}
     </div>
   </section>}
   {!remote&&<section style={{margin:"18px 0"}}><h2 style={{fontSize:18}}>Записи конкретного Global ID</h2>
-    <p style={{opacity:.85}}>Показываются первые 20 связанных записей. Глобальные каталоги не имеют владельца Global ID; полный счётчик каждой таблицы отображён выше.</p>
+    <p style={{opacity:.85}}>Показаны первые 20 записей аккаунта.</p>
     <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
       <select style={{...field,flex:"1 1 180px"}} value={currentTable} onChange={e=>{setCurrentTable(e.target.value as typeof DEMO_TABLE_NAMES[number]);setTableRows([]);}}>
         {DEMO_TABLE_NAMES.map(name=><option key={name} value={name}>{name}</option>)}
@@ -112,7 +110,7 @@ export default function DemoLabPage(){
     {tableMessage&&<p role="status">{tableMessage}</p>}
     <div style={{maxHeight:300,overflow:"auto",marginTop:8}}>{tableRows.map((row,index)=><pre key={index} style={{...field,whiteSpace:"pre-wrap",overflowWrap:"anywhere",fontSize:11}}>{JSON.stringify(row,null,2).slice(0,4500)}</pre>)}</div>
   </section>}
-  <h2 style={{fontSize:18}}>Маршруты React: {demoRoutes.length} страниц для последовательной проверки</h2>
+  <h2 style={{fontSize:18}}>Страницы приложения</h2>
   <section style={{display:"flex",gap:8,flexWrap:"wrap"}}>
    {demoRoutes.map(href=><button key={href} style={button} onClick={()=>void router.push(href)}>{href==="/"?"Главная":href}</button>)}
   </section>
