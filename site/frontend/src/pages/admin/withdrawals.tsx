@@ -1175,7 +1175,7 @@ export default function AdminWithdrawalsPage() {
 
             <TelegramInfoBlock
               title="Что увидит пользователь"
-              description="Предварительный результат показывается по утверждённому канону."
+              description="Предварительный результат."
             >
               <div className="mt-3 space-y-2">
                 <div className="flex flex-wrap gap-2">

@@ -164,7 +164,7 @@ export default function AdminHome() {
         </AdminSectionCard>
       ) : null}
 
-      <AdminSectionCard title="Банк и оборот" subtitle="Два главных показателя системы по текущему банковскому snapshot.">
+      <AdminSectionCard title="Банк и оборот" subtitle="Основные показатели банка.">
         <div className="efhc-admin-home-bank-charts admin-home-bank-charts-v218" data-admin-home-bank-charts="reserve-left-circulation-right" data-efhc-admin-canon-bank="v866" data-eam-family="EAM-ADMIN-003">
           {[
             { key: "reserve", label: "Резерв Банка EFHC", amount: facts.bank_metrics_reserve_efhc, percent: facts.bank_metrics_reserve_pct },

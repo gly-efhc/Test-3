@@ -894,32 +894,26 @@ export function AdminLogsEventsDashboardRuntime({
             {
               label: "Рефералы",
               value: "начисления и реферальные события",
-              hint: "Canonical operator contour: /admin/referrals.",
             },
             {
               label: "Реклама",
               value: "рекламные начисления и события",
-              hint: "Canonical operator contour: /admin/ads.",
             },
             {
               label: "Панели",
               value: "активации и учёт панелей",
-              hint: "Canonical operator contour: /admin/panels.",
             },
             {
               label: "Обмен",
               value: "операции обмена EFHC",
-              hint: "Журнал остаётся read-only; финансовое действие выполняется только в пользовательском Exchange contour.",
             },
             {
               label: "Магазин",
               value: "покупки и связанные ledger-события",
-              hint: "Canonical operator contour: /admin/shop.",
             },
             {
               label: "Ручные Admin-операции",
               value: "ручные административные проводки",
-              hint: "Только read-only trace; write-action здесь не появляется.",
             },
           ]}
         />

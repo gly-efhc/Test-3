@@ -24,6 +24,14 @@ try{
    results.push({route:'/'+route,status:'PASS',links:links.length});console.log('PASS route audit','/'+route,'links',links.length);
   }catch(e){results.push({route:'/'+route,status:'FAIL',error:e.message});console.error('FAIL route audit','/'+route,e.message)}
  }
+ try{
+  await page.goto(base+'web-profile/?section=providers');
+  await page.waitForSelector('[data-efhc-provider-demo]');
+  assert.doesNotMatch(await page.locator('[data-efhc-provider-demo]').innerText(),/DEMO|Тест:|backend|демонстрац/i);
+  await page.locator('[data-demo-provider-action="google"]').click();
+  assert.equal(await page.locator('[data-demo-provider="google"] [data-provider-state]').getAttribute('data-provider-state'),'simulated-linked');
+  results.push({route:'provider-settings',status:'PASS'});console.log('PASS provider settings without engineering copy');
+ }catch(e){results.push({route:'provider-settings',status:'FAIL',error:e.message});console.error('FAIL provider settings',e.message)}
  // Navigation is exercised in the same running React application, including
  // entry to and exit from Admin; a sequence of full reloads cannot catch stale
  // renderer state, so it is deliberately a separate check.

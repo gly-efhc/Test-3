@@ -769,7 +769,7 @@ export function AdminVipNftRequestsPanel() {
             </div>
 
             {selected.nft_delivery?.reason || selected.nft_delivery?.delivery_tx_hash || selected.nft_delivery?.decided_at ? (
-              <AdminSectionCard title="Аудит решения" subtitle="Read-only данные уже принятого решения.">
+              <AdminSectionCard title="Аудит решения" subtitle="Сведения о принятом решении.">
                 <div className="grid gap-2 md:grid-cols-2" data-admin-vip-terminal-audit="read-only-v211">
                   <TelegramSectionRow compact title="Номер выданного VIP NFT" subtitle={issuedVipNumber(selected) || "Не записан"} />
                   <TelegramSectionRow compact title="Решение администратора" subtitle={selected.nft_delivery?.reason || "—"} />
