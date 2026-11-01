@@ -271,7 +271,7 @@ export default function ReferralsPage(props: {
                 aria-label={t("referrals.level_title")}
                 className="efhc-energy-progress-fill"
                 data-has-progress={progress > 0 ? "true" : "false"}
-                style={{ width: progressPct }}
+                style={{ width: progressPct, "--efhc-progress-value": progressPct } as React.CSSProperties}
               />
             </div>
             <div className="text-sm efhc-text-muted2">

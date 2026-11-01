@@ -23,7 +23,13 @@ try{
     const samples=await page.evaluate(({canon,group})=>{
      const shell=document.querySelector('.efhc-independent-shell'),track=document.querySelector(group==='PB'?'.efhc-energy-stage .efhc-energy-progress-track':'[data-referrals-progress-bar]'),fill=track.querySelector('.efhc-energy-progress-fill');
      const canvas=document.createElement('canvas');canvas.width=canvas.height=1;const ctx=canvas.getContext('2d');
-     function rgba(value){ctx.clearRect(0,0,1,1);ctx.fillStyle=value;ctx.fillRect(0,0,1,1);return [...ctx.getImageData(0,0,1,1).data];}
+     function rgba(value){
+      // Measure hue before alpha premultiplication; 8-bit unpremultiplication
+      // at 12% glow alpha can otherwise shift a correct hue by >4 degrees.
+      const alpha=value.match(/\/\s*([\d.]+)\s*\)/)?.[1]??value.match(/^rgba\(.*?,\s*([\d.]+)\)$/)?.[1]??'1';
+      const opaque=value.replace(/^rgba\((.*),\s*[\d.]+\)$/,'rgb($1)').replace(/\/\s*[\d.]+(?=\s*\))/,'');
+      ctx.clearRect(0,0,1,1);ctx.fillStyle=opaque;ctx.fillRect(0,0,1,1);const data=[...ctx.getImageData(0,0,1,1).data];data[3]=Number(alpha)*255;return data;
+     }
      function hue([r,g,b]){const max=Math.max(r,g,b),min=Math.min(r,g,b),d=max-min;if(d<18||max<60)return null;return ((max===r?(g-b)/d:max===g?(b-r)/d+2:(r-g)/d+4)*60+360)%360;}
      const rows=[];
      for(const theme of canon.COLOR_THEME_CATALOG){
@@ -45,6 +51,7 @@ try{
     for(const sample of samples){
      assert.ok(sample.height>=11.44*.85-.03&&sample.height<=11.44*1.15+.03,`progress size ${group}/${width}: ${JSON.stringify(sample)}`);
      assert.ok(sample.fillInside&&sample.fillHeight>0,`progress fill containment ${group}/${width}: ${JSON.stringify(sample)}`);
+     assert.ok(sample.fillHeight>=9.44*.85-.03&&sample.fillHeight<=9.44*1.15+.03,`progress fill size ${group}/${width}: ${JSON.stringify(sample)}`);
      assert.deepEqual(sample.offTheme,[],`progress color ${group}/${width}/${sample.theme}/${sample.selection}`);
      if(sample.style==='PB-04'||sample.style==='PB-09')assert.match(sample.background,/repeating-linear-gradient/,'segmented progress model lost');
      if(sample.style==='PB-14')assert.match(sample.background,/135deg/,'diagonal progress model lost');

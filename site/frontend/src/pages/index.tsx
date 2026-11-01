@@ -360,7 +360,7 @@ function LiveEnergyBlock(props: LiveBlockProps) {
             <div
               className={fillClassName}
               data-has-progress={visibleProgressPct > 0 ? "true" : "false"}
-              style={{ width: `${visibleProgressPct}%` }}
+              style={{ width: `${visibleProgressPct}%`, "--efhc-progress-value": `${visibleProgressPct}%` } as React.CSSProperties}
             />
           </div>
 

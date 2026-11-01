@@ -342,6 +342,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <link rel="stylesheet" href={`${router.basePath}/react-shell-mobile-viewport-v923.css`} data-efhc-visual-patch="mobile-width-only-v923" />
           <link rel="stylesheet" href={`${router.basePath}/v866-react-shell.css`} data-efhc-visual-adapter="user-shell" />
           <link rel="stylesheet" href={`${router.basePath}/react-viewport.css`} data-efhc-visual-adapter="react-host" />
+          <link rel="stylesheet" href={`${router.basePath}/v866-react-progress.css`} data-efhc-visual-adapter="progress" />
         </>
       ) : null}
       {!isBrowserShop ? <link rel="stylesheet" href={`${router.basePath}/react-runtime-layout.css`} data-efhc-visual-adapter="runtime-layout" /> : null}
