@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useInterfaceCustomization } from
   "../../hooks/useInterfaceCustomization";
 
@@ -12,37 +12,7 @@ export function GlobalThemeControl() {
   const customization = useInterfaceCustomization();
   const pointerStartRef = useRef<PointerStart | null>(null);
   const suppressClickRef = useRef(false);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (customization.mode !== "editing") {
-      setVisible(false);
-      return;
-    }
-    let hideTimer: number | undefined;
-    const reveal = () => {
-      window.clearTimeout(hideTimer);
-      setVisible(true);
-      hideTimer = window.setTimeout(() => setVisible(false), 3_000);
-    };
-    const activityEvents = [
-      "pointerdown", "pointermove", "mousemove", "touchstart", "touchmove",
-      "wheel", "scroll", "keydown", "resize",
-    ] as const;
-    reveal();
-    for (const name of activityEvents) {
-      window.addEventListener(name, reveal, { passive: true, capture: true });
-    }
-    return () => {
-      window.clearTimeout(hideTimer);
-      for (const name of activityEvents) {
-        window.removeEventListener(name, reveal, true);
-      }
-    };
-  }, [customization.mode]);
-
   if (customization.mode !== "editing") return null;
-  if (!visible) return null;
   return (
     <button
       type="button"
