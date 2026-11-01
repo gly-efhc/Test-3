@@ -14979,6 +14979,12 @@ html[data-efhc-onboarding] .efhc-pwa-runtime-status{
   flex: 0 0 auto;
   pointer-events: auto;
 }
+/* OWNER: the hidden idle gear must not intercept taps.
+   This outranks the dock's child pointer-events:auto and the v888
+   responsive-dock rule; only the gear's hidden state is affected. */
+.efhc-customization-control-dock > .efhc-interface-customization-button[data-visible="false"] {
+  pointer-events: none;
+}
 @media (max-width: 390px) {
   .efhc-customization-control-dock { right: .58rem; }
 }
