@@ -55,7 +55,7 @@ try{
    if(i<9)await surface.press('ArrowRight');
   }
   await page.locator('.efhc-interface-customization-button').click();
-  await page.reload();await page.waitForSelector(`[data-interface-variant-group="${group}"]`);
+  await page.reload();await page.waitForFunction(({group,physical})=>document.querySelector(`[data-interface-variant-group="${group}"]`)?.dataset.pb===physical,{group,physical:canon.SOURCE_STYLE[group][order[9]]});
   assert.equal(await page.locator(`[data-interface-variant-group="${group}"]`).getAttribute('data-pb'),canon.SOURCE_STYLE[group][order[9]]);
   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).interface_variants);
   assert.equal(saved[group],order[9]);
@@ -94,7 +94,8 @@ try{
    await page.locator('.efhc-interface-customization-button').click();
    const surface=page.locator(`[data-interface-variant-group="${group}"]`);
    // Actual keyboard selection, not direct data-pb mutation.
-   for(let i=0;i<3;i++)await surface.press('ArrowRight');
+   const target=expectedSelectionOrder(group,canon).indexOf(`${group}-04`);
+   for(let i=0;i<target;i++)await surface.press('ArrowRight');
    await page.waitForFunction(group=>document.querySelector(`[data-interface-variant-group="${group}"]`)?.dataset.pb==='PB-04',group);
    const actual=await surface.locator('.efhc-energy-progress-track').evaluate(el=>{
     const fill=el.querySelector('.efhc-energy-progress-fill'),s=getComputedStyle(fill),r=el.getBoundingClientRect(),f=fill.getBoundingClientRect();
@@ -159,7 +160,8 @@ try{
   await open(page);await page.locator('.efhc-interface-customization-button').click();
   const progress=page.locator('[data-interface-variant-group="PB"]').first();
   await progress.click();await page.waitForTimeout(150);
-  assert.equal(await progress.getAttribute('data-pb'),'PB-02');
+  const selected=expectedSelectionOrder('PB',canon)[1];
+  assert.equal(await progress.getAttribute('data-pb'),canon.SOURCE_STYLE.PB[selected]||selected);
  });
  await check('readonly nested exchange stats still allow the parent XH template gesture',async page=>{
   await open(page,'exchange/');await page.locator('.efhc-interface-customization-button').click();

@@ -42,9 +42,10 @@ test('all 29 design families, 236 selections and defaults match HTML v866',()=>{
  assert.deepEqual(json(registry.INTERFACE_VARIANT_REGISTRY),canon.REGISTRY);
  assert.deepEqual(json(registry.DEFAULT_INTERFACE_VARIANTS),canon.DEFAULTS);
  for(const [group,variants] of Object.entries(canon.REGISTRY))for(const selection of variants){
+  const order=expectedSelectionOrder(group,canon);
   assert.equal(registry.resolveInterfaceVariantStyle(group,selection),canon.SOURCE_STYLE[group][selection]||selection,`${group}/${selection}`);
   const next=registry.cycleInterfaceVariant({...canon.DEFAULTS,[group]:selection},group,1);
-  assert.equal(next[group],variants[(variants.indexOf(selection)+1)%variants.length]);
+  assert.equal(next[group],order[(order.indexOf(selection)+1)%order.length]);
   assert.equal(registry.cycleInterfaceVariant(next,group,-1)[group],selection);
  }
 });
@@ -79,12 +80,19 @@ test('rank selections use the authored style identities from HTML v866',()=>{
  for(const selection of canon.REGISTRY.KG)assert.equal(registry.rankStyleId(selection),canon.RANK_STYLE_ID_BY_SELECTION[selection]);
 });
 
-// OWNER rollback: preserve the pre-block selection/state implementation and
-// prevent accidental activation of the explicitly rejected visual adapters.
+// Preserve rollback state/DOM. OWNER subsequently authorized progress ordering
+// and four Energy unit text wrappers; physical models stay covered above.
 test('OWNER-rejected progress and Header adapters stay detached after rollback',()=>{
- const expected={"src/lib/interfaceVariantRegistry.ts": "33e19a99a82b2e3142bef9567e6e748f06e9bfb279add4f2ec951fea47fcd773", "src/components/interface-settings/InterfaceCustomizationProvider.tsx": "235a699fed368ce2c7790b1566dcb3b6eb5a3e7719cf98f95643b0334402dcbd", "src/components/interface-settings/InterfaceVariantDotsLayer.tsx": "e1b45f4406aa1dd2b603f13d6a736dc2a8d1735dd0356e6345120e5f53834f0d", "src/pages/index.tsx": "31fc0fbba4a10b444ed18ab885953482b05fb2d0ff2b9f6a46929e845dd22116"};
+ const expected={"src/components/interface-settings/InterfaceCustomizationProvider.tsx": "235a699fed368ce2c7790b1566dcb3b6eb5a3e7719cf98f95643b0334402dcbd", "src/components/interface-settings/InterfaceVariantDotsLayer.tsx": "e1b45f4406aa1dd2b603f13d6a736dc2a8d1735dd0356e6345120e5f53834f0d"};
  for(const [file,hash] of Object.entries(expected))assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex'),hash,file);
  const app=fs.readFileSync(path.join(root,'src/pages/_app.tsx'),'utf8');
  assert.doesNotMatch(app,/v866-react-progress\.css|react-header-transparent\.css/);
  for(const group of ['PB','RP'])assert.equal(registry.INTERFACE_VARIANT_REGISTRY[group].length,33);
+ const energy=fs.readFileSync(path.join(root,'src/pages/index.tsx'),'utf8')
+  .replace('import { EnergyUnitText } from "../components/energy/EnergyUnitText";\n','')
+  .replace('<EnergyUnitText text={props.labels.total_generated} />','{props.labels.total_generated}')
+  .replace('<EnergyUnitText text={props.labels.kwh_suffix} />','props.labels.kwh_suffix')
+  .replace('<EnergyUnitText text="kWh/с" />','<span data-i18n-fixed-token="kWh/с">kWh/с</span>')
+  .replace('<EnergyUnitText text={props.labels.available_kwh_chip} />','{props.labels.available_kwh_chip}');
+ assert.equal(crypto.createHash('sha256').update(energy).digest('hex'),'31fc0fbba4a10b444ed18ab885953482b05fb2d0ff2b9f6a46929e845dd22116','Energy changed beyond approved unit labels');
 });

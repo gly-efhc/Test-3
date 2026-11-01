@@ -2,6 +2,7 @@ import type {
   InterfaceVariantGroup,
   InterfaceVariantSettings,
 } from "../types/interfaceCustomization";
+import { COLOR_THEME_CATALOG, COLOR_THEME_PROGRESS_STARTER } from "./colorThemeRegistry";
 
 function numbered(prefix: string, count: number): readonly string[] {
   return Object.freeze(
@@ -46,6 +47,30 @@ export const INTERFACE_VARIANT_REGISTRY: Readonly<
   AM: numbered("AM", 12),
 });
 
+// Presentation order only: keep stored selections and physical CSS bindings intact.
+// OWNER: the ten accepted CT starters occupy the first ten PB/RP positions.
+function progressSelectionOrder(group: "PB" | "RP"): readonly string[] {
+  const starters = COLOR_THEME_CATALOG.map(({ id }) =>
+    COLOR_THEME_PROGRESS_STARTER[id].replace("PB-", `${group}-`),
+  );
+  const starterIds = new Set(starters);
+  return Object.freeze([
+    ...starters,
+    ...INTERFACE_VARIANT_REGISTRY[group].filter((id) => !starterIds.has(id)),
+  ]);
+}
+
+const PROGRESS_SELECTION_ORDER = Object.freeze({
+  PB: progressSelectionOrder("PB"),
+  RP: progressSelectionOrder("RP"),
+});
+
+export function getInterfaceVariantSelectionOrder(group: InterfaceVariantGroup): readonly string[] {
+  return group === "PB" || group === "RP"
+    ? PROGRESS_SELECTION_ORDER[group]
+    : INTERFACE_VARIANT_REGISTRY[group];
+}
+
 function physicalSlotCapacity(variants: readonly string[]): number {
   const highestAuthoredSlot = variants.reduce((highest, variant) => {
     const match = variant.match(/-(\d{2})$/);
@@ -88,7 +113,9 @@ export const INTERFACE_VARIANT_SLOT_REGISTRY: Readonly<
   Object.fromEntries(
     Object.entries(INTERFACE_VARIANT_REGISTRY).map(([group, variants]) => [
       group,
-      toPhysicalSlots(variants),
+      group === "PB" || group === "RP"
+        ? PROGRESS_SELECTION_ORDER[group]
+        : toPhysicalSlots(variants),
     ]),
   ) as Record<InterfaceVariantGroup, readonly (string | null)[]>,
 );
@@ -191,7 +218,7 @@ export function cycleInterfaceVariant(
   group: InterfaceVariantGroup,
   direction: 1 | -1,
 ): InterfaceVariantSettings {
-  const variants = INTERFACE_VARIANT_REGISTRY[group];
+  const variants = getInterfaceVariantSelectionOrder(group);
   const current = normalizeInterfaceVariant(group, settings[group]);
   const currentIndex = Math.max(0, variants.indexOf(current));
   const nextIndex = (

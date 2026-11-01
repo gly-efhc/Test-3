@@ -25,6 +25,7 @@ import { useInterfaceVariantSurface } from
 import { useInterfaceCustomization } from
   "../hooks/useInterfaceCustomization";
 import { COLOR_THEME_CATALOG } from "../lib/colorThemeRegistry";
+import { EnergyUnitText } from "../components/energy/EnergyUnitText";
 
 const SCALE = 8;
 const LIVE_TICK_MS = 333;
@@ -335,7 +336,7 @@ function LiveEnergyBlock(props: LiveBlockProps) {
         </div>
 
         <div className="efhc-energy-stage_subtitle">
-          {props.labels.total_generated}
+          <EnergyUnitText text={props.labels.total_generated} />
         </div>
 
         <div className="efhc-energy-stage_progress-head">
@@ -381,7 +382,7 @@ function LiveEnergyBlock(props: LiveBlockProps) {
               aria-label={level >= 12 ? "MAX" : `До следующего уровня: ${shownRemaining} ${props.labels.kwh_suffix}`}
             >
               {shownRemaining}
-              {remainingKwh === "MAX" ? "" : props.labels.kwh_suffix}
+              {remainingKwh === "MAX" ? "" : <EnergyUnitText text={props.labels.kwh_suffix} />}
             </span>
             <span>
               {endScaled
@@ -406,7 +407,7 @@ function LiveEnergyBlock(props: LiveBlockProps) {
             data-energy-chip="generation-rate"
           >
             <span>
-              {props.labels.gen_rate} <span data-i18n-fixed-token="kWh/с">kWh/с</span>
+              {props.labels.gen_rate} <EnergyUnitText text="kWh/с" />
             </span>
             <strong className="tabular-nums">
               {shownRate}
@@ -416,7 +417,7 @@ function LiveEnergyBlock(props: LiveBlockProps) {
             className="efhc-energy-chip"
             data-energy-chip="available-kwh"
           >
-            <span>{props.labels.available_kwh_chip}</span>
+            <span><EnergyUnitText text={props.labels.available_kwh_chip} /></span>
             <strong className="tabular-nums">
               {shownAvailable}
             </strong>

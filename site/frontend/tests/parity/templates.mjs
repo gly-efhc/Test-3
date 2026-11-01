@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
+import {expectedSelectionOrder} from './progress-order.mjs';
 const require=createRequire(process.env.EFHC_BROWSER_TOOLS||import.meta.url),{chromium}=require('playwright-core');
 const canon=JSON.parse(await fs.readFile(new URL('./v866-contract.json',import.meta.url)));
 const base=process.env.EFHC_REACT_URL||'http://127.0.0.1:19240/Test-3/';
@@ -18,7 +19,7 @@ try{
    await page.locator('.efhc-interface-customization-button').click();
    const surface=page.locator(`[data-interface-variant-group="${group}"]`).first();await surface.waitFor({state:'attached'});
    const signatures=new Set();
-   for(const selection of canon.REGISTRY[group]){
+   for(const selection of expectedSelectionOrder(group,canon)){
     let style=canon.SOURCE_STYLE[group][selection]||selection;
     if(group==='KG')style=canon.RANK_STYLE_ID_BY_SELECTION[style];
     const attribute='data-'+(group==='RP'?'pb':group.toLowerCase());
