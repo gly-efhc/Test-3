@@ -30,6 +30,42 @@ async function open(page,route=''){
 }
 const routePath=page=>page.evaluate(()=>location.pathname.replace(/^\/Test-3/,'').replace(/\/$/,'')||'/');
 try{
+ for(const width of [320,390,1440]) await check(`PB-04 source segments and bounded height on both pages at ${width}px`,async page=>{
+  // Expected material comes from immutable source CSS, not the candidate adapter.
+  const css=await fs.readFile(new URL('../../public/FRONTEND_v866.css',import.meta.url),'utf8');
+  const reference=await browser.newPage({viewport:{width,height:844}});
+  let expected;
+  try{
+   await reference.setContent(`<style>${css}</style><div class="efhc-independent-shell" data-interface-app-mode="user"><section class="efhc-energy-stage"><div class="efhc-energy-progress-track" data-pb="PB-04"><div class="efhc-energy-progress-fill"></div></div></section></div>`);
+   expected=await reference.locator('.efhc-energy-progress-fill').evaluate(el=>{const s=getComputedStyle(el);return {background:s.backgroundImage,color:s.backgroundColor,shadow:s.boxShadow}});
+   assert.match(expected.background,/repeating-linear-gradient/,'source fixture lost authored segments');
+  }finally{await reference.close()}
+  for(const [route,group] of [['','PB'],['referrals/','RP']]){
+   await open(page,route);
+   await page.mouse.move(12,12);
+   await page.locator('.efhc-interface-customization-button').click();
+   const surface=page.locator(`[data-interface-variant-group="${group}"]`);
+   // Actual keyboard selection, not direct data-pb mutation.
+   for(let i=0;i<3;i++)await surface.press('ArrowRight');
+   await page.waitForFunction(group=>document.querySelector(`[data-interface-variant-group="${group}"]`)?.dataset.pb==='PB-04',group);
+   const actual=await surface.locator('.efhc-energy-progress-track').evaluate(el=>{
+    const fill=el.querySelector('.efhc-energy-progress-fill'),s=getComputedStyle(fill),r=el.getBoundingClientRect(),f=fill.getBoundingClientRect();
+    return {background:s.backgroundImage,color:s.backgroundColor,shadow:s.boxShadow,height:r.height,fillHeight:f.height,rootFont:parseFloat(getComputedStyle(document.documentElement).fontSize)};
+   });
+   assert.deepEqual({background:actual.background,color:actual.color,shadow:actual.shadow},expected,`${group} lost HTML PB-04 material`);
+   const canonicalHeight=.715*actual.rootFont;
+   assert.ok(actual.height>=canonicalHeight*.85&&actual.height<=canonicalHeight*1.15,`${group}: height ${actual.height} outside OWNER bounds around ${canonicalHeight}`);
+   assert.ok(actual.fillHeight>0&&actual.fillHeight<=actual.height,`${group}: fill escapes track`);
+   await page.locator('.efhc-interface-customization-button').click();
+   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).interface_variants);
+   assert.equal(saved[group],`${group}-04`);
+   assert.equal(saved[group==='PB'?'RP':'PB'],group==='PB'?'RP-01':'PB-04','manual selection changed the other page');
+   if(process.env.EFHC_PARITY_ARTIFACTS){
+    await fs.mkdir(process.env.EFHC_PARITY_ARTIFACTS,{recursive:true});
+    await surface.screenshot({path:`${process.env.EFHC_PARITY_ARTIFACTS}/pb04-${group}-${width}.png`});
+   }
+  }
+ },{width});
  await check('Admin exit does not retain the Admin renderer',async page=>{
   await open(page,'admin/');await page.waitForSelector('[data-admin-visual-proof-route="/admin"]');
   await page.locator('.efhc-game-header_profile-name-button').click();
