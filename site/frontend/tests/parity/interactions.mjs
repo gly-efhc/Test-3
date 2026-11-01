@@ -13,7 +13,7 @@ async function check(name,run,{width=390,height=844,telegram=false,settings={}}=
  const page=await context.newPage();page.setDefaultTimeout(5000);
  await page.route('**/*',r=>new URL(r.request().url()).origin===new URL(base).origin?r.continue():r.abort());
  await page.addInitScript(({defaults,settings,telegram})=>{
-  localStorage.setItem('EFHC_USER_SETTINGS_V1',JSON.stringify({lang:'ru',interface_settings_version:4,color_theme_id:'CT-01',interface_variants:defaults,music_enabled:false,...settings}));
+  if(!localStorage.getItem('EFHC_USER_SETTINGS_V1')) localStorage.setItem('EFHC_USER_SETTINGS_V1',JSON.stringify({lang:'ru',interface_settings_version:4,color_theme_id:'CT-01',interface_variants:defaults,music_enabled:false,...settings}));
   if(telegram){
    const listeners=new Set();window.__efhcHostTest={closed:0,back:()=>[...listeners].forEach(fn=>fn())};
    window.Telegram={WebApp:{platform:'android',initData:'',initDataUnsafe:{},themeParams:{},ready(){},expand(){},onEvent(){},offEvent(){},close(){window.__efhcHostTest.closed++},BackButton:{show(){},hide(){},onClick(fn){listeners.add(fn)},offClick(fn){listeners.delete(fn)}}}};
@@ -177,6 +177,12 @@ try{
   await page.locator('.efhc-interface-customization-button').click();
   assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).color_theme_id),'CT-02','save did not persist the theme');
   assert.equal(await selector.count(),0,'globe must be absent outside editing');
+  // OWNER acceptance: the selection survives an actual route reload.
+  await page.clock.resume();
+  await page.reload({waitUntil:'domcontentloaded'});
+  await page.waitForFunction(()=>document.documentElement.dataset.colorThemeId==='CT-02');
+  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).color_theme_id),'CT-02','saved selection must survive reload');
+  assert.equal(await page.locator('[data-color-theme-control="true"]').count(),0,'globe must remain absent after reload outside editing');
  });
 
 }finally{await browser.close()}

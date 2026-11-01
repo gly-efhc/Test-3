@@ -4,7 +4,7 @@
   "reference": "FRONTEND_v866.html",
   "reference_sha256": "9b6371f5fb62939596b78206f95031c447e9f2b375e62b30704403bb25102aef",
   "baseline_react_commit": "094701cb30d706cf75a7446d568bde4ec82780d7",
-  "scope": "Remove the remaining self-introduced Referrals recoloring and restore original source contexts/priorities; Header and PB/RP rollback preserved; OWNER-directed color selector auto-hide after 3000ms inactivity",
+  "scope": "Referrals source color parity (pending separate OWNER acceptance); completed OWNER-accepted gear idle auto-hide and permanent globe selection CT-01–CT-10 in editing",
   "full_application_parity": "not-yet-accepted",
   "previous_checkpoint": "v866-referrals-colors-05",
   "owner_accepted_components": {
@@ -26,6 +26,21 @@
         "PC"
       ],
       "all_page_templates": "fixed-owner-accepted"
+    },
+    "Оформление ⚙ / 🌐": {
+      "status": "fixed-owner-accepted",
+      "accepted_on": "2026-11-01",
+      "basis": "direct-owner-visual-acceptance",
+      "scope": "gear idle/reveal, save persistence, globe always visible during editing, 10 CT cycle",
+      "tested_ci_run": 41315796057,
+      "pages_run": 41316042076,
+      "ui_commit": "666ef1137266d1697c26745de96b645478cf8c61",
+      "test_control_sha": "509c8f22ab1e89bbfbd1997bbe25dd57ebd3f4ac",
+      "test_paths": [
+        "site/frontend/tests/parity/interactions.mjs",
+        "site/ci/pages-tools/browser-smoke.mjs"
+      ],
+      "protected": true
     }
   },
   "rollback": {
@@ -47,5 +62,11 @@
     "owner_acceptance": "pending Pages visual review"
   },
   "application_rules": "site/APPLICATION_RULES.md",
-  "color_selector_auto_hide_ms": 3000
+  "gear_idle_auto_hide_ms": 3000,
+  "globe_auto_hide_ms": null,
+  "owner_visual_acceptance": {
+    "gear_globe": "accepted-2026-11-01",
+    "referrals": "pending",
+    "full_application": "not-accepted"
+  }
 }
