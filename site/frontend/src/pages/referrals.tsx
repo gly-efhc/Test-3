@@ -6,7 +6,6 @@ import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { EmptyState } from "../components/ui/EmptyState";
 import {
-  GameDetails,
   GameHero,
   GamePageShell,
   GameStat,
@@ -17,7 +16,6 @@ import { BonusEarningsStrip } from "../components/ui/BonusEarningsStrip";
 import { useT } from "../hooks/useT";
 import { useInterfaceVariantSurface } from "../hooks/useInterfaceVariantSurface";
 import { useInterfaceCustomization } from "../hooks/useInterfaceCustomization";
-import { useTD } from "../hooks/useTD";
 import type { SyncSnapshot } from "../hooks/useSnapshot";
 import { formatD8ToHuman } from "../lib/format";
 import { publicApiErrorMessage } from "../lib/publicError";
@@ -74,7 +72,6 @@ export default function ReferralsPage(props: {
   snap: SyncSnapshot | null;
 }) {
   const t = useT();
-  const td = useTD();
   const router = useRouter();
   const ctx = useContext(LayoutContext);
   const customization = useInterfaceCustomization();
@@ -305,22 +302,6 @@ export default function ReferralsPage(props: {
         )}
       </Card>
 
-      <GameDetails summary={t("referrals.system_title")}>
-        <div data-referral-bonus-wording="1298" data-referral-bonus-map="direct-plus-level-cumulative">
-          <strong>{t("referrals.bonus_rule_title")}</strong>
-          <p className="text-sm efhc-text-muted2">{t("referrals.bonus_rule_active")}</p>
-        </div>
-        <div className="text-sm efhc-text-muted2">
-          {td("desc.referrals.system_short")}
-        </div>
-        <button
-          className="mt-3 text-sm underline"
-          onClick={() => void router.push("/faq")}
-          type="button"
-        >
-          {t("referrals.faq_link")}
-        </button>
-      </GameDetails>
 
       <Button
         type="button"

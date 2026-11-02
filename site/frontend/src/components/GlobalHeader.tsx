@@ -212,7 +212,7 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
   const lvl = clampLevel(props.level);
   const headerThemeSurface = useInterfaceVariantSurface<HTMLDivElement>(
     "HS",
-    { dotsPlacement: "below", interactive: true },
+    { dotsPlacement: "above", interactive: true },
   );
   const headerThemeVariant = props.appMode === "admin"
     ? "HS-03"

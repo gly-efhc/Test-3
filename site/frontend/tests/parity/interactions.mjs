@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {createRequire} from 'node:module';
 import {readProgressMaterial,readProgressAccent,readProgressAppearance,readProgressGeometry} from './progress-material.mjs';
+import {verifyUiFollowup} from './ui-followup.mjs';
 import {verifyProgress20Grid} from './progress-grid.mjs';
 import {expectedSelectionOrder} from './progress-order.mjs';
 const require=createRequire(process.env.EFHC_BROWSER_TOOLS||import.meta.url);
@@ -391,6 +392,13 @@ try{
   assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).color_theme_id),'CT-02','saved selection must survive reload');
   assert.equal(await page.locator('[data-color-theme-control="true"]').count(),0,'globe must remain absent after reload outside editing');
  });
+
+ for(const theme of Array.from({length:10},(_,i)=>`CT-${String(i+1).padStart(2,'0')}`))await check(`OWNER followup: Header backgrounds, Ranks theme coverage, upper dots and Referrals removal ${theme}`,async page=>{
+  await verifyUiFollowup(page,{open,artifacts:process.env.EFHC_PARITY_ARTIFACTS,theme,width:390});
+ },{settings:{color_theme_id:theme}});
+ for(const width of [320,1440])await check(`OWNER followup responsive ${width}`,async page=>{
+  await verifyUiFollowup(page,{open,artifacts:process.env.EFHC_PARITY_ARTIFACTS,theme:'CT-03',width});
+ },{width,settings:{color_theme_id:'CT-03'}});
 
 }finally{await browser.close()}
 if(process.env.EFHC_PARITY_ARTIFACTS){await fs.mkdir(process.env.EFHC_PARITY_ARTIFACTS,{recursive:true});await fs.writeFile(process.env.EFHC_PARITY_ARTIFACTS+'/interaction-results.json',JSON.stringify({results},null,2)+'\n')}

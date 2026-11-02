@@ -81,7 +81,7 @@ export default function RanksPage(props: {
 }) {
   const ranksSurface = useInterfaceVariantSurface<HTMLDivElement>(
     "KG",
-    { dotsPlacement: "below" },
+    { dotsPlacement: "above" },
   );
   const t = useT();
   const rankContextQ = useRankContext();
@@ -191,7 +191,6 @@ export default function RanksPage(props: {
       <GameHero
         data-ranks-hero-summary="cycle0012-responsive"
         title={t("ranks.title")}
-        icon="★"
         right={
           <Button
             aria-label={t("common.refresh")}
