@@ -253,7 +253,7 @@ export default function ReferralsPage(props: {
               data-pb={referralProgressSurface.variant}
               data-referrals-progress-bar="true"
               data-referrals-progress-variant={referralProgressSurface.variant}
-              data-progress-library="PB-01..PB-33"
+              data-progress-library="shared-progress-24"
               data-progress-selection-scope="referrals-independent"
             >
               <div

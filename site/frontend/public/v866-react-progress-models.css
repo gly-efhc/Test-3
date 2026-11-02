@@ -32,175 +32,232 @@ html[data-interface-app-mode="user"][data-color-theme-id]
 /* Energy donor recovery: Referrals positions 14–19,26–30, source 568fcaea.
  * Restore each authored material under the affected Energy context. Accented
  * stops use the active CT; neutral glass, gaps and metal highlights retain their
- * source roles. No rule reaches the protected ten starters or Referrals.
+ * source roles. The shared non-starter scope excludes the ten protected Energy starters.
  * OWNER geometry exception applies to both rail and fill, not palette identity.
  */
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track:is([data-pb="PB-02"],[data-pb="PB-04"],[data-pb="PB-05"],[data-pb="PB-06"],[data-pb="PB-07"],[data-pb="PB-09"],[data-pb="PB-10"],[data-pb="PB-11"],[data-pb="PB-16"],[data-pb="PB-19"],[data-pb="PB-20"],[data-pb="PB-21"],[data-pb="PB-22"],[data-pb="PB-23"]) {
   --energy-pb-accent:var(--efhc-ct-accent);
   --energy-pb-rgb:var(--efhc-ct-accent-rgb);
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track:is([data-pb="PB-02"],[data-pb="PB-04"],[data-pb="PB-05"],[data-pb="PB-06"],[data-pb="PB-07"],[data-pb="PB-09"],[data-pb="PB-10"],[data-pb="PB-11"],[data-pb="PB-16"],[data-pb="PB-19"],[data-pb="PB-20"],[data-pb="PB-21"],[data-pb="PB-22"],[data-pb="PB-23"]) {
   border-color:rgba(var(--energy-pb-rgb),.25);
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track:is([data-pb="PB-02"],[data-pb="PB-05"],[data-pb="PB-06"],[data-pb="PB-07"],[data-pb="PB-10"],[data-pb="PB-16"],[data-pb="PB-22"]) > .efhc-energy-progress-fill {
   box-shadow:0 0 12px rgba(var(--energy-pb-rgb),.24);
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-02"] > .efhc-energy-progress-fill {
   background:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 87%,black),var(--energy-pb-accent));
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-04"] {
   --energy-pb-segment-base:color-mix(in srgb,var(--energy-pb-accent) 35%,black);
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-04"] > .efhc-energy-progress-fill {
   background:repeating-linear-gradient(90deg,var(--energy-pb-accent) 0 12px,transparent 12px 15px),var(--energy-pb-segment-base);box-shadow:none;
 }
-html[data-color-theme-id="CT-01"] .efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+html[data-color-theme-id="CT-01"] .efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-04"] {--energy-pb-segment-base:#1e3a5f;}
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-05"] {
   height:.8rem;padding:2px;background:#070b12;border-radius:999px;box-shadow:none;
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-05"] > .efhc-energy-progress-fill {
-  inset:1px auto 1px 2px;height:auto;border-radius:999px;background:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 87%,black),var(--energy-pb-accent));
+  inset:1px auto 1px 1px;height:auto;border-radius:999px;background:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 87%,black),var(--energy-pb-accent));
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-06"] {
   height:.8rem;background:linear-gradient(180deg,#06090f 0 42%,#273449 43% 57%,#06090f 58%);border-radius:999px;box-shadow:none;
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-06"] > .efhc-energy-progress-fill {
-  top:1px;bottom:1px;height:auto;background:linear-gradient(90deg,var(--energy-pb-accent),color-mix(in srgb,var(--energy-pb-accent) 88%,white));
+  inset:1px auto 1px 1px;height:auto;background:linear-gradient(90deg,var(--energy-pb-accent),color-mix(in srgb,var(--energy-pb-accent) 88%,white));
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-07"] {
   height:.63rem;background:rgba(255,255,255,.055);backdrop-filter:blur(8px);border-radius:999px;box-shadow:none;
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-07"] > .efhc-energy-progress-fill {
   background:linear-gradient(90deg,rgba(var(--energy-pb-rgb),.7),rgba(var(--energy-pb-rgb),.82));
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-09"] {
   height:.66rem;border-radius:999px;background:rgba(15,23,42,.84);box-shadow:none;
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-09"] > .efhc-energy-progress-fill {
   background:repeating-linear-gradient(90deg,var(--energy-pb-accent) 0 calc(10% - 3px),transparent calc(10% - 3px) 10%),rgba(var(--energy-pb-rgb),.18);box-shadow:none;
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track:is([data-pb="PB-10"],[data-pb="PB-11"]) {
   height:.715rem;border-color:rgba(var(--energy-pb-rgb),.35);border-radius:999px;box-shadow:none;
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-10"] {
   background:rgba(15,23,42,.84);
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-10"] > .efhc-energy-progress-fill {
   background:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 78%,black),color-mix(in srgb,var(--energy-pb-accent) 75%,white));
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-11"] {
   background:#05080d;
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-11"] > .efhc-energy-progress-fill {
   background:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 56%,black),color-mix(in srgb,var(--energy-pb-accent) 60%,white));box-shadow:none;
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-16"] {
   height:.715rem;
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-16"] > .efhc-energy-progress-fill {
   background-image:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 87%,black),var(--energy-pb-accent),color-mix(in srgb,var(--energy-pb-accent) 80%,white));
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-19"] {
   height:.65rem;border:0;border-radius:999px;background:rgba(var(--energy-pb-rgb),.10);box-shadow:inset 0 0 0 1px rgba(var(--energy-pb-rgb),.24);
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-19"] > .efhc-energy-progress-fill {
   background:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 60%,black),color-mix(in srgb,var(--energy-pb-accent) 84%,black) 58%,var(--energy-pb-accent));box-shadow:0 0 18px rgba(var(--energy-pb-rgb),.34);
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-20"] {
   height:.8rem;padding:2px;border-radius:.42rem;border-color:rgba(var(--energy-pb-rgb),.34);background:linear-gradient(180deg,color-mix(in srgb,rgba(var(--energy-pb-rgb),.72) 24%,rgba(11,14,27,.72)),color-mix(in srgb,rgba(var(--energy-pb-rgb),.86) 6%,rgba(11,14,27,.86)));box-shadow:inset 0 1px 4px rgba(0,0,0,.42),0 0 14px rgba(var(--energy-pb-rgb),.12);overflow:hidden;
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-20"] > .efhc-energy-progress-fill {
-  inset:1px auto 1px 2px;height:auto;border-radius:.32rem;background:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 65%,black) 0%,color-mix(in srgb,var(--energy-pb-accent) 85%,black) 52%,color-mix(in srgb,var(--energy-pb-accent) 75%,white) 100%);box-shadow:0 0 14px rgba(var(--energy-pb-rgb),.42);
+  inset:1px auto 1px 1px;height:auto;border-radius:.32rem;background:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 65%,black) 0%,color-mix(in srgb,var(--energy-pb-accent) 85%,black) 52%,color-mix(in srgb,var(--energy-pb-accent) 75%,white) 100%);box-shadow:0 0 14px rgba(var(--energy-pb-rgb),.42);
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-21"] {
   height:.65rem;border:0;border-radius:999px;background:rgba(148,163,184,.20);box-shadow:inset 0 1px 4px rgba(0,0,0,.42);
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-21"] > .efhc-energy-progress-fill {
   background:var(--energy-pb-accent);box-shadow:none;
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-22"] {
   height:.8rem;padding:2px;border-radius:999px;background:rgba(5,8,13,.85);border-color:rgba(var(--energy-pb-rgb),.34);box-shadow:none;
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-22"] > .efhc-energy-progress-fill {
-  inset:1px auto 1px 2px;height:auto;border-radius:999px;background:linear-gradient(180deg,color-mix(in srgb,var(--energy-pb-accent) 80%,white) 0 46%,color-mix(in srgb,var(--energy-pb-accent) 76%,black) 47% 100%);
+  inset:1px auto 1px 1px;height:auto;border-radius:999px;background:linear-gradient(180deg,color-mix(in srgb,var(--energy-pb-accent) 80%,white) 0 46%,color-mix(in srgb,var(--energy-pb-accent) 76%,black) 47% 100%);
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-23"] {
   height:.715rem;border-radius:999px;background:rgba(var(--energy-pb-rgb),.10);border-color:rgba(var(--energy-pb-rgb),.24);box-shadow:inset 0 1px 4px rgba(0,0,0,.42);overflow:hidden;
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-23"] > .efhc-energy-progress-fill {
   border-radius:999px;background:linear-gradient(90deg,rgba(var(--energy-pb-rgb),.72),color-mix(in srgb,var(--energy-pb-accent) 35%,white) 50%,rgba(var(--energy-pb-rgb),.72));box-shadow:0 0 24px rgba(var(--energy-pb-rgb),.35);
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track:is([data-pb="PB-21"],[data-pb="PB-23"]) > .efhc-energy-progress-fill::after {
   content:"";position:absolute;inset:0;background:repeating-linear-gradient(120deg,rgba(0,0,0,.04) 0 10px,rgba(255,255,255,.10) 10px 20px);mix-blend-mode:overlay;pointer-events:none;
 }
-.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
-.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-02"] {
   height:.715rem;
+}
+
+/* OWNER: positions 13,19,23,24 have a symmetric 1px inner inset.
+ * The authored safety max-width is important; override only these four models
+ * so 100% leaves the same inset on the right as on the left. */
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
+.efhc-energy-progress-track:is([data-pb="PB-05"],[data-pb="PB-06"],[data-pb="PB-20"],[data-pb="PB-22"]) > .efhc-energy-progress-fill {
+  max-width:calc(100% - 2px)!important;
+}
+/* Preserve the accepted Energy flow model's background sizing on both routes. */
+.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+:is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
+.efhc-energy-progress-track[data-pb="PB-16"] > .efhc-energy-progress-fill {background-size:auto;}
+
+/* Canonical starters on Referrals: verbatim immutable v866 Energy rules,
+ * remapped only to the RP context. Approved Energy starters are untouched. */
+.efhc-independent-shell[data-interface-app-mode="user"]
+.efhc-referrals-shell [data-interface-variant-group="RP"] .efhc-energy-progress-track:is(
+  [data-pb="PB-01"],
+  [data-pb="PB-24"], [data-pb="PB-25"], [data-pb="PB-26"], [data-pb="PB-27"],
+  [data-pb="PB-28"], [data-pb="PB-29"], [data-pb="PB-30"], [data-pb="PB-31"],
+  [data-pb="PB-32"], [data-pb="PB-33"], [data-pb="PB-34"], [data-pb="PB-35"]
+) {
+  height:.715rem !important;
+  border-color:rgba(148,163,184,.18) !important;
+  background:rgba(15,23,42,.84) !important;
+  border-radius:9999px !important;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.32) !important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"]
+.efhc-referrals-shell [data-interface-variant-group="RP"] .efhc-energy-progress-track:is(
+  [data-pb="PB-01"],
+  [data-pb="PB-24"], [data-pb="PB-25"], [data-pb="PB-26"], [data-pb="PB-27"],
+  [data-pb="PB-28"], [data-pb="PB-29"], [data-pb="PB-30"], [data-pb="PB-31"],
+  [data-pb="PB-32"], [data-pb="PB-33"], [data-pb="PB-34"], [data-pb="PB-35"]
+) .efhc-energy-progress-fill {
+  border-radius:9999px !important;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell [data-interface-variant-group="RP"] .efhc-energy-progress-track[data-pb="PB-01"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#5f96db,#6ea8ff) !important; box-shadow:0 0 12px rgba(110,168,255,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell [data-interface-variant-group="RP"] .efhc-energy-progress-track[data-pb="PB-30"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#4e86d4,#73aefc) !important; box-shadow:0 0 12px rgba(115,174,252,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell [data-interface-variant-group="RP"] .efhc-energy-progress-track[data-pb="PB-24"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#7c5cff,#a78bfa) !important; box-shadow:0 0 12px rgba(167,139,250,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell [data-interface-variant-group="RP"] .efhc-energy-progress-track[data-pb="PB-25"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#1877a6,#229ed9) !important; box-shadow:0 0 12px rgba(34,158,217,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell [data-interface-variant-group="RP"] .efhc-energy-progress-track[data-pb="PB-26"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#b68e32,#e5bf58) !important; box-shadow:0 0 12px rgba(229,191,88,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell [data-interface-variant-group="RP"] .efhc-energy-progress-track[data-pb="PB-27"] .efhc-energy-progress-fill { background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 72%,#0b0e1b),var(--efhc-ct-accent)) !important; box-shadow:0 0 12px rgba(var(--efhc-ct-accent-rgb),.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell [data-interface-variant-group="RP"] .efhc-energy-progress-track[data-pb="PB-31"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#5b91db,#7fb4ff) !important; box-shadow:0 0 12px rgba(127,180,255,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell [data-interface-variant-group="RP"] .efhc-energy-progress-track[data-pb="PB-32"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#6962d9,#8f86ff) !important; box-shadow:0 0 12px rgba(143,134,255,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell [data-interface-variant-group="RP"] .efhc-energy-progress-track[data-pb="PB-28"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#2e8f83,#58c7b4) !important; box-shadow:0 0 12px rgba(88,199,180,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell [data-interface-variant-group="RP"] .efhc-energy-progress-track[data-pb="PB-29"] .efhc-energy-progress-fill { background:linear-gradient(90deg,#b89600,#c5a15a) !important; box-shadow:0 0 12px rgba(197,161,90,.24) !important; }
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id="CT-10"]
+.efhc-referrals-shell [data-interface-variant-group="RP"] .efhc-energy-progress-track[data-pb="PB-29"] .efhc-energy-progress-fill{
+  background:linear-gradient(90deg,color-mix(in srgb,var(--efhc-ct-accent) 70%,#0b0e1b),var(--efhc-ct-accent))!important;
+  box-shadow:0 0 12px color-mix(in srgb,var(--efhc-ct-accent) 24%,transparent)!important;
+}
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-independent-shell[data-interface-app-mode="user"] .efhc-referrals-shell [data-interface-variant-group="RP"] .efhc-energy-progress-track[data-pb="PB-01"],
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-referrals-shell .efhc-energy-progress-track[data-referrals-progress-bar="true"][data-pb="PB-01"]{
+  border-color:rgba(var(--efhc-ct-accent-rgb),.30)!important;
 }

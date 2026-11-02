@@ -220,12 +220,17 @@ function normalizeSettings(parsed: any): UserSettings {
   const effectiveVariants = resetRetiredSelections
     ? { ...DEFAULT_INTERFACE_VARIANTS }
     : normalizeIndependentDesignSelections(source.interface_variants);
-  // A removed Energy selection falls back to the current CT starter. Keep
-  // surviving IDs, Referrals, the selected CT and all other settings intact.
-  const storedProgress = source.interface_variants?.PB;
-  if (!resetEnergySelections && typeof storedProgress === "string"
-    && !INTERFACE_VARIANT_REGISTRY.PB.includes(storedProgress)) {
-    effectiveVariants.PB = COLOR_THEME_PROGRESS_STARTER[colorThemeId];
+  // OWNER: retired choices fall back to the active CT canon independently.
+  // Surviving model IDs and the other page's selection remain unchanged.
+  if (!resetEnergySelections) {
+    for (const group of ["PB", "RP"] as const) {
+      const storedProgress = source.interface_variants?.[group];
+      if (typeof storedProgress === "string"
+        && !INTERFACE_VARIANT_REGISTRY[group].includes(storedProgress)) {
+        effectiveVariants[group] = COLOR_THEME_PROGRESS_STARTER[colorThemeId]
+          .replace("PB-", `${group}-`);
+      }
+    }
   }
   // OWNER 0560: reset only BN from pre-v4 preferences; old numbering changed.
   // Preserve all unrelated independent designs and Color Theme selections.

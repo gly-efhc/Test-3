@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {createRequire} from 'node:module';
-import {readProgressMaterial,readProgressAccent} from './progress-material.mjs';
+import {readProgressMaterial,readProgressAccent,readProgressAppearance,readProgressGeometry} from './progress-material.mjs';
 import {expectedSelectionOrder} from './progress-order.mjs';
 const require=createRequire(process.env.EFHC_BROWSER_TOOLS||import.meta.url);
 const {chromium}=require('playwright-core');
@@ -32,14 +32,13 @@ async function open(page,route=''){
 }
 const routePath=page=>page.evaluate(()=>location.pathname.replace(/^\/Test-3/,'').replace(/\/$/,'')||'/');
 try{
- for(const width of [320,390,1440])await check(`24 Energy choices: canonical bounds, clipping and protected starters at ${width}px`,async page=>{
+ for(const width of [320,390,1440])await check(`24 shared models: identical appearance, symmetric fills and protected starters at ${width}px`,async page=>{
   const donors=new Map();
   const reference=await page.context().newPage();
   try{
    await open(reference,'referrals/');await reference.mouse.move(12,12);
    await reference.locator('.efhc-interface-customization-button').click();
    const rp=reference.locator('[data-interface-variant-group="RP"]');
-   const donorIds=new Set(['PB-05','PB-06','PB-07','PB-09','PB-10','PB-11','PB-19','PB-20','PB-21','PB-22','PB-23']);
    const referenceOrder=expectedSelectionOrder('RP',canon);
    // CT-07 disables backdrop blur globally. Compare donor and candidate under
    // the same active CT instead of treating the CT-01 material as universal.
@@ -48,13 +47,21 @@ try{
      const id=referenceOrder[(theme+offset)%referenceOrder.length];
      const physical=canon.SOURCE_STYLE.RP[id]||id;
      assert.equal(await rp.getAttribute('data-pb'),physical);
-     if(donorIds.has(physical))donors.set(`${theme}/${physical}`,await rp.locator('.efhc-energy-progress-track').evaluate(readProgressMaterial));
+     const refTrack=rp.locator('.efhc-energy-progress-track');
+     const geometry=await refTrack.evaluate(readProgressGeometry);
+     assert.ok(geometry.bounds.every(b=>b.inside),`${physical} Referrals clipping`);
+     assert.ok(geometry.bounds[0].rendered<=.1,`${physical} Referrals zero width`);
+     if([13,19,23,24].includes((theme+offset)%referenceOrder.length+1)){
+      const full=geometry.bounds[2];
+      for(const edge of ['left','right','top','bottom'])assert.ok(Math.abs(full[edge]-2)<=.1,`${physical} Referrals ${edge} inset: ${full[edge]}`);
+     }
+     donors.set(`${theme}/${physical}`,{material:await refTrack.evaluate(readProgressMaterial),appearance:await refTrack.evaluate(readProgressAppearance)});
      await rp.press('ArrowRight');
     }
     if(theme<9)await reference.locator('[data-color-theme-control="true"]').click();
    }
   }finally{await reference.close()}
-  assert.equal(donors.size,110);
+  assert.equal(donors.size,240);
   await open(page);await page.mouse.move(12,12);
   await page.locator('.efhc-interface-customization-button').click();
   const surface=page.locator('[data-interface-variant-group="PB"]'),track=surface.locator('.efhc-energy-progress-track');
@@ -69,28 +76,31 @@ try{
     try{sheet.disabled=true;return {actual,withoutNonStarterSheet:read()}}finally{sheet.disabled=disabled}
    });
    assert.deepEqual(starter.actual,starter.withoutNonStarterSheet,'protected CT starter changed');
-   for(let i=theme;i<10;i++)await surface.press('ArrowRight');
-   for(let i=10;i<order.length;i++){
+   // Start from position one in every CT; verify all 24 against the other route.
+   for(let i=0;i<theme;i++)await surface.press('ArrowLeft');
+   for(let i=0;i<order.length;i++){
     const physical=canon.SOURCE_STYLE.PB[order[i]]||order[i];
     assert.equal(await track.getAttribute('data-pb'),physical);
     assert.match(await surface.getAttribute('aria-label'),new RegExp(`: ${i+1} из ${order.length}\\.`));
-    if(donors.has(`${theme}/${physical}`))assert.deepEqual(await track.evaluate(readProgressMaterial),donors.get(`${theme}/${physical}`),`${physical} lost donor material`);
+    const reference=donors.get(`${theme}/${physical}`);
+    assert.deepEqual(await track.evaluate(readProgressMaterial),reference.material,`${physical} route material differs`);
+    assert.deepEqual(await track.evaluate(readProgressAppearance),reference.appearance,`${physical} route appearance differs`);
+    if(i>=10){
     const accent=await track.evaluate(readProgressAccent);
     assert.ok(accent.differences.length>0,`${physical} has no CT foreground`);
     assert.ok(accent.differences.every(d=>d<5),`${physical} foreground differs from active CT: ${JSON.stringify(accent)}`);
-    const actual=await track.evaluate(el=>{
-     const fill=el.firstElementChild,t=el.getBoundingClientRect(),f=fill.getBoundingClientRect();
-     const oldWidth=fill.style.width,oldTransition=fill.style.transition,bounds=[];
-     try{fill.style.transition='none';for(const width of ['0%','100%']){fill.style.width=width;const r=fill.getBoundingClientRect();bounds.push({width,rendered:r.width,inside:r.left>=t.left-.1&&r.right<=t.right+.1&&r.top>=t.top-.1&&r.bottom<=t.bottom+.1})}}
-     finally{fill.style.width=oldWidth;fill.style.transition=oldTransition}
-     return {height:t.height,fillHeight:f.height,bounds};
-    });
+    }
+    const actual=await track.evaluate(readProgressGeometry);
+    if([13,19,23,24].includes(i+1)){
+     const full=actual.bounds[2];
+     for(const edge of ['left','right','top','bottom'])assert.ok(Math.abs(full[edge]-2)<=.1,`${physical} Energy ${edge} inset: ${full[edge]}`);
+    }
     assert.ok(actual.height>=starter.actual.height*.85&&actual.height<=starter.actual.height*1.15,`${physical} rail ${actual.height} / ${starter.actual.height}`);
     assert.ok(actual.fillHeight>=starter.actual.fillHeight*.85&&actual.fillHeight<=starter.actual.fillHeight*1.15,`${physical} fill ${actual.fillHeight} / ${starter.actual.fillHeight}`);
     assert.ok(actual.bounds.every(x=>x.inside),`${physical} escapes at 0/100%: ${JSON.stringify(actual.bounds)}`);
     assert.ok(actual.bounds[0].rendered<=.1,'zero progress has a visible width');
     measurements.push({theme:theme+1,position:i+1,physical,...actual});
-    if(process.env.EFHC_PARITY_ARTIFACTS&&width===390&&theme===0){
+    if(process.env.EFHC_PARITY_ARTIFACTS&&width===390&&theme===0&&i>=10){
      await fs.mkdir(process.env.EFHC_PARITY_ARTIFACTS,{recursive:true});
      await track.evaluate(el=>el.firstElementChild.style.width='55%');
      await track.screenshot({path:`${process.env.EFHC_PARITY_ARTIFACTS}/energy-new-${i+1}-390.png`});
@@ -107,9 +117,29 @@ try{
   await page.waitForFunction(physical=>document.querySelector('[data-interface-variant-group="PB"]')?.dataset.pb===physical,canon.SOURCE_STYLE.PB[selected]||selected);
   await page.mouse.move(12,12);await page.locator('.efhc-interface-customization-button').click();await page.locator('.efhc-interface-customization-button').click();
   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')));
-  assert.equal(saved.color_theme_id,ct);assert.equal(saved.interface_variants.PB,selected);assert.equal(saved.interface_variants.RP,'RP-03');assert.equal(saved.interface_variants.HS,'HS-02');
+  assert.equal(saved.color_theme_id,ct);assert.equal(saved.interface_variants.PB,selected);assert.equal(saved.interface_variants.RP,'RP-04');assert.equal(saved.interface_variants.HS,'HS-02');
   await page.reload();await page.waitForFunction(physical=>document.querySelector('[data-interface-variant-group="PB"]')?.dataset.pb===physical,canon.SOURCE_STYLE.PB[selected]||selected);
- },{settings:{color_theme_id:ct,interface_variants:{...canon.DEFAULTS,PB:'PB-03',RP:'RP-03',HS:'HS-02'}}});
+ },{settings:{color_theme_id:ct,interface_variants:{...canon.DEFAULTS,PB:'PB-03',RP:'RP-04',HS:'HS-02'}}});
+ for(const ct of ['CT-03','CT-10'])await check(`removed Referrals model falls back to ${ct} canon without changing Energy`,async page=>{
+  await open(page,'referrals/');
+  const index=Number(ct.slice(-2))-1,selected=expectedSelectionOrder('RP',canon)[index];
+  const physical=canon.SOURCE_STYLE.RP[selected];
+  await page.waitForFunction(physical=>document.querySelector('[data-interface-variant-group="RP"]')?.dataset.pb===physical,physical);
+  await page.mouse.move(12,12);await page.locator('.efhc-interface-customization-button').click();await page.locator('.efhc-interface-customization-button').click();
+  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')));
+  assert.equal(saved.color_theme_id,ct);assert.equal(saved.interface_variants.RP,selected);assert.equal(saved.interface_variants.PB,'PB-04');assert.equal(saved.interface_variants.HS,'HS-02');
+  await page.reload();await page.waitForFunction(physical=>document.querySelector('[data-interface-variant-group="RP"]')?.dataset.pb===physical,physical);
+ },{settings:{color_theme_id:ct,interface_variants:{...canon.DEFAULTS,PB:'PB-04',RP:'RP-03',HS:'HS-02'}}});
+ await check('shared library saves two independent choices across routes and reload',async page=>{
+  const choose=async(group,position)=>{await page.mouse.move(12,12);await page.locator('.efhc-interface-customization-button').click();const surface=page.locator(`[data-interface-variant-group="${group}"]`);for(let i=1;i<position;i++)await surface.press('ArrowRight');await page.locator('.efhc-interface-customization-button').click()};
+  await open(page);await choose('PB',24);
+  await page.locator('a[href$="/referrals/"],a[href$="/referrals"]').first().click();await page.waitForSelector('[data-interface-variant-group="RP"]');await choose('RP',19);
+  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).interface_variants);
+  assert.equal(saved.PB,'PB-20');assert.equal(saved.RP,'RP-06');
+  await page.reload();await page.waitForFunction(()=>document.querySelector('[data-interface-variant-group="RP"]')?.dataset.pb==='PB-06');
+  await page.locator('a[href="/Test-3/"],a[href="/Test-3"]').first().click();await page.waitForFunction(()=>document.querySelector('[data-interface-variant-group="PB"]')?.dataset.pb==='PB-22');
+  await page.reload();await page.waitForFunction(()=>document.querySelector('[data-interface-variant-group="PB"]')?.dataset.pb==='PB-22');
+ });
  for(const lang of ['en','ru','uk','de','fr','es','it','tr','pl','da','hi','id','sw','pt','ko','ja'])await check(`Energy uses rendered kWh casing in ${lang}`,async page=>{
   await open(page);
   const labels=page.locator('.efhc-energy-stage_subtitle,.efhc-energy-stage_range-center,[data-energy-chip="generation-rate"] > span,[data-energy-chip="available-kwh"] > span');

@@ -71,7 +71,7 @@ export function useInterfaceVariantSurface<T extends HTMLElement>(
       // only and never become an invisible keyboard trap.
       tabIndex: active ? 0 : undefined,
       role: active ? "button" : undefined,
-      "aria-label": active ? `Шаблон ${group}: ${group === "PB" ? `${getInterfaceVariantSelectionOrder(group).indexOf(customization.effective[group]) + 1} из ${getInterfaceVariantSelectionOrder(group).length}` : customization.effective[group]}. Enter — следующий, стрелка влево — предыдущий` : undefined,
+      "aria-label": active ? `Шаблон ${group}: ${(group === "PB" || group === "RP") ? `${getInterfaceVariantSelectionOrder(group).indexOf(customization.effective[group]) + 1} из ${getInterfaceVariantSelectionOrder(group).length}` : customization.effective[group]}. Enter — следующий, стрелка влево — предыдущий` : undefined,
       onPointerDownCapture: (event: React.PointerEvent<T>) => {
         if (!active) return;
         if (isNestedControl(event)) return;

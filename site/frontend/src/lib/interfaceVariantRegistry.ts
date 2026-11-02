@@ -13,6 +13,12 @@ function numbered(prefix: string, count: number): readonly string[] {
   );
 }
 
+// One model catalog, independent persisted PB/RP selections.
+export const PROGRESS_MODEL_LIBRARY: readonly string[] = Object.freeze([
+    ...COLOR_THEME_CATALOG.map(({ id }) => COLOR_THEME_PROGRESS_STARTER[id]),
+    "PB-02", "PB-04", "PB-05", "PB-07", "PB-15", "PB-17", "PB-19", "PB-21", "PB-06", "PB-08", "PB-09", "PB-10", "PB-18", "PB-20",
+  ]);
+
 export const INTERFACE_VARIANT_REGISTRY: Readonly<
   Record<InterfaceVariantGroup, readonly string[]>
 > = Object.freeze({
@@ -22,11 +28,8 @@ export const INTERFACE_VARIANT_REGISTRY: Readonly<
   EG: numbered("EG", 1),
   BN: numbered("BN", 5),
   EI: Object.freeze(["EI-07"]),
-  PB: Object.freeze([
-    ...COLOR_THEME_CATALOG.map(({ id }) => COLOR_THEME_PROGRESS_STARTER[id]),
-    "PB-02", "PB-04", "PB-05", "PB-07", "PB-15", "PB-17", "PB-19", "PB-21", "PB-06", "PB-08", "PB-09", "PB-10", "PB-18", "PB-20",
-  ]),
-  RP: numbered("RP", 33),
+  PB: PROGRESS_MODEL_LIBRARY,
+  RP: Object.freeze(PROGRESS_MODEL_LIBRARY.map(id => id.replace("PB-", "RP-"))),
   PH: numbered("PH", 6),
   PT: numbered("PT", 5),
   PC: numbered("PC", 9),
@@ -106,7 +109,7 @@ export function getInterfaceVariantAuthoredSlotCount(
 ): number {
   // Energy's OWNER-approved reduced list has contiguous display positions,
   // while persisted selections retain their original physical model identities.
-  if (group === "PB") return INTERFACE_VARIANT_REGISTRY.PB.length;
+  if (group === "PB" || group === "RP") return INTERFACE_VARIANT_REGISTRY[group].length;
   return INTERFACE_VARIANT_REGISTRY[group].reduce((highest, variant) => {
     const match = variant.match(/-(\d{2})$/);
     return Math.max(highest, match ? Number(match[1]) : 0);

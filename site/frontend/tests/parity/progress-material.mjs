@@ -27,3 +27,24 @@ export function readProgressAccent(track) {
  const differences=tokens.map(token=>rgb(token)).filter(color=>color[3]>3).map(hue).filter(h=>h!==null).map(h=>Math.min(Math.abs(h-expected),360-Math.abs(h-expected)));
  return {expected,differences};
 }
+
+// Exact route-to-route comparison includes palette values, not only structure.
+export function readProgressAppearance(track) {
+ const read=el=>{const s=getComputedStyle(el);return {height:s.height,background:s.backgroundImage,color:s.backgroundColor,border:s.borderColor,borderWidth:s.borderWidth,radius:s.borderRadius,shadow:s.boxShadow,glass:s.backdropFilter,padding:s.padding,top:s.top,bottom:s.bottom,left:s.left,animation:s.animationName,size:s.backgroundSize,clip:s.clipPath}};
+ const t=read(track);delete t.top;delete t.bottom;delete t.left;
+ return {track:t,fill:read(track.firstElementChild)};
+}
+
+export function readProgressGeometry(track) {
+ const fill=track.firstElementChild,t=track.getBoundingClientRect(),f=fill.getBoundingClientRect();
+ const oldWidth=fill.style.getPropertyValue('width'),priority=fill.style.getPropertyPriority('width'),oldTransition=fill.style.transition,bounds=[];
+ try{
+  fill.style.transition='none';
+  for(const width of ['0%','50%','100%']){
+   fill.style.setProperty('width',width,'important');
+   const r=fill.getBoundingClientRect();
+   bounds.push({width,rendered:r.width,left:r.left-t.left,right:t.right-r.right,top:r.top-t.top,bottom:t.bottom-r.bottom,inside:r.left>=t.left-.1&&r.right<=t.right+.1&&r.top>=t.top-.1&&r.bottom<=t.bottom+.1});
+  }
+ }finally{fill.style.setProperty('width',oldWidth,priority);fill.style.transition=oldTransition}
+ return {height:t.height,fillHeight:f.height,bounds};
+}
