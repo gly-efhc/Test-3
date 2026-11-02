@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {createRequire} from 'node:module';
+import {readProgressMaterial,readProgressAccent} from './progress-material.mjs';
 import {expectedSelectionOrder} from './progress-order.mjs';
 const require=createRequire(process.env.EFHC_BROWSER_TOOLS||import.meta.url);
 const {chromium}=require('playwright-core');
@@ -31,7 +32,22 @@ async function open(page,route=''){
 }
 const routePath=page=>page.evaluate(()=>location.pathname.replace(/^\/Test-3/,'').replace(/\/$/,'')||'/');
 try{
- for(const width of [320,390,1440])await check(`18 Energy choices: canonical bounds, clipping and protected starters at ${width}px`,async page=>{
+ for(const width of [320,390,1440])await check(`24 Energy choices: canonical bounds, clipping and protected starters at ${width}px`,async page=>{
+  const donors=new Map();
+  const reference=await page.context().newPage();
+  try{
+   await open(reference,'referrals/');await reference.mouse.move(12,12);
+   await reference.locator('.efhc-interface-customization-button').click();
+   const rp=reference.locator('[data-interface-variant-group="RP"]');
+   const donorIds=new Set(['PB-05','PB-06','PB-07','PB-09','PB-10','PB-11','PB-19','PB-20','PB-21','PB-22','PB-23']);
+   for(const id of expectedSelectionOrder('RP',canon)){
+    const physical=canon.SOURCE_STYLE.RP[id]||id;
+    assert.equal(await rp.getAttribute('data-pb'),physical);
+    if(donorIds.has(physical))donors.set(physical,await rp.locator('.efhc-energy-progress-track').evaluate(readProgressMaterial));
+    await rp.press('ArrowRight');
+   }
+  }finally{await reference.close()}
+  assert.equal(donors.size,11);
   await open(page);await page.mouse.move(12,12);
   await page.locator('.efhc-interface-customization-button').click();
   const surface=page.locator('[data-interface-variant-group="PB"]'),track=surface.locator('.efhc-energy-progress-track');
@@ -47,10 +63,14 @@ try{
    });
    assert.deepEqual(starter.actual,starter.withoutNonStarterSheet,'protected CT starter changed');
    for(let i=theme;i<10;i++)await surface.press('ArrowRight');
-   for(let i=10;i<18;i++){
+   for(let i=10;i<order.length;i++){
     const physical=canon.SOURCE_STYLE.PB[order[i]]||order[i];
     assert.equal(await track.getAttribute('data-pb'),physical);
-    assert.match(await surface.getAttribute('aria-label'),new RegExp(`: ${i+1} из 18\\.`));
+    assert.match(await surface.getAttribute('aria-label'),new RegExp(`: ${i+1} из ${order.length}\\.`));
+    if(donors.has(physical))assert.deepEqual(await track.evaluate(readProgressMaterial),donors.get(physical),`${physical} lost donor material`);
+    const accent=await track.evaluate(readProgressAccent);
+    assert.ok(accent.differences.length>0,`${physical} has no CT foreground`);
+    assert.ok(accent.differences.every(d=>d<5),`${physical} foreground differs from active CT: ${JSON.stringify(accent)}`);
     const actual=await track.evaluate(el=>{
      const fill=el.firstElementChild,t=el.getBoundingClientRect(),f=fill.getBoundingClientRect();
      const oldWidth=fill.style.width,oldTransition=fill.style.transition,bounds=[];
@@ -65,9 +85,10 @@ try{
     measurements.push({theme:theme+1,position:i+1,physical,...actual});
     if(process.env.EFHC_PARITY_ARTIFACTS&&width===390&&theme===0){
      await fs.mkdir(process.env.EFHC_PARITY_ARTIFACTS,{recursive:true});
+     await track.evaluate(el=>el.firstElementChild.style.width='55%');
      await track.screenshot({path:`${process.env.EFHC_PARITY_ARTIFACTS}/energy-new-${i+1}-390.png`});
     }
-    if(i<17)await surface.press('ArrowRight');
+    if(i<order.length-1)await surface.press('ArrowRight');
    }
    if(theme<9)await page.locator('[data-color-theme-control="true"]').click();
   }

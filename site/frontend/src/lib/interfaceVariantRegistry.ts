@@ -24,7 +24,7 @@ export const INTERFACE_VARIANT_REGISTRY: Readonly<
   EI: Object.freeze(["EI-07"]),
   PB: Object.freeze([
     ...COLOR_THEME_CATALOG.map(({ id }) => COLOR_THEME_PROGRESS_STARTER[id]),
-    "PB-02", "PB-04", "PB-05", "PB-07", "PB-15", "PB-17", "PB-19", "PB-21",
+    "PB-02", "PB-04", "PB-05", "PB-07", "PB-15", "PB-17", "PB-19", "PB-21", "PB-06", "PB-08", "PB-09", "PB-10", "PB-18", "PB-20",
   ]),
   RP: numbered("RP", 33),
   PH: numbered("PH", 6),

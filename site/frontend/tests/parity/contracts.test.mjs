@@ -25,10 +25,10 @@ const registry=load('src/lib/interfaceVariantRegistry.ts');
 const colors=load('src/lib/colorThemeRegistry.ts');
 const headers=load('src/lib/headerThemeComposition.ts');
 const json=value=>JSON.parse(JSON.stringify(value));
-test('OWNER Energy cleanup retains 18 positions and leaves Referrals at 33',()=>{
+test('OWNER Energy cleanup and donor restoration expose 24 positions and leave Referrals at 33',()=>{
  const expected=expectedSelectionOrder('PB',canon);
  assert.deepEqual(json(registry.INTERFACE_VARIANT_REGISTRY.PB),expected);
- assert.equal(registry.getInterfaceVariantAuthoredSlotCount('PB'),18,'hidden empty positions remain');
+ assert.equal(registry.getInterfaceVariantAuthoredSlotCount('PB'),24,'hidden empty positions remain');
  assert.equal(registry.getInterfaceVariantAuthoredSlotCount('RP'),33);
  for(const id of canon.REGISTRY.PB.filter(id=>!expected.includes(id)))assert.equal(registry.normalizeInterfaceVariant('PB',id),'PB-01','retired choice still selectable');
 });
@@ -96,7 +96,7 @@ test('OWNER-rejected progress and Header adapters stay detached after rollback',
  for(const [file,hash] of Object.entries(expected))assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex'),hash,file);
  const app=fs.readFileSync(path.join(root,'src/pages/_app.tsx'),'utf8');
  assert.doesNotMatch(app,/v866-react-progress\.css|react-header-transparent\.css/);
- assert.equal(registry.INTERFACE_VARIANT_REGISTRY.PB.length,18);
+ assert.equal(registry.INTERFACE_VARIANT_REGISTRY.PB.length,24);
  assert.equal(registry.INTERFACE_VARIANT_REGISTRY.RP.length,33);
  const energy=fs.readFileSync(path.join(root,'src/pages/index.tsx'),'utf8')
   .replace('import { EnergyUnitText } from "../components/energy/EnergyUnitText";\n','')

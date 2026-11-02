@@ -29,33 +29,178 @@ html[data-interface-app-mode="user"][data-color-theme-id]
   box-shadow:none!important;text-shadow:none!important;color:#f8fafc!important;
 }
 
-/* OWNER-approved Energy cleanup: heights of retained non-starter models only.
- * Legacy public Energy rules forced these rails to .46rem regardless of model.
- * The page/model scope wins that legacy selector without touching CT starters,
- * Referrals, backgrounds, animations, pseudo-elements or progress percentages.
+/* Energy donor recovery: Referrals positions 14–19,26–30, source 568fcaea.
+ * Restore each authored material under the affected Energy context. Accented
+ * stops use the active CT; neutral glass, gaps and metal highlights retain their
+ * source roles. No rule reaches the protected ten starters or Referrals.
+ * OWNER geometry exception applies to both rail and fill, not palette identity.
  */
 .efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
 .efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
-.efhc-energy-progress-track:is([data-pb="PB-02"],[data-pb="PB-16"],[data-pb="PB-23"]) {
-  height:.715rem;
+.efhc-energy-progress-track:is([data-pb="PB-02"],[data-pb="PB-04"],[data-pb="PB-05"],[data-pb="PB-06"],[data-pb="PB-07"],[data-pb="PB-09"],[data-pb="PB-10"],[data-pb="PB-11"],[data-pb="PB-16"],[data-pb="PB-19"],[data-pb="PB-20"],[data-pb="PB-21"],[data-pb="PB-22"],[data-pb="PB-23"]) {
+  --energy-pb-accent:var(--efhc-ct-accent);
+  --energy-pb-rgb:var(--efhc-ct-accent-rgb);
 }
 .efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
 .efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track:is([data-pb="PB-02"],[data-pb="PB-04"],[data-pb="PB-05"],[data-pb="PB-06"],[data-pb="PB-07"],[data-pb="PB-09"],[data-pb="PB-10"],[data-pb="PB-11"],[data-pb="PB-16"],[data-pb="PB-19"],[data-pb="PB-20"],[data-pb="PB-21"],[data-pb="PB-22"],[data-pb="PB-23"]) {
+  border-color:rgba(var(--energy-pb-rgb),.25);
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track:is([data-pb="PB-02"],[data-pb="PB-05"],[data-pb="PB-06"],[data-pb="PB-07"],[data-pb="PB-10"],[data-pb="PB-16"],[data-pb="PB-22"]) > .efhc-energy-progress-fill {
+  box-shadow:0 0 12px rgba(var(--energy-pb-rgb),.24);
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-02"] > .efhc-energy-progress-fill {
+  background:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 87%,black),var(--energy-pb-accent));
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-04"] {
+  --energy-pb-segment-base:color-mix(in srgb,var(--energy-pb-accent) 35%,black);
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-04"] > .efhc-energy-progress-fill {
+  background:repeating-linear-gradient(90deg,var(--energy-pb-accent) 0 12px,transparent 12px 15px),var(--energy-pb-segment-base);box-shadow:none;
+}
+html[data-color-theme-id="CT-01"] .efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-04"] {--energy-pb-segment-base:#1e3a5f;}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
 .efhc-energy-progress-track[data-pb="PB-05"] {
-  height:.8rem;
+  height:.8rem;padding:2px;background:#070b12;border-radius:999px;box-shadow:none;
 }
 .efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
 .efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
 .efhc-energy-progress-track[data-pb="PB-05"] > .efhc-energy-progress-fill {
-  top:1px;bottom:1px;
+  inset:1px auto 1px 2px;height:auto;border-radius:999px;background:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 87%,black),var(--energy-pb-accent));
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-06"] {
+  height:.8rem;background:linear-gradient(180deg,#06090f 0 42%,#273449 43% 57%,#06090f 58%);border-radius:999px;box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-06"] > .efhc-energy-progress-fill {
+  top:1px;bottom:1px;height:auto;background:linear-gradient(90deg,var(--energy-pb-accent),color-mix(in srgb,var(--energy-pb-accent) 88%,white));
 }
 .efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
 .efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
 .efhc-energy-progress-track[data-pb="PB-07"] {
-  height:.63rem;
+  height:.63rem;background:rgba(255,255,255,.055);backdrop-filter:blur(8px);border-radius:999px;box-shadow:none;
 }
 .efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
 .efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
-.efhc-energy-progress-track:is([data-pb="PB-19"],[data-pb="PB-21"]) {
-  height:.65rem;
+.efhc-energy-progress-track[data-pb="PB-07"] > .efhc-energy-progress-fill {
+  background:linear-gradient(90deg,rgba(var(--energy-pb-rgb),.7),rgba(var(--energy-pb-rgb),.82));
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-09"] {
+  height:.66rem;border-radius:999px;background:rgba(15,23,42,.84);box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-09"] > .efhc-energy-progress-fill {
+  background:repeating-linear-gradient(90deg,var(--energy-pb-accent) 0 calc(10% - 3px),transparent calc(10% - 3px) 10%),rgba(var(--energy-pb-rgb),.18);box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track:is([data-pb="PB-10"],[data-pb="PB-11"]) {
+  height:.715rem;border-color:rgba(var(--energy-pb-rgb),.35);border-radius:999px;box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-10"] {
+  background:rgba(15,23,42,.84);
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-10"] > .efhc-energy-progress-fill {
+  background:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 78%,black),color-mix(in srgb,var(--energy-pb-accent) 75%,white));
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-11"] {
+  background:#05080d;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-11"] > .efhc-energy-progress-fill {
+  background:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 56%,black),color-mix(in srgb,var(--energy-pb-accent) 60%,white));box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-16"] {
+  height:.715rem;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-16"] > .efhc-energy-progress-fill {
+  background-image:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 87%,black),var(--energy-pb-accent),color-mix(in srgb,var(--energy-pb-accent) 80%,white));
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-19"] {
+  height:.65rem;border:0;border-radius:999px;background:rgba(var(--energy-pb-rgb),.10);box-shadow:inset 0 0 0 1px rgba(var(--energy-pb-rgb),.24);
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-19"] > .efhc-energy-progress-fill {
+  background:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 60%,black),color-mix(in srgb,var(--energy-pb-accent) 84%,black) 58%,var(--energy-pb-accent));box-shadow:0 0 18px rgba(var(--energy-pb-rgb),.34);
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-20"] {
+  height:.8rem;padding:2px;border-radius:.42rem;border-color:rgba(var(--energy-pb-rgb),.34);background:linear-gradient(180deg,color-mix(in srgb,rgba(var(--energy-pb-rgb),.72) 24%,rgba(11,14,27,.72)),color-mix(in srgb,rgba(var(--energy-pb-rgb),.86) 6%,rgba(11,14,27,.86)));box-shadow:inset 0 1px 4px rgba(0,0,0,.42),0 0 14px rgba(var(--energy-pb-rgb),.12);overflow:hidden;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-20"] > .efhc-energy-progress-fill {
+  inset:1px auto 1px 2px;height:auto;border-radius:.32rem;background:linear-gradient(90deg,color-mix(in srgb,var(--energy-pb-accent) 65%,black) 0%,color-mix(in srgb,var(--energy-pb-accent) 85%,black) 52%,color-mix(in srgb,var(--energy-pb-accent) 75%,white) 100%);box-shadow:0 0 14px rgba(var(--energy-pb-rgb),.42);
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-21"] {
+  height:.65rem;border:0;border-radius:999px;background:rgba(148,163,184,.20);box-shadow:inset 0 1px 4px rgba(0,0,0,.42);
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-21"] > .efhc-energy-progress-fill {
+  background:var(--energy-pb-accent);box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-22"] {
+  height:.8rem;padding:2px;border-radius:999px;background:rgba(5,8,13,.85);border-color:rgba(var(--energy-pb-rgb),.34);box-shadow:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-22"] > .efhc-energy-progress-fill {
+  inset:1px auto 1px 2px;height:auto;border-radius:999px;background:linear-gradient(180deg,color-mix(in srgb,var(--energy-pb-accent) 80%,white) 0 46%,color-mix(in srgb,var(--energy-pb-accent) 76%,black) 47% 100%);
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-23"] {
+  height:.715rem;border-radius:999px;background:rgba(var(--energy-pb-rgb),.10);border-color:rgba(var(--energy-pb-rgb),.24);box-shadow:inset 0 1px 4px rgba(0,0,0,.42);overflow:hidden;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-23"] > .efhc-energy-progress-fill {
+  border-radius:999px;background:linear-gradient(90deg,rgba(var(--energy-pb-rgb),.72),color-mix(in srgb,var(--energy-pb-accent) 35%,white) 50%,rgba(var(--energy-pb-rgb),.72));box-shadow:0 0 24px rgba(var(--energy-pb-rgb),.35);
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track:is([data-pb="PB-21"],[data-pb="PB-23"]) > .efhc-energy-progress-fill::after {
+  content:"";position:absolute;inset:0;background:repeating-linear-gradient(120deg,rgba(0,0,0,.04) 0 10px,rgba(255,255,255,.10) 10px 20px);mix-blend-mode:overlay;pointer-events:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-02"] {
+  height:.715rem;
 }
