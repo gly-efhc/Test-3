@@ -37,6 +37,12 @@
 - Original HTML v866 и физические FULL/REPO должны проверяться по утверждённым private manifest/Drive/Git provenance **только при релизной задаче**; их копии не добавляются сюда.
 - Задача «документы» не вызывает build/deploy. Нельзя менять `.github/workflows`, site исходники или тесты под видом одной навигационной правки.
 
+## Reports и cycles: private регламент заполнения
+
+- [Контроль форм и шаблонов EFHC BOT / FRONTEND / RECONSTRUCTION](https://github.com/gly-efhc/efhc_archive/blob/main/08_CONTROL/REPORTS_CYCLES_FORMAT_CONTROL.md) — действует только с авторизованным GitHub private access.
+- В архиве сохранены **2 453 BOT + 814 FRONTEND + 50 RECON** номерных reports и stage-specific формы reports/cycles; номера независимы от release. Исторические исключения по формату №00805/00806 FRONTEND фиксируются в приватном контрольном документе, не исправляются из public Test-3.
+- Закрытие блока не приравнивать к закрытию всего MAIN-cycle; CI/source/browser/visual/OWNER acceptance подтверждать отдельно. Не копировать private шаблоны в public GitHub.
+
 ## Порядок приёмки агента
 
 Проверить 8 сценариев из private `08_CONTROL/AI_CROSS_REPO_ROUTING.md`: private access, missing access, stale history, conflicting rules, docs-only, scoped React, public-leak rejection, handoff across chats. Наличие этих инструкций не означает, что независимый агент уже получил доступ или прошёл эти проверки.
