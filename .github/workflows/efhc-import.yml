@@ -79,6 +79,22 @@ jobs:
           MAX_EXTRACT_BYTES = 220 * 1024 * 1024
           MAX_ENTRIES = 10000
           EXCLUDED_FILE = re.compile(r'(^|/)(\.env(?:\.|$)|.*\.(?:log|pem|key|p12|pfx|sqlite|db|zip|map)$)', re.I)
+          # These byte-identical PNG aliases have no textual consumers in Test-3.
+          # Their authoritative retained paths stay available, including the
+          # /assets/efhc/efhc_coin_64.png and _256.png URLs and /icon.png (TONConnect).
+          # Apply the same projection to every future imported FULL/REPO.
+          REDUNDANT_PUBLIC_ASSETS = frozenset({
+              'frontend/public/assets/efhc/efhc_coin_32.png',
+              'frontend/public/images/efhc-coin-32.png',
+              'frontend/public/assets/efhc/efhc_coin_56.png',
+              'frontend/public/assets/efhc/canon/efhc_coin_64.png',
+              'frontend/public/images/efhc-coin-64.png',
+              'frontend/public/assets/efhc/efhc_coin_96.png',
+              'frontend/public/assets/efhc/efhc_coin_128.png',
+              'frontend/public/images/efhc-coin-128.png',
+              'frontend/public/assets/efhc/canon/efhc_coin_256.png',
+              'frontend/public/images/efhc-coin-256.png',
+          })
           
           
           def unpack_pages_tools(workflow_text):
@@ -170,6 +186,8 @@ jobs:
                       if info.is_dir():
                           continue
                       if name in FILES or name.startswith(SUBTREES):
+                          if name in REDUNDANT_PUBLIC_ASSETS:
+                              continue
                           if EXCLUDED_FILE.search(name):
                               continue
                           if info.file_size > MAX_FILE_BYTES:
