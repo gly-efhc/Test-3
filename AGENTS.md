@@ -12,7 +12,7 @@
 2. Установить точный `Test-3/main` commit SHA и подтверждённый task scope; повторно опрашивать доступ без причины не нужно.
 3. Для зависимой инженерной работы через **авторизованный GitHub connector** открыть [private archive](https://github.com/gly-efhc/efhc_archive): `AGENTS.md → START_HERE.md → KERNEL.md` (one read) `→ INDEX.md → 01_CANON/TERMS.md → 08_CONTROL/DOCUMENT_MANAGEMENT_RULES.md` → применимые approved documents. Прочитать только относящиеся к заданию разделы, не весь архив.
 4. Нет реального private доступа/канона → `FAIL_CLOSED` для зависимых изменений; не брать правила из истории, публичной копии или памяти как замену.
-5. При конфликте двух документов, особенно `site/APPLICATION_RULES.md` и `site/EFHC_APPLICATION_RULES.md`, представить варианты OWNER и остановить только зависимое изменение. Не выбирать победителя по имени/дате.
+5. OWNER 02.11.2026 утвердил редакцию **B** ([private canon](https://github.com/gly-efhc/efhc_archive/blob/main/01_CANON/APP_RULES_OWNER_DECISION_B.md)). Действующий публичный документ правил — `site/EFHC_APPLICATION_RULES.md`; `site/APPLICATION_RULES.md` является вторичной редакцией и не переопределяет B. Новые существенные расхождения согласовывать с OWNER; спор A/B не открывать повторно.
 
 ## Границы и контроль
 

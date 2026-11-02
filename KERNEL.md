@@ -10,7 +10,7 @@
 
 **Процесс:** `AGENTS → START_HERE → KERNEL (once) → INDEX → exact Test-3 HEAD → authenticated private archive (if needed) → approved SSOT → scoped code/evidence → permitted checks → checkpoint`.
 
-**Источники истины:** private [efhc_archive](https://github.com/gly-efhc/efhc_archive) — утверждённая документальная власть OWNER; public Test-3 exact Git commit — физический source/runtime/test факт; Drive FULL/REPO — отдельный физический release evidence. Ни public `site/APPLICATION_RULES.md`, ни `site/EFHC_APPLICATION_RULES.md` не могут назначить себя победителем открытого private конфликта.
+**Источники истины:** private [efhc_archive](https://github.com/gly-efhc/efhc_archive) — утверждённая документальная власть OWNER; public Test-3 exact Git commit — физический source/runtime/test факт; Drive FULL/REPO — отдельный физический release evidence. Спор A/B закрыт OWNER 02.11.2026: **B** ([private canon](https://github.com/gly-efhc/efhc_archive/blob/main/01_CANON/APP_RULES_OWNER_DECISION_B.md)); действующий публичный указатель `site/EFHC_APPLICATION_RULES.md`. `site/APPLICATION_RULES.md` — вторичная редакция, не альтернативный SSOT.
 
 **Безопасность:** документальная ссылка не раскрывает private content и не выдаёт права. Только реально connected/authorized GitHub private access; если нет — `FAIL_CLOSED` для code changes requiring canon. Не копировать private bytes, внутренний index, kernel, secrets, PII в public, Pages, CI, GitHub Actions artifacts/PR.
 
