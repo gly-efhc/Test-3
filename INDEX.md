@@ -31,7 +31,8 @@
 
 ## Ограничения документации
 
-- [site/APPLICATION_RULES.md](site/APPLICATION_RULES.md) и [site/EFHC_APPLICATION_RULES.md](site/EFHC_APPLICATION_RULES.md) — две существующие **различающиеся публичные редакции**, статус авторитета спорный до отдельного OWNER-решения по private `10_CONFLICTS_REVIEW/`. Не объединять их в новый публичный канон и не считать «более длинный файл» действующим автоматически.
+- **OWNER утвердил редакцию B 02.11.2026:** [действующие публичные правила](site/EFHC_APPLICATION_RULES.md), [private запись решения](https://github.com/gly-efhc/efhc_archive/blob/main/01_CANON/APP_RULES_OWNER_DECISION_B.md). [site/APPLICATION_RULES.md](site/APPLICATION_RULES.md) — вторичная редакция и не равноправный канон.
+- Поведение B: 🌐 постоянно видна во время editing без таймера; ⚙ скрывается после 3 секунд только в обычном режиме. OWNER сообщил, что механизм уже реализован; новых тестов браузера это обновление не подтверждает.
 - `site/RECOVERY.md`, reports и комментарии описывают техническую историю; не становятся private SSOT по расположению в source repository.
 - Original HTML v866 и физические FULL/REPO должны проверяться по утверждённым private manifest/Drive/Git provenance **только при релизной задаче**; их копии не добавляются сюда.
 - Задача «документы» не вызывает build/deploy. Нельзя менять `.github/workflows`, site исходники или тесты под видом одной навигационной правки.
