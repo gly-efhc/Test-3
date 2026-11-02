@@ -40,14 +40,21 @@ try{
    await reference.locator('.efhc-interface-customization-button').click();
    const rp=reference.locator('[data-interface-variant-group="RP"]');
    const donorIds=new Set(['PB-05','PB-06','PB-07','PB-09','PB-10','PB-11','PB-19','PB-20','PB-21','PB-22','PB-23']);
-   for(const id of expectedSelectionOrder('RP',canon)){
-    const physical=canon.SOURCE_STYLE.RP[id]||id;
-    assert.equal(await rp.getAttribute('data-pb'),physical);
-    if(donorIds.has(physical))donors.set(physical,await rp.locator('.efhc-energy-progress-track').evaluate(readProgressMaterial));
-    await rp.press('ArrowRight');
+   const referenceOrder=expectedSelectionOrder('RP',canon);
+   // CT-07 disables backdrop blur globally. Compare donor and candidate under
+   // the same active CT instead of treating the CT-01 material as universal.
+   for(let theme=0;theme<10;theme++){
+    for(let offset=0;offset<referenceOrder.length;offset++){
+     const id=referenceOrder[(theme+offset)%referenceOrder.length];
+     const physical=canon.SOURCE_STYLE.RP[id]||id;
+     assert.equal(await rp.getAttribute('data-pb'),physical);
+     if(donorIds.has(physical))donors.set(`${theme}/${physical}`,await rp.locator('.efhc-energy-progress-track').evaluate(readProgressMaterial));
+     await rp.press('ArrowRight');
+    }
+    if(theme<9)await reference.locator('[data-color-theme-control="true"]').click();
    }
   }finally{await reference.close()}
-  assert.equal(donors.size,11);
+  assert.equal(donors.size,110);
   await open(page);await page.mouse.move(12,12);
   await page.locator('.efhc-interface-customization-button').click();
   const surface=page.locator('[data-interface-variant-group="PB"]'),track=surface.locator('.efhc-energy-progress-track');
@@ -67,7 +74,7 @@ try{
     const physical=canon.SOURCE_STYLE.PB[order[i]]||order[i];
     assert.equal(await track.getAttribute('data-pb'),physical);
     assert.match(await surface.getAttribute('aria-label'),new RegExp(`: ${i+1} из ${order.length}\\.`));
-    if(donors.has(physical))assert.deepEqual(await track.evaluate(readProgressMaterial),donors.get(physical),`${physical} lost donor material`);
+    if(donors.has(`${theme}/${physical}`))assert.deepEqual(await track.evaluate(readProgressMaterial),donors.get(`${theme}/${physical}`),`${physical} lost donor material`);
     const accent=await track.evaluate(readProgressAccent);
     assert.ok(accent.differences.length>0,`${physical} has no CT foreground`);
     assert.ok(accent.differences.every(d=>d<5),`${physical} foreground differs from active CT: ${JSON.stringify(accent)}`);
