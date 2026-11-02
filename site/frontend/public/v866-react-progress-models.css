@@ -207,8 +207,8 @@ html[data-color-theme-id="CT-01"] .efhc-independent-shell[data-interface-app-mod
 
 /* OWNER: positions 13,19,23,24 have a symmetric 1px inner inset.
  * The authored safety max-width is important; override only these four models
- * so 100% leaves the same inset on the right as on the left. */
-.efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
+ * and its :is() carries ID specificity; match it only here so 100% leaves the same inset on the right as on the left. */
+.efhc-independent-shell[data-interface-app-mode="user"] :is(#energyPage,.efhc-energy-page,#referralsPage,.efhc-referrals-shell)
 :is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track:is([data-pb="PB-05"],[data-pb="PB-06"],[data-pb="PB-20"],[data-pb="PB-22"]) > .efhc-energy-progress-fill {
   max-width:calc(100% - 2px)!important;

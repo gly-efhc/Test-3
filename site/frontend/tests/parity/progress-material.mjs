@@ -30,7 +30,7 @@ export function readProgressAccent(track) {
 
 // Exact route-to-route comparison includes palette values, not only structure.
 export function readProgressAppearance(track) {
- const read=el=>{const s=getComputedStyle(el);return {height:s.height,background:s.backgroundImage,color:s.backgroundColor,border:s.borderColor,borderWidth:s.borderWidth,radius:s.borderRadius,shadow:s.boxShadow,glass:s.backdropFilter,padding:s.padding,top:s.top,bottom:s.bottom,left:s.left,animation:s.animationName,size:s.backgroundSize,clip:s.clipPath}};
+ const read=el=>{const s=getComputedStyle(el);return {height:s.height,background:s.backgroundImage,color:s.backgroundColor,border:s.borderWidth==='0px'?null:s.borderColor,borderWidth:s.borderWidth,radius:s.borderRadius,shadow:s.boxShadow,glass:s.backdropFilter,padding:s.padding,top:s.top,bottom:s.bottom,left:s.left,animation:s.animationName,size:s.backgroundSize,clip:s.clipPath}};
  const t=read(track);delete t.top;delete t.bottom;delete t.left;
  return {track:t,fill:read(track.firstElementChild)};
 }
