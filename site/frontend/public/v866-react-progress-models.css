@@ -103,11 +103,14 @@ html[data-color-theme-id="CT-01"] .efhc-independent-shell[data-interface-app-mod
 :is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-09"] {
   height:.66rem;border-radius:999px;background:rgba(15,23,42,.84);box-shadow:none;
+  /* Fixed paint canvas: segment pitch follows the rail, never the fill width. */
+  container-type:inline-size;
 }
 .efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
 :is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])
 .efhc-energy-progress-track[data-pb="PB-09"] > .efhc-energy-progress-fill {
   background:repeating-linear-gradient(90deg,var(--energy-pb-accent) 0 calc(10% - 3px),transparent calc(10% - 3px) 10%),rgba(var(--energy-pb-rgb),.18);box-shadow:none;
+  background-size:100cqw 100%,auto;
 }
 .efhc-independent-shell[data-interface-app-mode="user"] :is(.efhc-energy-page,.efhc-referrals-shell)
 :is([data-interface-variant-group="PB"],[data-interface-variant-group="RP"])

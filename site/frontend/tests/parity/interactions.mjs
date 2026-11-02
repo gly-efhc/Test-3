@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {createRequire} from 'node:module';
 import {readProgressMaterial,readProgressAccent,readProgressAppearance,readProgressGeometry} from './progress-material.mjs';
+import {verifyProgress20Grid} from './progress-grid.mjs';
 import {expectedSelectionOrder} from './progress-order.mjs';
 const require=createRequire(process.env.EFHC_BROWSER_TOOLS||import.meta.url);
 const {chromium}=require('playwright-core');
@@ -110,6 +111,15 @@ try{
    if(theme<9)await page.locator('[data-color-theme-control="true"]').click();
   }
   if(process.env.EFHC_PARITY_ARTIFACTS){await fs.mkdir(process.env.EFHC_PARITY_ARTIFACTS,{recursive:true});await fs.writeFile(`${process.env.EFHC_PARITY_ARTIFACTS}/energy-cleanup-${width}.json`,JSON.stringify(measurements,null,2));}
+ },{width});
+ for(const width of [320,390,1440])await check(`model20 painted segment pitch survives low progress and resize at ${width}px`,async page=>{
+  for(const [route,group]of [['','PB'],['referrals/','RP']]){
+   await open(page,route);await page.mouse.move(12,12);
+   await page.locator('.efhc-interface-customization-button').click();
+   const surface=page.locator(`[data-interface-variant-group="${group}"]`);
+   for(let i=0;i<19;i++)await surface.press('ArrowRight');
+   await verifyProgress20Grid(page,surface.locator('.efhc-energy-progress-track'),{group,width,artifacts:process.env.EFHC_PARITY_ARTIFACTS});
+  }
  },{width});
  for(const ct of ['CT-03','CT-10'])await check(`removed saved Energy model falls back to ${ct} canon and preserves Referrals`,async page=>{
   await open(page);
