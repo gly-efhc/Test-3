@@ -2,7 +2,7 @@
  * Material copied verbatim from immutable FRONTEND_v866.css, PB-04 rule.
  * Root cause: legacy public Energy selectors outrank the authored selector.
  * The USER/page/model scope restores that rule without changing other models.
- * OWNER: manual model owns its authored colors; choice remains independent.
+ * This block preserves the accepted PB-04 material and independent choices.
  * OWNER size exception: .715rem canonical starter height, on both pages.
  * No reset, palette normalizer, cascade layer, or descendant-wide overrides.
  */
@@ -27,4 +27,35 @@ html[data-interface-app-mode="user"][data-color-theme-id]
   border:0!important;border-radius:0!important;padding:0!important;
   background:transparent!important;background-image:none!important;
   box-shadow:none!important;text-shadow:none!important;color:#f8fafc!important;
+}
+
+/* OWNER-approved Energy cleanup: heights of retained non-starter models only.
+ * Legacy public Energy rules forced these rails to .46rem regardless of model.
+ * The page/model scope wins that legacy selector without touching CT starters,
+ * Referrals, backgrounds, animations, pseudo-elements or progress percentages.
+ */
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track:is([data-pb="PB-02"],[data-pb="PB-16"],[data-pb="PB-23"]) {
+  height:.715rem;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-05"] {
+  height:.8rem;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-05"] > .efhc-energy-progress-fill {
+  top:1px;bottom:1px;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track[data-pb="PB-07"] {
+  height:.63rem;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-energy-page
+.efhc-energy-stage_progress-zone[data-interface-variant-group="PB"]
+.efhc-energy-progress-track:is([data-pb="PB-19"],[data-pb="PB-21"]) {
+  height:.65rem;
 }

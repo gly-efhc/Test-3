@@ -28,7 +28,8 @@ try{
     signatures.add(signature);
     await surface.press('ArrowRight');
    }
-   results.push({group,status:'PASS',selections:canon.REGISTRY[group].length,renderedSignatures:signatures.size});console.log('PASS template cycle',group,canon.REGISTRY[group].length,'signatures',signatures.size);
+   const count=expectedSelectionOrder(group,canon).length;
+   results.push({group,status:'PASS',selections:count,renderedSignatures:signatures.size});console.log('PASS template cycle',group,count,'signatures',signatures.size);
   }catch(e){results.push({group,status:'FAIL',error:e.message});console.error('FAIL template cycle',group,e.message)}finally{await context.close()}
  }
 }finally{await browser.close()}

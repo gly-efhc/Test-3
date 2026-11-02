@@ -31,6 +31,57 @@ async function open(page,route=''){
 }
 const routePath=page=>page.evaluate(()=>location.pathname.replace(/^\/Test-3/,'').replace(/\/$/,'')||'/');
 try{
+ for(const width of [320,390,1440])await check(`18 Energy choices: canonical bounds, clipping and protected starters at ${width}px`,async page=>{
+  await open(page);await page.mouse.move(12,12);
+  await page.locator('.efhc-interface-customization-button').click();
+  const surface=page.locator('[data-interface-variant-group="PB"]'),track=surface.locator('.efhc-energy-progress-track');
+  const order=expectedSelectionOrder('PB',canon),measurements=[];
+  for(let theme=0;theme<10;theme++){
+   await page.waitForFunction(theme=>document.documentElement.dataset.colorThemeId==='CT-'+String(theme+1).padStart(2,'0'),theme);
+   assert.equal(await track.getAttribute('data-pb'),canon.SOURCE_STYLE.PB[order[theme]]||order[theme]);
+   const starter=await track.evaluate(el=>{
+    const read=()=>{const t=getComputedStyle(el),f=getComputedStyle(el.firstElementChild);return {height:el.getBoundingClientRect().height,fillHeight:el.firstElementChild.getBoundingClientRect().height,background:t.backgroundImage,color:t.backgroundColor,border:t.borderColor,radius:t.borderRadius,shadow:t.boxShadow,fill:f.backgroundImage,fillColor:f.backgroundColor,fillShadow:f.boxShadow}};
+    const sheet=[...document.styleSheets].find(s=>s.href?.endsWith('/v866-react-progress-models.css'));
+    const actual=read();const disabled=sheet.disabled;
+    try{sheet.disabled=true;return {actual,withoutNonStarterSheet:read()}}finally{sheet.disabled=disabled}
+   });
+   assert.deepEqual(starter.actual,starter.withoutNonStarterSheet,'protected CT starter changed');
+   for(let i=theme;i<10;i++)await surface.press('ArrowRight');
+   for(let i=10;i<18;i++){
+    const physical=canon.SOURCE_STYLE.PB[order[i]]||order[i];
+    assert.equal(await track.getAttribute('data-pb'),physical);
+    assert.match(await surface.getAttribute('aria-label'),new RegExp(`: ${i+1} из 18\\.`));
+    const actual=await track.evaluate(el=>{
+     const fill=el.firstElementChild,t=el.getBoundingClientRect(),f=fill.getBoundingClientRect();
+     const oldWidth=fill.style.width,oldTransition=fill.style.transition,bounds=[];
+     try{fill.style.transition='none';for(const width of ['0%','100%']){fill.style.width=width;const r=fill.getBoundingClientRect();bounds.push({width,rendered:r.width,inside:r.left>=t.left-.1&&r.right<=t.right+.1&&r.top>=t.top-.1&&r.bottom<=t.bottom+.1})}}
+     finally{fill.style.width=oldWidth;fill.style.transition=oldTransition}
+     return {height:t.height,fillHeight:f.height,bounds};
+    });
+    assert.ok(actual.height>=starter.actual.height*.85&&actual.height<=starter.actual.height*1.15,`${physical} rail ${actual.height} / ${starter.actual.height}`);
+    assert.ok(actual.fillHeight>=starter.actual.fillHeight*.85&&actual.fillHeight<=starter.actual.fillHeight*1.15,`${physical} fill ${actual.fillHeight} / ${starter.actual.fillHeight}`);
+    assert.ok(actual.bounds.every(x=>x.inside),`${physical} escapes at 0/100%: ${JSON.stringify(actual.bounds)}`);
+    assert.ok(actual.bounds[0].rendered<=.1,'zero progress has a visible width');
+    measurements.push({theme:theme+1,position:i+1,physical,...actual});
+    if(process.env.EFHC_PARITY_ARTIFACTS&&width===390&&theme===0){
+     await fs.mkdir(process.env.EFHC_PARITY_ARTIFACTS,{recursive:true});
+     await track.screenshot({path:`${process.env.EFHC_PARITY_ARTIFACTS}/energy-new-${i+1}-390.png`});
+    }
+    if(i<17)await surface.press('ArrowRight');
+   }
+   if(theme<9)await page.locator('[data-color-theme-control="true"]').click();
+  }
+  if(process.env.EFHC_PARITY_ARTIFACTS){await fs.mkdir(process.env.EFHC_PARITY_ARTIFACTS,{recursive:true});await fs.writeFile(`${process.env.EFHC_PARITY_ARTIFACTS}/energy-cleanup-${width}.json`,JSON.stringify(measurements,null,2));}
+ },{width});
+ for(const ct of ['CT-03','CT-10'])await check(`removed saved Energy model falls back to ${ct} canon and preserves Referrals`,async page=>{
+  await open(page);
+  const index=Number(ct.slice(-2))-1,selected=expectedSelectionOrder('PB',canon)[index];
+  await page.waitForFunction(physical=>document.querySelector('[data-interface-variant-group="PB"]')?.dataset.pb===physical,canon.SOURCE_STYLE.PB[selected]||selected);
+  await page.mouse.move(12,12);await page.locator('.efhc-interface-customization-button').click();await page.locator('.efhc-interface-customization-button').click();
+  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')));
+  assert.equal(saved.color_theme_id,ct);assert.equal(saved.interface_variants.PB,selected);assert.equal(saved.interface_variants.RP,'RP-03');assert.equal(saved.interface_variants.HS,'HS-02');
+  await page.reload();await page.waitForFunction(physical=>document.querySelector('[data-interface-variant-group="PB"]')?.dataset.pb===physical,canon.SOURCE_STYLE.PB[selected]||selected);
+ },{settings:{color_theme_id:ct,interface_variants:{...canon.DEFAULTS,PB:'PB-03',RP:'RP-03',HS:'HS-02'}}});
  for(const lang of ['en','ru','uk','de','fr','es','it','tr','pl','da','hi','id','sw','pt','ko','ja'])await check(`Energy uses rendered kWh casing in ${lang}`,async page=>{
   await open(page);
   const labels=page.locator('.efhc-energy-stage_subtitle,.efhc-energy-stage_range-center,[data-energy-chip="generation-rate"] > span,[data-energy-chip="available-kwh"] > span');
@@ -46,13 +97,14 @@ try{
   await open(page,route);await page.mouse.move(12,12);
   await page.locator('.efhc-interface-customization-button').click();
   const surface=page.locator(`[data-interface-variant-group="${group}"]`);
-  const dots=page.locator('.efhc-interface-variant-dots').filter({has:page.locator(':scope > span:nth-child(33)')});
   const order=expectedSelectionOrder(group,canon);
+  const count=order.length;
+  const dots=page.locator('.efhc-interface-variant-dots').filter({has:page.locator(`:scope > span:nth-child(${count})`)});
   for(let i=0;i<10;i++){
    const selected=order[i],physical=canon.SOURCE_STYLE[group][selected]||selected;
    assert.equal(await surface.getAttribute('data-pb'),physical);
-   await page.waitForFunction(i=>{const row=[...document.querySelectorAll('.efhc-interface-variant-dots')].find(e=>e.children.length===33);return row&&[...row.children].findIndex(e=>e.dataset.active==='true')===i},i);
-   assert.equal(await dots.locator('> span').count(),33);
+   await page.waitForFunction(({i,count})=>{const row=[...document.querySelectorAll('.efhc-interface-variant-dots')].find(e=>e.children.length===count);return row&&[...row.children].findIndex(e=>e.dataset.active==='true')===i},{i,count});
+   assert.equal(await dots.locator('> span').count(),count);
    if(i<9)await surface.press('ArrowRight');
   }
   await page.locator('.efhc-interface-customization-button').click();

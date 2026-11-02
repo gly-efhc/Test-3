@@ -1,6 +1,7 @@
 import { normalizeLang, type Lang } from "./i18n";
 import {
   DEFAULT_INTERFACE_VARIANTS,
+  INTERFACE_VARIANT_REGISTRY,
   normalizeInterfaceVariant,
   normalizeInterfaceVariants,
 } from "./interfaceVariantRegistry";
@@ -19,6 +20,7 @@ import {
   telegramCloudStorageSet,
 } from "./telegram";
 import {
+  COLOR_THEME_PROGRESS_STARTER,
   colorThemeIdFromLegacyGlobalTheme,
   normalizeColorThemeId,
   runtimeLegacyThemeIdForColorTheme,
@@ -218,6 +220,13 @@ function normalizeSettings(parsed: any): UserSettings {
   const effectiveVariants = resetRetiredSelections
     ? { ...DEFAULT_INTERFACE_VARIANTS }
     : normalizeIndependentDesignSelections(source.interface_variants);
+  // A removed Energy selection falls back to the current CT starter. Keep
+  // surviving IDs, Referrals, the selected CT and all other settings intact.
+  const storedProgress = source.interface_variants?.PB;
+  if (!resetEnergySelections && typeof storedProgress === "string"
+    && !INTERFACE_VARIANT_REGISTRY.PB.includes(storedProgress)) {
+    effectiveVariants.PB = COLOR_THEME_PROGRESS_STARTER[colorThemeId];
+  }
   // OWNER 0560: reset only BN from pre-v4 preferences; old numbering changed.
   // Preserve all unrelated independent designs and Color Theme selections.
   if (parsed.interface_settings_version !== 4) {

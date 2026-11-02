@@ -3,5 +3,6 @@
 export function expectedSelectionOrder(group, canon) {
  if(group!=='PB'&&group!=='RP')return canon.REGISTRY[group];
  const starters=['01','28','22','23','24','25','29','30','26','27'].map(n=>`${group}-${n}`);
+ if(group==='PB')return [...starters,...['02','04','05','07','15','17','19','21'].map(n=>`PB-${n}`)];
  return [...starters,...canon.REGISTRY[group].filter(id=>!starters.includes(id))];
 }
