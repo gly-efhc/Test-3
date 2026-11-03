@@ -94,7 +94,7 @@ test('rank selections use the authored style identities from HTML v866',()=>{
 // Preserve rollback state/DOM. OWNER subsequently authorized progress ordering
 // and four Energy unit text wrappers; physical models stay covered above.
 test('OWNER-rejected progress and Header adapters stay detached after rollback',()=>{
- const expected={"src/components/interface-settings/InterfaceCustomizationProvider.tsx": "235a699fed368ce2c7790b1566dcb3b6eb5a3e7719cf98f95643b0334402dcbd", "src/components/interface-settings/InterfaceVariantDotsLayer.tsx": "cc769399842581283b4b90bc88d410df144a4b9c79d64a7ba913d42f59f2320c"};
+ const expected={"src/components/interface-settings/InterfaceCustomizationProvider.tsx": "235a699fed368ce2c7790b1566dcb3b6eb5a3e7719cf98f95643b0334402dcbd", "src/components/interface-settings/InterfaceVariantDotsLayer.tsx": "6e33cbe39795db57cf3eb24063901b7116398ffde5d92d5521d4534877f02120"};
  for(const [file,hash] of Object.entries(expected))assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex'),hash,file);
  const app=fs.readFileSync(path.join(root,'src/pages/_app.tsx'),'utf8');
  assert.doesNotMatch(app,/v866-react-progress\.css|react-header-transparent\.css/);

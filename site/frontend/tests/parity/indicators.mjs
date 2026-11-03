@@ -8,6 +8,7 @@ export async function verifyIndicators(page,{open,width,artifacts}){
   assert.equal(await page.locator('[data-user-indicator-dock]').count(),0,'dock absent in idle');
   await page.mouse.move(12,12);await page.locator('.efhc-interface-customization-button').click();await page.waitForTimeout(100);
   const dock=page.locator('[data-user-indicator-dock]');assert.equal(await dock.count(),1,route+' single dock');
+  assert.equal(await page.locator('[data-indicator-group="HS"][data-indicator-placement="inside"]').count(),1,'Header dots inside its free top edge');
   assert.equal(await dock.locator('[data-color-theme-indicators]>span').count(),10);
   assert.equal(await dock.innerText(),'','no labels or counters');
   assert.equal(await page.locator('.efhc-energy-stage [data-color-theme-indicators]').count(),0,'no duplicate Energy indicator');

@@ -69,7 +69,7 @@ export function InterfaceVariantDotsLayer(props: {
           const height = node?.getBoundingClientRect().height || (progress ? 4 : 7);
           const left = anchor.left + anchor.width / 2;
           const candidates = progress ? [anchor.bottom + height / 2 + .5, anchor.bottom + height / 2 + 1]
-            : surface.group === 'HS' ? [rect.top - 8]
+            : surface.group === 'HS' ? [rect.top + height / 2 + 1, rect.top - 8]
             : surface.group === 'BN' ? [rect.top + height / 2 + 1, rect.bottom - height / 2 - 1, rect.bottom + height / 2, rect.top - 8]
             : [rect.top + height / 2 + 3, rect.bottom - height / 2 - 3, rect.top - 8, rect.bottom + 8];
           const band = { left:left - width / 2, right:left + width / 2,
