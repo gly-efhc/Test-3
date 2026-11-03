@@ -33,6 +33,10 @@ export async function verifyPanelsHeroTemplates(page,{open,canon,artifacts}){
    const selectors={hero:'',head:'.panels-hero-head',title:'.panels-page-title',kicker:'.panels-kicker',tier:'.panels-generation-tier',stats:'.panels-stats'};
    return{expected:Object.fromEntries(Object.entries(selectors).map(([k,s])=>[k,read(s?e.querySelector(s):e,r.expected[k])])),cells:[...e.querySelectorAll('.panels-stat')].map((n,i)=>({cell:read(n,r.cells[i].cell),label:read(n.querySelector('.panels-stat-label'),r.cells[i].label),value:read(n.querySelector('.panels-stat-value'),r.cells[i].value)})),boxes:[...e.querySelectorAll('.panels-stat')].map(n=>n.getBoundingClientRect().toJSON()),values:[...e.querySelectorAll('.panels-stat-value')].map(n=>({text:n.textContent,client:n.clientWidth,scroll:n.scrollWidth}))};
   },r);
+  if(artifacts){
+   await fs.writeFile(`${artifacts}/ph-measured-${r.selection}-${r.width}.json`,JSON.stringify({reference:r,actual},null,2)+'\n');
+   if([320,390,1440].includes(r.width))await hero.screenshot({path:`${artifacts}/ph-restored-${r.selection}-${r.width}.png`});
+  }
   assert.deepEqual(actual.expected,r.expected,`${r.selection} local source geometry ${r.width}`);
   assert.deepEqual(actual.cells,r.cells,`${r.selection} source stat anatomy ${r.width}`);
   const [a,b,c]=actual.boxes;
@@ -45,9 +49,8 @@ export async function verifyPanelsHeroTemplates(page,{open,canon,artifacts}){
    assert.ok(c.y>a.y+a.height,'third source cell is below');
    assert.ok(c.width>a.width+b.width,'third cell spans full stats width');
   }
-  for(const v of actual.values.slice(1)){assert.match(v.text,/\d+\.\d{8} kWh\//);assert.ok(v.scroll<=v.client+1,'full D8 number fits');}
+  for(const v of actual.values.slice(1)){assert.match(v.text,/\d+\.\d{8} kWh\//);assert.ok(v.scroll<=v.client+1,`${r.selection}/${r.width}: full D8 number fits ${JSON.stringify(v)}`);}
   results.push({selection:r.selection,physical:r.physical,width:r.width,status:'PASS'});
-  if(artifacts&&[320,390,1440].includes(r.width))await hero.screenshot({path:`${artifacts}/ph-restored-${r.selection}-${r.width}.png`});
  }
  await page.setViewportSize({width:390,height:844});
  for(const theme of canon.COLOR_THEME_CATALOG){
@@ -79,18 +82,21 @@ export async function verifyPortfolioColors(page,{open,canon,width,artifacts}){
     const surface=await select(page,canon,'PT',id);
     const actual=await surface.evaluate(e=>{
      const active=e.querySelector('[data-active="true"]'),inactive=e.querySelector('[data-active="false"]'),s=getComputedStyle(active),n=getComputedStyle(inactive),probe=document.createElement('span');
-     probe.style.cssText='color:var(--efhc-ct-accent);background:var(--efhc-tone-active);border:1px solid rgba(var(--efhc-ct-accent-rgb),.34)';e.append(probe);const p=getComputedStyle(probe),out={color:s.color,background:s.backgroundColor,image:s.backgroundImage,border:s.borderTopColor,expectedColor:p.color,expectedBackground:p.backgroundColor,expectedBorder:p.borderTopColor,inactiveImage:n.backgroundImage,active:active.dataset.panelsTabButton};probe.remove();return out;
+     probe.style.cssText='position:absolute;visibility:hidden;color:var(--efhc-ct-accent)!important;background:var(--efhc-tone-active)!important;border:1px solid rgba(var(--efhc-ct-accent-rgb),.34)!important';e.append(probe);const p=getComputedStyle(probe),out={color:s.color,background:s.backgroundColor,image:s.backgroundImage,border:s.borderTopColor,expectedColor:p.color,expectedBackground:p.backgroundColor,expectedBorder:p.borderTopColor,inactiveImage:n.backgroundImage,active:active.dataset.panelsTabButton};probe.remove();return out;
     });
     assert.equal(actual.active,tab);assert.equal(actual.color,actual.expectedColor,`${theme.id}/${id}/${tab} text`);
     assert.equal(actual.background,actual.expectedBackground,`${theme.id}/${id}/${tab} active surface`);
     assert.equal(actual.image,'none','legacy independent blue/violet gradient');assert.equal(actual.inactiveImage,'none');
     assert.equal(actual.border,actual.expectedBorder,`${theme.id}/${id}/${tab} contour`);
     if(id==='PT-03'){
-     const colors=await surface.evaluate(e=>{const n=document.createElement('span');n.style.backgroundColor='rgba(var(--efhc-ct-accent-rgb),.07)';e.append(n);const out=[getComputedStyle(e).backgroundColor,getComputedStyle(n).backgroundColor];n.remove();return out});
+     const colors=await surface.evaluate(e=>{const n=document.createElement('span');n.style.cssText='position:absolute;visibility:hidden;background-color:rgba(var(--efhc-ct-accent-rgb),.07)!important';e.append(n);const out=[getComputedStyle(e).backgroundColor,getComputedStyle(n).backgroundColor];n.remove();return out});
      assert.equal(colors[0],colors[1],`${theme.id} PT03 container keeps source tint`);
     }
     if(id==='PT-02'){
-     const shadows=await surface.evaluate(e=>{const n=document.createElement('span');n.style.boxShadow='inset 0 1px 0 rgba(255,255,255,.06),0 4px 12px rgba(var(--efhc-ct-accent-rgb),.24)';e.append(n);const out=[getComputedStyle(e.querySelector('[data-active="true"]')).boxShadow,getComputedStyle(n).boxShadow];n.remove();return out});
+     // Button's existing 150ms box-shadow transition must finish before a
+     // final-material assertion; the intermediate animation is not a defect.
+     await page.waitForTimeout(200);
+     const shadows=await surface.evaluate(e=>{const n=document.createElement('span');n.style.cssText='position:absolute;visibility:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 4px 12px rgba(var(--efhc-ct-accent-rgb),.24)!important';e.append(n);const out=[getComputedStyle(e.querySelector('[data-active="true"]')).boxShadow,getComputedStyle(n).boxShadow];n.remove();return out});
      assert.equal(shadows[0],shadows[1],`${theme.id} PT02 shadow preserves shape and theme hue`);
     }
     results.push({theme:theme.id,tab,group:'PT',selection:id,status:'PASS'});

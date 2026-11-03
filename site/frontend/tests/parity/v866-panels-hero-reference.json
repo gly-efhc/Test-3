@@ -11,7 +11,8 @@
         "hero": {
           "padding": "14.08px",
           "borderRadius": "18.88px",
-          "borderWidth": "1px"
+          "borderWidth": "1px",
+          "fontFamily": "Inter, ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", sans-serif"
         },
         "head": {
           "display": "flex",
@@ -137,7 +138,8 @@
         "hero": {
           "padding": "14.08px",
           "borderRadius": "19.2px",
-          "borderWidth": "0px"
+          "borderWidth": "0px",
+          "fontFamily": "Inter, ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", sans-serif"
         },
         "head": {
           "display": "flex",
@@ -263,7 +265,8 @@
         "hero": {
           "padding": "14.08px",
           "borderRadius": "18.88px",
-          "borderWidth": "1px"
+          "borderWidth": "1px",
+          "fontFamily": "Inter, ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", sans-serif"
         },
         "head": {
           "display": "flex",
@@ -389,7 +392,8 @@
         "hero": {
           "padding": "14.08px",
           "borderRadius": "18.88px",
-          "borderWidth": "1px"
+          "borderWidth": "1px",
+          "fontFamily": "Inter, ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", sans-serif"
         },
         "head": {
           "display": "flex",
@@ -515,7 +519,8 @@
         "hero": {
           "padding": "14.08px",
           "borderRadius": "18.88px",
-          "borderWidth": "1px"
+          "borderWidth": "1px",
+          "fontFamily": "Inter, ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", sans-serif"
         },
         "head": {
           "display": "flex",
@@ -2056,5 +2061,6 @@
         }
       ]
     }
-  }
+  },
+  "source_font_evidence": "Original v866 :root inherited font stack, measured independently on PH10/PH12 at1440px; no font size reduction."
 }
