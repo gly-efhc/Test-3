@@ -129,3 +129,10 @@ html[data-customization-mode="editing"]
   max-width:100%;
   justify-self:center;
 }
+
+/* All 24 progress choices fit in the existing six-pixel text-free interval.
+   Only informational dots shrink; no rail, fill, label or card is resized. */
+.efhc-interface-variant-dots[data-indicator-placement="progress-below"] span {
+  width:4px;
+  height:4px;
+}

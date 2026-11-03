@@ -63,12 +63,12 @@ export function InterfaceVariantDotsLayer(props: {
           const target = (surface.group === 'PB' || surface.group === 'RP')
             ? el.querySelector('.efhc-energy-progress-track') || el : el;
           const anchor = target.getBoundingClientRect();
+          const progress = surface.group === 'PB' || surface.group === 'RP';
           const node = nodes.current.get(surface.id);
           const width = node?.getBoundingClientRect().width || Math.min(rect.width - 4, getInterfaceVariantAuthoredSlotCount(surface.group) * 10);
-          const height = node?.getBoundingClientRect().height || 7;
+          const height = node?.getBoundingClientRect().height || (progress ? 4 : 7);
           const left = anchor.left + anchor.width / 2;
-          const progress = surface.group === 'PB' || surface.group === 'RP';
-          const candidates = progress ? [anchor.bottom + height / 2 + 1, anchor.bottom + height / 2 + 2, rect.bottom + height / 2 + 2]
+          const candidates = progress ? [anchor.bottom + height / 2 + .5, anchor.bottom + height / 2 + 1]
             : surface.group === 'HS' ? [rect.top - 8]
             : surface.group === 'BN' ? [rect.top + height / 2 + 1, rect.bottom - height / 2 - 1, rect.bottom + height / 2, rect.top - 8]
             : [rect.top + height / 2 + 3, rect.bottom - height / 2 - 3, rect.top - 8, rect.bottom + 8];

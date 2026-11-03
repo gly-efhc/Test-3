@@ -21,7 +21,7 @@ export async function verifyIndicators(page,{open,width,artifacts}){
    const track=surface.locator('.efhc-energy-progress-track');await track.scrollIntoViewIfNeeded();await page.waitForTimeout(100);
    const dots=page.locator(`[data-indicator-group="${group}"]`);assert.equal(await dots.count(),1,group+' indicator visible');
    assert.equal(await dots.locator('span').count(),24,group+' all positions retained');assert.equal(await dots.locator('[data-active="true"]').count(),1);
-   const tr=await track.boundingBox(),br=await dots.boundingBox();assert.ok(br.y>=tr.y+tr.height-1,'dots below track');
+   const tr=await track.boundingBox(),br=await dots.boundingBox();assert.ok(br.y>=tr.y+tr.height,'dots below track');assert.ok(br.y+br.height<=tr.y+tr.height+10,'dots directly below track, not below metrics');
    const id=await surface.getAttribute('data-pb');await surface.press('ArrowRight');await page.waitForTimeout(60);assert.notEqual(await surface.getAttribute('data-pb'),id,'selection works');assert.equal(await dots.locator('span').count(),24);
   }
   const overlaps=await page.locator('.efhc-interface-variant-dots[data-indicator-group]').evaluateAll(es=>{
