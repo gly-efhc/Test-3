@@ -25,9 +25,6 @@ export default function NotFoundPage() {
           actionLabel={t("common.go_home")}
           onAction={() => { void router.replace("/"); }}
         />
-        <p className="mt-3 text-sm efhc-text-muted2">
-          {t("error.system_theme_note")}
-        </p>
       </div>
     </main>
   );

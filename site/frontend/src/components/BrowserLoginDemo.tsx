@@ -19,12 +19,8 @@ export function BrowserLoginDemo(props: {
       data-public-login-layout="compact-inline"
     >
       <div className="efhc-browser-login_copy">
-        <div className="efhc-browser-login_badge">
-          {props.t("browser_login.badge")}
-        </div>
         <div className="efhc-browser-login_text">
           <strong>{props.t("browser_login.title")}</strong>
-          <span>{props.t("browser_login.subtitle")}</span>
         </div>
       </div>
       <button

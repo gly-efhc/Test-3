@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 const material=JSON.parse(await fs.readFile(new URL('./cycle0023-indicator-material.json',import.meta.url)));
+const technicalCopy=(await Promise.all(['ru','en','uk','de','fr','es','it','tr','pl','da','hi','id','sw','pt','ko','ja'].map(async lang=>JSON.parse(await fs.readFile(new URL(`../../public/locale/${lang}.json`,import.meta.url)))))).flatMap(d=>['error.system_theme_note','browser_login.badge','browser_login.subtitle'].map(k=>d[k]).filter(Boolean));
 export async function verifyIndicators(page,{open,width,artifacts}){
  const routes=['','panels/','panels/portfolio/','exchange/','tasks/','referrals/','referrals/my/','referrals/active/','referrals/inactive/','ranks/','web-profile/','hub/','faq/','withdraw/','ads/','404/','500/'];
  for(const route of routes){
@@ -11,6 +12,10 @@ export async function verifyIndicators(page,{open,width,artifacts}){
   assert.equal(await page.locator('[data-indicator-group="HS"][data-indicator-placement="inside"]').count(),1,'Header dots inside its free top edge');
   assert.equal(await dock.locator('[data-color-theme-indicators]>span').count(),10);
   assert.equal(await dock.innerText(),'','no labels or counters');
+  const text=await page.locator('body').innerText();
+  for(const phrase of technicalCopy)assert.ok(!text.includes(phrase),'USER engineering copy is permanently excluded: '+route);
+  const exposed=await page.locator('[aria-label],[title]').evaluateAll(es=>es.flatMap(e=>[e.getAttribute('aria-label')||'',e.getAttribute('title')||'']).join('\n'));
+  assert.doesNotMatch(exposed,/\b(?:HS|HB|BN|EG|EI|PH|PA|PT|PC|PB|RP|XH|XS|XC|XA|TG|RG|KG|WG|PM|HI|HU|FQ|WD|AD|ER)-\d{2}\b/,'internal design IDs belong in data attributes, not accessible copy');
   assert.equal(await page.locator('.efhc-energy-stage [data-color-theme-indicators]').count(),0,'no duplicate Energy indicator');
   const hr=await page.locator('.efhc-game-header').boundingBox(),dr=await dock.boundingBox();assert.ok(dr.y>=hr.y+hr.height-1,'dock under Header');
   assert.equal(await dock.evaluate(e=>e.closest('main')),null,'dock outside scrolling main');
