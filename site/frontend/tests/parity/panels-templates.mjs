@@ -85,6 +85,14 @@ export async function verifyPortfolioColors(page,{open,canon,width,artifacts}){
     assert.equal(actual.background,actual.expectedBackground,`${theme.id}/${id}/${tab} active surface`);
     assert.equal(actual.image,'none','legacy independent blue/violet gradient');assert.equal(actual.inactiveImage,'none');
     assert.equal(actual.border,actual.expectedBorder,`${theme.id}/${id}/${tab} contour`);
+    if(id==='PT-03'){
+     const colors=await surface.evaluate(e=>{const n=document.createElement('span');n.style.backgroundColor='rgba(var(--efhc-ct-accent-rgb),.07)';e.append(n);const out=[getComputedStyle(e).backgroundColor,getComputedStyle(n).backgroundColor];n.remove();return out});
+     assert.equal(colors[0],colors[1],`${theme.id} PT03 container keeps source tint`);
+    }
+    if(id==='PT-02'){
+     const shadows=await surface.evaluate(e=>{const n=document.createElement('span');n.style.boxShadow='inset 0 1px 0 rgba(255,255,255,.06),0 4px 12px rgba(var(--efhc-ct-accent-rgb),.24)';e.append(n);const out=[getComputedStyle(e.querySelector('[data-active="true"]')).boxShadow,getComputedStyle(n).boxShadow];n.remove();return out});
+     assert.equal(shadows[0],shadows[1],`${theme.id} PT02 shadow preserves shape and theme hue`);
+    }
     results.push({theme:theme.id,tab,group:'PT',selection:id,status:'PASS'});
    }
    for(const id of canon.REGISTRY.PC){
