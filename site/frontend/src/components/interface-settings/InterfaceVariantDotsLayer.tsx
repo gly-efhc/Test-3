@@ -19,7 +19,7 @@ function occupied(element: HTMLElement, band: Box, navigationPadding = false): B
     const parent = node.parentElement;
     if (!parent || !intersects(parent.getBoundingClientRect(), band)) continue;
     const range = document.createRange(); range.selectNodeContents(node);
-    boxes.push(...Array.from(range.getClientRects()).filter(rect => rect.width && rect.height));
+    boxes.push(...Array.from(range.getClientRects()).filter(rect => rect.width && rect.height).map(rect => ({left:rect.left-1,right:rect.right+1,top:rect.top-1,bottom:rect.bottom+1})));
   }
   element.querySelectorAll(navigationPadding ? 'input,select,textarea,img,svg' : 'button,a,input,select,textarea,img,svg').forEach(control => {
     const rect = control.getBoundingClientRect();
@@ -64,8 +64,8 @@ export function InterfaceVariantDotsLayer(props: {
             ? el.querySelector('.efhc-energy-progress-track') || el : el;
           const anchor = target.getBoundingClientRect();
           const node = nodes.current.get(surface.id);
-          const width = node?.offsetWidth || Math.min(rect.width - 4, getInterfaceVariantAuthoredSlotCount(surface.group) * 10);
-          const height = node?.offsetHeight || 7;
+          const width = node?.getBoundingClientRect().width || Math.min(rect.width - 4, getInterfaceVariantAuthoredSlotCount(surface.group) * 10);
+          const height = node?.getBoundingClientRect().height || 7;
           const left = anchor.left + anchor.width / 2;
           const progress = surface.group === 'PB' || surface.group === 'RP';
           const candidates = progress ? [anchor.bottom + height / 2 + 1, anchor.bottom + height / 2 + 2, rect.bottom + height / 2 + 2]

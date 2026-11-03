@@ -13,9 +13,9 @@ export async function verifyIndicators(page,{open,width,artifacts}){
   assert.equal(await page.locator('.efhc-energy-stage [data-color-theme-indicators]').count(),0,'no duplicate Energy indicator');
   const hr=await page.locator('.efhc-game-header').boundingBox(),dr=await dock.boundingBox();assert.ok(dr.y>=hr.y+hr.height-1,'dock under Header');
   assert.equal(await dock.evaluate(e=>e.closest('main')),null,'dock outside scrolling main');
-  await page.locator('main').evaluate(e=>{e.scrollTop=80});await page.waitForTimeout(100);
+  await page.locator('#efhc-main-content').evaluate(e=>{e.scrollTop=80});await page.waitForTimeout(100);
   const after=await dock.boundingBox();assert.ok(Math.abs(after.y-dr.y)<1,'dock fixed with Header');
-  await page.locator('main').evaluate(e=>{e.scrollTop=0});await page.waitForTimeout(100);
+  await page.locator('#efhc-main-content').evaluate(e=>{e.scrollTop=0});await page.waitForTimeout(100);
   for(const group of ['PB','RP']){
    const surface=page.locator(`[data-interface-variant-group="${group}"]`);if(!await surface.count())continue;
    const track=surface.locator('.efhc-energy-progress-track');await track.scrollIntoViewIfNeeded();await page.waitForTimeout(100);
