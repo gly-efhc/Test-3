@@ -49,7 +49,18 @@ export async function verifyPanelsHeroTemplates(page,{open,canon,artifacts}){
    assert.ok(c.y>a.y+a.height,'third source cell is below');
    assert.ok(c.width>a.width+b.width,'third cell spans full stats width');
   }
-  for(const v of actual.values.slice(1)){assert.match(v.text,/\d+\.\d{8} kWh\//);assert.ok(v.scroll<=v.client+1,`${r.selection}/${r.width}: full D8 number fits ${JSON.stringify(v)}`);}
+  for(const [i,v] of actual.values.slice(1).entries()){
+   assert.match(v.text,/^\d+\.\d{8} kWh\/с$/,'underlying D8 data and source unit remain complete');
+   const policy=r.cells[i+1].value;
+   // The independently measured immutable source explicitly uses ellipsis
+   // for ordinary PH rows. Glyph widths vary by platform. Requiring all those
+   // rows to fit was an unsourced test assumption, not a v866 contract.
+   // Split-focus numeric lanes use visible/clip and must still fit in full.
+   if(policy.overflow==='hidden'&&policy.textOverflow==='ellipsis'){
+    assert.equal(actual.cells[i+1].value.overflow,'hidden');
+    assert.equal(actual.cells[i+1].value.textOverflow,'ellipsis');
+   }else assert.ok(v.scroll<=v.client+1,`${r.selection}/${r.width}: source full D8 lane fits ${JSON.stringify(v)}`);
+  }
   results.push({selection:r.selection,physical:r.physical,width:r.width,status:'PASS'});
  }
  await page.setViewportSize({width:390,height:844});
