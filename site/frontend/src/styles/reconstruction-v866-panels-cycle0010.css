@@ -27,6 +27,10 @@
 }
 /* Preserve selected theme tokens and the OWNER-locked My Panels button. */
 
+/* The source PH markup inherits normal line height. Next's preflight supplies
+ * 1.5 instead; restore this local inheritance without touching GameHero/PH-01. */
+.efhc-panels-source-hero { line-height:normal; }
+
 /* RECON_CYCLE_0024: compare the actual viewport, not the shell width.
  * v866 has one activation column at <=400px and two above 400px.
  * The former cycle0010 rule mistook the 410px reference for a 390px viewport.
@@ -165,6 +169,70 @@
 .efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] [data-panel-card-field="generated-kwh"] .font-semibold {
   overflow:visible;
   text-overflow:clip;
+}
+
+/* RECON_CYCLE_0024/02 — source Portfolio chroma bridge.
+ * v866 Cycle0468 targets #panelsPortfolioPage/.panel-* and data-active. React
+ * uses the counterparts below. Bind that missing DOM contract for every CT;
+ * do not reopen the superseded CT03 exception or change PT/PC geometry.
+ * The frozen source owns these material values, including neutral archived Activ.
+ */
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell {
+  background-image:none!important;
+}
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell
+  :is(.efhc-panels-list-card,.efhc-panels-card-surface) {
+  border-color:var(--efhc-route-border)!important;
+  background-color:var(--efhc-route-surface)!important;
+  background-image:none!important;
+}
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panel-tile {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.22)!important;
+  background-color:color-mix(in srgb,#090a0e 97%,var(--efhc-ct-accent) 3%)!important;
+  background-image:none!important;
+}
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panel-tile
+  :is(.efhc-panel-tile_head,.efhc-panel-tile_head>div,.efhc-panel-tile_dates,.efhc-panel-tile_stats,
+      .efhc-panel-tile_dates>div,.efhc-panel-tile_stats>div) {
+  background-color:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell
+  :is(.efhc-panel-tile_dates,.efhc-panel-tile_stats)>div {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.18)!important;
+}
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panel-countdown-live {
+  color:var(--tg-text)!important;
+}
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panels-tabs {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.18)!important;
+  background-image:none!important;
+}
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panels-tabs>[data-active="false"] {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.18)!important;
+  background-color:color-mix(in srgb,#090a0e 97%,var(--efhc-ct-accent) 3%)!important;
+  background-image:none!important;
+}
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panels-tabs>[data-active="true"] {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.34)!important;
+  background:var(--efhc-tone-active)!important;
+  color:var(--efhc-ct-accent)!important;
+}
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panels-tabs[data-pt="PT-10"]>[data-active="true"] {
+  box-shadow:inset 0 -2px 0 var(--efhc-ct-accent);
+}
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panel-activ-status[data-active="true"] {
+  border-color:rgba(var(--efhc-ct-accent-rgb),.36)!important;
+  background:rgba(var(--efhc-ct-accent-rgb),.035)!important;
+  color:var(--efhc-ct-accent)!important;
+  text-shadow:0 0 9px rgba(var(--efhc-ct-accent-rgb),.17)!important;
+}
+html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panel-activ-status[data-active="false"] {
+  border-color:rgba(148,163,184,.18)!important;
+  background:rgba(148,163,184,.025)!important;
+  color:#94a3b8!important;
+  text-shadow:none!important;
 }
 /* PC-01 source shows plain countdown text with no decorative dot or minimum
  * 1.35rem line. This legacy runtime rule enlarged the final stats row. */

@@ -278,6 +278,7 @@ export default function PanelsPortfolioPage(props: {
           <Button
             variant={tab === "active" ? "primary" : "secondary"}
             data-panels-tab-button="active"
+            data-active={tab === "active" ? "true" : "false"}
             aria-label={t("panels.tab_active_aria")}
             onClick={() => {
               hapticSelection(settings.haptics_enabled);
@@ -292,6 +293,7 @@ export default function PanelsPortfolioPage(props: {
           <Button
             variant={tab === "archive" ? "primary" : "secondary"}
             data-panels-tab-button="archive"
+            data-active={tab === "archive" ? "true" : "false"}
             aria-label={t("panels.tab_archive_aria")}
             onClick={() => {
               hapticSelection(settings.haptics_enabled);

@@ -1,0 +1,2060 @@
+{
+  "source_html_sha256": "9b6371f5fb62939596b78206f95031c447e9f2b375e62b30704403bb25102aef",
+  "method": "Chromium computed original v866 PH DOM, current selection to physical mapping; protected React shell width retained; compare local source geometry and grid relations, not original outer shell width",
+  "cases": [
+    {
+      "width": 390,
+      "selection": "PH-02",
+      "physical": "PH-02",
+      "source_hero_width": 349.21875,
+      "expected": {
+        "hero": {
+          "padding": "14.08px",
+          "borderRadius": "18.88px",
+          "borderWidth": "1px"
+        },
+        "head": {
+          "display": "flex",
+          "gap": "11.2px",
+          "alignItems": "flex-start"
+        },
+        "title": {
+          "fontSize": "22.08px",
+          "fontWeight": "850",
+          "lineHeight": "24.288px",
+          "letterSpacing": "normal"
+        },
+        "kicker": {
+          "fontSize": "9.92px",
+          "fontWeight": "900",
+          "letterSpacing": "1.0912px"
+        },
+        "tier": {
+          "padding": "6.4px 9.6px",
+          "borderRadius": "999px",
+          "fontSize": "10.4px",
+          "fontWeight": "950"
+        },
+        "stats": {
+          "display": "grid",
+          "padding": "0px",
+          "gap": "7.68px",
+          "marginTop": "12px",
+          "borderRadius": "0px",
+          "borderWidth": "0px"
+        }
+      },
+      "cells": [
+        {
+          "cell": {
+            "display": "block",
+            "padding": "9.92px",
+            "borderRadius": "13.76px",
+            "borderWidth": "1px",
+            "gridColumn": "auto",
+            "gridRow": "auto",
+            "alignItems": "normal",
+            "gap": "normal"
+          },
+          "label": {
+            "fontSize": "9.76px",
+            "fontWeight": "700",
+            "lineHeight": "normal"
+          },
+          "value": {
+            "fontSize": "11.31px",
+            "fontWeight": "850",
+            "lineHeight": "13.572px",
+            "letterSpacing": "normal",
+            "whiteSpace": "nowrap",
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "textAlign": "start"
+          }
+        },
+        {
+          "cell": {
+            "display": "block",
+            "padding": "9.92px",
+            "borderRadius": "13.76px",
+            "borderWidth": "1px",
+            "gridColumn": "auto",
+            "gridRow": "auto",
+            "alignItems": "normal",
+            "gap": "normal"
+          },
+          "label": {
+            "fontSize": "9.76px",
+            "fontWeight": "700",
+            "lineHeight": "normal"
+          },
+          "value": {
+            "fontSize": "11.31px",
+            "fontWeight": "850",
+            "lineHeight": "13.572px",
+            "letterSpacing": "normal",
+            "whiteSpace": "nowrap",
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "textAlign": "start"
+          }
+        },
+        {
+          "cell": {
+            "display": "block",
+            "padding": "9.92px",
+            "borderRadius": "13.76px",
+            "borderWidth": "1px",
+            "gridColumn": "1 / -1",
+            "gridRow": "auto",
+            "alignItems": "normal",
+            "gap": "normal"
+          },
+          "label": {
+            "fontSize": "9.76px",
+            "fontWeight": "700",
+            "lineHeight": "normal"
+          },
+          "value": {
+            "fontSize": "11.31px",
+            "fontWeight": "850",
+            "lineHeight": "13.572px",
+            "letterSpacing": "normal",
+            "whiteSpace": "nowrap",
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "textAlign": "start"
+          }
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "selection": "PH-03",
+      "physical": "PH-03",
+      "source_hero_width": 349.21875,
+      "expected": {
+        "hero": {
+          "padding": "14.08px",
+          "borderRadius": "19.2px",
+          "borderWidth": "0px"
+        },
+        "head": {
+          "display": "flex",
+          "gap": "11.2px",
+          "alignItems": "flex-start"
+        },
+        "title": {
+          "fontSize": "22.08px",
+          "fontWeight": "850",
+          "lineHeight": "24.288px",
+          "letterSpacing": "normal"
+        },
+        "kicker": {
+          "fontSize": "9.92px",
+          "fontWeight": "900",
+          "letterSpacing": "1.0912px"
+        },
+        "tier": {
+          "padding": "6.4px 9.6px",
+          "borderRadius": "999px",
+          "fontSize": "10.4px",
+          "fontWeight": "950"
+        },
+        "stats": {
+          "display": "grid",
+          "padding": "0px",
+          "gap": "7.68px",
+          "marginTop": "12px",
+          "borderRadius": "0px",
+          "borderWidth": "0px"
+        }
+      },
+      "cells": [
+        {
+          "cell": {
+            "display": "block",
+            "padding": "9.92px",
+            "borderRadius": "13.76px",
+            "borderWidth": "1px",
+            "gridColumn": "auto",
+            "gridRow": "auto",
+            "alignItems": "normal",
+            "gap": "normal"
+          },
+          "label": {
+            "fontSize": "9.76px",
+            "fontWeight": "700",
+            "lineHeight": "normal"
+          },
+          "value": {
+            "fontSize": "11.31px",
+            "fontWeight": "850",
+            "lineHeight": "13.572px",
+            "letterSpacing": "normal",
+            "whiteSpace": "nowrap",
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "textAlign": "start"
+          }
+        },
+        {
+          "cell": {
+            "display": "block",
+            "padding": "9.92px",
+            "borderRadius": "13.76px",
+            "borderWidth": "1px",
+            "gridColumn": "auto",
+            "gridRow": "auto",
+            "alignItems": "normal",
+            "gap": "normal"
+          },
+          "label": {
+            "fontSize": "9.76px",
+            "fontWeight": "700",
+            "lineHeight": "normal"
+          },
+          "value": {
+            "fontSize": "11.31px",
+            "fontWeight": "850",
+            "lineHeight": "13.572px",
+            "letterSpacing": "normal",
+            "whiteSpace": "nowrap",
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "textAlign": "start"
+          }
+        },
+        {
+          "cell": {
+            "display": "block",
+            "padding": "9.92px",
+            "borderRadius": "13.76px",
+            "borderWidth": "1px",
+            "gridColumn": "1 / -1",
+            "gridRow": "auto",
+            "alignItems": "normal",
+            "gap": "normal"
+          },
+          "label": {
+            "fontSize": "9.76px",
+            "fontWeight": "700",
+            "lineHeight": "normal"
+          },
+          "value": {
+            "fontSize": "11.31px",
+            "fontWeight": "850",
+            "lineHeight": "13.572px",
+            "letterSpacing": "normal",
+            "whiteSpace": "nowrap",
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "textAlign": "start"
+          }
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "selection": "PH-04",
+      "physical": "PH-04",
+      "source_hero_width": 349.21875,
+      "expected": {
+        "hero": {
+          "padding": "14.08px",
+          "borderRadius": "18.88px",
+          "borderWidth": "1px"
+        },
+        "head": {
+          "display": "flex",
+          "gap": "11.2px",
+          "alignItems": "flex-start"
+        },
+        "title": {
+          "fontSize": "22.08px",
+          "fontWeight": "850",
+          "lineHeight": "24.288px",
+          "letterSpacing": "normal"
+        },
+        "kicker": {
+          "fontSize": "9.92px",
+          "fontWeight": "900",
+          "letterSpacing": "1.0912px"
+        },
+        "tier": {
+          "padding": "6.4px 9.6px",
+          "borderRadius": "999px",
+          "fontSize": "10.4px",
+          "fontWeight": "950"
+        },
+        "stats": {
+          "display": "grid",
+          "padding": "0px",
+          "gap": "7.68px",
+          "marginTop": "12px",
+          "borderRadius": "0px",
+          "borderWidth": "0px"
+        }
+      },
+      "cells": [
+        {
+          "cell": {
+            "display": "block",
+            "padding": "9.92px",
+            "borderRadius": "13.76px",
+            "borderWidth": "1px",
+            "gridColumn": "auto",
+            "gridRow": "auto",
+            "alignItems": "normal",
+            "gap": "normal"
+          },
+          "label": {
+            "fontSize": "9.76px",
+            "fontWeight": "700",
+            "lineHeight": "normal"
+          },
+          "value": {
+            "fontSize": "11.31px",
+            "fontWeight": "850",
+            "lineHeight": "13.572px",
+            "letterSpacing": "normal",
+            "whiteSpace": "nowrap",
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "textAlign": "start"
+          }
+        },
+        {
+          "cell": {
+            "display": "block",
+            "padding": "9.92px",
+            "borderRadius": "13.76px",
+            "borderWidth": "1px",
+            "gridColumn": "auto",
+            "gridRow": "auto",
+            "alignItems": "normal",
+            "gap": "normal"
+          },
+          "label": {
+            "fontSize": "9.76px",
+            "fontWeight": "700",
+            "lineHeight": "normal"
+          },
+          "value": {
+            "fontSize": "11.31px",
+            "fontWeight": "850",
+            "lineHeight": "13.572px",
+            "letterSpacing": "normal",
+            "whiteSpace": "nowrap",
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "textAlign": "start"
+          }
+        },
+        {
+          "cell": {
+            "display": "block",
+            "padding": "9.92px",
+            "borderRadius": "13.76px",
+            "borderWidth": "1px",
+            "gridColumn": "1 / -1",
+            "gridRow": "auto",
+            "alignItems": "normal",
+            "gap": "normal"
+          },
+          "label": {
+            "fontSize": "9.76px",
+            "fontWeight": "700",
+            "lineHeight": "normal"
+          },
+          "value": {
+            "fontSize": "11.31px",
+            "fontWeight": "850",
+            "lineHeight": "13.572px",
+            "letterSpacing": "normal",
+            "whiteSpace": "nowrap",
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "textAlign": "start"
+          }
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "selection": "PH-05",
+      "physical": "PH-10",
+      "source_hero_width": 349.21875,
+      "expected": {
+        "hero": {
+          "padding": "14.08px",
+          "borderRadius": "18.88px",
+          "borderWidth": "1px"
+        },
+        "head": {
+          "display": "flex",
+          "gap": "11.2px",
+          "alignItems": "flex-start"
+        },
+        "title": {
+          "fontSize": "22.08px",
+          "fontWeight": "850",
+          "lineHeight": "24.288px",
+          "letterSpacing": "normal"
+        },
+        "kicker": {
+          "fontSize": "9.92px",
+          "fontWeight": "900",
+          "letterSpacing": "1.0912px"
+        },
+        "tier": {
+          "padding": "6.4px 9.6px",
+          "borderRadius": "999px",
+          "fontSize": "10.4px",
+          "fontWeight": "950"
+        },
+        "stats": {
+          "display": "grid",
+          "padding": "4.48px",
+          "gap": "7.68px",
+          "marginTop": "12px",
+          "borderRadius": "13.12px",
+          "borderWidth": "1px"
+        }
+      },
+      "cells": [
+        {
+          "cell": {
+            "display": "block",
+            "padding": "9.92px",
+            "borderRadius": "13.76px",
+            "borderWidth": "0px",
+            "gridColumn": "auto",
+            "gridRow": "auto",
+            "alignItems": "normal",
+            "gap": "normal"
+          },
+          "label": {
+            "fontSize": "9.76px",
+            "fontWeight": "700",
+            "lineHeight": "normal"
+          },
+          "value": {
+            "fontSize": "11.31px",
+            "fontWeight": "850",
+            "lineHeight": "13.572px",
+            "letterSpacing": "normal",
+            "whiteSpace": "nowrap",
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "textAlign": "start"
+          }
+        },
+        {
+          "cell": {
+            "display": "block",
+            "padding": "9.92px",
+            "borderRadius": "13.76px",
+            "borderWidth": "0px",
+            "gridColumn": "auto",
+            "gridRow": "auto",
+            "alignItems": "normal",
+            "gap": "normal"
+          },
+          "label": {
+            "fontSize": "9.76px",
+            "fontWeight": "700",
+            "lineHeight": "normal"
+          },
+          "value": {
+            "fontSize": "11.31px",
+            "fontWeight": "850",
+            "lineHeight": "13.572px",
+            "letterSpacing": "normal",
+            "whiteSpace": "nowrap",
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "textAlign": "start"
+          }
+        },
+        {
+          "cell": {
+            "display": "block",
+            "padding": "9.92px",
+            "borderRadius": "13.76px",
+            "borderWidth": "0px",
+            "gridColumn": "1 / -1",
+            "gridRow": "auto",
+            "alignItems": "normal",
+            "gap": "normal"
+          },
+          "label": {
+            "fontSize": "9.76px",
+            "fontWeight": "700",
+            "lineHeight": "normal"
+          },
+          "value": {
+            "fontSize": "11.31px",
+            "fontWeight": "850",
+            "lineHeight": "13.572px",
+            "letterSpacing": "normal",
+            "whiteSpace": "nowrap",
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "textAlign": "start"
+          }
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "selection": "PH-06",
+      "physical": "PH-12",
+      "source_hero_width": 349.21875,
+      "expected": {
+        "hero": {
+          "padding": "14.08px",
+          "borderRadius": "18.88px",
+          "borderWidth": "1px"
+        },
+        "head": {
+          "display": "flex",
+          "gap": "11.2px",
+          "alignItems": "flex-start"
+        },
+        "title": {
+          "fontSize": "22.08px",
+          "fontWeight": "850",
+          "lineHeight": "24.288px",
+          "letterSpacing": "normal"
+        },
+        "kicker": {
+          "fontSize": "9.92px",
+          "fontWeight": "900",
+          "letterSpacing": "1.0912px"
+        },
+        "tier": {
+          "padding": "6.4px 9.6px",
+          "borderRadius": "999px",
+          "fontSize": "10.4px",
+          "fontWeight": "950"
+        },
+        "stats": {
+          "display": "grid",
+          "padding": "6.72px",
+          "gap": "7.04px 8.64px",
+          "marginTop": "11.52px",
+          "borderRadius": "20.48px 9.92px",
+          "borderWidth": "1px"
+        }
+      },
+      "cells": [
+        {
+          "cell": {
+            "display": "grid",
+            "padding": "9.28px 6.72px",
+            "borderRadius": "16px 41.6px 41.6px 16px",
+            "borderWidth": "1px",
+            "gridColumn": "1",
+            "gridRow": "1 / span 2",
+            "alignItems": "normal",
+            "gap": "normal"
+          },
+          "label": {
+            "fontSize": "10.24px",
+            "fontWeight": "700",
+            "lineHeight": "11.776px"
+          },
+          "value": {
+            "fontSize": "20.48px",
+            "fontWeight": "850",
+            "lineHeight": "24.576px",
+            "letterSpacing": "-0.7168px",
+            "whiteSpace": "nowrap",
+            "overflow": "visible",
+            "textOverflow": "clip",
+            "textAlign": "center"
+          }
+        },
+        {
+          "cell": {
+            "display": "grid",
+            "padding": "8.96px 17.92px 8.96px 11.52px",
+            "borderRadius": "8.96px 17.28px",
+            "borderWidth": "0px",
+            "gridColumn": "auto",
+            "gridRow": "auto",
+            "alignItems": "center",
+            "gap": "8px"
+          },
+          "label": {
+            "fontSize": "9.92px",
+            "fontWeight": "700",
+            "lineHeight": "11.408px"
+          },
+          "value": {
+            "fontSize": "10.24px",
+            "fontWeight": "850",
+            "lineHeight": "11.4688px",
+            "letterSpacing": "-0.38912px",
+            "whiteSpace": "nowrap",
+            "overflow": "visible",
+            "textOverflow": "clip",
+            "textAlign": "right"
+          }
+        },
+        {
+          "cell": {
+            "display": "grid",
+            "padding": "8.96px 17.92px 8.96px 11.52px",
+            "borderRadius": "8.96px 17.28px",
+            "borderWidth": "0px",
+            "gridColumn": "2",
+            "gridRow": "auto",
+            "alignItems": "center",
+            "gap": "8px"
+          },
+          "label": {
+            "fontSize": "9.92px",
+            "fontWeight": "700",
+            "lineHeight": "11.408px"
+          },
+          "value": {
+            "fontSize": "10.24px",
+            "fontWeight": "850",
+            "lineHeight": "11.4688px",
+            "letterSpacing": "-0.38912px",
+            "whiteSpace": "nowrap",
+            "overflow": "visible",
+            "textOverflow": "clip",
+            "textAlign": "right"
+          }
+        }
+      ]
+    }
+  ],
+  "viewports": [
+    320,
+    390,
+    430,
+    1440
+  ],
+  "viewport_overrides": {
+    "PH-02": {
+      "320": [
+        {
+          "path": [
+            "expected",
+            "stats",
+            "gap"
+          ],
+          "value": "5.6px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "cell",
+            "padding"
+          ],
+          "value": "7.68px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "fontSize"
+          ],
+          "value": "9.6px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "lineHeight"
+          ],
+          "value": "11.52px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.432px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "overflow"
+          ],
+          "value": "visible"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "textOverflow"
+          ],
+          "value": "clip"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "cell",
+            "padding"
+          ],
+          "value": "7.68px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "fontSize"
+          ],
+          "value": "9.6px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "lineHeight"
+          ],
+          "value": "11.52px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.432px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "overflow"
+          ],
+          "value": "visible"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "textOverflow"
+          ],
+          "value": "clip"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "cell",
+            "padding"
+          ],
+          "value": "7.68px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "fontSize"
+          ],
+          "value": "9.6px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "lineHeight"
+          ],
+          "value": "11.52px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.432px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "overflow"
+          ],
+          "value": "visible"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "textOverflow"
+          ],
+          "value": "clip"
+        }
+      ],
+      "390": [],
+      "430": [
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "fontSize"
+          ],
+          "value": "12.47px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "lineHeight"
+          ],
+          "value": "14.964px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "fontSize"
+          ],
+          "value": "12.47px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "lineHeight"
+          ],
+          "value": "14.964px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "fontSize"
+          ],
+          "value": "12.47px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "lineHeight"
+          ],
+          "value": "14.964px"
+        }
+      ],
+      "1440": [
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "fontSize"
+          ],
+          "value": "13.76px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "lineHeight"
+          ],
+          "value": "16.512px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "fontSize"
+          ],
+          "value": "13.76px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "lineHeight"
+          ],
+          "value": "16.512px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "fontSize"
+          ],
+          "value": "13.76px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "lineHeight"
+          ],
+          "value": "16.512px"
+        }
+      ]
+    },
+    "PH-03": {
+      "320": [
+        {
+          "path": [
+            "expected",
+            "stats",
+            "gap"
+          ],
+          "value": "5.6px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "cell",
+            "padding"
+          ],
+          "value": "7.68px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "fontSize"
+          ],
+          "value": "9.6px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "lineHeight"
+          ],
+          "value": "11.52px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.432px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "overflow"
+          ],
+          "value": "visible"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "textOverflow"
+          ],
+          "value": "clip"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "cell",
+            "padding"
+          ],
+          "value": "7.68px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "fontSize"
+          ],
+          "value": "9.6px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "lineHeight"
+          ],
+          "value": "11.52px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.432px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "overflow"
+          ],
+          "value": "visible"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "textOverflow"
+          ],
+          "value": "clip"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "cell",
+            "padding"
+          ],
+          "value": "7.68px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "fontSize"
+          ],
+          "value": "9.6px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "lineHeight"
+          ],
+          "value": "11.52px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.432px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "overflow"
+          ],
+          "value": "visible"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "textOverflow"
+          ],
+          "value": "clip"
+        }
+      ],
+      "390": [],
+      "430": [
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "fontSize"
+          ],
+          "value": "12.47px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "lineHeight"
+          ],
+          "value": "14.964px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "fontSize"
+          ],
+          "value": "12.47px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "lineHeight"
+          ],
+          "value": "14.964px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "fontSize"
+          ],
+          "value": "12.47px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "lineHeight"
+          ],
+          "value": "14.964px"
+        }
+      ],
+      "1440": [
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "fontSize"
+          ],
+          "value": "13.76px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "lineHeight"
+          ],
+          "value": "16.512px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "fontSize"
+          ],
+          "value": "13.76px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "lineHeight"
+          ],
+          "value": "16.512px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "fontSize"
+          ],
+          "value": "13.76px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "lineHeight"
+          ],
+          "value": "16.512px"
+        }
+      ]
+    },
+    "PH-04": {
+      "320": [
+        {
+          "path": [
+            "expected",
+            "stats",
+            "gap"
+          ],
+          "value": "5.6px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "cell",
+            "padding"
+          ],
+          "value": "7.68px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "fontSize"
+          ],
+          "value": "9.6px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "lineHeight"
+          ],
+          "value": "11.52px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.432px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "overflow"
+          ],
+          "value": "visible"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "textOverflow"
+          ],
+          "value": "clip"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "cell",
+            "padding"
+          ],
+          "value": "7.68px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "fontSize"
+          ],
+          "value": "9.6px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "lineHeight"
+          ],
+          "value": "11.52px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.432px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "overflow"
+          ],
+          "value": "visible"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "textOverflow"
+          ],
+          "value": "clip"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "cell",
+            "padding"
+          ],
+          "value": "7.68px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "fontSize"
+          ],
+          "value": "9.6px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "lineHeight"
+          ],
+          "value": "11.52px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.432px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "overflow"
+          ],
+          "value": "visible"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "textOverflow"
+          ],
+          "value": "clip"
+        }
+      ],
+      "390": [],
+      "430": [
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "fontSize"
+          ],
+          "value": "12.47px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "lineHeight"
+          ],
+          "value": "14.964px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "fontSize"
+          ],
+          "value": "12.47px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "lineHeight"
+          ],
+          "value": "14.964px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "fontSize"
+          ],
+          "value": "12.47px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "lineHeight"
+          ],
+          "value": "14.964px"
+        }
+      ],
+      "1440": [
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "fontSize"
+          ],
+          "value": "13.76px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "lineHeight"
+          ],
+          "value": "16.512px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "fontSize"
+          ],
+          "value": "13.76px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "lineHeight"
+          ],
+          "value": "16.512px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "fontSize"
+          ],
+          "value": "13.76px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "lineHeight"
+          ],
+          "value": "16.512px"
+        }
+      ]
+    },
+    "PH-05": {
+      "320": [
+        {
+          "path": [
+            "expected",
+            "stats",
+            "gap"
+          ],
+          "value": "5.6px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "cell",
+            "padding"
+          ],
+          "value": "7.68px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "fontSize"
+          ],
+          "value": "9.6px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "lineHeight"
+          ],
+          "value": "11.52px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.432px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "overflow"
+          ],
+          "value": "visible"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "textOverflow"
+          ],
+          "value": "clip"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "cell",
+            "padding"
+          ],
+          "value": "7.68px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "fontSize"
+          ],
+          "value": "9.6px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "lineHeight"
+          ],
+          "value": "11.52px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.432px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "overflow"
+          ],
+          "value": "visible"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "textOverflow"
+          ],
+          "value": "clip"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "cell",
+            "padding"
+          ],
+          "value": "7.68px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "fontSize"
+          ],
+          "value": "9.6px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "lineHeight"
+          ],
+          "value": "11.52px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.432px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "overflow"
+          ],
+          "value": "visible"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "textOverflow"
+          ],
+          "value": "clip"
+        }
+      ],
+      "390": [],
+      "430": [
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "fontSize"
+          ],
+          "value": "12.47px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "lineHeight"
+          ],
+          "value": "14.964px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "fontSize"
+          ],
+          "value": "12.47px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "lineHeight"
+          ],
+          "value": "14.964px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "fontSize"
+          ],
+          "value": "12.47px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "lineHeight"
+          ],
+          "value": "14.964px"
+        }
+      ],
+      "1440": [
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "fontSize"
+          ],
+          "value": "13.76px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "lineHeight"
+          ],
+          "value": "16.512px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "fontSize"
+          ],
+          "value": "13.76px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "lineHeight"
+          ],
+          "value": "16.512px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "fontSize"
+          ],
+          "value": "13.76px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "lineHeight"
+          ],
+          "value": "16.512px"
+        }
+      ]
+    },
+    "PH-06": {
+      "320": [
+        {
+          "path": [
+            "expected",
+            "stats",
+            "padding"
+          ],
+          "value": "5.76px"
+        },
+        {
+          "path": [
+            "expected",
+            "stats",
+            "gap"
+          ],
+          "value": "6.4px 7.36px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "fontSize"
+          ],
+          "value": "9.6px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "lineHeight"
+          ],
+          "value": "11.52px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.336px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "cell",
+            "padding"
+          ],
+          "value": "7.68px 16px 7.68px 9.92px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "cell",
+            "gap"
+          ],
+          "value": "1.92px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "fontSize"
+          ],
+          "value": "9.6px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "lineHeight"
+          ],
+          "value": "10.752px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.3648px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "textAlign"
+          ],
+          "value": "left"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "cell",
+            "padding"
+          ],
+          "value": "7.68px 16px 7.68px 9.92px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "cell",
+            "gap"
+          ],
+          "value": "1.92px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "fontSize"
+          ],
+          "value": "9.6px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "lineHeight"
+          ],
+          "value": "10.752px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.3648px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "textAlign"
+          ],
+          "value": "left"
+        }
+      ],
+      "390": [],
+      "430": [
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "fontSize"
+          ],
+          "value": "21.5px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "lineHeight"
+          ],
+          "value": "25.8px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.7525px"
+        }
+      ],
+      "1440": [
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "fontSize"
+          ],
+          "value": "25.92px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "lineHeight"
+          ],
+          "value": "31.104px"
+        },
+        {
+          "path": [
+            "cells",
+            0,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.9072px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "fontSize"
+          ],
+          "value": "12.48px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "lineHeight"
+          ],
+          "value": "13.9776px"
+        },
+        {
+          "path": [
+            "cells",
+            1,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.47424px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "fontSize"
+          ],
+          "value": "12.48px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "lineHeight"
+          ],
+          "value": "13.9776px"
+        },
+        {
+          "path": [
+            "cells",
+            2,
+            "value",
+            "letterSpacing"
+          ],
+          "value": "-0.47424px"
+        }
+      ]
+    }
+  }
+}

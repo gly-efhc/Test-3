@@ -4,6 +4,7 @@ import {createRequire} from 'node:module';
 import {readProgressMaterial,readProgressAccent,readProgressAppearance,readProgressGeometry} from './progress-material.mjs';
 import {verifyIndicators} from './indicators.mjs';
 import {verifyPanelsActivationReference} from './panels-activation.mjs';
+import {verifyPanelsHeroTemplates,verifyPortfolioColors} from './panels-templates.mjs';
 import {verifyUiFollowup} from './ui-followup.mjs';
 import {verifyProgress20Grid} from './progress-grid.mjs';
 import {expectedSelectionOrder} from './progress-order.mjs';
@@ -409,6 +410,13 @@ try{
  await check('OWNER cycle0024: PA-01 matches measured v866 breakpoint and preserves D8 in ten themes',async page=>{
   await verifyPanelsActivationReference(page,{open,artifacts:process.env.EFHC_PARITY_ARTIFACTS});
  });
+
+ await check('OWNER cycle0024/02: PH positions2–6 match source anatomy; PH01 and Header preserved',async page=>{
+  await verifyPanelsHeroTemplates(page,{open,canon,artifacts:process.env.EFHC_PARITY_ARTIFACTS});
+ });
+ for(const width of [320,390,1440])await check(`OWNER cycle0024/02: all Portfolio designs follow all10 CT in both tabs ${width}`,async page=>{
+  await verifyPortfolioColors(page,{open,canon,width,artifacts:process.env.EFHC_PARITY_ARTIFACTS});
+ },{width});
 
 }finally{await browser.close()}
 if(process.env.EFHC_PARITY_ARTIFACTS){await fs.mkdir(process.env.EFHC_PARITY_ARTIFACTS,{recursive:true});await fs.writeFile(process.env.EFHC_PARITY_ARTIFACTS+'/interaction-results.json',JSON.stringify({results},null,2)+'\n')}
