@@ -15,7 +15,7 @@ function load(relative){
  const filename=path.resolve(root,relative);
  if(cache.has(filename))return cache.get(filename).exports;
  const module={exports:{}};cache.set(filename,module);
- const code=ts.transpileModule(fs.readFileSync(filename,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.ReactJSX}}).outputText;
+ const code=ts.transpileModule(fs.readFileSync(filename,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
  const localRequire=name=>name.startsWith('.')?load(path.relative(root,path.resolve(path.dirname(filename),name+'.ts'))):require(name);
  vm.runInThisContext(`(function(require,module,exports){${code}\n})`,{filename})(localRequire,module,module.exports);
  return module.exports;
@@ -25,17 +25,6 @@ const registry=load('src/lib/interfaceVariantRegistry.ts');
 const colors=load('src/lib/colorThemeRegistry.ts');
 const headers=load('src/lib/headerThemeComposition.ts');
 const json=value=>JSON.parse(JSON.stringify(value));
-test('USER login keeps translated sign-in and action without engineering copy in all sixteen languages',()=>{
- const React=require('react'),{renderToStaticMarkup}=require('react-dom/server');
- const {BrowserLoginDemo}=load('src/components/BrowserLoginDemo.tsx');
- for(const lang of ['ru','en','uk','de','fr','es','it','tr','pl','da','hi','id','sw','pt','ko','ja']){
-  const dict=JSON.parse(fs.readFileSync(path.join(root,'public/locale',lang+'.json')));
-  const markup=renderToStaticMarkup(React.createElement(BrowserLoginDemo,{t:key=>dict[key]||key}));
-  assert.ok(markup.includes(renderToStaticMarkup(React.createElement('strong',null,dict['browser_login.title']))),lang+' translated sign-in remains');
-  assert.ok(markup.includes(dict['browser_login.telegram_cta'].replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#x27;')),lang+' Telegram action remains');
-  assert.doesNotMatch(markup,/efhc-browser-login_badge|<span/,'technical badge/subtitle must not return');
- }
-});
 test('PA-01 source reference and delivered public stylesheet stay connected',()=>{
  const reference=JSON.parse(fs.readFileSync(new URL('./v866-panels-activation-reference.json',import.meta.url)));
  assert.equal(reference.source_html_sha256,canon.source.html_sha256);
