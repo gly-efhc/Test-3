@@ -281,7 +281,9 @@ export function Layout(
   const themePage = getThemePageDescriptor(router.pathname);
   const shellBottomPadding = isAdminRoute
     ? "var(--efhc-safe-bottom)"
-    : "calc(var(--efhc-user-bottom-nav-boundary) + var(--efhc-pwa-floating-height, 0px))";
+    // The measured nav height is already reserved by marginBottom below.
+    // Keep only the content gap here, rather than reserving the nav twice.
+    : "calc(.5rem + var(--efhc-pwa-floating-height, 0px))";
 
   useEffect(() => {
     if (isAdminRoute) {

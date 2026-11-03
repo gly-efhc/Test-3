@@ -105,8 +105,9 @@ export async function verifyPortfolioColors(page,{open,canon,width,artifacts}){
     assert.equal(actual.image,'none','legacy independent blue/violet gradient');assert.equal(actual.inactiveImage,'none');
     assert.equal(actual.border,actual.expectedBorder,`${theme.id}/${id}/${tab} contour`);
     if(id==='PT-03'){
-     const colors=await surface.evaluate(e=>{const n=document.createElement('span');n.style.cssText='position:absolute;visibility:hidden;background-color:rgba(var(--efhc-ct-accent-rgb),.07)!important';e.append(n);const out=[getComputedStyle(e).backgroundColor,getComputedStyle(n).backgroundColor];n.remove();return out});
-     assert.equal(colors[0],colors[1],`${theme.id} PT03 container keeps source tint`);
+     // OWNER 0024/03 replaces only the wrapper tint. Button colors above
+     // still have to match the same accepted CT roles in both tabs.
+     assert.equal(await surface.evaluate(e=>getComputedStyle(e).backgroundColor),'rgba(0, 0, 0, 0)',`${theme.id} PT03 wrapper has no backing`);
     }
     if(id==='PT-02'){
      // Button's existing 150ms box-shadow transition must finish before a

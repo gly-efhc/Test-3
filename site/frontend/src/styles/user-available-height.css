@@ -1,0 +1,37 @@
+/* OWNER RECON_CYCLE_0024/03: the USER viewport ends above the measured nav.
+ * Fill page containers, never scale individual cards, fonts or controls.
+ * Admin and Browser Shop retain their independent viewport contracts.
+ */
+.efhc-independent-shell .efhc-game-shell_main[data-user-bottom-nav-boundary="shared-layout"] {
+  display:flex;
+  flex-direction:column;
+}
+.efhc-game-shell_main[data-user-bottom-nav-boundary="shared-layout"] > .efhc-game-page {
+  flex:1 0 auto;
+  align-content:start;
+}
+.efhc-game-shell_main[data-user-bottom-nav-boundary="shared-layout"] > #panelsPortfolioPage {
+  display:flex;
+  flex-direction:column;
+  flex:1 1 auto;
+  min-height:0;
+}
+#panelsPortfolioPage > .efhc-subpage-centered-title {
+  flex:none;
+}
+#panelsPortfolioPage > .efhc-panels-list-card {
+  display:flex;
+  flex-direction:column;
+  flex:1 0 18rem;
+  min-height:18rem;
+}
+#panelsPortfolioPage .efhc-panels-tabs,
+#panelsPortfolioPage .efhc-panels-hint-row {
+  flex:none;
+}
+#panelsPortfolioPage .efhc-panels-card-surface {
+  flex:1 1 auto;
+  min-height:8rem;
+  max-height:none;
+  align-content:start;
+}

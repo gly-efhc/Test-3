@@ -56,6 +56,14 @@ test('OWNER shared progress library exposes 24 positions with independent PB/RP 
  assert.equal(registry.getInterfaceVariantAuthoredSlotCount('RP'),24);
  for(const id of canon.REGISTRY.PB.filter(id=>!expected.includes(id)))assert.equal(registry.normalizeInterfaceVariant('PB',id),'PB-01','retired choice still selectable');
 });
+test('USER available-height source is delivered byte-for-byte after frozen CSS',()=>{
+ const source=fs.readFileSync(path.join(root,'src/styles/user-available-height.css'),'utf8').trimEnd();
+ const delivered=fs.readFileSync(path.join(root,'public/react-shell-mobile-viewport-v923.css'),'utf8');
+ const begin='/* BEGIN SOURCE: src/styles/user-available-height.css */\n';
+ const end='\n/* END SOURCE: src/styles/user-available-height.css */';
+ assert.equal(delivered.split(begin).length,2,'duplicate/missing height authority');
+ assert.equal(delivered.split(begin)[1].split(end)[0],source);
+});
 test('OWNER: first ten progress positions are accepted CT starters; all saved IDs retain their models',()=>{
  for(const group of ['PB','RP']){
   const expected=expectedSelectionOrder(group,canon);

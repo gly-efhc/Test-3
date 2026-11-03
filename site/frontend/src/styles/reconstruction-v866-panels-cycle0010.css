@@ -249,7 +249,8 @@ html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .
 }
 html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .efhc-panels-tabs[data-pt="PT-03"] {
   border-color:rgba(var(--efhc-ct-accent-rgb),.24)!important;
-  background-color:rgba(var(--efhc-ct-accent-rgb),.07)!important;
+  /* OWNER 0024/03: remove this wrapper backing only; buttons keep CT roles. */
+  background-color:transparent!important;
 }
 html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .efhc-panels-tabs[data-pt="PT-02"]>[data-active="true"] {
   box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 4px 12px rgba(var(--efhc-ct-accent-rgb),.24)!important;

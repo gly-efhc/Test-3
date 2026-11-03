@@ -5,6 +5,7 @@ import {readProgressMaterial,readProgressAccent,readProgressAppearance,readProgr
 import {verifyIndicators} from './indicators.mjs';
 import {verifyPanelsActivationReference} from './panels-activation.mjs';
 import {verifyPanelsHeroTemplates,verifyPortfolioColors} from './panels-templates.mjs';
+import {verifyUserHeight} from './user-height.mjs';
 import {verifyUiFollowup} from './ui-followup.mjs';
 import {verifyProgress20Grid} from './progress-grid.mjs';
 import {expectedSelectionOrder} from './progress-order.mjs';
@@ -37,6 +38,9 @@ async function open(page,route=''){
 }
 const routePath=page=>page.evaluate(()=>location.pathname.replace(/^\/Test-3/,'').replace(/\/$/,'')||'/');
 try{
+ await check('USER adaptive height, fixed navigation and unchanged panel tiles',async page=>{
+  await verifyUserHeight(page,{open,artifacts:process.env.EFHC_PARITY_ARTIFACTS});
+ });
  for(const width of [320,390,1440])await check(`24 shared models: identical appearance, symmetric fills and protected starters at ${width}px`,async page=>{
   const donors=new Map();
   const reference=await page.context().newPage();
