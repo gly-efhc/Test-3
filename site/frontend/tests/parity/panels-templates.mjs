@@ -69,6 +69,11 @@ export async function verifyPanelsHeroTemplates(page,{open,canon,artifacts}){
   const header=page.locator('.efhc-game-header');const before=await header.evaluate(e=>({hs:e.dataset.hs,rect:[e.clientWidth,e.clientHeight],text:e.querySelector('.efhc-game-header_balance-value')?.textContent}));
   for(const id of canon.REGISTRY.PH.slice(1)){
    const hero=await select(page,canon,'PH',id);
+   const material=await hero.evaluate(e=>{const s=getComputedStyle(e);return{backgroundColor:s.backgroundColor,backgroundImage:s.backgroundImage}});
+   const expectedMaterial=reference.source_materials.find(r=>r.theme===theme.id&&r.selection===id);
+   assert.ok(expectedMaterial,`${theme.id}/${id} independent source material exists`);
+   assert.equal(material.backgroundColor,expectedMaterial.backgroundColor,`${theme.id}/${id} v866 hero surface`);
+   assert.equal(material.backgroundImage,expectedMaterial.backgroundImage,`${theme.id}/${id} v866 hero background image`);
    const color=await hero.locator('.panels-kicker').evaluate(e=>{const c=document.createElement('span');c.style.color='var(--efhc-ct-accent)';e.append(c);const out=[getComputedStyle(e).color,getComputedStyle(c).color];c.remove();return out});
    assert.equal(color[0],color[1],`${id} kicker follows ${theme.id}`);
   }

@@ -34,6 +34,31 @@
   line-height:normal;
 }
 
+/* The lab and React provide different inherited route-surface variables.
+ * Consume the measured v866 surface through one PH material hook for all CT.
+ * These are bindings to existing palette roles, not a CT03 freeze/exclusion.
+ * No descendant material, approved PH01, PA or shared palette is rewritten. */
+html[data-interface-app-mode="user"][data-color-theme-id] #panelsPage {
+  --efhc-ph-source-surface:transparent;
+}
+html[data-interface-app-mode="user"][data-color-theme-id="CT-03"] #panelsPage {
+  --efhc-ph-source-surface:var(--efhc-color-canvas,rgba(7,10,18,.98));
+}
+html[data-interface-app-mode="user"][data-color-theme-id="CT-04"] #panelsPage {
+  --efhc-ph-source-surface:var(--efhc-route-surface-raised,rgba(9,23,32,.94));
+}
+html[data-interface-app-mode="user"][data-color-theme-id] #panelsPage
+  .efhc-panels-source-hero:is([data-ph="PH-03"],[data-ph="PH-04"],[data-ph="PH-12"]) {
+  background-color:var(--efhc-ph-source-surface)!important;
+}
+/* CT10's source PH10 material was attached to historical GlobalTheme13.
+ * Bind that authored material to the current CT identity without changing IDs. */
+html[data-interface-app-mode="user"][data-color-theme-id="CT-10"] #panelsPage
+  .efhc-panels-source-hero[data-ph="PH-10"] {
+  background-color:rgba(12,17,26,.98)!important;
+  background-image:radial-gradient(360px 160px at 100% 0,rgba(var(--efhc-ct-accent-rgb),.10),transparent 72%),none!important;
+}
+
 /* RECON_CYCLE_0024: compare the actual viewport, not the shell width.
  * v866 has one activation column at <=400px and two above 400px.
  * The former cycle0010 rule mistook the 410px reference for a 390px viewport.
