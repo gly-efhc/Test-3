@@ -106,3 +106,26 @@ html[data-customization-mode="editing"]
   .efhc-independent-shell[data-interface-app-mode="user"][data-efhc-canon-migration="v872"] .efhc-game-header {
   margin-top:12px;
 }
+
+/* OWNER cycle0023: two informational editing rows outside the scrolling main.
+   Reuse the frozen CT swatch rules verbatim; only their host position changes. */
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-user-indicator-dock {
+  flex:0 0 auto;
+  display:grid;
+  gap:3px;
+  padding:3px .65rem;
+  pointer-events:none;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-user-indicator-dock .efhc-energy-frame-theme-slots {
+  position:static;
+  inset:auto;
+  width:100%;
+}
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-user-indicator-dock .efhc-page-variant-dots {
+  position:static;
+  transform:none;
+  min-height:7px;
+  width:max-content;
+  max-width:100%;
+  justify-self:center;
+}

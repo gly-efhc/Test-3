@@ -22,6 +22,7 @@ import {
   type WalletConnectionPhase,
   type WalletView,
 } from "../lib/wallet-provider";
+import { InterfaceIndicators } from "./interface-settings/InterfaceIndicators";
 import { GlobalHeader } from "./GlobalHeader";
 import { AppNavIcon } from "./icons/AppNavIcon";
 import { BrowserLoginDemo } from "./BrowserLoginDemo";
@@ -42,7 +43,7 @@ import { useInterfaceCustomization } from
   "../hooks/useInterfaceCustomization";
 import { useInterfaceVariantSurface } from
   "../hooks/useInterfaceVariantSurface";
-import type { InterfaceAppMode } from
+import type { InterfaceAppMode, InterfaceVariantGroup } from
   "../types/interfaceCustomization";
 import { useAvatarPreference } from "../queries/useAvatarPreference";
 import { getThemePageDescriptor } from "../lib/themePageRegistry";
@@ -744,6 +745,10 @@ export function Layout(
           }}
         />
 
+
+        {!isAdminRoute && <InterfaceIndicators
+          pageGroup={themePage.groups.find(group => group !== "HS" && group !== "BN") as InterfaceVariantGroup | undefined}
+        />}
 
         <FrontendShellMain
           id="efhc-main-content"

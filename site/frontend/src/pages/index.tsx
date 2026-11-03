@@ -22,9 +22,6 @@ import { clamp, formatFixedDown } from "../lib/format";
 import { USER_LEVEL_SKINS } from "../lib/skins";
 import { useInterfaceVariantSurface } from
   "../hooks/useInterfaceVariantSurface";
-import { useInterfaceCustomization } from
-  "../hooks/useInterfaceCustomization";
-import { COLOR_THEME_CATALOG } from "../lib/colorThemeRegistry";
 import { EnergyUnitText } from "../components/energy/EnergyUnitText";
 
 const SCALE = 8;
@@ -99,13 +96,12 @@ type LiveBlockProps = {
 };
 
 function LiveEnergyBlock(props: LiveBlockProps) {
-  const customization = useInterfaceCustomization();
   const energyFrameSurface = useInterfaceVariantSurface<HTMLElement>("EG", {
     registerDots: false,
   });
   const iconSurface = useInterfaceVariantSurface<HTMLDivElement>("EI", { registerDots: false });
   const progressSurface = useInterfaceVariantSurface<HTMLDivElement>("PB", {
-    dotsPlacement: "above",
+    dotsPlacement: "below",
   });
   const e0ScaledRaw = useMemo(
     () => toScaled(props.lifetime_kwh),
@@ -288,22 +284,6 @@ function LiveEnergyBlock(props: LiveBlockProps) {
     >
       <div className="efhc-energy-stage_image" />
       <div className="efhc-energy-stage_veil" />
-      {customization.mode === "editing" ? (
-        <div
-          className="efhc-energy-frame-theme-slots"
-          aria-hidden="true"
-          data-color-theme-indicators={COLOR_THEME_CATALOG.length}
-        >
-          {COLOR_THEME_CATALOG.map((theme) => (
-            <span
-              key={theme.id}
-              data-color-theme-id={theme.id}
-              data-active={customization.colorThemeId === theme.id ? "true" : "false"}
-              style={{ "--efhc-indicator-color": theme.accent } as React.CSSProperties}
-            />
-          ))}
-        </div>
-      ) : null}
       <div className="efhc-energy-stage_body">
         <div className="efhc-energy-stage_eyebrow">
           {props.labels.energy}

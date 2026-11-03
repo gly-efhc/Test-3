@@ -23,10 +23,15 @@ export async function verifyUiFollowup(page,{open,artifacts,theme,width}){
   await ranks.press('ArrowRight');
  }
  await page.evaluate(()=>window.scrollTo(0,0));await page.waitForTimeout(100);
- for(const surface of [header,ranks]){
-  const rect=await surface.boundingBox();const above=await page.locator('.efhc-interface-variant-dots').evaluateAll((es,r)=>es.some(e=>{let b=e.getBoundingClientRect();return Math.abs(b.x+b.width/2-r.x-r.width/2)<2&&b.bottom<=r.y+1&&r.y-b.bottom<24}),rect);
-  assert.ok(above,'selector dots must be above their surface');
- }
+ // OWNER cycle0023 supersedes the old external KG row: it now shares the
+ // fixed USER indicator dock, directly below Header, before scrolling content.
+ const dock=page.locator('[data-user-indicator-dock]');
+ assert.equal(await dock.isVisible(),true);
+ const headerRect=await header.boundingBox(),dockRect=await dock.boundingBox();
+ assert.ok(dockRect.y>=headerRect.y+headerRect.height-1,'dock follows Header');
+ const pageDots=dock.locator('[data-indicator-group="KG"]');
+ assert.equal(await pageDots.locator('span').count(),10);
+ assert.equal(await pageDots.locator('[data-active="true"]').count(),1);
  if(artifacts)await page.screenshot({path:`${artifacts}/ranks-header-${theme}-${width}.png`});
  await page.locator('.efhc-interface-customization-button').click();
  await open(page,'referrals/');

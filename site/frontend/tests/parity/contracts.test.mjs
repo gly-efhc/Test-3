@@ -89,10 +89,12 @@ test('rank selections use the authored style identities from HTML v866',()=>{
  for(const selection of canon.REGISTRY.KG)assert.equal(registry.rankStyleId(selection),canon.RANK_STYLE_ID_BY_SELECTION[selection]);
 });
 
+// OWNER cycle0023 explicitly replaces dot positioning; retain its new renderer
+// checksum and independent behavioral geometry guards. Provider stays byte-locked.
 // Preserve rollback state/DOM. OWNER subsequently authorized progress ordering
 // and four Energy unit text wrappers; physical models stay covered above.
 test('OWNER-rejected progress and Header adapters stay detached after rollback',()=>{
- const expected={"src/components/interface-settings/InterfaceCustomizationProvider.tsx": "235a699fed368ce2c7790b1566dcb3b6eb5a3e7719cf98f95643b0334402dcbd", "src/components/interface-settings/InterfaceVariantDotsLayer.tsx": "e1b45f4406aa1dd2b603f13d6a736dc2a8d1735dd0356e6345120e5f53834f0d"};
+ const expected={"src/components/interface-settings/InterfaceCustomizationProvider.tsx": "235a699fed368ce2c7790b1566dcb3b6eb5a3e7719cf98f95643b0334402dcbd", "src/components/interface-settings/InterfaceVariantDotsLayer.tsx": "afd36e7905446a1b2e8581f809109ca3907a97de042d98e277c0d0088005b51d"};
  for(const [file,hash] of Object.entries(expected))assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex'),hash,file);
  const app=fs.readFileSync(path.join(root,'src/pages/_app.tsx'),'utf8');
  assert.doesNotMatch(app,/v866-react-progress\.css|react-header-transparent\.css/);
@@ -104,5 +106,5 @@ test('OWNER-rejected progress and Header adapters stay detached after rollback',
   .replace('<EnergyUnitText text={props.labels.kwh_suffix} />','props.labels.kwh_suffix')
   .replace('<EnergyUnitText text="kWh/s" />','<span data-i18n-fixed-token="kWh/с">kWh/с</span>')
   .replace('<EnergyUnitText text={props.labels.available_kwh_chip} />','{props.labels.available_kwh_chip}');
- assert.equal(crypto.createHash('sha256').update(energy).digest('hex'),'31fc0fbba4a10b444ed18ab885953482b05fb2d0ff2b9f6a46929e845dd22116','Energy changed beyond approved unit labels');
+ assert.equal(crypto.createHash('sha256').update(energy).digest('hex'),'0932660bfb1fc8f4d1a5534377a815bf78a8e6923cf6a18aece3b4b64e4f11fb','Energy changed beyond approved unit labels and cycle0023 indicator relocation');
 });
