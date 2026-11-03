@@ -26,6 +26,8 @@ export async function verifyPanelsHeroTemplates(page,{open,canon,artifacts}){
  for(const r of sourceCases){
   await page.setViewportSize({width:r.width,height:844});
   const hero=await select(page,canon,'PH',r.selection);
+  assert.equal(await page.locator('#panelsPage').getAttribute('data-ph'),r.physical,'canonical PH owner is the page root');
+  assert.equal(await page.locator('#panelsPage').evaluate(e=>getComputedStyle(e).backgroundImage),'none','no legacy page haze behind source PH');
   const actual=await hero.evaluate((e,r)=>{
    const read=(n,expected)=>{const s=getComputedStyle(n);return Object.fromEntries(Object.keys(expected).map(k=>[k,s[k]]))};
    const selectors={hero:'',head:'.panels-hero-head',title:'.panels-page-title',kicker:'.panels-kicker',tier:'.panels-generation-tier',stats:'.panels-stats'};

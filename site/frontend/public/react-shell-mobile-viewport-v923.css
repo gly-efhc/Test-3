@@ -182,58 +182,58 @@
  * do not reopen the superseded CT03 exception or change PT/PC geometry.
  * The frozen source owns these material values, including neutral archived Activ.
  */
-html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell {
+html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage {
   background-image:none!important;
 }
-html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell
+html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage
   :is(.efhc-panels-list-card,.efhc-panels-card-surface) {
   border-color:var(--efhc-route-border)!important;
   background-color:var(--efhc-route-surface)!important;
   background-image:none!important;
 }
-html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panel-tile {
+html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .efhc-panel-tile {
   border-color:rgba(var(--efhc-ct-accent-rgb),.22)!important;
   background-color:color-mix(in srgb,#090a0e 97%,var(--efhc-ct-accent) 3%)!important;
   background-image:none!important;
 }
-html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panel-tile
+html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .efhc-panel-tile
   :is(.efhc-panel-tile_head,.efhc-panel-tile_head>div,.efhc-panel-tile_dates,.efhc-panel-tile_stats,
       .efhc-panel-tile_dates>div,.efhc-panel-tile_stats>div) {
   background-color:transparent!important;
   background-image:none!important;
   box-shadow:none!important;
 }
-html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell
+html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage
   :is(.efhc-panel-tile_dates,.efhc-panel-tile_stats)>div {
   border-color:rgba(var(--efhc-ct-accent-rgb),.18)!important;
 }
-html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panel-countdown-live {
+html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .efhc-panel-countdown-live {
   color:var(--tg-text)!important;
 }
-html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panels-tabs {
+html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .efhc-panels-tabs {
   border-color:rgba(var(--efhc-ct-accent-rgb),.18)!important;
   background-image:none!important;
 }
-html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panels-tabs>[data-active="false"] {
+html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .efhc-panels-tabs>[data-active="false"] {
   border-color:rgba(var(--efhc-ct-accent-rgb),.18)!important;
   background-color:color-mix(in srgb,#090a0e 97%,var(--efhc-ct-accent) 3%)!important;
   background-image:none!important;
 }
-html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panels-tabs>[data-active="true"] {
+html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .efhc-panels-tabs>[data-active="true"] {
   border-color:rgba(var(--efhc-ct-accent-rgb),.34)!important;
   background:var(--efhc-tone-active)!important;
   color:var(--efhc-ct-accent)!important;
 }
-html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panels-tabs[data-pt="PT-10"]>[data-active="true"] {
+html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .efhc-panels-tabs[data-pt="PT-10"]>[data-active="true"] {
   box-shadow:inset 0 -2px 0 var(--efhc-ct-accent);
 }
-html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panel-activ-status[data-active="true"] {
+html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .efhc-panel-activ-status[data-active="true"] {
   border-color:rgba(var(--efhc-ct-accent-rgb),.36)!important;
   background:rgba(var(--efhc-ct-accent-rgb),.035)!important;
   color:var(--efhc-ct-accent)!important;
   text-shadow:0 0 9px rgba(var(--efhc-ct-accent-rgb),.17)!important;
 }
-html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio-shell .efhc-panel-activ-status[data-active="false"] {
+html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .efhc-panel-activ-status[data-active="false"] {
   border-color:rgba(148,163,184,.18)!important;
   background:rgba(148,163,184,.025)!important;
   color:#94a3b8!important;
@@ -241,10 +241,10 @@ html[data-interface-app-mode="user"][data-color-theme-id] .efhc-panels-portfolio
 }
 /* PC-01 source shows plain countdown text with no decorative dot or minimum
  * 1.35rem line. This legacy runtime rule enlarged the final stats row. */
-.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-countdown-live {
+#panelsPortfolioPage .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-countdown-live {
   min-height:0;
 }
-.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-countdown-live::before {
+#panelsPortfolioPage .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-countdown-live::before {
   content:none;
 }
 /* END SOURCE: src/styles/reconstruction-v866-panels-cycle0010.css */

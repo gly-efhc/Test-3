@@ -253,6 +253,7 @@ export default function PanelsPortfolioPage(props: {
 
   return (
     <GamePageShell
+      id="panelsPortfolioPage"
       className="efhc-panels-shell efhc-panels-portfolio-shell"
       data-panels-layout="portfolio-page"
       data-panels-list-mode="segmented"

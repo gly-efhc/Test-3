@@ -142,7 +142,10 @@ export default function PanelsPage(props: {
 
   return (
     <GamePageShell
-      className="efhc-panels-shell"
+      className={`efhc-panels-shell${heroSurface.variant !== "PH-01" ? " efhc-panels-page" : ""}`}
+      id={heroSurface.variant !== "PH-01" ? "panelsPage" : undefined}
+      data-ph={heroSurface.variant !== "PH-01" ? heroSurface.variant : undefined}
+      data-pa={heroSurface.variant !== "PH-01" ? activationSurface.variant : undefined}
       data-panels-canon-scope="main-v866"
       data-panels-layout="activation-with-portfolio-entry"
       data-panels-route-active={PANELS_ROUTE_STATIC_GUARD.active}
@@ -150,94 +153,91 @@ export default function PanelsPage(props: {
       data-panels-route-activate={PANELS_ROUTE_STATIC_GUARD.activate}
       data-panels-route-portfolio={PANELS_ROUTE_STATIC_GUARD.portfolio}
     >
+      {/* Match source PH anatomy; preserve the accepted PH-01 GameHero. */}
       {heroSurface.variant !== "PH-01" ? (
-        <div id="panelsPage" className="efhc-panels-page" data-ph={heroSurface.variant} data-pa={activationSurface.variant}>
-          {/* Match the source PH composition. The extra GameHero body/grid
-              wrappers and generic GameStat rules are not part of these models. */}
-          <section
-            ref={heroSurface.ref}
-            {...heroSurface.handlers}
-            className="panels-hero efhc-panels-source-hero"
-            id="panelsHero"
-            data-panels-hero-source="panelsHero"
-            data-ph={heroSurface.variant}
-          >
-            <div className="panels-hero-head">
-              <div className="min-w-0">
-                <div className="panels-kicker">{t("panels.game_kicker")}</div>
-                <h1 className="panels-page-title">{t("panels.title")}</h1>
-              </div>
-              {profile ? (
-                <span className="panels-generation-tier" data-tier={profile.is_vip ? "vip" : "base"} aria-label={generationTier}>
-                  <span className="panels-generation-tier-dot" aria-hidden="true" />
-                  {generationTier}
-                </span>
-              ) : null}
+        <section
+          ref={heroSurface.ref}
+          {...heroSurface.handlers}
+          className="panels-hero efhc-panels-source-hero"
+          id="panelsHero"
+          data-panels-hero-source="panelsHero"
+          data-ph={heroSurface.variant}
+        >
+          <div className="panels-hero-head">
+            <div className="min-w-0">
+              <div className="panels-kicker">{t("panels.game_kicker")}</div>
+              <h1 className="panels-page-title">{t("panels.title")}</h1>
             </div>
-            <div className="panels-stats">
-              <div className="panels-stat">
-                <div className="panels-stat-label">{t("panels.active_count")}</div>
-                <div className="panels-stat-value panels-number">{activePanels ?? "—"}</div>
-              </div>
-              <div className="panels-stat">
-                <div className="panels-stat-label">{t("panels.effective_rate")}</div>
-                <div className="panels-stat-value panels-number">{genPerSecEffective === null ? "—" : `${format8(genPerSecEffective)} kWh/с`}</div>
-              </div>
-              <div className="panels-stat">
-                <div className="panels-stat-label">{t("panels.active_generation")}</div>
-                <div className="panels-stat-value panels-number">{activeGenerationRate === null ? "—" : `${format8(activeGenerationRate)} kWh/с`}</div>
-              </div>
+            {profile ? (
+              <span className="panels-generation-tier" data-tier={profile.is_vip ? "vip" : "base"} aria-label={generationTier}>
+                <span className="panels-generation-tier-dot" aria-hidden="true" />
+                {generationTier}
+              </span>
+            ) : null}
+          </div>
+          <div className="panels-stats">
+            <div className="panels-stat">
+              <div className="panels-stat-label">{t("panels.active_count")}</div>
+              <div className="panels-stat-value panels-number">{activePanels ?? "—"}</div>
             </div>
-          </section>
-        </div>
+            <div className="panels-stat">
+              <div className="panels-stat-label">{t("panels.effective_rate")}</div>
+              <div className="panels-stat-value panels-number">{genPerSecEffective === null ? "—" : `${format8(genPerSecEffective)} kWh/с`}</div>
+            </div>
+            <div className="panels-stat">
+              <div className="panels-stat-label">{t("panels.active_generation")}</div>
+              <div className="panels-stat-value panels-number">{activeGenerationRate === null ? "—" : `${format8(activeGenerationRate)} kWh/с`}</div>
+            </div>
+          </div>
+        </section>
       ) : (
-      <GameHero
-        ref={heroSurface.ref}
-        {...heroSurface.handlers}
-        className="efhc-panels-hero"
-        data-panels-hero-source="panelsHero"
-        data-ph={heroSurface.variant}
-        kicker={t("panels.game_kicker")}
-        title={t("panels.title")}
-        right={
-          profile ? (
-            <span
-              className="efhc-panels-generation-tier"
-              data-tier={profile.is_vip ? "vip" : "base"}
-              aria-label={generationTier}
-            >
+        <GameHero
+          ref={heroSurface.ref}
+          {...heroSurface.handlers}
+          className="efhc-panels-hero"
+          data-panels-hero-source="panelsHero"
+          data-ph={heroSurface.variant}
+          kicker={t("panels.game_kicker")}
+          title={t("panels.title")}
+          right={
+            profile ? (
               <span
-                className="efhc-panels-generation-tier_dot"
-                aria-hidden="true"
-              />
-              {generationTier}
-            </span>
-          ) : null
-        }
-      >
-        <GameStatsGrid>
-          <GameStat
-            label={t("panels.active_count")}
-            value={activePanels ?? "—"}
-          />
-          <GameStat
-            label={t("panels.effective_rate")}
-            value={
-              genPerSecEffective === null
-                ? "—"
-                : `${format8(genPerSecEffective)} kWh/с`
-            }
-          />
-          <GameStat
-            label={t("panels.active_generation")}
-            value={
-              activeGenerationRate === null
-                ? "—"
-                : `${format8(activeGenerationRate)} kWh/с`
-            }
-          />
-        </GameStatsGrid>
-      </GameHero>
+                className="efhc-panels-generation-tier"
+                data-tier={profile.is_vip ? "vip" : "base"}
+                aria-label={generationTier}
+              >
+                <span
+                  className="efhc-panels-generation-tier_dot"
+                  aria-hidden="true"
+                />
+                {generationTier}
+              </span>
+            ) : null
+          }
+        >
+          <GameStatsGrid>
+            <GameStat
+              label={t("panels.active_count")}
+              value={activePanels ?? "—"}
+            />
+            <GameStat
+              label={t("panels.effective_rate")}
+              value={
+                genPerSecEffective === null
+                  ? "—"
+                  : `${format8(genPerSecEffective)} kWh/с`
+              }
+            />
+            <GameStat
+              label={t("panels.active_generation")}
+              value={
+                activeGenerationRate === null
+                  ? "—"
+                  : `${format8(activeGenerationRate)} kWh/с`
+              }
+            />
+          </GameStatsGrid>
+        </GameHero>
       )}
 
       <Card
