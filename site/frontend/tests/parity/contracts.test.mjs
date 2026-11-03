@@ -35,6 +35,20 @@ test('PA-01 source reference and delivered public stylesheet stay connected',()=
  assert.equal(delivered.split(start).length,2);assert.equal(delivered.split(end).length,2);
  assert.equal(delivered.split(start)[1].split(end)[0],source,'Pages must receive the actual corrected source CSS');
 });
+test('Portfolio color bridge preserves accepted geometry rules and contains no sizing changes',()=>{
+ const source=fs.readFileSync(path.join(root,'src/styles/reconstruction-v866-panels-cycle0010.css'),'utf8');
+ const start='/* RECON_CYCLE_0024/02 — source Portfolio chroma bridge.';
+ const end='/* PC-01 source shows plain countdown text';
+ const bridge=source.split(start)[1].split(end)[0];
+ const before=source.split(start)[0],after=end+source.split(end)[1];
+ const accepted=(before+after).slice(before.indexOf('/* RECON_CYCLE_0011:'));
+ assert.equal(crypto.createHash('sha256').update(accepted.replace(/\s+/g,'')).digest('hex'),'e759f04a3a87f4cd8d645e56f99afb79fee309d40e5ba263fa071e42e13ad88c','accepted PC source geometry/selectors unchanged after whitespace normalization');
+ const allowed=new Set(['background-image','background-color','background','border-color','color','box-shadow','text-shadow']);
+ for(const [,body] of bridge.matchAll(/\{([^{}]*)\}/g))for(const [,property] of body.matchAll(/([\w-]+)\s*:/g))assert.ok(allowed.has(property),`geometry declaration in color-only bridge: ${property}`);
+ const fixture=JSON.parse(fs.readFileSync(new URL('./v866-panels-hero-reference.json',import.meta.url)));
+ assert.equal(fixture.source_html_sha256,canon.source.html_sha256);
+ assert.deepEqual(fixture.cases.map(c=>c.selection),canon.REGISTRY.PH.slice(1));
+});
 test('OWNER shared progress library exposes 24 positions with independent PB/RP identities',()=>{
  const expected=expectedSelectionOrder('PB',canon);
  assert.deepEqual(json(registry.INTERFACE_VARIANT_REGISTRY.PB),expected);

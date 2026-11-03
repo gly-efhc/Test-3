@@ -236,9 +236,9 @@ html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .
 }
 /* PC-01 source shows plain countdown text with no decorative dot or minimum
  * 1.35rem line. This legacy runtime rule enlarged the final stats row. */
-#panelsPortfolioPage .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-countdown-live {
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-countdown-live {
   min-height:0;
 }
-#panelsPortfolioPage .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-countdown-live::before {
+.efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-countdown-live::before {
   content:none;
 }
