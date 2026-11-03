@@ -32,13 +32,12 @@
 }
 /* Preserve selected theme tokens and the OWNER-locked My Panels button. */
 
-/* OWNER recovery of cycle 0010 from verified 390px screenshots and the
- * physically rendered frozen v866 DOM. The generic max-width:400px rule in
- * globals.css mistakenly stacks the default PA-01 activation value pair and
- * enlarges the card. Restore PA-01 geometry only; PA-02… retain their
- * individual design rules. CTA/portfolio handlers and D8 data are untouched.
- * Visual reference (viewport 410, shell 388): v866 activation values are
- * 165.1px + 165.1px; card padding 13.12px; CTA height 40px.
+/* RECON_CYCLE_0024: compare the actual viewport, not the shell width.
+ * v866 has one activation column at <=400px and two above 400px.
+ * The former cycle0010 rule mistook the 410px reference for a 390px viewport.
+ * Restore PA-01 only; PA-02… and the accepted portfolio remain unchanged.
+ * Source desktop fields clip with ellipsis; mobile fields show full D8 text.
+ * Card padding 13.12px, number size .72rem and CTA height 40px are retained.
  */
 .efhc-panels-shell[data-panels-canon-scope="main-v866"]
   .efhc-panels-activation-card[data-pa="PA-01"] {
@@ -75,7 +74,21 @@
   line-height: normal;
   margin-top: .16rem;
   min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+@media (max-width: 400px) {
+  .efhc-panels-shell[data-panels-canon-scope="main-v866"]
+    .efhc-panels-activation-card[data-pa="PA-01"] > .grid > .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .efhc-panels-shell[data-panels-canon-scope="main-v866"]
+    .efhc-panels-activation-card[data-pa="PA-01"] > .grid > .grid .tabular-nums {
+    overflow: visible;
+    text-overflow: clip;
+  }
 }
 .efhc-panels-shell[data-panels-canon-scope="main-v866"]
   .efhc-panels-activation-card[data-pa="PA-01"] > .grid > .efhc-text-muted {
@@ -166,7 +179,6 @@
 .efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-countdown-live::before {
   content:none;
 }
-
 /* END SOURCE: src/styles/reconstruction-v866-panels-cycle0010.css */
 
 /* BEGIN SOURCE: src/styles/reconstruction-tasks-cycle0013-v892.css */

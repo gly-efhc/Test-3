@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import {createRequire} from 'node:module';
 import {readProgressMaterial,readProgressAccent,readProgressAppearance,readProgressGeometry} from './progress-material.mjs';
 import {verifyIndicators} from './indicators.mjs';
+import {verifyPanelsActivationReference} from './panels-activation.mjs';
 import {verifyUiFollowup} from './ui-followup.mjs';
 import {verifyProgress20Grid} from './progress-grid.mjs';
 import {expectedSelectionOrder} from './progress-order.mjs';
@@ -404,6 +405,10 @@ try{
  for(const width of [320,390,1440])await check(`OWNER cycle0023: fixed CT/page indicators, all local dots and USER boundaries ${width}`,async page=>{
   await verifyIndicators(page,{open,canon,width,artifacts:process.env.EFHC_PARITY_ARTIFACTS});
  },{width});
+
+ await check('OWNER cycle0024: PA-01 matches measured v866 breakpoint and preserves D8 in ten themes',async page=>{
+  await verifyPanelsActivationReference(page,{open,artifacts:process.env.EFHC_PARITY_ARTIFACTS});
+ });
 
 }finally{await browser.close()}
 if(process.env.EFHC_PARITY_ARTIFACTS){await fs.mkdir(process.env.EFHC_PARITY_ARTIFACTS,{recursive:true});await fs.writeFile(process.env.EFHC_PARITY_ARTIFACTS+'/interaction-results.json',JSON.stringify({results},null,2)+'\n')}

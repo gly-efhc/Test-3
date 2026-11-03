@@ -245,14 +245,15 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
   await runIndependentCheck('panels-activation',async()=>{
   await inspect('/panels/');
   // Recovery of cycle 0010 must be proven on the rendered React,
-  // not by a JSX/CSS source-grep. Only the source PA-01 variant
-  // has the canonical two-column mobile activation values.
+  // not by a JSX/CSS source-grep. v866 uses one column at <=400px
+  // and two above it. Shell width must not replace viewport width.
   const panelStyleReply=await send('Runtime.evaluate',{expression:
     `JSON.stringify((()=>{const card=document.querySelector('.efhc-panels-activation-card');
       const values=card?.querySelector(':scope > .grid > .grid');
       const figures=values?[...values.querySelectorAll('.tabular-nums')]:[];
       const rect=card?.getBoundingClientRect();
       return {variant:card?.getAttribute('data-pa')||'',
+        expectedColumns:matchMedia('(max-width: 400px)').matches?1:2,
         columns:values?getComputedStyle(values).gridTemplateColumns:'',
         figures:figures.map(el=>({text:el.textContent?.trim()||'',
           overflow:el.scrollWidth>el.clientWidth+1})),
@@ -261,7 +262,7 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
   if(!pa.variant)throw Error('OWNER_PANELS_ACTIVATION_VARIANT_MISSING '+JSON.stringify(pa));
   if(pa.variant==='PA-01') {
     const columns=pa.columns.trim().split(/\s+/);
-    if(columns.length!==2 || pa.figures.length!==2 || pa.figures.some(f=>f.overflow))
+    if(columns.length!==pa.expectedColumns || pa.figures.length!==2 || pa.figures.some(f=>f.overflow))
       throw Error('OWNER_PANELS_PA01_RENDERED_GEOMETRY_REGRESSION '+JSON.stringify(pa));
     console.log('PASS OWNER PANELS PA-01 RENDERED GEOMETRY',JSON.stringify(pa));
   } else {

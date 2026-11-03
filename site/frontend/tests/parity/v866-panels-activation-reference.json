@@ -1,0 +1,12 @@
+{
+  "source_html_sha256": "9b6371f5fb62939596b78206f95031c447e9f2b375e62b30704403bb25102aef",
+  "source_selector": "#panelsPage[data-pa=PA-01] .activation-values",
+  "captured_viewports": [320, 390, 400, 401, 430, 1440],
+  "breakpoint_max_px": 400,
+  "mobile": {"columns": 1, "overflow": "visible", "textOverflow": "clip"},
+  "desktop": {"columns": 2, "overflow": "hidden", "textOverflow": "ellipsis"},
+  "number_font_px": 11.52,
+  "number_font_weight": "850",
+  "number_white_space": "nowrap",
+  "cta_height_px": 40
+}

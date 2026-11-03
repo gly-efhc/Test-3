@@ -25,6 +25,16 @@ const registry=load('src/lib/interfaceVariantRegistry.ts');
 const colors=load('src/lib/colorThemeRegistry.ts');
 const headers=load('src/lib/headerThemeComposition.ts');
 const json=value=>JSON.parse(JSON.stringify(value));
+test('PA-01 source reference and delivered public stylesheet stay connected',()=>{
+ const reference=JSON.parse(fs.readFileSync(new URL('./v866-panels-activation-reference.json',import.meta.url)));
+ assert.equal(reference.source_html_sha256,canon.source.html_sha256);
+ const source=fs.readFileSync(path.join(root,'src/styles/reconstruction-v866-panels-cycle0010.css'),'utf8');
+ const delivered=fs.readFileSync(path.join(root,'public/react-shell-mobile-viewport-v923.css'),'utf8');
+ const start='/* BEGIN SOURCE: src/styles/reconstruction-v866-panels-cycle0010.css */\n';
+ const end='/* END SOURCE: src/styles/reconstruction-v866-panels-cycle0010.css */';
+ assert.equal(delivered.split(start).length,2);assert.equal(delivered.split(end).length,2);
+ assert.equal(delivered.split(start)[1].split(end)[0],source,'Pages must receive the actual corrected source CSS');
+});
 test('OWNER shared progress library exposes 24 positions with independent PB/RP identities',()=>{
  const expected=expectedSelectionOrder('PB',canon);
  assert.deepEqual(json(registry.INTERFACE_VARIANT_REGISTRY.PB),expected);
