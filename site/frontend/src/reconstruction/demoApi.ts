@@ -1,3 +1,6 @@
+import {buildCatalog} from "./demoShopCatalog";
+import {demoServerRequest} from "./demoServer";
+import {DemoOperationError} from "./demoServerCore";
 /** Browser-only API adapter for the frozen v866 simulator. No remote API / TON calls.
  * An unsupported endpoint MUST fail closed rather than reach a real backend.
  * The simulated Global ID is an account selector, never a session credential.
@@ -75,16 +78,6 @@ function withdrawalOut(row:Record<string,unknown>){return {
   request_id:String(row.id),global_id:row.global_id,outcome_kind:String(row.status||"pending"),locale:"ru",
   comment:{text:"Демонстрационная заявка. Реального перевода нет.",source:"demo",locale:"ru"},
   promo:null,top_zone_enabled:false,metadata:{demo:true}};
-}
-function buildCatalog(){
- const fixed=["10","50","100","150","200","250","300","350","500","750","1000","1500","2000","2500","3000"];
- return [...fixed.map((amount,index)=>({sku:`EFHC_PACKAGE_${amount}`,title:`${amount} EFHCm`,description:`Демо-пакет ${amount} EFHCm`,item_type:"EFHC_PACKAGE",ton_enabled:true,usdt_enabled:true,
-  methods:{TON:{price:(Number(amount)/100).toFixed(2)},USDT:{price:(Number(amount)*0.3).toFixed(2)}},
-  image_url:null,category:"efhc",badge:"EFHC",status:"live",action_mode:"checkout",delivery_mode:"automatic",quantity_efhc:`${amount}.00000000`,sort_order:index*10})),
-  {sku:"EFHC_PACKAGE_CUSTOM",title:"EFHCm",description:"Произвольная сумма (DEMO)",item_type:"EFHC_PACKAGE",ton_enabled:true,usdt_enabled:true,
-    methods:{TON:{price:"0.01"},USDT:{price:"0.30"}},image_url:null,category:"efhc",badge:"",status:"live",action_mode:"checkout",delivery_mode:"automatic",quantity_efhc:null,sort_order:4000},
-  {sku:"EFHC_VIP_NFT",title:"EFHC VIP NFT",description:"Выпуск NFT только моделируется",item_type:"NFT_VIP",ton_enabled:true,usdt_enabled:true,
-    methods:{TON:{price:"100.00"},USDT:{price:"150.00"},EFHC:{price:"500.00000000"}},image_url:null,category:"vip",badge:"VIP NFT",status:"live",action_mode:"checkout",delivery_mode:"manual",quantity_efhc:null,sort_order:5000}];
 }
 /** Canonical seventeen positions from the same storefront fixture.  The 26
  * archived orders originate from the frozen v866 DEMO seed, never production.
@@ -184,6 +177,10 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
  const q=route.searchParams,control=readDemoState();
  if(control.scenario==="loading")await new Promise(resolve=>setTimeout(resolve,600));
  if(control.scenario==="error"&&!p.startsWith("/auth/"))throw new PreviewApiError(503,"SCENARIO_ERROR");
+ try{
+  const result=demoServerRequest(p+route.search,method.toUpperCase(),body,idempotencyKey);
+  if(result!==undefined)return result;
+ }catch(error){if(error instanceof DemoOperationError)throw new PreviewApiError(error.status,error.code);throw error;}
  const a=readDemoAccount();const empty=control.scenario==="empty",now=stamp();
  const readOnly=method.toUpperCase()==="GET";
  // The public Admin surface is a visual/fixture preview. No browser-side Admin

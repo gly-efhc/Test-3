@@ -108,10 +108,6 @@ export default function AdminHome() {
 
   const load = useCallback(async () => {
     setMessage(null);
-    if (IS_PUBLIC_PAGES_DEMO) {
-      setOverview(DEMO_ADMIN_OVERVIEW);
-      return;
-    }
     try {
       setOverview(await adminApiRequest<Overview>(ADMIN_REPORTS_OVERVIEW_PATH, "GET"));
     } catch (error: unknown) {
@@ -124,11 +120,6 @@ export default function AdminHome() {
 
   async function runReconcile() {
     setMessage(null);
-    if (IS_PUBLIC_PAGES_DEMO) {
-      setMessage("DEMO: проверка входящих TON отображена без запроса и без изменений данных.");
-      setReconcileOpen(false);
-      return;
-    }
     try {
       const lastHours = Math.max(1, Math.min(168, Number(reconcile.last_hours || "6")));
       await adminApiRequest(ADMIN_TON_RECONCILE_PATH, "POST", {

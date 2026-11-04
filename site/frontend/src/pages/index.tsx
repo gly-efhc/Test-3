@@ -23,6 +23,7 @@ import { USER_LEVEL_SKINS } from "../lib/skins";
 import { useInterfaceVariantSurface } from
   "../hooks/useInterfaceVariantSurface";
 import { EnergyUnitText } from "../components/energy/EnergyUnitText";
+import { useDemoGenerationProjection } from "../hooks/useDemoGenerationProjection";
 
 const SCALE = 8;
 const LIVE_TICK_MS = 333;
@@ -154,7 +155,7 @@ function LiveEnergyBlock(props: LiveBlockProps) {
     return () => window.clearInterval(id);
   }, [props.server_now_iso, vScaled]);
 
-  const eLiveScaled = useMemo(() => {
+  const localEnergyScaled = useMemo(() => {
     const now = performance.now();
     const st = stateRef.current;
     const dtMs = Math.max(0, now - st.base_client_ms);
@@ -168,6 +169,9 @@ function LiveEnergyBlock(props: LiveBlockProps) {
     }
     return out < 0n ? 0n : out;
   }, [props.server_now_iso, tick, vScaled]);
+
+  const demoGeneration = useDemoGenerationProjection();
+  const eLiveScaled = demoGeneration ? toScaled(demoGeneration.total_generated_kwh) : localEnergyScaled;
 
   const level = useMemo(() => {
     let current = 1;
@@ -269,7 +273,7 @@ function LiveEnergyBlock(props: LiveBlockProps) {
     : formatFixedDown(props.gen_per_sec_effective, 8);
   const shownAvailable = props.hide_balances
     ? "••••••••"
-    : formatFixedDown(props.available_kwh, 8);
+    : formatFixedDown(demoGeneration?.available_kwh ?? fromScaled(toScaled(props.available_kwh) + (eLiveScaled - e0ScaledRaw)), 8);
 
   return (
     <section

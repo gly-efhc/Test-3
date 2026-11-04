@@ -5,6 +5,7 @@
 import frozen from "./demo-tables-v866.json";
 import admin from "./demo-admin-seed-v866.json";
 import homeCanon from "./frozen-v866-home-fixture.json";
+import type { DemoServerState, DemoPanel } from "./demoServerModel";
 
 export const DEMO_GLOBAL_ID = "0000657667";
 export const DEMO_DB_NAME = "EFHC_REACT_DEMO_CANON_V866";
@@ -36,10 +37,15 @@ export type DemoAccountState = {
   exchanges:Record<string,unknown>[]; activated_panels:number;
   /** Local-only replay guard for demo financial actions; never a production ledger. */
   operation_replays?:Record<string,{fingerprint:string;response:unknown}>;
+  panels?:DemoPanel[];
+  is_vip?:boolean;
+  is_active?:boolean;
+  username?:string;
 };
 export type DemoControlState = {
   schema_version:number; selected_global_id:string; scenario:DemoScenario;
   role:DemoRole; accounts:Record<string,DemoAccountState>; next_id:number;
+  server?:DemoServerState;
 };
 
 /** Explicit and independent of authentication; production builds can never turn this on through UI or storage. */
@@ -70,7 +76,7 @@ export function primaryDemoMainBalance():string {
   if(main<0n)throw new Error("DEMO_CANON_BALANCE_INVALID");
   return formatD8(main);
 }
-function seedAccount(globalId=DEMO_GLOBAL_ID):DemoAccountState {
+export function seedAccount(globalId=DEMO_GLOBAL_ID):DemoAccountState {
   const isPrimary=globalId===DEMO_GLOBAL_ID;
   const known=globalId.match(/^8000000(\d{3})$/);
   const index=known?Number(known[1])-1:0;
@@ -125,6 +131,15 @@ function save(state:DemoControlState):void {
  }
  emit();
 }
+/** Commit one complete local DEMO operation, including bank/history/replay.
+ * Throwing before save leaves the previous state intact. Never a server auth API. */
+export function transactDemoState<T>(operation:(state:DemoControlState)=>T):T {
+ if(!isDemoPreviewEnabled())throw new Error("DEMO_PREVIEW_REQUIRED");
+ const state=structuredClone(readDemoState());
+ const result=operation(state);
+ save(state);
+ return result;
+}
 export function readDemoAccount():DemoAccountState {
  const s=readDemoState();return s.accounts[s.selected_global_id]||seedAccount(s.selected_global_id);
 }
@@ -149,6 +164,13 @@ export function resetDemoDatabase():void {save(seedDemoState());}
 export function nextDemoId():number {const s=readDemoState();const id=s.next_id+1;save({...s,next_id:id});return id;}
 export function demoLedgerMutation(amount:string,kind:"credit"|"debit",balance:"main"|"bonus",reason:string):DemoAccountState {
  const delta=d8(amount);if(delta<=0n)throw new Error("DEMO_AMOUNT_NOT_POSITIVE");
+ if(readDemoState().server)return transactDemoState(state=>{
+  const a=state.accounts[state.selected_global_id],key=balance==='main'?'main_balance':'bonus_balance';
+  const next=d8(a[key])+(kind==='credit'?delta:-delta);if(next<0n)throw new Error('DEMO_INSUFFICIENT_BALANCE');
+  a[key]=formatD8(next);state.server!.bank_balance=formatD8(d8(state.server!.bank_balance)+(kind==='credit'?-delta:delta));
+  const row={id:++state.next_id,global_id:a.global_id,amount_efhc:formatD8(delta),direction:kind,balance_type:balance,reason,created_at:new Date().toISOString()};
+  a.ledger.unshift(row);state.server!.audit.unshift(row);return a;
+ });
  const id=nextDemoId();const timestamp=new Date().toISOString();
  return writeDemoAccount(current=>{
   const key=balance==="main"?"main_balance":"bonus_balance";

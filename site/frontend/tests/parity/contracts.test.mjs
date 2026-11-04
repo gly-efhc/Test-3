@@ -133,6 +133,12 @@ test('OWNER-rejected progress and Header adapters stay detached after rollback',
  assert.equal(registry.INTERFACE_VARIANT_REGISTRY.PB.length,24);
  assert.equal(registry.INTERFACE_VARIANT_REGISTRY.RP.length,24);
  const energy=fs.readFileSync(path.join(root,'src/pages/index.tsx'),'utf8')
+  // OWNER 0024/03 authorizes data projection only; retain the previous full
+  // source lock after removing precisely that declared functional delta.
+  .replace('import { useDemoGenerationProjection } from "../hooks/useDemoGenerationProjection";\n','')
+  .replace('const localEnergyScaled = useMemo','const eLiveScaled = useMemo')
+  .replace('  const demoGeneration = useDemoGenerationProjection();\n  const eLiveScaled = demoGeneration ? toScaled(demoGeneration.total_generated_kwh) : localEnergyScaled;\n\n','')
+  .replace('formatFixedDown(demoGeneration?.available_kwh ?? fromScaled(toScaled(props.available_kwh) + (eLiveScaled - e0ScaledRaw)), 8)','formatFixedDown(props.available_kwh, 8)')
   .replace('import { EnergyUnitText } from "../components/energy/EnergyUnitText";\n','')
   .replace('<EnergyUnitText text={props.labels.total_generated} />','{props.labels.total_generated}')
   .replace('<EnergyUnitText text={props.labels.kwh_suffix} />','props.labels.kwh_suffix')

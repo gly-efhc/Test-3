@@ -25,7 +25,7 @@ export function useAdminLinkedTransport() {
       adminLinkedRequest<unknown>(request),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: adminLinkedKeys.all,
+        predicate: query => ["admin-linked", "syncSnapshot", "panels", "exchangePreview", "ranks", "profile", "browser-shop"].includes(String(query.queryKey[0])),
       });
     },
   });
