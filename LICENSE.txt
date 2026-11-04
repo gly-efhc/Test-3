@@ -1,0 +1,207 @@
+PROPRIETARY COPYRIGHT NOTICE AND NO-PUBLIC-LICENSE STATEMENT
+EFHC (ENERGY FOR HUMANITY COIN)
+ALL RIGHTS RESERVED
+
+Copyright (c) 2026 EFHC (Energy for Humanity Coin).
+All rights reserved.
+
+Public author designation / pseudonym: EFHC (Energy for Humanity Coin)
+Rights holder: The sole individual author identified publicly by the
+              pseudonym EFHC (Energy for Humanity Coin).
+Official project website: https://sites.google.com/view/efhc-en
+
+IMPORTANT: THIS IS NOT AN OPEN-SOURCE LICENSE.
+NO GENERAL LICENSE TO USE, MODIFY, DISTRIBUTE OR COMMERCIALIZE THE
+PROTECTED SOFTWARE OR ORIGINAL PROJECT MATERIALS IS GRANTED HERE.
+
+1. IDENTITY, AUTHORSHIP AND OWNERSHIP
+
+EFHC (Energy for Humanity Coin) is the public project designation and
+authorial pseudonym of a natural person, not a representation that a
+company, association, token or other separate legal entity holds title.
+
+The sole individual author retains the copyrights and other intellectual
+property rights that the law vests in that author and that have not been
+lawfully transferred. The author's legal identity is not published in
+this notice. Any enforcement or rights verification may require proof
+of authorship and ownership by appropriate lawful means.
+
+Ownership of a cryptocurrency or operation of a blockchain project does
+not, in itself, determine ownership of copyright. The rights asserted
+here arise from authorship and lawful ownership of the particular works.
+
+2. MATERIALS COVERED
+
+To the extent originally authored and legally protected, this notice
+applies to the original source and object code, original documentation,
+original textual and visual materials, original graphic assets and
+other original works included in this repository or its published
+distributions, as well as protected original selection or arrangement
+of materials where applicable.
+
+This notice does not claim exclusive rights to independent third-party
+works, open-source dependencies, public-domain materials, facts, ideas,
+algorithms as abstract methods, general functionality, programming
+languages, protocols or other unprotectable subject matter.
+
+3. EXPRESS RESERVATION OF RIGHTS — NO PUBLIC LICENSE
+
+Publication, visibility, possession, downloading, inspection or access
+to this repository does not itself grant a general copyright license,
+patent license, trademark license, sublicensing right, commercial
+license or permission for independent deployment or redistribution.
+
+Except to the extent expressly permitted by binding platform terms,
+applicable law or a separate valid written authorization, no permission
+is granted to perform acts requiring authorization from the holder of
+the exclusive rights in protected original materials, including:
+
+(a) Reproducing or copying protected code or other protected works for
+    use outside the permissions applicable to this repository;
+(b) Distributing, publishing, mirroring, selling, sublicensing or
+    including protected works in another product or repository;
+(c) Preparing or distributing derivative works, adaptations, ports,
+    translations or other modifications of protected expression;
+(d) Independently hosting, deploying, operating or integrating copies
+    of protected code where doing so requires the rights holder's
+    authorization;
+(e) Commercially exploiting protected original materials through
+    copying, redistribution or other activities requiring permission;
+(f) Removing, falsifying or obscuring legally required copyright
+    notices or attribution where such conduct is unlawful.
+
+Merely independently developing similar ideas or functionality,
+without infringement of protected expression or another enforceable
+right, is not prohibited by this copyright notice.
+
+4. GITHUB PUBLIC-REPOSITORY PERMISSIONS
+
+The repository may be publicly visible on GitHub. The rights granted
+under GitHub's applicable Terms of Service, including permitted
+viewing, display and forking through GitHub functionality, remain
+effective. This notice does not revoke those binding platform rights.
+
+Such platform permissions are not, merely by themselves, a general
+open-source license for independent reproduction, modification,
+redistribution, commercialization or hosting outside their scope.
+
+5. AUTOMATED ACCESS, EXTRACTION AND MACHINE LEARNING
+
+This notice does not grant a separate public license to copy,
+reproduce, redistribute or incorporate protected original materials
+into datasets, training corpora, competing software or other AI/ML
+development workflows where the relevant activity requires the
+copyright holder's authorization.
+
+This statement does not override applicable exceptions and
+limitations, binding GitHub permissions or other legally permitted
+automated access and uses. It does not assert that reading or
+indexing publicly accessible information is always unlawful.
+
+6. THIRD-PARTY COMPONENTS AND STATUTORY EXCEPTIONS
+
+Third-party packages, libraries, fonts, software, trademarks, media
+and other works remain subject to their respective owners' rights,
+licenses and notice obligations. Nothing in this document replaces
+or narrows any applicable third-party license.
+
+Nothing in this notice restricts mandatory exceptions, permitted
+interoperability, lawful reverse engineering, fair use, fair dealing,
+other statutory limitations, exhaustion of rights where applicable,
+or rights arising from binding platform terms or other valid licenses.
+
+7. WRITTEN AUTHORIZATION
+
+Permissions beyond those already granted by applicable law, binding
+platform terms or separate existing licenses must be obtained from
+the lawful rights holder in a distinct written authorization.
+
+The authorization should specify the materials, recipient, permitted
+acts, scope, duration and any relevant conditions. The official
+project website above is an informational project address; this
+notice does not invent an email address, agent or automatic licensing
+procedure.
+
+8. LEGAL FRAMEWORK — UKRAINE, UNITED STATES AND INTERNATIONAL PROTECTION
+
+This notice identifies potentially applicable copyright-law sources
+but is not a contract selecting an exclusive governing law, court
+or jurisdiction. Protection and available remedies depend on the
+facts, the country in which protection is sought, applicable law,
+international agreements and procedural requirements.
+
+Ukraine:
+  Law of Ukraine "On Copyright and Related Rights"
+  No. 2811-IX of 1 December 2022, as amended.
+  - Article 9: copyright arises on creation without registration;
+    notice and presumption-of-authorship provisions.
+  - Article 11: personal non-property rights, including attribution
+    and the right to use an author's pseudonym.
+  - Article 12: exclusive economic rights of the rights holder.
+  - Article 20: copyright protection of original computer-program
+    expression, including source and object code, subject to limits.
+  Official source:
+  https://zakon.rada.gov.ua/laws/show/2811-20
+
+United States:
+  United States Copyright Act, Title 17, U.S. Code.
+  - Section 102: subject matter of copyright and exclusion of
+    ideas, systems, methods and other unprotectable subject matter.
+  - Section 106: exclusive rights of copyright owners, subject
+    to statutory limitations.
+  - Sections 107 and 117: relevant statutory limitations and
+    computer-program-related permissions where applicable.
+  - Section 411: certain registration requirements for United
+    States works before specified civil infringement actions;
+    the applicable rules for foreign works may differ.
+  Official text:
+  https://uscode.house.gov/view.xhtml?path=/prelim@title17
+  U.S. Copyright Office:
+  https://www.copyright.gov/
+
+International:
+  Berne Convention for the Protection of Literary and Artistic Works,
+  notably Article 5 and its principles of national treatment,
+  protection without formalities and independent protection.
+  Treaty reference:
+  https://www.wipo.int/en/web/treaties/ip/berne/
+
+These references describe the legal basis of potentially available
+protection. Merely citing a country's laws does not make that
+country's rules universally applicable, establish jurisdiction
+or create remedies beyond those that the law actually provides.
+
+9. ENFORCEMENT AND REMEDIES
+
+The lawful rights holder reserves the right to seek appropriate
+relief where permitted by applicable law, including requests to
+cease infringement, removal of infringing copies, valid copyright
+takedown procedures, injunctive relief and damages where recoverable.
+
+No automatic fine, criminal liability, statutory damages, special
+jurisdiction or additional contractual obligation is created by
+this notice. Any claim must satisfy the applicable legal standards.
+
+10. NO WARRANTIES OR SUPPORT OBLIGATION
+
+To the extent permitted by applicable law, original materials
+are made available for inspection on an "AS IS" and "AS AVAILABLE"
+basis. Public availability does not itself create a promise of
+maintenance, support, fitness, security, uninterrupted availability
+or independent-use permission. Non-excludable legal obligations
+remain unaffected.
+
+11. INTERPRETATION AND EFFECT
+
+This is a unilateral proprietary rights reservation and notice of
+absence of a general public license. It is not an offer of an
+open-source license and does not, by itself, prove authorship,
+transfer ownership or establish a contract with every visitor.
+
+If a statement here cannot be enforced in a particular case,
+the rights and limits supplied by applicable law and valid
+permissions continue to govern. Prior lawful permissions are
+not retroactively revoked by this notice.
+
+ALL RIGHTS RESERVED.
+NO GENERAL PUBLIC LICENSE GRANTED.

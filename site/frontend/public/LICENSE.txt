@@ -1,179 +1,207 @@
-EFHC — ENERGY FOR HUMANITY COIN
-STRICT PROPRIETARY RIGHTS NOTICE
-ALL RIGHTS RESERVED — NO LICENSE GRANTED
+PROPRIETARY COPYRIGHT NOTICE AND NO-PUBLIC-LICENSE STATEMENT
+EFHC (ENERGY FOR HUMANITY COIN)
+ALL RIGHTS RESERVED
 
-Copyright © 2026 EFHC — Energy for Humanity Coin. All rights reserved
-in original project materials to the extent lawfully owned or controlled
-by EFHC and the applicable rights holder(s).
+Copyright (c) 2026 EFHC (Energy for Humanity Coin).
+All rights reserved.
 
-================================================================================
-                    LEGAL WARNING: UNAUTHORIZED USE PROHIBITED
-================================================================================
+Public author designation / pseudonym: EFHC (Energy for Humanity Coin)
+Rights holder: The sole individual author identified publicly by the
+              pseudonym EFHC (Energy for Humanity Coin).
+Official project website: https://sites.google.com/view/efhc-en
 
-THIS IS NOT OPEN-SOURCE SOFTWARE. THIS IS NOT FREE SOFTWARE. THIS IS NOT
-FREEWARE, SHAREWARE, PUBLIC-DOMAIN MATERIAL, OR A GENERAL-PURPOSE DEMO LICENSE.
+IMPORTANT: THIS IS NOT AN OPEN-SOURCE LICENSE.
+NO GENERAL LICENSE TO USE, MODIFY, DISTRIBUTE OR COMMERCIALIZE THE
+PROTECTED SOFTWARE OR ORIGINAL PROJECT MATERIALS IS GRANTED HERE.
 
-NO COPYRIGHT LICENSE, PATENT LICENSE, TRADEMARK LICENSE, DATABASE LICENSE,
-COMMERCIAL LICENSE, EVALUATION LICENSE, OR OTHER PERMISSION TO EXPLOIT THE
-PROTECTED EFHC MATERIALS IS GRANTED BY THIS DOCUMENT.
+1. IDENTITY, AUTHORSHIP AND OWNERSHIP
 
-PUBLIC AVAILABILITY IS NOT CONSENT. ACCESS TO A FILE, SOURCE-CODE REPOSITORY,
-DEMONSTRATION, BUILD, DOWNLOAD, SCREENSHOT, OR DEPLOYED WEBSITE DOES NOT MEAN
-THAT ITS PROTECTED CONTENT MAY BE COPIED, EXECUTED INDEPENDENTLY, REPURPOSED,
-MODIFIED, PUBLISHED, OR USED TO BUILD A COMPETING OR DERIVATIVE PRODUCT.
+EFHC (Energy for Humanity Coin) is the public project designation and
+authorial pseudonym of a natural person, not a representation that a
+company, association, token or other separate legal entity holds title.
 
-Any activity outside the limited rights imposed by applicable law, governing
-platform terms, or a separate express written authorization from the relevant
-rights holder is undertaken without permission and may expose those responsible
-to legal action.
+The sole individual author retains the copyrights and other intellectual
+property rights that the law vests in that author and that have not been
+lawfully transferred. The author's legal identity is not published in
+this notice. Any enforcement or rights verification may require proof
+of authorship and ownership by appropriate lawful means.
 
-1. EXPRESS RESERVATION OF RIGHTS
+Ownership of a cryptocurrency or operation of a blockchain project does
+not, in itself, determine ownership of copyright. The rights asserted
+here arise from authorship and lawful ownership of the particular works.
 
-All rights in the original, legally protected EFHC materials are expressly
-reserved by their respective lawful holders. No right, title, interest, or
-license is transferred by access, publication, possession, inspection,
-disclosure, delivery, inclusion in a public repository, or the absence of
-technical access restrictions.
+2. MATERIALS COVERED
 
-No implied license, permission by silence, waiver, estoppel, or authorization
-for independent exploitation is intended by this notice, except where the
-applicable law or binding terms require a different result.
+To the extent originally authored and legally protected, this notice
+applies to the original source and object code, original documentation,
+original textual and visual materials, original graphic assets and
+other original works included in this repository or its published
+distributions, as well as protected original selection or arrangement
+of materials where applicable.
 
-2. STRICTLY PROHIBITED CONDUCT WITHOUT PRIOR WRITTEN AUTHORIZATION
+This notice does not claim exclusive rights to independent third-party
+works, open-source dependencies, public-domain materials, facts, ideas,
+algorithms as abstract methods, general functionality, programming
+languages, protocols or other unprotectable subject matter.
 
-To the maximum extent enforceable under applicable law, and subject to Section
-4 below, the following activities involving protected EFHC material are NOT
-authorized, whether undertaken for profit, research, experimentation,
-portfolio use, education, private business, nonprofit activity, or otherwise:
+3. EXPRESS RESERVATION OF RIGHTS — NO PUBLIC LICENSE
 
-  (a) COPY OR REPRODUCE: reproduce, extract, clone, mirror, archive for
-      independent reuse, or incorporate protected materials into other copies,
-      repositories, packages, datasets, products, or publications.
+Publication, visibility, possession, downloading, inspection or access
+to this repository does not itself grant a general copyright license,
+patent license, trademark license, sublicensing right, commercial
+license or permission for independent deployment or redistribution.
 
-  (b) RUN OR DEPLOY INDEPENDENTLY: execute, compile for independent use, host,
-      operate, deploy, integrate, embed, or make available the protected code
-      or substantial protected parts thereof in another system or service.
+Except to the extent expressly permitted by binding platform terms,
+applicable law or a separate valid written authorization, no permission
+is granted to perform acts requiring authorization from the holder of
+the exclusive rights in protected original materials, including:
 
-  (c) MODIFY OR DERIVE: adapt, translate, port, refactor, rewrite from
-      protected expression, transform, create derivative works, or distribute
-      modified versions of protected materials.
+(a) Reproducing or copying protected code or other protected works for
+    use outside the permissions applicable to this repository;
+(b) Distributing, publishing, mirroring, selling, sublicensing or
+    including protected works in another product or repository;
+(c) Preparing or distributing derivative works, adaptations, ports,
+    translations or other modifications of protected expression;
+(d) Independently hosting, deploying, operating or integrating copies
+    of protected code where doing so requires the rights holder's
+    authorization;
+(e) Commercially exploiting protected original materials through
+    copying, redistribution or other activities requiring permission;
+(f) Removing, falsifying or obscuring legally required copyright
+    notices or attribution where such conduct is unlawful.
 
-  (d) DISTRIBUTE OR TRANSFER: publish, redistribute, share, transmit, sell,
-      resell, rent, sublicense, assign, provide to a third party, or make
-      protected materials available as a product, service, template, API,
-      software package, or hosted offering.
+Merely independently developing similar ideas or functionality,
+without infringement of protected expression or another enforceable
+right, is not prohibited by this copyright notice.
 
-  (e) COMMERCIALIZE OR MISAPPROPRIATE: white-label, rebrand, imitate by
-      copying protected expression, market as an original product, incorporate
-      into a competing product, or otherwise commercially exploit protected
-      EFHC materials.
+4. GITHUB PUBLIC-REPOSITORY PERMISSIONS
 
-  (f) REUSE CREATIVE ASSETS: reproduce or independently reuse protected
-      original interface artwork, distinctive graphic expression, icons,
-      illustrations, documentation, text, sound recordings (to the extent
-      owned), audiovisual assets, original code, or legally protectable
-      selection and arrangement of content.
+The repository may be publicly visible on GitHub. The rights granted
+under GitHub's applicable Terms of Service, including permitted
+viewing, display and forking through GitHub functionality, remain
+effective. This notice does not revoke those binding platform rights.
 
-  (g) USE FOR MODEL DEVELOPMENT: reproduce, extract, or incorporate protected
-      EFHC materials into datasets or machine-learning or AI-development
-      workflows where doing so would require authorization not otherwise
-      provided by applicable law or binding platform terms.
+Such platform permissions are not, merely by themselves, a general
+open-source license for independent reproduction, modification,
+redistribution, commercialization or hosting outside their scope.
 
-  (h) REMOVE RIGHTS NOTICES: remove, obscure, falsify, or alter applicable
-      copyright, authorship, trademark, attribution, or other lawful
-      proprietary notices.
+5. AUTOMATED ACCESS, EXTRACTION AND MACHINE LEARNING
 
-  (i) CIRCUMVENT PROTECTION: bypass access controls, reverse engineer,
-      decompile, or defeat technical protections only to the extent such
-      conduct can lawfully be restricted in the circumstances.
+This notice does not grant a separate public license to copy,
+reproduce, redistribute or incorporate protected original materials
+into datasets, training corpora, competing software or other AI/ML
+development workflows where the relevant activity requires the
+copyright holder's authorization.
 
-Reimplementing unprotected ideas, facts, general functionality, or methods
-without copying protected expression is not prohibited merely by this notice.
+This statement does not override applicable exceptions and
+limitations, binding GitHub permissions or other legally permitted
+automated access and uses. It does not assert that reading or
+indexing publicly accessible information is always unlawful.
 
-3. NO AUTOMATIC PERMISSION TO TEST, FORK OUTSIDE PLATFORM RIGHTS, OR REUSE
+6. THIRD-PARTY COMPONENTS AND STATUTORY EXCEPTIONS
 
-There is NO blanket permission for independent benchmarking, security testing,
-training, demonstrations, experimentation, modification, publication,
-redistribution, or business use of protected EFHC code or assets.
+Third-party packages, libraries, fonts, software, trademarks, media
+and other works remain subject to their respective owners' rights,
+licenses and notice obligations. Nothing in this document replaces
+or narrows any applicable third-party license.
 
-A public GitHub repository nevertheless carries the limited rights granted
-under GitHub's applicable Terms of Service, including viewing and forking
-through GitHub functionality. This notice does not revoke or contradict those
-binding rights. Those platform-specific permissions do not independently
-confer a general open-source license or authorize use of protected EFHC
-materials beyond their lawful scope.
+Nothing in this notice restricts mandatory exceptions, permitted
+interoperability, lawful reverse engineering, fair use, fair dealing,
+other statutory limitations, exhaustion of rights where applicable,
+or rights arising from binding platform terms or other valid licenses.
 
-4. THIRD-PARTY RIGHTS AND NONWAIVABLE LEGAL EXCEPTIONS
+7. WRITTEN AUTHORIZATION
 
-This notice governs only original materials and rights actually owned or
-controlled by the relevant EFHC rights holder(s). Third-party software,
-frameworks, libraries, packages, fonts, media, trademarks, and other content
-remain governed by their own licenses and applicable legal rights. Nothing
-here overrides those licenses, including mandatory attribution obligations.
+Permissions beyond those already granted by applicable law, binding
+platform terms or separate existing licenses must be obtained from
+the lawful rights holder in a distinct written authorization.
 
-Nothing in this notice restricts statutory limitations and exceptions,
-interoperability rights, fair use or fair dealing where applicable, rights
-granted by binding platform terms, or any other nonwaivable legal entitlement.
-No claim is made to exclusive ownership of ideas, facts, algorithms as
-abstract methods, or other subject matter not protected by applicable law.
+The authorization should specify the materials, recipient, permitted
+acts, scope, duration and any relevant conditions. The official
+project website above is an informational project address; this
+notice does not invent an email address, agent or automatic licensing
+procedure.
 
-5. ENFORCEMENT NOTICE — VIOLATIONS MAY HAVE SERIOUS CONSEQUENCES
+8. LEGAL FRAMEWORK — UKRAINE, UNITED STATES AND INTERNATIONAL PROTECTION
 
-The lawful rights holder(s) expressly reserve the right, as appropriate and
-to the extent allowed by applicable law, to:
+This notice identifies potentially applicable copyright-law sources
+but is not a contract selecting an exclusive governing law, court
+or jurisdiction. Protection and available remedies depend on the
+facts, the country in which protection is sought, applicable law,
+international agreements and procedural requirements.
 
-  • Demand immediate cessation of unauthorized activity and removal of
-    infringing copies, distributions, deployments, listings, and services.
-  • Send formal cease-and-desist notices and copyright infringement reports
-    to developers, operators, hosting providers, marketplaces, search engines,
-    code-hosting services, and other relevant intermediaries.
-  • Request copyright-related takedowns under applicable procedures,
-    including the DMCA where applicable.
-  • Seek emergency, preliminary, or permanent injunctive relief and other
-    orders available from competent courts.
-  • Pursue civil claims for legally recoverable damages, applicable profits,
-    costs, interest, and attorneys' fees where legally available.
-  • Refer conduct to competent authorities where the facts and applicable
-    law provide a legitimate basis for regulatory or criminal investigation.
+Ukraine:
+  Law of Ukraine "On Copyright and Related Rights"
+  No. 2811-IX of 1 December 2022, as amended.
+  - Article 9: copyright arises on creation without registration;
+    notice and presumption-of-authorship provisions.
+  - Article 11: personal non-property rights, including attribution
+    and the right to use an author's pseudonym.
+  - Article 12: exclusive economic rights of the rights holder.
+  - Article 20: copyright protection of original computer-program
+    expression, including source and object code, subject to limits.
+  Official source:
+  https://zakon.rada.gov.ua/laws/show/2811-20
 
-Legal action may proceed without an informal warning or an opportunity to
-negotiate where the law does not require such prior notice. No prior tolerance
-of infringement should be interpreted as a promise not to enforce rights in
-the future.
+United States:
+  United States Copyright Act, Title 17, U.S. Code.
+  - Section 102: subject matter of copyright and exclusion of
+    ideas, systems, methods and other unprotectable subject matter.
+  - Section 106: exclusive rights of copyright owners, subject
+    to statutory limitations.
+  - Sections 107 and 117: relevant statutory limitations and
+    computer-program-related permissions where applicable.
+  - Section 411: certain registration requirements for United
+    States works before specified civil infringement actions;
+    the applicable rules for foreign works may differ.
+  Official text:
+  https://uscode.house.gov/view.xhtml?path=/prelim@title17
+  U.S. Copyright Office:
+  https://www.copyright.gov/
 
-THIS NOTICE IS INTENDED TO REMOVE ANY REASONABLE ASSUMPTION THAT THE PROJECT
-HAS BEEN RELEASED FOR UNRESTRICTED REUSE. IT DOES NOT CREATE AUTOMATIC FINES,
-CRIMINAL LIABILITY, STATUTORY DAMAGES, OR OTHER REMEDIES UNAVAILABLE UNDER LAW.
+International:
+  Berne Convention for the Protection of Literary and Artistic Works,
+  notably Article 5 and its principles of national treatment,
+  protection without formalities and independent protection.
+  Treaty reference:
+  https://www.wipo.int/en/web/treaties/ip/berne/
 
-6. WRITTEN AUTHORIZATION IS REQUIRED
+These references describe the legal basis of potentially available
+protection. Merely citing a country's laws does not make that
+country's rules universally applicable, establish jurisdiction
+or create remedies beyond those that the law actually provides.
 
-Any permission beyond rights already supplied by law or binding platform
-terms must be obtained from the applicable rights holder before engaging in
-the proposed activity. A valid authorization should clearly identify the
-protected material, the permitted activity, the authorized recipient, the
-territory (if relevant), and any applicable limitations.
+9. ENFORCEMENT AND REMEDIES
 
-Do not assume that a public link, unanswered inquiry, oral conversation,
-source-code comment, repository visibility, or access to a running EFHC demo
-constitutes authorization.
+The lawful rights holder reserves the right to seek appropriate
+relief where permitted by applicable law, including requests to
+cease infringement, removal of infringing copies, valid copyright
+takedown procedures, injunctive relief and damages where recoverable.
 
-7. NO WARRANTIES OR SUPPORT COMMITMENT
+No automatic fine, criminal liability, statutory damages, special
+jurisdiction or additional contractual obligation is created by
+this notice. Any claim must satisfy the applicable legal standards.
 
-To the fullest extent allowed by applicable law, materials are provided "AS
-IS" and "AS AVAILABLE," without warranties or guarantees. Publication does
-not create a support, maintenance, availability, security, or service-level
-obligation, or permission to operate protected materials independently.
+10. NO WARRANTIES OR SUPPORT OBLIGATION
 
-8. CONSTRUCTION AND SEVERABILITY
+To the extent permitted by applicable law, original materials
+are made available for inspection on an "AS IS" and "AS AVAILABLE"
+basis. Public availability does not itself create a promise of
+maintenance, support, fitness, security, uninterrupted availability
+or independent-use permission. Non-excludable legal obligations
+remain unaffected.
 
-This document is a strict reservation-of-rights and no-license notice, not an
-open-source license or an offer of public permission. If any provision is
-found unenforceable, the remaining provisions shall continue to apply to the
-extent legally permitted. Applicable mandatory laws, actual ownership of
-rights, valid third-party licenses, and binding platform terms prevail over
-any inconsistent statement here.
+11. INTERPRETATION AND EFFECT
 
-================================================================================
-                  ALL RIGHTS RESERVED. NO REUSE AUTHORIZED.
-            OBTAIN EXPRESS WRITTEN PERMISSION BEFORE INDEPENDENT USE.
-================================================================================
+This is a unilateral proprietary rights reservation and notice of
+absence of a general public license. It is not an offer of an
+open-source license and does not, by itself, prove authorship,
+transfer ownership or establish a contract with every visitor.
+
+If a statement here cannot be enforced in a particular case,
+the rights and limits supplied by applicable law and valid
+permissions continue to govern. Prior lawful permissions are
+not retroactively revoked by this notice.
+
+ALL RIGHTS RESERVED.
+NO GENERAL PUBLIC LICENSE GRANTED.
