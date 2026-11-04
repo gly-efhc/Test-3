@@ -1,4 +1,4 @@
-import { isLocalDemoActive } from "../reconstruction/demoUnifiedStore";
+import { isLocalDemoActive } from "../reconstruction/demoPreviewGate";
 import { useCallback } from "react";
 import {
   useMutation,

@@ -14,7 +14,7 @@ import {
 import { queryKeys } from "./queryKeys";
 import { useFrozenDemoTables } from "../reconstruction/useFrozenDemoTables";
 import { demoMyRankWithTop, demoRankTopPage, demoRankContext } from "../reconstruction/demoTables";
-import { isDemoPreviewEnabled } from "../reconstruction/demoUnifiedStore";
+import { isDemoPreviewEnabled } from "../reconstruction/demoPreviewGate";
 
 export function useMyRankWithTop(_globalId: string | null) {
   const globalId = useAuthOwnerGlobalId();

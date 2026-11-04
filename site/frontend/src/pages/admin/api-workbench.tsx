@@ -1,4 +1,4 @@
-import { isLocalDemoActive } from "../../reconstruction/demoUnifiedStore";
+import { isLocalDemoActive } from "../../reconstruction/demoPreviewGate";
 import React, { useMemo, useState } from "react";
 
 import { AdminPage } from "../../components/admin/AdminPage";

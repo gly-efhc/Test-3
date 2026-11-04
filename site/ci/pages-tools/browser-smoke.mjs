@@ -378,7 +378,14 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
         const refresh=hero?.querySelector('[data-ranks-refresh-action]');
         const find=root?.querySelector('[data-ranks-show-me-action]');
         const rect=e=>e?.getBoundingClientRect();
-        return {hero:!!hero,heroWidth:rect(hero)?.width||0,
+        const control=JSON.parse(localStorage.getItem('efhc:react:unified-demo:v893')||'null');
+        const model=control?.accounts?.[control.selected_global_id];
+        const text=energy?.textContent?.trim()||'';
+        const match=/^(\\d+)\\.(\\d{8}) kWh$/.exec(text);
+        const d8=s=>{const m=/^(\\d+)\\.(\\d{8})$/.exec(String(s));return m?BigInt(m[1])*100000000n+BigInt(m[2]):null;};
+        const shown=match?BigInt(match[1])*100000000n+BigInt(match[2]):null,max=d8(model?.total_generated_kwh);
+        const energyMatchesModel=shown!==null&&max!==null&&shown>=812312345678n&&shown<=max;
+        return {energyMatchesModel,modelMax:model?.total_generated_kwh,hero:!!hero,heroWidth:rect(hero)?.width||0,
           statCount:stats.length,fullEnergy:energy?.textContent?.trim()||'',
           energyWrapOrClip,energyFragments:energyFragments.map(r=>({width:r.width,y:r.y})),
           overflow:values.some(el=>!el||el.scrollWidth>el.clientWidth+1)||stats.some(el=>el.scrollWidth>el.clientWidth+1),
@@ -398,7 +405,7 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
     const ranksHero=await readRanksHero();
     if(!ranksHero.hero||ranksHero.statCount!==2||ranksHero.overflow||ranksHero.valueClipped||ranksHero.energyWrapOrClip||
         !ranksHero.refresh||!ranksHero.find||ranksHero.heroWidth>width+1||
-        !ranksHero.fullEnergy.includes('8123.12345678')||ranksHero.rows<100||
+        !ranksHero.energyMatchesModel||ranksHero.rows<100||
         ranksHero.topPositions[0]!=='1'||ranksHero.topPositions[1]!=='2'||ranksHero.topPositions[2]!=='2')
       throw Error('OWNER_RANKS_HERO_OR_DEMO_REGRESSION '+JSON.stringify(ranksHero));
     console.log('PASS OWNER RANKS HERO RESPONSIVE '+width,JSON.stringify(ranksHero));

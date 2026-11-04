@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useMemo, useState } from "react";
-import { isLocalDemoActive } from "../../reconstruction/demoUnifiedStore";
+import { isLocalDemoActive } from "../../reconstruction/demoPreviewGate";
 import type { GlobalId } from "../../types/identity";
 import { AdminPage } from "../../components/admin/AdminPage";
 import { AdminPanelsObligationsRuntime } from "../../components/admin/AdminPanelsObligationsRuntime";

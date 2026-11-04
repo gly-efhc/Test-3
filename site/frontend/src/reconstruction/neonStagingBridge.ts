@@ -2,7 +2,7 @@
  * The test server, not the browser-selected Global ID, is identity authority.
  * Never use this module outside explicitly enabled Pages preview.
  */
-import {isDemoPreviewEnabled} from './demoUnifiedStore';
+import {isDemoPreviewEnabled} from './demoPreviewGate';
 
 export function isNeonStagingRequested():boolean {
   return process.env.NEXT_PUBLIC_EFHC_TEST_MODE === 'neon';

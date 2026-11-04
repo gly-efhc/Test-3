@@ -1,5 +1,5 @@
 import { publicRuntimeValue } from "../lib/public-runtime";
-import { isLocalDemoActive } from "../reconstruction/demoUnifiedStore";
+import { isLocalDemoActive } from "../reconstruction/demoPreviewGate";
 import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 

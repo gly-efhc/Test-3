@@ -15,7 +15,7 @@ import type { GlobalId } from "../types/identity";
 import { queryKeys } from "./queryKeys";
 import { useFrozenDemoTables } from "../reconstruction/useFrozenDemoTables";
 import { demoTasksCatalog, demoMyTasks, demoTaskEarnings } from "../reconstruction/demoTables";
-import { isDemoPreviewEnabled } from "../reconstruction/demoUnifiedStore";
+import { isDemoPreviewEnabled } from "../reconstruction/demoPreviewGate";
 
 async function invalidateTaskState(
   queryClient: ReturnType<typeof useQueryClient>,

@@ -1,5 +1,5 @@
 import { publicRuntimeValue } from "../../lib/public-runtime";
-import { isLocalDemoActive, readDemoAccount } from "../../reconstruction/demoUnifiedStore";
+import { isLocalDemoActive } from "../../reconstruction/demoPreviewGate";
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { LayoutContext } from "../../components/Layout";
 import { useRouter } from "next/router";
@@ -397,7 +397,9 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
     if (typeof window === "undefined") return;
     const restoreContext = () => {
       const restored = readInitialContext();
-      setToken(isLocalDemoActive() ? `demo:${readDemoAccount().global_id}` : restored.token);
+      if(isLocalDemoActive()){
+        void import("../../reconstruction/demoUnifiedStore").then(store=>setToken(`demo:${store.readDemoAccount().global_id}`));
+      }else setToken(restored.token);
       setSelectedSku(restored.sku);
       setGlobalMethod(restored.method);
     };

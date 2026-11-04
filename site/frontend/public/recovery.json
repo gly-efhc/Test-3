@@ -19,13 +19,19 @@
     "Мои панели": {
       "status": "fixed-owner-accepted",
       "route": "/panels/portfolio",
-      "accepted_on": "2026-11-01",
-      "basis": "direct-owner-visual-acceptance",
+      "accepted_on": "2026-11-04",
+      "basis": "direct-owner-instruction: Закрепи страницу Мои панели как исправлена",
       "template_groups": [
         "PT",
         "PC"
       ],
-      "all_page_templates": "fixed-owner-accepted"
+      "all_page_templates": "fixed-owner-accepted",
+      "cycle": "RECON_CYCLE_0024",
+      "iteration": 3,
+      "protected": true,
+      "accepted_from_commit": "f958ce845a67d125eb92454068a489ebdc15138a",
+      "scope": "Full page and PT/PC templates; CT binding, PT03 wrapper, adaptive available height and shared DEMO panel generation",
+      "limitations": "Browser DEMO acceptance; publicly hosted Python backend and real financial operations are not certified"
     },
     "Оформление ⚙ / 🌐": {
       "status": "fixed-owner-accepted",

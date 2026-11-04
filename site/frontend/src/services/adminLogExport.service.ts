@@ -3,7 +3,7 @@ import {
   ADMIN_LOGS_EXPORT_CSV_PATH,
   ADMIN_LOGS_EXPORT_XLSX_PATH,
 } from "../lib/api/generated/adminSeams";
-import { isLocalDemoActive, readDemoState } from "../reconstruction/demoUnifiedStore";
+import { isLocalDemoActive } from "../reconstruction/demoPreviewGate";
 import { buildJsonBlobFromTable, buildSimpleXlsx, downloadBlob } from "../lib/export/simpleXlsx";
 
 export type AdminLogExportScope = "bank" | "panels";
@@ -63,6 +63,7 @@ export async function downloadAdminLogExport(
     if (selectedGlobalId && !/^\d{10}$/.test(selectedGlobalId)) throw new Error("admin_log_export_invalid_global_id");
     const {demoApiRequest} = await import("../reconstruction/demoApi");
     await demoApiRequest("/admin/reports/overview", "GET");
+    const {readDemoState}=await import("../reconstruction/demoUnifiedStore");
     const state = readDemoState();
     const entries = scope === "bank" ? state.server?.audit || []
       : Object.values(state.accounts).flatMap(a => a.panels || []);

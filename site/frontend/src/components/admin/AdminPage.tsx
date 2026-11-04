@@ -10,7 +10,7 @@ import { getAdminThemePageMarker } from "../../lib/adminThemePageRegistry";
 import { navigateBackWithinApp, navigateHomeWithinApp } from "../../lib/appBackNavigation";
 import { ADMIN_REPORTS_OVERVIEW_PATH } from "../../lib/api/generated/adminSeams";
 import { useAdminLinkedTransport } from "../../queries/useAdminLinkedTransport";
-import { isLocalDemoActive,readDemoState,setDemoRole,subscribeDemoState } from "../../reconstruction/demoUnifiedStore";
+import { isLocalDemoActive } from "../../reconstruction/demoPreviewGate";
 
 export function AdminPage(
   props: React.PropsWithChildren<{
@@ -39,8 +39,13 @@ export function AdminPage(
   const [demoRole,setLocalDemoRole]=React.useState<string|null>(null);
   React.useEffect(()=>{
     if(!isLocalDemoActive())return;
-    const sync=()=>setLocalDemoRole(readDemoState().role);
-    sync();return subscribeDemoState(sync);
+    let active=true,unsubscribe:(()=>void)|undefined;
+    void import("../../reconstruction/demoUnifiedStore").then(store=>{
+      if(!active)return;
+      const sync=()=>setLocalDemoRole(store.readDemoState().role);
+      sync();unsubscribe=store.subscribeDemoState(sync);
+    });
+    return()=>{active=false;unsubscribe?.();};
   },[]);
   const t = useT();
   const router = useRouter();
@@ -123,7 +128,7 @@ export function AdminPage(
           ) : null}
         </div>
         <div className="efhc-admin-actions" data-admin-navigation="back-menu">
-          {demoRole!==null ? <Button variant="secondary" data-demo-admin-mode="true" onClick={()=>setDemoRole(demoRole==='user'?'superadmin':'user')}>
+          {demoRole!==null ? <Button variant="secondary" data-demo-admin-mode="true" onClick={()=>{void import("../../reconstruction/demoUnifiedStore").then(store=>store.setDemoRole(demoRole==='user'?'superadmin':'user'));}}>
             {demoRole==='user'?'Демо: включить действия':'Демо: действия включены'}
           </Button> : null}
           {props.actions}

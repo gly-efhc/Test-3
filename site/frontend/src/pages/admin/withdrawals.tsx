@@ -1,5 +1,5 @@
 import { publicRuntimeValue } from "../../lib/public-runtime";
-import { isLocalDemoActive } from "../../reconstruction/demoUnifiedStore";
+import { isLocalDemoActive } from "../../reconstruction/demoPreviewGate";
 import { useAdminLinkedTransport } from "../../queries/useAdminLinkedTransport";
 /* Compatibility marker: Refresh selected case */
 /* Compatibility marker: Repair consistency */

@@ -234,3 +234,15 @@ APP-ACCEPTANCE-2026-11-01-CT-GEAR.
 Внешние FULL/REPO архивы v926 не изменялись: изменение документируется
 в GitHub Test-3 и отдельно в Google Drive для последующей законной
 синхронизации с приватным FULL при разрешённом выпуске.
+
+## OWNER checkpoint — My Panels accepted, 2026-11-04
+
+OWNER explicitly accepted `/panels/portfolio` as fixed and instructed closure of
+RECON_CYCLE_0024. This protects the accepted page and PT/PC variants, CT binding,
+PT03 wrapper, adaptive available height and shared browser DEMO generation.
+The accepted functional baseline is `f958ce845a67d125eb92454068a489ebdc15138a`;
+subsequent bundle-loading corrections do not change its visual rules. No status
+label is added to the application UI. Final cycle/report records remain in the
+private archive. This acceptance does not certify a public Python deployment or
+real wallet/financial operations. FULL is retired; OWNER requested one application
+package `FRONTEND_RECONSTRUCTION_v928.zip`, with documents retained in efhc_archive.

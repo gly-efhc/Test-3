@@ -1,4 +1,4 @@
-import { isLocalDemoActive } from "../../reconstruction/demoUnifiedStore";
+import { isLocalDemoActive } from "../../reconstruction/demoPreviewGate";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import type { ApiRequestOptions, HttpMethod } from "../../lib/api";

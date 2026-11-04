@@ -15,7 +15,7 @@ import {
 import { queryKeys } from "./queryKeys";
 import { useFrozenDemoTables } from "../reconstruction/useFrozenDemoTables";
 import { demoPanelsSummary, demoPanelsPage } from "../reconstruction/demoTables";
-import { isDemoPreviewEnabled } from "../reconstruction/demoUnifiedStore";
+import { isDemoPreviewEnabled } from "../reconstruction/demoPreviewGate";
 
 export function usePanelsSummary() {
   const globalId = useAuthOwnerGlobalId();
