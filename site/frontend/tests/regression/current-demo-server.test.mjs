@@ -193,3 +193,42 @@ test('Admin and USER history share historical rows without changing the selected
  assert.equal(user.items.length,1);assert.deepEqual(JSON.parse(JSON.stringify(admin.items)),JSON.parse(JSON.stringify(user.items)));
  assert.equal(h.store.readDemoState().selected_global_id,'0000657667');
 });
+
+test('legacy builtin-timer DEMO API is account-bound, time-gated and credits the same bank once',async()=>{
+ const h=demoRuntime();await h.api('/sync/me','POST');
+ const initial=h.store.readDemoAccount().bonus_balance;
+ const slot=await h.api('/ads/slot?task_code=demo_watch_builtin&provider=builtin_timer','GET');
+ assert.equal(slot.min_view_sec,10);assert.match(slot.token,/^demo-timer:/);
+ await assert.rejects(h.api('/ads/callback/builtin_timer','POST',{token:slot.token}),e=>e.code==='REWARD_NOT_ALLOWED');
+ h.advance(10000);
+ const first=await h.api('/ads/callback/builtin_timer','POST',{token:slot.token});
+ const second=await h.api('/ads/callback/builtin_timer','POST',{token:slot.token});
+ assert.equal(first.replayed,false);assert.equal(second.replayed,true);
+ assert.equal(h.store.d8(h.store.readDemoAccount().bonus_balance)-h.store.d8(initial),h.store.d8('0.01'));
+ assert.equal(h.store.readDemoAccount().ad_views,1);
+ assert.equal((await h.api('/admin/reports/overview','GET')).facts.bank_metrics_integrity_delta_efhc,'0.00000000');
+ h.store.selectDemoGlobalId('0000000002');
+ await assert.rejects(h.api('/ads/callback/builtin_timer','POST',{token:slot.token}),e=>e.code==='DEMO_TIMER_TOKEN_NOT_FOUND');
+});
+test('legacy timer refuses unsupported provider and expired DEMO sessions without credit',async()=>{
+ const h=demoRuntime();
+ await assert.rejects(h.api('/ads/slot?task_code=demo_watch_builtin&provider=external','GET'),e=>e.code==='DEMO_BUILTIN_PROVIDER_REQUIRED');
+ const slot=await h.api('/ads/slot?task_code=demo_watch_builtin&provider=builtin_timer','GET');
+ const before=h.store.readDemoAccount().bonus_balance;
+ h.advance(300001);
+ await assert.rejects(h.api('/ads/callback/builtin_timer','POST',{token:slot.token}),e=>e.code==='SESSION_EXPIRED');
+ assert.equal(h.store.readDemoAccount().bonus_balance,before);
+});
+
+test('DEMO avatar preference follows Global ID and uses optimistic revision without external identity',async()=>{
+ const h=demoRuntime();const first=await h.api('/profile/avatar','GET');
+ assert.deepEqual(JSON.parse(JSON.stringify(first)),{preference:{schemaVersion:1,selection:{kind:'icon'},fallbackIcon:'EI-07'},revision:0,updatedAt:null});
+ assert.deepEqual(JSON.parse(JSON.stringify(await h.api('/profile/avatar/sources','GET'))),{items:[]});
+ const pref={schemaVersion:1,selection:{kind:'system',systemId:'avatar-03'},fallbackIcon:'EI-07'};
+ const changed=await h.api('/profile/avatar','PUT',{expectedRevision:0,preference:pref});
+ assert.equal(changed.revision,1);assert.deepEqual(JSON.parse(JSON.stringify((await h.api('/profile/avatar','GET')).preference)),pref);
+ await assert.rejects(h.api('/profile/avatar','PUT',{expectedRevision:0,preference:pref}),e=>e.code==='AVATAR_REVISION_CONFLICT');
+ await assert.rejects(h.api('/profile/avatar','PUT',{expectedRevision:1,preference:{...pref,selection:{kind:'url',url:'https://victim.invalid@evil.invalid/p.png'}}}),e=>e.code==='AVATAR_INVALID_SELECTION');
+ h.store.selectDemoGlobalId('0000000002');assert.equal((await h.api('/profile/avatar','GET')).revision,0);
+ h.store.selectDemoGlobalId('0000657667');assert.equal((await h.api('/profile/avatar','GET')).revision,1);
+});

@@ -73,7 +73,7 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
  const url=new URL(path,'https://demo.invalid'),p=url.pathname.replace(/^\/api(?=\/)/,'').replace(/\/$/,''),q=url.searchParams;
  const b=(body&&typeof body==='object'?body:{}) as DemoRow,read=method==='GET';
  const supported=p.startsWith('/admin/')||p==='/admin'||p.startsWith('/health')||p.startsWith('/meta/')||p.startsWith('/cron/')||p==='/demo/deposits'||p.startsWith('/skins/')||p.startsWith('/ads/session')||
-  ['/sync/me','/user/me/panels-summary','/panels/active','/panels/archive','/panels/activate','/exchange/preview','/exchange/convert','/exchange/history','/withdraw/list','/withdraw/list/me','/withdraw/request','/hub/links','/hub/support-links','/tasks/catalog','/tasks/my','/tasks/claim','/tasks/earnings/me','/shopfront/create-intent','/shopfront/intent-status','/shopfront/catalog','/shop/purchase-efhc','/deposit/direct-open'].includes(p)||/^\/withdraw\/\d+(?:\/cancel)?$/.test(p);
+  ['/profile/avatar','/profile/avatar/sources','/ads/slot','/ads/callback/builtin_timer','/sync/me','/user/me/panels-summary','/panels/active','/panels/archive','/panels/activate','/exchange/preview','/exchange/convert','/exchange/history','/withdraw/list','/withdraw/list/me','/withdraw/request','/hub/links','/hub/support-links','/tasks/catalog','/tasks/my','/tasks/claim','/tasks/earnings/me','/shopfront/create-intent','/shopfront/intent-status','/shopfront/catalog','/shop/purchase-efhc','/deposit/direct-open'].includes(p)||/^\/withdraw\/\d+(?:\/cancel)?$/.test(p);
  if(!supported)return undefined;
  const run=(state:DemoControlState):unknown=>{
   settleGeneration(state);const s=ensureServer(state),a=account(state),now=new Date().toISOString();
@@ -87,6 +87,57 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
   if(p==='/skins/switcher'&&read)return {current_level:1,available_skin_ids:[1],active_skin_id:s.settings[skinKey]||1,items:[{skin_id:1,title:'EFHC',asset_path:'/skins/1.webp',is_unlocked:true,is_active:true}]};
   const skin=/^\/skins\/(buy|activate|switcher\/activate)\/(\d+)$/.exec(p);
   if(skin&&method==='POST'){requireDemo(skin[2]==='1','SKIN_NOT_FOUND',404);s.settings[skinKey]=1;return {ok:true,active_skin_id:1};}
+  // Account-scoped avatar preference for the browser-only DEMO.
+  // Never assert provider-photo ownership or read a production profile.
+  const avatarKey=`avatar:${a.global_id}`;
+  if(p==='/profile/avatar/sources'&&read)return {items:[]};
+  if(p==='/profile/avatar'){
+   const current=s.settings[avatarKey]||{preference:{schemaVersion:1,selection:{kind:'icon'},fallbackIcon:'EI-07'},revision:0,updatedAt:null};
+   if(read)return current;
+   requireDemo(method==='PUT','AVATAR_METHOD_INVALID',405);
+   requireDemo(Number.isSafeInteger(b.expectedRevision)&&b.expectedRevision>=0,'AVATAR_REVISION_REQUIRED');
+   requireDemo(b.expectedRevision===current.revision,'AVATAR_REVISION_CONFLICT',409);
+   const pref=b.preference,selection=pref?.selection;
+   requireDemo(pref?.schemaVersion===1&&pref?.fallbackIcon==='EI-07'&&selection&&typeof selection==='object','AVATAR_INVALID_PREFERENCE');
+   const keys=Object.keys(selection).sort();
+   const kind=selection.kind;
+   const valid=kind==='icon'&&keys.join(',')==='kind'||
+    kind==='system'&&keys.join(',')==='kind,systemId'&&/^avatar-(0[1-9]|10)$/.test(String(selection.systemId))||
+    kind==='url'&&keys.join(',')==='kind,url'&&typeof selection.url==='string'&&selection.url.length<=2048&&
+      /^https:\/\/(?![^/?#]*@)[^\s/?#]+(?:[/?#][^\s]*)?$/i.test(selection.url)&&!selection.url.includes('\\');
+   // Provider photos require verified external identity; DEMO has none.
+   requireDemo(valid,'AVATAR_INVALID_SELECTION',400);
+   requireDemo(Object.keys(pref).sort().join(',')==='fallbackIcon,schemaVersion,selection','AVATAR_INVALID_PREFERENCE');
+   const updated={preference:structuredClone(pref),revision:current.revision+1,updatedAt:now};
+   s.settings[avatarKey]=updated;return updated;
+  }
+  // Legacy built-in timer compatibility; this is a local DEMO reward,
+  // never a provider token, external ad impression, or financial receipt.
+  if(p==='/ads/slot'&&read){
+   requireDemo(q.get('provider')==='builtin_timer','DEMO_BUILTIN_PROVIDER_REQUIRED',400);
+   const task=s.tasks.find(r=>r.code===q.get('task_code'));
+   requireDemo(task?.is_active&&d8(String(task.bonus_efhc||zero))>0n,'TASK_NOT_FOUND',404);
+   const views=a.ad_date_utc===now.slice(0,10)?a.ad_views:0;
+   requireDemo(views<10,'DAILY_LIMIT_REACHED',409);
+   const token=`demo-timer:${a.global_id}:${++state.next_id}`;
+   s.settings.legacy_timer_slots=s.settings.legacy_timer_slots||[];
+   s.settings.legacy_timer_slots.push({token,global_id:a.global_id,task_code:task.code,
+    reward_efhcb:task.bonus_efhc,created_at:now,expires_at:new Date(Date.now()+300000).toISOString(),rewarded:false});
+   return {token,min_view_sec:10};
+  }
+  if(p==='/ads/callback/builtin_timer'&&method==='POST'){
+   const row=(s.settings.legacy_timer_slots||[]).find((r:DemoRow)=>r.token===b.token&&r.global_id===a.global_id);
+   requireDemo(row,'DEMO_TIMER_TOKEN_NOT_FOUND',404);
+   if(row.rewarded)return {ok:true,bonus_efhc:row.reward_efhcb,replayed:true,detail:'DEMO_ONLY'};
+   requireDemo(Date.now()>=Date.parse(row.created_at)+10000,'REWARD_NOT_ALLOWED',409);
+   requireDemo(Date.now()<Date.parse(row.expires_at),'SESSION_EXPIRED',409);
+   const views=a.ad_date_utc===now.slice(0,10)?a.ad_views:0;
+   requireDemo(views<10,'DAILY_LIMIT_REACHED',409);
+   transfer(state,a.global_id,amount(row.reward_efhcb),'credit','bonus','ad_reward');
+   a.ad_views=views+1;a.ad_date_utc=now.slice(0,10);
+   row.rewarded=true;row.rewarded_at=now;
+   return {ok:true,bonus_efhc:row.reward_efhcb,replayed:false,detail:'DEMO_ONLY'};
+  }
   if(p==='/ads/session'&&method==='POST'){
    const t=s.tasks.find(r=>r.code===b.task_code);requireDemo(t?.is_active,'TASK_NOT_FOUND',404);
    const views=a.ad_date_utc===now.slice(0,10)?a.ad_views:0;requireDemo(views<10,'DAILY_LIMIT_REACHED',409);
