@@ -227,6 +227,12 @@ jobs:
           account = read("/accounts?select=global_id,dataset&global_id=eq.0000657667&limit=1")
           if account.get("global_id") != "0000657667" or account.get("dataset") != "RECON_CYCLE_0027":
               raise RuntimeError("NEON_DEMO_ACCOUNT_ROUTING_MISMATCH")
+          snap = read("/bootstrap_snapshot?select=bank,users,panels,intents&limit=1")
+          if len(snap.get("users") or []) != 1000 or len(snap.get("panels") or []) != 4000 or len(snap.get("intents") or []) != 1000:
+              raise RuntimeError("NEON_DEMO_BOOTSTRAP_INCOMPLETE")
+          if (snap.get("bank") or {}).get("facts", {}).get("bank_metrics_integrity_ok") != "1":
+              raise RuntimeError("NEON_DEMO_BOOTSTRAP_INTEGRITY_MISMATCH")
+          print("EFHC_NEON_DEMO_BOOTSTRAP=PASS users=1000 panels=4000 intents=1000")
           print("EFHC_NEON_DEMO_DATA_API=PASS users=1000 panels=4000 CORS=PASS bank=PASS")
           PY
 
