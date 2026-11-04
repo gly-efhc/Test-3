@@ -1,4 +1,5 @@
 import {publicAssetPath} from "../lib/publicAssetPath";
+import {isDemoPreviewEnabled,isLocalDemoActive,isNeonPagesDemo} from "./demoPreviewGate";
 import {demoBankSnapshot} from "./demoBankSnapshot";
 /** Public Pages ONLY: persistent sample accounting, NEVER an authenticated wallet or ledger.
  * Derived from frozen FRONTEND_v866.html, STANDALONE_GLOBAL_ID and standaloneAdminSeed.
@@ -50,7 +51,6 @@ export type DemoControlState = {
   server?:DemoServerState;
 };
 
-import {isDemoPreviewEnabled,isLocalDemoActive,isNeonPagesDemo} from "./demoPreviewGate";
 export {isDemoPreviewEnabled,isLocalDemoActive,isNeonPagesDemo} from "./demoPreviewGate";
 const zero="0.00000000";
 /** Frozen v866 header shows EFHCm + EFHCb. The task fixture separately owns the
