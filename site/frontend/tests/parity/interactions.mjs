@@ -27,7 +27,15 @@ async function check(name,run,{width=390,height=844,telegram=false,settings={}}=
    window.Telegram={WebApp:{platform:'android',initData:'',initDataUnsafe:{},themeParams:{},ready(){},expand(){},onEvent(){},offEvent(){},close(){window.__efhcHostTest.closed++},BackButton:{show(){},hide(){},onClick(fn){listeners.add(fn)},offClick(fn){listeners.delete(fn)}}}};
   }
  },{defaults:canon.DEFAULTS,settings,telegram});
- try{await run(page);results.push({name,status:'PASS'});console.log('PASS',name)}catch(e){results.push({name,status:'FAIL',error:e.message});console.error('FAIL',name,e.message)}finally{await context.close()}
+ try{await run(page);results.push({name,status:'PASS'});console.log('PASS',name)}catch(e){results.push({name,status:'FAIL',error:e.message});console.error('FAIL',name,e.message);
+  if(process.env.EFHC_PARITY_ARTIFACTS){
+   const dir=process.env.EFHC_PARITY_ARTIFACTS;await fs.mkdir(dir,{recursive:true});
+   const label=`interaction-fail-${results.length}`;
+   await fs.writeFile(`${dir}/${label}.json`,JSON.stringify({name,error:e.message,url:page.url()},null,2));
+   await fs.writeFile(`${dir}/${label}.html`,await page.content()).catch(()=>{});
+   await page.screenshot({path:`${dir}/${label}.png`,fullPage:true}).catch(()=>{});
+  }
+ }finally{await context.close()}
 }
 async function open(page,route=''){
  await page.goto(base+route,{waitUntil:'domcontentloaded'});
@@ -262,8 +270,11 @@ try{
   const samples=[];
   for(let i=0;i<3;i++){
    samples.push(await page.locator('.efhc-independent-shell').boundingBox());
-   if(i===0)await page.mouse.click(width/2,250);
+   // A viewport coordinate can land on a navigation button after legitimate
+   // Admin actions are added. Interact with the declared non-navigating target.
+   if(i===0)await page.locator('.efhc-admin-header h1').click();
    await page.waitForTimeout(80);
+   assert.equal(await routePath(page),'/admin','width interaction must remain on Admin');
   }
   for(const box of samples)assert.ok(Math.abs(box.width-width)<1,JSON.stringify(samples));
   const title=await page.locator('.efhc-admin-header h1').boundingBox();
