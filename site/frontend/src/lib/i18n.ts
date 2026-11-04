@@ -162,5 +162,5 @@ export function humanizeMissingI18nKey(key: string): string {
 export function tFromDicts(k: string, dict: Dict, ru: Dict): string {
   void ru;
   const embeddedEn = getEmbeddedDict("en");
-  return dict[k] || embeddedEn[k] || humanizeMissingI18nKey(k);
+  return (dict[k] || embeddedEn[k] || humanizeMissingI18nKey(k)).replace(/kWh\/[cс]/gi, "kWh/s");
 }
