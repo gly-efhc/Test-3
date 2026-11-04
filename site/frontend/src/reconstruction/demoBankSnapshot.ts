@@ -27,7 +27,8 @@ export function demoBankSnapshot(state:DemoControlState):AdminBankSnapshot|null 
   const converted=users.reduce((n,a)=>n+d8(a.total_generated_kwh)-d8(a.available_kwh),0n);
   // The frozen opening panels predate the live journal. Count that opening
   // inventory once; subsequent purchases/reactivations come from actual debits.
-  let paid=BigInt(allPanels.filter(p=>p.global_id===DEMO_GLOBAL_ID&&openingIds.has(p.id)).length)*price;
+  const neonSeed=server.settings?.neon_seed_cycle==="RECON_CYCLE_0027";
+  let paid=BigInt(neonSeed?allPanels.length:allPanels.filter(p=>p.global_id===DEMO_GLOBAL_ID&&openingIds.has(p.id)).length)*price;
   const payments=new Map<string,Record<string,any>>();
   for(const r of [...server.audit,...users.flatMap(a=>a.ledger)]){
     if(r.direction!=='debit'||!paymentReasons.has(r.reason))continue;

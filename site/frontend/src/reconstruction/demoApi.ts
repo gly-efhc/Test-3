@@ -10,7 +10,7 @@ import canonical from "./demo-tables-v866.json";
 import admin from "./demo-admin-seed-v866.json";
 import {demoPanelsPage, demoPanelsSummary, demoMyRankWithTop, demoRankTopPage, demoRankContext} from "./demoTables";
 import {DEMO_GLOBAL_ID, d8, formatD8, isLocalDemoActive, readDemoAccount, readDemoState,
-  writeDemoAccount, demoLedgerMutation, demoIndexedHistoryPage, nextDemoId, demoAdminFixtureUsers, transactDemoState, seedAccount, type DemoAccountState} from "./demoUnifiedStore";
+  writeDemoAccount, demoLedgerMutation, demoIndexedHistoryPage, bootstrapDemoIndexedDb, nextDemoId, demoAdminFixtureUsers, transactDemoState, seedAccount, type DemoAccountState} from "./demoUnifiedStore";
 
 export class PreviewApiError extends Error {
   constructor(public readonly status:number,public readonly code:string){super(`DEMO_${code}`);this.name="PreviewApiError";}
@@ -179,9 +179,15 @@ function demoProfileHistoryEntry(row:Record<string,unknown>){
 }
 export async function demoApiRequest(path:string,method:string,body:unknown=undefined,idempotencyKey?:string):Promise<unknown>{
  if(!isLocalDemoActive())throw new PreviewApiError(403,"PREVIEW_DISABLED");
+ if(process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW==="1")await bootstrapDemoIndexedDb();
  const route=new URL(path,"https://efhc.preview.invalid");
  const p=route.pathname.replace(/^\/api(?=\/)/,"");
  const q=route.searchParams,control=readDemoState();
+ if(process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW==="1"&&p==="/admin/logs/transfers"&&method.toUpperCase()==="GET"){
+  const {getNeonAdminLedgerPage}=await import("./neonDemoDataApi");
+  const offset=Number(q.get("cursor")||"0"),limit=Math.min(100,Math.max(1,Number(q.get("limit")||50)));
+  return getNeonAdminLedgerPage(q.get("global_id"),offset,limit);
+ }
  if(control.scenario==="loading")await new Promise(resolve=>setTimeout(resolve,600));
  if(control.scenario==="error"&&!p.startsWith("/auth/"))throw new PreviewApiError(503,"SCENARIO_ERROR");
  if(p.startsWith('/admin/')&&!readDemoState().server?.settings.fixture_users_loaded){

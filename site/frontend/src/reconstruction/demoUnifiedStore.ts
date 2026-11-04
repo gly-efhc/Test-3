@@ -10,12 +10,12 @@ import homeCanon from "./frozen-v866-home-fixture.json";
 import type { DemoServerState, DemoPanel } from "./demoServerModel";
 
 export const DEMO_GLOBAL_ID = "0000657667";
-export const DEMO_DB_NAME = "EFHC_REACT_DEMO_CANON_V866";
+export const DEMO_DB_NAME = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? "EFHC_REACT_DEMO_NEON_C27" : "EFHC_REACT_DEMO_CANON_V866";
 // Local simulated account-state format and IndexedDB physical schema are independent.
 // v3 repairs browsers where an early table reader created empty v2 stores.
 export const DEMO_SCHEMA_VERSION = 2;
 export const DEMO_DB_VERSION = 3;
-export const DEMO_STORAGE_KEY = "efhc:react:unified-demo:v893";
+export const DEMO_STORAGE_KEY = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? "efhc:react:neon-c27:unified" : "efhc:react:unified-demo:v893";
 export const DEMO_SCENARIOS = ["filled", "empty", "loading", "error", "no_wallet"] as const;
 export type DemoScenario = typeof DEMO_SCENARIOS[number];
 export type DemoRole = "user" | "admin" | "superadmin";
@@ -152,6 +152,7 @@ export function writeDemoAccount(mutator:(a:DemoAccountState)=>DemoAccountState)
 }
 export function selectDemoGlobalId(value:string):void {
  if(!/^\d{10}$/.test(value))throw new Error("GLOBAL_ID_EXACT_10_REQUIRED");
+ if(readDemoState().server?.settings.neon_seed_cycle==="RECON_CYCLE_0027"&&!readDemoState().accounts[value])throw new Error("NEON_DEMO_GLOBAL_ID_NOT_FOUND");
  transactDemoState(state=>{if(!state.accounts[value]){const next=seedAccount(value);state.accounts[value]=next;if(state.server)state.server.bank_balance=formatD8(d8(state.server.bank_balance)-d8(next.main_balance)-d8(next.bonus_balance));}state.selected_global_id=value;});
 }
 export function setDemoScenario(scenario:DemoScenario):void {
@@ -162,7 +163,15 @@ export function setDemoRole(role:DemoRole):void {
  // This role is only for UI demonstration. AuthSession / backend RBAC never trusts it.
  save({...readDemoState(),role});
 }
-export function resetDemoDatabase():void {save(seedDemoState());}
+export function resetDemoDatabase():void {
+ save(seedDemoState());
+ if(process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW==="1"){
+  databaseBootstrap=null;
+  void bootstrapDemoIndexedDb().catch(error=>{
+   if(typeof window!=="undefined")window.dispatchEvent(new CustomEvent("efhc:neon:bootstrap-failed",{detail:String(error)}));
+  });
+ }
+}
 export function nextDemoId():number {const s=readDemoState();const id=s.next_id+1;save({...s,next_id:id});return id;}
 export function demoLedgerMutation(amount:string,kind:"credit"|"debit",balance:"main"|"bonus",reason:string):DemoAccountState {
  const delta=d8(amount);if(delta<=0n)throw new Error("DEMO_AMOUNT_NOT_POSITIVE");
@@ -189,7 +198,7 @@ export function demoLedgerMutation(amount:string,kind:"credit"|"debit",balance:"
  * and the materialized IndexedDB sample. This is never a production ledger.
  * Do not mark initial seeding complete if the transaction fails.
  */
-async function mirrorSelectedDemoAccount(db:IDBDatabase,state:DemoControlState):Promise<void>{
+export async function mirrorSelectedDemoAccount(db:IDBDatabase,state:DemoControlState):Promise<void>{
  const globalId=state.selected_global_id;
  if(!/^\d{10}$/.test(globalId))throw new Error("DEMO_GLOBAL_ID_INVALID");
  const account=state.accounts[globalId]||seedAccount(globalId);
@@ -211,7 +220,7 @@ async function mirrorSelectedDemoAccount(db:IDBDatabase,state:DemoControlState):
 
 /** Every reader opens the same schema-upgrading path. A read before bootstrap cannot
  * poison a fresh database with an empty same-version object-store catalog. */
-async function openDemoDatabase():Promise<IDBDatabase>{
+export async function openDemoDatabase():Promise<IDBDatabase>{
  if(typeof indexedDB==="undefined")throw new Error("DEMO_INDEXEDDB_UNAVAILABLE");
  return await new Promise<IDBDatabase>((resolve,reject)=>{
   const request=indexedDB.open(DEMO_DB_NAME,DEMO_DB_VERSION);
@@ -253,6 +262,10 @@ export async function bootstrapDemoIndexedDb():Promise<void>{
  }
 }
 async function bootstrapDemoDatabaseContents():Promise<void>{
+ if(process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW==="1"){
+  const {bootstrapNeonDemoMirror}=await import("./neonDemoSeed");
+  return bootstrapNeonDemoMirror();
+ }
  const db=await openDemoDatabase();
  try {
   const status=await new Promise<unknown>((resolve,reject)=>{
@@ -341,6 +354,10 @@ export function completeDemoAd():DemoAccountState {
 export async function demoTableRows(name:DemoTableName,globalId:string,limit=20):Promise<Record<string,unknown>[]> {
  if(!isDemoPreviewEnabled()||!DEMO_TABLE_NAMES.includes(name)||!/^[0-9]{10}$/.test(globalId))throw new Error("DEMO_TABLE_READ_DENIED");
  await bootstrapDemoIndexedDb();
+ if(process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW==="1"){
+  const {getNeonDemoTableRows}=await import("./neonDemoDataApi");
+  return getNeonDemoTableRows(name,globalId,limit);
+ }
  const db=await openDemoDatabase();
  try{return await new Promise<Record<string,unknown>[]>((resolve,reject)=>{
   const tx=db.transaction(name,"readonly"),object=tx.objectStore(name);
@@ -358,6 +375,10 @@ export async function demoIndexedHistoryPage(globalId:string,offset:number,limit
  if(!isDemoPreviewEnabled()||!/^[0-9]{10}$/.test(globalId)||!Number.isInteger(offset)||offset<0||!Number.isInteger(limit)||limit<1||limit>50)
   throw new Error("DEMO_HISTORY_ARGUMENT_INVALID");
  await bootstrapDemoIndexedDb();
+ if(process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW==="1"){
+  const {getNeonAccountLedgerPage}=await import("./neonDemoDataApi");
+  return getNeonAccountLedgerPage(globalId,offset,limit);
+ }
  const db=await openDemoDatabase();
  try{return await new Promise((resolve,reject)=>{
   const tx=db.transaction("ledger_entries","readonly");

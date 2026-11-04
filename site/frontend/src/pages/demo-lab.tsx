@@ -46,9 +46,12 @@ export default function DemoLabPage(){
  const loadDatabase=async()=>{
   setLoading(true);setMessage("Загрузка данных…");
   try{
-   await bootstrapDemoIndexedDb();const result:Record<string,number>={};
-   for(const name of DEMO_TABLE_NAMES)result[name]=await demoTableCount(name);
-   setCounts(result);setMessage("Все таблицы созданы и заполнены по доступным данным эталона v866");
+   await bootstrapDemoIndexedDb();
+   const {getNeonTableCounts}=await import("../reconstruction/neonDemoDataApi");
+   const live=await getNeonTableCounts();
+   const result:Record<string,number>={};
+   for(const name of DEMO_TABLE_NAMES)result[name]=live[name]??0;
+   setCounts(result);setMessage("Таблицы загружены из EFHC_Nektron_Test.");
   }catch(err){setMessage(err instanceof Error?err.message:String(err));}finally{setLoading(false);}
  };
  // Automatically expose real counts on the Pages laboratory. The root App
@@ -110,11 +113,6 @@ export default function DemoLabPage(){
     {tableMessage&&<p role="status">{tableMessage}</p>}
     <div style={{maxHeight:300,overflow:"auto",marginTop:8}}>{tableRows.map((row,index)=><pre key={index} style={{...field,whiteSpace:"pre-wrap",overflowWrap:"anywhere",fontSize:11}}>{JSON.stringify(row,null,2).slice(0,4500)}</pre>)}</div>
   </section>}
-  <section data-neon-db-connection style={{margin:"18px 0",border:"1px solid var(--efhc-ct-accent,#618dff)",padding:12,borderRadius:12}}>
-   <h2 style={{fontSize:18}}>Новая Neon DEMO-база</h2>
-   <p>SQL-backed проверка банковского снимка, Панелей и проводок новой базы EFHC_Nektron_Test. Без финансовых записей из браузера.</p>
-   <button style={button} onClick={()=>void router.push("/neon-data")}>Открыть Neon TEST</button>
-  </section>
   <h2 style={{fontSize:18}}>Страницы приложения</h2>
   <section style={{display:"flex",gap:8,flexWrap:"wrap"}}>
    {demoRoutes.map(href=><button key={href} style={button} onClick={()=>void router.push(href)}>{href==="/"?"Главная":href}</button>)}
