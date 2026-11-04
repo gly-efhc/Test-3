@@ -1,3 +1,4 @@
+import {localPagesBase} from './pages-base.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {createRequire} from 'node:module';
@@ -12,8 +13,8 @@ import {expectedSelectionOrder} from './progress-order.mjs';
 const require=createRequire(process.env.EFHC_BROWSER_TOOLS||import.meta.url);
 const {chromium}=require('playwright-core');
 const canon=JSON.parse(await fs.readFile(new URL('./v866-contract.json',import.meta.url)));
-const base=process.env.EFHC_REACT_URL||'http://127.0.0.1:19240/Test-3/';
-assert.match(base,/^http:\/\/127\.0\.0\.1:\d+\/Test-3\/$/);
+const base=localPagesBase();
+const basePath=new URL(base).pathname.replace(/\/$/,'');
 const browser=await chromium.launch({executablePath:process.env.CHROME_BIN||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
 const results=[];
 async function check(name,run,{width=390,height=844,telegram=false,settings={}}={}){
@@ -44,7 +45,7 @@ async function open(page,route=''){
  await page.waitForFunction(()=>!document.querySelector('.efhc-entry-splash:not([aria-hidden="true"]),.efhc-splash-breathe')||document.documentElement.dataset.efhcShell==='ready');
  await page.waitForTimeout(450);
 }
-const routePath=page=>page.evaluate(()=>location.pathname.replace(/^\/Test-3/,'').replace(/\/$/,'')||'/');
+const routePath=page=>page.evaluate(prefix=>location.pathname.slice(prefix.length).replace(/\/$/,'')||'/',basePath);
 try{
  await check('USER adaptive height, fixed navigation and unchanged panel tiles',async page=>{
   await verifyUserHeight(page,{open,artifacts:process.env.EFHC_PARITY_ARTIFACTS});
@@ -163,7 +164,7 @@ try{
   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).interface_variants);
   assert.equal(saved.PB,'PB-20');assert.equal(saved.RP,'RP-06');
   await page.reload();await page.waitForFunction(()=>document.querySelector('[data-interface-variant-group="RP"]')?.dataset.pb==='PB-06');
-  await page.locator('a[href="/Test-3/"],a[href="/Test-3"]').first().click();await page.waitForFunction(()=>document.querySelector('[data-interface-variant-group="PB"]')?.dataset.pb==='PB-22');
+  await page.locator(`a[href="${basePath}/"],a[href="${basePath}"]`).first().click();await page.waitForFunction(()=>document.querySelector('[data-interface-variant-group="PB"]')?.dataset.pb==='PB-22');
   await page.reload();await page.waitForFunction(()=>document.querySelector('[data-interface-variant-group="PB"]')?.dataset.pb==='PB-22');
  });
  for(const lang of ['en','ru','uk','de','fr','es','it','tr','pl','da','hi','id','sw','pt','ko','ja'])await check(`Energy uses rendered kWh casing in ${lang}`,async page=>{
@@ -320,14 +321,14 @@ try{
  await check('Android Back leaves a directly opened Admin child and then Admin',async page=>{
   await open(page,'admin/users/');
   await page.evaluate(()=>window.__EFHC_ANDROID_BACK__());
-  await page.waitForFunction(()=>location.pathname==='/Test-3/admin/');
+  await page.waitForFunction(prefix=>location.pathname===prefix+'/admin/',basePath);
   await page.evaluate(()=>window.__EFHC_ANDROID_BACK__());
-  await page.waitForFunction(()=>location.pathname==='/Test-3/' && !document.querySelector('[data-admin-visual-proof-route]'));
+  await page.waitForFunction(prefix=>location.pathname===prefix+'/' && !document.querySelector('[data-admin-visual-proof-route]'),basePath);
   await page.waitForSelector('.efhc-energy-stage');
  });
  await check('Telegram Android Back is connected on Admin',async page=>{
   await open(page,'admin/users/');await page.evaluate(()=>window.__efhcHostTest.back());
-  await page.waitForFunction(()=>location.pathname==='/Test-3/admin/');
+  await page.waitForFunction(prefix=>location.pathname===prefix+'/admin/',basePath);
  },{telegram:true});
  await check('Android Back at the app root closes the Telegram host',async page=>{
   await open(page);await page.evaluate(()=>window.__EFHC_ANDROID_BACK__());

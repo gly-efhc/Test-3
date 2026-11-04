@@ -5,9 +5,10 @@ import { join } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
 
 const url = process.argv[2];
-if (!/^http:\/\/127\.0\.0\.1:\d+\/Test-3\/$/.test(url || '')) {
+if (!/^http:\/\/127\.0\.0\.1:\d+\/[A-Za-z0-9_.-]+\/$/.test(url || '')) {
   throw new Error('Smoke needs exact local project Pages URL');
 }
+const basePath = new URL(url).pathname.slice(0,-1);
 const binary = process.env.CHROME_BIN;
 if (!binary || !existsSync(binary)) throw new Error('Chrome executable missing (fail closed)');
 const port = 19241;
@@ -105,8 +106,8 @@ async function inspect(path) {
     adminDemo:data.adminDemo, providerDemo:data.providerDemo};
   routeChecks.push({path, actualPath:data.path, mounted:data.root,
     energy:data.energy, balance:data.balance});
-  const count=(data.path.match(/\/Test-3/g)||[]).length;
-  if (count !== 1 || !data.path.startsWith('/Test-3/')) throw Error('RECURSIVE_BASEPATH_OR_REDIRECT: '+data.href);
+  const count=data.path.split('/').filter(part=>part===basePath.slice(1)).length;
+  if (count !== 1 || !data.path.startsWith(basePath+'/')) throw Error('RECURSIVE_BASEPATH_OR_REDIRECT: '+data.href);
   if (!data.root || !data.html) throw Error('REACT_MOUNT_MISSING: '+data.href);
   if (/Section not found|Internal Server Error/i.test(data.text)) throw Error('REACT_ROUTE_ERROR: '+data.text);
   if (path === '/') {
@@ -221,7 +222,7 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
   const navProbe=JSON.parse(navProbeReply.result.result.value);
   lastNavProbe=navProbe;
   if(!navProbe.found) throw Error('OWNER_NAV_PANELS_BUTTON_MISSING '+JSON.stringify(navProbe));
-  if(!/^\/Test-3\/panels\/?$/.test(navProbe.hrefPath||''))
+  if(![basePath+'/panels',basePath+'/panels/'].includes(navProbe.hrefPath||''))
     throw Error('OWNER_NAV_PANELS_HREF_MISMATCH '+JSON.stringify(navProbe));
   const clickPanels=await send('Runtime.evaluate',{expression:
     `(()=>{const anchor=document.querySelector('nav a[data-nav-key="nav.panels"]');
@@ -230,7 +231,7 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
     throw Error('OWNER_NAV_PANELS_CLICK_DISPATCH_FAILED '+JSON.stringify(navProbe));
   await sleep(2400);
   const pathAfterClick=await send('Runtime.evaluate',{expression:'location.pathname',returnByValue:true});
-  if(pathAfterClick.result.result.value!=='/Test-3/panels/')
+  if(pathAfterClick.result.result.value!==basePath+'/panels/')
     throw Error('OWNER_NAV_PANELS_CLICK_FAILED actual='+pathAfterClick.result.result.value+' '+JSON.stringify(navProbe));
   const bridge=await send('Runtime.evaluate',{expression:
     'typeof window.__EFHC_ANDROID_BACK__ === "function" && (window.__EFHC_ANDROID_BACK__(),true)',
@@ -238,7 +239,7 @@ await send('Page.enable');await send('Runtime.enable');await send('Network.enabl
   if(bridge.result.result.value!==true) throw Error('OWNER_ANDROID_BACK_BRIDGE_MISSING');
   await sleep(2000);
   const pathAfterBack=await send('Runtime.evaluate',{expression:'location.pathname',returnByValue:true});
-  if(pathAfterBack.result.result.value!=='/Test-3/')
+  if(pathAfterBack.result.result.value!==basePath+'/')
     throw Error('OWNER_ANDROID_BACK_NAVIGATION_FAILED '+pathAfterBack.result.result.value);
   console.log('PASS OWNER NAV AND BACK end-to-end');
   });

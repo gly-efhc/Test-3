@@ -16,10 +16,11 @@ module.exports = {
   output: 'export',
   basePath,
   assetPrefix: basePath,
+  env: { NEXT_PUBLIC_EFHC_BASE_PATH: basePath },
   trailingSlash: true,
   images: { unoptimized: true },
   typescript: { ignoreBuildErrors: false },
-  // Pages Router basePath guard: prevent repeated /Test-3/ hard redirects.
+  // Pages Router basePath guard: prevent repeated deployment-prefix hard redirects.
   // Next.js upstream #75477 / #80852; temporary DEMO build only.
   experimental: { cpus: 2, clientRouterFilter: false },
 };

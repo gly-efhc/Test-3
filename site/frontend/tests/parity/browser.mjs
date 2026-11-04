@@ -1,3 +1,4 @@
+import {localPagesBase} from './pages-base.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { createRequire } from 'node:module';
@@ -5,8 +6,8 @@ import { createRequire } from 'node:module';
 const require = createRequire(process.env.EFHC_BROWSER_TOOLS || import.meta.url);
 const { chromium } = require('playwright-core');
 const contract = JSON.parse(await fs.readFile(new URL('./v866-contract.json', import.meta.url)));
-const base = process.env.EFHC_REACT_URL || 'http://127.0.0.1:19240/Test-3/';
-assert.match(base, /^http:\/\/127\.0\.0\.1:\d+\/Test-3\/$/);
+const base=localPagesBase();
+const basePath=new URL(base).pathname.replace(/\/$/,'');
 const browser = await chromium.launch({executablePath:process.env.CHROME_BIN || '/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
 const failures=[];
 const results=[];

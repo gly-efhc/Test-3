@@ -1,10 +1,11 @@
+import {localPagesBase} from './pages-base.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createRequire} from 'node:module';
 const {chromium}=createRequire(process.env.EFHC_BROWSER_TOOLS||import.meta.url)('playwright-core');
-const base=process.env.EFHC_REACT_URL||'http://127.0.0.1:19240/Test-3/';
-assert.match(base,/^http:\/\/127\.0\.0\.1:\d+\/Test-3\/$/);
+const base=localPagesBase();
+const basePath=new URL(base).pathname.replace(/\/$/,'');
 const directory=process.env.EFHC_PARITY_ARTIFACTS||'/tmp/efhc-demo-functions';await fs.mkdir(directory,{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.CHROME_BIN||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
 const page=await browser.newPage({viewport:{width:390,height:844}}),results=[],failures=[],errors=[];
@@ -16,7 +17,7 @@ const state=()=>page.evaluate(k=>JSON.parse(localStorage.getItem(k)||'null'),key
 async function load(route=''){await page.goto(base+route);await page.waitForFunction(()=>window.__EFHC_DEMO_READ_ONLY__===true);await page.waitForFunction(()=>Boolean(document.querySelector('.efhc-game-header'))||Boolean(document.querySelector('[data-public-surface="browser-shop"]')));}
 async function check(name,run){try{await run();results.push({name,status:'PASS'});console.log('PASS',name);}catch(e){failures.push({name,error:e.message});console.error('FAIL',name,e.message);await page.screenshot({path:path.join(directory,`demo-fail-${failures.length}.png`),fullPage:true});}}
 try{
- await check('actual Pages bootstrap and shared 60-panel model',async()=>{await load();await page.waitForFunction(k=>JSON.parse(localStorage.getItem(k)||'null')?.server,key);assert.equal((await state()).accounts['0000657667'].panels.filter(p=>p.is_active).length,60);});
+ await check('actual Pages bootstrap and shared 60-panel model',async()=>{const canonical=page.waitForResponse(r=>r.url()===base+'demo/frozen-admin-1000-v866.json');await load();assert.equal((await canonical).status(),200,'canonical fixture must load under the deployment prefix');await page.waitForFunction(k=>JSON.parse(localStorage.getItem(k)||'null')?.server,key);assert.equal((await state()).accounts['0000657667'].panels.filter(p=>p.is_active).length,60);});
  await check('panel generated amount advances locally without business API polling',async()=>{
   await load('panels/portfolio/');await page.waitForSelector('[data-panel-card-field="generated-kwh"] .tabular-nums');
   const cell=page.locator('[data-panel-card-field="generated-kwh"] .tabular-nums').first(),before=await cell.innerText();await page.waitForTimeout(1400);assert.notEqual(await cell.innerText(),before);

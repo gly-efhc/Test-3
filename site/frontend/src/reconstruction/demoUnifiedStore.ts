@@ -1,3 +1,4 @@
+import {publicAssetPath} from "../lib/publicAssetPath";
 /** Public Pages ONLY: persistent sample accounting, NEVER an authenticated wallet or ledger.
  * Derived from frozen FRONTEND_v866.html, STANDALONE_GLOBAL_ID and standaloneAdminSeed.
  * The state is indexed by simulated Global ID, not Telegram provider ID.
@@ -251,11 +252,7 @@ async function bootstrapDemoDatabaseContents():Promise<void>{
     r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);
   });
   if(status){const current=readDemoState();await mirrorSelectedDemoAccount(db,current);lastMirroredGlobalId=current.selected_global_id;lastMirroredState=current;return;}
-  const pathname=window.location.pathname;
-  // Pages basePath must be derived from the original pathname BEFORE stripping the route.
-  // The former regex collapsed /Test-3/ to / and issued a false /demo/ 404.
-  const base=/^\/Test-3(?:\/|$)/.test(pathname)?"/Test-3":"";
-  const result=await fetch(`${base}/demo/frozen-admin-1000-v866.json`,{credentials:"omit"});
+  const result=await fetch(publicAssetPath("/demo/frozen-admin-1000-v866.json"),{credentials:"omit"});
   if(!result.ok)throw new Error(`DEMO_CANON_TABLES_HTTP_${result.status}`);
   const fixture=await result.json() as Record<string,unknown>;
   const account=readDemoAccount();

@@ -244,13 +244,13 @@ jobs:
           node --check "$RUNNER_TEMP/efhc-pages-tools/browser-smoke.mjs" 2>&1 \
             | tee "$LOG_DIR/browser-smoke-syntax.log"
           mkdir -p "$RUNNER_TEMP/efhc-pages-http"
-          ln -sfn "$RUNNER_TEMP/efhc-demo-build/out" "$RUNNER_TEMP/efhc-pages-http/Test-3"
+          ln -sfn "$RUNNER_TEMP/efhc-demo-build/out" "$RUNNER_TEMP/efhc-pages-http/${GITHUB_REPOSITORY#*/}"
           cd "$RUNNER_TEMP/efhc-pages-http"
           python3 -m http.server 19240 --bind 127.0.0.1 >"$LOG_DIR/local-http.log" 2>&1 &
           HTTP_PID=$!
           trap 'kill "$HTTP_PID" 2>/dev/null || true' EXIT
           node "$RUNNER_TEMP/efhc-pages-tools/browser-smoke.mjs" \
-            'http://127.0.0.1:19240/Test-3/' 2>&1 | tee "$LOG_DIR/browser-smoke.log"
+            "http://127.0.0.1:19240/${GITHUB_REPOSITORY#*/}/" 2>&1 | tee "$LOG_DIR/browser-smoke.log"
 
       - name: Summarize pre-deploy diagnostics, including failures
         if: always()
@@ -337,13 +337,13 @@ jobs:
           set -euo pipefail
           npm install --prefix "$RUNNER_TEMP/efhc-browser-tools" playwright-core@1.64.1 --ignore-scripts --no-audit --no-fund
           mkdir -p "$RUNNER_TEMP/efhc-parity-http"
-          ln -sfn "$RUNNER_TEMP/efhc-demo-build/out" "$RUNNER_TEMP/efhc-parity-http/Test-3"
+          ln -sfn "$RUNNER_TEMP/efhc-demo-build/out" "$RUNNER_TEMP/efhc-parity-http/${GITHUB_REPOSITORY#*/}"
           python3 -m http.server 19243 --bind 127.0.0.1 --directory "$RUNNER_TEMP/efhc-parity-http" > "$RUNNER_TEMP/efhc-parity-http.log" 2>&1 &
           server=$!
           trap 'kill "$server"' EXIT
-          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:19243/Test-3/ -o /dev/null && break || sleep 1; done
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:19243/${GITHUB_REPOSITORY#*/}/ -o /dev/null && break || sleep 1; done
           export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
-          export EFHC_REACT_URL=http://127.0.0.1:19243/Test-3/
+          export EFHC_REACT_URL=http://127.0.0.1:19243/${GITHUB_REPOSITORY#*/}/
           node site/frontend/tests/parity/demo-functions.mjs
           node site/frontend/tests/parity/browser.mjs
           node site/frontend/tests/parity/interactions.mjs

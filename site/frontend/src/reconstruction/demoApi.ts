@@ -1,3 +1,4 @@
+import {publicAssetPath} from "../lib/publicAssetPath";
 import {buildCatalog} from "./demoShopCatalog";
 import {demoServerRequest} from "./demoServer";
 import {DemoOperationError} from "./demoServerCore";
@@ -377,7 +378,7 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
  if(p==="/hub/links"&&readOnly)return (admin.hubLinks as Record<string,unknown>[]).filter(x=>x.is_active);
  if(p==="/hub/support-links"&&readOnly)return (admin.hubLinks as Record<string,unknown>[]).filter(x=>String(x.url||"").startsWith("https://")).map(x=>({id:String(x.id),title:x.title,subtitle:x.subtitle,url:x.url,open_mode:x.open_mode||"external_browser",icon_key:x.icon_key||"link"}));
  if(p==="/hub/efhc-handoff"&&method==="POST"||p==="/shopfront/access-key"&&method==="POST"){
-  return {redirect_url:`${window.location.origin}${/^\/Test-3(?:\/|$)/.test(window.location.pathname)?"/Test-3":""}/browser-shop/#token=demo:${a.global_id}`,expires_at:new Date(Date.now()+900000).toISOString(),transport:"external_url",mode:"signed_token"};
+  return {redirect_url:`${window.location.origin}${publicAssetPath("/browser-shop/")}#token=demo:${a.global_id}`,expires_at:new Date(Date.now()+900000).toISOString(),transport:"external_url",mode:"signed_token"};
  }
  if(p==="/hub/shop-truth"&&readOnly){const wallet=a.wallets.find(w=>w.is_primary&&w.is_active);return {handoff_configured:true,handoff_mode:"connected",wallet_linked:Boolean(wallet),wallet_sync_required:false,
   active_wallet_address:wallet?.wallet_address||null,bot_open_url:null,telegram_sync_url:null,wallet_sync_url:null,flow_truth:flowTruth(Boolean(wallet))};}

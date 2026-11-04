@@ -1,11 +1,12 @@
+import {localPagesBase} from './pages-base.mjs';
 import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {expectedSelectionOrder} from './progress-order.mjs';
 const require=createRequire(process.env.EFHC_BROWSER_TOOLS||import.meta.url),{chromium}=require('playwright-core');
 const canon=JSON.parse(await fs.readFile(new URL('./v866-contract.json',import.meta.url)));
-const base=process.env.EFHC_REACT_URL||'http://127.0.0.1:19240/Test-3/';
-assert.match(base,/^http:\/\/127\.0\.0\.1:\d+\/Test-3\/$/);
+const base=localPagesBase();
+const basePath=new URL(base).pathname.replace(/\/$/,'');
 const routes={BN:'',PB:'',PH:'panels/',PA:'panels/',PT:'panels/portfolio/',PC:'panels/portfolio/',XH:'exchange/',TG:'tasks/',RG:'referrals/',RP:'referrals/',KG:'ranks/',PM:'web-profile/',HI:'web-profile/?section=history',FQ:'faq/',WD:'withdraw/',ER:'404/',AM:'admin/'};
 const browser=await chromium.launch({executablePath:process.env.CHROME_BIN||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
 const results=[];

@@ -18,6 +18,8 @@ jobs:
     name: v866 contracts, build and rendered React
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      EFHC_DEMO_BASEPATH: /${{ github.event.repository.name }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -28,7 +30,7 @@ jobs:
           cache: npm
           cache-dependency-path: site/frontend/package-lock.json
       - name: Prepare actual React with Pages base path
-        run: python3 site/ci/pages-tools/prepare_pages.py --source site/frontend --target "$RUNNER_TEMP/efhc-parity-build" --base-path /Test-3
+        run: python3 site/ci/pages-tools/prepare_pages.py --source site/frontend --target "$RUNNER_TEMP/efhc-parity-build" --base-path "$EFHC_DEMO_BASEPATH"
       - name: Install locked dependencies and browser driver
         run: |
           cd "$RUNNER_TEMP/efhc-parity-build"
@@ -48,7 +50,6 @@ jobs:
           NEXT_PUBLIC_EFHC_E2E_DISABLE_TONCONNECT_RESTORE: '1'
           NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF: '1'
           NEXT_PUBLIC_EFHC_OBSERVABILITY_VISUAL_PROOF: '1'
-          EFHC_DEMO_BASEPATH: /Test-3
         run: |
           cd "$RUNNER_TEMP/efhc-parity-build"
           ./node_modules/.bin/next build --webpack
@@ -57,13 +58,14 @@ jobs:
           EFHC_BROWSER_TOOLS: ${{ runner.temp }}/efhc-browser-tools/package.json
           EFHC_PARITY_ARTIFACTS: ${{ runner.temp }}/efhc-parity-artifacts
         run: |
-          python3 site/ci/pages-tools/fix_pages_assets.py --directory "$RUNNER_TEMP/efhc-parity-build/out" --base-path /Test-3
+          python3 site/ci/pages-tools/fix_pages_assets.py --directory "$RUNNER_TEMP/efhc-parity-build/out" --base-path "$EFHC_DEMO_BASEPATH"
           mkdir -p "$RUNNER_TEMP/efhc-parity-http"
-          ln -s "$RUNNER_TEMP/efhc-parity-build/out" "$RUNNER_TEMP/efhc-parity-http/Test-3"
+          ln -s "$RUNNER_TEMP/efhc-parity-build/out" "$RUNNER_TEMP/efhc-parity-http$EFHC_DEMO_BASEPATH"
           python3 -m http.server 19240 --bind 127.0.0.1 --directory "$RUNNER_TEMP/efhc-parity-http" > "$RUNNER_TEMP/efhc-parity-http.log" 2>&1 &
           server=$!
           trap 'kill "$server"' EXIT
-          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:19240/Test-3/ -o /dev/null && break || sleep 1; done
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:19240${EFHC_DEMO_BASEPATH}/ -o /dev/null && break || sleep 1; done
+          export EFHC_REACT_URL="http://127.0.0.1:19240${EFHC_DEMO_BASEPATH}/"
           export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
           node site/frontend/tests/parity/demo-functions.mjs
           node site/frontend/tests/parity/browser.mjs

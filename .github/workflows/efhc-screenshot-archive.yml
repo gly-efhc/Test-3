@@ -59,7 +59,7 @@ jobs:
         id: capture
         shell: bash
         env:
-          SITE_URL: https://gly-efhc.github.io/Test-3/
+          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
           SCREENSHOT_DIR: efhc-screenshots
           SCREENSHOT_MODE: ${{ inputs.viewport }}
           WAIT_MS: ${{ inputs.wait_ms }}
@@ -73,14 +73,15 @@ jobs:
 
           const root = path.resolve('site/frontend/src/pages');
           const out = path.resolve(process.env.SCREENSHOT_DIR || 'efhc-screenshots');
-          const site = (process.env.SITE_URL || 'https://gly-efhc.github.io/Test-3/').replace(/\/?$/, '/');
+          const expectedSite = `https://${process.env.GITHUB_REPOSITORY_OWNER}.github.io/${process.env.GITHUB_REPOSITORY?.split('/')[1]}/`;
+          const site = (process.env.SITE_URL || expectedSite).replace(/\/?$/, '/');
           const mode = process.env.SCREENSHOT_MODE || 'both';
           const waitMs = Math.max(2500, Math.min(18000, Number(process.env.WAIT_MS || 7500)));
           const limit = Number(process.env.EFHC_SCREENSHOT_LIMIT || 0);
           const browser = process.env.CHROME_BIN;
           if (!browser || !fs.existsSync(browser)) throw Error('CHROME_BIN is not configured');
           if (!fs.existsSync(root)) throw Error('Pages source directory missing: ' + root);
-          if (!/^https:\/\/gly-efhc\.github\.io\/Test-3\/$/.test(site) && process.env.EFHC_LOCAL_TEST !== '1') {
+          if (site !== expectedSite && process.env.EFHC_LOCAL_TEST !== '1') {
             throw Error('Unexpected public site URL: ' + site);
           }
           fs.mkdirSync(out, {recursive:true});
@@ -307,7 +308,7 @@ jobs:
               const inspect=await evalJs(`JSON.stringify({href:location.href,pathname:location.pathname,title:document.title,hasRoot:!!document.getElementById('__next'),text:(document.body?.innerText||'').trim().slice(0,650),height:document.documentElement.scrollHeight,ready:document.readyState})`);
               const details=JSON.parse(inspect.result.value);
               Object.assign(record,{actual_url:details.href,title:details.title,text_sample:details.text.slice(0,250),document_height:details.height,root:details.hasRoot});
-              if(!details.pathname.startsWith('/Test-3/'))throw Error('Redirected outside /Test-3/: '+details.href);
+              if(!details.pathname.startsWith(new URL(site).pathname))throw Error('Redirected outside project Pages: '+details.href);
               if(target.kind!=='public-html' && !details.hasRoot)throw Error('React application root not found');
               if(!details.text)throw Error('Rendered page has no visible text');
               if(/This site can.t be reached|ERR_CONNECTION|Section not found|Application error: a client.side exception/i.test(details.text)) throw Error('Browser/app error page: '+details.text.slice(0,130));
@@ -455,7 +456,7 @@ jobs:
               article{background:#1d2027;border-radius:12px;padding:12px;min-width:0}
               img{width:100%;height:250px;object-fit:contain;object-position:top;background:#050607}
               p{overflow-wrap:anywhere;font-size:13px}a{color:#eee}</style>
-              <h1>EFHC Test-3 — screenshots</h1><p>Исходная публикация: https://gly-efhc.github.io/Test-3/</p><main>''' + ''.join(cards) + '</main></html>'
+              <h1>EFHC Test-3 — screenshots</h1><p>Исходная публикация: https://gly-efhc.github.io/efhc/</p><main>''' + ''.join(cards) + '</main></html>'
               (directory/'INDEX.html').write_text(gallery,encoding='utf-8')
           archive=pathlib.Path('EFHC_TEST3_SCREENSHOTS.zip')
           with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as z:

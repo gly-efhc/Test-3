@@ -1,8 +1,10 @@
+import {localPagesBase} from './pages-base.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {createRequire} from 'node:module';
 const require=createRequire(process.env.EFHC_BROWSER_TOOLS||import.meta.url),{chromium}=require('playwright-core');
-const base=process.env.EFHC_REACT_URL||'http://127.0.0.1:19240/Test-3/';assert.match(base,/^http:\/\/127\.0\.0\.1:\d+\/Test-3\/$/);
+const base=localPagesBase();
+const basePath=new URL(base).pathname.replace(/\/$/,'');
 const entries=await fs.readdir(new URL('../../src/pages/',import.meta.url),{recursive:true});
 const routes=entries.filter(p=>p.endsWith('.tsx')&&!p.startsWith('api/')&&!p.split('/').some(x=>x.startsWith('_'))).map(p=>p.replace(/\.tsx$/,'').replace(/(^|\/)index$/,'')).sort();
 const browser=await chromium.launch({executablePath:process.env.CHROME_BIN||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
@@ -20,7 +22,7 @@ try{
    const visibleText=await page.locator('body').innerText();
    assert.doesNotMatch(visibleText,/\bDEMO\b|Демо-просмотр|каноническ|каноничн|IndexedDB|Маршруты React/i,`temporary engineering copy on ${route}`);
    const links=await page.locator('a[href]').evaluateAll(nodes=>nodes.map(n=>({href:n.getAttribute('href'),disabled:n.getAttribute('aria-disabled')})));
-   for(const link of links)if(link.href.startsWith('/'))assert.ok(link.href.startsWith('/Test-3/')||link.href==='/Test-3',`unprefixed app link: ${route} ${link.href}`);
+   for(const link of links)if(link.href.startsWith('/'))assert.ok(link.href.startsWith(basePath+'/')||link.href===basePath,`unprefixed app link: ${route} ${link.href}`);
    results.push({route:'/'+route,status:'PASS',links:links.length});console.log('PASS route audit','/'+route,'links',links.length);
   }catch(e){results.push({route:'/'+route,status:'FAIL',error:e.message});console.error('FAIL route audit','/'+route,e.message)}
  }

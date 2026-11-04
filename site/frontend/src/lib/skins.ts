@@ -1,9 +1,9 @@
+import {appBasePath} from "./appBasePath";
 export function getShopSkinBgUrl(
   active_skin_id: number,
 ): string | null {
   if (!active_skin_id || active_skin_id <= 0) return null;
-  const base = typeof window !== "undefined" && /^\/Test-3(?:\/|$)/.test(window.location.pathname)
-    ? "/Test-3" : "";
+  const base = appBasePath();
   return `${base}/skins/${active_skin_id}.webp`;
 }
 
