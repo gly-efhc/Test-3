@@ -1,3 +1,4 @@
+import { isLocalDemoActive } from "../reconstruction/demoUnifiedStore";
 import { useCallback } from "react";
 import {
   useMutation,
@@ -51,7 +52,9 @@ export function useAdminLinkedTransport() {
       return await mutateAsync({
         path,
         method,
-        options,
+        options: isLocalDemoActive() && !options.idempotencyKey
+          ? {...options, idempotencyKey: globalThis.crypto.randomUUID()}
+          : options,
       }) as T;
     },
     [mutateAsync, queryClient],

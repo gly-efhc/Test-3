@@ -1,5 +1,5 @@
 import { publicRuntimeValue } from "../lib/public-runtime";
-import { isDemoPreviewEnabled } from "../reconstruction/demoUnifiedStore";
+import { isLocalDemoActive } from "../reconstruction/demoUnifiedStore";
 import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -162,7 +162,7 @@ export function DepositModal(props: {
       return;
     }
     setError(null);
-    if (isDemoPreviewEnabled()) {
+    if (isLocalDemoActive()) {
       const startedAt = new Date().toISOString();
       try {
         const { demoApiRequest } = await import("../reconstruction/demoApi");
@@ -375,7 +375,7 @@ export function DepositModal(props: {
               data-direct-deposit-action="send-efhc-jetton"
               onClick={() => void sendDirectEfhcDeposit()}
             >
-              {isDemoPreviewEnabled() ? "Пополнить DEMO" : transactionPhase === "signing"
+              {isLocalDemoActive() ? "Пополнить DEMO" : transactionPhase === "signing"
                 ? t("wallet.transaction_signing")
                 : openDeposit.isPending
                   ? t("deposit.opening")

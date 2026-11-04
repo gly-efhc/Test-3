@@ -43,6 +43,7 @@ test('exchange and withdrawal use D8, preserve lifetime, conserve bank and repla
 });
 test('Admin DEMO changes require explicit demo role; real build cannot activate the adapter',async()=>{
  const h=demoRuntime();await assert.rejects(h.api('/admin/transfer','POST',{global_id:'0000657667',amount:'1',direction:'credit',balance:'main'},'a1'),e=>e.code==='DEMO_ADMIN_ROLE_REQUIRED');
+ const remote=demoRuntime({testMode:'neon'});await assert.rejects(remote.api('/sync/me','POST'),e=>e.code==='PREVIEW_DISABLED');
  const real=demoRuntime({preview:false});await assert.rejects(real.api('/admin/bank/balance','GET'),e=>e.code==='PREVIEW_DISABLED');
 });
 test('Admin transfer, target USER balance, report and journal are the same state',async()=>{
@@ -55,11 +56,11 @@ test('Admin transfer, target USER balance, report and journal are the same state
  assert.equal((await h.api('/admin/reports/overview','GET')).facts.bank_metrics_integrity_delta_efhc,'0.00000000');
 });
 test('Admin bank emergency actions preserve supply and reject user role',async()=>{
- const h=demoRuntime();h.store.setDemoRole('superadmin');await h.api('/sync/me','POST');
+ const h=demoRuntime();h.store.setDemoRole('superadmin');const initial=await h.api('/admin/reports/overview','GET');
  await h.api('/admin/bank/mint','POST',{amount:'5.00000000',reason:'DEMO test'},'mint1');
  await h.api('/admin/bank/mint','POST',{amount:'5.00000000',reason:'DEMO test'},'mint1');
  await h.api('/admin/bank/burn','POST',{amount:'2.00000000',reason:'DEMO test'},'burn1');
- const o=await h.api('/admin/reports/overview','GET');assert.equal(o.facts.bank_metrics_expected_supply_efhc,'5000003.00000000');assert.equal(o.facts.bank_metrics_integrity_delta_efhc,'0.00000000');
+ const o=await h.api('/admin/reports/overview','GET');assert.equal(h.store.d8(o.facts.bank_metrics_expected_supply_efhc)-h.store.d8(initial.facts.bank_metrics_expected_supply_efhc),h.store.d8('3'));assert.equal(o.facts.bank_metrics_integrity_delta_efhc,'0.00000000');
 });
 test('Admin HUB CRUD changes USER links and replays creation without duplicates',async()=>{
  const h=demoRuntime();h.store.setDemoRole('superadmin');const b={code:'demo_link',title:'Проверка',url:'https://example.com/',is_active:true};
@@ -97,17 +98,17 @@ test('Shop external DEMO payment transitions once and uses the same USER/Admin o
  const h=demoRuntime();await h.api('/sync/me','POST');const before=h.store.readDemoAccount().main_balance;
  const intent=await h.api('/shopfront/create-intent','POST',{sku:'EFHC_PACKAGE_10',pay_method:'TON',client_nonce:'shop1'});
  assert.equal(intent.tonconnect_tx,null);h.advance(11000);
- const status=await h.api(`/shopfront/intent-status?intent_id=${intent.intent_id}`,'GET');assert.equal(status.status,'PAID');
+ const status=await h.api(`/shopfront/intent-status?intent_id=${intent.intent_id}`,'GET');assert.equal(status.status,'CONFIRMED');
  await h.api(`/shopfront/intent-status?intent_id=${intent.intent_id}`,'GET');
  assert.equal(h.store.d8(h.store.readDemoAccount().main_balance)-h.store.d8(before),h.store.d8('10'));
- const profile=await h.api('/shopfront/profile','GET');assert.equal(profile.orders.find(r=>r.id===intent.order_id).status,'PAID');
+ const profile=await h.api('/shopfront/profile','GET');assert.equal(profile.orders.find(r=>r.id===intent.order_id).status,'FULFILLED');
  assert.equal((await h.api(`/admin/shop/order/${intent.order_id}`,'GET')).demo_fulfilled,true);
 });
 test('Shop VIP paid with EFHC debits main and does not create EFHC credit',async()=>{
  const h=demoRuntime();await h.api('/sync/me','POST');const before=h.store.readDemoAccount().main_balance;
- const result=await h.api('/shop/purchase-efhc','POST',{sku:'EFHC_VIP_NFT',quantity:1},'vip1');
+ const result=await h.api('/shop/purchase-efhc','POST',{sku:'EFHC_VIP_NFT_ANY',quantity:1},'vip1');
  assert.equal(h.store.d8(before)-h.store.d8(h.store.readDemoAccount().main_balance),h.store.d8('500'));
- await h.api('/shop/purchase-efhc','POST',{sku:'EFHC_VIP_NFT',quantity:1},'vip1');
+ await h.api('/shop/purchase-efhc','POST',{sku:'EFHC_VIP_NFT_ANY',quantity:1},'vip1');
  assert.equal((await h.api(`/admin/shop/order/${result.order_id}`,'GET')).status,'FULFILLED');
  await assert.rejects(h.api('/shop/purchase-efhc','POST',{sku:'EFHC_PACKAGE_100'},'bad'),e=>e.code==='ITEM_NOT_PURCHASABLE');
 });
@@ -135,7 +136,7 @@ test('empty/no-wallet/error scenarios and unsupported operations do not pretend 
  await assert.rejects(h.api('/panels/activate','POST',{},'p'),e=>e.code==='DEMO_EMPTY_NO_FUNDS');
  h.store.setDemoScenario('no_wallet');await assert.rejects(h.api('/withdraw/request','POST',{amount:'10'},'w'),e=>e.code==='WITHDRAW_WALLET_MISSING');
  h.store.setDemoScenario('error');await assert.rejects(h.api('/sync/me','POST'),e=>e.code==='SCENARIO_ERROR');
- h.store.setDemoScenario('filled');h.store.setDemoRole('superadmin');await assert.rejects(h.api('/admin/not-a-real-endpoint','POST',{},'x'),e=>e.code==='ADMIN_PUBLIC_DEMO_READ_ONLY');
+ h.store.setDemoScenario('filled');h.store.setDemoRole('superadmin');await assert.rejects(h.api('/admin/not-a-real-endpoint','POST',{},'x'),e=>e.status===501);
  await assert.rejects(h.api('/not-a-real-endpoint','GET'),e=>e.status===501);
 });
 test('D8 validation and persisted transaction failures leave no partial credit',async()=>{
@@ -144,4 +145,30 @@ test('D8 validation and persisted transaction failures leave no partial credit',
  assert.equal(h.store.readDemoAccount().main_balance,before);
  h.storage.set=()=>{throw Error('QuotaExceededError');};
  await assert.rejects(h.api('/demo/deposits','POST',{amount:'10'},'quota'),/QuotaExceededError/);assert.equal(h.store.readDemoAccount().main_balance,before);
+});
+
+test('every non-export Admin contract in the checked-in Workbench resolves to an explicit DEMO handler',async()=>{
+ const {readFileSync}=await import('node:fs');const catalog=readFileSync(new URL('../../src/lib/adminRouteCatalog.ts',import.meta.url),'utf8');
+ const rows=[...catalog.matchAll(/method: "([A-Z]+)", path: "([^"]+)"/g)];assert.ok(rows.length>=90);
+ const h=demoRuntime();h.store.setDemoRole('superadmin');await h.api('/sync/me','POST');
+ const a=h.store.readDemoAccount(),panel=a.panels[0].id;
+ const withdrawal=await h.api('/withdraw/request','POST',{amount:'10',wallet_id:1},'contract-w');
+ const seed=h.store.readDemoState().server;
+ const params={global_id:a.global_id,panel_id:panel,request_id:withdrawal.id,task_id:seed.tasks[0].id,code:'builtin',link_id:seed.hub[0].id,package_id:seed.packages[0].id,order_id:seed.orders[0].id,transfer_log_id:seed.audit[0].id,key:'demo-message',submission_id:'1',tx_hash:'DEMO-no-match'};
+ let tested=0;
+ for(const [,method,template]of rows){
+  if(template.includes('/logs/export.'))continue; // Binary formats are tested through the download UI.
+  const route=template.replace(/\{([^}]+)\}/g,(_,key)=>String(params[key]));
+  try{await h.api(route,method,{global_id:a.global_id,amount:'1',direction:'credit',balance:'main',reason:'DEMO',title:'DEMO',code:'demo-code'},'catalog-'+tested);}
+  catch(e){assert.notEqual(e.status,501,`${method} ${route}: ${e.code}`);assert.notEqual(e.code,'ADMIN_PUBLIC_DEMO_READ_ONLY',`${method} ${route}: missing handler`);assert.ok(e.status>=400&&e.status<500,`${method} ${route}: ${e.stack}`);}
+  tested++;
+ }
+ assert.equal(tested,rows.length-2);
+});
+test('domain reports are derived from changed balances, operations and panels',async()=>{
+ const h=demoRuntime();await h.api('/demo/deposits','POST',{amount:'12.125'},'report-d');
+ const deposits=await h.api('/admin/reports/deposits','GET');assert.equal(deposits.synthetic,true);assert.equal(deposits.snapshot.total_credited_in_range,'12.12500000');assert.equal(deposits.snapshot.auto_credited,1);
+ const panels=await h.api('/admin/reports/panels','GET');assert.equal(panels.snapshot.active_panels,60);assert.equal(panels.snapshot.archived_panels,60);
+ const bank=await h.api('/admin/reports/bank','GET');assert.equal(bank.snapshot.debit_events_in_range,1);assert.equal(bank.snapshot.debits_in_range,'12.12500000');
+ const summary=await h.api('/admin/observability/summary','GET');assert.equal(summary.metrics[0].value,'1');
 });

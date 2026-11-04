@@ -1,5 +1,5 @@
 import { publicRuntimeValue } from "../../lib/public-runtime";
-import { isDemoPreviewEnabled } from "../../reconstruction/demoUnifiedStore";
+import { isLocalDemoActive, readDemoAccount } from "../../reconstruction/demoUnifiedStore";
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { LayoutContext } from "../../components/Layout";
 import { useRouter } from "next/router";
@@ -335,7 +335,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
     sendTransaction,
     isUserRejected,
   } = useWalletProvider();
-  const [visualProof, setVisualProof] = useState(process.env.NEXT_PUBLIC_EFHC_OBSERVABILITY_VISUAL_PROOF === "1");
+  const [visualProof, setVisualProof] = useState(process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" && process.env.NEXT_PUBLIC_EFHC_OBSERVABILITY_VISUAL_PROOF === "1");
   const [token, setToken] = useState("");
   const [selectedSku, setSelectedSku] = useState("");
   const [globalMethod, setGlobalMethod] = useState<PayMethod>("TON");
@@ -397,7 +397,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
     if (typeof window === "undefined") return;
     const restoreContext = () => {
       const restored = readInitialContext();
-      setToken(restored.token);
+      setToken(isLocalDemoActive() ? `demo:${readDemoAccount().global_id}` : restored.token);
       setSelectedSku(restored.sku);
       setGlobalMethod(restored.method);
     };
@@ -407,7 +407,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
     window.addEventListener("hashchange", restoreContext);
     const proofWindow = window as Window & { __EFHC_PUBLIC_VISUAL_PROOF__?: boolean };
     const localHost = ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
-    if (proofWindow.__EFHC_PUBLIC_VISUAL_PROOF__ === true && navigator.webdriver === true && localHost) setVisualProof(true);
+    if (!isLocalDemoActive() && proofWindow.__EFHC_PUBLIC_VISUAL_PROOF__ === true && navigator.webdriver === true && localHost) setVisualProof(true);
     return () => window.removeEventListener("hashchange", restoreContext);
   }, []);
 
@@ -848,7 +848,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
     const { item, method } = selection;
     setSelectedSku(item.sku); rememberCheckout(token, item.sku, method);
     setLocalError(""); setLocalNotice(""); setWalletTxPhase("idle"); setEfhcVipPurchased(false); setConfirmedOrderId("");
-    if (isDemoPreviewEnabled()) {
+    if (isLocalDemoActive()) {
       try {
         if (method === "EFHC") {
           const result = await purchaseEfhc.mutateAsync({sku: item.sku, quantity: 1, idempotencyKey: newIdempotencyKey()});

@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useMemo, useState } from "react";
-import { isDemoPreviewEnabled } from "../../reconstruction/demoUnifiedStore";
+import { isLocalDemoActive } from "../../reconstruction/demoUnifiedStore";
 import type { GlobalId } from "../../types/identity";
 import { AdminPage } from "../../components/admin/AdminPage";
 import { AdminPanelsObligationsRuntime } from "../../components/admin/AdminPanelsObligationsRuntime";
@@ -272,7 +272,7 @@ export default function AdminPanelsPage() {
     const reason = window.prompt("Причина защитной деактивации", "Защитная ручная деактивация");
     if (!reason?.trim()) return;
     setOperationNotice("");
-    if (isDemoPreviewEnabled()) {
+    if (isLocalDemoActive()) {
       try {
         await adminApiRequest(`/admin/panels/${panel.id}/deactivate`, "POST", {body: {reason}, idempotencyKey: globalThis.crypto.randomUUID()});
         await searchPanels();
@@ -289,7 +289,7 @@ export default function AdminPanelsPage() {
     const reason = window.prompt("Причина повторной активации", "Повторная активация мёртвой Панели");
     if (!reason?.trim()) return;
     setOperationNotice("");
-    if (isDemoPreviewEnabled()) {
+    if (isLocalDemoActive()) {
       try {
         await adminApiRequest(`/admin/panels/${panel.id}/activate`, "POST", {body: {reason}, idempotencyKey: globalThis.crypto.randomUUID()});
         await searchPanels();

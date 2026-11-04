@@ -8,7 +8,7 @@ import {DemoOperationError} from "./demoServerCore";
 import canonical from "./demo-tables-v866.json";
 import admin from "./demo-admin-seed-v866.json";
 import {demoPanelsPage, demoPanelsSummary, demoMyRankWithTop, demoRankTopPage, demoRankContext} from "./demoTables";
-import {DEMO_GLOBAL_ID, d8, formatD8, isDemoPreviewEnabled, readDemoAccount, readDemoState,
+import {DEMO_GLOBAL_ID, d8, formatD8, isLocalDemoActive, readDemoAccount, readDemoState,
   writeDemoAccount, demoLedgerMutation, demoIndexedHistoryPage, nextDemoId, demoAdminFixtureUsers, transactDemoState, seedAccount, type DemoAccountState} from "./demoUnifiedStore";
 
 export class PreviewApiError extends Error {
@@ -171,7 +171,7 @@ function demoHistoricBalanceEntry(row:Record<string,unknown>){
   created_at:String(row.created_at||row.occurred_at||new Date(Number(row.createdAt)||Date.now()).toISOString())};
 }
 export async function demoApiRequest(path:string,method:string,body:unknown=undefined,idempotencyKey?:string):Promise<unknown>{
- if(!isDemoPreviewEnabled())throw new PreviewApiError(403,"PREVIEW_DISABLED");
+ if(!isLocalDemoActive())throw new PreviewApiError(403,"PREVIEW_DISABLED");
  const route=new URL(path,"https://efhc.preview.invalid");
  const p=route.pathname.replace(/^\/api(?=\/)/,"");
  const q=route.searchParams,control=readDemoState();
@@ -195,9 +195,8 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
  }catch(error){if(error instanceof DemoOperationError)throw new PreviewApiError(error.status,error.code);throw error;}
  const a=readDemoAccount();const empty=control.scenario==="empty",now=stamp();
  const readOnly=method.toUpperCase()==="GET";
- // The public Admin surface is a visual/fixture preview. No browser-side Admin
- // role or unverified POST may mutate local ledgers or reach the real backend.
- if(p.startsWith("/admin/")&&!readOnly)throw new PreviewApiError(403,"ADMIN_PUBLIC_DEMO_READ_ONLY");
+ // Known Admin operations are handled by demoServer above. Unknown routes
+ // reach the final 501 below; there is no blanket ban on Admin changes.
  // Evidence-based, account-scoped Admin journal in PUBLIC DEMO only.
  // Never pretend to expose global operator logs or data from another Global ID;
  // origin is the same local ledger/history already shown in Profile.
@@ -372,7 +371,7 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
  if(p==="/hub/links"&&readOnly)return (admin.hubLinks as Record<string,unknown>[]).filter(x=>x.is_active);
  if(p==="/hub/support-links"&&readOnly)return (admin.hubLinks as Record<string,unknown>[]).filter(x=>String(x.url||"").startsWith("https://")).map(x=>({id:String(x.id),title:x.title,subtitle:x.subtitle,url:x.url,open_mode:x.open_mode||"external_browser",icon_key:x.icon_key||"link"}));
  if(p==="/hub/efhc-handoff"&&method==="POST"||p==="/shopfront/access-key"&&method==="POST"){
-  return {redirect_url:`${window.location.origin}/browser-shop/`,expires_at:new Date(Date.now()+900000).toISOString(),transport:"external_url",mode:"signed_token"};
+  return {redirect_url:`${window.location.origin}${/^\/Test-3(?:\/|$)/.test(window.location.pathname)?"/Test-3":""}/browser-shop/#token=demo:${a.global_id}`,expires_at:new Date(Date.now()+900000).toISOString(),transport:"external_url",mode:"signed_token"};
  }
  if(p==="/hub/shop-truth"&&readOnly){const wallet=a.wallets.find(w=>w.is_primary&&w.is_active);return {handoff_configured:true,handoff_mode:"connected",wallet_linked:Boolean(wallet),wallet_sync_required:false,
   active_wallet_address:wallet?.wallet_address||null,bot_open_url:null,telegram_sync_url:null,wallet_sync_url:null,flow_truth:flowTruth(Boolean(wallet))};}

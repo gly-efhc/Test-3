@@ -1,5 +1,5 @@
 import { publicRuntimeValue } from "../../lib/public-runtime";
-import { isDemoPreviewEnabled } from "../../reconstruction/demoUnifiedStore";
+import { isLocalDemoActive } from "../../reconstruction/demoUnifiedStore";
 import { useAdminLinkedTransport } from "../../queries/useAdminLinkedTransport";
 /* Compatibility marker: Refresh selected case */
 /* Compatibility marker: Repair consistency */
@@ -772,7 +772,7 @@ export default function AdminWithdrawalsPage() {
 
   async function payWithWallet(item: Withdrawal) {
     if (payingId === item.id) return;
-    if (isDemoPreviewEnabled()) {
+    if (isLocalDemoActive()) {
       setPayingId(item.id);
       try {
         await adminApiRequest(`/admin/withdrawals/${item.id}/approve`, "POST", {body: {reason: "DEMO payout"}, idempotencyKey: newIdk("demo-payout")});

@@ -10,7 +10,7 @@ import { getAdminThemePageMarker } from "../../lib/adminThemePageRegistry";
 import { navigateBackWithinApp, navigateHomeWithinApp } from "../../lib/appBackNavigation";
 import { ADMIN_REPORTS_OVERVIEW_PATH } from "../../lib/api/generated/adminSeams";
 import { useAdminLinkedTransport } from "../../queries/useAdminLinkedTransport";
-import { isDemoPreviewEnabled,readDemoState,setDemoRole,subscribeDemoState } from "../../reconstruction/demoUnifiedStore";
+import { isLocalDemoActive,readDemoState,setDemoRole,subscribeDemoState } from "../../reconstruction/demoUnifiedStore";
 
 export function AdminPage(
   props: React.PropsWithChildren<{
@@ -38,7 +38,7 @@ export function AdminPage(
 ) {
   const [demoRole,setLocalDemoRole]=React.useState<string|null>(null);
   React.useEffect(()=>{
-    if(!isDemoPreviewEnabled())return;
+    if(!isLocalDemoActive())return;
     const sync=()=>setLocalDemoRole(readDemoState().role);
     sync();return subscribeDemoState(sync);
   },[]);

@@ -1,6 +1,6 @@
 import canonical from './demo-tables-v866.json';
 import seed from './demo-admin-seed-v866.json';
-import {d8,formatD8,DEMO_GLOBAL_ID,seedAccount,type DemoControlState,type DemoAccountState} from './demoUnifiedStore';
+import {d8,formatD8,primaryDemoMainBalance,DEMO_CANON_BONUS_BALANCE,DEMO_GLOBAL_ID,seedAccount,type DemoControlState,type DemoAccountState} from './demoUnifiedStore';
 import type {DemoPanel,DemoRow,DemoServerState} from './demoServerModel';
 import {buildCatalog} from './demoShopCatalog';
 
@@ -25,8 +25,11 @@ export function account(state:DemoControlState,gid=state.selected_global_id):Dem
 export function ensureServer(state:DemoControlState,now=Date.now()):DemoServerState {
  if(state.server)return state.server;
  const circulation=Object.values(state.accounts).reduce((n,a)=>n+d8(a.main_balance)+d8(a.bonus_balance),0n);
+ // Opening DEMO supply includes both the frozen USER balances and the frozen
+ // bank reserve. Do not fabricate negative reserve to fit unrelated fixtures.
+ const openingSupply=d8(seed.bankBalance)+d8(primaryDemoMainBalance())+d8(DEMO_CANON_BONUS_BALANCE);
  state.server={version:1,started_at:new Date(now).toISOString(),as_of_utc:new Date(now).toISOString(),
-  bank_balance:formatD8(d8(seed.supplyInitial)-circulation),supply_initial:seed.supplyInitial,
+  bank_balance:formatD8(openingSupply-circulation),supply_initial:formatD8(openingSupply),
   minted:'0.00000000',burned:'0.00000000',audit:[],replays:{},
   tasks:structuredClone(seed.tasks),submissions:[],hub:structuredClone(seed.hubLinks),support:structuredClone(seed.hubLinks).filter(r=>String(r.url).startsWith('https://')).map(r=>({...r,open_mode:r.open_mode||'external_browser',icon_key:r.icon_key||'link'})),
   items:buildCatalog().map((r,i)=>({...r,id:String(7100+i),code:r.sku,is_active:true,active:true,price_ton:r.methods.TON?.price||'',price_usdt:r.methods.USDT?.price||'',price_efhc:(r.methods as Record<string,{price?:string}>).EFHC?.price||'',pay_currencies:Object.keys(r.methods)})),orders:structuredClone(seed.shopOrders),packages:structuredClone(seed.salePackages),deposits:[],
@@ -40,6 +43,7 @@ export function ensureServer(state:DemoControlState,now=Date.now()):DemoServerSt
 }
 export function ensurePanels(a:DemoAccountState,now=Date.now()):DemoPanel[] {
  if(a.panels)return a.panels;
+ if(a.global_id!==DEMO_GLOBAL_ID){a.panels=[];return a.panels;}
  const day=86400000,lifetime=180*day;
  a.panels=(['active','archive'] as const).flatMap(tab=>canonical.panels[tab].map((row,index)=>{
   const end=tab==='active'?now-(index+1)*day+lifetime:now-(index+1)*day;
@@ -76,7 +80,8 @@ export function transfer(state:DemoControlState,gid:string,value:bigint,directio
  requireDemo(value>0n,'AMOUNT_MUST_BE_POSITIVE');const a=account(state,gid),s=ensureServer(state);
  const key=balance==='main'?'main_balance':'bonus_balance',before=d8(a[key]);
  const next=direction==='credit'?before+value:before-value;requireDemo(next>=0n,'INSUFFICIENT_BALANCE',409);
- a[key]=formatD8(next);s.bank_balance=formatD8(d8(s.bank_balance)+(direction==='credit'?-value:value));
+ const bankAfter=d8(s.bank_balance)+(direction==='credit'?-value:value);requireDemo(bankAfter>=0n,'BANK_INSUFFICIENT_RESERVE',409);
+ a[key]=formatD8(next);s.bank_balance=formatD8(bankAfter);
  const row={id:++state.next_id,global_id:gid,amount_efhc:formatD8(value),direction,balance_type:balance,reason,created_at:new Date().toISOString()};
  a.ledger.unshift(row);s.audit.unshift({...row,bank_balance_after:s.bank_balance});return row;
 }

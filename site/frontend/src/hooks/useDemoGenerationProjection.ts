@@ -1,5 +1,5 @@
 import {useEffect,useRef,useState,useSyncExternalStore} from 'react';
-import {d8,formatD8,isDemoPreviewEnabled,readDemoState,subscribeDemoState} from '../reconstruction/demoUnifiedStore';
+import {d8,formatD8,isLocalDemoActive,readDemoState,subscribeDemoState} from '../reconstruction/demoUnifiedStore';
 import {BASE_RATE,VIP_RATE} from '../reconstruction/demoServerCore';
 
 const disabledSubscribe=()=>()=>{};
@@ -7,7 +7,7 @@ const empty=()=>null;
 /** Shared read-only projection of the same DEMO account. A local tick never
  * writes a balance, performs an API request or grants a real identity. */
 export function useDemoGenerationProjection(){
- const enabled=isDemoPreviewEnabled();
+ const enabled=isLocalDemoActive();
  const state=useSyncExternalStore(enabled?subscribeDemoState:disabledSubscribe,enabled?readDemoState:empty,empty);
  const [,tick]=useState(0);
  const anchor=useRef({iso:'',clientMs:0});

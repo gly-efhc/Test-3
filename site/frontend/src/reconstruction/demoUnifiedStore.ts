@@ -55,6 +55,10 @@ export function isDemoPreviewEnabled():boolean {
     && process.env.NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF === "1"
     && (window as Window & { __EFHC_DEMO_READ_ONLY__?:boolean }).__EFHC_DEMO_READ_ONLY__ === true;
 }
+/** A configured real TEST backend must never be shadowed by local simulation. */
+export function isLocalDemoActive():boolean {
+ return isDemoPreviewEnabled() && process.env.NEXT_PUBLIC_EFHC_TEST_MODE !== 'neon';
+}
 const zero="0.00000000";
 /** Frozen v866 header shows EFHCm + EFHCb. The task fixture separately owns the
  * 78 EFHCb sample; subtract it from the frozen header total instead of replacing
@@ -225,6 +229,7 @@ async function openDemoDatabase():Promise<IDBDatabase>{
 }
 let databaseBootstrap:Promise<void>|null=null;
 let lastMirroredGlobalId:string|null=null;
+let lastMirroredState:DemoControlState|null=null;
 let selectedMirror:Promise<void>|null=null;
 export async function bootstrapDemoIndexedDb():Promise<void>{
  if(!isDemoPreviewEnabled())return;
@@ -237,11 +242,11 @@ export async function bootstrapDemoIndexedDb():Promise<void>{
  await databaseBootstrap;
  // A subsequent Global ID selection must update the corresponding logical
  // stores without re-seeding the 27,500 historical transactions.
- if(lastMirroredGlobalId!==readDemoState().selected_global_id){
+ if(lastMirroredGlobalId!==readDemoState().selected_global_id||lastMirroredState!==readDemoState()){
   if(!selectedMirror){selectedMirror=(async()=>{
    const db=await openDemoDatabase();
    try {const state=readDemoState();await mirrorSelectedDemoAccount(db,state);
-    lastMirroredGlobalId=state.selected_global_id;
+    lastMirroredGlobalId=state.selected_global_id;lastMirroredState=state;
    } finally {db.close();}
   })().finally(()=>{selectedMirror=null;});}
   await selectedMirror;
@@ -254,7 +259,7 @@ async function bootstrapDemoDatabaseContents():Promise<void>{
     const tx=db.transaction("settings","readonly"),r=tx.objectStore("settings").get("canon_seed_complete");
     r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);
   });
-  if(status){const current=readDemoState();await mirrorSelectedDemoAccount(db,current);lastMirroredGlobalId=current.selected_global_id;return;}
+  if(status){const current=readDemoState();await mirrorSelectedDemoAccount(db,current);lastMirroredGlobalId=current.selected_global_id;lastMirroredState=current;return;}
   const pathname=window.location.pathname;
   // Pages basePath must be derived from the original pathname BEFORE stripping the route.
   // The former regex collapsed /Test-3/ to / and issued a false /demo/ 404.
@@ -301,7 +306,7 @@ async function bootstrapDemoDatabaseContents():Promise<void>{
   }
   const current=readDemoState();
   await mirrorSelectedDemoAccount(db,current);
-  lastMirroredGlobalId=current.selected_global_id;
+  lastMirroredGlobalId=current.selected_global_id;lastMirroredState=current;
   await new Promise<void>((resolve,reject)=>{
    const tx=db.transaction("settings","readwrite");
    tx.objectStore("settings").put({id:"canon_seed_complete",source_sha256:frozen.source_sha256,global_id:DEMO_GLOBAL_ID,rows:Object.fromEntries(Object.entries(seededTables).map(([name,rows])=>[name,rows.length]))});

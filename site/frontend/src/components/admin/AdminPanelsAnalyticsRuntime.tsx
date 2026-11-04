@@ -1,3 +1,4 @@
+import { isLocalDemoActive } from "../../reconstruction/demoUnifiedStore";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import {
@@ -130,7 +131,7 @@ export function AdminPanelsAnalyticsRuntime() {
       className="space-y-4"
       data-admin-panels-analytics="v174.32"
       data-admin-panels-analytics-source="admin-reports-panels"
-      data-admin-panels-analytics-synthetic="false"
+      data-admin-panels-analytics-synthetic={isLocalDemoActive()?"true":"false"}
     >
       <AdminFilterBar
         groups={[
@@ -145,7 +146,7 @@ export function AdminPanelsAnalyticsRuntime() {
         ]}
       >
         <AdminStatusBadge
-          label={loading ? "Обновление" : error ? "Ошибка данных" : "Реальные данные"}
+          label={loading ? "Обновление" : error ? "Ошибка данных" : isLocalDemoActive()?"Демо-данные":"Реальные данные"}
           tone={error ? "danger" : loading ? "warning" : "success"}
         />
       </AdminFilterBar>

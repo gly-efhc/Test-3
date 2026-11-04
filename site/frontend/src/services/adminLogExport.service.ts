@@ -3,7 +3,7 @@ import {
   ADMIN_LOGS_EXPORT_CSV_PATH,
   ADMIN_LOGS_EXPORT_XLSX_PATH,
 } from "../lib/api/generated/adminSeams";
-import { isDemoPreviewEnabled, readDemoState } from "../reconstruction/demoUnifiedStore";
+import { isLocalDemoActive, readDemoState } from "../reconstruction/demoUnifiedStore";
 import { buildJsonBlobFromTable, buildSimpleXlsx, downloadBlob } from "../lib/export/simpleXlsx";
 
 export type AdminLogExportScope = "bank" | "panels";
@@ -58,7 +58,7 @@ export async function downloadAdminLogExport(
   rows: AdminLogExportRows = "100000",
   globalId?: string | null,
 ): Promise<void> {
-  if (isDemoPreviewEnabled()) {
+  if (isLocalDemoActive()) {
     const selectedGlobalId = String(globalId || "").trim();
     if (selectedGlobalId && !/^\d{10}$/.test(selectedGlobalId)) throw new Error("admin_log_export_invalid_global_id");
     const {demoApiRequest} = await import("../reconstruction/demoApi");

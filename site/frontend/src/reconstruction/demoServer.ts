@@ -151,7 +151,7 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
   if((p==='/admin/bank/mint'||p==='/admin/bank/burn')&&method==='POST'){
    requireDemo(state.role==='superadmin','SUPERADMIN_REQUIRED',403);
    return replay(state,key||b.idempotency_key,`${p}:${JSON.stringify(b)}`,()=>{const value=amount(b.amount);requireDemo(String(b.reason||'').trim(),'REASON_REQUIRED');
-    const mint=p.endsWith('/mint');s.bank_balance=formatD8(d8(s.bank_balance)+(mint?value:-value));
+    const mint=p.endsWith('/mint');requireDemo(mint||d8(s.bank_balance)>=value,'BANK_INSUFFICIENT_RESERVE',409);s.bank_balance=formatD8(d8(s.bank_balance)+(mint?value:-value));
     const field=mint?'minted':'burned';s[field]=formatD8(d8(s[field])+value);s.audit.unshift({id:++state.next_id,reason:field,amount_efhc:formatD8(value),created_at:now});return {ok:true,bank_balance_after:s.bank_balance};});
   }
   if(p==='/admin/transfer'&&method==='POST')return replay(state,key,`${p}:${JSON.stringify(b)}`,()=>{
@@ -167,11 +167,11 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
    if(!suffix&&read){ensurePanels(target);return userRow(target);}
    if(suffix==='history'&&read)return {...pageRows(target.ledger.map(r=>({...r,id:String(r.id),source:'balance',kind:r.reason,occurred_at:r.created_at,status:'completed',amount_asset:r.amount_efhc,asset:r.balance_type==='bonus'?'EFHCb':'EFHCm'})),q,50),page_size:50};
    if(suffix==='panels/activate'&&method==='POST')return replay(state,key,`${p}:activate`,()=>({ok:true,panel:activatePanel(state,user[1]),server_now_utc:now}));
-   if((suffix==='vip'||suffix==='vip/check')&&!read){if(suffix==='vip')target.is_vip=b.is_vip??b.enabled??!target.is_vip;return {ok:true,user:userRow(target),is_vip:target.is_vip};}
+   if((suffix==='vip'||suffix==='vip/check')&&!read){if(suffix==='vip')target.is_vip=b.is_vip??b.enabled??!target.is_vip;return {ok:true,user:userRow(target),is_vip:target.is_vip!==false,global_id:target.global_id,state:'demo',has_admin_nft:target.is_vip!==false,message:'Демонстрационный статус VIP проверен. Внешний сервис не вызывался.',checked_at:now};}
    if(suffix==='active'&&!read){target.is_active=Boolean(b.is_active??b.active??b.enabled??!target.is_active);return {ok:true,user:userRow(target)};}
    if(suffix==='wallet/reset'&&!read){target.wallets=[];return {ok:true};}
   }
-  if(p==='/admin/users/vip/check-all'&&!read)return {ok:true,checked:Object.keys(state.accounts).length,changed:0};
+  if(p==='/admin/users/vip/check-all'&&!read)return {ok:true,checked:Object.keys(state.accounts).length,changed:0,message:'Демонстрационные статусы VIP проверены. Внешний сервис не вызывался.'};
   if(p==='/admin/panels'&&read){if(q.get('global_id'))ensurePanels(account(state,q.get('global_id')!));const rows=Object.values(state.accounts).flatMap(a=>a.panels?panelRows(a):[]).filter(r=>(!q.get('global_id')||r.global_id===q.get('global_id'))&&(q.get('contour')==='dead'?r.meta?.protectively_voided:!r.meta?.protectively_voided));return {ok:true,...pageRows(rows,q)};}
   const panel=/^\/admin\/panels\/(\d+)(?:\/(activate|deactivate))?$/.exec(p);
   if(panel){const found=Object.values(state.accounts).flatMap(x=>x.panels||[]).find(x=>x.id===panel[1]);requireDemo(found,'PANEL_NOT_FOUND',404);
@@ -228,9 +228,10 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
   if(p==='/shopfront/create-intent'&&method==='POST')return replay(state,key||b.client_nonce,`${a.global_id}:${p}:${JSON.stringify(b)}`,()=>{
    const item=s.items.find(r=>r.sku===b.sku||r.code===b.sku);requireDemo(item?.is_active,'ITEM_NOT_FOUND',404);
    const pay=String(b.pay_method||'TON').toUpperCase();requireDemo(['TON','USDT','EFHC'].includes(pay),'PAYMENT_METHOD_INVALID');
-   const price=String(item.methods?.[pay]?.price||'0');requireDemo(d8(price)>0n,'PAYMENT_METHOD_DISABLED',409);
+   const unitPrice=String(item.methods?.[pay]?.price||'0');requireDemo(d8(unitPrice)>0n,'PAYMENT_METHOD_DISABLED',409);
    const quantity=Number(b.quantity||1);requireDemo(Number.isSafeInteger(quantity)&&quantity>=1&&quantity<=1000,'QUANTITY_INVALID');
    const credits=b.custom_efhc_amount_d8||item.quantity_efhc||'100';amount(credits);
+   const price=item.sku==='EFHC_PACKAGE_CUSTOM'?formatD8(d8(unitPrice)*d8(credits)/100000000n):unitPrice;
    const row={id:String(++state.next_id),global_id:a.global_id,sku:item.sku,item_type:item.item_type,purpose:item.item_type,asset:pay,
     amount_asset_d8:formatD8(d8(price)*BigInt(quantity)),efhc_amount_d8:formatD8(d8(credits)*BigInt(quantity)),quantity_efhc:formatD8(d8(credits)*BigInt(quantity)),
     status:'PENDING',created_at:now,expires_at:new Date(Date.now()+900000).toISOString(),payload:`DEMO:${a.global_id}`,to_address:'DEMO_NO_EXTERNAL_TRANSFER',
@@ -241,7 +242,13 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
     memo:row.payload,to_wallet:row.to_address,tonconnect_tx:null,usdt_checkout_mode:'simulation',expires_at:row.expires_at};
   });
   if(p==='/shopfront/intent-status'&&read){const row=rowById(s.intents,String(q.get('intent_id')));requireDemo(row.global_id===a.global_id,'INTENT_OWNER_MISMATCH',403);
-   const age=Date.now()-Date.parse(row.created_at);if(age>=10000&&!row.demo_fulfilled&&!row.demo_payment_complete){if(String(row.item_type).includes('VIP')){row.status='PAID_PENDING_MANUAL';row.demo_payment_complete=true;}else{fulfilOrder(state,row);row.status='PAID';}Object.assign(rowById(s.orders,String(row.id)),row);}else if(age>=3000&&row.status==='PENDING')row.status='CONFIRMING';
+   const age=Date.now()-Date.parse(row.created_at);
+   if(age>=10000&&!row.demo_payment_complete){
+    const order=rowById(s.orders,String(row.id));
+    if(String(row.item_type).includes('VIP'))order.status='PAID_PENDING_MANUAL';else fulfilOrder(state,order);
+    row.demo_payment_complete=true;row.status='CONFIRMED';row.paid_at=now;
+    row.flow_truth={lifecycle_stage:'confirmed',product_state:'terminal_success',lifecycle_terminal:true,next_step:'orders',next_action:'view_order',return_path:'/browser-shop/orders',canonical_center:'browser_shop',message_key:'portal.browser_shop.status_completed',order_id:order.id,order_status:order.status};
+   }else if(age>=3000&&row.status==='PENDING')row.status='CONFIRMING';
    return row;
   }
   if(p==='/shop/purchase-efhc'&&method==='POST')return replay(state,key,`${a.global_id}:${p}:${JSON.stringify(b)}`,()=>{
