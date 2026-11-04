@@ -170,6 +170,12 @@ function demoHistoricBalanceEntry(row:Record<string,unknown>){
   reason:String(row.reason||row.type||"history"),
   created_at:String(row.created_at||row.occurred_at||new Date(Number(row.createdAt)||Date.now()).toISOString())};
 }
+function demoProfileHistoryEntry(row:Record<string,unknown>){
+ const b=demoHistoricBalanceEntry(row),asset=b.balance_type==='bonus'?'EFHCb':'EFHCm';
+ return {id:b.id,source:String(row.source||'balance'),kind:String(row.type||b.reason),
+  occurred_at:b.created_at,status:String(row.status||'completed'),direction:b.direction,
+  balance_type:b.balance_type,amount_efhc:b.amount_efhc,amount_asset:b.amount_efhc,asset,reason:b.reason};
+}
 export async function demoApiRequest(path:string,method:string,body:unknown=undefined,idempotencyKey?:string):Promise<unknown>{
  if(!isLocalDemoActive())throw new PreviewApiError(403,"PREVIEW_DISABLED");
  const route=new URL(path,"https://efhc.preview.invalid");
@@ -195,6 +201,13 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
  }catch(error){if(error instanceof DemoOperationError)throw new PreviewApiError(error.status,error.code);throw error;}
  const a=readDemoAccount();const empty=control.scenario==="empty",now=stamp();
  const readOnly=method.toUpperCase()==="GET";
+ const adminHistory=/^\/admin\/users\/(\d{10})\/history$/.exec(p);
+ if(adminHistory&&readOnly){
+  const target=readDemoState().accounts[adminHistory[1]];must(Boolean(target),'USER_NOT_FOUND',404);
+  const rows=await readDemoCombinedHistory(target,q,empty);
+  return {...rows,items:rows.items.map(demoProfileHistoryEntry),page_size:50};
+ }
+
  // Known Admin operations are handled by demoServer above. Unknown routes
  // reach the final 501 below; there is no blanket ban on Admin changes.
  // Evidence-based, account-scoped Admin journal in PUBLIC DEMO only.
@@ -358,14 +371,7 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
  }
  if(p==="/profile/history"&&readOnly){
   const rows=await readDemoCombinedHistory(a,q,empty);
-  return {...rows,items:rows.items.map(row=>{
-   const b=demoHistoricBalanceEntry(row);
-   const asset=b.balance_type==="bonus"?"EFHCb":"EFHCm";
-   return {id:b.id,source:String(row.source||"balance"),kind:String(row.type||b.reason),
-    occurred_at:b.created_at,status:String(row.status||"completed"),direction:b.direction,
-    balance_type:b.balance_type,amount_efhc:b.amount_efhc,amount_asset:b.amount_efhc,
-    asset,reason:b.reason};
-  }),page_size:50};
+  return {...rows,items:rows.items.map(demoProfileHistoryEntry),page_size:50};
  }
  if(p==="/auth/profile-photos"&&readOnly)return {items:[]};
  if(p==="/hub/links"&&readOnly)return (admin.hubLinks as Record<string,unknown>[]).filter(x=>x.is_active);

@@ -166,7 +166,7 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
   const user=/^\/admin\/users\/(\d{10})(?:\/(.*))?$/.exec(p);
   if(user){const target=account(state,user[1]),suffix=user[2]||'';
    if(!suffix&&read){ensurePanels(target);return userRow(target);}
-   if(suffix==='history'&&read)return {...pageRows(target.ledger.map(r=>({...r,id:String(r.id),source:'balance',kind:r.reason,occurred_at:r.created_at,status:'completed',amount_asset:r.amount_efhc,asset:r.balance_type==='bonus'?'EFHCb':'EFHCm'})),q,50),page_size:50};
+   if(suffix==='history'&&read)return undefined; // async shared IndexedDB + live ledger reader in demoApi
    if(suffix==='panels/activate'&&method==='POST')return replay(state,key,`${p}:activate`,()=>({ok:true,panel:activatePanel(state,user[1]),server_now_utc:now}));
    if((suffix==='vip'||suffix==='vip/check')&&!read){if(suffix==='vip')target.is_vip=b.is_vip??b.enabled??!target.is_vip;return {ok:true,user:userRow(target),is_vip:target.is_vip!==false,global_id:target.global_id,state:'demo',has_admin_nft:target.is_vip!==false,message:'Демонстрационный статус VIP проверен. Внешний сервис не вызывался.',checked_at:now};}
    if(suffix==='active'&&!read){target.is_active=Boolean(b.is_active??b.active??b.enabled??!target.is_active);return {ok:true,user:userRow(target)};}

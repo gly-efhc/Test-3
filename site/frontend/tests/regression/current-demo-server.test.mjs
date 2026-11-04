@@ -184,3 +184,12 @@ test('dead-panel reactivation preserves Panel ID, renews the term and pays once'
  await h.api(`/admin/panels/${panel.id}/activate`,'PATCH',{reason:'DEMO'},'same-id-revive');assert.equal(h.store.readDemoAccount().panels.length,count);
  assert.equal((Date.parse(next.item.expires_at)-Date.parse(next.item.activated_at))/86400000,180);
 });
+
+
+test('Admin and USER history share historical rows without changing the selected account',async()=>{
+ const h=demoRuntime({withIndexedDB:true});h.store.demoAdminFixtureUsers=async()=>[];
+ h.store.demoIndexedHistoryPage=async(gid,offset,limit)=>({items:offset?[]:[{id:'h1',global_id:gid,amount_efhc:'1.25000000',direction:'credit',balance_type:'bonus',reason:'task_bonus',created_at:'2026-10-30T12:00:00Z'}],total:1});
+ const user=await h.api('/profile/history?limit=20','GET');const admin=await h.api('/admin/users/0000657667/history?limit=20','GET');
+ assert.equal(user.items.length,1);assert.deepEqual(JSON.parse(JSON.stringify(admin.items)),JSON.parse(JSON.stringify(user.items)));
+ assert.equal(h.store.readDemoState().selected_global_id,'0000657667');
+});

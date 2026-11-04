@@ -1,12 +1,12 @@
 import fs from 'node:fs';import path from 'node:path';import vm from 'node:vm';import{createRequire}from'node:module';import{fileURLToPath}from'node:url';
 const require=createRequire(import.meta.url),ts=require('typescript'),root=fileURLToPath(new URL('../../src/',import.meta.url));
-export function demoRuntime({storage=new Map(),now=Date.parse('2026-11-04T00:00:00Z'),preview=true,testMode=''}={}){
+export function demoRuntime({storage=new Map(),now=Date.parse('2026-11-04T00:00:00Z'),preview=true,testMode='',withIndexedDB=false}={}){
  let clock=now;const modules=new Map();
  class ClockDate extends Date{constructor(...args){super(...(args.length?args:[clock]));}static now(){return clock;}}
  const window={__EFHC_DEMO_READ_ONLY__:true,location:{origin:'https://demo.invalid',pathname:'/Test-3/'},dispatchEvent(){},
   localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,String(v)),removeItem:k=>storage.delete(k)}};
  const context=vm.createContext({window,console,Date:ClockDate,URL,URLSearchParams,BigInt,structuredClone,setTimeout,clearTimeout,
-  Event:class{},process:{env:{NEXT_PUBLIC_EFHC_TEST_MODE:testMode,NEXT_PUBLIC_EFHC_PAGES_PREVIEW:preview?'1':'0',NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF:preview?'1':'0'}},
+  ...(withIndexedDB?{indexedDB:{}}:{}),Event:class{},process:{env:{NEXT_PUBLIC_EFHC_TEST_MODE:testMode,NEXT_PUBLIC_EFHC_PAGES_PREVIEW:preview?'1':'0',NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF:preview?'1':'0'}},
   fetch:()=>{throw Error('Unexpected network request in DEMO test');}});
  function load(filename){
   filename=path.resolve(filename);if(!path.extname(filename))filename+='.ts';
