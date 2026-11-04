@@ -10,12 +10,12 @@ import homeCanon from "./frozen-v866-home-fixture.json";
 import type { DemoServerState, DemoPanel } from "./demoServerModel";
 
 export const DEMO_GLOBAL_ID = "0000657667";
-export const DEMO_DB_NAME = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? "EFHC_REACT_DEMO_NEON_C27" : "EFHC_REACT_DEMO_CANON_V866";
+export const DEMO_DB_NAME = isNeonPagesDemo() ? "EFHC_REACT_DEMO_NEON_C27" : "EFHC_REACT_DEMO_CANON_V866";
 // Local simulated account-state format and IndexedDB physical schema are independent.
 // v3 repairs browsers where an early table reader created empty v2 stores.
 export const DEMO_SCHEMA_VERSION = 2;
 export const DEMO_DB_VERSION = 3;
-export const DEMO_STORAGE_KEY = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? "efhc:react:neon-c27:unified" : "efhc:react:unified-demo:v893";
+export const DEMO_STORAGE_KEY = isNeonPagesDemo() ? "efhc:react:neon-c27:unified" : "efhc:react:unified-demo:v893";
 export const DEMO_SCENARIOS = ["filled", "empty", "loading", "error", "no_wallet"] as const;
 export type DemoScenario = typeof DEMO_SCENARIOS[number];
 export type DemoRole = "user" | "admin" | "superadmin";
@@ -50,8 +50,8 @@ export type DemoControlState = {
   server?:DemoServerState;
 };
 
-import {isDemoPreviewEnabled,isLocalDemoActive} from "./demoPreviewGate";
-export {isDemoPreviewEnabled,isLocalDemoActive} from "./demoPreviewGate";
+import {isDemoPreviewEnabled,isLocalDemoActive,isNeonPagesDemo} from "./demoPreviewGate";
+export {isDemoPreviewEnabled,isLocalDemoActive,isNeonPagesDemo} from "./demoPreviewGate";
 const zero="0.00000000";
 /** Frozen v866 header shows EFHCm + EFHCb. The task fixture separately owns the
  * 78 EFHCb sample; subtract it from the frozen header total instead of replacing
@@ -165,7 +165,7 @@ export function setDemoRole(role:DemoRole):void {
 }
 export function resetDemoDatabase():void {
  save(seedDemoState());
- if(process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW==="1"){
+ if(isNeonPagesDemo()){
   databaseBootstrap=null;
   void bootstrapDemoIndexedDb().catch(error=>{
    if(typeof window!=="undefined")window.dispatchEvent(new CustomEvent("efhc:neon:bootstrap-failed",{detail:String(error)}));
@@ -262,7 +262,7 @@ export async function bootstrapDemoIndexedDb():Promise<void>{
  }
 }
 async function bootstrapDemoDatabaseContents():Promise<void>{
- if(process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW==="1"){
+ if(isNeonPagesDemo()){
   const {bootstrapNeonDemoMirror}=await import("./neonDemoSeed");
   return bootstrapNeonDemoMirror();
  }
@@ -354,7 +354,7 @@ export function completeDemoAd():DemoAccountState {
 export async function demoTableRows(name:DemoTableName,globalId:string,limit=20):Promise<Record<string,unknown>[]> {
  if(!isDemoPreviewEnabled()||!DEMO_TABLE_NAMES.includes(name)||!/^[0-9]{10}$/.test(globalId))throw new Error("DEMO_TABLE_READ_DENIED");
  await bootstrapDemoIndexedDb();
- if(process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW==="1"){
+ if(isNeonPagesDemo()){
   const {getNeonDemoTableRows}=await import("./neonDemoDataApi");
   return getNeonDemoTableRows(name,globalId,limit);
  }
@@ -375,7 +375,7 @@ export async function demoIndexedHistoryPage(globalId:string,offset:number,limit
  if(!isDemoPreviewEnabled()||!/^[0-9]{10}$/.test(globalId)||!Number.isInteger(offset)||offset<0||!Number.isInteger(limit)||limit<1||limit>50)
   throw new Error("DEMO_HISTORY_ARGUMENT_INVALID");
  await bootstrapDemoIndexedDb();
- if(process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW==="1"){
+ if(isNeonPagesDemo()){
   const {getNeonAccountLedgerPage}=await import("./neonDemoDataApi");
   return getNeonAccountLedgerPage(globalId,offset,limit);
  }

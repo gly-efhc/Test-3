@@ -1,7 +1,7 @@
 /** Public Pages-only data laboratory — never authenticates an administrator or wallet. */
 import React,{useEffect,useState} from "react";
 import {useRouter} from "next/router";
-import {bootstrapDemoIndexedDb,DEMO_GLOBAL_ID,DEMO_TABLE_NAMES,readDemoAccount,readDemoState,
+import {bootstrapDemoIndexedDb,DEMO_GLOBAL_ID,DEMO_TABLE_NAMES,readDemoAccount,readDemoState,isNeonPagesDemo,
   selectDemoGlobalId,setDemoScenario,setDemoRole,resetDemoDatabase,demoTableCount,demoTableRows,demoLedgerMutation,
   isDemoPreviewEnabled,type DemoScenario,type DemoRole,type DemoControlState} from "../reconstruction/demoUnifiedStore";
 import {useQueryClient} from "@tanstack/react-query";
@@ -47,11 +47,15 @@ export default function DemoLabPage(){
   setLoading(true);setMessage("Загрузка данных…");
   try{
    await bootstrapDemoIndexedDb();
-   const {getNeonTableCounts}=await import("../reconstruction/neonDemoDataApi");
-   const live=await getNeonTableCounts();
    const result:Record<string,number>={};
-   for(const name of DEMO_TABLE_NAMES)result[name]=live[name]??0;
-   setCounts(result);setMessage("Таблицы загружены из EFHC_Nektron_Test.");
+   if(isNeonPagesDemo()){
+    const {getNeonTableCounts}=await import("../reconstruction/neonDemoDataApi");
+    const live=await getNeonTableCounts();
+    for(const name of DEMO_TABLE_NAMES)result[name]=live[name]??0;
+   }else{
+    for(const name of DEMO_TABLE_NAMES)result[name]=await demoTableCount(name);
+   }
+   setCounts(result);setMessage(isNeonPagesDemo()?"Таблицы загружены из EFHC_Nektron_Test.":"Данные из автономного проверочного набора.");
   }catch(err){setMessage(err instanceof Error?err.message:String(err));}finally{setLoading(false);}
  };
  // Automatically expose real counts on the Pages laboratory. The root App
