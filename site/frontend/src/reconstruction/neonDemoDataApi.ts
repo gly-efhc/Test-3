@@ -4,8 +4,8 @@ export type Bank={id:number;ok:boolean;ts:string;facts:Record<string,string>;cou
 export type Account={global_id:string;username:string|null;main_balance:string;bonus_balance:string;available_kwh:string;total_generated_kwh:string;exchanged_kwh_total:string;dataset:string};
 export type Panel={id:string;global_id:string;public_id:string;is_active:boolean;is_archived:boolean;generated_kwh:string;base_gen_per_sec:string;purchase_event_id:string|null;dataset:string};
 export type Ledger={id:string;global_id:string;created_at:string;reason:string;direction:string;amount:string;event_id:string|null;dataset:string};
-type View="bank_overview"|"accounts"|"panels"|"ledger"|"transfers_all"|"payment_intents"|"table_counts"|"catalog_rows";
-const allowed:readonly View[]=["bank_overview","accounts","panels","ledger","transfers_all","payment_intents","table_counts","catalog_rows"];
+type View="bank_overview"|"accounts"|"panels"|"ledger"|"transfers_all"|"payment_intents"|"table_counts"|"catalog_rows"|"bootstrap_snapshot";
+const allowed:readonly View[]=["bank_overview","accounts","panels","ledger","transfers_all","payment_intents","table_counts","catalog_rows","bootstrap_snapshot"];
 const root=new URL(NEON_DEMO_ENDPOINT);
 export function assertGlobalId(value:string):string{if(!/^\d{10}$/.test(value))throw new Error("NEON_GLOBAL_ID_MUST_BE_10_DIGITS");return value;}
 /** Neon Auth issues short-lived public anonymous JWTs, not database credentials. */
@@ -79,28 +79,21 @@ export type NeonSeedUser=Account&{is_active:boolean;is_vip:boolean;rank_position
 export type NeonSeedPanel=Panel&{created_at:string;activated_at:string|null;expires_at:string|null;archived_at:string|null;last_generated_at:string|null;title:string|null};
 export type NeonSeedIntent={id:string;global_id:string;purpose:string;asset:string;status:string;efhc_amount_d8:string;amount_asset_d8:string;created_at:string;expires_at:string|null;updated_at:string;dataset:string};
 export type NeonTableCount={table_name:string;rows_count:number};
-async function allPages<T>(table:View,count:number,select:string,order:string):Promise<T[]>{
- if(!Number.isSafeInteger(count)||count<0||count>100000)throw new Error("NEON_DEMO_BAD_SIZE");
- const offsets=Array.from({length:Math.ceil(count/100)},(_,i)=>i*100),result:T[]=[];
- for(let i=0;i<offsets.length;i+=5){
-  const pages=await Promise.all(offsets.slice(i,i+5).map(offset=>getRows<T>(table,{select,order,limit:"100",offset:String(offset)})));
-  for(const p of pages)result.push(...p);
- }
- if(result.length!==count)throw new Error("NEON_DEMO_INCOMPLETE_"+table);
- return result;
-}
+/** One consistent read replaces 60 sequential Data API pages. */
 export async function getNeonCoreSeed():Promise<{bank:Bank;users:NeonSeedUser[];panels:NeonSeedPanel[];intents:NeonSeedIntent[]}>{
- const bank=await getNeonBank();
- const nc=bank.counters.users_total,pc=bank.counters.panels_total;
- if(nc!==1000||pc!==4000||bank.facts.bank_metrics_integrity_ok!=="1")throw new Error("NEON_DEMO_C27_BASELINE_MISMATCH");
- const [users,panels,intents]=await Promise.all([
-  allPages<NeonSeedUser>("accounts",nc,"global_id,username,is_active,is_vip,main_balance,bonus_balance,available_kwh,total_generated_kwh,exchanged_kwh_total,rank_position,rank_score_kwh,created_at,updated_at,dataset","global_id.asc"),
-  allPages<NeonSeedPanel>("panels",pc,"id,global_id,public_id,is_active,is_archived,created_at,activated_at,expires_at,archived_at,last_generated_at,base_gen_per_sec,generated_kwh,title,purchase_event_id,dataset","id.asc"),
-  allPages<NeonSeedIntent>("payment_intents",nc,"id,global_id,purpose,asset,status,efhc_amount_d8,amount_asset_d8,created_at,expires_at,updated_at,dataset","id.asc")
- ]);
- if(users.some(x=>x.dataset!=="RECON_CYCLE_0027"||!/^\d{10}$/.test(x.global_id))||
-   panels.some(x=>x.dataset!=="RECON_CYCLE_0027")||
-   intents.some(x=>x.dataset!=="RECON_CYCLE_0027"))throw new Error("NEON_DEMO_DATASET_SCOPE_MISMATCH");
+ const rows=await getRows<{bank:Bank;users:NeonSeedUser[];panels:NeonSeedPanel[];intents:NeonSeedIntent[]}>(
+  "bootstrap_snapshot",{select:"bank,users,panels,intents",limit:"1"});
+ if(rows.length!==1)throw new Error("NEON_DEMO_BOOTSTRAP_NOT_UNIQUE");
+ const {bank,users,panels,intents}=rows[0];
+ if(!bank||bank.database_scope!=="EFHC_Nektron_Test"||bank.dataset!=="RECON_CYCLE_0027"||
+    bank.facts?.bank_metrics_integrity_ok!=="1"||bank.counters?.users_total!==1000||
+    bank.counters?.panels_total!==4000||!Array.isArray(users)||!Array.isArray(panels)||
+    !Array.isArray(intents)||users.length!==1000||panels.length!==4000||intents.length!==1000)
+    throw new Error("NEON_DEMO_BOOTSTRAP_COUNT_OR_INTEGRITY_MISMATCH");
+ if(users.some(u=>u.dataset!=="RECON_CYCLE_0027"||!/^\d{10}$/.test(u.global_id))||
+    panels.some(p=>p.dataset!=="RECON_CYCLE_0027")||
+    intents.some(x=>x.dataset!=="RECON_CYCLE_0027"))
+    throw new Error("NEON_DEMO_DATASET_SCOPE_MISMATCH");
  return {bank,users,panels,intents};
 }
 export async function getNeonTableCounts():Promise<Record<string,number>>{
