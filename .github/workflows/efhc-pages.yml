@@ -186,12 +186,16 @@ jobs:
         run: |
           set -euo pipefail
           python3 - <<'PY'
-          import json, urllib.request
+          import json, urllib.request, urllib.error
           root = "https://ep-fragrant-feather-zaribpm5.apirest.c-2.eu-west-2.aws.neon.tech/neondb/rest/v1"
           origin = "https://gly-efhc.github.io"
           def read(path):
               request = urllib.request.Request(root + path, headers={"Origin": origin, "Accept": "application/json"})
-              with urllib.request.urlopen(request, timeout=12) as response:
+              try:
+                  api_response = urllib.request.urlopen(request, timeout=12)
+              except urllib.error.HTTPError as exc:
+                  raise RuntimeError("NEON_DEMO_HTTP_" + str(exc.code) + ": " + exc.read(1400).decode("utf-8", "replace")) from exc
+              with api_response as response:
                   cors = response.headers.get("Access-Control-Allow-Origin")
                   if cors not in (origin, "*"):
                       raise RuntimeError("NEON_DEMO_CORS_NOT_ALLOWED: " + str(cors))
