@@ -181,6 +181,37 @@ jobs:
           npm run test:frontend-regression 2>&1 \
             | tee "$RUNNER_TEMP/efhc-pages-diagnostics/frontend-regression.log"
 
+      - name: Verify read-only Neon TEST Data API (fast)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, urllib.request
+          root = "https://ep-fragrant-feather-zaribpm5.apirest.c-2.eu-west-2.aws.neon.tech/neondb/rest/v1"
+          origin = "https://gly-efhc.github.io"
+          def read(path):
+              request = urllib.request.Request(root + path, headers={"Origin": origin, "Accept": "application/json"})
+              with urllib.request.urlopen(request, timeout=12) as response:
+                  cors = response.headers.get("Access-Control-Allow-Origin")
+                  if cors not in (origin, "*"):
+                      raise RuntimeError("NEON_DEMO_CORS_NOT_ALLOWED: " + str(cors))
+                  data = json.loads(response.read().decode("utf-8"))
+                  if not isinstance(data, list) or len(data) != 1:
+                      raise RuntimeError("NEON_DEMO_INVALID_ROWSET")
+                  return data[0]
+          bank = read("/bank_overview?select=database_scope,dataset,facts,counters&limit=1")
+          if bank.get("database_scope") != "EFHC_Nektron_Test" or bank.get("dataset") != "RECON_CYCLE_0027":
+              raise RuntimeError("NEON_DEMO_WRONG_DATABASE")
+          facts = bank.get("facts") or {}
+          counts = bank.get("counters") or {}
+          if facts.get("bank_metrics_integrity_ok") != "1" or counts.get("users_total") != 1000 or counts.get("panels_total") != 4000:
+              raise RuntimeError("NEON_DEMO_INTEGRITY_OR_COUNTS_MISMATCH")
+          account = read("/accounts?select=global_id,dataset&global_id=eq.0000657667&limit=1")
+          if account.get("global_id") != "0000657667" or account.get("dataset") != "RECON_CYCLE_0027":
+              raise RuntimeError("NEON_DEMO_ACCOUNT_ROUTING_MISMATCH")
+          print("EFHC_NEON_DEMO_DATA_API=PASS users=1000 panels=4000 CORS=PASS bank=PASS")
+          PY
+
       - name: Compile actual React/Next for Pages (no backend)
         id: compile
         shell: bash
