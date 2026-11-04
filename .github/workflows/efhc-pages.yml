@@ -125,6 +125,7 @@ jobs:
           set -euo pipefail
           cd "$RUNNER_TEMP/efhc-demo-build"
           npm run test:html-react-parity
+          node --test tests/regression/current-demo-server.test.mjs
           cd "$GITHUB_WORKSPACE"
           EFHC_FRONTEND_DEPENDENCIES="$RUNNER_TEMP/efhc-demo-build/package.json" node site/ci/parity/generate_shell.mjs --check
 
@@ -343,6 +344,7 @@ jobs:
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:19243/Test-3/ -o /dev/null && break || sleep 1; done
           export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
           export EFHC_REACT_URL=http://127.0.0.1:19243/Test-3/
+          node site/frontend/tests/parity/demo-functions.mjs
           node site/frontend/tests/parity/browser.mjs
           node site/frontend/tests/parity/interactions.mjs
           node site/frontend/tests/parity/templates.mjs
