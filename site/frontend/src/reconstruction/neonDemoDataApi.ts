@@ -4,8 +4,8 @@ export type Bank={id:number;ok:boolean;ts:string;facts:Record<string,string>;cou
 export type Account={global_id:string;username:string|null;main_balance:string;bonus_balance:string;available_kwh:string;total_generated_kwh:string;exchanged_kwh_total:string;dataset:string};
 export type Panel={id:string;global_id:string;public_id:string;is_active:boolean;is_archived:boolean;generated_kwh:string;base_gen_per_sec:string;purchase_event_id:string|null;dataset:string};
 export type Ledger={id:string;global_id:string;created_at:string;reason:string;direction:string;amount:string;event_id:string|null;dataset:string};
-type View="bank_overview"|"accounts"|"panels"|"ledger"|"transfers_all"|"payment_intents"|"table_counts"|"catalog_rows"|"bootstrap_snapshot";
-const allowed:readonly View[]=["bank_overview","accounts","panels","ledger","transfers_all","payment_intents","table_counts","catalog_rows","bootstrap_snapshot"];
+type View="bank_overview"|"accounts"|"panels"|"ledger"|"transfers_all"|"payment_intents"|"table_counts"|"catalog_rows"|"bootstrap_snapshot"|"economic_events";
+const allowed:readonly View[]=["bank_overview","accounts","panels","ledger","transfers_all","payment_intents","table_counts","catalog_rows","bootstrap_snapshot","economic_events"];
 const root=new URL(NEON_DEMO_ENDPOINT);
 export function assertGlobalId(value:string):string{if(!/^\d{10}$/.test(value))throw new Error("NEON_GLOBAL_ID_MUST_BE_10_DIGITS");return value;}
 /** Neon Auth issues short-lived public anonymous JWTs, not database credentials. */
@@ -40,7 +40,7 @@ async function getRows<T>(view:View,params:Record<string,string>):Promise<T[]>{
     root.pathname!=="/neondb/rest/v1")throw new Error("NEON_TEST_VIEW_DENIED");
   const url=new URL(NEON_DEMO_ENDPOINT+"/"+view);
   for(const [key,value] of Object.entries(params)){
-    if(!["select","global_id","limit","offset","order","table_name","system_entity"].includes(key))throw new Error("NEON_TEST_QUERY_DENIED");
+    if(!["select","global_id","limit","offset","order","table_name","system_entity","reason"].includes(key))throw new Error("NEON_TEST_QUERY_DENIED");
     url.searchParams.set(key,value);
   }
   const jwt=await neonAnonymousJwt();
@@ -114,6 +114,10 @@ export async function getNeonDemoTableRows(name:string,gid:string,limit=20):Prom
   return getRows<Record<string,unknown>>("ledger",{select:"*",global_id:id,order:"created_at.desc",limit:n});
  if(name==="bank_transfers")return getRows<Record<string,unknown>>("transfers_all",{select:"*",system_entity:"not.is.null",order:"id.desc",limit:n});
  if(name==="shop_intents")return getRows<Record<string,unknown>>("payment_intents",{select:"*",global_id:id,limit:n});
+ if(name==="exchanges"||name==="deposits")
+  return getRows<Record<string,unknown>>("economic_events",{
+    select:"*",global_id:id,reason:"eq."+(name==="exchanges"?"exchange_kwh":"efhc_external_deposit"),
+    order:"created_at.desc",limit:n});
  if(["hub_links","shop_items","task_catalog","settings","admin_roles"].includes(name)){
   const rows=await getRows<{item:Record<string,unknown>}>("catalog_rows",{
    select:"item",table_name:"eq."+name,order:"id.asc",limit:n});
