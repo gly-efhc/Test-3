@@ -1,16 +1,39 @@
-# Test-3 — старт работы с кодом и документами EFHC
+# START_HERE.md — начало работы с EFHC Test-3
 
-**ID:** `EFHC_TEST3_START`  
-**Статус:** `ACTIVE`  
-**Основание:** OWNER 02.11.2026, минимальная публичная навигация к private SSOT  
-**Раздел:** `START_HERE.md`  
-**Дата:** 2026-11-02
+**ID:** `EFHC_TEST3_START` · **Статус:** ACTIVE / PUBLIC-SAFE ENTRY · **Область:** исходники и CI Test-3 · **OWNER:** владелец проекта · **Редакция маршрутов:** 04.11.2026
 
-1. После [AGENTS.md](AGENTS.md) прочитать [KERNEL.md](KERNEL.md) **один раз** и [INDEX.md](INDEX.md).
-2. Зафиксировать реальный `gly-efhc/Test-3/main` SHA, task scope и `AUDIT_READ_ONLY` / `CODE_WRITE_APPROVED` / `RELEASE_DEPLOY_APPROVED`.
-3. Выбрать ветку: **документы → private archive**, **React/tests/CI → код + approved private canon**, **релиз → отдельный физический FULL/REPO по private release norm**.
-4. Для кодового изменения получить реальный аутентифицированный доступ к [private `gly-efhc/efhc_archive`](https://github.com/gly-efhc/efhc_archive). Следовать его `AGENTS → START_HERE → KERNEL` (one read) `→ INDEX → TERMS → DOCUMENT_MANAGEMENT_RULES → applicable CANON`; фиксировать archive SHA.
-5. OWNER утвердил **B**: `site/EFHC_APPLICATION_RULES.md` — публичный действующий документ ([private decision](https://github.com/gly-efhc/efhc_archive/blob/main/01_CANON/APP_RULES_OWNER_DECISION_B.md)). Отсутствие private доступа блокирует зависимые изменения кода; новые конфликты требуют OWNER, но вопрос A/B уже закрыт.
-6. Для React сверить [RECOVERY](site/RECOVERY.md), исходники `site/frontend/`, тесты `site/frontend/tests/`, `site/ci/` и workflows; не менять UI без точного задания.
-7. Выполнить только согласованный scope и фактические проверки; отдельно фиксировать browser, parity, CI, Pages и OWNER acceptance.
-8. Сохранить доказательства и краткий handoff с **двумя** Git SHA, состоянием reports/cycles и следующим разрешённым шагом. Запись в private archive — только по отдельному scope, без публичных копий.
+> Это публичный стартовый файл **репозитория кода**, не копия приватного Архива, не разрешение на изменение кода и не инструкция для иных проектов. Актуальность содержимого всегда проверяется по фактическому Git SHA, а не по дате этого файла.
+
+## 1. Обязательный вход — один раз на новый операционный контекст
+
+1. Сначала прочитать [AGENTS.md](AGENTS.md), затем этот `START_HERE.md`, [KERNEL.md](KERNEL.md) **один раз за контекст** и [INDEX.md](INDEX.md). Не запускать KERNEL как программу.
+2. Определить точный `gly-efhc/Test-3/main` commit SHA и кратко зафиксировать распоряжение OWNER, допустимые пути, режим `AUDIT_READ_ONLY`, `CODE_WRITE_APPROVED` либо `RELEASE_DEPLOY_APPROVED`.
+3. Если задача зависит от требований приложения, получить **фактический авторизованный** доступ к приватному [efhc_archive](https://github.com/gly-efhc/efhc_archive) **исключительно через GitHub-коннектор**, прочитать его `AGENTS.md → START_HERE.md → KERNEL.md` (один раз) `→ INDEX.md → 01_CANON/TERMS.md → 17_CONTROL/DOCUMENT_MANAGEMENT_RULES.md`, а затем только тематически необходимые CANON/SSOT/NORM. Зафиксировать `ARCHIVE_HEAD` независимо от `CODE_HEAD`.
+4. Без доступа к необходимому приватному канону не вносить зависящие от него изменения. Нельзя выдавать память, устаревший ZIP или публичную ссылку за проверенное содержимое private репозитория. Если OWNER предоставил утверждённый локальный ZIP, учитывать его как самостоятельный физический источник и отдельно устанавливать его связь с remote.
+5. Выбрать точный маршрут в [INDEX.md](INDEX.md); проверить реальный существующий файл, а не предполагать путь.
+
+## 2. Три независимых контура
+
+- **Публичный код и проверки:** `gly-efhc/Test-3`, `site/frontend/`, `site/ci/`, `.github/workflows/`; здесь хранится исполняемый source, нужные тесты, публично безопасные инструкции.
+- **Документальная власть OWNER:** приватный `gly-efhc/efhc_archive` и утверждённый OWNER физический локальный архив. CANON/SSOT/NORM, решения, подробные отчёты, приватные данные и исторические доказательства не зеркалируются в Test-3.
+- **Релизное доказательство:** отдельный проверенный архив/артефакт сборки с checksum, manifest и фактическим результатом CI. Наличие `site/RELEASE.json`, Pages или демонстрационного интерфейса само по себе не подтверждает production backend.
+
+## 3. Маршрут выполнения задачи
+
+**Документация:** определить `private/public` границу → менять только разрешённые публичные стартовые/технические файлы Test-3; содержательные CANON/REPORTS/CYCLES обновлять в приватном контуре только по отдельному поручению.
+
+**React/UI:** сверить [RECOVERY](site/RECOVERY.md), `site/frontend/src/`, `site/frontend/tests/`, `site/ci/`, защищённые OWNER-решения в private Архиве. Действующие визуальные приёмки, CT/PT/PH, темы, локализация, FAQ, Bottom Nav, Header, Wallet, TON и Admin не менять за пределами явного scope.
+
+**Backend / DEMO:** фиксировать отдельный backend-репозиторий и подтверждённый deployment. `Pages` — статический хостинг фронтенда; нельзя объявлять локальный DEMO настоящим серверным начислением/ledger.
+
+**CI/релиз:** проверить конкретные `.github/workflows/`, package scripts, CI verdict, physical artifact, точный SHA и условия публикации; deploy только с разрешением OWNER. Для браузерной проверки публичного UI применимы уполномоченные инструменты; для private Архива браузер запрещён.
+
+## 4. Минимальный контракт записи
+
+- Перед изменением: `CODE_HEAD`, `ARCHIVE_HEAD` (если необходим), существующий путь, действие OWNER, оценка конфликтов с параллельными агентами.
+- Изменять только согласованные файлы; не переписывать принятое ради «упрощения», не переносить private текст в public, не создавать фиктивные REPORTS/CYCLES.
+- Выполнить реально доступные тесты; `NOT_RUN` не приравнивать к PASS; не отключать failing gates ради зелёного статуса.
+- После записи: `git diff`/commit, перечитать удалённые файлы через GitHub-коннектор, сверить HEAD и доказательства. Если HEAD изменился в ходе операции — согласовать новый baseline, не делать force-push.
+- Краткий handoff: `scope | CODE_HEAD | ARCHIVE_HEAD | changed paths | tests PASS/FAIL/NOT_RUN | OWNER acceptance | open work`.
+
+**Куда далее:** [KERNEL.md](KERNEL.md) (при первом входе), затем [INDEX.md](INDEX.md). Внутренний Архив не заменяется этими публичными инструкциями.
