@@ -1,4 +1,5 @@
 import React, { FormEvent, useEffect, useMemo, useState } from "react";
+import { isDemoPreviewEnabled } from "../../reconstruction/demoUnifiedStore";
 import type { GlobalId } from "../../types/identity";
 import { AdminPage } from "../../components/admin/AdminPage";
 import { AdminPanelsObligationsRuntime } from "../../components/admin/AdminPanelsObligationsRuntime";
@@ -271,6 +272,14 @@ export default function AdminPanelsPage() {
     const reason = window.prompt("Причина защитной деактивации", "Защитная ручная деактивация");
     if (!reason?.trim()) return;
     setOperationNotice("");
+    if (isDemoPreviewEnabled()) {
+      try {
+        await adminApiRequest(`/admin/panels/${panel.id}/deactivate`, "POST", {body: {reason}, idempotencyKey: globalThis.crypto.randomUUID()});
+        await searchPanels();
+        setOperationNotice(`${panelPublicId(panel)}: защитная деактивация выполнена.`);
+      } catch (error) { setSearchError(adminSafeLoadError(error, t)); }
+      return;
+    }
     setSearchError(
       `${panelPublicId(panel)}: деактивация недоступна — сервис не принимает обязательную причину. Данные не изменены.`,
     );
@@ -280,6 +289,14 @@ export default function AdminPanelsPage() {
     const reason = window.prompt("Причина повторной активации", "Повторная активация мёртвой Панели");
     if (!reason?.trim()) return;
     setOperationNotice("");
+    if (isDemoPreviewEnabled()) {
+      try {
+        await adminApiRequest(`/admin/panels/${panel.id}/activate`, "POST", {body: {reason}, idempotencyKey: globalThis.crypto.randomUUID()});
+        await searchPanels();
+        setOperationNotice(`${panelPublicId(panel)}: новая активация выполнена.`);
+      } catch (error) { setSearchError(adminSafeLoadError(error, t)); }
+      return;
+    }
     setSearchError(
       `${panelPublicId(panel)}: повторная активация недоступна — сервис не принимает обязательную причину. Данные не изменены.`,
     );

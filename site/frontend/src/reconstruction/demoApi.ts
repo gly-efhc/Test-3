@@ -9,7 +9,7 @@ import canonical from "./demo-tables-v866.json";
 import admin from "./demo-admin-seed-v866.json";
 import {demoPanelsPage, demoPanelsSummary, demoMyRankWithTop, demoRankTopPage, demoRankContext} from "./demoTables";
 import {DEMO_GLOBAL_ID, d8, formatD8, isDemoPreviewEnabled, readDemoAccount, readDemoState,
-  writeDemoAccount, demoLedgerMutation, demoIndexedHistoryPage, nextDemoId, type DemoAccountState} from "./demoUnifiedStore";
+  writeDemoAccount, demoLedgerMutation, demoIndexedHistoryPage, nextDemoId, demoAdminFixtureUsers, transactDemoState, seedAccount, type DemoAccountState} from "./demoUnifiedStore";
 
 export class PreviewApiError extends Error {
   constructor(public readonly status:number,public readonly code:string){super(`DEMO_${code}`);this.name="PreviewApiError";}
@@ -137,9 +137,9 @@ function flowTruth(walletLinked:boolean){return {
  return_path:"/browser-shop",canonical_center:"browser_shop",next_step:walletLinked?"create_intent":"sync_wallet",
  blocker_codes:walletLinked?[]:["wallet_not_linked"],browser_shop_path:"/browser-shop",truth_label:"shop_hub_truth_layer"};
 }
-function shopProfile(a:DemoAccountState){return {global_id:a.global_id,wallets:a.wallets,orders:[],access_mode:"telegram_handoff",
+function shopProfile(a:DemoAccountState){const server=readDemoState().server;return {global_id:a.global_id,wallets:a.wallets,orders:(server?.orders||[]).filter(r=>r.global_id===a.global_id).map(r=>({...r,id:String(r.id),type:r.type||r.item_type||r.purpose||'EFHC_PACKAGE',sku:r.sku||r.item_code||'',quantity:Number(r.quantity||1),created_at:r.created_at||stamp(),updated_at:r.updated_at||r.created_at||stamp()})),access_mode:"telegram_handoff",
  profile_mode:"web_profile",bot_open_url:null,wallet_sync_url:null,telegram_sync_url:null,
- flow_truth:flowTruth(a.wallets.length>0),active_payment:null,intent_history:[],latest_withdraw_request_id:null,latest_withdraw_status:null,latest_withdraw_outcome:null};}
+ flow_truth:flowTruth(a.wallets.length>0),active_payment:server?.intents.find(r=>r.global_id===a.global_id)||null,intent_history:(server?.intents||[]).filter(r=>r.global_id===a.global_id),latest_withdraw_request_id:null,latest_withdraw_status:null,latest_withdraw_outcome:null};}
 
 /** Demo history is a VIEW of real frozen IndexedDB transactions + new local
  * browser-only ledger movements. It never creates transactions in Neon. */
@@ -177,6 +177,18 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
  const q=route.searchParams,control=readDemoState();
  if(control.scenario==="loading")await new Promise(resolve=>setTimeout(resolve,600));
  if(control.scenario==="error"&&!p.startsWith("/auth/"))throw new PreviewApiError(503,"SCENARIO_ERROR");
+ if(p.startsWith('/admin/')&&!readDemoState().server?.settings.fixture_users_loaded){
+  const rows=await demoAdminFixtureUsers();
+  if(rows.length)transactDemoState(state=>{
+   if(state.server?.settings.fixture_users_loaded)return;
+   for(const row of rows){const gid=String(row.global_id);if(state.accounts[gid])continue;
+    const a={...seedAccount(gid),...row,global_id:gid} as DemoAccountState;
+    state.accounts[gid]=a;
+    if(state.server)state.server.bank_balance=formatD8(d8(state.server.bank_balance)-d8(a.main_balance)-d8(a.bonus_balance));
+   }
+   if(state.server)state.server.settings.fixture_users_loaded=true;
+  });
+ }
  try{
   const result=demoServerRequest(p+route.search,method.toUpperCase(),body,idempotencyKey);
   if(result!==undefined)return result;

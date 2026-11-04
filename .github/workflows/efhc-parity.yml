@@ -37,7 +37,7 @@ jobs:
       - name: Check immutable HTML contracts and generated shared shell
         run: |
           cd "$RUNNER_TEMP/efhc-parity-build"
-          npm run test:html-react-parity
+          npm run test:frontend-regression
           cd "$GITHUB_WORKSPACE"
           EFHC_FRONTEND_DEPENDENCIES="$RUNNER_TEMP/efhc-parity-build/package.json" node site/ci/parity/generate_shell.mjs --check
       - name: Build React for the exact source revision
@@ -65,6 +65,7 @@ jobs:
           trap 'kill "$server"' EXIT
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:19240/Test-3/ -o /dev/null && break || sleep 1; done
           export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
+          node site/frontend/tests/parity/demo-functions.mjs
           node site/frontend/tests/parity/browser.mjs
           node site/frontend/tests/parity/interactions.mjs
           node site/frontend/tests/parity/templates.mjs

@@ -1,3 +1,4 @@
+import { isDemoPreviewEnabled } from "../../reconstruction/demoUnifiedStore";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import type { ApiRequestOptions, HttpMethod } from "../../lib/api";
@@ -132,7 +133,7 @@ export function AdminSystemHealthDashboardRuntime() {
       >
         <div className="mb-3 flex items-center justify-between gap-3 rounded-xl border px-3 py-2" data-admin-system-overall-summary data-admin-primitive="inset" data-owner-highlight="theme03-violet-v352">
           <span className="text-sm efhc-text-muted">Итог</span>
-          <strong>{overall}</strong>
+          <strong>{isDemoPreviewEnabled() ? "Демонстрация — локальные данные" : overall}</strong>
         </div>
         <div className="efhc-admin-system-health-cards space-y-2" data-admin-primitive="list" data-admin-system-card-layout="withdrawal-positions-v354">
           {rows.map((row) => (

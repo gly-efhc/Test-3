@@ -28,7 +28,7 @@ export function ensureServer(state:DemoControlState,now=Date.now()):DemoServerSt
  state.server={version:1,started_at:new Date(now).toISOString(),as_of_utc:new Date(now).toISOString(),
   bank_balance:formatD8(d8(seed.supplyInitial)-circulation),supply_initial:seed.supplyInitial,
   minted:'0.00000000',burned:'0.00000000',audit:[],replays:{},
-  tasks:structuredClone(seed.tasks),submissions:[],hub:structuredClone(seed.hubLinks),support:[],
+  tasks:structuredClone(seed.tasks),submissions:[],hub:structuredClone(seed.hubLinks),support:structuredClone(seed.hubLinks).filter(r=>String(r.url).startsWith('https://')).map(r=>({...r,open_mode:r.open_mode||'external_browser',icon_key:r.icon_key||'link'})),
   items:buildCatalog().map((r,i)=>({...r,id:String(7100+i),code:r.sku,is_active:true,active:true,price_ton:r.methods.TON?.price||'',price_usdt:r.methods.USDT?.price||'',price_efhc:(r.methods as Record<string,{price?:string}>).EFHC?.price||'',pay_currencies:Object.keys(r.methods)})),orders:structuredClone(seed.shopOrders),packages:structuredClone(seed.salePackages),deposits:[],
   providers:['builtin','adsgram','monetag','richads','tads','mybid'].map((code,i)=>({code,title:code==='builtin'?'Встроенный просмотр':code,
    enabled:code==='builtin',is_active:code==='builtin',priority:i+1,miniapp_enabled:true,bot_enabled:false,rewarded_enabled:true,
@@ -43,7 +43,7 @@ export function ensurePanels(a:DemoAccountState,now=Date.now()):DemoPanel[] {
  const day=86400000,lifetime=180*day;
  a.panels=(['active','archive'] as const).flatMap(tab=>canonical.panels[tab].map((row,index)=>{
   const end=tab==='active'?now-(index+1)*day+lifetime:now-(index+1)*day;
-  return {...row,id:String(row.id),public_id:row.public_id||`PNL-${String(row.id).padStart(9,'0')}`,
+  return {...row,id:a.global_id===DEMO_GLOBAL_ID?String(row.id):String(BigInt(a.global_id)*1000000n+BigInt(row.id)),public_id:row.public_id||`PNL-${String(row.id).padStart(9,'0')}`,
    global_id:a.global_id,activated_at:new Date(end-lifetime).toISOString(),created_at:new Date(end-lifetime).toISOString(),
    expires_at:new Date(end).toISOString(),archived_at:tab==='archive'?new Date(end).toISOString():null,
    last_generated_at:new Date(now).toISOString(),is_active:tab==='active',is_archived:tab==='archive',remainder:'0'};
@@ -60,7 +60,7 @@ export function newPanel(a:DemoAccountState,now:number,id:string):DemoPanel {
 export function settleGeneration(state:DemoControlState,now=Date.now()):void {
  ensureServer(state,now).as_of_utc=new Date(now).toISOString();
  for(const a of Object.values(state.accounts)){
-  const panels=ensurePanels(a,now);let delta=0n;
+  const panels=a.panels||(a.global_id===state.selected_global_id?ensurePanels(a,now):[]);let delta=0n;
   for(const p of panels){
    if(!p.is_active||p.meta?.protectively_voided)continue;
    const end=Math.min(now,Date.parse(p.expires_at)),elapsed=Math.max(0,Math.floor(end-Date.parse(p.last_generated_at)));
@@ -103,5 +103,5 @@ export function panelRows(a:DemoAccountState){return ensurePanels(a).map(p=>({..
  remaining_seconds:Math.max(0,Math.floor((Date.parse(p.expires_at)-Date.now())/1000)),state:p.meta?.protectively_voided?'dead':p.is_active?'active':'archive'}));}
 export function userRow(a:DemoAccountState){return {global_id:a.global_id,username:a.username||(a.global_id===DEMO_GLOBAL_ID?'efhc_player':`demo_${a.global_id}`),
  is_vip:a.is_vip!==false,is_active:a.is_active!==false,main_balance:a.main_balance,bonus_balance:a.bonus_balance,
- available_kwh:a.available_kwh,total_generated_kwh:a.total_generated_kwh,active_panels_count:ensurePanels(a).filter(p=>p.is_active&&!p.meta?.protectively_voided).length,
+ available_kwh:a.available_kwh,total_generated_kwh:a.total_generated_kwh,active_panels_count:(a.panels||[]).filter(p=>p.is_active&&!p.meta?.protectively_voided).length,
  ton_wallet:a.wallets.find(w=>w.is_primary)?.wallet_address||null,created_at:new Date().toISOString(),updated_at:new Date().toISOString()};}

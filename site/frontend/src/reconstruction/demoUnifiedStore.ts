@@ -125,10 +125,8 @@ function migrateUntouchedLegacyPrimary(state:DemoControlState):DemoControlState 
  return {...state,accounts:{...state.accounts,[DEMO_GLOBAL_ID]:{...old,main_balance:primaryDemoMainBalance()}}};
 }
 function save(state:DemoControlState):void {
+ if(typeof window!=="undefined")window.localStorage.setItem(DEMO_STORAGE_KEY,JSON.stringify(state));
  cache=state;
- if(typeof window!=="undefined"){
-  try{window.localStorage.setItem(DEMO_STORAGE_KEY,JSON.stringify(state));}catch{/* browser quota: keep in-memory state */}
- }
  emit();
 }
 /** Commit one complete local DEMO operation, including bank/history/replay.
@@ -150,7 +148,7 @@ export function writeDemoAccount(mutator:(a:DemoAccountState)=>DemoAccountState)
 }
 export function selectDemoGlobalId(value:string):void {
  if(!/^\d{10}$/.test(value))throw new Error("GLOBAL_ID_EXACT_10_REQUIRED");
- const state=readDemoState();save({...state,selected_global_id:value,accounts:{...state.accounts,[value]:state.accounts[value]||seedAccount(value)}});
+ transactDemoState(state=>{if(!state.accounts[value]){const next=seedAccount(value);state.accounts[value]=next;if(state.server)state.server.bank_balance=formatD8(d8(state.server.bank_balance)-d8(next.main_balance)-d8(next.bonus_balance));}state.selected_global_id=value;});
 }
 export function setDemoScenario(scenario:DemoScenario):void {
  if(!DEMO_SCENARIOS.includes(scenario))throw new Error("DEMO_SCENARIO_UNKNOWN");save({...readDemoState(),scenario});
@@ -379,4 +377,15 @@ export async function demoIndexedHistoryPage(globalId:string,offset:number,limit
   count.onerror=()=>reject(count.error||new Error("DEMO_HISTORY_COUNT_FAILED"));
   tx.onabort=()=>reject(tx.error||new Error("DEMO_HISTORY_ABORTED"));
  })}finally{db.close();}
+}
+
+/** Existing frozen Admin accounts, not a second invented fixture. */
+export async function demoAdminFixtureUsers():Promise<Record<string,unknown>[]> {
+ if(typeof indexedDB==='undefined')return [];
+ await bootstrapDemoIndexedDb();
+ const db=await openDemoDatabase();
+ try{return await new Promise((resolve,reject)=>{
+  const tx=db.transaction('admin_users','readonly'),r=tx.objectStore('admin_users').getAll(undefined,1000);
+  r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);
+ });}finally{db.close();}
 }

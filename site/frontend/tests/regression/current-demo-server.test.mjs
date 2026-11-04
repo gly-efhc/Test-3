@@ -47,7 +47,7 @@ test('Admin DEMO changes require explicit demo role; real build cannot activate 
 });
 test('Admin transfer, target USER balance, report and journal are the same state',async()=>{
  const h=demoRuntime();h.store.setDemoRole('superadmin');await h.api('/sync/me','POST');
- const before=h.store.readDemoAccount().main_balance;const body={global_id:'0000657667',direction:'credit',balance_type:'main',amount:'2.12345678',reason:'DEMO test'};
+ const before=h.store.readDemoAccount().main_balance;const body={global_id:'0000657667',direction:'credit',balance:'main',amount:'2.12345678',reason:'DEMO test'};
  const first=await h.api('/admin/transfer','POST',body,'transfer1');await h.api('/admin/transfer','POST',body,'transfer1');
  assert.equal(h.store.d8(h.store.readDemoAccount().main_balance)-h.store.d8(before),h.store.d8('2.12345678'));
  assert.equal((await h.api('/admin/users/0000657667','GET')).main_balance,h.store.readDemoAccount().main_balance);
@@ -69,9 +69,9 @@ test('Admin HUB CRUD changes USER links and replays creation without duplicates'
 });
 test('Admin task editor changes USER catalog and reward transaction',async()=>{
  const h=demoRuntime();h.store.setDemoRole('superadmin');const t=await h.api('/admin/tasks','POST',{code:'test_task',title:'Проверка',bonus_efhc:'0.12345678',kind:'social',is_active:true},'task1');
- const before=h.store.readDemoAccount().bonus_balance;await h.api('/tasks/claim','POST',{task_id:t.id});
+ const before=h.store.readDemoAccount().bonus_balance;await h.api('/tasks/claim','POST',{task_id:t.id},'claim1');
  assert.equal(h.store.d8(h.store.readDemoAccount().bonus_balance)-h.store.d8(before),h.store.d8('0.12345678'));
- await assert.rejects(h.api('/tasks/claim','POST',{task_id:t.id}),e=>e.code==='TASK_ALREADY_COMPLETED');
+ await assert.rejects(h.api('/tasks/claim','POST',{task_id:t.id},'claim2'),e=>e.code==='TASK_ALREADY_COMPLETED');
 });
 test('Admin withdrawal decisions update USER and rejection refunds exactly once',async()=>{
  const h=demoRuntime();h.store.setDemoRole('superadmin');const w=await h.api('/withdraw/request','POST',{amount:'10',wallet_id:1},'w1');
@@ -81,6 +81,67 @@ test('Admin withdrawal decisions update USER and rejection refunds exactly once'
 });
 test('DEMO roles, balances and replay keys remain scoped to selected account',async()=>{
  const h=demoRuntime();await h.api('/exchange/convert','POST',{amount_kwh:'1'},'same-key');const original=h.store.readDemoAccount().main_balance;
- h.store.selectDemoGlobalId('0000000002');const other=await h.api('/exchange/convert','POST',{amount_kwh:'1'},'same-key');assert.equal(other.credited_efhc,'1.00000000');
+ h.store.selectDemoGlobalId('0000000002');await h.api('/panels/activate','POST',{},'same-key');assert.equal(h.store.readDemoAccount().activated_panels,1);
  h.store.selectDemoGlobalId('0000657667');assert.equal(h.store.readDemoAccount().main_balance,original);
+});
+
+test('direct DEMO deposit updates USER, Admin inbox, D8 bank and balance history once',async()=>{
+ const h=demoRuntime();await h.api('/sync/me','POST');const before=h.store.readDemoAccount().main_balance;
+ await h.api('/demo/deposits','POST',{amount:'12.12345678'},'deposit1');await h.api('/demo/deposits','POST',{amount:'12.12345678'},'deposit1');
+ assert.equal(h.store.d8(h.store.readDemoAccount().main_balance)-h.store.d8(before),h.store.d8('12.12345678'));
+ assert.equal((await h.api('/admin/efhc-deposits/inbox','GET')).items.length,1);
+ assert.equal((await h.api('/wallets/balance-history','GET')).items[0].reason,'efhc_external_deposit');
+ assert.equal((await h.api('/admin/reports/overview','GET')).facts.bank_metrics_integrity_delta_efhc,'0.00000000');
+});
+test('Shop external DEMO payment transitions once and uses the same USER/Admin order',async()=>{
+ const h=demoRuntime();await h.api('/sync/me','POST');const before=h.store.readDemoAccount().main_balance;
+ const intent=await h.api('/shopfront/create-intent','POST',{sku:'EFHC_PACKAGE_10',pay_method:'TON',client_nonce:'shop1'});
+ assert.equal(intent.tonconnect_tx,null);h.advance(11000);
+ const status=await h.api(`/shopfront/intent-status?intent_id=${intent.intent_id}`,'GET');assert.equal(status.status,'PAID');
+ await h.api(`/shopfront/intent-status?intent_id=${intent.intent_id}`,'GET');
+ assert.equal(h.store.d8(h.store.readDemoAccount().main_balance)-h.store.d8(before),h.store.d8('10'));
+ const profile=await h.api('/shopfront/profile','GET');assert.equal(profile.orders.find(r=>r.id===intent.order_id).status,'PAID');
+ assert.equal((await h.api(`/admin/shop/order/${intent.order_id}`,'GET')).demo_fulfilled,true);
+});
+test('Shop VIP paid with EFHC debits main and does not create EFHC credit',async()=>{
+ const h=demoRuntime();await h.api('/sync/me','POST');const before=h.store.readDemoAccount().main_balance;
+ const result=await h.api('/shop/purchase-efhc','POST',{sku:'EFHC_VIP_NFT',quantity:1},'vip1');
+ assert.equal(h.store.d8(before)-h.store.d8(h.store.readDemoAccount().main_balance),h.store.d8('500'));
+ await h.api('/shop/purchase-efhc','POST',{sku:'EFHC_VIP_NFT',quantity:1},'vip1');
+ assert.equal((await h.api(`/admin/shop/order/${result.order_id}`,'GET')).status,'FULFILLED');
+ await assert.rejects(h.api('/shop/purchase-efhc','POST',{sku:'EFHC_PACKAGE_100'},'bad'),e=>e.code==='ITEM_NOT_PURCHASABLE');
+});
+test('DEMO ad reward requires a shown session and elapsed viewing time, pays once and updates Admin',async()=>{
+ const h=demoRuntime();await h.api('/sync/me','POST');const before=h.store.readDemoAccount().bonus_balance;
+ const session=await h.api('/ads/session','POST',{task_code:'demo_watch_builtin'});
+ await assert.rejects(h.api(`/ads/session/${session.session_id}/client-complete`,'POST',{payload:{completed:true}}),e=>e.code==='REWARD_NOT_ALLOWED');
+ await h.api(`/ads/session/${session.session_id}/shown`,'POST');h.advance(10000);
+ await h.api(`/ads/session/${session.session_id}/client-complete`,'POST',{payload:{completed:true}});
+ await h.api(`/ads/session/${session.session_id}/client-complete`,'POST',{payload:{completed:true}});
+ assert.equal(h.store.d8(h.store.readDemoAccount().bonus_balance)-h.store.d8(before),h.store.d8('0.01'));
+ assert.equal((await h.api('/admin/ads/dashboard','GET')).overall.completed_rewarded_views,1);
+});
+test('protective void, refund, USER exclusion and dead contour share one panel state',async()=>{
+ const h=demoRuntime();h.store.setDemoRole('superadmin');const created=await h.api('/panels/activate','POST',{},'p1');
+ h.advance(60000);await h.api('/sync/me','POST');
+ await h.api(`/admin/panels/${created.panel.id}/deactivate`,'POST',{reason:'Демонстрация'},'void1');
+ const count=h.store.readDemoAccount().panels.filter(p=>p.is_active).length;assert.equal(count,60);
+ assert.equal((await h.api('/admin/panels?contour=dead','GET')).items[0].id,created.panel.id);
+ const balance=h.store.readDemoAccount().main_balance;await h.api(`/admin/panels/${created.panel.id}/deactivate`,'POST',{reason:'Демонстрация'},'void1');assert.equal(h.store.readDemoAccount().main_balance,balance);
+ assert.equal((await h.api('/admin/reports/overview','GET')).facts.bank_metrics_integrity_delta_efhc,'0.00000000');
+});
+test('empty/no-wallet/error scenarios and unsupported operations do not pretend success',async()=>{
+ const h=demoRuntime();h.store.setDemoScenario('empty');const s=await h.api('/sync/me','POST');assert.equal(s.panels.active_count,0);assert.equal(s.exchange_preview.available_kwh,'0.00000000');
+ await assert.rejects(h.api('/panels/activate','POST',{},'p'),e=>e.code==='DEMO_EMPTY_NO_FUNDS');
+ h.store.setDemoScenario('no_wallet');await assert.rejects(h.api('/withdraw/request','POST',{amount:'10'},'w'),e=>e.code==='WITHDRAW_WALLET_MISSING');
+ h.store.setDemoScenario('error');await assert.rejects(h.api('/sync/me','POST'),e=>e.code==='SCENARIO_ERROR');
+ h.store.setDemoScenario('filled');h.store.setDemoRole('superadmin');await assert.rejects(h.api('/admin/not-a-real-endpoint','POST',{},'x'),e=>e.code==='ADMIN_PUBLIC_DEMO_READ_ONLY');
+ await assert.rejects(h.api('/not-a-real-endpoint','GET'),e=>e.status===501);
+});
+test('D8 validation and persisted transaction failures leave no partial credit',async()=>{
+ const h=demoRuntime();await h.api('/sync/me','POST');h.store.setDemoRole('superadmin');const before=h.store.readDemoAccount().main_balance;
+ for(const amount of ['1e8','0.000000001','-1','NaN','0'])await assert.rejects(h.api('/admin/transfer','POST',{global_id:'0000657667',amount,direction:'credit',balance:'main'},amount));
+ assert.equal(h.store.readDemoAccount().main_balance,before);
+ h.storage.set=()=>{throw Error('QuotaExceededError');};
+ await assert.rejects(h.api('/demo/deposits','POST',{amount:'10'},'quota'),/QuotaExceededError/);assert.equal(h.store.readDemoAccount().main_balance,before);
 });

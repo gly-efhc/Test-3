@@ -1,4 +1,5 @@
 import { publicRuntimeValue } from "../lib/public-runtime";
+import { isDemoPreviewEnabled } from "../reconstruction/demoUnifiedStore";
 import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -161,6 +162,21 @@ export function DepositModal(props: {
       return;
     }
     setError(null);
+    if (isDemoPreviewEnabled()) {
+      const startedAt = new Date().toISOString();
+      try {
+        const { demoApiRequest } = await import("../reconstruction/demoApi");
+        await demoApiRequest("/demo/deposits", "POST", { amount: creditAmount || amount }, globalThis.crypto.randomUUID());
+        setOpenedAt(startedAt);
+        setWalletOpened(true);
+        setTransactionPhase("signed");
+        await queryClient.invalidateQueries({ queryKey: queryKeys.snapshot.current(globalId) });
+      } catch {
+        setTransactionPhase("error");
+        setError(t("wallet.transaction_failed"));
+      }
+      return;
+    }
     try {
       await routePrimaryWalletExecution({
         wallets: walletsMe.data?.wallets,
@@ -359,7 +375,7 @@ export function DepositModal(props: {
               data-direct-deposit-action="send-efhc-jetton"
               onClick={() => void sendDirectEfhcDeposit()}
             >
-              {transactionPhase === "signing"
+              {isDemoPreviewEnabled() ? "Пополнить DEMO" : transactionPhase === "signing"
                 ? t("wallet.transaction_signing")
                 : openDeposit.isPending
                   ? t("deposit.opening")

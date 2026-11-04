@@ -48,6 +48,7 @@ export function usePanelsList(
         : Promise.resolve(demoPanelsPage(tab, pageParam, sortDirection)))
       : getPanelsPage({ tab, cursor: pageParam, signal }),
     getNextPageParam: (lastPage) => lastPage.next_cursor ?? undefined,
+    refetchOnMount: 'always',
   });
 }
 

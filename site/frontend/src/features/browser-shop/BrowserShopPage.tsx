@@ -1,4 +1,5 @@
 import { publicRuntimeValue } from "../../lib/public-runtime";
+import { isDemoPreviewEnabled } from "../../reconstruction/demoUnifiedStore";
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { LayoutContext } from "../../components/Layout";
 import { useRouter } from "next/router";
@@ -847,6 +848,22 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
     const { item, method } = selection;
     setSelectedSku(item.sku); rememberCheckout(token, item.sku, method);
     setLocalError(""); setLocalNotice(""); setWalletTxPhase("idle"); setEfhcVipPurchased(false); setConfirmedOrderId("");
+    if (isDemoPreviewEnabled()) {
+      try {
+        if (method === "EFHC") {
+          const result = await purchaseEfhc.mutateAsync({sku: item.sku, quantity: 1, idempotencyKey: newIdempotencyKey()});
+          setConfirmedOrderId(shopOrderIdFromUnknown(result));
+          setEfhcVipPurchased(true);
+        } else {
+          const result = await createIntent.mutateAsync({token, sku: item.sku, quantity: 1, pay_method: method,
+            custom_efhc_amount_d8: selection.customEfhcAmountD8 || null, client_nonce: globalThis.crypto.randomUUID()});
+          setActiveIntentId(result.intent_id); setCreatedExpiresAt(result.expires_at);
+        }
+        setCheckout(null);
+        setLocalNotice("Демонстрационная покупка. Реального перевода нет.");
+      } catch { setLocalError(t("portal.browser_shop.efhc_purchase_failed")); }
+      return;
+    }
     const vip = itemType(item) !== "EFHC_PACKAGE";
     if (vip && !token) { await linkWebAccount(selection); return; }
     if (vip && walletSyncRequired && linkedWalletChoices.length > 0) {

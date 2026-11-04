@@ -83,8 +83,8 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
     if (!isDemoPreview) return;
     const sync = () => {
       const account = readDemoAccount();
-      setDemoState(normalizeDemoTaskState({dayUTC:account.ad_date_utc,
-        completed:account.completed_tasks,adViews:account.ad_views}));
+      const next = normalizeDemoTaskState({dayUTC:account.ad_date_utc, completed:account.completed_tasks,adViews:account.ad_views});
+      setDemoState(previous => JSON.stringify(previous) === JSON.stringify(next) ? previous : next);
     };
     sync();
     const unsubscribe = subscribeDemoState(sync);
@@ -397,10 +397,9 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
               if (/^https:\/\//i.test(url)) window.open(url, "_blank", "noopener,noreferrer");
             }}>Открыть цель</Button>
           ) : null}
-          <Button onClick={() => {
+          <Button disabled={claimMutation.isPending} onClick={async () => {
             if (!demoTargetTask) return;
-            completeDemoTask(demoTargetTask.code);
-            setMessage("Задание выполнено.");
+            await claim(demoTargetTask);
             setDemoTargetTask(null);
           }}>Подтвердить</Button>
           <Button variant="secondary" onClick={() => setDemoTargetTask(null)}>Закрыть</Button>

@@ -1,3 +1,4 @@
+import { isDemoPreviewEnabled } from "../../reconstruction/demoUnifiedStore";
 import React, { useMemo, useState } from "react";
 
 import { AdminPage } from "../../components/admin/AdminPage";
@@ -61,7 +62,7 @@ export default function AdminApiWorkbenchPage() {
       return;
     }
     if (
-      selected.method === "PATCH"
+      !isDemoPreviewEnabled() && selected.method === "PATCH"
       && /^\/admin\/panels\/\d+\/(?:activate|deactivate)$/.test(pathValue)
     ) {
       setResult(
