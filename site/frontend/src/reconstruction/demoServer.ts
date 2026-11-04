@@ -1,3 +1,4 @@
+import {demoBankSnapshot} from "./demoBankSnapshot";
 import {demoDomainReport,demoObservability} from './demoServerReports';
 /** Stateful implementations of public DEMO operations. Only demoApi calls this
  * module after its compile-time/runtime isolation gates. No fetch or TON SDK. */
@@ -24,6 +25,7 @@ function overview(state:DemoControlState){
  const s=ensureServer(state),users=Object.values(state.accounts),panels=users.flatMap(a=>a.panels?panelRows(a):[]).filter(p=>!p.meta?.protectively_voided);
  const main=totals(users,'main_balance'),bonus=totals(users,'bonus_balance'),circulation=formatD8(d8(main)+d8(bonus));
  const expected=d8(s.supply_initial)+d8(s.minted)-d8(s.burned),actual=d8(s.bank_balance)+d8(circulation),delta=actual-expected;
+ const bank=demoBankSnapshot(state)!;
  const pct=(v:bigint)=>expected===0n?zero:formatD8(v*10000000000n/expected);
  const active=panels.filter(p=>p.is_active),archived=panels.filter(p=>!p.is_active);
  const facts:Record<string,string>={bank_metrics_ready:'1',bank_metrics_integrity_ok:delta===0n?'1':'0',
@@ -37,7 +39,8 @@ function overview(state:DemoControlState){
   panels_total_paid_efhc:formatD8(BigInt(panels.length)*d8('100')),panels_total_generated_kwh:totals(panels,'generated_kwh'),
   bank_balance:s.bank_balance,bank_metrics_main_efhc:main,bank_metrics_bonus_efhc:bonus,
   bank_metrics_main_pct:pct(d8(main)),bank_metrics_bonus_pct:pct(d8(bonus))};
- return {ok:true,ts:new Date().toISOString(),facts,counters:{users_total:users.length,users_active:users.filter(a=>a.is_active!==false).length,
+ Object.assign(facts,bank.facts);
+ return {ok:true,ts:bank.ts,facts,counters:{users_total:users.length,users_active:users.filter(a=>a.is_active!==false).length,
   users_vip:users.filter(a=>a.is_vip!==false).length,panels_total:panels.length,panels_active:active.length,
   withdrawals_pending:users.flatMap(a=>a.withdrawals).filter(r=>r.status==='pending').length,tasks_total:s.tasks.length,
   shop_orders_total:s.orders.length},notes:null};

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { AdminPage } from "../../components/admin/AdminPage";
 import { AdminSectionCard } from "../../components/admin/AdminSectionCard";
 import { Button } from "../../components/ui/Button";
 import { useT } from "../../hooks/useT";
-import { adminUiErrorMessage } from "../../lib/adminError";
+import { adminSafeLoadError, adminUiErrorMessage } from "../../lib/adminError";
 import { ADMIN_REPORTS_OVERVIEW_PATH } from "../../lib/api/generated/adminSeams";
 import { formatD8ToHuman, fromScaledBigint, toScaledBigintDown } from "../../lib/format";
 import { useAdminLinkedTransport } from "../../queries/useAdminLinkedTransport";
@@ -14,12 +14,10 @@ import {
   type AdminLogExportRows,
 } from "../../services/adminLogExport.service";
 
-type OverviewResponse = {
-  ok: boolean;
-  facts?: Record<string, string>;
-  ts?: string;
-  notes?: string | null;
-};
+import {requireBankSnapshot,type AdminBankSnapshot} from "../../lib/adminBankSnapshot";
+import {isLocalDemoActive} from "../../reconstruction/demoPreviewGate";
+
+type OverviewResponse = AdminBankSnapshot;
 
 type BankMapSeriesKey =
   | "reserve"
@@ -112,7 +110,11 @@ export default function AdminBankPage() {
   const [exportRows, setExportRows] = useState<AdminLogExportRows>("100000");
   const [msg, setMsg] = useState<string | null>(null);
 
-  const load = async () => {
+  const inFlight=useRef(false);
+  const alive=useRef(true);
+  const load = useCallback(async () => {
+    if(inFlight.current)return;
+    inFlight.current=true;
     setLoading(true);
     setMsg(null);
     try {
@@ -120,20 +122,16 @@ export default function AdminBankPage() {
         ADMIN_REPORTS_OVERVIEW_PATH,
         "GET",
       );
-      if (overviewRaw.facts?.bank_metrics_ready !== "1") {
-        throw new Error(
-          overviewRaw.notes ||
-            "bank_metrics_snapshot не готов. Примените SQL patch новой таблицы Банка.",
-        );
-      }
-      setOverview(overviewRaw);
+      const snapshot=requireBankSnapshot(overviewRaw);
+      if(!alive.current)return;
+      setOverview(snapshot);
     } catch (error: unknown) {
-      setOverview(null);
-      setMsg(adminUiErrorMessage(error, t));
+      if(alive.current){setOverview(null);setMsg(adminSafeLoadError(error,t));}
     } finally {
-      setLoading(false);
+      inFlight.current=false;
+      if(alive.current)setLoading(false);
     }
-  };
+  },[adminApiRequest,t]);
 
   async function exportBankLogs(format: AdminLogExportFormat) {
     if (exporting) return;
@@ -149,8 +147,41 @@ export default function AdminBankPage() {
   }
 
   useEffect(() => {
+    alive.current=true;
     void load();
-  }, []);
+    return()=>{alive.current=false;};
+  }, [load]);
+
+  useEffect(()=>{
+    if(!isLocalDemoActive())return;
+    let active=true,cleanup:undefined|(()=>void);
+    void import("../../reconstruction/demoUnifiedStore").then(store=>{
+      if(!active)return;
+      const sync=()=>{
+        // The first Admin read materializes the shared fixture before returning.
+        // Never publish an intermediate USER-only snapshot while it is in flight.
+        if(!active||inFlight.current)return;
+        const state=store.readDemoState();
+        if(state.scenario==='error'){
+          setOverview(null);setMsg(adminSafeLoadError(new Error('SCENARIO_ERROR'),t));return;
+        }
+        const snapshot=state.server?.bank_snapshot;
+        if(!snapshot){void load();return;}
+        try{setOverview(requireBankSnapshot(snapshot));setMsg(null);}
+        catch(error){setOverview(null);setMsg(adminSafeLoadError(error,t));}
+      };
+      const storage=(event:StorageEvent)=>{
+        if(event.key!==store.DEMO_STORAGE_KEY&&event.key!==null)return;
+        store.reloadDemoStateFromStorage();sync();
+      };
+      const focus=()=>{store.reloadDemoStateFromStorage();void load();};
+      const unsubscribe=store.subscribeDemoState(sync);
+      window.addEventListener('storage',storage);window.addEventListener('focus',focus);
+      cleanup=()=>{unsubscribe();window.removeEventListener('storage',storage);window.removeEventListener('focus',focus);};
+      sync();
+    });
+    return()=>{active=false;cleanup?.();};
+  },[load,t]);
 
   const facts = overview?.facts || {};
   const integrityReady = facts.bank_metrics_ready === "1";
@@ -259,7 +290,7 @@ export default function AdminBankPage() {
         </Button>
       }
     >
-      <div data-admin-bank-cycle="FRONTEND_v182_BANK_INTEGER_SNAPSHOT" />
+      <div data-admin-bank-cycle="FRONTEND_v182_BANK_INTEGER_SNAPSHOT" data-bank-state={loading ? "loading" : overview ? "ready" : "unavailable"} />
 
       {msg ? (
         <AdminSectionCard title="Не удалось обновить Банк" subtitle={msg}>
@@ -287,13 +318,13 @@ export default function AdminBankPage() {
           <div className="efhc-admin-bank-integrity-v153_columns">
             <div className="efhc-admin-bank-integrity-v153_side" data-side="reserve">
               <span>Резерв Банка</span>
-              <strong>{formatD8ToHuman(reserveRaw)} EFHC</strong>
-              <b>{percentTextFromSnapshot(reservePercentRaw, 2)}</b>
+              <strong>{integrityReady ? formatD8ToHuman(reserveRaw) : "—"} EFHC</strong>
+              <b>{integrityReady ? percentTextFromSnapshot(reservePercentRaw, 2) : "—"}</b>
             </div>
             <div className="efhc-admin-bank-integrity-v153_side" data-side="circulation">
               <span>В обороте</span>
-              <strong>{formatD8ToHuman(circulationRaw)} EFHC</strong>
-              <b>{percentTextFromSnapshot(circulationPercentRaw, 2)}</b>
+              <strong>{integrityReady ? formatD8ToHuman(circulationRaw) : "—"} EFHC</strong>
+              <b>{integrityReady ? percentTextFromSnapshot(circulationPercentRaw, 2) : "—"}</b>
               <small>EFHCm + EFHCb пользователей</small>
             </div>
           </div>
@@ -349,8 +380,8 @@ export default function AdminBankPage() {
                     <div className="efhc-admin-bank-map-v154_copy">
                       <strong>{row.label}</strong>
                       <span className="efhc-admin-bank-map-v179_amount">
-                        <em className="efhc-admin-bank-map-v179_amount-whole">{amount.whole}</em>
-                        <em className="efhc-admin-bank-map-v179_amount-fraction">{amount.fraction}</em>{" "}
+                        <em className="efhc-admin-bank-map-v179_amount-whole">{integrityReady ? amount.whole : "—"}</em>
+                        <em className="efhc-admin-bank-map-v179_amount-fraction">{integrityReady ? amount.fraction : ""}</em>{" "}
                         {row.unit}
                       </span>
                     </div>
@@ -358,7 +389,7 @@ export default function AdminBankPage() {
                       <div className="efhc-admin-bank-map-v154_track" aria-hidden="true">
                         <span style={{ width: percentWidthFromSnapshot(row.percent) }} />
                       </div>
-                      <b>{percentTextFromSnapshot(row.percent, 2)}</b>
+                      <b>{integrityReady ? percentTextFromSnapshot(row.percent, 2) : "—"}</b>
                     </div>
                   </div>
                 );

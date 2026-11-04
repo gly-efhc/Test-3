@@ -12,4 +12,5 @@ export type DemoServerState={
  tasks:DemoRow[];submissions:DemoRow[];hub:DemoRow[];support:DemoRow[];
  items:DemoRow[];orders:DemoRow[];packages:DemoRow[];deposits:DemoRow[];
  providers:DemoRow[];templates:DemoRow[];settings:DemoRow;intents:DemoRow[];
+ bank_snapshot?:{ok:boolean;facts:Record<string,string>;ts?:string;notes?:string|null};
 };

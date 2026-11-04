@@ -1,4 +1,5 @@
 import {publicAssetPath} from "../lib/publicAssetPath";
+import {demoBankSnapshot} from "./demoBankSnapshot";
 /** Public Pages ONLY: persistent sample accounting, NEVER an authenticated wallet or ledger.
  * Derived from frozen FRONTEND_v866.html, STANDALONE_GLOBAL_ID and standaloneAdminSeed.
  * The state is indexed by simulated Global ID, not Telegram provider ID.
@@ -121,9 +122,16 @@ function migrateUntouchedLegacyPrimary(state:DemoControlState):DemoControlState 
  return {...state,accounts:{...state.accounts,[DEMO_GLOBAL_ID]:{...old,main_balance:primaryDemoMainBalance()}}};
 }
 function save(state:DemoControlState):void {
+ const snapshot=demoBankSnapshot(state);
+ if(state.server&&snapshot)state={...state,server:{...state.server,bank_snapshot:snapshot}};
  if(typeof window!=="undefined")window.localStorage.setItem(DEMO_STORAGE_KEY,JSON.stringify(state));
  cache=state;
  emit();
+}
+/** Read a committed update received from another DEMO browser tab. */
+export function reloadDemoStateFromStorage():DemoControlState {
+ cache=null;
+ return readDemoState();
 }
 /** Commit one complete local DEMO operation, including bank/history/replay.
  * Throwing before save leaves the previous state intact. Never a server auth API. */
