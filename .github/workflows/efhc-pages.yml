@@ -189,8 +189,22 @@ jobs:
           import json, urllib.request, urllib.error
           root = "https://ep-fragrant-feather-zaribpm5.apirest.c-2.eu-west-2.aws.neon.tech/neondb/rest/v1"
           origin = "https://gly-efhc.github.io"
+          auth_root = "https://ep-fragrant-feather-zaribpm5.neonauth.c-2.eu-west-2.aws.neon.tech/neondb/auth"
+          auth_request = urllib.request.Request(auth_root + "/token/anonymous",
+              headers={"Origin": origin, "Accept": "application/json"})
+          try:
+              with urllib.request.urlopen(auth_request, timeout=12) as auth_response:
+                  auth_cors = auth_response.headers.get("Access-Control-Allow-Origin")
+                  if auth_cors not in (origin, "*"):
+                      raise RuntimeError("NEON_AUTH_CORS_DENIED: " + str(auth_cors))
+                  auth = json.loads(auth_response.read().decode("utf-8"))
+          except urllib.error.HTTPError as exc:
+              raise RuntimeError("NEON_AUTH_HTTP_" + str(exc.code) + ": " + exc.read(1400).decode("utf-8", "replace")) from exc
+          jwt = auth.get("token")
+          if not isinstance(jwt, str) or jwt.count(".") != 2:
+              raise RuntimeError("NEON_AUTH_ANONYMOUS_TOKEN_INVALID")
           def read(path):
-              request = urllib.request.Request(root + path, headers={"Origin": origin, "Accept": "application/json"})
+              request = urllib.request.Request(root + path, headers={"Origin": origin, "Accept": "application/json", "Authorization": "Bearer " + jwt})
               try:
                   api_response = urllib.request.urlopen(request, timeout=12)
               except urllib.error.HTTPError as exc:

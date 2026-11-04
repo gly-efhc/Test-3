@@ -8,6 +8,32 @@ type View="bank_overview"|"accounts"|"panels"|"ledger";
 const allowed:readonly View[]=["bank_overview","accounts","panels","ledger"];
 const root=new URL(NEON_DEMO_ENDPOINT);
 export function assertGlobalId(value:string):string{if(!/^\d{10}$/.test(value))throw new Error("NEON_GLOBAL_ID_MUST_BE_10_DIGITS");return value;}
+/** Neon Auth issues short-lived public anonymous JWTs, not database credentials. */
+const NEON_DEMO_AUTH="https://ep-fragrant-feather-zaribpm5.neonauth.c-2.eu-west-2.aws.neon.tech/neondb/auth";
+let anonymousJwt:{token:string,expires:number}|null=null;
+let pendingAnonymousJwt:Promise<string>|null=null;
+async function neonAnonymousJwt():Promise<string>{
+  if(anonymousJwt&&anonymousJwt.expires>Date.now()/1000+30)return anonymousJwt.token;
+  if(!pendingAnonymousJwt){
+    pendingAnonymousJwt=(async()=>{
+      const response=await fetch(NEON_DEMO_AUTH+"/token/anonymous",{
+        method:"GET",credentials:"omit",cache:"no-store",redirect:"error",headers:{"Accept":"application/json"}
+      });
+      if(!response.ok)throw new Error("NEON_TEST_AUTH_HTTP_"+response.status);
+      const body:unknown=await response.json();
+      if(!body||typeof body!=="object")throw new Error("NEON_TEST_AUTH_RESPONSE_INVALID");
+      const record=body as {token?:unknown,expires_at?:unknown};
+      if(typeof record.token!=="string"||record.token.split(".").length!==3||
+         typeof record.expires_at!=="number")
+        throw new Error("NEON_TEST_AUTH_TOKEN_INVALID");
+      const expires=record.expires_at>1000000000000?record.expires_at/1000:record.expires_at;
+      if(!Number.isFinite(expires)||expires<=Date.now()/1000+10)
+        throw new Error("NEON_TEST_AUTH_TOKEN_EXPIRED");
+      anonymousJwt={token:record.token,expires};return record.token;
+    })().finally(()=>{pendingAnonymousJwt=null;});
+  }
+  return pendingAnonymousJwt;
+}
 async function getRows<T>(view:View,params:Record<string,string>):Promise<T[]>{
   if(!allowed.includes(view)||root.protocol!=="https:"||root.username||root.password||root.search||root.hash||
     root.origin!=="https://ep-fragrant-feather-zaribpm5.apirest.c-2.eu-west-2.aws.neon.tech"||
@@ -17,7 +43,8 @@ async function getRows<T>(view:View,params:Record<string,string>):Promise<T[]>{
     if(!["select","global_id","limit","offset","order"].includes(key))throw new Error("NEON_TEST_QUERY_DENIED");
     url.searchParams.set(key,value);
   }
-  const response=await fetch(url.toString(),{method:"GET",credentials:"omit",cache:"no-store",redirect:"error",headers:{"Accept":"application/json"}});
+  const jwt=await neonAnonymousJwt();
+  const response=await fetch(url.toString(),{method:"GET",credentials:"omit",cache:"no-store",redirect:"error",headers:{"Accept":"application/json","Authorization":"Bearer "+jwt}});
   if(!response.ok)throw new Error("NEON_TEST_HTTP_"+response.status);
   const body:unknown=await response.json();
   if(!Array.isArray(body)||body.length>100)throw new Error("NEON_TEST_RESPONSE_INVALID");
