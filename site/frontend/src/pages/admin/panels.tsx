@@ -274,7 +274,7 @@ export default function AdminPanelsPage() {
     setOperationNotice("");
     if (isLocalDemoActive()) {
       try {
-        await adminApiRequest(`/admin/panels/${panel.id}/deactivate`, "POST", {body: {reason}, idempotencyKey: globalThis.crypto.randomUUID()});
+        await adminApiRequest(`/admin/panels/${panel.id}/deactivate`, "PATCH", {body: {reason}, idempotencyKey: globalThis.crypto.randomUUID()});
         await searchPanels();
         setOperationNotice(`${panelPublicId(panel)}: защитная деактивация выполнена.`);
       } catch (error) { setSearchError(adminSafeLoadError(error, t)); }
@@ -291,8 +291,9 @@ export default function AdminPanelsPage() {
     setOperationNotice("");
     if (isLocalDemoActive()) {
       try {
-        await adminApiRequest(`/admin/panels/${panel.id}/activate`, "POST", {body: {reason}, idempotencyKey: globalThis.crypto.randomUUID()});
-        await searchPanels();
+        await adminApiRequest(`/admin/panels/${panel.id}/activate`, "PATCH", {body: {reason}, idempotencyKey: globalThis.crypto.randomUUID()});
+        setSearchContour("operational");
+        await searchPanels(undefined,"operational");
         setOperationNotice(`${panelPublicId(panel)}: новая активация выполнена.`);
       } catch (error) { setSearchError(adminSafeLoadError(error, t)); }
       return;

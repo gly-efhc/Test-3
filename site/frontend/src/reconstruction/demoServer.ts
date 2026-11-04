@@ -59,7 +59,8 @@ function protectivelyVoid(state:DemoControlState,p:DemoPanel,reason:string){
  a.available_kwh=formatD8(available-u);a.total_generated_kwh=formatD8(d8(a.total_generated_kwh)-g);
  if(bonusReturn)transfer(state,a.global_id,bonusReturn,'credit','bonus','panel_protective_refund');
  if(net-bonusReturn)transfer(state,a.global_id,net-bonusReturn,'credit','main','panel_protective_refund');
- p.is_active=false;p.is_archived=true;p.archived_at=new Date().toISOString();p.meta={...p.meta,protectively_voided:true,protective_reason:reason,protective_refund:formatD8(net)};
+ p.is_active=false;p.is_archived=false;p.archived_at=null;p.generated_kwh=zero;p.remainder='0';p.last_generated_at=new Date().toISOString();
+ p.meta={...p.meta,protectively_voided:true,protective_reason:reason,protective_refund:formatD8(net),protective_events:[...(p.meta?.protective_events||[]),{operation:'protective_deactivate',reason,at:p.last_generated_at,generated_kwh:formatD8(g),unused_kwh:formatD8(u),realized_kwh:formatD8(r),refund_efhc:formatD8(net)}]};
  return {ok:true,item:p,refund_efhc:formatD8(net)};
 }
 
@@ -177,7 +178,7 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
   if(panel){const found=Object.values(state.accounts).flatMap(x=>x.panels||[]).find(x=>x.id===panel[1]);requireDemo(found,'PANEL_NOT_FOUND',404);
    if(!panel[2]&&read)return {...found,remaining_seconds:Math.max(0,Math.floor((Date.parse(found.expires_at)-Date.now())/1000))};
    if(panel[2]==='deactivate'&&!read)return replay(state,key,`${p}:${JSON.stringify(b)}`,()=>protectivelyVoid(state,found,String(b.reason||'')));
-   if(panel[2]==='activate'&&!read)return replay(state,key,`${p}:${JSON.stringify(b)}`,()=>{requireDemo(found.meta?.protectively_voided,'PANEL_NOT_DEAD',409);const created=activatePanel(state,found.global_id);return {ok:true,item:created};});
+   if(panel[2]==='activate'&&!read)return replay(state,key,`${p}:${JSON.stringify(b)}`,()=>{requireDemo(found.meta?.protectively_voided,'PANEL_NOT_DEAD',409);requireDemo(String(b.reason||'').trim(),'REASON_REQUIRED');const created=activatePanel(state,found.global_id,Date.now(),found);return {ok:true,item:created};});
   }
   if(p==='/admin/withdrawals'&&read)return Object.values(state.accounts).flatMap(x=>x.withdrawals).filter(r=>(!q.get('global_id')||r.global_id===q.get('global_id'))&&(!q.get('status_filter')||q.get('status_filter')==='all'||String(r.status).toUpperCase()===q.get('status_filter')!.toUpperCase())).map(outputWithdrawal);
   const adminWd=/^\/admin\/withdrawals\/(\d+)\/(.*)$/.exec(p);

@@ -172,3 +172,15 @@ test('domain reports are derived from changed balances, operations and panels',a
  const bank=await h.api('/admin/reports/bank','GET');assert.equal(bank.snapshot.debit_events_in_range,1);assert.equal(bank.snapshot.debits_in_range,'12.12500000');
  const summary=await h.api('/admin/observability/summary','GET');assert.equal(summary.metrics[0].value,'1');
 });
+
+test('dead-panel reactivation preserves Panel ID, renews the term and pays once',async()=>{
+ const h=demoRuntime();h.store.setDemoRole('superadmin');const {panel}=await h.api('/panels/activate','POST',{},'same-id-buy');
+ h.advance(60000);await h.api(`/admin/panels/${panel.id}/deactivate`,'PATCH',{reason:'DEMO'},'same-id-void');
+ const dead=await h.api(`/admin/panels/${panel.id}`,'GET');assert.equal(dead.generated_kwh,'0.00000000');assert.equal(dead.is_archived,false);
+ const before=h.store.readDemoAccount(),count=before.panels.length,total=h.store.d8(before.main_balance)+h.store.d8(before.bonus_balance);
+ const next=await h.api(`/admin/panels/${panel.id}/activate`,'PATCH',{reason:'DEMO'},'same-id-revive');
+ assert.equal(next.item.id,panel.id);assert.equal(next.item.public_id,panel.public_id);assert.equal(h.store.readDemoAccount().panels.length,count);
+ assert.equal(total-h.store.d8(h.store.readDemoAccount().main_balance)-h.store.d8(h.store.readDemoAccount().bonus_balance),h.store.d8('100'));
+ await h.api(`/admin/panels/${panel.id}/activate`,'PATCH',{reason:'DEMO'},'same-id-revive');assert.equal(h.store.readDemoAccount().panels.length,count);
+ assert.equal((Date.parse(next.item.expires_at)-Date.parse(next.item.activated_at))/86400000,180);
+});

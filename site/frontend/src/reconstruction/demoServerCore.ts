@@ -90,13 +90,15 @@ export function replay<T>(state:DemoControlState,key:string|undefined,fingerprin
  if(old){requireDemo(old.fingerprint===fingerprint,'IDEMPOTENCY_KEY_CONFLICT',409);return structuredClone(old.response) as T;}
  const result=run();s.replays[key]={fingerprint,response:structuredClone(result)};return result;
 }
-export function activatePanel(state:DemoControlState,gid:string,now=Date.now()):DemoPanel {
+export function activatePanel(state:DemoControlState,gid:string,now=Date.now(),existing?:DemoPanel):DemoPanel {
  const a=account(state,gid),panels=ensurePanels(a,now);requireDemo(panels.filter(p=>p.is_active).length<1000,'PANEL_LIMIT',409);
  const price=d8('100'),bonus=d8(a.bonus_balance),bonusPay=bonus>price?price:bonus;
  requireDemo(bonus+d8(a.main_balance)>=price,'PANEL_INSUFFICIENT_BALANCE',409);
- if(bonusPay)transfer(state,gid,bonusPay,'debit','bonus','panel_purchase');
- if(price-bonusPay)transfer(state,gid,price-bonusPay,'debit','main','panel_purchase');
- const p=newPanel(a,now,String(++state.next_id));p.cost_bonus=formatD8(bonusPay);p.cost_main=formatD8(price-bonusPay);
+ const reason=existing?'panel_reactivation':'panel_purchase';
+ if(bonusPay)transfer(state,gid,bonusPay,'debit','bonus',reason);
+ if(price-bonusPay)transfer(state,gid,price-bonusPay,'debit','main',reason);
+ const p=newPanel(a,now,existing?.id||String(++state.next_id));p.cost_bonus=formatD8(bonusPay);p.cost_main=formatD8(price-bonusPay);
+ if(existing){const publicId=existing.public_id,meta={...existing.meta,protectively_voided:false};Object.assign(existing,p,{public_id:publicId,meta});return existing;}
  panels.push(p);a.activated_panels++;return p;
 }
 export function pageRows<T>(rows:T[],q:URLSearchParams,defaultLimit=20){
