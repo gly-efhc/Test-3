@@ -56,6 +56,6 @@ Public Pages может публиковать пользовательский 
 
 Работать по прямому OWNER scope. До изменения проверить source HEAD, совместимость с принятым UI, защищёнными Header/Bottom Nav/FAQ/themes/локализацией/Wallet/TON/Admin и применимыми контрактами. Не «чинить» регрессию выключением тестов, не скрывать FAIL под SKIP, не выдавать локальный DEMO за backend. После записи — commit, remote readback, CI/Pages proof, отдельная OWNER visual acceptance. Для разрушительных/спорных изменений требуется предметное согласование.
 
-Нумерованные REPORTS/CYCLES, исторический provenance и принятие решения о закрытии блока живут в **private Архиве** по `17_CONTROL/REPORTS_CYCLES_FORMAT_CONTROL.md`. Публичные `reports/` и этот README не создают новый канон или закрытый номер. При передаче следующему агенту указать проверенные SHA, scope, changed paths, test results и открытые зависимости без публикации приватных сведений.
+Нумерованные REPORTS/CYCLES, исторический provenance и принятие решения о закрытии блока живут в **private Архиве** по `17_CONTROL/REPORTS_CYCLES_FORMAT_CONTROL.md`. Удалённая по распоряжению OWNER публичная папка `reports/` не является действующим реестром; актуальный учёт ведётся в приватном Архиве. Этот README не создаёт новый канон или закрытый номер. При передаче следующему агенту указать проверенные SHA, scope, changed paths, test results и открытые зависимости без публикации приватных сведений.
 
 **Маршрут следующего шага:** [START_HERE.md](START_HERE.md) · [INDEX.md](INDEX.md) · [AGENTS.md](AGENTS.md).

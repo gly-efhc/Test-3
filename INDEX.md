@@ -26,7 +26,7 @@
 | Вторичная редакция | [site/APPLICATION_RULES.md](site/APPLICATION_RULES.md) | Не имеет равного SSOT-приоритета |
 | Workflows | [.github/workflows/](.github/workflows/) | CI, Pages, parity, release/import |
 | Входной public import | [import/README.md](import/README.md) | Отдельный механизм кода; не путать с private архивом |
-| Публичные отчётные маркеры | [reports/numbered/](reports/numbered/) | Не являются private номерными reports |
+| Номерные REPORTS и CYCLES | Приватный `gly-efhc/efhc_archive` | Публичная папка `reports/` удалена по решению OWNER; история сохраняется в Git и документальном Архиве |
 
 ## 3. Приватный маршрут по предмету
 
