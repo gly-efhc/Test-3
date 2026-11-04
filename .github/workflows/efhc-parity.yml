@@ -42,6 +42,7 @@ jobs:
           npm run test:frontend-regression
           cd "$GITHUB_WORKSPACE"
           EFHC_FRONTEND_DEPENDENCIES="$RUNNER_TEMP/efhc-parity-build/package.json" node site/ci/parity/generate_shell.mjs --check
+          node site/frontend/tests/parity/pages-artifact.test.mjs
       - name: Build React for the exact source revision
         env:
           NEXT_TELEMETRY_DISABLED: '1'
