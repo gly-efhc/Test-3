@@ -68,6 +68,8 @@ jobs:
           export EFHC_REACT_URL="http://127.0.0.1:19240${EFHC_DEMO_BASEPATH}/"
           export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
           node site/frontend/tests/parity/demo-functions.mjs
+          node site/frontend/tests/parity/bank.mjs
+          node site/frontend/tests/parity/panels-colors.mjs
           node site/frontend/tests/parity/browser.mjs
           node site/frontend/tests/parity/interactions.mjs
           node site/frontend/tests/parity/templates.mjs

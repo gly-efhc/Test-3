@@ -15,7 +15,7 @@ const amount=series=>page.locator(`[data-series="${series}"] .efhc-admin-bank-ma
 const fields={reserve:'reserve_efhc',circulation:'circulation_efhc','panel-new-obligations':'new_obligations_efhcm',main:'users_main_efhc',bonus:'users_bonus_efhc',actual:'actual_mass_efhc','panel-obligations':'fixed_obligations_efhcm','panel-spend':'panel_spent_efhc','panel-generated':'generated_kwh','panel-converted':'converted_kwh','panel-pending-conversion':'pending_kwh'};
 const normalize=text=>text.replace(/\s/g,'').replace(/−/g,'-').replace(/EFHCm|EFHCb|EFHC|kWh/g,'');
 async function check(name,run){await run();results.push({name,status:'PASS'});console.log('PASS',name);}
-async function ready(){await page.waitForSelector('[data-bank-state="ready"]',{state:'attached'});}
+async function ready(){await page.waitForSelector('[data-bank-state="ready"]',{state:'attached'});await page.locator('.efhc-entry-splash[aria-hidden="false"]').waitFor({state:'hidden'});}
 try{
  await page.goto(base+'admin/bank/');await ready();
  await check('all eleven Bank rows render the complete persisted D8 snapshot',async()=>{

@@ -345,6 +345,8 @@ jobs:
           export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
           export EFHC_REACT_URL=http://127.0.0.1:19243/${GITHUB_REPOSITORY#*/}/
           node site/frontend/tests/parity/demo-functions.mjs
+          node site/frontend/tests/parity/bank.mjs
+          node site/frontend/tests/parity/panels-colors.mjs
           node site/frontend/tests/parity/browser.mjs
           node site/frontend/tests/parity/interactions.mjs
           node site/frontend/tests/parity/templates.mjs
