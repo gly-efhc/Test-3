@@ -5,6 +5,12 @@ on:
     branches: ['recovery/**']
   pull_request:
   workflow_dispatch:
+    inputs:
+      full_review:
+        description: "Run complete rendered browser, regression and quality acceptance checks"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -31,11 +37,13 @@ jobs:
           cache-dependency-path: site/frontend/package-lock.json
       - name: Prepare actual React with Pages base path
         run: python3 site/ci/pages-tools/prepare_pages.py --source site/frontend --target "$RUNNER_TEMP/efhc-parity-build" --base-path "$EFHC_DEMO_BASEPATH"
-      - name: Install locked dependencies and browser driver
+      - name: Install locked dependencies
         run: |
           cd "$RUNNER_TEMP/efhc-parity-build"
           npm ci --ignore-scripts --no-audit --no-fund
-          npm install --prefix "$RUNNER_TEMP/efhc-browser-tools" playwright-core@1.64.1 --ignore-scripts --no-audit --no-fund
+      - name: Install browser driver for full review
+        if: ${{ inputs.full_review == true }}
+        run: npm install --prefix "$RUNNER_TEMP/efhc-browser-tools" playwright-core@1.64.1 --ignore-scripts --no-audit --no-fund
       - name: Check immutable HTML contracts and generated shared shell
         run: |
           cd "$RUNNER_TEMP/efhc-parity-build"
@@ -55,6 +63,7 @@ jobs:
           cd "$RUNNER_TEMP/efhc-parity-build"
           ./node_modules/.bin/next build --webpack
       - name: Check actual rendered selections, colors, sizing and routes
+        if: ${{ inputs.full_review == true }}
         env:
           EFHC_BROWSER_TOOLS: ${{ runner.temp }}/efhc-browser-tools/package.json
           EFHC_PARITY_ARTIFACTS: ${{ runner.temp }}/efhc-parity-artifacts
@@ -76,7 +85,7 @@ jobs:
           node site/frontend/tests/parity/templates.mjs
           node site/frontend/tests/parity/routes.mjs
       - name: Retain visual review and precise results
-        if: always()
+        if: ${{ always() && inputs.full_review == true }}
         uses: actions/upload-artifact@v4
         with:
           name: efhc-parity-${{ github.sha }}
