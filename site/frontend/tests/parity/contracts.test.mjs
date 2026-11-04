@@ -136,6 +136,9 @@ test('OWNER-rejected progress and Header adapters stay detached after rollback',
   // OWNER 0024/03 authorizes data projection only; retain the previous full
   // source lock after removing precisely that declared functional delta.
   .replace('import { useDemoGenerationProjection } from "../hooks/useDemoGenerationProjection";\n','')
+  // Only the SSR/hydration first-render guard is additionally authorized.
+  .replace('    // SSR and the first client render must share the exact D8 snapshot.\n    // The mounted effect triggers tick > 0 and resumes the live projection.\n    if (tick === 0) return st.base_scaled;\n','')
+  .replace('    const st = stateRef.current;\n    const now = performance.now();\n','    const now = performance.now();\n    const st = stateRef.current;\n')
   .replace('const localEnergyScaled = useMemo','const eLiveScaled = useMemo')
   .replace('  const demoGeneration = useDemoGenerationProjection();\n  const eLiveScaled = demoGeneration ? toScaled(demoGeneration.total_generated_kwh) : localEnergyScaled;\n\n','')
   .replace('formatFixedDown(demoGeneration?.available_kwh ?? fromScaled(toScaled(props.available_kwh) + (eLiveScaled - e0ScaledRaw)), 8)','formatFixedDown(props.available_kwh, 8)')
@@ -145,4 +148,26 @@ test('OWNER-rejected progress and Header adapters stay detached after rollback',
   .replace('<EnergyUnitText text="kWh/s" />','<span data-i18n-fixed-token="kWh/с">kWh/с</span>')
   .replace('<EnergyUnitText text={props.labels.available_kwh_chip} />','{props.labels.available_kwh_chip}');
  assert.equal(crypto.createHash('sha256').update(energy).digest('hex'),'0932660bfb1fc8f4d1a5534377a815bf78a8e6923cf6a18aece3b4b64e4f11fb','Energy changed beyond approved unit labels and cycle0023 indicator relocation');
+});
+
+// Executes the actual Energy useMemo callback, not a duplicate hand-written formula.
+// Hydration must produce identical D8 text even if the clocks differ on SSR
+// and client, while the first post-mount tick must resume generation.
+test('Energy initial SSR/hydration D8 snapshot is deterministic and generation resumes after mount',()=>{
+ const source=fs.readFileSync(path.join(root,'src/pages/index.tsx'),'utf8');
+ const open='  const localEnergyScaled = useMemo(() => {\n';
+ const close='  }, [props.server_now_iso, tick, vScaled]);';
+ assert.equal(source.split(open).length,2,'Energy callback must have one definition');
+ const rest=source.split(open)[1];
+ assert.equal(rest.split(close).length,2,'Energy callback boundary changed');
+ const callback=new Function('stateRef','tick','vScaled','performance','clamp','SMOOTH_RESET_MS',rest.split(close)[0]);
+ const base=812312345678n,rate=44000n;
+ const invoke=(tick,now,st)=>callback({current:st},tick,rate,{now:()=>now},(v,a,b)=>Math.max(a,Math.min(v,b)),800);
+ const fresh=()=>({base_scaled:base,base_client_ms:1000,smooth_delta:0n,smooth_start_ms:0});
+ assert.equal(invoke(0,1000,fresh()),base,'SSR must show snapshot at first render');
+ assert.equal(invoke(0,1050,fresh()),base,'hydration must not advance with a different clock');
+ assert.equal(invoke(1,1001,fresh()),base+44n,'post-mount tick resumes generation at D8 precision');
+ assert.equal(invoke(2,1100,fresh()),base+4400n,'subsequent ticks continue generation');
+ const smoothed={...fresh(),smooth_delta:800n,smooth_start_ms:1100};
+ assert.equal(invoke(2,1500,smoothed),base+22000n+400n,'existing smooth correction is preserved');
 });

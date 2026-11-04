@@ -156,8 +156,11 @@ function LiveEnergyBlock(props: LiveBlockProps) {
   }, [props.server_now_iso, vScaled]);
 
   const localEnergyScaled = useMemo(() => {
-    const now = performance.now();
     const st = stateRef.current;
+    // SSR and the first client render must share the exact D8 snapshot.
+    // The mounted effect triggers tick > 0 and resumes the live projection.
+    if (tick === 0) return st.base_scaled;
+    const now = performance.now();
     const dtMs = Math.max(0, now - st.base_client_ms);
     const add = (vScaled * BigInt(Math.floor(dtMs))) / 1000n;
     let out = st.base_scaled + add;
