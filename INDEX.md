@@ -1,12 +1,12 @@
-# INDEX.md — маршрутизатор EFHC Test-3 (public-safe)
+# INDEX.md — маршрутизатор EFHC efhc (public-safe)
 
-**ID:** `EFHC_TEST3_INDEX` · **Статус:** ACTIVE / PUBLIC NAVIGATION · **Область:** `gly-efhc/Test-3` · **Редакция маршрутов:** 04.11.2026
+**ID:** `EFHC_TEST3_INDEX` · **Статус:** ACTIVE / PUBLIC NAVIGATION · **Область:** `gly-efhc/efhc` · **Редакция маршрутов:** 04.11.2026
 
 > Это карта существующих публичных файлов и приватных **путей**, а не хранилище private правил. Не включать сюда копии CANON/SSOT, секреты, журналы и личные данные. Точные HEAD обоих репозиториев проверяются при каждом отдельном задании; статические номера не объявлять текущими.
 
 ## 1. Быстрый вход
 
-[AGENTS.md](AGENTS.md) → [START_HERE.md](START_HERE.md) → [KERNEL.md](KERNEL.md) (**один раз**) → этот INDEX. Зафиксировать `CODE_HEAD`, затем при наличии private зависимости — `ARCHIVE_HEAD`, mode и scope. Читатель публичного Test-3 **не** получает private права автоматически.
+[AGENTS.md](AGENTS.md) → [START_HERE.md](START_HERE.md) → [KERNEL.md](KERNEL.md) (**один раз**) → этот INDEX. Зафиксировать `CODE_HEAD`, затем при наличии private зависимости — `ARCHIVE_HEAD`, mode и scope. Читатель публичного efhc **не** получает private права автоматически.
 
 **Приватный документальный контур:** [efhc_archive](https://github.com/gly-efhc/efhc_archive). Только авторизованный GitHub-коннектор, никакого браузера или public web для доступа к нему. Для зависимой кодовой задачи без такого доступа — `PRIVATE_DEPENDENCY_BLOCKED`; ничего не выдумывать.
 
@@ -50,7 +50,7 @@
 
 `BOT` — функциональная часть системы, не новый самостоятельный действующий SSOT-силос. Документы размещаются по предметному владельцу: FRONTEND, BACKEND, CONTRACTS, ADMIN и т.д. `FRONTEND_RECONSTRUCTION` в private `04_REPORTS/` и `05_CYCLES/` — непрерывная историческая серия, а не разрешение заводить конкурирующие публичные копии. Старые пути направлять через private history resolver. Нельзя объявлять второй актуальный CANON из похожего имени.
 
-## 4. Матрица задач Test-3
+## 4. Матрица задач efhc
 
 **Новый UI/исправление:** private OWNER scope → exact code HEAD → исходники `site/frontend/src` → пользовательские и Admin protected contracts → targeted tests/parity → rendered checks → readback/acceptance.
 
@@ -70,7 +70,7 @@ REPORTS/CYCLES нумеруются и заполняются только по 
 
 ## 6. Завершение и проверка синхронизации
 
-1. Перечитать актуальный Test-3 HEAD; для private-зависимости — private Архив HEAD.
+1. Перечитать актуальный efhc HEAD; для private-зависимости — private Архив HEAD.
 2. Сверить существование и точный смысл применимых путей, затем разрешённый diff.
 3. Для remote изменения: commit, ref update без force, readback каждого файла и итогового HEAD.
 4. В handoff указать `CODE_HEAD`, `ARCHIVE_HEAD` (если использовался), scope, результаты и `OWNER_PENDING` отдельно от CI.
