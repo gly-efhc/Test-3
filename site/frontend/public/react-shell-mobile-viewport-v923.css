@@ -473,6 +473,12 @@ html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .
  * Fill page containers, never scale individual cards, fonts or controls.
  * Admin and Browser Shop retain their independent viewport contracts.
  */
+.efhc-independent-shell[data-interface-app-mode="user"] .efhc-independent-shell_frame {
+  /* The frozen HTML lab has a 760px minimum canvas. The application frame
+   * must instead fit its real viewport, including short/landscape screens. */
+  height:100%;
+  min-height:0;
+}
 .efhc-independent-shell .efhc-game-shell_main[data-user-bottom-nav-boundary="shared-layout"] {
   display:flex;
   flex-direction:column;

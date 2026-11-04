@@ -15,6 +15,7 @@ export async function verifyUserHeight(page,{open,artifacts}) {
     const root=main.querySelector(':scope > .efhc-game-page');
     return {main:box(main),nav:box(nav),header:box(header),mainScroll:main.scrollTop,contentHeight:main.clientHeight-parseFloat(getComputedStyle(main).paddingTop)-parseFloat(getComputedStyle(main).paddingBottom),pageHeight:root?.getBoundingClientRect().height,overflow:getComputedStyle(main).overflowY,documentWidth:document.documentElement.scrollWidth,viewport:innerWidth};
    });
+   if(artifacts)await fs.writeFile(`${artifacts}/user-height-current.json`,JSON.stringify({viewport,route,actual},null,2)+'\n');
    assert.ok(actual.main.bottom<=actual.nav.top+1,`${route} main overlaps bottom nav: ${JSON.stringify(actual)}`);
    assert.ok(actual.main.top>=actual.header.bottom-1,`${route} main overlaps Header`);
    assert.ok(actual.documentWidth<=actual.viewport+1,`${route} horizontal overflow`);
