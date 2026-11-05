@@ -19,6 +19,7 @@ export function amount(value:unknown):bigint {
 export function account(state:DemoControlState,gid=state.selected_global_id):DemoAccountState {
  requireDemo(/^[0-9]{10}$/.test(gid),'GLOBAL_ID_EXACT_10_REQUIRED');
  if(state.accounts[gid])return state.accounts[gid];
+ requireDemo(!state.server?.settings.neon_seed_revision,'USER_NOT_FOUND',404);
  const value=seedAccount(gid);state.accounts[gid]=value;
  if(state.server)state.server.bank_balance=formatD8(d8(state.server.bank_balance)-d8(value.main_balance)-d8(value.bonus_balance));
  return value;

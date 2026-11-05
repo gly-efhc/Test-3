@@ -20,8 +20,9 @@ function neonRuntime(){
  h.store.transactDemoState(state=>{
   const s=h.core.ensureServer(state),a=state.accounts[gid];
   a.panels=[];a.ledger=[{...sqlRow,id:71}];a.completed_tasks=[];
-  s.audit=[];s.orders=[];s.deposits=[];s.submissions=[];
-  s.settings.neon_seed_revision='RECON_CYCLE_0028_CAUSAL_V1';s.settings.neon_referrals=[];
+  s.audit=[];s.orders=[];s.deposits=[{id:'80',global_id:gid,resolved_global_id:gid,
+   amount_efhc:'10.00000000',amount:'10.00000000',status:'credited',created_at:'2026-11-03T00:00:00Z'}];s.submissions=[];
+  s.settings.neon_seed_revision='RECON_CYCLE_0028_ORIGINAL_MODEL_V2';s.settings.neon_referrals=[];
  });
  return h;
 }

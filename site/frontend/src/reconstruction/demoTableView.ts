@@ -39,6 +39,15 @@ export function runtimeDemoTableRows(state:DemoControlState,name:DemoTableName,g
   case 'task_completions':return accounts.flatMap(a=>a.completed_tasks.map(code=>({
    id:`${a.global_id}:${code}`,global_id:a.global_id,task_code:code,status:'completed'})));
   case 'task_submissions':return scoped(s?.submissions);
+  case 'deposits':return scoped(s?.deposits);
+  case 'referral_bonuses':return accounts.flatMap(a=>a.ledger.filter(r=>r.reason==='referral_bonus'));
+  case 'ad_reward_sessions':return [
+   ...accounts.flatMap(a=>a.ledger.filter(r=>r.reason==='ad_reward'&&
+    !(s?.audit||[]).some(local=>local.id===r.id&&local.global_id===r.global_id)).map(r=>({
+     id:`opening:${r.id}`,session_id:`opening:${r.id}`,global_id:a.global_id,
+     status:'rewarded',reward_snapshot_efhcb:r.amount_efhc,rewarded_at:r.created_at,test_mode:true}))),
+   ...objectRows(s?.settings.ad_sessions).filter(r=>!gid||r.global_id===gid).map(r=>({...r,id:String(r.session_id)}))
+  ];
   case 'withdrawals':return accounts.flatMap(a=>a.withdrawals);
   case 'withdraw_outcomes':return accounts.flatMap(a=>a.withdrawals.map(r=>({
    id:r.id,request_id:r.id,global_id:a.global_id,outcome_kind:r.status,created_at:r.created_at})));
@@ -58,7 +67,7 @@ export function runtimeDemoTableRows(state:DemoControlState,name:DemoTableName,g
   // Paginated SQL baseline plus only new local rows; the imported bonus ledger
   // must never be added again to counts, journals or rewards.
   case 'ledger_entries':case 'balance_history':case 'bank_transfers':case 'exchanges':
-  case 'deposits':case 'referral_bonuses':case 'ad_reward_sessions':case 'settings':case 'admin_roles':return null;
+  case 'settings':case 'admin_roles':return null;
   case 'skins':return [{id:'1',skin_id:1,title:'EFHC',price_efhc:'0.00000000'}];
   case 'provider_identities':case 'sessions':case 'vip_reservations':case 'admin_permissions':
   case 'notifications':case 'diagnostics':case 'faq':case 'generation_ticks':return [];

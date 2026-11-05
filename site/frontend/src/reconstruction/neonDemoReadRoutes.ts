@@ -1,7 +1,7 @@
 /** SQL-backed history plus committed local DEMO actions. Read-only SQL transport. */
 import {readDemoState} from './demoUnifiedStore';
 import {localDemoLedger} from './demoTableView';
-import {getNeonAdminLedgerPage,getNeonDepositPage,getNeonActivitySummary} from './neonDemoDataApi';
+import {getNeonAdminLedgerPage} from './neonDemoDataApi';
 type Row=Record<string,unknown>;
 function pageArgs(q:URLSearchParams){
  const offset=Number(q.get('cursor')||0),limit=Number(q.get('limit')||50);
@@ -28,20 +28,4 @@ async function mergedPage(local:Row[],q:URLSearchParams,sql:(offset:number,limit
 export async function readNeonDemoJournal(q:URLSearchParams){
  const gid=q.get('global_id');
  return mergedPage(localDemoJournal(gid),q,(offset,limit)=>getNeonAdminLedgerPage(gid,offset,limit));
-}
-export async function readNeonDemoDeposits(path:string,q:URLSearchParams){
- const local=readDemoState().server?.deposits||[],gid=q.get('global_id');
- if(path.endsWith('/unmatched'))return mergedPage(local.filter(r=>!r.resolved_global_id),q,async()=>({items:[],next_cursor:null}));
- if(path.endsWith('/runtime-summary')){
-  const {d8,formatD8}=await import('./demoUnifiedStore');
-  const base=await getNeonActivitySummary();
-  const credited=local.filter(r=>r.status==='credited');
-  const sum=(hours?:number)=>credited.filter(r=>!hours||Date.parse(String(r.created_at))>=Date.now()-hours*3600000)
-   .reduce((n,r)=>n+d8(String(r.amount_efhc)),0n);
-  return {ok:true,credited_efhc_operations_count:Number(base.deposit_count)+credited.length,
-   credited_efhc_total:formatD8(d8(base.deposit_total)+sum()),
-   credited_efhc_30d:formatD8(d8(base.deposit_30d)+sum(720)),
-   credited_efhc_24h:formatD8(d8(base.deposit_24h)+sum(24)),generated_at:new Date().toISOString()};
- }
- return mergedPage(local.filter(r=>!gid||r.global_id===gid),q,(offset,limit)=>getNeonDepositPage(gid,offset,limit));
 }

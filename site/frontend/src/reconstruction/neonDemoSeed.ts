@@ -9,9 +9,9 @@ import {ensureServer} from "./demoServerCore";
 import {demoBankSnapshot} from "./demoBankSnapshot";
 
 const sourceCycle="RECON_CYCLE_0027";
-const sourceRevision="RECON_CYCLE_0028_CAUSAL_V1";
+export const NEON_DEMO_REVISION="RECON_CYCLE_0028_ORIGINAL_MODEL_V2";
 export async function bootstrapNeonDemoMirror():Promise<void>{
- const already=readDemoState().server?.settings?.neon_seed_revision===sourceRevision;
+ const already=readDemoState().server?.settings?.neon_seed_revision===NEON_DEMO_REVISION;
  const seed=already?null:await getNeonCoreSeed();
  if(seed){
   const users:Record<string,DemoAccountState>={};
@@ -53,12 +53,26 @@ export async function bootstrapNeonDemoMirror():Promise<void>{
    throw new Error("NEON_DEMO_OPENING_MASS_INTEGRITY_ERROR");
   transactDemoState(state=>{
    state.accounts=users;
-   if(!users[state.selected_global_id])state.selected_global_id=DEMO_GLOBAL_ID;
+   state.selected_global_id=DEMO_GLOBAL_ID;state.scenario='filled';state.role='user';
+   // OWNER requested a clean rebuild of the broken DEMO. Recreate the original
+   // operation model from the verified SQL opening; do not inherit C27 caches,
+   // old replays or partially hydrated domain arrays. Theme/UI preferences live
+   // outside this DEMO state and are not reset.
+   state.server=undefined;state.next_id=200000;
    const server=ensureServer(state);
    server.bank_balance=facts.bank_metrics_reserve_efhc;
    server.supply_initial=facts.bank_metrics_expected_supply_efhc;
    server.minted="0.00000000";server.burned="0.00000000";
-   server.audit=[];server.orders=[];server.deposits=[];
+   server.audit=[];server.orders=[];
+   // These are the settled opening deposit intents, not pending Shop orders.
+   // Materialize the original DEMO deposit contract once, without crediting it.
+   server.deposits=seed.intents.filter(r=>r.purpose==='deposit'&&r.status==='DEMO_SETTLED').map(r=>({
+    id:r.id,global_id:r.global_id,resolved_global_id:r.global_id,amount:r.efhc_amount_d8,
+    amount_efhc:r.efhc_amount_d8,asset:'EFHC',purpose:'direct_efhc_jetton_deposit',
+    status:'credited',tx_hash:`DEMO-OPENING-${r.id}`,memo:`EFHC:GID:${r.global_id}`,
+    created_at:r.created_at,updated_at:r.updated_at,processed_at:r.created_at,retries_count:0,demo:true,
+    source:sourceCycle,payment_intent_id:r.id}));
+   if(server.deposits.length!==1000)throw new Error('NEON_DEMO_OPENING_DEPOSITS_INCOMPLETE');
    server.submissions=seed.bonus_events.filter(r=>r.task_code).map(r=>({
     id:r.id,global_id:r.global_id,task_id:seed.tasks.find(t=>t.code===r.task_code)?.id,
     status:'approved',bonus_amount_efhc:r.amount_efhc,paid:true,paid_tx_id:r.id,
@@ -69,7 +83,7 @@ export async function bootstrapNeonDemoMirror():Promise<void>{
    server.settings.neon_frozen_panels_as_of="2026-10-31T10:00:00Z";
    server.intents=seed.intents.map(intent=>({...intent,amount_efhc:intent.efhc_amount_d8}));
    server.settings.neon_seed_cycle=sourceCycle;
-   server.settings.neon_seed_revision=sourceRevision;
+   server.settings.neon_seed_revision=NEON_DEMO_REVISION;
    server.settings.neon_mode="READ_ONLY_SQL_SEED_WITH_EXISTING_LOCAL_DEMO_ACTIONS";
    const calculated=demoBankSnapshot(state);
    if(!calculated||Object.entries(facts).some(([field,value])=>
@@ -82,16 +96,13 @@ export async function bootstrapNeonDemoMirror():Promise<void>{
  try{
   if(seed){
    const state=readDemoState();
-   const accounts=Object.values(state.accounts);
+   const {DEMO_TABLE_NAMES}=await import('./demoUnifiedStore');
+   const {runtimeDemoTableRows}=await import('./demoTableView');
    const sources:Record<string,Record<string,unknown>[]>={};
-   sources.accounts=accounts.map(a=>({...a,id:a.global_id}));
-   sources.admin_users=accounts.map(a=>({...a,id:a.global_id}));
-   sources.balances=accounts.map(a=>({id:a.global_id,global_id:a.global_id,main_balance:a.main_balance,
-     bonus_balance:a.bonus_balance,available_kwh:a.available_kwh,total_generated_kwh:a.total_generated_kwh}));
-   sources.panels=accounts.flatMap(a=>a.panels||[]).map(p=>({...p,id:p.id}));
-   sources.shop_intents=(state.server?.intents||[]).map(x=>({...x,id:String(x.id)}));
-   sources.referrals=seed.referrals.map((r,i)=>({...r,id:"C28-REF-"+i,global_id:r.inviter_global_id}));
-   sources.task_submissions=(state.server?.submissions||[]).map(r=>({...r,id:String(r.id)}));
+   for(const name of DEMO_TABLE_NAMES)sources[name]=(runtimeDemoTableRows(state,name)||[]).map((r,i)=>({
+    ...r,id:String(r.id??r.session_id??r.code??r.key??i+1)}));
+   // Discard only the superseded browser DEMO projection, then recreate every
+   // original logical store. Immutable large SQL history is paged on demand.
    for(const [name,rows] of Object.entries(sources)){
     await new Promise<void>((resolve,reject)=>{
      const tx=db.transaction(name,"readwrite"),store=tx.objectStore(name);
@@ -103,7 +114,7 @@ export async function bootstrapNeonDemoMirror():Promise<void>{
    await new Promise<void>((resolve,reject)=>{
     const tx=db.transaction("settings","readwrite");
     tx.objectStore("settings").put({id:"neon_c27_seed_complete",dataset:sourceCycle,
-      revision:sourceRevision,users:1000,panels:4000,payment_intents:1000,ledger_rows:88696,
+      revision:NEON_DEMO_REVISION,users:1000,panels:4000,payment_intents:1000,ledger_rows:88696,
       bonus_events:4348,referrals:999,
       note:"Ledger views are fetched on demand from the real TEST database"});
     tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);
