@@ -1,5 +1,6 @@
 import type { QueryClient, QueryKey } from "@tanstack/react-query";
 import { syncSnapshotSchema } from "../services/snapshot.service";
+import { windowStateStorage } from "./windowState";
 
 const KEY = "EFHC_USER_DATA_CACHE_V1";
 const MAX_BYTES = 3_000_000;
@@ -12,9 +13,9 @@ let settingsOwner: string | null = null;
 const validId = (value: unknown): value is string => typeof value === "string" && /^\d{10}$/.test(value) && value !== "0000000000";
 const userKey = (key: QueryKey) => RESOURCES.has(String(key[0])) && validId(key[1]);
 
-function read(): Cache {
+function decode(raw: string | null): Cache {
   try {
-    const value = JSON.parse(window.localStorage.getItem(KEY) || "null");
+    const value = JSON.parse(raw || "null");
     if (validId(value?.owner) && Array.isArray(value.entries)) return {
       owner: value.owner,
       entries: value.entries.filter((e: Entry) => Array.isArray(e?.key) && userKey(e.key) && e.key[1] === value.owner && e.data !== undefined && Number.isFinite(e.updatedAt))
@@ -23,26 +24,30 @@ function read(): Cache {
   } catch { /* Storage is optional; it never gates rendering. */ }
   return {owner: null, entries: []};
 }
-function persist(cache: Cache) {
+function read(): Cache { return decode(windowStateStorage().getItem(KEY)); }
+function durable(owner: string): Cache {
+  try { const cache = decode(window.localStorage.getItem(`${KEY}:${owner}`)); return cache.owner === owner ? cache : {owner, entries: []}; }
+  catch { return {owner, entries: []}; }
+}
+function persist(cache: Cache, publish = true) {
   try {
     const entries: Entry[] = [];
     for (const entry of cache.entries) {
       if (new Blob([JSON.stringify([...entries, entry])]).size <= MAX_BYTES) entries.push(entry);
     }
-    window.localStorage.setItem(KEY, JSON.stringify({owner: cache.owner, entries}));
+    const raw = JSON.stringify({owner: cache.owner, entries});
+    windowStateStorage().setItem(KEY, raw);
+    if (publish && cache.owner && entries.length) window.localStorage.setItem(`${KEY}:${cache.owner}`, raw);
   } catch { /* Keep the current in-memory model if disk storage is unavailable. */ }
 }
 export function currentUserDataOwner(): string | null {
   return settingsOwner ?? (typeof window === "undefined" ? null : read().owner);
 }
-/** Display identity only: does not restore authenticated status or any role. */
-export function cachedUserDisplayOwner(): string | null {
-  return typeof window === "undefined" ? null : read().owner;
-}
 export function startUserDataPersistence(client: QueryClient) {
   const cache = read();
   controllers.set(client, cache);
   client.getQueryCache().subscribe(event => {
+    if (event.type !== "updated" || event.action.type !== "success") return;
     const query = event.query;
     if (!query || !userKey(query.queryKey) || query.queryKey[1] !== cache.owner) return;
     // A rejected refetch still contains the last confirmed data.
@@ -61,17 +66,18 @@ export function activateUserCache(client: QueryClient, owner: string | null, adm
     cache.entries = [];
     cache.owner = owner;
     settingsOwner = owner;
-    persist(cache);
+    persist(cache, false);
     // Removing cancels the old queries, including their fetch AbortSignal.
     client.removeQueries({predicate: q => userKey(q.queryKey)});
   } else {
+    if (cache.owner === null) cache.entries = durable(owner).entries;
     cache.owner = owner;
     settingsOwner = owner;
     const entries = [...cache.entries];
     for (const entry of entries) {
       if (client.getQueryData(entry.key) === undefined) client.setQueryData(entry.key, entry.data, {updatedAt: entry.updatedAt});
     }
-    persist(cache);
+    persist(cache, false);
   }
   return changed;
 }

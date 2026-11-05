@@ -1,6 +1,7 @@
 import { QueryClient } from "@tanstack/react-query";
 import { activateUserCache, startUserDataPersistence } from "./userDataCache";
-import { resetSettings, saveSettings } from "./settings";
+import { bindWindowSettings, resetSettings, saveSettings } from "./settings";
+import {resetWindowDrafts} from "./ownerDrafts";
 
 import {
   hydratePublicCatalogQueries,
@@ -18,10 +19,11 @@ export function createEfhcQueryClient() {
         // Mini App: не дергаем API при каждом переходе по вкладкам.
         staleTime: 10_000,
         gcTime: 300_000,
+        networkMode: "always",
         retry: 1,
-        refetchOnMount: false,
-        refetchOnWindowFocus: true,
-        refetchOnReconnect: true,
+        refetchOnMount: "always",
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: false,
       },
       mutations: {
         retry: 0,
@@ -41,8 +43,11 @@ export function createEfhcQueryClient() {
 export function activateUserDataOwner(client: QueryClient, owner: string | null, admin: boolean): boolean {
   const changed = activateUserCache(client, owner, admin);
   if (changed) {
+    resetWindowDrafts(owner!);
     saveSettings(resetSettings());
     if (typeof window !== "undefined") window.dispatchEvent?.(new Event("efhc:user-owner-changed"));
+  } else if (!admin && owner && bindWindowSettings()) {
+    if (typeof window !== "undefined") window.dispatchEvent?.(new Event("efhc:user-settings-ready"));
   }
   return changed;
 }

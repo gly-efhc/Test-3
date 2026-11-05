@@ -288,6 +288,10 @@ export async function apiRequest<T>(
   method: HttpMethod,
   opts: ApiRequestOptions = {},
 ): Promise<T> {
+  const {allowAdminCommand}=await import("./adminViewState");
+  if(!await allowAdminCommand(path,method,()=>apiRequest("/admin/access","GET"))) {
+    throw new ApiError({status:503,code:"ADMIN_READ_ONLY_REFRESH_REQUIRED"});
+  }
   // An explicitly selected TEST backend must never fall through into production
   // if its public-preview gates are absent or disabled.
   if (process.env.NEXT_PUBLIC_EFHC_TEST_MODE === "neon" &&

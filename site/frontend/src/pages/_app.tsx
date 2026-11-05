@@ -50,7 +50,9 @@ import {
   type UserSettings,
 } from "../lib/settings";
 import { fetchAdminAccess } from "../lib/admin";
+import {cachedAdminView,forgetAdminView,markAdminUnavailable,rememberAdminView,subscribeAdminView} from "../lib/adminViewState";
 import { createEfhcQueryClient } from "../lib/queryClient";
+import { startActivitySync } from "../lib/frontendActivity";
 import {
   getSkinKey,
   getUserLevel,
@@ -116,6 +118,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const isBrowserShop = router.pathname === "/browser-shop" || router.pathname.startsWith("/browser-shop/");
   const isAdminRoute = router.pathname.startsWith("/admin");
   const [queryClient] = useState(() => createEfhcQueryClient());
+  useEffect(() => startActivitySync(queryClient), [queryClient]);
 
   const [tcManifestUrl, setTcManifestUrl] = useState<HttpsUrl>(() => {
     if (typeof window === "undefined") {
@@ -139,7 +142,9 @@ export default function App({ Component, pageProps }: AppProps) {
       setUserViewEpoch(value => value + 1);
     };
     window.addEventListener("efhc:user-owner-changed", changed);
-    return () => window.removeEventListener("efhc:user-owner-changed", changed);
+    const ready = () => setSettings(loadSettings());
+    window.addEventListener("efhc:user-settings-ready", ready);
+    return () => {window.removeEventListener("efhc:user-owner-changed", changed);window.removeEventListener("efhc:user-settings-ready", ready);};
   }, []);
   const [uiDictLoaded, setUiDictLoaded] = useState(false);
   const [ruDictLoaded, setRuDictLoaded] = useState(false);
@@ -531,32 +536,37 @@ function AppInner(props: {
   const authSession = useAuthSessionController();
   const globalId = useAuthOwnerGlobalId();
   const [adminAccessState, setAdminAccessState] = useState<
-    "checking" | "allowed" | "denied"
+    "checking" | "allowed" | "readonly" | "denied"
   >("checking");
 
   useEffect(() => {
     let active = true;
     if (authSession.status !== "authenticated" || globalId === null) {
       setAdminAccessState(
-        authSession.status === "restoring"
+        markAdminUnavailable(globalId) ? "readonly" : authSession.status === "restoring"
           || authSession.status === "authenticating"
           ? "checking"
           : "denied",
       );
       return () => { active = false; };
     }
-    setAdminAccessState("checking");
+    setAdminAccessState(markAdminUnavailable(globalId)?"readonly":"checking");
     void fetchAdminAccess()
       .then((access) => {
         if (!active) return;
-        setAdminAccessState(access ? "allowed" : "denied");
+        const confirmed = access?.global_id === globalId;
+        if(confirmed)rememberAdminView(globalId);else forgetAdminView(globalId);
+        setAdminAccessState(confirmed ? "allowed" : "denied");
       })
       .catch(() => {
         if (!active) return;
-        setAdminAccessState("denied");
+        setAdminAccessState(markAdminUnavailable(globalId)?"readonly":"denied");
       });
     return () => { active = false; };
   }, [authSession.status, globalId]);
+  useEffect(()=>subscribeAdminView(()=>{
+    const view=cachedAdminView(globalId);setAdminAccessState(view||"denied");
+  }),[globalId]);
 
   const visibleSnap = snap ?? emptyOwnerSnapshot();
   const snapshotMode = globalId === null ? "browser-preview" : "live";
@@ -567,7 +577,7 @@ function AppInner(props: {
   const isVip = Boolean(visibleSnap.profile.is_vip);
   // Admin access is server-authoritative via /admin/access.
   // Telegram provider subject is not an admin/business owner credential.
-  const isAdmin = adminAccessState === "allowed";
+  const isAdmin = adminAccessState === "allowed" || adminAccessState === "readonly";
 
   const [shopSkinBgUrl, setShopSkinBgUrl] = useState<
     string | null

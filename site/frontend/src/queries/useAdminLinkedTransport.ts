@@ -1,5 +1,6 @@
 import { isLocalDemoActive } from "../reconstruction/demoPreviewGate";
-import { useAuthSessionController } from "../auth/AuthSessionProvider";
+import { useAuthSessionController, useAuthOwnerGlobalId } from "../auth/AuthSessionProvider";
+import {cachedAdminView} from "../lib/adminViewState";
 import { useCallback } from "react";
 import {
   useMutation,
@@ -24,7 +25,8 @@ export const adminLinkedKeys = {
 export function useAdminLinkedTransport() {
   const queryClient = useQueryClient();
   const auth = useAuthSessionController();
-  const cacheOwner = auth.context?.global_id ?? (isLocalDemoActive() ? "isolated-demo" : null);
+  const displayOwner=useAuthOwnerGlobalId();
+  const cacheOwner = auth.context?.global_id ?? (cachedAdminView(displayOwner)?displayOwner:null) ?? (isLocalDemoActive() ? "isolated-demo" : null);
   const { mutateAsync } = useMutation({
     mutationFn: (request: AdminLinkedRequest) =>
       adminLinkedRequest<unknown>(request),

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import {useOwnerDraft} from "../hooks/useOwnerDraft";
 import { LayoutContext } from "../components/Layout";
 import { Button } from "../components/ui/Button";
 import { Modal } from "../components/ui/Modal";
@@ -70,7 +71,7 @@ export default function WithdrawPage(props: {
   const withdrawSurface = useInterfaceVariantSurface<HTMLDivElement>("WD", {
     dotsPlacement: "below",
   });
-  const [amount, setAmount] = useState(mainBalance);
+  const [amount, setAmount] = useOwnerDraft("withdraw.amount",mainBalance);
   const amountInputRef = useRef<HTMLInputElement | null>(null);
   const createSurfaceRef = useRef<HTMLDivElement | null>(null);
   const [statusFilter, setStatusFilter] = useState("all");
@@ -169,9 +170,6 @@ export default function WithdrawPage(props: {
     ? cancelWithdrawMutation.variables?.requestId || null
     : null;
 
-  useEffect(() => {
-    setAmount(mainBalance);
-  }, [mainBalance]);
 
   const withdrawMinOk = useMemo(
     () => cmp8(mainBalance, "10.00000000") >= 0,

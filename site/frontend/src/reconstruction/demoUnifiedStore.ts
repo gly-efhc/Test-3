@@ -1,4 +1,5 @@
 import {publicAssetPath} from "../lib/publicAssetPath";
+import {windowStateStorage} from "../lib/windowState";
 import {demoBankSnapshot} from "./demoBankSnapshot";
 /** Public Pages ONLY: persistent sample accounting, NEVER an authenticated wallet or ledger.
  * Derived from frozen FRONTEND_v866.html, STANDALONE_GLOBAL_ID and standaloneAdminSeed.
@@ -16,6 +17,7 @@ export const DEMO_DB_NAME = "EFHC_REACT_DEMO_CANON_V866";
 export const DEMO_SCHEMA_VERSION = 2;
 export const DEMO_DB_VERSION = 3;
 export const DEMO_STORAGE_KEY = "efhc:react:unified-demo:v893";
+export const DEMO_WINDOW_SELECTION_KEY = "efhc:react:demo-window-owner";
 export const DEMO_SCENARIOS = ["filled", "empty", "loading", "error", "no_wallet"] as const;
 export type DemoScenario = typeof DEMO_SCENARIOS[number];
 export type DemoRole = "user" | "admin" | "superadmin";
@@ -95,21 +97,36 @@ export function seedDemoState():DemoControlState {
    scenario:"filled",role:"user",accounts:{[DEMO_GLOBAL_ID]:seedAccount()},next_id:200000};
 }
 let cache:DemoControlState|null=null;
+let sharedSelection = DEMO_GLOBAL_ID;
+let watchingSharedState = false;
 const callbacks=new Set<()=>void>();
 function emit():void {callbacks.forEach(cb=>cb());if(typeof window!=="undefined")window.dispatchEvent(new Event("efhc:demo:state-changed"));}
 export function subscribeDemoState(listener:()=>void):()=>void {callbacks.add(listener);return ()=>callbacks.delete(listener);}
 export function readDemoState():DemoControlState {
  if(cache)return cache;
  if(typeof window==="undefined")return seedDemoState();
+ if (!watchingSharedState) {
+  watchingSharedState = true;
+  window.addEventListener?.("storage", event => {
+   if (event.key === DEMO_STORAGE_KEY) {cache = null;readDemoState();emit();}
+  });
+ }
  try {
   const stored=JSON.parse(window.localStorage.getItem(DEMO_STORAGE_KEY)||"null") as DemoControlState|null;
   if(stored&&stored.schema_version===DEMO_SCHEMA_VERSION&&/^\d{10}$/.test(stored.selected_global_id)&&DEMO_SCENARIOS.includes(stored.scenario)){
+    sharedSelection = stored.selected_global_id;
     cache=migrateUntouchedLegacyPrimary(stored);
     if(cache!==stored){try{window.localStorage.setItem(DEMO_STORAGE_KEY,JSON.stringify(cache));}catch{/* quota */}}
-    return cache;
+    cache=withWindowSelection(cache);return cache;
   }
  }catch{ /* fallback to canon */ }
- cache=seedDemoState();return cache;
+ cache=withWindowSelection(seedDemoState());return cache;
+}
+function withWindowSelection(state:DemoControlState):DemoControlState {
+ const selected=windowStateStorage().getItem(DEMO_WINDOW_SELECTION_KEY);
+ if(selected&&/^\d{10}$/.test(selected)&&selected!=="0000000000")return {...state,selected_global_id:selected};
+ windowStateStorage().setItem(DEMO_WINDOW_SELECTION_KEY,state.selected_global_id);
+ return state;
 }
 /** Migrate only the untouched v893/v899 primary sample. Never overwrite an
  * account with a ledger, task awards, withdrawals or user changes. */
@@ -124,7 +141,10 @@ function migrateUntouchedLegacyPrimary(state:DemoControlState):DemoControlState 
 function save(state:DemoControlState):void {
  const snapshot=demoBankSnapshot(state);
  if(state.server&&snapshot)state={...state,server:{...state.server,bank_snapshot:snapshot}};
- if(typeof window!=="undefined")window.localStorage.setItem(DEMO_STORAGE_KEY,JSON.stringify(state));
+ if(typeof window!=="undefined"){
+  windowStateStorage().setItem(DEMO_WINDOW_SELECTION_KEY,state.selected_global_id);
+  window.localStorage.setItem(DEMO_STORAGE_KEY,JSON.stringify({...state,selected_global_id:sharedSelection}));
+ }
  cache=state;
  emit();
 }

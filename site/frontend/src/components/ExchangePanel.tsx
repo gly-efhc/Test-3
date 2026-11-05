@@ -1,5 +1,6 @@
 // Guard marker: Exchange page is kWh -> EFHC only.
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import {useOwnerDraft} from "../hooks/useOwnerDraft";
 import { Card } from "./ui/Card";
 import { Button } from "./ui/Button";
 import { useT } from "../hooks/useT";
@@ -51,7 +52,7 @@ export function ExchangePanel(props: Props) {
   const maxScaled = useMemo(() => {
     return toScaledBigintDown(props.maxKwh || "0", 8);
   }, [props.maxKwh]);
-  const [amount, setAmount] = useState("0.00000000");
+  const [amount, setAmount] = useOwnerDraft("exchange.amount","0.00000000");
   const amountInputRef = useRef<HTMLInputElement | null>(null);
   const cardSurface = useInterfaceVariantSurface<HTMLDivElement>("XC", { registerDots: false, interactive: false });
   const actionSurface = useInterfaceVariantSurface<HTMLDivElement>("XA", { registerDots: false, interactive: false });

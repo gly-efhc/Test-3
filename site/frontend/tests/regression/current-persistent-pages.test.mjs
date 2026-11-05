@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {sourceRuntime} from '../helpers/source-runtime.mjs';
-import {onlineManager} from '@tanstack/react-query';
+import {onlineManager,QueryObserver} from '@tanstack/react-query';
 const A='0000000001',B='0000000002';
 const r=()=>sourceRuntime({overrides:{'../hooks/useT':{useT:()=>key=>key},'../hooks/useInterfaceVariantSurface':{useInterfaceVariantSurface:group=>({variant:group+'-01',handlers:{},ref:null})},'../hooks/useDemoGenerationProjection':{useDemoGenerationProjection:()=>null}}});
 for(const status of ['idle','loading','error','success'])test('Energy retains its full canonical structure with no data: '+status,()=>{
@@ -83,14 +83,64 @@ test('all Admin GET views retain their operator-scoped data on transient failure
  await assert.rejects(read(A,'/admin/reports/overview',async()=>{throw Object.assign(Error('denied'),{status:403});}),/denied/);
 });
 test('display Global ID and cached data are independent of transport credentials; changing USER owner replaces them',()=>{
- const h=sourceRuntime(),cache=h.load('lib/userDataCache.ts'),auth=h.load('lib/auth-session.ts'),q=h.load('lib/queryClient.ts');
- assert.equal(typeof cache.cachedUserDisplayOwner,'function');
+ const h=sourceRuntime(),display=h.load('lib/displayOwner.ts'),auth=h.load('lib/auth-session.ts'),q=h.load('lib/queryClient.ts');
+ assert.equal(typeof display.resolvedDisplayOwner,'function');
  const credential=token=>({access_token:token.repeat(40),token_type:'Bearer',expires_at:'2099-01-01T00:00:00Z'});
  auth.storeAuthSession(credential('A'));
  const c=q.createEfhcQueryClient();q.activateUserDataOwner(c,A,false);
- assert.equal(cache.cachedUserDisplayOwner(),A);
- auth.storeAuthSession(credential('B'));assert.equal(cache.cachedUserDisplayOwner(),A);
- auth.clearAuthSession();assert.equal(cache.cachedUserDisplayOwner(),A);
- q.activateUserDataOwner(c,B,false);assert.equal(cache.cachedUserDisplayOwner(),B);
+ display.recordResolvedDisplayOwner(A);assert.equal(display.resolvedDisplayOwner(),A);
+ auth.storeAuthSession(credential('B'));assert.equal(display.resolvedDisplayOwner(),A);
+ auth.clearAuthSession();assert.equal(display.resolvedDisplayOwner(),A);
+ c.setQueryData(['panels',A,'summary'],{active_count:3});display.beginDisplayOwnerResolution(true);
+ assert.equal(display.resolvedDisplayOwner(),null);assert.equal(c.getQueryData(['panels',A,'summary']).active_count,3);
+ display.recordResolvedDisplayOwner(A);assert.equal(display.resolvedDisplayOwner(),A);
+ display.recordResolvedDisplayOwner(B);q.activateUserDataOwner(c,B,false);assert.equal(display.resolvedDisplayOwner(),B);
  assert.ok(![...h.storage.values()].join('').includes('A'.repeat(40)));c.clear();
+});
+test('two windows retain separate active owners, caches and settings over switches',t=>{
+ const disk=new Map(),one=sourceRuntime({storage:disk}),two=sourceRuntime({storage:disk});
+ const q1=one.load('lib/queryClient.ts'),q2=two.load('lib/queryClient.ts'),c1=q1.createEfhcQueryClient(),c2=q2.createEfhcQueryClient();
+ t.after(()=>{c1.clear();c2.clear();});
+ q1.activateUserDataOwner(c1,A,false);c1.setQueryData(['panels',A,'summary'],{active_count:3});
+ const s1=one.load('lib/settings.ts');s1.saveSettings({...s1.resetSettings(),lang:'ru',color_theme_id:'CT-03'});
+ q2.activateUserDataOwner(c2,B,false);c2.setQueryData(['panels',B,'summary'],{active_count:5});
+ const s2=two.load('lib/settings.ts');s2.saveSettings({...s2.resetSettings(),lang:'en'});
+ assert.equal(s1.loadSettings().lang,'ru');assert.equal(s1.loadSettings().color_theme_id,'CT-03');
+ assert.equal(one.load('lib/userDataCache.ts').currentUserDataOwner(),A);
+ q1.activateUserDataOwner(c1,'0000000003',false);
+ assert.equal(two.load('lib/userDataCache.ts').currentUserDataOwner(),B);assert.equal(c2.getQueryData(['panels',B,'summary']).active_count,5);
+ assert.equal(s2.loadSettings().lang,'en');c1.clear();c2.clear();
+});
+test('activity refreshes active data; online alone and repeated events never create a replay queue',async()=>{
+ const h=sourceRuntime(),q=h.load('lib/queryClient.ts'),c=q.createEfhcQueryClient(),events=new EventTarget();
+ const activity=h.load('lib/frontendActivity.ts');assert.equal(typeof activity.startActivitySync,'function');
+ let calls=0;const observer=new QueryObserver(c,{queryKey:['activity-data'],queryFn:async()=>++calls,retry:false});
+ const off=observer.subscribe(()=>{});await new Promise(r=>setTimeout(r,10));
+ const stop=activity.startActivitySync(c,events),before=calls;
+ try{
+  events.dispatchEvent(new Event('online'));await new Promise(r=>setTimeout(r,10));assert.equal(calls,before);
+  events.dispatchEvent(new Event('pointerdown'));await new Promise(r=>setTimeout(r,10));assert.equal(calls,before+1);
+  events.dispatchEvent(new Event('keydown'));events.dispatchEvent(new Event('scroll'));await new Promise(r=>setTimeout(r,10));assert.equal(calls,before+1);
+ }finally{stop();off();c.clear();}
+});
+test('cached Admin view permits reads, but a command only refreshes permission and never executes itself',async()=>{
+ const h=sourceRuntime(),view=h.load('lib/adminViewState.ts');
+ view.rememberAdminView(A);assert.equal(view.markAdminUnavailable(A),true);
+ assert.equal(view.cachedAdminView(A),'readonly');
+ let requests=0;
+ assert.equal(await view.allowAdminCommand('/admin/bank/mint','POST',async()=>{requests++;return {global_id:A,role:'admin'};}),false);
+ assert.equal(requests,1);assert.equal(view.cachedAdminView(A),'allowed');
+ assert.equal(await view.allowAdminCommand('/admin/bank/mint','POST',async()=>{throw Error('must not refresh a confirmed view');}),true);
+ view.markAdminUnavailable(A);
+ await view.allowAdminCommand('/admin/bank/mint','POST',async()=>{throw Object.assign(Error('denied'),{status:403});});
+ assert.equal(view.cachedAdminView(A),null);assert.equal(view.cachedAdminView(B),null);
+});
+test('drafts survive reload as text only and reset for a new USER without clearing another window',()=>{
+ const disk=new Map(),one=sourceRuntime({storage:disk}),two=sourceRuntime({storage:disk});
+ const d1=one.load('lib/ownerDrafts.ts'),d2=two.load('lib/ownerDrafts.ts');
+ d1.writeOwnerDraft(A,'exchange.amount','12.345');d2.writeOwnerDraft(B,'exchange.amount','77');
+ assert.equal(sourceRuntime({storage:disk,session:one.session}).load('lib/ownerDrafts.ts').readOwnerDraft(A,'exchange.amount'),'12.345');
+ d1.resetWindowDrafts(B);assert.equal(d1.readOwnerDraft(B,'exchange.amount'),null);
+ assert.equal(d2.readOwnerDraft(B,'exchange.amount'),'77');
+ assert.equal(d1.readOwnerDraft(null,'exchange.amount'),null);
 });

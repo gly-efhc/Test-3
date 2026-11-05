@@ -9,7 +9,7 @@ export async function readAdminDisplay<T>(owner: string | null, path: string, fe
   if (activeOwner !== owner) {
     activeOwner = owner; values = {};
     try {
-      const cached = JSON.parse(window.localStorage.getItem(KEY) || "null");
+      const cached = JSON.parse(window.localStorage.getItem(`${KEY}:${owner}`) || "null");
       if (cached?.owner === owner && cached.values && typeof cached.values === "object" && !Array.isArray(cached.values)) values = cached.values;
     } catch { /* Disk failure cannot remove an Admin page. */ }
   }
@@ -19,7 +19,7 @@ export async function readAdminDisplay<T>(owner: string | null, path: string, fe
     values[path] = data;
     try {
       const serialized = JSON.stringify({owner, values});
-      if (new Blob([serialized]).size <= 3_000_000) window.localStorage.setItem(KEY, serialized);
+      if (new Blob([serialized]).size <= 3_000_000) window.localStorage.setItem(`${KEY}:${owner}`, serialized);
     } catch { /* Keep the current in-memory view. */ }
     return data;
   } catch (error) {

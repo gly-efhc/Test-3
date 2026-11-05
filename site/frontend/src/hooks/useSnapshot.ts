@@ -27,8 +27,8 @@ export function useSnapshot() {
     enabled: Boolean(globalId),
     staleTime: 30_000,
     refetchOnMount: "always",
-    refetchOnWindowFocus: "always",
-    refetchOnReconnect: "always",
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
     queryFn: async ({signal}) => {
       const result = await fetchSyncSnapshot(signal);
       if (result.profile.global_id !== globalId) throw new Error("SNAPSHOT_OWNER_MISMATCH");

@@ -25,7 +25,7 @@ import { completeTonProofLogin } from "../lib/ton-auth";
 import {
   captureReferralStartParamFromFirstEntry,
 } from "../lib/referral-start-param";
-import { cachedUserDisplayOwner } from "../lib/userDataCache";
+import {beginDisplayOwnerResolution,needsTelegramOwnerResolution,resolvedDisplayOwner,subscribeDisplayOwner} from "../lib/displayOwner";
 
 export type AuthBootstrapStatus =
   | "anonymous"
@@ -116,11 +116,6 @@ export function AuthSessionProvider(props: {
     }
   }, []);
 
-  useEffect(() => {
-    if (readAuthSession()) {
-      void restoreSession();
-    }
-  }, [restoreSession]);
 
   useEffect(() => subscribeAuthSessionInvalidation(() => {
     setState({
@@ -135,6 +130,7 @@ export function AuthSessionProvider(props: {
     if (!initData) {
       throw new Error("TELEGRAM_INIT_DATA_UNAVAILABLE");
     }
+    beginDisplayOwnerResolution();
     setState((current) => ({
       status: "authenticating",
       context: current.context,
@@ -160,6 +156,13 @@ export function AuthSessionProvider(props: {
   }, []);
 
   useEffect(() => {
+    if(readAuthSession()) {
+      if(getTelegramInitData()&&needsTelegramOwnerResolution())void loginTelegram().catch(()=>undefined);
+      else void restoreSession();
+    }
+  },[restoreSession,loginTelegram]);
+
+  useEffect(() => {
     if (
       state.status !== "anonymous"
       || readAuthSession()
@@ -173,6 +176,7 @@ export function AuthSessionProvider(props: {
   }, [loginTelegram, state.status]);
 
   const loginTon = useCallback(async (proofRequest: unknown) => {
+    beginDisplayOwnerResolution(true);
     setState((current) => ({
       status: "authenticating",
       context: current.context,
@@ -196,6 +200,18 @@ export function AuthSessionProvider(props: {
       throw error;
     }
   }, []);
+
+  const stateRef=useRef(state);stateRef.current=state;
+  useEffect(()=>{
+    const activity=()=>{
+      const status=stateRef.current.status;
+      if(status==="restoring"||status==="authenticating"||status==="authenticated")return;
+      if(getTelegramInitData()&&needsTelegramOwnerResolution())void loginTelegram().catch(()=>undefined);
+      else if(readAuthSession())void restoreSession();
+    };
+    window.addEventListener("efhc:activity-sync",activity);
+    return()=>window.removeEventListener("efhc:activity-sync",activity);
+  },[loginTelegram,restoreSession]);
 
   const logout = useCallback(async () => {
     try {
@@ -241,13 +257,13 @@ export function useAuthSessionController(): AuthSessionController {
 export function useAuthOwnerGlobalId():
   AuthSessionContext["global_id"] | null {
   const session = useAuthSessionController();
-  const authenticated = session.context?.global_id ?? null;
+  const authenticated = session.status === "authenticated" ? session.context?.global_id ?? null : null;
   const [cachedId, setCachedId] = useState<AuthSessionContext["global_id"] | null>(null);
   useEffect(() => {
     // Linked-account ownership is distinct from transport/session readiness.
     // The isolated DEMO obtains its current selection from its own account model.
-    const owner = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? null : cachedUserDisplayOwner();
-    setCachedId(owner as AuthSessionContext["global_id"] | null);
+    const update=()=>setCachedId(process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? null : resolvedDisplayOwner());
+    update();return subscribeDisplayOwner(update);
   }, [session.status, authenticated]);
   // No demo credential is put into AuthSession. This is just the 10-digit
   // account selector for the isolated public-Pages backend simulator.

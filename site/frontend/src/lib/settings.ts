@@ -1,5 +1,6 @@
 import { normalizeLang, type Lang } from "./i18n";
 import { currentUserDataOwner } from "./userDataCache";
+import { windowStateStorage } from "./windowState";
 import {
   DEFAULT_INTERFACE_VARIANTS,
   INTERFACE_VARIANT_REGISTRY,
@@ -309,7 +310,12 @@ function normalizeSettings(parsed: any): UserSettings {
 export function loadSettings(): UserSettings {
   if (typeof window === "undefined") return resetSettings();
   try {
-    const raw = window.localStorage.getItem(KEY);
+    const owner = currentUserDataOwner();
+    const local = JSON.parse(windowStateStorage().getItem(KEY) || "null");
+    if (local && local.settings_owner === owner) return normalizeSettings(local);
+    const legacyOwner = window.localStorage.getItem(`${KEY}:legacy-owner`);
+    const raw = (owner ? window.localStorage.getItem(`${KEY}:${owner}`) : null)
+      || (!legacyOwner || legacyOwner === owner ? window.localStorage.getItem(KEY) : null);
     if (raw) return normalizeSettings(JSON.parse(raw) || {});
     return resetSettings();
   } catch {
@@ -322,7 +328,7 @@ export async function loadSettingsAsync(): Promise<UserSettings> {
   const owner = currentUserDataOwner();
   // A current local owner model wins over an old provider-level cloud setting.
   try {
-    if (owner && typeof window !== "undefined" && window.localStorage.getItem(KEY)) return local;
+    if (!owner || windowStateStorage().getItem(KEY)) return local;
     const raw = await telegramCloudStorageGet(owner ? `${CLOUD_KEY}_${owner}` : CLOUD_KEY);
     if (currentUserDataOwner() !== owner) return loadSettings();
     if (raw) {
@@ -337,10 +343,26 @@ export async function loadSettingsAsync(): Promise<UserSettings> {
 export function saveSettings(s: UserSettings): void {
   if (typeof window === "undefined") return;
   try {
-    window.localStorage.setItem(KEY, JSON.stringify({ ...s, interface_settings_version: 4 }));
+    const owner = currentUserDataOwner();
+    const raw = JSON.stringify({...s, settings_owner: owner, interface_settings_version: 4});
+    windowStateStorage().setItem(KEY, raw);
+    if (owner) {
+      window.localStorage.setItem(`${KEY}:${owner}`, raw);
+      if (!window.localStorage.getItem(`${KEY}:legacy-owner`)) window.localStorage.setItem(`${KEY}:legacy-owner`, owner);
+    }
   } catch {
     // ignore
   }
+}
+
+/** Bind the loaded view preferences once, without adopting another window's owner. */
+export function bindWindowSettings(): boolean {
+  try {
+    const raw = JSON.parse(windowStateStorage().getItem(KEY) || "null");
+    if (raw?.settings_owner === currentUserDataOwner()) return false;
+  } catch { /* Replace malformed optional preferences with defaults. */ }
+  saveSettings(loadSettings());
+  return true;
 }
 
 export async function saveSettingsAsync(
