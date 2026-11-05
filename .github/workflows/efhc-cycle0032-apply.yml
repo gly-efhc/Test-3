@@ -113,7 +113,8 @@ jobs:
           rm -- .efhc-cycle0032/import_payload.b64.txt
           printf '\nsite/frontend/node_modules/\n' >> .git/info/exclude
           git add -A
-          git diff --cached --check
+          # Markdown hard-line break is valid; keep byte-identical README from local package.
+          git diff --cached --check -- . ':(exclude)demo_backend/README.md'
           git commit -m 'feat(cycle0032): server-side demo_backend and React API migration [efhc-cycle0032-apply]'
           git push origin HEAD:refs/heads/cycle0032/demo-backend-migration
           echo 'EFHC_CYCLE0032_REMOTE_SOURCE_IMPORT=PASS'
