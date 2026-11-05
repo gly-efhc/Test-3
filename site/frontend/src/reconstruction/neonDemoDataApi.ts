@@ -113,7 +113,7 @@ export async function getNeonExchangePage(gid:string,offset:number,limit:number)
  const rows=await getRows<{id:string;global_id:string;amount_efhc:string;amount_kwh:string;created_at:string;event_id:string}>("economic_events",{
   select:"id,global_id,amount_efhc,amount_kwh,created_at,event_id",global_id:"eq."+gid,
   reason:"eq.exchange_kwh",order:"created_at.desc,id.desc",offset:String(offset),limit:String(limit)});
- return {items:rows.map(r=>({id:r.id,event_id:r.event_id,created_at:r.created_at,amount_kwh:r.amount_kwh,
+ return {items:rows.map(r=>({id:r.id,event_id:r.event_id,created_at:r.created_at,amount_kwh:r.amount_efhc,
    amount_efhc:r.amount_efhc,credited_efhc:r.amount_efhc,reason:"exchange_kwh"})),
   next_cursor:rows.length===limit?String(offset+limit):null};
 }

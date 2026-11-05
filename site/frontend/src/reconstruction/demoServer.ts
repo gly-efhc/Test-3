@@ -41,7 +41,7 @@ function overview(state:DemoControlState){
   bank_metrics_main_pct:pct(d8(main)),bank_metrics_bonus_pct:pct(d8(bonus))};
  Object.assign(facts,bank.facts);
  return {ok:true,ts:bank.ts,facts,counters:{users_total:users.length,users_active:users.filter(a=>a.is_active!==false).length,
-  users_vip:users.filter(a=>a.is_vip!==false).length,panels_total:panels.length,panels_active:active.length,
+  users_vip:users.filter(a=>a.is_vip===true).length,panels_total:panels.length,panels_active:active.length,
   withdrawals_pending:users.flatMap(a=>a.withdrawals).filter(r=>r.status==='pending').length,tasks_total:s.tasks.length,
   shop_orders_total:s.orders.length},notes:null};
 }
@@ -180,7 +180,7 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
    const wallet=state.scenario==='no_wallet'?undefined:a.wallets.find(w=>w.is_active&&w.proof_verified&&(b.wallet_id?String(w.id)===String(b.wallet_id):w.is_primary));
    requireDemo(wallet,'WITHDRAW_WALLET_MISSING');transfer(state,a.global_id,value,'debit','main','withdraw_hold');
    const row={id:String(++state.next_id),global_id:a.global_id,amount:formatD8(value),amount_efhc:formatD8(value),status:'pending',created_at:now,updated_at:now,
-    wallet_address:wallet.wallet_address,hold_done:true,refund_done:false,is_vip:a.is_vip!==false};a.withdrawals.unshift(row);return row;
+    wallet_address:wallet.wallet_address,hold_done:true,refund_done:false,is_vip:a.is_vip===true};a.withdrawals.unshift(row);return row;
   });
   const wd=/^\/withdraw\/(\d+)(\/cancel)?$/.exec(p);
   if(wd){const row=rowById(a.withdrawals,wd[1]);if(read)return row;
@@ -191,7 +191,7 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
   if(p==='/hub/support-links'&&read)return s.support.filter(r=>r.is_active);
   if(p==='/tasks/catalog'&&read)return {items:s.tasks.filter(r=>r.is_active).map(r=>({...r,id:String(r.id)}))};
   if(p==='/tasks/my'&&read)return {items:a.completed_tasks.map(code=>{const t=s.tasks.find(r=>r.code===code);return {id:String(t?.id),task_id:String(t?.id),status:'completed',can_claim:false,bonus_efhc:t?.bonus_efhc||zero,next_available_at:null,progress:{demo:true}};})};
-  if(p==='/tasks/earnings/me'&&read)return {total_bonus_earned:formatD8(a.ledger.filter(r=>r.reason==='task_bonus'||r.reason==='ad_reward').reduce((n,r)=>n+d8(r.amount_efhc),s.settings.neon_seed_revision?0n:s.settings.neon_seed_revision?0n:d8(canonical.tasks.earnings.total_bonus_earned))),bonus_asset:'EFHCb',includes_ads:true};
+  if(p==='/tasks/earnings/me'&&read)return {total_bonus_earned:formatD8(a.ledger.filter(r=>r.reason==='task_bonus'||r.reason==='ad_reward').reduce((n,r)=>n+d8(r.amount_efhc),s.settings.neon_seed_revision?0n:d8(canonical.tasks.earnings.total_bonus_earned))),bonus_asset:'EFHCb',includes_ads:true};
   if(p==='/tasks/claim'&&method==='POST')return replay(state,key,`${a.global_id}:${p}:${JSON.stringify(b)}`,()=>{
    const t=s.tasks.find(r=>String(r.id)===String(b.task_id));requireDemo(t?.is_active,'TASK_NOT_FOUND',404);requireDemo(!a.completed_tasks.includes(t.code),'TASK_ALREADY_COMPLETED',409);
    transfer(state,a.global_id,amount(t.bonus_efhc),'credit','bonus','task_bonus');a.completed_tasks.push(t.code);
@@ -222,7 +222,7 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
    if(!suffix&&read){ensurePanels(target);return userRow(target);}
    if(suffix==='history'&&read)return undefined; // async shared IndexedDB + live ledger reader in demoApi
    if(suffix==='panels/activate'&&method==='POST')return replay(state,key,`${p}:activate`,()=>({ok:true,panel:activatePanel(state,user[1]),server_now_utc:now}));
-   if((suffix==='vip'||suffix==='vip/check')&&!read){if(suffix==='vip')target.is_vip=b.is_vip??b.enabled??!target.is_vip;return {ok:true,user:userRow(target),is_vip:target.is_vip!==false,global_id:target.global_id,state:'demo',has_admin_nft:target.is_vip!==false,message:'Демонстрационный статус VIP проверен. Внешний сервис не вызывался.',checked_at:now};}
+   if((suffix==='vip'||suffix==='vip/check')&&!read){if(suffix==='vip')target.is_vip=b.is_vip??b.enabled??!target.is_vip;return {ok:true,user:userRow(target),is_vip:target.is_vip===true,global_id:target.global_id,state:'demo',has_admin_nft:target.is_vip===true,message:'Демонстрационный статус VIP проверен. Внешний сервис не вызывался.',checked_at:now};}
    if(suffix==='active'&&!read){target.is_active=Boolean(b.is_active??b.active??b.enabled??!target.is_active);return {ok:true,user:userRow(target)};}
    if(suffix==='wallet/reset'&&!read){target.wallets=[];return {ok:true};}
   }

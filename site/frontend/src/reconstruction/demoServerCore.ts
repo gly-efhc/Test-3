@@ -111,6 +111,6 @@ export function pageRows<T>(rows:T[],q:URLSearchParams,defaultLimit=20){
 export function panelRows(a:DemoAccountState){return ensurePanels(a).map(p=>({...p,
  remaining_seconds:Math.max(0,Math.floor((Date.parse(p.expires_at)-Date.now())/1000)),state:p.meta?.protectively_voided?'dead':p.is_active?'active':'archive'}));}
 export function userRow(a:DemoAccountState){return {global_id:a.global_id,username:a.username||(a.global_id===DEMO_GLOBAL_ID?'efhc_player':`demo_${a.global_id}`),
- is_vip:a.is_vip!==false,is_active:a.is_active!==false,main_balance:a.main_balance,bonus_balance:a.bonus_balance,
+ is_vip:a.is_vip===true,is_active:a.is_active!==false,main_balance:a.main_balance,bonus_balance:a.bonus_balance,
  available_kwh:a.available_kwh,total_generated_kwh:a.total_generated_kwh,active_panels_count:(a.panels||[]).filter(p=>p.is_active&&!p.meta?.protectively_voided).length,
  ton_wallet:a.wallets.find(w=>w.is_primary)?.wallet_address||null,created_at:new Date().toISOString(),updated_at:new Date().toISOString()};}
