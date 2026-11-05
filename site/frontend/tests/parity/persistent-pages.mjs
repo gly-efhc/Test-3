@@ -34,7 +34,7 @@ try{
   if(['/admin/users','/admin/user-history'].includes(route)){await page.locator('[data-admin-user-profile]').waitFor({state:'visible'});assert.ok(await page.locator('[data-admin-global-id-search-canon] input').isVisible());assert.ok(await page.locator('.efhc-profile-topbar button').first().isVisible());}
   else if(route.startsWith('/admin')){await page.locator('[data-admin-primitive="page"]').waitFor({state:'visible'});assert.ok(await page.locator('[data-app-navigation="exit-admin"]').isVisible());}
   else if(route.startsWith('/browser-shop')){await page.locator('.efhc-shop-catalog-toolbar').waitFor({state:'visible'});assert.equal(await page.locator('[role="tab"]').count(),3);}
-  else{await page.locator('.efhc-game-nav').waitFor({state:'visible'});assert.equal(await page.locator('.efhc-game-nav a').count(),6);assert.ok(await page.locator('.efhc-game-header').isVisible());}
+  else{await page.locator('.efhc-game-nav').waitFor({state:'visible'});assert.equal(await page.locator('.efhc-game-nav a').count(),6);assert.ok(await page.locator('.efhc-game-header').isVisible());const main=page.locator('#efhc-main-content');assert.ok((await main.innerText()).trim().length>10,'page content remains present');if(route==='/'||route==='/app'){assert.equal(await main.locator('[data-energy-chip]').count(),3);assert.equal(await main.locator('.efhc-energy-progress-track').count(),1);}else assert.ok(await main.locator('button,a,input,[role="tab"]').count()>0,'page controls remain present');}
   assert.equal(await page.locator('[data-energy-state="loading"],[data-energy-state="recoverable-error"]').count(),0);
   assert.ok(!/Application error|ZodError/.test(await page.locator('body').innerText()));
  });
