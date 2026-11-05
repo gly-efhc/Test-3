@@ -1202,12 +1202,6 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
     return () => document.removeEventListener("keydown", onKeyDown, true);
   }, [orderDetailOpen]);
 
-  if (loading) return <main className="efhc-browser-shop-landing" data-public-surface="browser-shop"><div className="efhc-browser-shop-landing_container"><RouteSkeleton kind="cards" rows={3} /></div></main>;
-  if (loadError) return (
-    <main className="efhc-browser-shop-landing" data-public-surface="browser-shop"><div className="efhc-browser-shop-landing_container">
-      <section className="efhc-shop-landing_notice is-error"><div><strong>{t("portal.browser_shop.open_failed_title")}</strong><p>{t("portal.browser_shop.open_failed_clean_detail")}</p></div>{bootstrap?.bot_open_url ? <Button onClick={openTelegramLink}>{t("portal.browser_shop.open_bot")}</Button> : null}</section>
-    </div></main>
-  );
 
 
 
@@ -1230,6 +1224,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
       data-browser-shop-vip-visible-limit="100-no-expansion" data-browser-shop-external-payment="payment-intent-chain-reconciliation-active"
     >
       <div className="efhc-browser-shop-landing_container">
+        {loadError ? <section className="efhc-shop-landing_notice is-error" role="status"><div><strong>{t("portal.browser_shop.open_failed_title")}</strong><p>{t("portal.browser_shop.open_failed_clean_detail")}</p></div>{bootstrap?.bot_open_url ? <Button onClick={openTelegramLink}>{t("portal.browser_shop.open_bot")}</Button> : null}</section> : null}
         <section className="efhc-shop-catalog-toolbar" aria-label={t("portal.browser_shop.shop_navigation")}>
           <div className="efhc-shop-catalog-tabs" role="tablist">
             <button type="button" role="tab" aria-selected={activeTab === "shop"} onClick={() => navigateShopPage("shop")}>{t("portal.browser_shop.nav_shop")}</button>
@@ -1241,6 +1236,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
           </div> : null}
         </section>
 
+        {loading ? <RouteSkeleton kind="cards" rows={3} /> : null}
         <section className="efhc-shop-landing_account" data-account-linked={accountLinked ? "true" : "false"} data-browser-shop-profile={accountLinked ? "connected" : "guest"} data-profile-global-id={linkedGlobalId || "none"} data-wallet-linked={walletLinked ? "true" : "false"}>
           <div className="efhc-shop-landing_account-copy"><span>{accountLinked ? t("portal.browser_shop.linked") : t("portal.browser_shop.guest")}</span><strong>{username} {linkedGlobalId ? `· Global ID ${linkedGlobalId}` : ""}</strong><small>EFHCm {mainBalance}</small></div>
           <div className="efhc-shop-landing_account-actions">

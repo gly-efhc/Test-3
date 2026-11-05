@@ -1,4 +1,5 @@
 import { normalizeLang, type Lang } from "./i18n";
+import { currentUserDataOwner } from "./userDataCache";
 import {
   DEFAULT_INTERFACE_VARIANTS,
   INTERFACE_VARIANT_REGISTRY,
@@ -310,14 +311,6 @@ export function loadSettings(): UserSettings {
   try {
     const raw = window.localStorage.getItem(KEY);
     if (raw) return normalizeSettings(JSON.parse(raw) || {});
-    // Source-derived first-visit values for the public visual comparison ONLY.
-    // Once the owner selects settings, the persisted values take precedence.
-    // Frozen v866 starts from COMMON_DEFAULTS (selection IDs, not CSS style IDs).
-    if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1") {
-      const preview = resetSettings();
-      preview.lang = "ru";
-      return preview;
-    }
     return resetSettings();
   } catch {
     return resetSettings();
@@ -326,8 +319,12 @@ export function loadSettings(): UserSettings {
 
 export async function loadSettingsAsync(): Promise<UserSettings> {
   const local = loadSettings();
+  const owner = currentUserDataOwner();
+  // A current local owner model wins over an old provider-level cloud setting.
   try {
-    const raw = await telegramCloudStorageGet(CLOUD_KEY);
+    if (owner && typeof window !== "undefined" && window.localStorage.getItem(KEY)) return local;
+    const raw = await telegramCloudStorageGet(owner ? `${CLOUD_KEY}_${owner}` : CLOUD_KEY);
+    if (currentUserDataOwner() !== owner) return loadSettings();
     if (raw) {
       return normalizeSettings(withLocalAvatarPayload(JSON.parse(raw) || {}, local));
     }
@@ -353,7 +350,7 @@ export async function saveSettingsAsync(
   try {
     const cloudSafe = cloudSafeSettings(s);
     await telegramCloudStorageSet(
-      CLOUD_KEY,
+      currentUserDataOwner() ? `${CLOUD_KEY}_${currentUserDataOwner()}` : CLOUD_KEY,
       JSON.stringify(cloudSafe),
     );
 

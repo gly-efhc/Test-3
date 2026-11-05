@@ -1,4 +1,6 @@
 import { QueryClient } from "@tanstack/react-query";
+import { activateUserCache, startUserDataPersistence } from "./userDataCache";
+import { resetSettings, saveSettings } from "./settings";
 
 import {
   hydratePublicCatalogQueries,
@@ -23,12 +25,24 @@ export function createEfhcQueryClient() {
       },
       mutations: {
         retry: 0,
+        // Never queue a backend action for automatic replay when connectivity returns.
+        networkMode: "always",
       },
     },
   });
   if (typeof window !== "undefined") {
     hydratePublicCatalogQueries(client);
     startPublicCatalogPersistence(client);
+    startUserDataPersistence(client);
   }
   return client;
+}
+
+export function activateUserDataOwner(client: QueryClient, owner: string | null, admin: boolean): boolean {
+  const changed = activateUserCache(client, owner, admin);
+  if (changed) {
+    saveSettings(resetSettings());
+    if (typeof window !== "undefined") window.dispatchEvent?.(new Event("efhc:user-owner-changed"));
+  }
+  return changed;
 }

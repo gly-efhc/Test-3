@@ -221,6 +221,32 @@ jobs:
             --base-path "/${REPO_NAME}" 2>&1 \
             | tee "$RUNNER_TEMP/efhc-pages-diagnostics/verify-export.log"
 
+      - name: Require persistent pages under data failure
+        timeout-minutes: 5
+        env:
+          EFHC_BROWSER_TOOLS: ${{ runner.temp }}/efhc-browser-tools/package.json
+          EFHC_PARITY_ARTIFACTS: ${{ runner.temp }}/efhc-persistence-artifacts
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/efhc-browser-tools" playwright-core@1.64.1 --ignore-scripts --no-audit --no-fund
+          python3 site/ci/pages-tools/fix_pages_assets.py --directory "$RUNNER_TEMP/efhc-demo-build/out" --base-path "/${GITHUB_REPOSITORY#*/}"
+          mkdir -p "$RUNNER_TEMP/efhc-persistence-http"
+          ln -s "$RUNNER_TEMP/efhc-demo-build/out" "$RUNNER_TEMP/efhc-persistence-http/${GITHUB_REPOSITORY#*/}"
+          python3 -m http.server 19245 --bind 127.0.0.1 --directory "$RUNNER_TEMP/efhc-persistence-http" > "$RUNNER_TEMP/efhc-persistence-http.log" 2>&1 &
+          server=$!
+          trap 'kill "$server"' EXIT
+          for i in $(seq 1 30); do curl -fsS "http://127.0.0.1:19245/${GITHUB_REPOSITORY#*/}/" -o /dev/null && break || sleep 1; done
+          export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
+          export EFHC_REACT_URL="http://127.0.0.1:19245/${GITHUB_REPOSITORY#*/}/"
+          node site/frontend/tests/parity/persistent-pages.mjs
+      - name: Retain mandatory persistence verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: efhc-persistence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/efhc-persistence-artifacts/
+          if-no-files-found: warn
+
       - name: Collect post-build quality findings (non-blocking)
         if: ${{ inputs.full_review == true }}
         id: quality_postbuild

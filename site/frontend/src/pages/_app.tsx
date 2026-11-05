@@ -37,7 +37,7 @@ import {
   tgReady,
 } from "../lib/telegram";
 import { Layout } from "../components/Layout";
-import { getBrowserFallbackSnapshot } from "../lib/browserFallback";
+import { emptyOwnerSnapshot } from "../lib/browserFallback";
 import { ShopLayout } from "../components/ShopLayout";
 import { SplashScreen } from "../components/SplashScreen";
 import { ErrorBoundary } from "../components/ErrorBoundary";
@@ -132,6 +132,15 @@ export default function App({ Component, pageProps }: AppProps) {
     DEFAULT_SETTINGS,
   );
   const [settingsHydrated, setSettingsHydrated] = useState(false);
+  const [userViewEpoch, setUserViewEpoch] = useState(0);
+  useEffect(() => {
+    const changed = () => {
+      setSettings(loadSettings());
+      setUserViewEpoch(value => value + 1);
+    };
+    window.addEventListener("efhc:user-owner-changed", changed);
+    return () => window.removeEventListener("efhc:user-owner-changed", changed);
+  }, []);
   const [uiDictLoaded, setUiDictLoaded] = useState(false);
   const [ruDictLoaded, setRuDictLoaded] = useState(false);
   const [descDictLoaded, setDescDictLoaded] = useState(false);
@@ -368,6 +377,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <QueryClientProvider client={queryClient}>
           <AuthSessionProvider>
             <InterfaceCustomizationProvider
+              key={userViewEpoch}
               settings={settings}
               setSettings={setSettings}
             >
@@ -548,7 +558,7 @@ function AppInner(props: {
     return () => { active = false; };
   }, [authSession.status, globalId]);
 
-  const visibleSnap = snap ?? getBrowserFallbackSnapshot();
+  const visibleSnap = snap ?? emptyOwnerSnapshot();
   const snapshotMode = globalId === null ? "browser-preview" : "live";
   const visibleSnapshotStatus = globalId === null
     ? "success"
@@ -732,7 +742,7 @@ function AppInner(props: {
         setLang={handleSetLang}
         setSettings={setSettings}
       >
-        <ErrorBoundary title="EFHC Storefront" t={t}>
+        <ErrorBoundary key={router.pathname} title="EFHC Storefront" t={t}>
           <Component
             {...pageProps}
             snap={visibleSnap}
@@ -783,7 +793,7 @@ function AppInner(props: {
         setSettings={setSettings}
         shopSkinBgUrl={shopSkinBgUrl}
       >
-        <ErrorBoundary title="EFHC Mini App" t={t}>
+        <ErrorBoundary key={router.pathname} title="EFHC Mini App" t={t}>
           {adminRouteBlocked || adminRouteChecking ? (
             <AdminRouteGuardState checking={adminRouteChecking} t={t} />
           ) : effectiveAdminVisualProofPath ? (

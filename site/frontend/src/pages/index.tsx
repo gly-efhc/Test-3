@@ -8,11 +8,8 @@ import React, {
 
 import { EnergyVariantIcon } from
   "../components/icons/EnergyVariantIcon";
-import {
-  FrontendButton,
-  FrontendErrorState,
-  FrontendLoadingState,
-} from "../components/shell/FrontendShell";
+import { emptyOwnerSnapshot } from "../lib/browserFallback";
+import { reconcileEnergyAnchor } from "../lib/energyProjection";
 import { useT } from "../hooks/useT";
 import type {
   SnapshotStatus,
@@ -27,7 +24,6 @@ import { useDemoGenerationProjection } from "../hooks/useDemoGenerationProjectio
 
 const SCALE = 8;
 const LIVE_TICK_MS = 333;
-const SMOOTH_RESET_MS = 800;
 
 function toScaled(v: string | number | null | undefined): bigint {
   const s0 = formatFixedDown(v, SCALE);
@@ -78,6 +74,7 @@ function readIntStr(
 }
 
 type LiveBlockProps = {
+  confirmed: boolean;
   server_now_iso: string | null;
   lifetime_kwh: string;
   gen_per_sec_effective: string;
@@ -117,38 +114,26 @@ function LiveEnergyBlock(props: LiveBlockProps) {
   const stateRef = useRef<{
     base_scaled: bigint;
     base_client_ms: number;
-    smooth_delta: bigint;
-    smooth_start_ms: number;
+    confirmed_scaled: bigint;
+    confirmed_iso: string | null;
   }>({
     base_scaled: e0ScaledRaw < 0n ? 0n : e0ScaledRaw,
     base_client_ms: performance.now(),
-    smooth_delta: 0n,
-    smooth_start_ms: 0,
+    confirmed_scaled: e0ScaledRaw,
+    confirmed_iso: props.server_now_iso,
   });
+  if (stateRef.current.confirmed_scaled !== e0ScaledRaw || stateRef.current.confirmed_iso !== props.server_now_iso) {
+    stateRef.current = {...reconcileEnergyAnchor(stateRef.current, e0ScaledRaw, performance.now()), confirmed_scaled: e0ScaledRaw, confirmed_iso: props.server_now_iso};
+  }
   const [tick, setTick] = useState(0);
 
   useEffect(() => {
-    const now = performance.now();
-    const st = stateRef.current;
-    const dtMs = Math.max(0, now - st.base_client_ms);
-    const cur = st.base_scaled + (vScaled * BigInt(Math.floor(dtMs))) / 1000n;
-    const curSafe = cur < 0n ? 0n : cur;
-
-    const target = e0ScaledRaw < curSafe ? curSafe : e0ScaledRaw;
-    const delta = target - curSafe;
-
-    st.base_scaled = curSafe;
-    st.base_client_ms = now;
-    st.smooth_delta = delta;
-    st.smooth_start_ms = delta > 0n ? now : 0;
     setTick((x) => x + 1);
   }, [e0ScaledRaw, props.server_now_iso, vScaled]);
 
   useEffect(() => {
     if (!props.server_now_iso) return;
-    if (vScaled === 0n) {
-      if (stateRef.current.smooth_delta === 0n) return;
-    }
+    if (vScaled === 0n) return;
     const id = window.setInterval(() => {
       setTick((x) => x + 1);
     }, LIVE_TICK_MS);
@@ -164,16 +149,11 @@ function LiveEnergyBlock(props: LiveBlockProps) {
     const dtMs = Math.max(0, now - st.base_client_ms);
     const add = (vScaled * BigInt(Math.floor(dtMs))) / 1000n;
     let out = st.base_scaled + add;
-    if (st.smooth_delta > 0n && st.smooth_start_ms > 0) {
-      const rawT = now - st.smooth_start_ms;
-      const t01 = clamp(rawT / SMOOTH_RESET_MS, 0, 1);
-      const step = BigInt(Math.floor(t01 * 1000));
-      out += (st.smooth_delta * step) / 1000n;
-    }
     return out < 0n ? 0n : out;
-  }, [props.server_now_iso, tick, vScaled]);
+  }, [e0ScaledRaw, props.server_now_iso, tick, vScaled]);
 
-  const demoGeneration = useDemoGenerationProjection();
+  const demoProjection = useDemoGenerationProjection();
+  const demoGeneration = props.confirmed ? demoProjection : null;
   const eLiveScaled = demoGeneration ? toScaled(demoGeneration.total_generated_kwh) : localEnergyScaled;
 
   const level = useMemo(() => {
@@ -427,9 +407,7 @@ export default function EnergyPage(props: {
   refreshSnapshot?: () => void;
 }) {
   const t = useT();
-  const s = props.snap;
-  const snapshotStatus = props.snapshotStatus || "success";
-  const browserPreview = props.snapshotMode === "browser-preview";
+  const s = props.snap ?? emptyOwnerSnapshot();
 
   const thresholdsKwh = useMemo(
     () => USER_LEVEL_SKINS.map((item) => String(item.min_kwh)),
@@ -440,41 +418,6 @@ export default function EnergyPage(props: {
     return thresholdsKwh.map((x) => toScaled(`${x}.00000000`));
   }, [thresholdsKwh]);
 
-  if (snapshotStatus === "loading" && !browserPreview) {
-    return (
-      <div
-        className="efhc-energy-page"
-        data-energy-mobile-proof="390px"
-        data-energy-state="loading"
-      >
-        <FrontendLoadingState label={t("common.loading")} />
-      </div>
-    );
-  }
-
-  if ((snapshotStatus === "error" || !s) && !browserPreview) {
-    return (
-      <div
-        className="efhc-energy-page"
-        data-energy-mobile-proof="390px"
-        data-energy-state="recoverable-error"
-      >
-        <FrontendErrorState
-          title={t("common.data_unavailable")}
-          detail={t("common.load_error")}
-        />
-        <FrontendButton
-          tone="secondary"
-          onClick={() => props.refreshSnapshot?.()}
-        >
-          {t("common.refresh")}
-        </FrontendButton>
-      </div>
-    );
-  }
-
-  if (!s) return null;
-
   const activePanels = readIntStr(s, ["panels", "active_count"], "0");
 
   return (
@@ -484,6 +427,8 @@ export default function EnergyPage(props: {
       data-energy-state="content"
     >
       <LiveEnergyHeroAndProgress
+        key={s.profile.global_id}
+        confirmed={Boolean(s.meta.server_now_iso)}
         server_now_iso={s.meta.server_now_iso}
         lifetime_kwh={readStr(
           s,

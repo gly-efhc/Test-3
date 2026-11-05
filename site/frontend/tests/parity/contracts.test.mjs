@@ -132,22 +132,15 @@ test('OWNER-rejected progress and Header adapters stay detached after rollback',
  assert.doesNotMatch(app,/v866-react-progress\.css|react-header-transparent\.css/);
  assert.equal(registry.INTERFACE_VARIANT_REGISTRY.PB.length,24);
  assert.equal(registry.INTERFACE_VARIANT_REGISTRY.RP.length,24);
- const energy=fs.readFileSync(path.join(root,'src/pages/index.tsx'),'utf8')
-  // OWNER 0024/03 authorizes data projection only; retain the previous full
-  // source lock after removing precisely that declared functional delta.
-  .replace('import { useDemoGenerationProjection } from "../hooks/useDemoGenerationProjection";\n','')
-  // Only the SSR/hydration first-render guard is additionally authorized.
-  .replace('    // SSR and the first client render must share the exact D8 snapshot.\n    // The mounted effect triggers tick > 0 and resumes the live projection.\n    if (tick === 0) return st.base_scaled;\n','')
-  .replace('    const st = stateRef.current;\n    const now = performance.now();\n','    const now = performance.now();\n    const st = stateRef.current;\n')
-  .replace('const localEnergyScaled = useMemo','const eLiveScaled = useMemo')
-  .replace('  const demoGeneration = useDemoGenerationProjection();\n  const eLiveScaled = demoGeneration ? toScaled(demoGeneration.total_generated_kwh) : localEnergyScaled;\n\n','')
-  .replace('formatFixedDown(demoGeneration?.available_kwh ?? fromScaled(toScaled(props.available_kwh) + (eLiveScaled - e0ScaledRaw)), 8)','formatFixedDown(props.available_kwh, 8)')
-  .replace('import { EnergyUnitText } from "../components/energy/EnergyUnitText";\n','')
-  .replace('<EnergyUnitText text={props.labels.total_generated} />','{props.labels.total_generated}')
-  .replace('<EnergyUnitText text={props.labels.kwh_suffix} />','props.labels.kwh_suffix')
-  .replace('<EnergyUnitText text="kWh/s" />','<span data-i18n-fixed-token="kWh/с">kWh/с</span>')
-  .replace('<EnergyUnitText text={props.labels.available_kwh_chip} />','{props.labels.available_kwh_chip}');
- assert.equal(crypto.createHash('sha256').update(energy).digest('hex'),'0932660bfb1fc8f4d1a5534377a815bf78a8e6923cf6a18aece3b4b64e4f11fb','Energy changed beyond approved unit labels and cycle0023 indicator relocation');
+ // OWNER C29 authorizes data/render lifecycle changes. Protect the exact accepted
+ // stage JSX from pre-C29 4af1880 instead of blocking the authorized logic repair.
+ const energy=fs.readFileSync(path.join(root,'src/pages/index.tsx'),'utf8');
+ const start=energy.indexOf('  return (\n    <section\n');
+ const end=energy.indexOf('\nconst LiveEnergyHeroAndProgress');
+ assert.ok(start>=0 && end>start);
+ assert.equal(crypto.createHash('sha256').update(energy.slice(start,end)).digest('hex'),
+  '8be6f07e84b5b08178b3e1abff23cc3d613ee7f1b8112b6bead6fad08ef71a1a',
+  'Accepted Energy stage JSX must remain identical to the pre-C29 baseline');
 });
 
 // Executes the actual Energy useMemo callback, not a duplicate hand-written formula.
@@ -156,7 +149,7 @@ test('OWNER-rejected progress and Header adapters stay detached after rollback',
 test('Energy initial SSR/hydration D8 snapshot is deterministic and generation resumes after mount',()=>{
  const source=fs.readFileSync(path.join(root,'src/pages/index.tsx'),'utf8');
  const open='  const localEnergyScaled = useMemo(() => {\n';
- const close='  }, [props.server_now_iso, tick, vScaled]);';
+ const close='  }, [e0ScaledRaw, props.server_now_iso, tick, vScaled]);';
  assert.equal(source.split(open).length,2,'Energy callback must have one definition');
  const rest=source.split(open)[1];
  assert.equal(rest.split(close).length,2,'Energy callback boundary changed');
@@ -169,5 +162,6 @@ test('Energy initial SSR/hydration D8 snapshot is deterministic and generation r
  assert.equal(invoke(1,1001,fresh()),base+44n,'post-mount tick resumes generation at D8 precision');
  assert.equal(invoke(2,1100,fresh()),base+4400n,'subsequent ticks continue generation');
  const smoothed={...fresh(),smooth_delta:800n,smooth_start_ms:1100};
- assert.equal(invoke(2,1500,smoothed),base+22000n+400n,'existing smooth correction is preserved');
+ // APP-CORE-031 replaces the previous artificial 800ms correction.
+ assert.equal(invoke(2,1500,smoothed),base+22000n,'retired smoothing must not alter the confirmed anchor');
 });

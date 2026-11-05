@@ -55,10 +55,11 @@ export type SyncSnapshot = z.infer<typeof syncSnapshotSchema> & {
   panels: PanelsSummary;
 };
 
-export async function fetchSyncSnapshot(): Promise<SyncSnapshot> {
+export async function fetchSyncSnapshot(signal?: AbortSignal): Promise<SyncSnapshot> {
   const payload = await apiRequest<unknown>(
     "/sync/me?fresh=1",
     "POST",
+    {signal},
   );
   return syncSnapshotSchema.parse(payload);
 }

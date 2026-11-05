@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
+import AdminUsersPage from "./users";
 
 export default function AdminUserHistoryPage() {
   const router = useRouter();
@@ -12,5 +13,5 @@ export default function AdminUserHistoryPage() {
     void router.replace({ pathname: "/admin/users", query });
   }, [router]);
 
-  return null;
+  return <AdminUsersPage />;
 }
