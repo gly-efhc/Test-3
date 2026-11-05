@@ -5,13 +5,13 @@
 ## Required server-only ENV
 
 ```env
-EFHC_GENERATION_BASE_KWH_PER_SEC=0.00000692
-EFHC_GENERATION_VIP_KWH_PER_SEC=0.00000741
+GEN_PER_SEC_BASE_KWH=0.00000692
+GEN_PER_SEC_VIP_KWH=0.00000741
 ```
 
 These environment names **must never use the NEXT_PUBLIC_ prefix**. A privileged backend startup guard must reject missing or mismatched values, and the backend generator must use only its trusted ENV after server-side VIP authentication. See `site/ci/efhc_generation_env_guard.py`.
 
-The connected GitHub repository holds the Next.js frontend and static Pages DEMO, **not the separately maintained production backend**. The frontend `next.config.js` rejects *configured incorrect values* during builds. Missing ENV is allowed only for static Pages (no authoritative generation). `demoGenerationRates.ts` is a deliberately immutable **public** mirror for local simulation and UI; it is not a substitute for backend enforcement. Actual backend integration is a separate outstanding step when the backend source is supplied.
+The active backend source was located under the independent authenticated GitHub repository `EFHC-Project/EFHC_cod` and the backend runtime `main/backend/app/core/system_locks.py` was updated at source commit `b92d442a23a760434c5de4cbc775258aaf07a547` to require exact rates at startup and explicit config in prod/stage. The backend is NOT deployed by this action. The frontend `next.config.js` rejects *configured incorrect values* during builds. Missing ENV is allowed only for static Pages (no authoritative generation). `demoGenerationRates.ts` is a deliberately immutable **public** mirror for local simulation and UI; it is not a substitute for backend enforcement. The runtime reads its protected real `GEN_PER_SEC_*` settings from backend `config_core.py`; VPS operators must set them in the actual deployed env before updating backend, and deployment/runtime checks remain outstanding.
 
 The **test** Neon branch enforces CHECK `ck_c28_panels_canonical_base_rate` at `0.00000692`. SQL per-user VIP historical rate is `panels.meta.effective_gen_per_sec`, selected from `users.is_vip`. This cannot authorize new VIP entitlement by browser changes.
 
@@ -27,4 +27,4 @@ The **test** Neon branch enforces CHECK `ck_c28_panels_canonical_base_rate` at `
 
 ## Next production backend integration acceptance
 
-The separate backend should call `load_protected_generation_rates()` at startup, reject an absent/mutated value, derive VIP from its trusted user record, ignore any client-submitted rate, and test D8 integer remainder, 180-day stop, exchange <= available, mirror transactions, and snapshot parity.
+The separate backend already calls `assert_system_locks()` at startup and now rejects an absent/mutated rate in prod/stage. It must derive VIP from its trusted user record, ignore any client-submitted rate, and should test D8 integer remainder, 180-day stop, exchange <= available, mirror transactions, and snapshot parity.

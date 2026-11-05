@@ -2,8 +2,8 @@ const { readFileSync } = require("node:fs");
 const { join } = require("node:path");
 /** Server-only build ENV verification; the UI bundle cannot settle balances. */
 for (const [key,canonical] of Object.entries({
-  EFHC_GENERATION_BASE_KWH_PER_SEC: "0.00000692",
-  EFHC_GENERATION_VIP_KWH_PER_SEC: "0.00000741",
+  GEN_PER_SEC_BASE_KWH: "0.00000692",
+  GEN_PER_SEC_VIP_KWH: "0.00000741",
 })) {
   const value = process.env[key];
   if (value !== undefined && value.trim() !== canonical)

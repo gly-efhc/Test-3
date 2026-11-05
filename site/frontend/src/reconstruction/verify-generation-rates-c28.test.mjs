@@ -31,8 +31,8 @@ test('C28 live generator and browser projection freeze SQL-imported energy',()=>
 });
 test('C28 invalid server-only ENV is blocked and not leaked to NEXT_PUBLIC',()=>{
  const config=source('../../next.config.js');
- assert.match(config,/EFHC_GENERATION_BASE_KWH_PER_SEC/);
- assert.match(config,/EFHC_GENERATION_VIP_KWH_PER_SEC/);
+ assert.match(config,/GEN_PER_SEC_BASE_KWH/);
+ assert.match(config,/GEN_PER_SEC_VIP_KWH/);
  assert.match(config,/EFHC_GENERATION_ENV_CANON_MISMATCH/);
- assert.doesNotMatch(config,/NEXT_PUBLIC_EFHC_GENERATION_/);
+ assert.doesNotMatch(config,/NEXT_PUBLIC_GEN_PER_SEC_/);
 });
