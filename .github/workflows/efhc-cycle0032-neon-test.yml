@@ -1,0 +1,89 @@
+# EFHC cycle0032: read-only live Neon TEST smoke, no production DB access.
+# Secrets are accessed only by GitHub runner and never committed or printed.
+name: EFHC cycle0032 - Neon TEST read-only
+on:
+  push:
+    branches:
+      - cycle0032/demo-backend-migration
+    paths:
+      - .github/workflows/efhc-cycle0032-neon-test.yml
+      - demo_backend/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: efhc-cycle0032-neon-smoke
+  cancel-in-progress: true
+
+jobs:
+  live-neon-readonly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      NEON_TEST_DSN: ${{ secrets.EFHC_NEON_TEST_DATABASE_URL || secrets.NEON_TEST_DATABASE_URL || secrets.DATABASE_URL }}
+      EXPECTED_NEON_TEST_HOST: ep-fragrant-feather-zaribpm5.c-2.eu-west-2.aws.neon.tech
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install smoke dependency
+        shell: bash
+        run: python -m pip install --disable-pip-version-check 'psycopg[binary]>=3.2,<4'
+      - name: Check exact TEST Neon branch and existing EFHC tables without writes
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os
+          from urllib.parse import urlsplit, parse_qs
+          from psycopg import connect
+
+          raw = os.environ.get("NEON_TEST_DSN", "").strip()
+          if not raw:
+              raise SystemExit("NEON_TEST_SECRET_MISSING: set EFHC_NEON_TEST_DATABASE_URL or NEON_TEST_DATABASE_URL in repository Actions secrets")
+          if raw.startswith("postgresql+asyncpg://"):
+              raw = "postgresql://" + raw[len("postgresql+asyncpg://"):]
+          parsed = urlsplit(raw)
+          expected = os.environ["EXPECTED_NEON_TEST_HOST"]
+          allowed_hosts = {expected, expected.replace(".c-2.", "-pooler.c-2.")}
+          if parsed.scheme not in {"postgresql", "postgres"} or parsed.hostname not in allowed_hosts:
+              raise SystemExit("NEON_TEST_HOST_MISMATCH: refuse unknown or production database")
+          if parsed.path != "/neondb":
+              raise SystemExit("NEON_TEST_DATABASE_MISMATCH: expected neondb")
+          sslmode = parse_qs(parsed.query).get("sslmode", [""])[0].lower()
+          if sslmode not in {"require", "verify-full"}:
+              raise SystemExit("NEON_TEST_TLS_REQUIRED: SSL mode require/verify-full")
+          with connect(raw, connect_timeout=12) as connection:
+              with connection.cursor() as cursor:
+                  cursor.execute("SET TRANSACTION READ ONLY")
+                  cursor.execute("""
+                    SELECT table_schema, table_type, count(*)
+                    FROM information_schema.tables
+                    WHERE table_schema IN ('efhc_core','efhc_admin','efhc_demo_public')
+                    GROUP BY table_schema, table_type
+                    ORDER BY table_schema, table_type
+                  """)
+                  groups = {(schema, typ): int(num) for schema, typ, num in cursor.fetchall()}
+                  tables = sum(groups.get((s,"BASE TABLE"),0) for s in ("efhc_core","efhc_admin"))
+                  views = groups.get(("efhc_demo_public","VIEW"),0)
+                  if tables < 54 or views < 10:
+                      raise SystemExit(f"NEON_TEST_SCHEMA_INVALID: physical={tables}, views={views}")
+                  cursor.execute("SELECT count(*) FROM efhc_core.users")
+                  users = cursor.fetchone()[0]
+                  cursor.execute("SELECT count(*) FROM efhc_core.panels")
+                  panels = cursor.fetchone()[0]
+                  cursor.execute("SELECT count(*) FROM efhc_core.efhc_transfers_log")
+                  ledger = cursor.fetchone()[0]
+                  cursor.execute("SELECT count(*) FROM efhc_core.bank_metrics_snapshot")
+                  snapshots = cursor.fetchone()[0]
+                  if users == 0 or snapshots == 0:
+                      raise SystemExit("NEON_TEST_DATA_MISSING")
+                  print(f"EFHC_NEON_TEST_READONLY_PASS tables={tables} views={views} users={users} panels={panels} ledger={ledger} snapshots={snapshots}")
+              connection.rollback()
+          PY
