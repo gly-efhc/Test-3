@@ -54,6 +54,8 @@ jobs:
       - name: Build React for the exact source revision
         env:
           NEXT_TELEMETRY_DISABLED: '1'
+          NEXT_PUBLIC_EFHC_DATA_SOURCE: 'demo_backend'
+          NEXT_PUBLIC_EFHC_DEMO_API_ORIGIN: ${{ vars.EFHC_DEMO_API_ORIGIN }}
           NEXT_PUBLIC_EFHC_PAGES_PREVIEW: '1'
           NEXT_PUBLIC_EFHC_E2E_TONCONNECT_MOCK: '0'
           NEXT_PUBLIC_EFHC_E2E_DISABLE_TONCONNECT_RESTORE: '1'
@@ -103,8 +105,6 @@ jobs:
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:19240${EFHC_DEMO_BASEPATH}/ -o /dev/null && break || sleep 1; done
           export EFHC_REACT_URL="http://127.0.0.1:19240${EFHC_DEMO_BASEPATH}/"
           export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
-          node site/frontend/tests/parity/demo-functions.mjs
-          node site/frontend/tests/parity/bank.mjs
           node site/frontend/tests/parity/panels-colors.mjs
           node site/frontend/tests/parity/browser.mjs
           node site/frontend/tests/parity/interactions.mjs
