@@ -56,6 +56,9 @@ export function runtimeDemoTableRows(state:DemoControlState,name:DemoTableName,g
   case 'shop_intents':return scoped(s?.intents);
   case 'hub_links':return s?.hub||[];
   case 'ad_providers':return (s?.providers||[]).map(({secret_masks, ...r})=>r);
+  case 'admin_roles':return ['user','admin','superadmin'].map(role=>({id:'demo:'+role,role,mode:'demo'}));
+  case 'settings':return ['scheduler_enabled','shop_auto_reply','optimizer_order'].filter(key=>s?.settings[key]!==undefined)
+   .map(key=>({id:key,key,value:s!.settings[key]}));
   case 'admin_audit':case 'admin_logs':return scoped(s?.audit);
   case 'avatars':return accounts.flatMap(a=>{
    const pref=s?.settings[`avatar:${a.global_id}`];return pref?[{id:a.global_id,global_id:a.global_id,...pref}]:[];
@@ -67,7 +70,7 @@ export function runtimeDemoTableRows(state:DemoControlState,name:DemoTableName,g
   // Paginated SQL baseline plus only new local rows; the imported bonus ledger
   // must never be added again to counts, journals or rewards.
   case 'ledger_entries':case 'balance_history':case 'bank_transfers':case 'exchanges':
-  case 'settings':case 'admin_roles':return null;
+   return null;
   case 'skins':return [{id:'1',skin_id:1,title:'EFHC',price_efhc:'0.00000000'}];
   case 'provider_identities':case 'sessions':case 'vip_reservations':case 'admin_permissions':
   case 'notifications':case 'diagnostics':case 'faq':case 'generation_ticks':return [];

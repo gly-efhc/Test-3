@@ -363,7 +363,12 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
    }
   if(['/admin/observability/health','/admin/observability/events','/admin/observability/summary','/admin/observability/timeseries'].includes(p)&&read)return demoObservability(state,p,q);
   if(p==='/admin/ton/reconcile'&&!read)return {ok:true,mode:'demo',checked:s.deposits.length,credited:0,external_requests:0};
-  if(p==='/admin/efhc-deposits/runtime-summary'&&read)return {ok:true,credited_efhc_operations_count:s.deposits.length,credited_efhc_total:totals(s.deposits,'amount_efhc'),credited_efhc_30d:totals(s.deposits,'amount_efhc'),credited_efhc_24h:totals(s.deposits,'amount_efhc'),generated_at:now};
+  if(p==='/admin/efhc-deposits/runtime-summary'&&read){
+   const credited=s.deposits.filter(r=>r.status==='credited');
+   const since=(hours:number)=>credited.filter(r=>Date.parse(r.created_at)>=Date.now()-hours*3600000);
+   return {ok:true,credited_efhc_operations_count:credited.length,credited_efhc_total:totals(credited,'amount_efhc'),
+    credited_efhc_30d:totals(since(720),'amount_efhc'),credited_efhc_24h:totals(since(24),'amount_efhc'),generated_at:now};
+  }
   if((p==='/admin/efhc-deposits/inbox'||p==='/admin/efhc-deposits/unmatched')&&read){
    const args=new URLSearchParams(q);if(q.has('cursor_id'))args.set('cursor',q.get('cursor_id')!);
    const rows=s.deposits.filter(r=>(p.endsWith('/unmatched')?!r.resolved_global_id:true)&&

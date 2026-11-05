@@ -1,6 +1,8 @@
 import fs from 'node:fs';import path from 'node:path';import vm from 'node:vm';import{createRequire}from'node:module';import{fileURLToPath}from'node:url';
 const require=createRequire(import.meta.url),ts=require('typescript'),root=fileURLToPath(new URL('../../src/',import.meta.url));
-export function demoRuntime({storage=new Map(),now=Date.parse('2026-11-04T00:00:00Z'),preview=true,testMode='',withIndexedDB=false,keyRange,basePath='/Test-3',pathname=basePath+'/',origin='https://demo.invalid',fetchImpl}={}){
+export const TEST_SNAPSHOT_ID='a'.repeat(64);
+export function snapshotManifest(files,collections={}){return {schema:'efhc.demo.snapshot.v1',snapshot_id:TEST_SNAPSHOT_ID,dataset:'RECON_CYCLE_0027',files:Object.fromEntries(files.map(name=>[name,'fixture'])),collections};}
+export function demoRuntime({storage=new Map(),now=Date.parse('2026-11-04T00:00:00Z'),preview=true,testMode='',withIndexedDB=false,keyRange,basePath='/Test-3',pathname=basePath+'/',origin='https://demo.invalid',fetchImpl,snapshotId=TEST_SNAPSHOT_ID}={}){
  let clock=now;const modules=new Map();
  class ClockDate extends Date{constructor(...args){super(...(args.length?args:[clock]));}static now(){return clock;}}
  const window={__EFHC_DEMO_READ_ONLY__:true,location:{origin,pathname},dispatchEvent(){},
@@ -17,6 +19,7 @@ export function demoRuntime({storage=new Map(),now=Date.parse('2026-11-04T00:00:
   const run=vm.runInContext(`(function(require,module,exports){${code}\n})`,context,{filename});
   run(name=>name.startsWith('.')?load(path.resolve(path.dirname(filename),name)):require(name),module,module.exports);return module.exports;
  }
+ load(path.join(root,'reconstruction/demoDataBuild.json')).snapshot_id=snapshotId;
  return {loadSource:relative=>load(path.join(root,relative)),storage,advance:ms=>{clock+=ms;},api:load(path.join(root,'reconstruction/demoApi.ts')).demoApiRequest,
   store:load(path.join(root,'reconstruction/demoUnifiedStore.ts')),core:load(path.join(root,'reconstruction/demoServerCore.ts'))};
 }

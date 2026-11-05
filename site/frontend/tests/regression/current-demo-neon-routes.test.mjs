@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {demoRuntime} from '../helpers/demo-runtime.mjs';
+import {demoRuntime,snapshotManifest} from '../helpers/demo-runtime.mjs';
 import {createRequire} from 'node:module';
 const {IDBFactory,IDBKeyRange}=createRequire(import.meta.url)('fake-indexeddb');
 const gid='0000657667',sqlRow={id:'71',global_id:gid,amount_efhc:'0.10000000',amount:'0.10000000',direction:'credit',balance_type:'bonus',reason:'ad_reward',created_at:'2026-10-31T00:00:00Z',dataset:'RECON_CYCLE_0027'};
@@ -8,12 +8,10 @@ function neonRuntime(){
  const h=demoRuntime({origin:'https://gly-efhc.github.io',withIndexedDB:new IDBFactory(),keyRange:IDBKeyRange,basePath:'/efhc',fetchImpl:async(path,options)=>{
   const url=new URL(path);
   assert.equal(options.method,'GET','DEMO must not write anonymously to SQL');
-  if(url.pathname.endsWith('/token/anonymous'))return {ok:true,json:async()=>({token:'test.public.jwt',expires_at:Date.parse('2027-01-01')/1000})};
-  const view=url.pathname.split('/').at(-1),q=url.searchParams;
-  let rows=view==='table_counts'?[{table_name:'ledger_entries',rows_count:2},{table_name:'balance_history',rows_count:1},{table_name:'bank_transfers',rows_count:1},{table_name:'deposits',rows_count:1}]:
-   view==='economic_events'?[{id:'80',global_id:gid,reason:'efhc_external_deposit',amount_efhc:'10.00000000',created_at:'2026-11-03T00:00:00Z'}]:view==='catalog_rows'?[]:[sqlRow];
-  const total=rows.length,offset=Number(q.get('offset')||0);rows=rows.slice(offset,offset+Number(q.get('limit')||100));
-  return {ok:true,headers:{get:k=>k==='content-range'?`${offset}-${offset+rows.length-1}/${total}`:null},json:async()=>rows};
+  if(url.pathname.endsWith('/manifest.json'))return {ok:true,json:async()=>snapshotManifest([
+   'table_counts.json','ledger/'+gid+'.json','exchanges/'+gid+'.json','transfers_all/0.json','bank_transfers/0.json',...['settings','admin_roles'].map(n=>'catalog/'+n+'.json')],{transfers_all:{total:1,page_size:1000},bank_transfers:{total:0,page_size:1000}})};
+  const rows=url.pathname.endsWith('/table_counts.json')?[{table_name:'ledger_entries',rows_count:2},{table_name:'balance_history',rows_count:1},{table_name:'bank_transfers',rows_count:1},{table_name:'deposits',rows_count:1}]:url.pathname.includes('/catalog/')?[]:[sqlRow];
+  return {ok:true,json:async()=>rows};
  }});
  // Restore a committed opening snapshot and run the real IndexedDB hydration
  // and Neon route readers, without a production adapter or database writes.
@@ -45,6 +43,7 @@ test('all 39 table projections are explicit; local actions change the same count
  assert.ok(counts.ledger_entries>before.ledger_entries);
  const balances=await h.store.demoTableRows('balances',gid);
  assert.equal(balances[0].main_balance,h.store.readDemoAccount().main_balance);
+ assert.ok((await h.store.demoTableRows('ledger_entries',gid)).every(r=>r.amount_efhc!==undefined));
  assert.equal((await h.store.demoTableRows('panels','8000000002')).length,0);
  for(const name of h.store.DEMO_TABLE_NAMES){
   const rows=await h.store.demoTableRows(name,gid);assert.ok(Array.isArray(rows),name);

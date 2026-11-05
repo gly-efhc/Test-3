@@ -31,8 +31,7 @@ test('fresh DEMO rebuild replaces obsolete/empty cached state and recreates all 
  const h=demoRuntime({origin:'https://gly-efhc.github.io',withIndexedDB:new IDBFactory(),keyRange:IDBKeyRange,
   fetchImpl:async(path,options)=>{
    assert.equal(options.method,'GET');
-   if(path.endsWith('/token/anonymous'))return {ok:true,json:async()=>({token:'test.public.jwt',expires_at:Date.parse('2027-01-01')/1000})};
-   if(new URL(path).pathname.endsWith('/bootstrap_snapshot')){seedReads++;return {ok:true,json:async()=>[seed]};}
+   if(new URL(path).pathname.endsWith('/bootstrap.json')){seedReads++;return {ok:true,json:async()=>seed};}
    return {ok:true,json:async()=>[]};
   }});
  h.store.transactDemoState(s=>{const server=h.core.ensureServer(s);server.settings.neon_seed_revision='RECON_CYCLE_0028_CAUSAL_V1';

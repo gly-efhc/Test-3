@@ -241,6 +241,20 @@ jobs:
           print("EFHC_NEON_DEMO_DATA_API=PASS users=1000 panels=4000 CORS=PASS bank=PASS")
           PY
 
+      - name: Restore verified immutable DEMO history cache
+        uses: actions/cache@v5
+        with:
+          path: ${{ runner.temp }}/efhc-demo-snapshot-cache
+          key: efhc-demo-c28-v2-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: efhc-demo-c28-v2-
+
+      - name: Recreate original DEMO with the verified TEST dataset
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 site/ci/neon/export_demo.py --target "$RUNNER_TEMP/efhc-demo-build" --cache-directory "$RUNNER_TEMP/efhc-demo-snapshot-cache" | tee "$RUNNER_TEMP/efhc-pages-diagnostics/demo-snapshot.log"
+          NODE_PATH="$RUNNER_TEMP/efhc-demo-build/node_modules" node site/frontend/tests/parity/demo-dataset.mjs "$RUNNER_TEMP/efhc-demo-build" | tee -a "$RUNNER_TEMP/efhc-pages-diagnostics/demo-snapshot.log"
+
       - name: Compile actual React/Next for Pages (no backend)
         id: compile
         shell: bash

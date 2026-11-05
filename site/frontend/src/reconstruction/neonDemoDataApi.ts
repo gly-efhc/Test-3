@@ -1,58 +1,13 @@
-/** Read-only EFHC_Nektron_Test API. No credentials or business writes in browser. */
-export const NEON_DEMO_ENDPOINT="https://ep-fragrant-feather-zaribpm5.apirest.c-2.eu-west-2.aws.neon.tech/neondb/rest/v1";
+/** Compatibility facade for the verified TEST snapshot delivered with Pages. */
 export type Bank={id:number;ok:boolean;ts:string;facts:Record<string,string>;counters:Record<string,number>;database_scope:string;dataset:string};
 export type Account={global_id:string;username:string|null;main_balance:string;bonus_balance:string;available_kwh:string;total_generated_kwh:string;exchanged_kwh_total:string;dataset:string};
 export type Panel={id:string;global_id:string;public_id:string;is_active:boolean;is_archived:boolean;generated_kwh:string;base_gen_per_sec:string;purchase_event_id:string|null;dataset:string};
 export type Ledger={id:string;global_id:string;created_at:string;reason:string;direction:string;amount:string;event_id:string|null;dataset:string};
 type View="bank_overview"|"accounts"|"panels"|"ledger"|"transfers_all"|"payment_intents"|"table_counts"|"catalog_rows"|"bootstrap_snapshot"|"economic_events";
-const allowed:readonly View[]=["bank_overview","accounts","panels","ledger","transfers_all","payment_intents","table_counts","catalog_rows","bootstrap_snapshot","economic_events"];
-const root=new URL(NEON_DEMO_ENDPOINT);
+import {readDemoSnapshotPage} from './demoSnapshot';
 export function assertGlobalId(value:string):string{if(!/^\d{10}$/.test(value))throw new Error("NEON_GLOBAL_ID_MUST_BE_10_DIGITS");return value;}
-/** Neon Auth issues short-lived public anonymous JWTs, not database credentials. */
-const NEON_DEMO_AUTH="https://ep-fragrant-feather-zaribpm5.neonauth.c-2.eu-west-2.aws.neon.tech/neondb/auth";
-let anonymousJwt:{token:string,expires:number}|null=null;
-let pendingAnonymousJwt:Promise<string>|null=null;
-async function neonAnonymousJwt():Promise<string>{
-  if(anonymousJwt&&anonymousJwt.expires>Date.now()/1000+30)return anonymousJwt.token;
-  if(!pendingAnonymousJwt){
-    pendingAnonymousJwt=(async()=>{
-      const response=await fetch(NEON_DEMO_AUTH+"/token/anonymous",{
-        method:"GET",credentials:"omit",cache:"no-store",redirect:"error",headers:{"Accept":"application/json"}
-      });
-      if(!response.ok)throw new Error("NEON_TEST_AUTH_HTTP_"+response.status);
-      const body:unknown=await response.json();
-      if(!body||typeof body!=="object")throw new Error("NEON_TEST_AUTH_RESPONSE_INVALID");
-      const record=body as {token?:unknown,expires_at?:unknown};
-      if(typeof record.token!=="string"||record.token.split(".").length!==3||
-         typeof record.expires_at!=="number")
-        throw new Error("NEON_TEST_AUTH_TOKEN_INVALID");
-      const expires=record.expires_at>1000000000000?record.expires_at/1000:record.expires_at;
-      if(!Number.isFinite(expires)||expires<=Date.now()/1000+10)
-        throw new Error("NEON_TEST_AUTH_TOKEN_EXPIRED");
-      anonymousJwt={token:record.token,expires};return record.token;
-    })().finally(()=>{pendingAnonymousJwt=null;});
-  }
-  return pendingAnonymousJwt;
-}
-async function getPage<T>(view:View,params:Record<string,string>,exactCount=false):Promise<{rows:T[];total:number|null}>{
-  if(!allowed.includes(view)||root.protocol!=="https:"||root.username||root.password||root.search||root.hash||
-    root.origin!=="https://ep-fragrant-feather-zaribpm5.apirest.c-2.eu-west-2.aws.neon.tech"||
-    root.pathname!=="/neondb/rest/v1")throw new Error("NEON_TEST_VIEW_DENIED");
-  const url=new URL(NEON_DEMO_ENDPOINT+"/"+view);
-  for(const [key,value] of Object.entries(params)){
-    if(!["select","global_id","limit","offset","order","table_name","system_entity","reason","item->>global_id"].includes(key))throw new Error("NEON_TEST_QUERY_DENIED");
-    url.searchParams.set(key,value);
-  }
-  const jwt=await neonAnonymousJwt();
-  const response=await fetch(url.toString(),{method:"GET",credentials:"omit",cache:"no-store",redirect:"error",headers:{"Accept":"application/json","Authorization":"Bearer "+jwt,...(exactCount?{Prefer:"count=exact"}:{})}});
-  const range=response.headers?.get("content-range")?.match(/\/(\d+)$/);
-  const total=range?Number(range[1]):null;
-  if(exactCount&&(total===null||!Number.isSafeInteger(total)))throw new Error("NEON_TEST_TOTAL_MISSING");
-  if(response.status===416&&total!==null&&Number(params.offset||0)>=total)return {rows:[],total};
-  if(!response.ok)throw new Error("NEON_TEST_HTTP_"+response.status);
-  const body:unknown=await response.json();
-  if(!Array.isArray(body)||body.length>100)throw new Error("NEON_TEST_RESPONSE_INVALID");
-  return {rows:body as T[],total};
+async function getPage<T>(view:View,params:Record<string,string>,_exactCount=false):Promise<{rows:T[];total:number}>{
+ return readDemoSnapshotPage<T>(view,params);
 }
 async function getRows<T>(view:View,params:Record<string,string>):Promise<T[]>{return (await getPage<T>(view,params)).rows;}
 export async function getNeonBank():Promise<Bank>{
