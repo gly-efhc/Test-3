@@ -58,6 +58,12 @@
           "borderColor": "color(srgb 0.654902 0.545098 0.980392 / 0.42)",
           "color": "rgb(167, 139, 250)",
           "boxShadow": "rgba(255, 255, 255, 0.04) 0px 1px 0px 0px inset"
+        },
+        ".efhc-header-divider": {
+          "background": "rgba(12, 10, 24, 0.98) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderColor": "rgb(248, 250, 252) rgb(248, 250, 252) color(srgb 0.654902 0.545098 0.980392 / 0.24)",
+          "color": "rgb(248, 250, 252)",
+          "boxShadow": "color(srgb 1 1 1 / 0.0658824) 0px 1px 0px 0px"
         }
       }
     },
@@ -112,6 +118,12 @@
           "borderColor": "color(srgb 0.654902 0.545098 0.980392 / 0.24)",
           "color": "rgb(219, 231, 245)",
           "boxShadow": "none"
+        },
+        ".efhc-header-divider": {
+          "background": "rgba(12, 10, 24, 0.98) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderColor": "rgb(248, 250, 252) rgb(248, 250, 252) color(srgb 0.654902 0.545098 0.980392 / 0.24)",
+          "color": "rgb(248, 250, 252)",
+          "boxShadow": "color(srgb 1 1 1 / 0.0658824) 0px 1px 0px 0px"
         }
       }
     },
@@ -166,6 +178,12 @@
           "borderColor": "color(srgb 0.654902 0.545098 0.980392 / 0.24)",
           "color": "rgb(219, 231, 245)",
           "boxShadow": "rgba(255, 255, 255, 0.04) 0px 1px 0px 0px inset"
+        },
+        ".efhc-header-divider": {
+          "background": "rgba(12, 10, 24, 0.98) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderColor": "rgb(248, 250, 252) rgb(248, 250, 252) color(srgb 0.654902 0.545098 0.980392 / 0.24)",
+          "color": "rgb(248, 250, 252)",
+          "boxShadow": "color(srgb 1 1 1 / 0.0658824) 0px 1px 0px 0px"
         }
       }
     },
@@ -220,6 +238,12 @@
           "borderColor": "color(srgb 0.654902 0.545098 0.980392 / 0.24)",
           "color": "rgb(219, 231, 245)",
           "boxShadow": "rgba(255, 255, 255, 0.04) 0px 1px 0px 0px inset"
+        },
+        ".efhc-header-divider": {
+          "background": "rgba(12, 10, 24, 0.98) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderColor": "rgb(248, 250, 252) rgb(248, 250, 252) color(srgb 0.654902 0.545098 0.980392 / 0.24)",
+          "color": "rgb(248, 250, 252)",
+          "boxShadow": "color(srgb 1 1 1 / 0.0658824) 0px 1px 0px 0px"
         }
       }
     },
@@ -274,6 +298,12 @@
           "borderColor": "color(srgb 0.654902 0.545098 0.980392 / 0.24)",
           "color": "rgb(219, 231, 245)",
           "boxShadow": "rgba(255, 255, 255, 0.04) 0px 1px 0px 0px inset"
+        },
+        ".efhc-header-divider": {
+          "background": "rgba(12, 10, 24, 0.98) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderColor": "rgb(248, 250, 252) rgb(248, 250, 252) color(srgb 0.654902 0.545098 0.980392 / 0.24)",
+          "color": "rgb(248, 250, 252)",
+          "boxShadow": "color(srgb 1 1 1 / 0.0658824) 0px 1px 0px 0px"
         }
       }
     },
@@ -328,6 +358,12 @@
           "borderColor": "color(srgb 0.654902 0.545098 0.980392 / 0.24)",
           "color": "rgb(219, 231, 245)",
           "boxShadow": "rgba(255, 255, 255, 0.04) 0px 1px 0px 0px inset"
+        },
+        ".efhc-header-divider": {
+          "background": "rgba(12, 10, 24, 0.98) none repeat scroll 0% 0% / auto padding-box border-box",
+          "borderColor": "rgb(248, 250, 252) rgb(248, 250, 252) color(srgb 0.654902 0.545098 0.980392 / 0.24)",
+          "color": "rgb(248, 250, 252)",
+          "boxShadow": "color(srgb 1 1 1 / 0.0658824) 0px 1px 0px 0px"
         }
       }
     }

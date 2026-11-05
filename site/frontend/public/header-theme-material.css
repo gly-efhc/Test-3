@@ -3,13 +3,21 @@
    page content or the protected CT03 USER reference. Admin stays fixed CT03.
    A bounded important layer beats legacy unlayered palette rules without
    widening selectors or changing the frozen CSS / generated shell adapter. */
-.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-game-header {
+.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] :is(.efhc-header-divider,.efhc-game-header) {
   --efhc-header-material-accent:var(--efhc-ct-accent);
 }
-.efhc-independent-shell[data-interface-app-mode="admin"] .efhc-game-header {
+.efhc-independent-shell[data-interface-app-mode="admin"] :is(.efhc-header-divider,.efhc-game-header) {
   --efhc-header-material-accent:var(--efhc-admin-canon-accent);
 }
 @layer efhc-header-material {
+/* The outer Header chrome is part of the material contract too. Keeping
+   its old opaque palette would still paint a backing behind transparent rows. */
+:is(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]:not([data-color-theme-id="CT-03"]),.efhc-independent-shell[data-interface-app-mode="admin"]) .efhc-header-divider {
+  background:rgba(12,10,24,.98)!important;
+  border-color:#f8fafc #f8fafc color-mix(in srgb,var(--efhc-header-material-accent) 24%,transparent)!important;
+  color:#f8fafc!important;
+  box-shadow:color-mix(in srgb,#fff 6.58824%,transparent) 0 1px 0!important;
+}
 :is(.efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id]:not([data-color-theme-id="CT-03"]),.efhc-independent-shell[data-interface-app-mode="admin"]) .efhc-game-header:is([data-hs="HS-03"],[data-hs="HS-07"],[data-hs="HS-10"],[data-hs="HS-11"],[data-hs="HS-13"]) {
   background:rgba(0, 0, 0, 0) radial-gradient(520px 170px at 76% -90px, color-mix(in srgb,var(--efhc-header-material-accent) 25%,transparent), rgba(0, 0, 0, 0) 70%) repeat scroll 0% 0% / auto padding-box border-box!important;
   border-color:color-mix(in srgb,var(--efhc-header-material-accent) 25%,transparent)!important;
