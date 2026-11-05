@@ -105,11 +105,13 @@ jobs:
           PY
           (
             cd site/frontend
+            npm ci --ignore-scripts --no-audit --no-fund
             node --test tests/regression/current-demo-backend-transport.test.mjs tests/regression/current-pages-base-path.test.mjs tests/parity/contracts.test.mjs
           )
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           rm -- .efhc-cycle0032/import_payload.b64.txt
+          printf '\nsite/frontend/node_modules/\n' >> .git/info/exclude
           git add -A
           git diff --cached --check
           git commit -m 'feat(cycle0032): server-side demo_backend and React API migration [efhc-cycle0032-apply]'
