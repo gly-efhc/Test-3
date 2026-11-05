@@ -1,5 +1,6 @@
 import {localPagesBase} from './pages-base.mjs';
 import {verifyPortfolioThemeHeights} from './portfolio-theme-height.mjs';
+import {verifyHeaderMaterials} from './header-material.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {createRequire} from 'node:module';
@@ -96,6 +97,9 @@ try{
  });
  await check('Portfolio frames retain CT04 geometry through all ten colors',async()=>{
   await scenario('filled');await verifyPortfolioThemeHeights(page,{base,artifacts:dir});
+ });
+ await check('Header retains six designs with CT03 materials, independent CT accents and fixed Admin CT03',async()=>{
+  const cases=await verifyHeaderMaterials(page,{base,artifacts:dir});assert.equal(cases.length,124);
  });
  await check('no React rendering or hydration errors',async()=>assert.deepEqual(errors,[]));
 }finally{await fs.writeFile(dir+'/persistent-pages.json',JSON.stringify({base,results,errors},null,2));await context.unrouteAll({behavior:'ignoreErrors'});await browser.close();}

@@ -27,7 +27,11 @@ try{
     return {ct:shell.dataset.colorThemeId,ph:hero.dataset.ph,pa:card.dataset.pa,rgb,hero:styles(hero),activation:styles(card),button:{bg:s.backgroundColor,image:s.backgroundImage,border:s.borderTopColor,color:s.color,shadow:s.boxShadow,opacity:s.opacity},geometry:{height:rect.height,inside:rect.x>=parent.x&&rect.right<=parent.right+1},tier:[...document.querySelectorAll('.efhc-panels-generation-tier,.efhc-panels-generation-tier_dot')].map(e=>({dot:e.classList.contains('efhc-panels-generation-tier_dot'),shadow:getComputedStyle(e).boxShadow}))};
    },Object.keys(baseline.cases[0].hero));
    const previous=baseline.cases.find(x=>x.ct===actual.ct&&x.ph===actual.ph&&x.pa===actual.pa);assert.ok(previous,'physical template identity');
-   assert.deepEqual(actual.hero,previous.hero,`${actual.ct}/${actual.ph} background and material preserved`);
+   const expectedHero={...previous.hero};
+   // C31 authorizes only removing CT03's duplicate full inset contour.
+   // PH03 has no physical border and retains its single inset contour.
+   if(actual.ct==='CT-03'&&actual.ph!=='PH-03')expectedHero.boxShadow='rgba(0, 0, 0, 0.26) 0px 14px 34px 0px';
+   assert.deepEqual(actual.hero,expectedHero,`${actual.ct}/${actual.ph} background and material preserved except the authorized duplicate contour`);
    assert.deepEqual(actual.activation,previous.activation,`${actual.ct}/${actual.pa} card background preserved`);
    const rgba=alpha=>`rgba(${actual.rgb.join(', ')}, ${alpha})`;
    const expected=actual.ct==='CT-03'?{bg:rgba(.065),image:'none',border:.42}:actual.ct==='CT-10'?{bg:rgba(.015),image:'none',border:.37}:actual.pa==='PA-04'?{bg:rgba(.065),image:'none',border:.35}:actual.pa==='PA-02'?{bg:'rgba(0, 0, 0, 0)',image:`linear-gradient(${rgba(.135)}, ${rgba(.095)})`,border:.38}:{bg:'rgba(0, 0, 0, 0)',image:`linear-gradient(${rgba(.1)}, ${rgba(.05)})`,border:.34};

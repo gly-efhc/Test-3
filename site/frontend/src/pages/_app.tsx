@@ -362,6 +362,7 @@ export default function App({ Component, pageProps }: AppProps) {
       ) : null}
       {!isBrowserShop ? <>
         <link rel="stylesheet" href={`${router.basePath}/react-runtime-layout.css`} data-efhc-visual-adapter="runtime-layout" />
+        <link rel="stylesheet" href={`${router.basePath}/header-theme-material.css`} data-efhc-visual-adapter="header-material" />
       </> : null}
       <WalletProvider
         manifestUrl={tcManifestUrl}
