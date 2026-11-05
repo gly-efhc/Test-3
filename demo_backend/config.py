@@ -6,6 +6,13 @@ from dataclasses import dataclass
 from urllib.parse import urlsplit, parse_qs
 
 
+# Neon TEST is restricted to the exact existing TEST branch endpoint.
+# This is independent of DEMO_NEON_HOST (which is operator-supplied).
+_NEON_TEST_HOST = "ep-fragrant-feather-zaribpm5.c-2.eu-west-2.aws.neon.tech"
+_NEON_TEST_POOLER_HOST = _NEON_TEST_HOST.replace(".c-2.", "-pooler.c-2.")
+_ALLOWED_NEON_TEST_HOSTS = frozenset({_NEON_TEST_HOST, _NEON_TEST_POOLER_HOST})
+
+
 class DemoConfigurationError(RuntimeError):
     pass
 
@@ -41,8 +48,8 @@ class DemoConfig:
         parsed = urlsplit(url)
         if parsed.scheme not in {"postgresql", "postgresql+asyncpg", "postgres"}:
             raise DemoConfigurationError("DEMO_DATABASE_URL must use PostgreSQL")
-        if not expected_host or not expected_host.endswith(".neon.tech") or parsed.hostname != expected_host:
-            raise DemoConfigurationError("DEMO_NEON_HOST must match the exact Neon TEST DSN hostname")
+        if expected_host not in _ALLOWED_NEON_TEST_HOSTS or parsed.hostname != expected_host:
+            raise DemoConfigurationError("DEMO_NEON_HOST must match the pinned Neon TEST branch endpoint")
         if not parsed.username or not parsed.password or not parsed.path or parsed.path == "/":
             raise DemoConfigurationError("Neon TEST DSN lacks database or credentials")
         if not any(value.lower() == "require" for value in parse_qs(parsed.query).get("sslmode", [])):
