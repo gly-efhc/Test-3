@@ -87,6 +87,9 @@ export function seedAccount(globalId=DEMO_GLOBAL_ID):DemoAccountState {
     bonus_balance:isPrimary?frozen.tasks.bonus_balance_d8:formatD8(d8(String(25+(index%47)*1.75))),
     available_kwh:isPrimary?"421.12500000":zero,total_generated_kwh:isPrimary?frozen.ranks.me.total_generated_kwh:formatD8(d8(String(5000+index*19.375))),
     completed_tasks:[],ad_views:0,ad_date_utc:new Date().toISOString().slice(0,10),
+    // The canonical standalone DEMO primary account is VIP; other new accounts are BASE.
+    // SQL-imported C28 users overwrite this fixture flag from trusted test DB.
+    is_vip:isPrimary,
     wallets,ledger:[],withdrawals:[],exchanges:[],activated_panels:0,
   };
 }
