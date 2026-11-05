@@ -331,7 +331,7 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
    if(op?.startsWith('secrets/')){row.secret_masks=op.endsWith('/delete')?{}:Object.fromEntries(Object.keys(b.secrets||b).map(k=>[k,'••••••••']));return {ok:true,provider:row};}
    if(op==='reset-errors'){row.last_error_code=null;row.health='ok';return {ok:true};}Object.assign(row,b);return row;
   }
-  if(p==='/admin/ads/dashboard'&&read){const rewards=s.settings.neon_seed_revision?Object.values(state.accounts).flatMap(x=>x.ledger).filter(r=>r.reason==='ad_reward').concat(s.audit.filter(r=>r.reason==='ad_reward')):s.audit.filter(r=>r.reason==='ad_reward');const count=rewards.length;
+  if(p==='/admin/ads/dashboard'&&read){const rewards=s.settings.neon_seed_revision?[...Object.values(state.accounts).flatMap(x=>x.ledger).filter(r=>r.reason==='ad_reward'),...s.audit.filter(r=>r.reason==='ad_reward')]:s.audit.filter(r=>r.reason==='ad_reward');const count=rewards.length;
    return {period:q.get('period')||'30d',overall:{ad_requests:count,impressions:count,completed_rewarded_views:count,rewarded_users:new Set(rewards.map(r=>r.global_id)).size,provider_no_fill:0,errors:0,fallback:0,efhcb_distributed:totals(rewards,'amount_efhc'),estimated_revenue_usd:zero,confirmed_revenue_usd:zero,revenue_per_1000_requests_usd:zero,revenue_per_completed_ad_usd:zero},providers:s.providers.map(r=>({...r,completed_rewarded_views:r.code==='builtin'?count:0})),geo:[],languages:[],tasks:s.tasks,timeline:rewards};}
 
   if(p==='/admin/ads/revenue-optimizer/apply'&&!read){s.settings.optimizer_order=s.providers.filter(r=>r.enabled).map(r=>r.code);return {ok:true,applied_order:s.settings.optimizer_order};}
