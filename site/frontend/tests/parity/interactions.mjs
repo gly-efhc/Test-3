@@ -143,7 +143,7 @@ try{
   const index=Number(ct.slice(-2))-1,selected=expectedSelectionOrder('PB',canon)[index];
   await page.waitForFunction(physical=>document.querySelector('[data-interface-variant-group="PB"]')?.dataset.pb===physical,canon.SOURCE_STYLE.PB[selected]||selected);
   await page.mouse.move(12,12);await page.locator('.efhc-interface-customization-button').click();await page.locator('.efhc-interface-customization-button').click();
-  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')));
+  const saved=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_SETTINGS_V1')));
   assert.equal(saved.color_theme_id,ct);assert.equal(saved.interface_variants.PB,selected);assert.equal(saved.interface_variants.RP,'RP-04');assert.equal(saved.interface_variants.HS,'HS-02');
   await page.reload();await page.waitForFunction(physical=>document.querySelector('[data-interface-variant-group="PB"]')?.dataset.pb===physical,canon.SOURCE_STYLE.PB[selected]||selected);
  },{settings:{color_theme_id:ct,interface_variants:{...canon.DEFAULTS,PB:'PB-03',RP:'RP-04',HS:'HS-02'}}});
@@ -153,7 +153,7 @@ try{
   const physical=canon.SOURCE_STYLE.RP[selected];
   await page.waitForFunction(physical=>document.querySelector('[data-interface-variant-group="RP"]')?.dataset.pb===physical,physical);
   await page.mouse.move(12,12);await page.locator('.efhc-interface-customization-button').click();await page.locator('.efhc-interface-customization-button').click();
-  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')));
+  const saved=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_SETTINGS_V1')));
   assert.equal(saved.color_theme_id,ct);assert.equal(saved.interface_variants.RP,selected);assert.equal(saved.interface_variants.PB,'PB-04');assert.equal(saved.interface_variants.HS,'HS-02');
   await page.reload();await page.waitForFunction(physical=>document.querySelector('[data-interface-variant-group="RP"]')?.dataset.pb===physical,physical);
  },{settings:{color_theme_id:ct,interface_variants:{...canon.DEFAULTS,PB:'PB-04',RP:'RP-03',HS:'HS-02'}}});
@@ -161,7 +161,7 @@ try{
   const choose=async(group,position)=>{await page.mouse.move(12,12);await page.locator('.efhc-interface-customization-button').click();const surface=page.locator(`[data-interface-variant-group="${group}"]`);for(let i=1;i<position;i++)await surface.press('ArrowRight');await page.locator('.efhc-interface-customization-button').click()};
   await open(page);await choose('PB',24);
   await page.locator('a[href$="/referrals/"],a[href$="/referrals"]').first().click();await page.waitForSelector('[data-interface-variant-group="RP"]');await choose('RP',19);
-  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).interface_variants);
+  const saved=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_SETTINGS_V1')).interface_variants);
   assert.equal(saved.PB,'PB-20');assert.equal(saved.RP,'RP-06');
   await page.reload();await page.waitForFunction(()=>document.querySelector('[data-interface-variant-group="RP"]')?.dataset.pb==='PB-06');
   await page.locator(`a[href="${basePath}/"],a[href="${basePath}"]`).first().click();await page.waitForFunction(()=>document.querySelector('[data-interface-variant-group="PB"]')?.dataset.pb==='PB-22');
@@ -195,7 +195,7 @@ try{
   await page.locator('.efhc-interface-customization-button').click();
   await page.reload();await page.waitForFunction(({group,physical})=>document.querySelector(`[data-interface-variant-group="${group}"]`)?.dataset.pb===physical,{group,physical:canon.SOURCE_STYLE[group][order[9]]});
   assert.equal(await page.locator(`[data-interface-variant-group="${group}"]`).getAttribute('data-pb'),canon.SOURCE_STYLE[group][order[9]]);
-  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).interface_variants);
+  const saved=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_SETTINGS_V1')).interface_variants);
   assert.equal(saved[group],order[9]);
   assert.equal(saved[group==='PB'?'RP':'PB'],group==='PB'?'RP-01':'PB-01');
  });
@@ -244,7 +244,7 @@ try{
    assert.ok(actual.height>=canonicalHeight*.85&&actual.height<=canonicalHeight*1.15,`${group}: height ${actual.height} outside OWNER bounds around ${canonicalHeight}`);
    assert.ok(actual.fillHeight>0&&actual.fillHeight<=actual.height,`${group}: fill escapes track`);
    await page.locator('.efhc-interface-customization-button').click();
-   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).interface_variants);
+   const saved=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_SETTINGS_V1')).interface_variants);
    assert.equal(saved[group],`${group}-04`);
    assert.equal(saved[group==='PB'?'RP':'PB'],group==='PB'?'RP-01':'PB-04','manual selection changed the other page');
    if(process.env.EFHC_PARITY_ARTIFACTS){
@@ -402,13 +402,13 @@ try{
   await selector.click();
   await page.waitForFunction(()=>document.documentElement.dataset.colorThemeId==='CT-02');
   await page.locator('.efhc-interface-customization-button').click();
-  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).color_theme_id),'CT-02','save did not persist the theme');
+  assert.equal(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_SETTINGS_V1')).color_theme_id),'CT-02','save did not persist the theme');
   assert.equal(await selector.count(),0,'globe must be absent outside editing');
   // OWNER acceptance: the selection survives an actual route reload.
   await page.clock.resume();
   await page.reload({waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>document.documentElement.dataset.colorThemeId==='CT-02');
-  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')).color_theme_id),'CT-02','saved selection must survive reload');
+  assert.equal(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_SETTINGS_V1')).color_theme_id),'CT-02','saved selection must survive reload');
   assert.equal(await page.locator('[data-color-theme-control="true"]').count(),0,'globe must remain absent after reload outside editing');
  });
 

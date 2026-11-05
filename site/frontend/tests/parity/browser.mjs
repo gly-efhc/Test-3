@@ -15,7 +15,7 @@ async function check(name,fn){try{await fn();results.push({name,status:'PASS'});
 const page=await browser.newPage({viewport:{width:390,height:844}});
 await page.route('**/*',route=>new URL(route.request().url()).origin===new URL(base).origin?route.continue():route.abort());
 let state={lang:'ru',interface_settings_version:4,color_theme_id:'CT-01',interface_variants:contract.DEFAULTS};
-await page.addInitScript(()=>{if(window.name)localStorage.setItem('EFHC_USER_SETTINGS_V1',window.name);});
+await page.addInitScript(()=>{if(window.name){const state=JSON.parse(window.name);state.settings_owner=JSON.parse(sessionStorage.getItem('EFHC_USER_DATA_CACHE_V1')||'null')?.owner??null;sessionStorage.setItem('EFHC_USER_SETTINGS_V1',JSON.stringify(state));localStorage.setItem('EFHC_USER_SETTINGS_V1',window.name);}});
 async function load(next=state,path=''){
  state=next;
  // window.name is scoped to this local test page and contains no credentials.
@@ -68,7 +68,7 @@ try{
   await page.waitForFunction(()=>document.querySelector('.efhc-game-header').dataset.hs==='HS-06');
   await page.locator('.efhc-interface-customization-button').click();
   await page.waitForFunction(()=>document.querySelector('.efhc-independent-shell').dataset.interfaceCustomizationMode==='idle');
-  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')));
+  const saved=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_SETTINGS_V1')));
   assert.equal(saved.interface_variants.HS,'HS-02');
   await page.evaluate(()=>{window.name=''});await page.reload();
   await page.waitForFunction(()=>document.querySelector('.efhc-game-header')?.dataset.hs==='HS-06');

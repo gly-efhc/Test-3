@@ -11,7 +11,9 @@ page.setDefaultTimeout(7000);
 await context.route('**/*',r=>new URL(r.request().url()).origin===new URL(base).origin?r.continue():r.abort());
 await context.addInitScript(()=>{
  if(sessionStorage.getItem('efhc:test:clear-read-cache')){
-  localStorage.removeItem('EFHC_USER_DATA_CACHE_V1');sessionStorage.removeItem('efhc:test:clear-read-cache');
+  sessionStorage.removeItem('EFHC_USER_DATA_CACHE_V1');
+  for(const key of Object.keys(localStorage))if(key.startsWith('EFHC_USER_DATA_CACHE_V1:'))localStorage.removeItem(key);
+  sessionStorage.removeItem('efhc:test:clear-read-cache');
  }
 });
 const errors=[],results=[],key='efhc:react:unified-demo:v893';page.on('pageerror',e=>errors.push(e.message));
@@ -37,23 +39,48 @@ try{
   assert.ok(!/Application error|ZodError/.test(await page.locator('body').innerText()));
  });
  await check('same USER retains cache and running Energy across failed sync and reload',async()=>{
-  await scenario('filled');await load();await page.waitForFunction(()=>{const c=JSON.parse(localStorage.getItem('EFHC_USER_DATA_CACHE_V1')||'null');return c?.entries.some(e=>e.key[0]==='syncSnapshot');});
+  await scenario('filled');await load();await page.waitForFunction(()=>{const c=JSON.parse(sessionStorage.getItem('EFHC_USER_DATA_CACHE_V1')||'null');return c?.entries.some(e=>e.key[0]==='syncSnapshot');});
   const before=Number(await page.locator('[data-energy-value-safe]').innerText());
   await scenario('error');await load();await page.locator('.efhc-energy-stage').waitFor();await page.waitForTimeout(800);
   const after=Number(await page.locator('[data-energy-value-safe]').innerText());assert.ok(after>=before&&after>0);
  });
  await check('USER switch resets language/design, removes former cache, and failed new load shows zero',async()=>{
-  await page.evaluate(key=>{const s=JSON.parse(localStorage.getItem(key));s.selected_global_id='0000000123';s.scenario='error';localStorage.setItem(key,JSON.stringify(s));const settings=JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1'));settings.lang='ru';settings.color_theme_id='CT-03';localStorage.setItem('EFHC_USER_SETTINGS_V1',JSON.stringify(settings));},key);
+  await page.evaluate(key=>{const s=JSON.parse(localStorage.getItem(key));sessionStorage.setItem('efhc:react:demo-window-owner','0000000123');s.scenario='error';localStorage.setItem(key,JSON.stringify(s));const settings=JSON.parse(sessionStorage.getItem('EFHC_USER_SETTINGS_V1'));settings.lang='ru';settings.color_theme_id='CT-03';sessionStorage.setItem('EFHC_USER_SETTINGS_V1',JSON.stringify(settings));},key);
   await load();await page.waitForFunction(()=>document.documentElement.lang==='en');
   assert.equal((await page.locator('[data-energy-value-safe]').innerText()).trim(),'0.00000000');
-  const c=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_DATA_CACHE_V1')));assert.equal(c.owner,'0000000123');assert.ok(c.entries.every(e=>e.key[1]===c.owner));
-  const s=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')));assert.equal(s.color_theme_id,'CT-01');
+  const c=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_DATA_CACHE_V1')));assert.equal(c.owner,'0000000123');assert.ok(c.entries.every(e=>e.key[1]===c.owner));
+  const s=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_SETTINGS_V1')));assert.equal(s.color_theme_id,'CT-01');
  });
  await check('Admin selection preserves USER cache and language settings',async()=>{
-  await page.evaluate(key=>{const s=JSON.parse(localStorage.getItem(key));s.selected_global_id='0000000456';localStorage.setItem(key,JSON.stringify(s));const settings=JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1'));settings.lang='ru';settings.color_theme_id='CT-03';localStorage.setItem('EFHC_USER_SETTINGS_V1',JSON.stringify(settings));},key);
+  await page.evaluate(key=>{const s=JSON.parse(localStorage.getItem(key));sessionStorage.setItem('efhc:react:demo-window-owner','0000000456');localStorage.setItem(key,JSON.stringify(s));const settings=JSON.parse(sessionStorage.getItem('EFHC_USER_SETTINGS_V1'));settings.lang='ru';settings.color_theme_id='CT-03';sessionStorage.setItem('EFHC_USER_SETTINGS_V1',JSON.stringify(settings));},key);
   await load('admin/');await page.locator('[data-admin-primitive="page"]').waitFor();
-  const c=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_DATA_CACHE_V1')));assert.equal(c.owner,'0000000123');
-  const s=await page.evaluate(()=>JSON.parse(localStorage.getItem('EFHC_USER_SETTINGS_V1')));assert.equal(s.lang,'ru');assert.equal(s.color_theme_id,'CT-03');
+  const c=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_DATA_CACHE_V1')));assert.equal(c.owner,'0000000123');
+  const s=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_SETTINGS_V1')));assert.equal(s.lang,'ru');assert.equal(s.color_theme_id,'CT-03');
+ });
+ await check('two windows keep their USER owner and settings through an independent switch',async()=>{
+  await load();
+  const other=await context.newPage();other.on('pageerror',e=>errors.push(e.message));
+  try{
+   await other.goto(base,{waitUntil:'domcontentloaded'});await other.locator('.efhc-energy-stage').waitFor();
+   await other.evaluate(()=>sessionStorage.setItem('efhc:react:demo-window-owner','0000000789'));
+   await other.reload({waitUntil:'domcontentloaded'});await other.waitForFunction(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_DATA_CACHE_V1')||'null')?.owner==='0000000789');
+   await other.evaluate(()=>{const k='EFHC_USER_SETTINGS_V1',s=JSON.parse(sessionStorage.getItem(k));s.lang='de';s.color_theme_id='CT-07';sessionStorage.setItem(k,JSON.stringify(s));});
+   await other.reload({waitUntil:'domcontentloaded'});await other.waitForFunction(()=>document.documentElement.lang==='de');
+   await page.evaluate(()=>sessionStorage.setItem('efhc:react:demo-window-owner','0000000123'));await load();
+   assert.equal(await other.evaluate(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_DATA_CACHE_V1')).owner),'0000000789');
+   assert.equal(await other.evaluate(()=>document.documentElement.lang),'de');
+   assert.equal(await other.evaluate(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_SETTINGS_V1')).color_theme_id),'CT-07');
+   await other.reload({waitUntil:'domcontentloaded'});await other.waitForFunction(()=>document.documentElement.lang==='de');
+   assert.equal(await other.evaluate(()=>sessionStorage.getItem('efhc:react:demo-window-owner')),'0000000789');
+  }finally{await other.close();}
+ });
+ await check('unsubmitted amount survives reload and navigation, and a USER switch clears it',async()=>{
+  await load('exchange/');const input=page.locator('[data-exchange-amount-input="kwh"]');await input.waitFor({state:'visible'});await input.fill('12.345');
+  await load('exchange/');await page.waitForFunction(()=>document.querySelector('[data-exchange-amount-input="kwh"]')?.value==='12.345');
+  await load('panels/');await load('exchange/');assert.equal(await input.inputValue(),'12.345');
+  await page.evaluate(()=>sessionStorage.setItem('efhc:react:demo-window-owner','0000000888'));await load('exchange/');
+  await page.waitForFunction(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_DATA_CACHE_V1')||'null')?.owner==='0000000888');
+  assert.equal(await input.inputValue(),'0.00000000');
  });
  await check('no React rendering or hydration errors',async()=>assert.deepEqual(errors,[]));
 }finally{await fs.writeFile(dir+'/persistent-pages.json',JSON.stringify({base,results,errors},null,2));await context.unrouteAll({behavior:'ignoreErrors'});await browser.close();}
