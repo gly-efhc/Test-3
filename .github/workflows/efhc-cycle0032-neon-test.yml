@@ -23,7 +23,9 @@ jobs:
     environment: github-pages
     timeout-minutes: 12
     env:
-      NEON_TEST_DSN: ${{ secrets.EFHC_NEON_TEST_DATABASE_URL || secrets.NEON_TEST_DATABASE_URL || secrets.NEON_DATABASE_URL || secrets.DATABASE_URL || secrets.NEON_CONNECTION_STRING || secrets.EFHC_DATABASE_URL }}
+      NEON_TEST_DSN: ${{ secrets.EFHC_STAGING_DATABASE || secrets.EFHC_NEON_TEST_DATABASE_URL || secrets.NEON_TEST_DATABASE_URL || secrets.NEON_DATABASE_URL || secrets.DATABASE_URL || secrets.NEON_CONNECTION_STRING || secrets.EFHC_DATABASE_URL }}
+      STAGING_PROJECT_ID: ${{ secrets.EFHC_STAGING_PROJECT_ID }}
+      STAGING_EXPECTED_PROJECT_ID: ${{ secrets.EFHC_STAGING_EXPECTED_PROJECT_ID }}
       NEON_API_TOKEN: ${{ secrets.NEON_API_KEY || secrets.EFHC_NEON_API_KEY || secrets.NEON_API_TOKEN || secrets.NEON_TOKEN }}
       EXPECTED_NEON_TEST_HOST: ep-fragrant-feather-zaribpm5.c-2.eu-west-2.aws.neon.tech
     steps:
@@ -70,6 +72,15 @@ jobs:
               print("NEON_TEST_CREDENTIAL_SOURCE=API_KEY")
           if not raw:
               raise SystemExit("NEON_TEST_SECRET_MISSING: no recognized TEST DSN or Neon API key in this repository Actions context")
+          expected_project = "fragrant-mountain-35143707"
+          configured_project = os.environ.get("STAGING_PROJECT_ID", "").strip()
+          configured_expected = os.environ.get("STAGING_EXPECTED_PROJECT_ID", "").strip()
+          if configured_expected and configured_expected != expected_project:
+              raise SystemExit("NEON_TEST_EXPECTED_PROJECT_MISMATCH: refuse non-test project")
+          if configured_project and configured_project != expected_project:
+              raise SystemExit("NEON_TEST_STAGING_PROJECT_MISMATCH: refuse non-test project")
+          if not raw.startswith(("postgresql://", "postgres://", "postgresql+asyncpg://")):
+              raise SystemExit("EFHC_STAGING_DATABASE_NOT_DSN: staging secret does not contain PostgreSQL URL")
           if raw.startswith("postgresql+asyncpg://"):
               raw = "postgresql://" + raw[len("postgresql+asyncpg://"):]
           parsed = urlsplit(raw)
