@@ -20,6 +20,7 @@ concurrency:
 jobs:
   live-neon-readonly:
     runs-on: ubuntu-latest
+    environment: github-pages
     timeout-minutes: 12
     env:
       NEON_TEST_DSN: ${{ secrets.EFHC_NEON_TEST_DATABASE_URL || secrets.NEON_TEST_DATABASE_URL || secrets.NEON_DATABASE_URL || secrets.DATABASE_URL || secrets.NEON_CONNECTION_STRING || secrets.EFHC_DATABASE_URL }}
