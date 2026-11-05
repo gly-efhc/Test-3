@@ -12,8 +12,8 @@ const sourceCycle="RECON_CYCLE_0027";
 const sourceRevision="RECON_CYCLE_0028_CAUSAL_V1";
 export async function bootstrapNeonDemoMirror():Promise<void>{
  const already=readDemoState().server?.settings?.neon_seed_revision===sourceRevision;
- if(!already){
-  const seed=await getNeonCoreSeed();
+ const seed=already?null:await getNeonCoreSeed();
+ if(seed){
   const users:Record<string,DemoAccountState>={};
   for(const u of seed.users){
    const a=seedAccount(u.global_id);
@@ -80,7 +80,7 @@ export async function bootstrapNeonDemoMirror():Promise<void>{
  }
  const db=await openDemoDatabase();
  try{
-  if(!already){
+  if(seed){
    const state=readDemoState();
    const accounts=Object.values(state.accounts);
    const sources:Record<string,Record<string,unknown>[]>={};
