@@ -1,5 +1,14 @@
 const { readFileSync } = require("node:fs");
 const { join } = require("node:path");
+/** Server-only build ENV verification; the UI bundle cannot settle balances. */
+for (const [key,canonical] of Object.entries({
+  EFHC_GENERATION_BASE_KWH_PER_SEC: "0.00000692",
+  EFHC_GENERATION_VIP_KWH_PER_SEC: "0.00000741",
+})) {
+  const value = process.env[key];
+  if (value !== undefined && value.trim() !== canonical)
+    throw new Error("EFHC_GENERATION_ENV_CANON_MISMATCH:" + key);
+}
 /** @type {import("next").NextConfig} */
 const apiProxyTarget =
   process.env.NEXT_PUBLIC_API_PROXY_TARGET?.trim() || "";

@@ -14,7 +14,7 @@ const outputWithdrawal=(r:DemoRow)=>({...r,id:String(r.id),amount_efhc:r.amount_
  is_vip:r.is_vip??true,payout_asset:'EFHC',tonconnect_transport_kind:null,jetton_master_address:null,jetton_decimals:8,fee_message_ton_amount:null});
 function snapshot(state:DemoControlState){
  const a=account(state),rows=panelRows(a).filter(p=>!p.meta?.protectively_voided),active=rows.filter(p=>p.is_active);
- const rate=a.is_vip===false?BASE_RATE:VIP_RATE;
+ const rate=a.is_vip===true?VIP_RATE:BASE_RATE;
  const empty=state.scenario==='empty';
  return {profile:{...userRow(a),...(empty?{main_balance:zero,bonus_balance:zero,total_generated_kwh:zero,available_kwh:zero}:{}),has_activ:!empty&&rows.length>0,gen_per_sec_base:BASE_RATE,gen_per_sec_vip:VIP_RATE},
   panels:{active_count:empty?0:active.length,total_generated_by_panels:empty?zero:totals(rows,'generated_kwh'),nearest_expire_at:empty?null:active.map(p=>p.expires_at).sort()[0]||null},
@@ -191,7 +191,7 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
   if(p==='/hub/support-links'&&read)return s.support.filter(r=>r.is_active);
   if(p==='/tasks/catalog'&&read)return {items:s.tasks.filter(r=>r.is_active).map(r=>({...r,id:String(r.id)}))};
   if(p==='/tasks/my'&&read)return {items:a.completed_tasks.map(code=>{const t=s.tasks.find(r=>r.code===code);return {id:String(t?.id),task_id:String(t?.id),status:'completed',can_claim:false,bonus_efhc:t?.bonus_efhc||zero,next_available_at:null,progress:{demo:true}};})};
-  if(p==='/tasks/earnings/me'&&read)return {total_bonus_earned:formatD8(a.ledger.filter(r=>r.reason==='task_bonus'||r.reason==='ad_reward').reduce((n,r)=>n+d8(r.amount_efhc),d8(canonical.tasks.earnings.total_bonus_earned))),bonus_asset:'EFHCb',includes_ads:true};
+  if(p==='/tasks/earnings/me'&&read)return {total_bonus_earned:formatD8(a.ledger.filter(r=>r.reason==='task_bonus'||r.reason==='ad_reward').reduce((n,r)=>n+d8(r.amount_efhc),s.settings.neon_seed_revision?0n:d8(canonical.tasks.earnings.total_bonus_earned))),bonus_asset:'EFHCb',includes_ads:true};
   if(p==='/tasks/claim'&&method==='POST')return replay(state,key,`${a.global_id}:${p}:${JSON.stringify(b)}`,()=>{
    const t=s.tasks.find(r=>String(r.id)===String(b.task_id));requireDemo(t?.is_active,'TASK_NOT_FOUND',404);requireDemo(!a.completed_tasks.includes(t.code),'TASK_ALREADY_COMPLETED',409);
    transfer(state,a.global_id,amount(t.bonus_efhc),'credit','bonus','task_bonus');a.completed_tasks.push(t.code);

@@ -1,7 +1,7 @@
 import {publicAssetPath} from "../lib/publicAssetPath";
 import {buildCatalog} from "./demoShopCatalog";
 import {demoServerRequest} from "./demoServer";
-import {DemoOperationError} from "./demoServerCore";
+import {DemoOperationError,BASE_RATE,VIP_RATE} from "./demoServerCore";
 /** Browser-only API adapter for the frozen v866 simulator. No remote API / TON calls.
  * An unsupported endpoint MUST fail closed rather than reach a real backend.
  * The simulated Global ID is an account selector, never a session credential.
@@ -39,11 +39,11 @@ function taskEarnings(a:DemoAccountState):string {
 function walletPayload(a:DemoAccountState){return {is_connected:a.wallets.some(w=>w.is_active),wallets:a.wallets};}
 function snapshot(a:DemoAccountState){
  const activeCount=canonical.panels.active.length+a.activated_panels;
- const effectiveRate="0.00000692";
+ const effectiveRate=a.is_vip===true?VIP_RATE:BASE_RATE;
  return {profile:{global_id:a.global_id,tg_id:0,username:a.global_id===DEMO_GLOBAL_ID?"efhc_player":`demo_${a.global_id}`,
-   is_vip:true,has_activ:true,main_balance:a.main_balance,bonus_balance:a.bonus_balance,
+   is_vip:a.is_vip===true,has_activ:true,main_balance:a.main_balance,bonus_balance:a.bonus_balance,
    available_kwh:a.available_kwh,total_generated_kwh:a.total_generated_kwh,
-   gen_per_sec_base:zero,gen_per_sec_vip:formatD8(d8(effectiveRate)*BigInt(activeCount))},
+   gen_per_sec_base:formatD8(d8(BASE_RATE)*BigInt(activeCount)),gen_per_sec_vip:formatD8(d8(VIP_RATE)*BigInt(activeCount))},
   panels:{active_count:activeCount,total_generated_by_panels:canonical.panels.summary.total_generated_by_panels,
     nearest_expire_at:demoPanelsSummary().nearest_expire_at},
   exchange_preview:{ok:true,available_kwh:a.available_kwh,max_exchangeable_kwh:a.available_kwh,
@@ -258,7 +258,7 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
    // Newly activated panels belong to the same Global ID as the snapshot and ledger.
    const rows=Array.from({length:a.activated_panels},(_,i)=>({id:String(500000+i),public_id:`PNL-${String(500000+i).padStart(9,"0")}`,
     activated_at:now,created_at:now,expires_at:new Date(Date.now()+180*86400000).toISOString(),archived_at:null,
-    base_gen_per_sec:"0.00000692",generated_kwh:zero,is_active:true}));
+    base_gen_per_sec:BASE_RATE,generated_kwh:zero,is_active:true}));
    const combined=direction==="oldest"?[...canonical.panels.active,...rows]:[...rows,...canonical.panels.active];
    return {...value,...cursorPage(combined,q,20),server_now_utc:now};
   }

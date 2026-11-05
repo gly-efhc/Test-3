@@ -17,7 +17,7 @@ export function useDemoGenerationProjection(){
  if(!state?.server||!iso)return null;
  const a=state.accounts[state.selected_global_id];if(!a?.panels)return null;
  if(state.scenario==='empty')return {total_generated_kwh:'0.00000000',available_kwh:'0.00000000',panels:{} as Record<string,string>};
- const now=Date.parse(iso)+Math.max(0,performance.now()-anchor.current.clientMs),rate=d8(a.is_vip===false?BASE_RATE:VIP_RATE);
+ const now=Date.parse(iso)+Math.max(0,performance.now()-anchor.current.clientMs),rate=d8(a.is_vip===true?VIP_RATE:BASE_RATE);
  let delta=0n;const panels:Record<string,string>={};
  for(const p of a.panels){
   let add=0n;
