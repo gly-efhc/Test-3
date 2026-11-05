@@ -34,22 +34,27 @@ async function neonAnonymousJwt():Promise<string>{
   }
   return pendingAnonymousJwt;
 }
-async function getRows<T>(view:View,params:Record<string,string>):Promise<T[]>{
+async function getPage<T>(view:View,params:Record<string,string>,exactCount=false):Promise<{rows:T[];total:number|null}>{
   if(!allowed.includes(view)||root.protocol!=="https:"||root.username||root.password||root.search||root.hash||
     root.origin!=="https://ep-fragrant-feather-zaribpm5.apirest.c-2.eu-west-2.aws.neon.tech"||
     root.pathname!=="/neondb/rest/v1")throw new Error("NEON_TEST_VIEW_DENIED");
   const url=new URL(NEON_DEMO_ENDPOINT+"/"+view);
   for(const [key,value] of Object.entries(params)){
-    if(!["select","global_id","limit","offset","order","table_name","system_entity","reason"].includes(key))throw new Error("NEON_TEST_QUERY_DENIED");
+    if(!["select","global_id","limit","offset","order","table_name","system_entity","reason","item->>global_id"].includes(key))throw new Error("NEON_TEST_QUERY_DENIED");
     url.searchParams.set(key,value);
   }
   const jwt=await neonAnonymousJwt();
-  const response=await fetch(url.toString(),{method:"GET",credentials:"omit",cache:"no-store",redirect:"error",headers:{"Accept":"application/json","Authorization":"Bearer "+jwt}});
+  const response=await fetch(url.toString(),{method:"GET",credentials:"omit",cache:"no-store",redirect:"error",headers:{"Accept":"application/json","Authorization":"Bearer "+jwt,...(exactCount?{Prefer:"count=exact"}:{})}});
+  const range=response.headers?.get("content-range")?.match(/\/(\d+)$/);
+  const total=range?Number(range[1]):null;
+  if(exactCount&&(total===null||!Number.isSafeInteger(total)))throw new Error("NEON_TEST_TOTAL_MISSING");
+  if(response.status===416&&total!==null&&Number(params.offset||0)>=total)return {rows:[],total};
   if(!response.ok)throw new Error("NEON_TEST_HTTP_"+response.status);
   const body:unknown=await response.json();
   if(!Array.isArray(body)||body.length>100)throw new Error("NEON_TEST_RESPONSE_INVALID");
-  return body as T[];
+  return {rows:body as T[],total};
 }
+async function getRows<T>(view:View,params:Record<string,string>):Promise<T[]>{return (await getPage<T>(view,params)).rows;}
 export async function getNeonBank():Promise<Bank>{
  const rows=await getRows<Bank>("bank_overview",{select:"id,ok,ts,facts,counters,database_scope,dataset",limit:"1"});
  if(rows.length!==1||rows[0].database_scope!=="EFHC_Nektron_Test"||rows[0].dataset!=="RECON_CYCLE_0027"||rows[0].facts?.bank_metrics_ready!=="1")
@@ -113,7 +118,8 @@ export async function getNeonExchangePage(gid:string,offset:number,limit:number)
  const rows=await getRows<{id:string;global_id:string;amount_efhc:string;amount_kwh:string;created_at:string;event_id:string}>("economic_events",{
   select:"id,global_id,amount_efhc,amount_kwh,created_at,event_id",global_id:"eq."+gid,
   reason:"eq.exchange_kwh",order:"created_at.desc,id.desc",offset:String(offset),limit:String(limit)});
- return {items:rows.map(r=>({id:r.id,event_id:r.event_id,created_at:r.created_at,amount_kwh:r.amount_efhc,
+ if(rows.some(r=>r.global_id!==gid))throw new Error("NEON_TEST_EXCHANGE_SCOPE_MISMATCH");
+ return {items:rows.map(r=>({id:r.id,global_id:r.global_id,event_id:r.event_id,created_at:r.created_at,amount_kwh:r.amount_kwh,
    amount_efhc:r.amount_efhc,credited_efhc:r.amount_efhc,reason:"exchange_kwh"})),
   next_cursor:rows.length===limit?String(offset+limit):null};
 }
@@ -127,7 +133,9 @@ export async function getNeonTableCounts():Promise<Record<string,number>>{
  return counts;
 }
 export async function getNeonDemoTableRows(name:string,gid:string,limit=20):Promise<Record<string,unknown>[]>{
- assertGlobalId(gid);const n=String(Math.max(1,Math.min(50,limit))),id="eq."+gid;
+ assertGlobalId(gid);
+ if(!Number.isSafeInteger(limit)||limit<1||limit>50)throw new Error("NEON_DEMO_BAD_LIMIT");
+ const n=String(limit),id="eq."+gid;
  if(["accounts","admin_users","balances","ranks"].includes(name))
   return getRows<Record<string,unknown>>("accounts",{select:"*",global_id:id,limit:n});
  if(name==="panels")return getRows<Record<string,unknown>>("panels",{select:"*",global_id:id,limit:n});
@@ -139,9 +147,11 @@ export async function getNeonDemoTableRows(name:string,gid:string,limit=20):Prom
   return getRows<Record<string,unknown>>("economic_events",{
     select:"*",global_id:id,reason:"eq."+(name==="exchanges"?"exchange_kwh":"efhc_external_deposit"),
     order:"created_at.desc",limit:n});
- if(["hub_links","shop_items","task_catalog","settings","admin_roles"].includes(name)){
+ const scopedCatalogs=["referrals","referral_bonuses","ad_reward_sessions","task_submissions"];
+ if(["hub_links","shop_items","task_catalog","settings","admin_roles",...scopedCatalogs].includes(name)){
   const rows=await getRows<{item:Record<string,unknown>}>("catalog_rows",{
-   select:"item",table_name:"eq."+name,order:"id.asc",limit:n});
+   select:"item",table_name:"eq."+name,order:"id.asc",limit:n,...(scopedCatalogs.includes(name)?{"item->>global_id":id}:{})});
+  if(scopedCatalogs.includes(name)&&rows.some(r=>r.item.global_id!==gid))throw new Error("NEON_TEST_TABLE_SCOPE_MISMATCH");
   return rows.map(x=>x.item);
  }
  return [];
@@ -149,8 +159,9 @@ export async function getNeonDemoTableRows(name:string,gid:string,limit=20):Prom
 export async function getNeonAccountLedgerPage(gid:string,offset:number,limit:number):Promise<{items:Record<string,unknown>[];total:number}>{
  assertGlobalId(gid);
  if(!Number.isSafeInteger(offset)||offset<0||!Number.isInteger(limit)||limit<1||limit>50)throw new Error("NEON_DEMO_BAD_LEDGER_PAGE");
- const rows=await getRows<Record<string,unknown>>("ledger",{select:"id,global_id,amount,amount_efhc,direction,balance_type,reason,created_at,event_id,dataset",global_id:"eq."+gid,order:"created_at.desc,id.desc",limit:"100"});
- return {items:rows.slice(offset,offset+limit),total:rows.length};
+ const {rows,total}=await getPage<Record<string,unknown>>("ledger",{select:"id,global_id,amount,amount_efhc,direction,balance_type,reason,created_at,event_id,dataset",global_id:"eq."+gid,order:"created_at.desc,id.desc",offset:String(offset),limit:String(limit)},true);
+ if(rows.some(r=>r.global_id!==gid||r.dataset!=="RECON_CYCLE_0027"))throw new Error("NEON_TEST_LEDGER_SCOPE_MISMATCH");
+ return {items:rows,total:total!};
 }
 export async function getNeonAdminLedgerPage(gid:string|null,offset:number,limit:number):Promise<{ok:true;items:Record<string,unknown>[];next_cursor:string|null}>{
  if(!Number.isSafeInteger(offset)||offset<0||!Number.isInteger(limit)||limit<1||limit>100)throw new Error("NEON_DEMO_BAD_ADMIN_PAGE");
