@@ -73,7 +73,8 @@ export async function bootstrapNeonDemoMirror():Promise<void>{
    server.settings.neon_mode="READ_ONLY_SQL_SEED_WITH_EXISTING_LOCAL_DEMO_ACTIONS";
    const calculated=demoBankSnapshot(state);
    if(!calculated||Object.entries(facts).some(([field,value])=>
-       field.startsWith('bank_metrics_')&&calculated.facts[field]!==undefined&&calculated.facts[field]!==value))
+       field.startsWith('bank_metrics_')&&field!=='bank_metrics_updated_at'&&
+       calculated.facts[field]!==undefined&&calculated.facts[field]!==value))
      throw new Error("NEON_DEMO_SNAPSHOT_FORMULA_PARITY_MISMATCH");
   });
  }
