@@ -15516,6 +15516,17 @@ html[data-efhc-onboarding] .efhc-pwa-runtime-status{
   line-height:1.5;
 }
 
+/* OWNER C30: color switching must retain the accepted CT04–10 card-frame
+   height. Only these cards must stop inheriting the legacy MAIN leading above;
+   their fonts, padding, borders, designs and contents remain unchanged. */
+.efhc-independent-shell[data-interface-app-mode="user"]:is(
+  [data-color-theme-id="CT-01"],
+  [data-color-theme-id="CT-02"],
+  [data-color-theme-id="CT-03"]
+) #panelsPortfolioPage .efhc-panel-tile {
+  line-height:normal;
+}
+
 [data-interface-app-mode="user"][data-global-theme-id="01"] :is(.efhc-card,.efhc-game-section,.efhc-subpage-hero,.efhc-list-row),
 [data-interface-app-mode="user"][data-global-theme-id="02"] :is(.efhc-card,.efhc-game-section,.efhc-subpage-hero,.efhc-list-row),
 [data-interface-app-mode="user"][data-global-theme-id="03"] :is(.efhc-card,.efhc-game-section,.efhc-subpage-hero,.efhc-list-row){

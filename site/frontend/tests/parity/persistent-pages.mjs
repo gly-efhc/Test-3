@@ -1,4 +1,5 @@
 import {localPagesBase} from './pages-base.mjs';
+import {verifyPortfolioThemeHeights} from './portfolio-theme-height.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {createRequire} from 'node:module';
@@ -92,6 +93,9 @@ try{
   await page.locator('[data-bank-state="ready"]').waitFor({state:'attached',timeout:30000});
   assert.equal(await page.locator('[data-series]').count(),11);
   assert.equal(await page.locator('[data-bank-state]').getAttribute('data-bank-state'),'ready');
+ });
+ await check('Portfolio frames retain CT04 geometry through all ten colors',async()=>{
+  await scenario('filled');await verifyPortfolioThemeHeights(page,{base,artifacts:dir});
  });
  await check('no React rendering or hydration errors',async()=>assert.deepEqual(errors,[]));
 }finally{await fs.writeFile(dir+'/persistent-pages.json',JSON.stringify({base,results,errors},null,2));await context.unrouteAll({behavior:'ignoreErrors'});await browser.close();}
