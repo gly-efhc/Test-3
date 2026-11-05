@@ -73,3 +73,24 @@ test('offline backend mutations reject without pausing for automatic replay',{ti
  try{const mutation=c.getMutationCache().build(c,{mutationFn:async()=>{throw Error('offline');}});await assert.rejects(mutation.execute(),/offline/);assert.equal(mutation.state.isPaused,false);}
  finally{onlineManager.setOnline(true);c.clear();}
 });
+test('all Admin GET views retain their operator-scoped data on transient failure, never on permission denial',async()=>{
+ const h=sourceRuntime(),service=h.load('services/adminLinked.service.ts');
+ assert.equal(typeof service.readAdminDisplay,'function','shared Admin read model is required');
+ const read=service.readAdminDisplay;
+ assert.equal((await read(A,'/admin/reports/overview',async()=>({amount:'12.00000000'}))).amount,'12.00000000');
+ assert.equal((await read(A,'/admin/reports/overview',async()=>{throw Object.assign(Error('offline'),{status:503});})).amount,'12.00000000');
+ await assert.rejects(read(B,'/admin/reports/overview',async()=>{throw Error('offline');}),/offline/);
+ await assert.rejects(read(A,'/admin/reports/overview',async()=>{throw Object.assign(Error('denied'),{status:403});}),/denied/);
+});
+test('display Global ID and cached data are independent of transport credentials; changing USER owner replaces them',()=>{
+ const h=sourceRuntime(),cache=h.load('lib/userDataCache.ts'),auth=h.load('lib/auth-session.ts'),q=h.load('lib/queryClient.ts');
+ assert.equal(typeof cache.cachedUserDisplayOwner,'function');
+ const credential=token=>({access_token:token.repeat(40),token_type:'Bearer',expires_at:'2099-01-01T00:00:00Z'});
+ auth.storeAuthSession(credential('A'));
+ const c=q.createEfhcQueryClient();q.activateUserDataOwner(c,A,false);
+ assert.equal(cache.cachedUserDisplayOwner(),A);
+ auth.storeAuthSession(credential('B'));assert.equal(cache.cachedUserDisplayOwner(),A);
+ auth.clearAuthSession();assert.equal(cache.cachedUserDisplayOwner(),A);
+ q.activateUserDataOwner(c,B,false);assert.equal(cache.cachedUserDisplayOwner(),B);
+ assert.ok(![...h.storage.values()].join('').includes('A'.repeat(40)));c.clear();
+});

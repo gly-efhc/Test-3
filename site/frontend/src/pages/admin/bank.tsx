@@ -126,7 +126,7 @@ export default function AdminBankPage() {
       if(!alive.current)return;
       setOverview(snapshot);
     } catch (error: unknown) {
-      if(alive.current){setOverview(null);setMsg(adminSafeLoadError(error,t));}
+      if(alive.current){setMsg(adminSafeLoadError(error,t));}
     } finally {
       inFlight.current=false;
       if(alive.current)setLoading(false);
@@ -163,12 +163,12 @@ export default function AdminBankPage() {
         if(!active||inFlight.current)return;
         const state=store.readDemoState();
         if(state.scenario==='error'){
-          setOverview(null);setMsg(adminSafeLoadError(new Error('SCENARIO_ERROR'),t));return;
+          setMsg(adminSafeLoadError(new Error('SCENARIO_ERROR'),t));return;
         }
         const snapshot=state.server?.bank_snapshot;
         if(!snapshot){void load();return;}
         try{setOverview(requireBankSnapshot(snapshot));setMsg(null);}
-        catch(error){setOverview(null);setMsg(adminSafeLoadError(error,t));}
+        catch(error){setMsg(adminSafeLoadError(error,t));}
       };
       const storage=(event:StorageEvent)=>{
         if(event.key!==store.DEMO_STORAGE_KEY&&event.key!==null)return;

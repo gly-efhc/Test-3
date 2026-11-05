@@ -1,4 +1,5 @@
 import type { QueryClient, QueryKey } from "@tanstack/react-query";
+import { syncSnapshotSchema } from "../services/snapshot.service";
 
 const KEY = "EFHC_USER_DATA_CACHE_V1";
 const MAX_BYTES = 3_000_000;
@@ -8,7 +9,7 @@ type Entry = {key: QueryKey; data: unknown; updatedAt: number};
 type Cache = {owner: string | null; entries: Entry[]};
 const controllers = new WeakMap<QueryClient, Cache>();
 let settingsOwner: string | null = null;
-const validId = (value: unknown): value is string => typeof value === "string" && /^\d{10}$/.test(value);
+const validId = (value: unknown): value is string => typeof value === "string" && /^\d{10}$/.test(value) && value !== "0000000000";
 const userKey = (key: QueryKey) => RESOURCES.has(String(key[0])) && validId(key[1]);
 
 function read(): Cache {
@@ -16,7 +17,8 @@ function read(): Cache {
     const value = JSON.parse(window.localStorage.getItem(KEY) || "null");
     if (validId(value?.owner) && Array.isArray(value.entries)) return {
       owner: value.owner,
-      entries: value.entries.filter((e: Entry) => Array.isArray(e?.key) && userKey(e.key) && e.key[1] === value.owner && e.data !== undefined && Number.isFinite(e.updatedAt)),
+      entries: value.entries.filter((e: Entry) => Array.isArray(e?.key) && userKey(e.key) && e.key[1] === value.owner && e.data !== undefined && Number.isFinite(e.updatedAt))
+        .filter((e: Entry) => e.key[0] !== "syncSnapshot" || (syncSnapshotSchema.safeParse(e.data).success && (e.data as {profile: {global_id: string}}).profile.global_id === value.owner)),
     };
   } catch { /* Storage is optional; it never gates rendering. */ }
   return {owner: null, entries: []};
@@ -32,6 +34,10 @@ function persist(cache: Cache) {
 }
 export function currentUserDataOwner(): string | null {
   return settingsOwner ?? (typeof window === "undefined" ? null : read().owner);
+}
+/** Display identity only: does not restore authenticated status or any role. */
+export function cachedUserDisplayOwner(): string | null {
+  return typeof window === "undefined" ? null : read().owner;
 }
 export function startUserDataPersistence(client: QueryClient) {
   const cache = read();

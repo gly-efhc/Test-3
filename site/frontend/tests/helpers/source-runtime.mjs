@@ -7,8 +7,10 @@ const require=createRequire(import.meta.url),ts=require('typescript');
 const root=fileURLToPath(new URL('../../src/',import.meta.url));
 export function sourceRuntime({storage=new Map(),overrides={}}={}){
  const modules=new Map();
- const window={localStorage:{getItem:k=>storage.get(k)??null,setItem:(k,v)=>storage.set(k,String(v)),removeItem:k=>storage.delete(k)},matchMedia:()=>({matches:true}),setTimeout,clearTimeout};
- const context=vm.createContext({window,console,process:{env:{}},URL,URLSearchParams,AbortController,Blob,performance,setTimeout,clearTimeout,structuredClone,Date});
+ const session=new Map();
+ const sessionStorage={getItem:k=>session.get(k)??null,setItem:(k,v)=>session.set(k,String(v)),removeItem:k=>session.delete(k)};
+ const window={localStorage:{getItem:k=>storage.get(k)??null,setItem:(k,v)=>storage.set(k,String(v)),removeItem:k=>storage.delete(k)},sessionStorage,matchMedia:()=>({matches:true}),setTimeout,clearTimeout};
+ const context=vm.createContext({window,sessionStorage,console,process:{env:{}},URL,URLSearchParams,AbortController,Blob,performance,setTimeout,clearTimeout,structuredClone,Date});
  function load(filename){
   filename=path.resolve(filename);
   if(!path.extname(filename))filename=['.ts','.tsx'].map(ext=>filename+ext).find(p=>fs.existsSync(p))||filename+'.ts';

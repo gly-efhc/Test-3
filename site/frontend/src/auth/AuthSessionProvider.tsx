@@ -25,6 +25,7 @@ import { completeTonProofLogin } from "../lib/ton-auth";
 import {
   captureReferralStartParamFromFirstEntry,
 } from "../lib/referral-start-param";
+import { cachedUserDisplayOwner } from "../lib/userDataCache";
 
 export type AuthBootstrapStatus =
   | "anonymous"
@@ -239,7 +240,15 @@ export function useAuthSessionController(): AuthSessionController {
 }
 export function useAuthOwnerGlobalId():
   AuthSessionContext["global_id"] | null {
-  const authenticated = useAuthSessionController().context?.global_id ?? null;
+  const session = useAuthSessionController();
+  const authenticated = session.context?.global_id ?? null;
+  const [cachedId, setCachedId] = useState<AuthSessionContext["global_id"] | null>(null);
+  useEffect(() => {
+    // Linked-account ownership is distinct from transport/session readiness.
+    // The isolated DEMO obtains its current selection from its own account model.
+    const owner = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? null : cachedUserDisplayOwner();
+    setCachedId(owner as AuthSessionContext["global_id"] | null);
+  }, [session.status, authenticated]);
   // No demo credential is put into AuthSession. This is just the 10-digit
   // account selector for the isolated public-Pages backend simulator.
   const [demoId, setDemoId] = useState<AuthSessionContext["global_id"] | null>(null);
@@ -259,5 +268,5 @@ export function useAuthOwnerGlobalId():
     });
     return () => { active = false; unsubscribe?.(); };
   }, []);
-  return authenticated ?? demoId;
+  return authenticated ?? demoId ?? cachedId;
 }

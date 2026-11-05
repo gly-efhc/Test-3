@@ -1,4 +1,5 @@
 import { isLocalDemoActive } from "../reconstruction/demoPreviewGate";
+import { useAuthSessionController } from "../auth/AuthSessionProvider";
 import { useCallback } from "react";
 import {
   useMutation,
@@ -11,6 +12,7 @@ import type {
 } from "../lib/api";
 import {
   adminLinkedRequest,
+  readAdminDisplay,
   type AdminLinkedRequest,
 } from "../services/adminLinked.service";
 
@@ -21,6 +23,8 @@ export const adminLinkedKeys = {
 
 export function useAdminLinkedTransport() {
   const queryClient = useQueryClient();
+  const auth = useAuthSessionController();
+  const cacheOwner = auth.context?.global_id ?? (isLocalDemoActive() ? "isolated-demo" : null);
   const { mutateAsync } = useMutation({
     mutationFn: (request: AdminLinkedRequest) =>
       adminLinkedRequest<unknown>(request),
@@ -38,15 +42,15 @@ export function useAdminLinkedTransport() {
       options: ApiRequestOptions = {},
     ): Promise<T> {
       if (method === "GET") {
-        return await queryClient.fetchQuery({
-          queryKey: adminLinkedKeys.request(path),
+        return await readAdminDisplay(cacheOwner, path, () => queryClient.fetchQuery({
+          queryKey: [...adminLinkedKeys.request(path), cacheOwner],
           queryFn: () => adminLinkedRequest<T>({
             path,
             method,
             options,
           }),
           staleTime: 0,
-        });
+        }));
       }
 
       return await mutateAsync({
@@ -57,6 +61,6 @@ export function useAdminLinkedTransport() {
           : options,
       }) as T;
     },
-    [mutateAsync, queryClient],
+    [mutateAsync, queryClient, cacheOwner],
   );
 }

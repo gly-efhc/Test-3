@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { requireBankSnapshot } from "../lib/adminBankSnapshot";
+export { readAdminDisplay } from "../lib/adminReadCache";
 
 import {
   apiRequest,
@@ -41,6 +43,7 @@ function parseAdminLinkedResponse(
   value: unknown,
 ): unknown {
   const clean = cleanPath(path);
+  if (method === "GET" && clean === "/admin/reports/overview") return requireBankSnapshot(value);
 
   if (method === "GET" && clean === "/admin/bank/balance") {
     return parseAdminBankBalanceResponse(value);
