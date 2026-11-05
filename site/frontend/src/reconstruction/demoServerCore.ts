@@ -4,8 +4,7 @@ import {d8,formatD8,primaryDemoMainBalance,DEMO_CANON_BONUS_BALANCE,DEMO_GLOBAL_
 import type {DemoPanel,DemoRow,DemoServerState} from './demoServerModel';
 import {buildCatalog} from './demoShopCatalog';
 
-export {BASE_RATE,VIP_RATE} from './demoGenerationRates';
-import {BASE_RATE,VIP_RATE} from './demoGenerationRates';
+export const BASE_RATE='0.00000692',VIP_RATE='0.00000741';
 export class DemoOperationError extends Error {
  constructor(public status:number,public code:string){super(code);}
 }
@@ -19,7 +18,6 @@ export function amount(value:unknown):bigint {
 export function account(state:DemoControlState,gid=state.selected_global_id):DemoAccountState {
  requireDemo(/^[0-9]{10}$/.test(gid),'GLOBAL_ID_EXACT_10_REQUIRED');
  if(state.accounts[gid])return state.accounts[gid];
- requireDemo(!state.server?.settings.neon_seed_revision,'USER_NOT_FOUND',404);
  const value=seedAccount(gid);state.accounts[gid]=value;
  if(state.server)state.server.bank_balance=formatD8(d8(state.server.bank_balance)-d8(value.main_balance)-d8(value.bonus_balance));
  return value;
@@ -64,14 +62,13 @@ export function newPanel(a:DemoAccountState,now:number,id:string):DemoPanel {
   last_generated_at:iso,base_gen_per_sec:BASE_RATE,generated_kwh:'0.00000000',is_active:true,is_archived:false,remainder:'0'};
 }
 export function settleGeneration(state:DemoControlState,now=Date.now()):void {
- const s=ensureServer(state,now);s.as_of_utc=new Date(now).toISOString();
+ ensureServer(state,now).as_of_utc=new Date(now).toISOString();
  for(const a of Object.values(state.accounts)){
   const panels=a.panels||(a.global_id===state.selected_global_id?ensurePanels(a,now):[]);let delta=0n;
   for(const p of panels){
-   // C28 SQL import is a historically settled snapshot, not a live browser clock.
-   if(!p.is_active||p.meta?.protectively_voided||(s.settings.neon_seed_revision&&p.meta?.source==='RECON_CYCLE_0027'))continue;
+   if(!p.is_active||p.meta?.protectively_voided)continue;
    const end=Math.min(now,Date.parse(p.expires_at)),elapsed=Math.max(0,Math.floor(end-Date.parse(p.last_generated_at)));
-   if(elapsed>0){const numerator=d8(a.is_vip===true?VIP_RATE:BASE_RATE)*BigInt(elapsed)+BigInt(p.remainder||'0');
+   if(elapsed>0){const numerator=d8(a.is_vip===false?BASE_RATE:VIP_RATE)*BigInt(elapsed)+BigInt(p.remainder||'0');
     const add=numerator/1000n;p.remainder=String(numerator%1000n);p.generated_kwh=formatD8(d8(p.generated_kwh)+add);
     p.last_generated_at=new Date(end).toISOString();delta+=add;}
    if(now>=Date.parse(p.expires_at)){p.is_active=false;p.is_archived=true;p.archived_at=p.expires_at;}
@@ -112,6 +109,6 @@ export function pageRows<T>(rows:T[],q:URLSearchParams,defaultLimit=20){
 export function panelRows(a:DemoAccountState){return ensurePanels(a).map(p=>({...p,
  remaining_seconds:Math.max(0,Math.floor((Date.parse(p.expires_at)-Date.now())/1000)),state:p.meta?.protectively_voided?'dead':p.is_active?'active':'archive'}));}
 export function userRow(a:DemoAccountState){return {global_id:a.global_id,username:a.username||(a.global_id===DEMO_GLOBAL_ID?'efhc_player':`demo_${a.global_id}`),
- is_vip:a.is_vip===true,is_active:a.is_active!==false,main_balance:a.main_balance,bonus_balance:a.bonus_balance,
+ is_vip:a.is_vip!==false,is_active:a.is_active!==false,main_balance:a.main_balance,bonus_balance:a.bonus_balance,
  available_kwh:a.available_kwh,total_generated_kwh:a.total_generated_kwh,active_panels_count:(a.panels||[]).filter(p=>p.is_active&&!p.meta?.protectively_voided).length,
  ton_wallet:a.wallets.find(w=>w.is_primary)?.wallet_address||null,created_at:new Date().toISOString(),updated_at:new Date().toISOString()};}

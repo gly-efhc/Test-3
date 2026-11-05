@@ -1,5 +1,4 @@
 import {publicAssetPath} from "../lib/publicAssetPath";
-import {isDemoPreviewEnabled,isLocalDemoActive,isNeonPagesDemo} from "./demoPreviewGate";
 import {demoBankSnapshot} from "./demoBankSnapshot";
 /** Public Pages ONLY: persistent sample accounting, NEVER an authenticated wallet or ledger.
  * Derived from frozen FRONTEND_v866.html, STANDALONE_GLOBAL_ID and standaloneAdminSeed.
@@ -11,12 +10,12 @@ import homeCanon from "./frozen-v866-home-fixture.json";
 import type { DemoServerState, DemoPanel } from "./demoServerModel";
 
 export const DEMO_GLOBAL_ID = "0000657667";
-export const DEMO_DB_NAME = isNeonPagesDemo() ? "EFHC_REACT_DEMO_NEON_C27" : "EFHC_REACT_DEMO_CANON_V866";
+export const DEMO_DB_NAME = "EFHC_REACT_DEMO_CANON_V866";
 // Local simulated account-state format and IndexedDB physical schema are independent.
 // v3 repairs browsers where an early table reader created empty v2 stores.
 export const DEMO_SCHEMA_VERSION = 2;
 export const DEMO_DB_VERSION = 3;
-export const DEMO_STORAGE_KEY = isNeonPagesDemo() ? "efhc:react:neon-c27:unified" : "efhc:react:unified-demo:v893";
+export const DEMO_STORAGE_KEY = "efhc:react:unified-demo:v893";
 export const DEMO_SCENARIOS = ["filled", "empty", "loading", "error", "no_wallet"] as const;
 export type DemoScenario = typeof DEMO_SCENARIOS[number];
 export type DemoRole = "user" | "admin" | "superadmin";
@@ -51,7 +50,8 @@ export type DemoControlState = {
   server?:DemoServerState;
 };
 
-export {isDemoPreviewEnabled,isLocalDemoActive,isNeonPagesDemo} from "./demoPreviewGate";
+import {isDemoPreviewEnabled,isLocalDemoActive} from "./demoPreviewGate";
+export {isDemoPreviewEnabled,isLocalDemoActive} from "./demoPreviewGate";
 const zero="0.00000000";
 /** Frozen v866 header shows EFHCm + EFHCb. The task fixture separately owns the
  * 78 EFHCb sample; subtract it from the frozen header total instead of replacing
@@ -87,9 +87,6 @@ export function seedAccount(globalId=DEMO_GLOBAL_ID):DemoAccountState {
     bonus_balance:isPrimary?frozen.tasks.bonus_balance_d8:formatD8(d8(String(25+(index%47)*1.75))),
     available_kwh:isPrimary?"421.12500000":zero,total_generated_kwh:isPrimary?frozen.ranks.me.total_generated_kwh:formatD8(d8(String(5000+index*19.375))),
     completed_tasks:[],ad_views:0,ad_date_utc:new Date().toISOString().slice(0,10),
-    // The canonical standalone DEMO primary account is VIP; other new accounts are BASE.
-    // SQL-imported C28 users overwrite this fixture flag from trusted test DB.
-    is_vip:isPrimary,
     wallets,ledger:[],withdrawals:[],exchanges:[],activated_panels:0,
   };
 }
@@ -155,7 +152,6 @@ export function writeDemoAccount(mutator:(a:DemoAccountState)=>DemoAccountState)
 }
 export function selectDemoGlobalId(value:string):void {
  if(!/^\d{10}$/.test(value))throw new Error("GLOBAL_ID_EXACT_10_REQUIRED");
- if(readDemoState().server?.settings.neon_seed_cycle==="RECON_CYCLE_0027"&&!readDemoState().accounts[value])throw new Error("NEON_DEMO_GLOBAL_ID_NOT_FOUND");
  transactDemoState(state=>{if(!state.accounts[value]){const next=seedAccount(value);state.accounts[value]=next;if(state.server)state.server.bank_balance=formatD8(d8(state.server.bank_balance)-d8(next.main_balance)-d8(next.bonus_balance));}state.selected_global_id=value;});
 }
 export function setDemoScenario(scenario:DemoScenario):void {
@@ -166,15 +162,7 @@ export function setDemoRole(role:DemoRole):void {
  // This role is only for UI demonstration. AuthSession / backend RBAC never trusts it.
  save({...readDemoState(),role});
 }
-export function resetDemoDatabase():void {
- save(seedDemoState());
- if(isNeonPagesDemo()){
-  databaseBootstrap=null;
-  void bootstrapDemoIndexedDb().catch(error=>{
-   if(typeof window!=="undefined")window.dispatchEvent(new CustomEvent("efhc:neon:bootstrap-failed",{detail:String(error)}));
-  });
- }
-}
+export function resetDemoDatabase():void {save(seedDemoState());}
 export function nextDemoId():number {const s=readDemoState();const id=s.next_id+1;save({...s,next_id:id});return id;}
 export function demoLedgerMutation(amount:string,kind:"credit"|"debit",balance:"main"|"bonus",reason:string):DemoAccountState {
  const delta=d8(amount);if(delta<=0n)throw new Error("DEMO_AMOUNT_NOT_POSITIVE");
@@ -201,7 +189,7 @@ export function demoLedgerMutation(amount:string,kind:"credit"|"debit",balance:"
  * and the materialized IndexedDB sample. This is never a production ledger.
  * Do not mark initial seeding complete if the transaction fails.
  */
-export async function mirrorSelectedDemoAccount(db:IDBDatabase,state:DemoControlState):Promise<void>{
+async function mirrorSelectedDemoAccount(db:IDBDatabase,state:DemoControlState):Promise<void>{
  const globalId=state.selected_global_id;
  if(!/^\d{10}$/.test(globalId))throw new Error("DEMO_GLOBAL_ID_INVALID");
  const account=state.accounts[globalId]||seedAccount(globalId);
@@ -223,7 +211,7 @@ export async function mirrorSelectedDemoAccount(db:IDBDatabase,state:DemoControl
 
 /** Every reader opens the same schema-upgrading path. A read before bootstrap cannot
  * poison a fresh database with an empty same-version object-store catalog. */
-export async function openDemoDatabase():Promise<IDBDatabase>{
+async function openDemoDatabase():Promise<IDBDatabase>{
  if(typeof indexedDB==="undefined")throw new Error("DEMO_INDEXEDDB_UNAVAILABLE");
  return await new Promise<IDBDatabase>((resolve,reject)=>{
   const request=indexedDB.open(DEMO_DB_NAME,DEMO_DB_VERSION);
@@ -265,10 +253,6 @@ export async function bootstrapDemoIndexedDb():Promise<void>{
  }
 }
 async function bootstrapDemoDatabaseContents():Promise<void>{
- if(isNeonPagesDemo()){
-  const {bootstrapNeonDemoMirror}=await import("./neonDemoSeed");
-  return bootstrapNeonDemoMirror();
- }
  const db=await openDemoDatabase();
  try {
   const status=await new Promise<unknown>((resolve,reject)=>{
@@ -329,29 +313,8 @@ async function bootstrapDemoDatabaseContents():Promise<void>{
 export async function demoTableCount(name:DemoTableName):Promise<number>{
  if(!isDemoPreviewEnabled()||!DEMO_TABLE_NAMES.includes(name))throw new Error("DEMO_TABLE_READ_DENIED");
  await bootstrapDemoIndexedDb();
- if(isNeonPagesDemo())return (await demoTableCounts())[name];
  const db=await openDemoDatabase();
  try{return await new Promise<number>((resolve,reject)=>{const tx=db.transaction(name,"readonly"),r=tx.objectStore(name).count();r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}finally{db.close();}
-}
-/** Counts use the same runtime projection as rows and route handlers. SQL-only
- * history retains its baseline count plus committed local DEMO operations. */
-export async function demoTableCounts():Promise<Record<DemoTableName,number>>{
- await bootstrapDemoIndexedDb();
- const counts={} as Record<DemoTableName,number>;
- if(!isNeonPagesDemo()){
-  for(const name of DEMO_TABLE_NAMES)counts[name]=await demoTableCount(name);
-  return counts;
- }
- const {getNeonTableCounts}=await import('./neonDemoDataApi');
- const {runtimeDemoTableRows,demoTableOverlay}=await import('./demoTableView');
- const base=await getNeonTableCounts(),state=readDemoState();
- for(const name of DEMO_TABLE_NAMES){
-  const rows=runtimeDemoTableRows(state,name);
-  counts[name]=rows===null?(base[name]||0)+demoTableOverlay(state,name).length:rows.length;
- }
- // The physical SQL ledger includes the mirrored BANK side of each movement.
- counts.ledger_entries+=demoTableOverlay(state,'bank_transfers').length;
- return counts;
 }
 
 /** Applies a canonical task reward exactly once to the selected DEMO Global ID. */
@@ -378,16 +341,6 @@ export function completeDemoAd():DemoAccountState {
 export async function demoTableRows(name:DemoTableName,globalId:string,limit=20):Promise<Record<string,unknown>[]> {
  if(!isDemoPreviewEnabled()||!DEMO_TABLE_NAMES.includes(name)||!/^[0-9]{10}$/.test(globalId))throw new Error("DEMO_TABLE_READ_DENIED");
  await bootstrapDemoIndexedDb();
- if(isNeonPagesDemo()){
-  const {getNeonDemoTableRows}=await import("./neonDemoDataApi");
-  const {runtimeDemoTableRows,demoTableOverlay,isGlobalDemoTable}=await import('./demoTableView');
-  if(!Number.isSafeInteger(limit)||limit<1||limit>50)throw new Error('DEMO_TABLE_BAD_LIMIT');
-  const state=readDemoState(),scope=isGlobalDemoTable(name)?undefined:globalId,runtime=runtimeDemoTableRows(state,name,scope);
-  if(runtime!==null)return runtime.slice(0,limit);
-  const local=demoTableOverlay(state,name,scope).slice(0,limit);
-  if(local.length===limit)return local;
-  return [...local,...await getNeonDemoTableRows(name,globalId,limit-local.length)];
- }
  const db=await openDemoDatabase();
  try{return await new Promise<Record<string,unknown>[]>((resolve,reject)=>{
   const tx=db.transaction(name,"readonly"),object=tx.objectStore(name);
@@ -405,10 +358,6 @@ export async function demoIndexedHistoryPage(globalId:string,offset:number,limit
  if(!isDemoPreviewEnabled()||!/^[0-9]{10}$/.test(globalId)||!Number.isInteger(offset)||offset<0||!Number.isInteger(limit)||limit<1||limit>50)
   throw new Error("DEMO_HISTORY_ARGUMENT_INVALID");
  await bootstrapDemoIndexedDb();
- if(isNeonPagesDemo()){
-  const {getNeonAccountLedgerPage}=await import("./neonDemoDataApi");
-  return getNeonAccountLedgerPage(globalId,offset,limit);
- }
  const db=await openDemoDatabase();
  try{return await new Promise((resolve,reject)=>{
   const tx=db.transaction("ledger_entries","readonly");

@@ -10,11 +10,3 @@ export function isDemoPreviewEnabled():boolean {
 export function isLocalDemoActive():boolean {
  return isDemoPreviewEnabled() && process.env.NEXT_PUBLIC_EFHC_TEST_MODE !== 'neon';
 }
-
-/** Only the real published Pages origin uses the SQL-backed C27 dataset.
- * Offline parity harness and production retain the original simulator contracts.
- * On this origin an unavailable Neon API fails closed without frozen-data fallback.
- */
-export function isNeonPagesDemo():boolean {
- return isDemoPreviewEnabled()&&window.location.origin==="https://gly-efhc.github.io";
-}

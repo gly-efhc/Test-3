@@ -63,9 +63,16 @@ export async function downloadAdminLogExport(
     if (selectedGlobalId && !/^\d{10}$/.test(selectedGlobalId)) throw new Error("admin_log_export_invalid_global_id");
     const {demoApiRequest} = await import("../reconstruction/demoApi");
     await demoApiRequest("/admin/reports/overview", "GET");
-    const {demoLogExportTable}=await import('../reconstruction/demoLogExport');
-    const args=new URLSearchParams({scope,rows});if(selectedGlobalId)args.set('global_id',selectedGlobalId);
-    const table=await demoLogExportTable(args);
+    const {readDemoState}=await import("../reconstruction/demoUnifiedStore");
+    const state = readDemoState();
+    const entries = scope === "bank" ? state.server?.audit || []
+      : Object.values(state.accounts).flatMap(a => a.panels || []);
+    const filtered = entries.filter(row => !selectedGlobalId || row.global_id === selectedGlobalId);
+    const limit = rows === "all" ? filtered.length : Number(rows);
+    const fields = scope === "bank"
+      ? ["id", "global_id", "amount_efhc", "direction", "balance_type", "reason", "created_at"]
+      : ["id", "global_id", "public_id", "generated_kwh", "is_active", "activated_at", "expires_at"];
+    const table = [fields, ...filtered.slice(0, limit).map(row => fields.map(key => String((row as Record<string, unknown>)[key] ?? "")))];
     const filename = `EFHC_demo_${scope}_${selectedGlobalId || 'all'}_${new Date().toISOString().slice(0,10)}.${format}`;
     if (format === "xlsx") downloadBlob(buildSimpleXlsx(table), filename);
     else if (format === "json") downloadBlob(buildJsonBlobFromTable(table, {mode: "demo", scope, global_id: selectedGlobalId || null}), filename);

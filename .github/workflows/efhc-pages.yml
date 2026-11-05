@@ -131,7 +131,7 @@ jobs:
           set -euo pipefail
           cd "$RUNNER_TEMP/efhc-demo-build"
           npm run test:html-react-parity
-          node --test tests/regression/current-demo-*.test.mjs
+          node --test tests/regression/current-demo-server.test.mjs
           cd "$GITHUB_WORKSPACE"
           EFHC_FRONTEND_DEPENDENCIES="$RUNNER_TEMP/efhc-demo-build/package.json" node site/ci/parity/generate_shell.mjs --check
           node site/frontend/tests/parity/pages-artifact.test.mjs
@@ -180,80 +180,6 @@ jobs:
           echo 'EFHC_PREDEPLOY_FRONTEND_REGRESSION_START'
           npm run test:frontend-regression 2>&1 \
             | tee "$RUNNER_TEMP/efhc-pages-diagnostics/frontend-regression.log"
-
-      - name: Verify read-only Neon TEST Data API (fast)
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          import json, urllib.request, urllib.error
-          root = "https://ep-fragrant-feather-zaribpm5.apirest.c-2.eu-west-2.aws.neon.tech/neondb/rest/v1"
-          origin = "https://gly-efhc.github.io"
-          auth_root = "https://ep-fragrant-feather-zaribpm5.neonauth.c-2.eu-west-2.aws.neon.tech/neondb/auth"
-          auth_request = urllib.request.Request(auth_root + "/token/anonymous",
-              headers={"Origin": origin, "Accept": "application/json"})
-          try:
-              with urllib.request.urlopen(auth_request, timeout=12) as auth_response:
-                  auth_cors = auth_response.headers.get("Access-Control-Allow-Origin")
-                  if auth_cors not in (origin, "*"):
-                      raise RuntimeError("NEON_AUTH_CORS_DENIED: " + str(auth_cors))
-                  auth = json.loads(auth_response.read().decode("utf-8"))
-          except urllib.error.HTTPError as exc:
-              raise RuntimeError("NEON_AUTH_HTTP_" + str(exc.code) + ": " + exc.read(1400).decode("utf-8", "replace")) from exc
-          jwt = auth.get("token")
-          if not isinstance(jwt, str) or jwt.count(".") != 2:
-              raise RuntimeError("NEON_AUTH_ANONYMOUS_TOKEN_INVALID")
-          def read(path):
-              request = urllib.request.Request(root + path, headers={"Origin": origin, "Accept": "application/json", "Authorization": "Bearer " + jwt})
-              try:
-                  api_response = urllib.request.urlopen(request, timeout=12)
-              except urllib.error.HTTPError as exc:
-                  raise RuntimeError("NEON_DEMO_HTTP_" + str(exc.code) + ": " + exc.read(1400).decode("utf-8", "replace")) from exc
-              with api_response as response:
-                  cors = response.headers.get("Access-Control-Allow-Origin")
-                  if cors not in (origin, "*"):
-                      raise RuntimeError("NEON_DEMO_CORS_NOT_ALLOWED: " + str(cors))
-                  data = json.loads(response.read().decode("utf-8"))
-                  if not isinstance(data, list) or len(data) != 1:
-                      raise RuntimeError("NEON_DEMO_INVALID_ROWSET")
-                  return data[0]
-          bank = read("/bank_overview?select=database_scope,dataset,facts,counters&limit=1")
-          if bank.get("database_scope") != "EFHC_Nektron_Test" or bank.get("dataset") != "RECON_CYCLE_0027":
-              raise RuntimeError("NEON_DEMO_WRONG_DATABASE")
-          facts = bank.get("facts") or {}
-          counts = bank.get("counters") or {}
-          if facts.get("bank_metrics_integrity_ok") != "1" or counts.get("users_total") != 1000 or counts.get("panels_total") != 4000:
-              raise RuntimeError("NEON_DEMO_INTEGRITY_OR_COUNTS_MISMATCH")
-          account = read("/accounts?select=global_id,dataset&global_id=eq.0000657667&limit=1")
-          if account.get("global_id") != "0000657667" or account.get("dataset") != "RECON_CYCLE_0027":
-              raise RuntimeError("NEON_DEMO_ACCOUNT_ROUTING_MISMATCH")
-          snap = read("/bootstrap_snapshot?select=bank,users,panels,intents&limit=1")
-          if len(snap.get("users") or []) != 1000 or len(snap.get("panels") or []) != 4000 or len(snap.get("intents") or []) != 1000:
-              raise RuntimeError("NEON_DEMO_BOOTSTRAP_INCOMPLETE")
-          if (snap.get("bank") or {}).get("facts", {}).get("bank_metrics_integrity_ok") != "1":
-              raise RuntimeError("NEON_DEMO_BOOTSTRAP_INTEGRITY_MISMATCH")
-          for table in ("referrals", "referral_bonuses", "ad_reward_sessions", "task_submissions"):
-              row = read("/catalog_rows?select=item&table_name=eq." + table + "&item-%3E%3Eglobal_id=eq.0000657667&limit=1")
-              if row.get("item", {}).get("global_id") != "0000657667":
-                  raise RuntimeError("NEON_DEMO_TABLE_ROUTING_MISMATCH: " + table)
-          print("EFHC_NEON_DEMO_LOGICAL_TABLE_READERS=PASS tables=4 global_id=0000657667")
-          print("EFHC_NEON_DEMO_BOOTSTRAP=PASS users=1000 panels=4000 intents=1000")
-          print("EFHC_NEON_DEMO_DATA_API=PASS users=1000 panels=4000 CORS=PASS bank=PASS")
-          PY
-
-      - name: Restore verified immutable DEMO history cache
-        uses: actions/cache@v5
-        with:
-          path: ${{ runner.temp }}/efhc-demo-snapshot-cache
-          key: efhc-demo-c28-v2-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: efhc-demo-c28-v2-
-
-      - name: Recreate original DEMO with the verified TEST dataset
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 site/ci/neon/export_demo.py --target "$RUNNER_TEMP/efhc-demo-build" --cache-directory "$RUNNER_TEMP/efhc-demo-snapshot-cache" | tee "$RUNNER_TEMP/efhc-pages-diagnostics/demo-snapshot.log"
-          NODE_PATH="$RUNNER_TEMP/efhc-demo-build/node_modules" node site/frontend/tests/parity/demo-dataset.mjs "$RUNNER_TEMP/efhc-demo-build" | tee -a "$RUNNER_TEMP/efhc-pages-diagnostics/demo-snapshot.log"
 
       - name: Compile actual React/Next for Pages (no backend)
         id: compile
