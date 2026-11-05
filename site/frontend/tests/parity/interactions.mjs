@@ -15,6 +15,7 @@ const {chromium}=require('playwright-core');
 const canon=JSON.parse(await fs.readFile(new URL('./v866-contract.json',import.meta.url)));
 const base=localPagesBase();
 const basePath=new URL(base).pathname.replace(/\/$/,'');
+if(process.env.EFHC_PARITY_ARTIFACTS)await fs.mkdir(process.env.EFHC_PARITY_ARTIFACTS,{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.CHROME_BIN||'/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});
 const results=[];
 async function check(name,run,{width=390,height=844,telegram=false,settings={}}={}){

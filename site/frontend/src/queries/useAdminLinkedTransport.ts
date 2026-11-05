@@ -1,7 +1,7 @@
 import { isLocalDemoActive } from "../reconstruction/demoPreviewGate";
 import { useAuthSessionController, useAuthOwnerGlobalId } from "../auth/AuthSessionProvider";
 import {cachedAdminView} from "../lib/adminViewState";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   useMutation,
   useQueryClient,
@@ -24,6 +24,14 @@ export const adminLinkedKeys = {
 
 export function useAdminLinkedTransport() {
   const queryClient = useQueryClient();
+  // Imperative Admin loaders have no active QueryObserver. Rebind their read
+  // callback on the same coalesced activity signal used by subscribed pages.
+  const [activityVersion, setActivityVersion] = useState(0);
+  useEffect(() => {
+    const refresh = () => setActivityVersion(value => value + 1);
+    window.addEventListener("efhc:activity-sync", refresh);
+    return () => window.removeEventListener("efhc:activity-sync", refresh);
+  }, []);
   const auth = useAuthSessionController();
   const displayOwner=useAuthOwnerGlobalId();
   const cacheOwner = auth.context?.global_id ?? (cachedAdminView(displayOwner)?displayOwner:null) ?? (isLocalDemoActive() ? "isolated-demo" : null);
@@ -63,6 +71,6 @@ export function useAdminLinkedTransport() {
           : options,
       }) as T;
     },
-    [mutateAsync, queryClient, cacheOwner],
+    [mutateAsync, queryClient, cacheOwner, activityVersion],
   );
 }

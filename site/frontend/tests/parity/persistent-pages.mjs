@@ -17,7 +17,7 @@ await context.addInitScript(()=>{
  }
 });
 const errors=[],results=[],key='efhc:react:unified-demo:v893';page.on('pageerror',e=>errors.push(e.message));
-async function check(name,fn){try{await fn();results.push({name,status:'PASS'});console.log('PASS '+name);}catch(e){results.push({name,status:'FAIL',error:e.message});console.error('FAIL '+name+': '+e.message);await page.screenshot({path:dir+'/persistent-failure-'+results.length+'.png',fullPage:true});}}
+async function check(name,fn){if(process.env.EFHC_PERSISTENCE_FOCUS&&!name.includes(process.env.EFHC_PERSISTENCE_FOCUS))return;try{await fn();results.push({name,status:'PASS'});console.log('PASS '+name);}catch(e){results.push({name,status:'FAIL',error:e.message});console.error('FAIL '+name+': '+e.message);await page.screenshot({path:dir+'/persistent-failure-'+results.length+'.png',fullPage:true});}}
 async function scenario(value){await page.evaluate(({key,value})=>{const s=JSON.parse(localStorage.getItem(key));s.scenario=value;localStorage.setItem(key,JSON.stringify(s));},{key,value});}
 async function load(route=''){await page.goto(base+route,{waitUntil:'domcontentloaded'});await page.waitForTimeout(350);}
 try{
@@ -81,6 +81,17 @@ try{
   await page.evaluate(()=>sessionStorage.setItem('efhc:react:demo-window-owner','0000000888'));await load('exchange/');
   await page.waitForFunction(()=>JSON.parse(sessionStorage.getItem('EFHC_USER_DATA_CACHE_V1')||'null')?.owner==='0000000888');
   assert.equal(await input.inputValue(),'0.00000000');
+ });
+ await check('Admin activity retries imperative reads while preserving cached Bank rows',async()=>{
+  await scenario('filled');await load('admin/bank/');await page.locator('[data-bank-state="ready"]').waitFor({state:'attached',timeout:30000});
+  assert.equal(await page.locator('[data-series]').count(),11);
+  await scenario('error');await page.evaluate(key=>window.dispatchEvent(new StorageEvent('storage',{key,newValue:localStorage.getItem(key)})),key);
+  await page.getByText('Не удалось обновить Банк',{exact:true}).waitFor({state:'visible'});
+  await page.waitForTimeout(1100);await page.mouse.move(17,17);
+  await page.getByText('Не удалось обновить Банк',{exact:true}).waitFor({state:'hidden'});
+  await page.locator('[data-bank-state="ready"]').waitFor({state:'attached',timeout:30000});
+  assert.equal(await page.locator('[data-series]').count(),11);
+  assert.equal(await page.locator('[data-bank-state]').getAttribute('data-bank-state'),'ready');
  });
  await check('no React rendering or hydration errors',async()=>assert.deepEqual(errors,[]));
 }finally{await fs.writeFile(dir+'/persistent-pages.json',JSON.stringify({base,results,errors},null,2));await context.unrouteAll({behavior:'ignoreErrors'});await browser.close();}
