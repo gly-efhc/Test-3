@@ -78,23 +78,44 @@ export async function getNeonLedger(gid:string,offset=0):Promise<Ledger[]>{
 export type NeonSeedUser=Account&{is_active:boolean;is_vip:boolean;rank_position:number;rank_score_kwh:string;created_at:string;updated_at:string};
 export type NeonSeedPanel=Panel&{created_at:string;activated_at:string|null;expires_at:string|null;archived_at:string|null;last_generated_at:string|null;title:string|null};
 export type NeonSeedIntent={id:string;global_id:string;purpose:string;asset:string;status:string;efhc_amount_d8:string;amount_asset_d8:string;created_at:string;expires_at:string|null;updated_at:string;dataset:string};
+export type NeonSeedBonusEvent={id:string;global_id:string;amount_efhc:string;reason:string;direction:'credit';balance_type:'bonus';created_at:string;event_id:string;task_code:string|null};
+export type NeonSeedReferral={inviter_global_id:string;invitee_global_id:string;created_at:string;activated_at:string|null;unit_reward_no:number};
+export type NeonSeedTask={id:number;code:string;active:boolean;bonus_efhc:number|string;[key:string]:unknown};
 export type NeonTableCount={table_name:string;rows_count:number};
 /** One consistent read replaces 60 sequential Data API pages. */
-export async function getNeonCoreSeed():Promise<{bank:Bank;users:NeonSeedUser[];panels:NeonSeedPanel[];intents:NeonSeedIntent[]}>{
- const rows=await getRows<{bank:Bank;users:NeonSeedUser[];panels:NeonSeedPanel[];intents:NeonSeedIntent[]}>(
-  "bootstrap_snapshot",{select:"bank,users,panels,intents",limit:"1"});
+export async function getNeonCoreSeed():Promise<{bank:Bank;users:NeonSeedUser[];panels:NeonSeedPanel[];intents:NeonSeedIntent[];bonus_events:NeonSeedBonusEvent[];referrals:NeonSeedReferral[];tasks:NeonSeedTask[]}>{
+ const rows=await getRows<{bank:Bank;users:NeonSeedUser[];panels:NeonSeedPanel[];intents:NeonSeedIntent[];bonus_events:NeonSeedBonusEvent[];referrals:NeonSeedReferral[];tasks:NeonSeedTask[]}>(
+  "bootstrap_snapshot",{select:"bank,users,panels,intents,bonus_events,referrals,tasks",limit:"1"});
  if(rows.length!==1)throw new Error("NEON_DEMO_BOOTSTRAP_NOT_UNIQUE");
- const {bank,users,panels,intents}=rows[0];
+ const {bank,users,panels,intents,bonus_events,referrals,tasks}=rows[0];
  if(!bank||bank.database_scope!=="EFHC_Nektron_Test"||bank.dataset!=="RECON_CYCLE_0027"||
     bank.facts?.bank_metrics_integrity_ok!=="1"||bank.counters?.users_total!==1000||
     bank.counters?.panels_total!==4000||!Array.isArray(users)||!Array.isArray(panels)||
-    !Array.isArray(intents)||users.length!==1000||panels.length!==4000||intents.length!==1000)
+    !Array.isArray(intents)||users.length!==1000||panels.length!==4000||intents.length!==1000||
+    !Array.isArray(bonus_events)||bonus_events.length!==4348||
+    !Array.isArray(referrals)||referrals.length!==999||!Array.isArray(tasks)||tasks.length!==7)
     throw new Error("NEON_DEMO_BOOTSTRAP_COUNT_OR_INTEGRITY_MISMATCH");
  if(users.some(u=>u.dataset!=="RECON_CYCLE_0027"||!/^\d{10}$/.test(u.global_id))||
     panels.some(p=>p.dataset!=="RECON_CYCLE_0027")||
     intents.some(x=>x.dataset!=="RECON_CYCLE_0027"))
     throw new Error("NEON_DEMO_DATASET_SCOPE_MISMATCH");
- return {bank,users,panels,intents};
+ if(bonus_events.some(r=>!/^[0-9]{10}$/.test(r.global_id)||r.direction!=='credit'||
+     r.balance_type!=='bonus'||!['task_bonus','ad_reward','referral_bonus'].includes(r.reason)||
+     !/^\d+\.\d{8}$/.test(r.amount_efhc)||!r.event_id)||
+    referrals.some(r=>!/^[0-9]{10}$/.test(r.inviter_global_id)||!/^[0-9]{10}$/.test(r.invitee_global_id)||!r.activated_at)||
+    tasks.some(t=>!t.code||!Number.isSafeInteger(t.id)))throw new Error("NEON_DEMO_CAUSAL_DATA_INVALID");
+ return {bank,users,panels,intents,bonus_events,referrals,tasks};
+}
+/** SQL history remains server-owned: page exchange records without copying 35k rows into storage. */
+export async function getNeonExchangePage(gid:string,offset:number,limit:number):Promise<{items:Record<string,unknown>[];next_cursor:string|null}>{
+ assertGlobalId(gid);
+ if(!Number.isSafeInteger(offset)||offset<0||!Number.isSafeInteger(limit)||limit<1||limit>100)throw new Error("NEON_DEMO_BAD_EXCHANGE_PAGE");
+ const rows=await getRows<{id:string;global_id:string;amount_efhc:string;amount_kwh:string;created_at:string;event_id:string}>("economic_events",{
+  select:"id,global_id,amount_efhc,amount_kwh,created_at,event_id",global_id:"eq."+gid,
+  reason:"eq.exchange_kwh",order:"created_at.desc,id.desc",offset:String(offset),limit:String(limit)});
+ return {items:rows.map(r=>({id:r.id,event_id:r.event_id,created_at:r.created_at,amount_kwh:r.amount_kwh,
+   amount_efhc:r.amount_efhc,credited_efhc:r.amount_efhc,reason:"exchange_kwh"})),
+  next_cursor:rows.length===limit?String(offset+limit):null};
 }
 export async function getNeonTableCounts():Promise<Record<string,number>>{
  const rows=await getRows<NeonTableCount>("table_counts",{select:"table_name,rows_count",order:"table_name.asc",limit:"100"});

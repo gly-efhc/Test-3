@@ -6,10 +6,12 @@ import {getNeonCoreSeed} from "./neonDemoDataApi";
 import {DEMO_GLOBAL_ID,seedAccount,readDemoState,transactDemoState,d8,
   openDemoDatabase,mirrorSelectedDemoAccount,type DemoAccountState} from "./demoUnifiedStore";
 import {ensureServer} from "./demoServerCore";
+import {demoBankSnapshot} from "./demoBankSnapshot";
 
 const sourceCycle="RECON_CYCLE_0027";
+const sourceRevision="RECON_CYCLE_0028_CAUSAL_V1";
 export async function bootstrapNeonDemoMirror():Promise<void>{
- const already=readDemoState().server?.settings?.neon_seed_cycle===sourceCycle;
+ const already=readDemoState().server?.settings?.neon_seed_revision===sourceRevision;
  if(!already){
   const seed=await getNeonCoreSeed();
   const users:Record<string,DemoAccountState>={};
@@ -33,6 +35,17 @@ export async function bootstrapNeonDemoMirror():Promise<void>{
     meta:{source:sourceCycle,purchase_event_id:p.purchase_event_id}});
    a.activated_panels++;
   }
+  for(const b of seed.bonus_events){
+   const a=users[b.global_id];if(!a)throw new Error("NEON_DEMO_BONUS_OWNER_MISMATCH");
+   a.ledger.push({id:Number(b.id),global_id:b.global_id,amount_efhc:b.amount_efhc,
+     direction:b.direction,balance_type:b.balance_type,reason:b.reason,created_at:b.created_at});
+   if(b.task_code&&!a.completed_tasks.includes(b.task_code))a.completed_tasks.push(b.task_code);
+  }
+  for(const a of Object.values(users)){
+   a.ledger.sort((x,y)=>Date.parse(y.created_at)-Date.parse(x.created_at)||y.id-x.id);
+   const bonus=a.ledger.reduce((n,r)=>n+d8(r.amount_efhc),0n);
+   if(d8(a.bonus_balance)!==bonus)throw new Error("NEON_DEMO_BONUS_RECONCILIATION");
+  }
   const facts=seed.bank.facts;
   const outstanding=Object.values(users).reduce((n,a)=>n+d8(a.main_balance)+d8(a.bonus_balance),0n);
   if(d8(facts.bank_metrics_reserve_efhc)+outstanding!==d8(facts.bank_metrics_expected_supply_efhc)||
@@ -46,9 +59,18 @@ export async function bootstrapNeonDemoMirror():Promise<void>{
    server.supply_initial=facts.bank_metrics_expected_supply_efhc;
    server.minted="0.00000000";server.burned="0.00000000";
    server.audit=[];server.orders=[];server.deposits=[];
+   server.tasks=seed.tasks.map(task=>({...task,id:String(task.id),is_active:task.active,
+     bonus_efhc:typeof task.bonus_efhc==='number'?task.bonus_efhc.toFixed(8):task.bonus_efhc}));
+   server.settings.neon_referrals=seed.referrals;
+   server.settings.neon_frozen_panels_as_of="2026-10-31T10:00:00Z";
    server.intents=seed.intents.map(intent=>({...intent,amount_efhc:intent.efhc_amount_d8}));
    server.settings.neon_seed_cycle=sourceCycle;
+   server.settings.neon_seed_revision=sourceRevision;
    server.settings.neon_mode="READ_ONLY_SQL_SEED_WITH_EXISTING_LOCAL_DEMO_ACTIONS";
+   const calculated=demoBankSnapshot(state);
+   if(!calculated||Object.entries(facts).some(([field,value])=>
+       field.startsWith('bank_metrics_')&&calculated.facts[field]!==undefined&&calculated.facts[field]!==value))
+     throw new Error("NEON_DEMO_SNAPSHOT_FORMULA_PARITY_MISMATCH");
   });
  }
  const db=await openDemoDatabase();
@@ -74,7 +96,8 @@ export async function bootstrapNeonDemoMirror():Promise<void>{
    await new Promise<void>((resolve,reject)=>{
     const tx=db.transaction("settings","readwrite");
     tx.objectStore("settings").put({id:"neon_c27_seed_complete",dataset:sourceCycle,
-      users:1000,panels:4000,payment_intents:1000,ledger_rows:80000,
+      revision:sourceRevision,users:1000,panels:4000,payment_intents:1000,ledger_rows:88696,
+      bonus_events:4348,referrals:999,
       note:"Ledger views are fetched on demand from the real TEST database"});
     tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);
    });
