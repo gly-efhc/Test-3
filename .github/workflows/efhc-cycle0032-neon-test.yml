@@ -22,7 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     env:
-      NEON_TEST_DSN: ${{ secrets.EFHC_NEON_TEST_DATABASE_URL || secrets.NEON_TEST_DATABASE_URL || secrets.DATABASE_URL }}
+      NEON_TEST_DSN: ${{ secrets.EFHC_NEON_TEST_DATABASE_URL || secrets.NEON_TEST_DATABASE_URL || secrets.NEON_DATABASE_URL || secrets.DATABASE_URL || secrets.NEON_CONNECTION_STRING || secrets.EFHC_DATABASE_URL }}
+      NEON_API_TOKEN: ${{ secrets.NEON_API_KEY || secrets.EFHC_NEON_API_KEY || secrets.NEON_API_TOKEN || secrets.NEON_TOKEN }}
       EXPECTED_NEON_TEST_HOST: ep-fragrant-feather-zaribpm5.c-2.eu-west-2.aws.neon.tech
     steps:
       - name: Checkout branch
@@ -41,12 +42,33 @@ jobs:
         run: |
           python - <<'PY'
           import os
-          from urllib.parse import urlsplit, parse_qs
+          import json
+          from urllib.parse import urlsplit, parse_qs, urlencode
+          from urllib.request import Request, urlopen
           from psycopg import connect
 
           raw = os.environ.get("NEON_TEST_DSN", "").strip()
+          api_token = os.environ.get("NEON_API_TOKEN", "").strip()
+          if not raw and api_token:
+              query = urlencode({
+                  "branch_id": "br-sparkling-truth-zaa3zrqq",
+                  "database_name": "neondb",
+                  "role_name": "neondb_owner",
+                  "pooled": "false",
+              })
+              url = "https://console.neon.tech/api/v2/projects/fragrant-mountain-35143707/connection_uri?" + query
+              req = Request(url, headers={"Authorization": "Bearer " + api_token,
+                                          "Accept": "application/json"})
+              try:
+                  with urlopen(req, timeout=15) as resp:
+                      raw = str(json.load(resp).get("uri", "")).strip()
+              except Exception as exc:
+                  raise SystemExit("NEON_API_CONNECTION_URI_UNAVAILABLE: check API key access to exact EFHC_Nektron_Test project") from None
+              if not raw:
+                  raise SystemExit("NEON_API_NO_CONNECTION_URI")
+              print("NEON_TEST_CREDENTIAL_SOURCE=API_KEY")
           if not raw:
-              raise SystemExit("NEON_TEST_SECRET_MISSING: set EFHC_NEON_TEST_DATABASE_URL or NEON_TEST_DATABASE_URL in repository Actions secrets")
+              raise SystemExit("NEON_TEST_SECRET_MISSING: no recognized TEST DSN or Neon API key in this repository Actions context")
           if raw.startswith("postgresql+asyncpg://"):
               raw = "postgresql://" + raw[len("postgresql+asyncpg://"):]
           parsed = urlsplit(raw)
