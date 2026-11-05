@@ -59,6 +59,10 @@ export async function bootstrapNeonDemoMirror():Promise<void>{
    server.supply_initial=facts.bank_metrics_expected_supply_efhc;
    server.minted="0.00000000";server.burned="0.00000000";
    server.audit=[];server.orders=[];server.deposits=[];
+   server.submissions=seed.bonus_events.filter(r=>r.task_code).map(r=>({
+    id:r.id,global_id:r.global_id,task_id:seed.tasks.find(t=>t.code===r.task_code)?.id,
+    status:'approved',bonus_amount_efhc:r.amount_efhc,paid:true,paid_tx_id:r.id,
+    proof_text:'SYNTHETIC_TEST_C28',created_at:r.created_at}));
    server.tasks=seed.tasks.map(task=>({...task,id:String(task.id),is_active:task.active,
      bonus_efhc:typeof task.bonus_efhc==='number'?task.bonus_efhc.toFixed(8):task.bonus_efhc}));
    server.settings.neon_referrals=seed.referrals;
@@ -85,6 +89,8 @@ export async function bootstrapNeonDemoMirror():Promise<void>{
      bonus_balance:a.bonus_balance,available_kwh:a.available_kwh,total_generated_kwh:a.total_generated_kwh}));
    sources.panels=accounts.flatMap(a=>a.panels||[]).map(p=>({...p,id:p.id}));
    sources.shop_intents=(state.server?.intents||[]).map(x=>({...x,id:String(x.id)}));
+   sources.referrals=seed.referrals.map((r,i)=>({...r,id:"C28-REF-"+i,global_id:r.inviter_global_id}));
+   sources.task_submissions=(state.server?.submissions||[]).map(r=>({...r,id:String(r.id)}));
    for(const [name,rows] of Object.entries(sources)){
     await new Promise<void>((resolve,reject)=>{
      const tx=db.transaction(name,"readwrite"),store=tx.objectStore(name);

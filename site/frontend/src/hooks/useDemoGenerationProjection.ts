@@ -21,7 +21,7 @@ export function useDemoGenerationProjection(){
  let delta=0n;const panels:Record<string,string>={};
  for(const p of a.panels){
   let add=0n;
-  if(p.is_active&&!p.meta?.protectively_voided){const elapsed=Math.max(0,Math.floor(Math.min(now,Date.parse(p.expires_at))-Date.parse(p.last_generated_at)));
+  if(p.is_active&&!p.meta?.protectively_voided&&!(state.server.settings.neon_seed_revision&&p.meta?.source==='RECON_CYCLE_0027')){const elapsed=Math.max(0,Math.floor(Math.min(now,Date.parse(p.expires_at))-Date.parse(p.last_generated_at)));
    add=(rate*BigInt(elapsed)+BigInt(p.remainder||'0'))/1000n;}
   panels[p.id]=formatD8(d8(p.generated_kwh)+add);delta+=add;
  }

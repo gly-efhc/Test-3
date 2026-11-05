@@ -191,7 +191,7 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
   if(p==='/hub/support-links'&&read)return s.support.filter(r=>r.is_active);
   if(p==='/tasks/catalog'&&read)return {items:s.tasks.filter(r=>r.is_active).map(r=>({...r,id:String(r.id)}))};
   if(p==='/tasks/my'&&read)return {items:a.completed_tasks.map(code=>{const t=s.tasks.find(r=>r.code===code);return {id:String(t?.id),task_id:String(t?.id),status:'completed',can_claim:false,bonus_efhc:t?.bonus_efhc||zero,next_available_at:null,progress:{demo:true}};})};
-  if(p==='/tasks/earnings/me'&&read)return {total_bonus_earned:formatD8(a.ledger.filter(r=>r.reason==='task_bonus'||r.reason==='ad_reward').reduce((n,r)=>n+d8(r.amount_efhc),s.settings.neon_seed_revision?0n:d8(canonical.tasks.earnings.total_bonus_earned))),bonus_asset:'EFHCb',includes_ads:true};
+  if(p==='/tasks/earnings/me'&&read)return {total_bonus_earned:formatD8(a.ledger.filter(r=>r.reason==='task_bonus'||r.reason==='ad_reward').reduce((n,r)=>n+d8(r.amount_efhc),s.settings.neon_seed_revision?0n:s.settings.neon_seed_revision?0n:d8(canonical.tasks.earnings.total_bonus_earned))),bonus_asset:'EFHCb',includes_ads:true};
   if(p==='/tasks/claim'&&method==='POST')return replay(state,key,`${a.global_id}:${p}:${JSON.stringify(b)}`,()=>{
    const t=s.tasks.find(r=>String(r.id)===String(b.task_id));requireDemo(t?.is_active,'TASK_NOT_FOUND',404);requireDemo(!a.completed_tasks.includes(t.code),'TASK_ALREADY_COMPLETED',409);
    transfer(state,a.global_id,amount(t.bonus_efhc),'credit','bonus','task_bonus');a.completed_tasks.push(t.code);
@@ -331,7 +331,7 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
    if(op?.startsWith('secrets/')){row.secret_masks=op.endsWith('/delete')?{}:Object.fromEntries(Object.keys(b.secrets||b).map(k=>[k,'••••••••']));return {ok:true,provider:row};}
    if(op==='reset-errors'){row.last_error_code=null;row.health='ok';return {ok:true};}Object.assign(row,b);return row;
   }
-  if(p==='/admin/ads/dashboard'&&read){const rewards=s.audit.filter(r=>r.reason==='ad_reward');const count=rewards.length;
+  if(p==='/admin/ads/dashboard'&&read){const rewards=s.settings.neon_seed_revision?Object.values(state.accounts).flatMap(x=>x.ledger).filter(r=>r.reason==='ad_reward').concat(s.audit.filter(r=>r.reason==='ad_reward')):s.audit.filter(r=>r.reason==='ad_reward');const count=rewards.length;
    return {period:q.get('period')||'30d',overall:{ad_requests:count,impressions:count,completed_rewarded_views:count,rewarded_users:new Set(rewards.map(r=>r.global_id)).size,provider_no_fill:0,errors:0,fallback:0,efhcb_distributed:totals(rewards,'amount_efhc'),estimated_revenue_usd:zero,confirmed_revenue_usd:zero,revenue_per_1000_requests_usd:zero,revenue_per_completed_ad_usd:zero},providers:s.providers.map(r=>({...r,completed_rewarded_views:r.code==='builtin'?count:0})),geo:[],languages:[],tasks:s.tasks,timeline:rewards};}
 
   if(p==='/admin/ads/revenue-optimizer/apply'&&!read){s.settings.optimizer_order=s.providers.filter(r=>r.enabled).map(r=>r.code);return {ok:true,applied_order:s.settings.optimizer_order};}
@@ -339,8 +339,24 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
   if(p==='/admin/tasks/refresh-statuses'&&!read)return {ok:true,updated:0};
   const moderate=/^\/admin\/tasks\/submissions\/(\d+)\/moderate$/.exec(p);
   if(moderate&&!read){const row=rowById(s.submissions,moderate[1]);requireDemo(row.status==='pending','SUBMISSION_ALREADY_FINAL',409);row.status=b.approved||b.status==='approved'?'approved':'rejected';return {ok:true,item:row};}
-  if(p==='/admin/referrals/summary'&&read)return {items:Object.values(state.accounts).map(x=>({inviter_global_id:x.global_id,active_count:x.global_id===DEMO_GLOBAL_ID?17:0,inactive_count:x.global_id===DEMO_GLOBAL_ID?7:0,total_bonus_efhc:x.global_id===DEMO_GLOBAL_ID?'2.70000000':zero,last_invited_at:null})),next_cursor:null};
-  if(p==='/admin/referrals/logs'&&read){const gid=q.get('global_id')||a.global_id;requireDemo(/^[0-9]{10}$/.test(gid),'GLOBAL_ID_EXACT_10_REQUIRED');return {global_id:gid,items:[],next_cursor:null};}
+   if(p==='/admin/referrals/summary'&&read){
+    const links=s.settings.neon_referrals as DemoRow[]|undefined;
+    if(links)return {items:Object.values(state.accounts).map(x=>{
+      const own=links.filter(r=>r.inviter_global_id===x.global_id);
+      return {inviter_global_id:x.global_id,active_count:own.filter(r=>r.activated_at).length,
+        inactive_count:own.filter(r=>!r.activated_at).length,
+        total_bonus_efhc:formatD8(x.ledger.filter(r=>r.reason==='referral_bonus'&&r.direction==='credit').reduce((n,r)=>n+d8(r.amount_efhc),0n)),
+        last_invited_at:own.reduce((v,r)=>v>String(r.created_at)?v:String(r.created_at),'')||null};
+    }),next_cursor:null};
+    return {items:Object.values(state.accounts).map(x=>({inviter_global_id:x.global_id,active_count:x.global_id===DEMO_GLOBAL_ID?17:0,inactive_count:x.global_id===DEMO_GLOBAL_ID?7:0,total_bonus_efhc:x.global_id===DEMO_GLOBAL_ID?'2.70000000':zero,last_invited_at:null})),next_cursor:null};
+   }
+   if(p==='/admin/referrals/logs'&&read){
+    const gid=q.get('global_id')||a.global_id;requireDemo(/^[0-9]{10}$/.test(gid),'GLOBAL_ID_EXACT_10_REQUIRED');
+    const links=s.settings.neon_referrals as DemoRow[]|undefined;
+    if(links)return {global_id:gid,...pageRows(links.filter(r=>r.inviter_global_id===gid).map(r=>({
+      ...r,global_id:r.invitee_global_id,child_global_id:r.invitee_global_id,is_active:!!r.activated_at})),q,50)};
+    return {global_id:gid,items:[],next_cursor:null};
+   }
   if(['/admin/observability/health','/admin/observability/events','/admin/observability/summary','/admin/observability/timeseries'].includes(p)&&read)return demoObservability(state,p,q);
   if(p==='/admin/ton/reconcile'&&!read)return {ok:true,mode:'demo',checked:s.deposits.length,credited:0,external_requests:0};
   if(p==='/admin/efhc-deposits/runtime-summary'&&read)return {ok:true,credited_efhc_operations_count:s.deposits.length,credited_efhc_total:totals(s.deposits,'amount_efhc'),credited_efhc_30d:totals(s.deposits,'amount_efhc'),credited_efhc_24h:totals(s.deposits,'amount_efhc'),generated_at:now};
