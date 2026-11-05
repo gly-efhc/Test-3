@@ -147,7 +147,7 @@ test('D8 validation and persisted transaction failures leave no partial credit',
  await assert.rejects(h.api('/demo/deposits','POST',{amount:'10'},'quota'),/QuotaExceededError/);assert.equal(h.store.readDemoAccount().main_balance,before);
 });
 
-test('every non-export Admin contract in the checked-in Workbench resolves to an explicit DEMO handler',async()=>{
+test('every Admin contract in the checked-in Workbench resolves to an explicit DEMO handler',async()=>{
  const {readFileSync}=await import('node:fs');const catalog=readFileSync(new URL('../../src/lib/adminRouteCatalog.ts',import.meta.url),'utf8');
  const rows=[...catalog.matchAll(/method: "([A-Z]+)", path: "([^"]+)"/g)];assert.ok(rows.length>=90);
  const h=demoRuntime();h.store.setDemoRole('superadmin');await h.api('/sync/me','POST');
@@ -157,13 +157,12 @@ test('every non-export Admin contract in the checked-in Workbench resolves to an
  const params={global_id:a.global_id,panel_id:panel,request_id:withdrawal.id,task_id:seed.tasks[0].id,code:'builtin',link_id:seed.hub[0].id,package_id:seed.packages[0].id,order_id:seed.orders[0].id,transfer_log_id:seed.audit[0].id,key:'demo-message',submission_id:'1',tx_hash:'DEMO-no-match'};
  let tested=0;
  for(const [,method,template]of rows){
-  if(template.includes('/logs/export.'))continue; // Binary formats are tested through the download UI.
   const route=template.replace(/\{([^}]+)\}/g,(_,key)=>String(params[key]));
   try{await h.api(route,method,{global_id:a.global_id,amount:'1',direction:'credit',balance:'main',reason:'DEMO',title:'DEMO',code:'demo-code'},'catalog-'+tested);}
   catch(e){assert.notEqual(e.status,501,`${method} ${route}: ${e.code}`);assert.notEqual(e.code,'ADMIN_PUBLIC_DEMO_READ_ONLY',`${method} ${route}: missing handler`);assert.ok(e.status>=400&&e.status<500,`${method} ${route}: ${e.stack}`);}
   tested++;
  }
- assert.equal(tested,rows.length-2);
+ assert.equal(tested,rows.length);
 });
 test('domain reports are derived from changed balances, operations and panels',async()=>{
  const h=demoRuntime();await h.api('/demo/deposits','POST',{amount:'12.125'},'report-d');

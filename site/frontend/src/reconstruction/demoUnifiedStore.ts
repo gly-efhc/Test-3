@@ -329,8 +329,29 @@ async function bootstrapDemoDatabaseContents():Promise<void>{
 export async function demoTableCount(name:DemoTableName):Promise<number>{
  if(!isDemoPreviewEnabled()||!DEMO_TABLE_NAMES.includes(name))throw new Error("DEMO_TABLE_READ_DENIED");
  await bootstrapDemoIndexedDb();
+ if(isNeonPagesDemo())return (await demoTableCounts())[name];
  const db=await openDemoDatabase();
  try{return await new Promise<number>((resolve,reject)=>{const tx=db.transaction(name,"readonly"),r=tx.objectStore(name).count();r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}finally{db.close();}
+}
+/** Counts use the same runtime projection as rows and route handlers. SQL-only
+ * history retains its baseline count plus committed local DEMO operations. */
+export async function demoTableCounts():Promise<Record<DemoTableName,number>>{
+ await bootstrapDemoIndexedDb();
+ const counts={} as Record<DemoTableName,number>;
+ if(!isNeonPagesDemo()){
+  for(const name of DEMO_TABLE_NAMES)counts[name]=await demoTableCount(name);
+  return counts;
+ }
+ const {getNeonTableCounts}=await import('./neonDemoDataApi');
+ const {runtimeDemoTableRows,demoTableOverlay}=await import('./demoTableView');
+ const base=await getNeonTableCounts(),state=readDemoState();
+ for(const name of DEMO_TABLE_NAMES){
+  const rows=runtimeDemoTableRows(state,name);
+  counts[name]=rows===null?(base[name]||0)+demoTableOverlay(state,name).length:rows.length;
+ }
+ // The physical SQL ledger includes the mirrored BANK side of each movement.
+ counts.ledger_entries+=demoTableOverlay(state,'bank_transfers').length;
+ return counts;
 }
 
 /** Applies a canonical task reward exactly once to the selected DEMO Global ID. */
@@ -359,7 +380,13 @@ export async function demoTableRows(name:DemoTableName,globalId:string,limit=20)
  await bootstrapDemoIndexedDb();
  if(isNeonPagesDemo()){
   const {getNeonDemoTableRows}=await import("./neonDemoDataApi");
-  return getNeonDemoTableRows(name,globalId,limit);
+  const {runtimeDemoTableRows,demoTableOverlay,isGlobalDemoTable}=await import('./demoTableView');
+  if(!Number.isSafeInteger(limit)||limit<1||limit>50)throw new Error('DEMO_TABLE_BAD_LIMIT');
+  const state=readDemoState(),scope=isGlobalDemoTable(name)?undefined:globalId,runtime=runtimeDemoTableRows(state,name,scope);
+  if(runtime!==null)return runtime.slice(0,limit);
+  const local=demoTableOverlay(state,name,scope).slice(0,limit);
+  if(local.length===limit)return local;
+  return [...local,...await getNeonDemoTableRows(name,globalId,limit-local.length)];
  }
  const db=await openDemoDatabase();
  try{return await new Promise<Record<string,unknown>[]>((resolve,reject)=>{

@@ -132,6 +132,35 @@ export async function getNeonTableCounts():Promise<Record<string,number>>{
  }
  return counts;
 }
+export async function getNeonActivitySummary():Promise<{deposit_count:number;deposit_total:string;deposit_30d:string;deposit_24h:string}>{
+ // Aggregate only fields already readable through economic_events. Do not add
+ // database privileges or materialize the financial journal in browser storage.
+ const {d8,formatD8}=await import('./demoUnifiedStore');
+ const query={select:'amount_efhc,created_at',reason:'eq.efhc_external_deposit',order:'id.asc',limit:'100'};
+ const first=await getPage<{amount_efhc:string;created_at:string}>('economic_events',query,true);
+ const count=first.total!;if(count>100000)throw new Error('NEON_TEST_ACTIVITY_SCAN_LIMIT');
+ let total=0n,month=0n,day=0n;
+ const add=(rows:typeof first.rows)=>{for(const r of rows){const amount=d8(r.amount_efhc),age=Date.now()-Date.parse(r.created_at);
+  total+=amount;if(age<=720*3600000)month+=amount;if(age<=24*3600000)day+=amount;}};
+ add(first.rows);
+ for(let offset=100;offset<count;offset+=400){
+  const pages=await Promise.all(Array.from({length:Math.min(4,Math.ceil((count-offset)/100))},(_,i)=>
+   getRows<typeof first.rows[number]>('economic_events',{...query,offset:String(offset+i*100)})));
+  pages.forEach(add);
+ }
+ return {deposit_count:count,deposit_total:formatD8(total),deposit_30d:formatD8(month),deposit_24h:formatD8(day)};
+}
+export async function getNeonDepositPage(gid:string|null,offset:number,limit:number):Promise<{items:Record<string,unknown>[];next_cursor:string|null}>{
+ if(!Number.isSafeInteger(offset)||offset<0||!Number.isSafeInteger(limit)||limit<1||limit>100)throw new Error('NEON_DEMO_BAD_DEPOSIT_PAGE');
+ const rows=await getRows<Record<string,unknown>>('economic_events',{
+  select:'*',reason:'eq.efhc_external_deposit',order:'created_at.desc,id.desc',offset:String(offset),limit:String(limit),
+  ...(gid?{global_id:'eq.'+assertGlobalId(gid)}:{})});
+ if(gid&&rows.some(r=>r.global_id!==gid))throw new Error('NEON_TEST_DEPOSIT_SCOPE_MISMATCH');
+ return {items:rows.map(r=>({...r,global_id:r.global_id,resolved_global_id:r.global_id,
+  amount:r.amount_efhc,asset:'EFHC',purpose:'direct_efhc_jetton_deposit',status:'credited',
+  tx_hash:null,memo:null,processed_at:r.created_at,updated_at:r.created_at,retries_count:0})),
+  next_cursor:rows.length===limit?String(offset+limit):null};
+}
 export async function getNeonDemoTableRows(name:string,gid:string,limit=20):Promise<Record<string,unknown>[]>{
  assertGlobalId(gid);
  if(!Number.isSafeInteger(limit)||limit<1||limit>50)throw new Error("NEON_DEMO_BAD_LIMIT");

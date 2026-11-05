@@ -6,6 +6,7 @@ import canonical from './demo-tables-v866.json';
 import {d8,formatD8,DEMO_GLOBAL_ID,transactDemoState,type DemoControlState,type DemoAccountState} from './demoUnifiedStore';
 import {account,ensureServer,ensurePanels,settleGeneration,transfer,replay,activatePanel,pageRows,panelRows,userRow,amount,requireDemo,DemoOperationError,BASE_RATE,VIP_RATE} from './demoServerCore';
 import type {DemoRow,DemoPanel} from './demoServerModel';
+import {isImportedDemoIntent,demoPaymentIntentView} from './demoPaymentIntent';
 
 const zero='0.00000000';
 const totals=(rows:DemoRow[],key:string)=>formatD8(rows.reduce((n,r)=>n+d8(String(r[key]||zero)),0n));
@@ -194,7 +195,9 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
   if(p==='/tasks/earnings/me'&&read)return {total_bonus_earned:formatD8(a.ledger.filter(r=>r.reason==='task_bonus'||r.reason==='ad_reward').reduce((n,r)=>n+d8(r.amount_efhc),s.settings.neon_seed_revision?0n:d8(canonical.tasks.earnings.total_bonus_earned))),bonus_asset:'EFHCb',includes_ads:true};
   if(p==='/tasks/claim'&&method==='POST')return replay(state,key,`${a.global_id}:${p}:${JSON.stringify(b)}`,()=>{
    const t=s.tasks.find(r=>String(r.id)===String(b.task_id));requireDemo(t?.is_active,'TASK_NOT_FOUND',404);requireDemo(!a.completed_tasks.includes(t.code),'TASK_ALREADY_COMPLETED',409);
-   transfer(state,a.global_id,amount(t.bonus_efhc),'credit','bonus','task_bonus');a.completed_tasks.push(t.code);
+   const paid=transfer(state,a.global_id,amount(t.bonus_efhc),'credit','bonus','task_bonus');a.completed_tasks.push(t.code);
+   s.submissions.unshift({id:String(++state.next_id),global_id:a.global_id,task_id:String(t.id),
+    status:'approved',bonus_amount_efhc:t.bonus_efhc,paid:true,paid_tx_id:String(paid.id),created_at:now,updated_at:now});
    return {ok:true,global_id:a.global_id,task_id:String(t.id),bonus_efhc:t.bonus_efhc,main_balance:a.main_balance,bonus_balance:a.bonus_balance,detail:''};
   });
   if(['/health','/health/db','/health/runtime','/meta/version'].includes(p)&&read)return {ok:true,status:'ok',mode:'demo',backend:{ok:true,mode:'simulation'},db:{ok:true,mode:'browser'},watcher:{ok:false,status:'simulation',heartbeat_age_sec:null}};
@@ -297,6 +300,7 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
     memo:row.payload,to_wallet:row.to_address,tonconnect_tx:null,usdt_checkout_mode:'simulation',expires_at:row.expires_at};
   });
   if(p==='/shopfront/intent-status'&&read){const row=rowById(s.intents,String(q.get('intent_id')));requireDemo(row.global_id===a.global_id,'INTENT_OWNER_MISMATCH',403);
+   if(isImportedDemoIntent(row))return demoPaymentIntentView(row);
    const age=Date.now()-Date.parse(row.created_at);
    if(age>=10000&&!row.demo_payment_complete){
     const order=rowById(s.orders,String(row.id));
@@ -331,7 +335,7 @@ export function demoServerRequest(path:string,method:string,body:unknown,key?:st
    if(op?.startsWith('secrets/')){row.secret_masks=op.endsWith('/delete')?{}:Object.fromEntries(Object.keys(b.secrets||b).map(k=>[k,'••••••••']));return {ok:true,provider:row};}
    if(op==='reset-errors'){row.last_error_code=null;row.health='ok';return {ok:true};}Object.assign(row,b);return row;
   }
-  if(p==='/admin/ads/dashboard'&&read){const rewards=s.settings.neon_seed_revision?[...Object.values(state.accounts).flatMap(x=>x.ledger).filter(r=>r.reason==='ad_reward'),...s.audit.filter(r=>r.reason==='ad_reward')]:s.audit.filter(r=>r.reason==='ad_reward');const count=rewards.length;
+  if(p==='/admin/ads/dashboard'&&read){const rewards=s.settings.neon_seed_revision?Object.values(state.accounts).flatMap(x=>x.ledger).filter(r=>r.reason==='ad_reward'):s.audit.filter(r=>r.reason==='ad_reward');const count=rewards.length;
    return {period:q.get('period')||'30d',overall:{ad_requests:count,impressions:count,completed_rewarded_views:count,rewarded_users:new Set(rewards.map(r=>r.global_id)).size,provider_no_fill:0,errors:0,fallback:0,efhcb_distributed:totals(rewards,'amount_efhc'),estimated_revenue_usd:zero,confirmed_revenue_usd:zero,revenue_per_1000_requests_usd:zero,revenue_per_completed_ad_usd:zero},providers:s.providers.map(r=>({...r,completed_rewarded_views:r.code==='builtin'?count:0})),geo:[],languages:[],tasks:s.tasks,timeline:rewards};}
 
   if(p==='/admin/ads/revenue-optimizer/apply'&&!read){s.settings.optimizer_order=s.providers.filter(r=>r.enabled).map(r=>r.code);return {ok:true,applied_order:s.settings.optimizer_order};}

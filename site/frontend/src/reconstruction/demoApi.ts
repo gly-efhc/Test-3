@@ -2,7 +2,8 @@ import {publicAssetPath} from "../lib/publicAssetPath";
 import {buildCatalog} from "./demoShopCatalog";
 import {demoServerRequest} from "./demoServer";
 import {DemoOperationError,BASE_RATE,VIP_RATE} from "./demoServerCore";
-/** Browser-only API adapter for the frozen v866 simulator. No remote API / TON calls.
+import {demoPaymentIntentView,isImportedDemoIntent} from './demoPaymentIntent';
+/** Isolated DEMO adapter: original local operations plus read-only TEST history on Pages.
  * An unsupported endpoint MUST fail closed rather than reach a real backend.
  * The simulated Global ID is an account selector, never a session credential.
  */
@@ -163,9 +164,13 @@ function flowTruth(walletLinked:boolean){return {
  return_path:"/browser-shop",canonical_center:"browser_shop",next_step:walletLinked?"create_intent":"sync_wallet",
  blocker_codes:walletLinked?[]:["wallet_not_linked"],browser_shop_path:"/browser-shop",truth_label:"shop_hub_truth_layer"};
 }
+function shopPayments(a:DemoAccountState){
+ const history=(readDemoState().server?.intents||[]).filter(r=>r.global_id===a.global_id).map(demoPaymentIntentView);
+ return {intent_history:history,active_payment:history.find(r=>!isImportedDemoIntent(r)&&['PENDING','CONFIRMING','CREATED'].includes(r.status))||null};
+}
 function shopProfile(a:DemoAccountState){const server=readDemoState().server;return {global_id:a.global_id,wallets:a.wallets,orders:(server?.orders||[]).filter(r=>r.global_id===a.global_id).map(r=>({...r,id:String(r.id),type:r.type||r.item_type||r.purpose||'EFHC_PACKAGE',sku:r.sku||r.item_code||'',quantity:Number(r.quantity||1),created_at:r.created_at||stamp(),updated_at:r.updated_at||r.created_at||stamp()})),access_mode:"telegram_handoff",
  profile_mode:"web_profile",bot_open_url:null,wallet_sync_url:null,telegram_sync_url:null,
- flow_truth:flowTruth(a.wallets.length>0),active_payment:server?.intents.find(r=>r.global_id===a.global_id)||null,intent_history:(server?.intents||[]).filter(r=>r.global_id===a.global_id),latest_withdraw_request_id:null,latest_withdraw_status:null,latest_withdraw_outcome:null};}
+ flow_truth:flowTruth(a.wallets.length>0),...shopPayments(a),latest_withdraw_request_id:null,latest_withdraw_status:null,latest_withdraw_outcome:null};}
 
 /** Demo history is a VIEW of real frozen IndexedDB transactions + new local
  * browser-only ledger movements. It never creates transactions in Neon. */
@@ -174,7 +179,9 @@ async function readDemoCombinedHistory(a:DemoAccountState,q:URLSearchParams,empt
  if(!Number.isSafeInteger(rawOffset)||rawOffset<0)throw new PreviewApiError(400,"BAD_CURSOR");
  const windowSize=Math.min(50,Math.max(1,Number(q.get("limit")||limit)||limit));
  if(empty)return {items:[] as Record<string,unknown>[],next_cursor:null};
- const local=a.ledger as unknown as Record<string,unknown>[];
+ const local=isNeonPagesDemo()
+  ?(await import('./demoTableView')).localDemoLedger(readDemoState(),a.global_id)
+  :a.ledger as unknown as Record<string,unknown>[];
  const localWindow=local.slice(rawOffset,rawOffset+windowSize);
  const remaining=windowSize-localWindow.length;
  let historic:Record<string,unknown>[]=[];
@@ -208,8 +215,28 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
  const route=new URL(path,"https://efhc.preview.invalid");
  const p=route.pathname.replace(/^\/api(?=\/)/,"");
  const q=route.searchParams,control=readDemoState();
+ if(control.scenario==="loading")await new Promise(resolve=>setTimeout(resolve,600));
+ if(control.scenario==="error"&&!p.startsWith("/auth/"))throw new PreviewApiError(503,"SCENARIO_ERROR");
+ if(isNeonPagesDemo()&&method.toUpperCase()==='GET'&&['/ranks/my-plus-top/me','/ranks/top/me'].includes(p)){
+  const {runtimeDemoTableRows}=await import('./demoTableView');
+  const rows=runtimeDemoTableRows(control,'ranks')!,me=rows.find(r=>r.global_id===control.selected_global_id);
+  must(Boolean(me),'USER_NOT_FOUND',404);const snapshot_at=stamp(),empty=control.scenario==='empty';
+  if(p==='/ranks/my-plus-top/me'){
+   const page=cursorPage(empty?[]:rows,q,100);
+   return {snapshot_at,me:empty?{...me,total_generated_kwh:zero}:me,top:page.items,next_cursor:page.next_cursor};
+  }
+  if(q.get('around_me')==='true'){
+   const index=rows.indexOf(me!);return {snapshot_at,items:empty?[]:rows.slice(Math.max(0,index-2),index+3),next_cursor:null};
+  }
+  return {snapshot_at,...cursorPage(empty?[]:rows,q,100)};
+ }
+ if(/^\/admin\/logs\/export\.(csv|xlsx)$/.test(p)&&method.toUpperCase()==='GET'){
+  const {demoLogExport}=await import('./demoLogExport');
+  return demoLogExport(p.endsWith('.xlsx')?'xlsx':'csv',q);
+ }
  if(isNeonPagesDemo()&&p==="/exchange/history"&&method.toUpperCase()==="GET"&&control.server?.settings?.neon_seed_revision){
    const {getNeonExchangePage}=await import("./neonDemoDataApi");
+   if(control.scenario==='empty')return {items:[],next_cursor:null};
    const gid=control.selected_global_id,local=control.accounts[gid]?.exchanges||[];
    const offset=Number(q.get("cursor")||"0"),limit=Math.min(100,Math.max(1,Number(q.get("limit")||50)));
    if(!Number.isSafeInteger(offset)||offset<0)throw new PreviewApiError(400,"BAD_CURSOR");
@@ -219,12 +246,13 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
    return {items:[...localRows,...sql.items],next_cursor:localRows.length+sql.items.length===limit?String(offset+limit):null};
   }
   if(isNeonPagesDemo()&&p==="/admin/logs/transfers"&&method.toUpperCase()==="GET"){
-  const {getNeonAdminLedgerPage}=await import("./neonDemoDataApi");
-  const offset=Number(q.get("cursor")||"0"),limit=Math.min(100,Math.max(1,Number(q.get("limit")||50)));
-  return getNeonAdminLedgerPage(q.get("global_id"),offset,limit);
+  const {readNeonDemoJournal}=await import('./neonDemoReadRoutes');
+  return readNeonDemoJournal(q);
  }
- if(control.scenario==="loading")await new Promise(resolve=>setTimeout(resolve,600));
- if(control.scenario==="error"&&!p.startsWith("/auth/"))throw new PreviewApiError(503,"SCENARIO_ERROR");
+ if(isNeonPagesDemo()&&method.toUpperCase()==='GET'&&['/admin/efhc-deposits/inbox','/admin/efhc-deposits/unmatched','/admin/efhc-deposits/runtime-summary'].includes(p)){
+  const {readNeonDemoDeposits}=await import('./neonDemoReadRoutes');
+  return readNeonDemoDeposits(p,q);
+ }
  if(p.startsWith('/admin/')&&!readDemoState().server?.settings.fixture_users_loaded){
   const rows=await demoAdminFixtureUsers();
   if(rows.length)transactDemoState(state=>{
@@ -435,7 +463,7 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
  if(p==="/shopfront/bootstrap"&&readOnly){const wallet=a.wallets.find(w=>w.is_primary&&w.is_active);return {mode:"handoff_bound",tg_linked:true,global_id:a.global_id,wallet_linked:Boolean(wallet),
   active_wallet_address:wallet?.wallet_address||null,wallets:a.wallets,wallet_sync_required:false,bot_open_url:null,telegram_sync_url:null,wallet_sync_url:null,
   storefront_mode:"browser_shop_mvp",access_mode:"telegram_handoff",future_game_entry_enabled:false,available_modules:["efhc","vip"],usdt_checkout_mode:"simulation",
-  flow_truth:flowTruth(Boolean(wallet)),active_payment:null,intent_history:[]};}
+  flow_truth:flowTruth(Boolean(wallet)),...shopPayments(a)};}
  if(p==="/shopfront/catalog"&&readOnly)return {items:empty?[]:buildCatalog()};
  if(p==="/shopfront/profile"&&readOnly)return shopProfile(a);
  if(p==="/shopfront/intent-status"&&readOnly)return {intent_id:q.get("intent_id"),status:"PENDING",asset:"TON",amount_asset_d8:"1.00000000"};

@@ -131,7 +131,7 @@ jobs:
           set -euo pipefail
           cd "$RUNNER_TEMP/efhc-demo-build"
           npm run test:html-react-parity
-          node --test tests/regression/current-demo-server.test.mjs
+          node --test tests/regression/current-demo-*.test.mjs
           cd "$GITHUB_WORKSPACE"
           EFHC_FRONTEND_DEPENDENCIES="$RUNNER_TEMP/efhc-demo-build/package.json" node site/ci/parity/generate_shell.mjs --check
           node site/frontend/tests/parity/pages-artifact.test.mjs
@@ -232,6 +232,11 @@ jobs:
               raise RuntimeError("NEON_DEMO_BOOTSTRAP_INCOMPLETE")
           if (snap.get("bank") or {}).get("facts", {}).get("bank_metrics_integrity_ok") != "1":
               raise RuntimeError("NEON_DEMO_BOOTSTRAP_INTEGRITY_MISMATCH")
+          for table in ("referrals", "referral_bonuses", "ad_reward_sessions", "task_submissions"):
+              row = read("/catalog_rows?select=item&table_name=eq." + table + "&item-%3E%3Eglobal_id=eq.0000657667&limit=1")
+              if row.get("item", {}).get("global_id") != "0000657667":
+                  raise RuntimeError("NEON_DEMO_TABLE_ROUTING_MISMATCH: " + table)
+          print("EFHC_NEON_DEMO_LOGICAL_TABLE_READERS=PASS tables=4 global_id=0000657667")
           print("EFHC_NEON_DEMO_BOOTSTRAP=PASS users=1000 panels=4000 intents=1000")
           print("EFHC_NEON_DEMO_DATA_API=PASS users=1000 panels=4000 CORS=PASS bank=PASS")
           PY

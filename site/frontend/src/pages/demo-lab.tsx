@@ -2,11 +2,12 @@
 import React,{useEffect,useState} from "react";
 import {useRouter} from "next/router";
 import {bootstrapDemoIndexedDb,DEMO_GLOBAL_ID,DEMO_TABLE_NAMES,readDemoAccount,readDemoState,isNeonPagesDemo,
-  selectDemoGlobalId,setDemoScenario,setDemoRole,resetDemoDatabase,demoTableCount,demoTableRows,demoLedgerMutation,
+  selectDemoGlobalId,setDemoScenario,setDemoRole,resetDemoDatabase,demoTableCounts,demoTableRows,demoLedgerMutation,
   isDemoPreviewEnabled,type DemoScenario,type DemoRole,type DemoControlState} from "../reconstruction/demoUnifiedStore";
 import {useQueryClient} from "@tanstack/react-query";
 import {isNeonStagingRequested,neonStagingControl,neonStagingApiRequest,clearNeonStagingSession} from "../reconstruction/neonStagingBridge";
 import demoRoutes from "../reconstruction/demo-route-catalog-v893.json";
+import {isGlobalDemoTable} from '../reconstruction/demoTableView';
 
 export default function DemoLabPage(){
  const router=useRouter(),client=useQueryClient();
@@ -34,7 +35,7 @@ export default function DemoLabPage(){
   try{const x=await neonStagingControl<{global_id:string}>("/api/staging/login","POST",{password:testPassword});setTestPassword("");setRemoteStatus("Neon TEST: оператор авторизован; Global ID "+x.global_id);selectDemoGlobalId(x.global_id);await refreshTestSnapshot();}
   catch(e){setRemoteStatus("Вход не выполнен: "+String(e));} };
  const handleTestSchema=async()=>{try{const x=await neonStagingControl<{total:number;tables:{schema:string;name:string}[]}>("/api/staging/schema");setRemoteSchema(x);setRemoteStatus("Получена фактическая структура Neon TEST");}catch(e){setRemoteStatus("Ошибка доступа: "+String(e));}};
- const withAction=(callback:()=>void)=>{try{callback();setMessage("Данные обновлены");void client.invalidateQueries();}catch(error){setMessage(error instanceof Error?error.message:String(error));}};
+ const withAction=(callback:()=>void)=>{try{callback();setTableRows([]);setTableMessage('');setMessage("Данные обновлены");void client.invalidateQueries();void loadDatabase();}catch(error){setMessage(error instanceof Error?error.message:String(error));}};
  useEffect(()=>{if(!remote||!ready)return;
   void neonStagingControl<{global_id:string}>("/api/staging/session").then(x=>{
     selectDemoGlobalId(x.global_id);setRemoteStatus("Neon TEST: действующая сессия "+x.global_id);
@@ -47,15 +48,8 @@ export default function DemoLabPage(){
   setLoading(true);setMessage("Загрузка данных…");
   try{
    await bootstrapDemoIndexedDb();
-   const result:Record<string,number>={};
-   if(isNeonPagesDemo()){
-    const {getNeonTableCounts}=await import("../reconstruction/neonDemoDataApi");
-    const live=await getNeonTableCounts();
-    for(const name of DEMO_TABLE_NAMES)result[name]=live[name]??0;
-   }else{
-    for(const name of DEMO_TABLE_NAMES)result[name]=await demoTableCount(name);
-   }
-   setCounts(result);setMessage(isNeonPagesDemo()?"Таблицы загружены из EFHC_Nektron_Test.":"Данные из автономного проверочного набора.");
+   const result=await demoTableCounts();
+   setCounts(result);setMessage(isNeonPagesDemo()?"Данные загружены. Изменения DEMO сохраняются в этом браузере.":"Данные из автономного проверочного набора.");
   }catch(err){setMessage(err instanceof Error?err.message:String(err));}finally{setLoading(false);}
  };
  // Automatically expose real counts on the Pages laboratory. The root App
@@ -107,12 +101,12 @@ export default function DemoLabPage(){
     </div>
   </section>}
   {!remote&&<section style={{margin:"18px 0"}}><h2 style={{fontSize:18}}>Записи конкретного Global ID</h2>
-    <p style={{opacity:.85}}>Показаны первые 20 записей аккаунта.</p>
+    <p style={{opacity:.85}}>Показаны первые 20 записей аккаунта. Справочники и журнал Банка общие.</p>
     <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
       <select style={{...field,flex:"1 1 180px"}} value={currentTable} onChange={e=>{setCurrentTable(e.target.value as typeof DEMO_TABLE_NAMES[number]);setTableRows([]);}}>
         {DEMO_TABLE_NAMES.map(name=><option key={name} value={name}>{name}</option>)}
       </select>
-      <button style={button} onClick={()=>{void demoTableRows(currentTable,readDemoState().selected_global_id).then(rows=>{setTableRows(rows);setTableMessage(`${rows.length} записей для Global ID ${readDemoState().selected_global_id}`);}).catch(error=>setTableMessage(String(error)));}}>Просмотреть</button>
+      <button style={button} onClick={()=>{const gid=readDemoState().selected_global_id;void demoTableRows(currentTable,gid).then(rows=>{if(readDemoState().selected_global_id!==gid)return;setTableRows(rows);setTableMessage(isGlobalDemoTable(currentTable)?`${rows.length} общих записей`:`${rows.length} записей для Global ID ${gid}`);}).catch(error=>setTableMessage(String(error)));}}>Просмотреть</button>
     </div>
     {tableMessage&&<p role="status">{tableMessage}</p>}
     <div style={{maxHeight:300,overflow:"auto",marginTop:8}}>{tableRows.map((row,index)=><pre key={index} style={{...field,whiteSpace:"pre-wrap",overflowWrap:"anywhere",fontSize:11}}>{JSON.stringify(row,null,2).slice(0,4500)}</pre>)}</div>
