@@ -52,25 +52,6 @@ const OPERATION_MODULES: AdminAppItem[] = [
 
 const ADMIN_MODULES: AdminAppItem[] = [...CORE_MODULES, ...OPERATION_MODULES];
 
-// Values mirror the zero-state in the frozen v866 Admin home; never present
-// fictional banking statistics as live financial records.
-const DEMO_ADMIN_OVERVIEW: Overview = {
-  ok: true,
-  ts: "DEMO",
-  counters: { users_total: 0 },
-  facts: {
-    bank_metrics_ready: "1",
-    bank_metrics_reserve_efhc: "0.00000000",
-    bank_metrics_circulation_efhc: "0.00000000",
-    bank_metrics_reserve_pct: "0",
-    bank_metrics_circulation_pct: "0",
-    panels_total_active: "0",
-    users_total_generated_kwh: "0.00000000",
-    users_total__main__efhc: "0.00000000",
-  },
-};
-const IS_PUBLIC_PAGES_DEMO = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1";
-
 const ADMIN_CATEGORY_LEGEND = [
   { key: "finance", label: "Финансы" },
   { key: "analytics", label: "Аналитика" },

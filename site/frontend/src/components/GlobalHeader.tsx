@@ -306,7 +306,7 @@ export const GlobalHeader = memo(function GlobalHeader(props: Props) {
                   className="h-full w-full object-cover"
                   referrerPolicy="no-referrer"
                 />
-              ) : props.avatarEnergyVariant && process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" ? (
+              ) : props.avatarEnergyVariant && (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" || process.env.NEXT_PUBLIC_EFHC_DATA_SOURCE === "demo_backend") ? (
                 <span className="efhc-game-header_avatar-energy" aria-hidden="true">
                   <span className="efhc-energy-stage_coin" data-ei={props.avatarEnergyVariant}>
                     <EnergyVariantIcon variant={props.avatarEnergyVariant} size={22} />

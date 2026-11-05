@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import { apiRequest } from "../lib/api";
-import { getAuthAuthorizationHeader } from "../lib/auth-session";
+import { transportRawRequest } from "../data/transport";
 import { parseGlobalId } from "../types/identity";
 import type { DbId } from "../types/db-id";
 import { dbIdSchema } from "../lib/api/db-id";
@@ -375,14 +375,7 @@ export async function getUnifiedProfileHistoryPage(args?: {
 export async function downloadProfileHistoryExport(
   format: "csv" | "xlsx",
 ): Promise<void> {
-  const authorization = getAuthAuthorizationHeader();
-  const headers: Record<string, string> = {};
-  if (authorization) headers.Authorization = authorization;
-  const response = await fetch(`/api/profile/history/export.${format}`, {
-    method: "GET",
-    credentials: "include",
-    headers,
-  });
+  const response = await transportRawRequest(`/profile/history/export.${format}`, "GET");
   if (!response.ok) throw new Error("profile_history_export_failed");
   const blob = await response.blob();
   const url = URL.createObjectURL(blob);

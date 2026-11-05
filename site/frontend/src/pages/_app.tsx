@@ -452,18 +452,7 @@ function AppInner(props: {
 
   const router = useRouter();
   useAppBackNavigation(router);
-  useEffect(() => {
-    if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" ||
-        process.env.NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF !== "1") return;
-    // Start one asynchronous canonical data initialization after first paint.
-    // Production never mounts the browser database or fake Global ID.
-    const timer = window.setTimeout(() => {
-      void import("../reconstruction/demoUnifiedStore").then(store => {
-        if (store.isDemoPreviewEnabled()) void store.bootstrapDemoIndexedDb().catch(() => undefined);
-      });
-    }, 1400);
-    return () => clearTimeout(timer);
-  }, []);
+
   const isBrowserShop = router.pathname === "/browser-shop" || router.pathname.startsWith("/browser-shop/");
   const [adminVisualProofPath, setAdminVisualProofPath] = useState<
     string | null
@@ -481,7 +470,8 @@ function AppInner(props: {
     // bypass for production or authenticated Admin access.
     const pagesAdminPreview =
       process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" &&
-      process.env.NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF === "1";
+      process.env.NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF === "1" &&
+      process.env.NEXT_PUBLIC_EFHC_DATA_SOURCE !== "demo_backend";
     const visualRoutes = new Set([
       "/admin", "/admin/ads", "/admin/api-workbench", "/admin/bonuses", "/admin/bank",
       "/admin/diagnostics", "/admin/efhc-deposits", "/admin/emergency", "/admin/hub",
@@ -503,7 +493,7 @@ function AppInner(props: {
     );
     const configuredProof =
       process.env.NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF === "1";
-    if (configuredProof || localAutomationProof) {
+    if ((configuredProof || localAutomationProof) && process.env.NEXT_PUBLIC_EFHC_DATA_SOURCE !== "demo_backend") {
       setAdminVisualProofPath(candidate);
     }
   }, [router.pathname]);
@@ -513,6 +503,7 @@ function AppInner(props: {
   const pagesPreviewAdminPath =
     process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" &&
     process.env.NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF === "1" &&
+    process.env.NEXT_PUBLIC_EFHC_DATA_SOURCE !== "demo_backend" &&
     [
       "/admin", "/admin/ads", "/admin/api-workbench", "/admin/bonuses",
       "/admin/bank", "/admin/diagnostics", "/admin/efhc-deposits",

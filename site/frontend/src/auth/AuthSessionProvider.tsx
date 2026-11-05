@@ -26,6 +26,7 @@ import {
   captureReferralStartParamFromFirstEntry,
 } from "../lib/referral-start-param";
 import {beginDisplayOwnerResolution,needsTelegramOwnerResolution,resolvedDisplayOwner,subscribeDisplayOwner} from "../lib/displayOwner";
+import { isDemoBackendMode, loginDemo as issueDemoLogin, selectDemoGlobalId as issueDemoSelection, logoutDemo as revokeDemoLogin } from "../demo/session";
 
 export type AuthBootstrapStatus =
   | "anonymous"
@@ -50,13 +51,15 @@ type AuthSessionController = AuthState & {
   logout: () => Promise<void>;
   loginTelegram: () => Promise<AuthSessionContext>;
   loginTon: (proofRequest: unknown) => Promise<AuthSessionContext>;
+  loginDemo: (password: string) => Promise<AuthSessionContext>;
+  selectDemoGlobalId: (globalId: string) => Promise<AuthSessionContext>;
 };
 
 const AuthSessionStore =
   createContext<AuthSessionController | null>(null);
 
 function initialAuthState(): AuthState {
-  return readAuthSession()
+  return readAuthSession() || isDemoBackendMode()
     ? { status: "restoring", context: null, errorCode: null }
     : { status: "anonymous", context: null, errorCode: null };
 }
@@ -77,7 +80,7 @@ export function AuthSessionProvider(props: {
   }, []);
 
   const restoreSession = useCallback(async () => {
-    if (!readAuthSession()) {
+    if (!readAuthSession() && !isDemoBackendMode()) {
       setState({
         status: "anonymous",
         context: null,
@@ -99,6 +102,10 @@ export function AuthSessionProvider(props: {
       });
       return context;
     } catch (error) {
+      if (!readAuthSession() && isDemoBackendMode()) {
+        setState({ status: "anonymous", context: null, errorCode: null });
+        return null;
+      }
       if (!readAuthSession()) {
         setState({
           status: "anonymous",
@@ -156,8 +163,8 @@ export function AuthSessionProvider(props: {
   }, []);
 
   useEffect(() => {
-    if(readAuthSession()) {
-      if(getTelegramInitData()&&needsTelegramOwnerResolution())void loginTelegram().catch(()=>undefined);
+    if(readAuthSession() || isDemoBackendMode()) {
+      if(!isDemoBackendMode() && getTelegramInitData()&&needsTelegramOwnerResolution())void loginTelegram().catch(()=>undefined);
       else void restoreSession();
     }
   },[restoreSession,loginTelegram]);
@@ -213,9 +220,28 @@ export function AuthSessionProvider(props: {
     return()=>window.removeEventListener("efhc:activity-sync",activity);
   },[loginTelegram,restoreSession]);
 
+  const loginDemo = useCallback(async (password: string): Promise<AuthSessionContext> => {
+    if (!isDemoBackendMode()) throw new Error("DEMO_BACKEND_DISABLED");
+    await issueDemoLogin(password);
+    const context = await fetchAuthSessionContext();
+    setState({ status: "authenticated", context, errorCode: null });
+    return context;
+  }, []);
+
+  const selectDemoGlobalId = useCallback(async (globalId: string): Promise<AuthSessionContext> => {
+    if (!isDemoBackendMode()) throw new Error("DEMO_BACKEND_DISABLED");
+    // The backend validates owner existence and issues a new session token.
+    await issueDemoSelection(globalId);
+    const context = await fetchAuthSessionContext();
+    setState({ status: "authenticated", context, errorCode: null });
+    if (typeof window !== "undefined") window.dispatchEvent(new Event("efhc:activity-sync"));
+    return context;
+  }, []);
+
   const logout = useCallback(async () => {
     try {
-      await revokeAuthSession();
+      if (isDemoBackendMode() && !readAuthSession()) await revokeDemoLogin();
+      else await revokeAuthSession();
     } finally {
       clearAuthSession();
       setState({
@@ -232,12 +258,16 @@ export function AuthSessionProvider(props: {
     logout,
     loginTelegram,
     loginTon,
+    loginDemo,
+    selectDemoGlobalId,
   }), [
     state,
     restoreSession,
     logout,
     loginTelegram,
     loginTon,
+    loginDemo,
+    selectDemoGlobalId,
   ]);
 
   return (
@@ -254,35 +284,16 @@ export function useAuthSessionController(): AuthSessionController {
   }
   return value;
 }
-export function useAuthOwnerGlobalId():
-  AuthSessionContext["global_id"] | null {
+export function useAuthOwnerGlobalId(): AuthSessionContext["global_id"] | null {
   const session = useAuthSessionController();
   const authenticated = session.status === "authenticated" ? session.context?.global_id ?? null : null;
   const [cachedId, setCachedId] = useState<AuthSessionContext["global_id"] | null>(null);
   useEffect(() => {
-    // Linked-account ownership is distinct from transport/session readiness.
-    // The isolated DEMO obtains its current selection from its own account model.
-    const update=()=>setCachedId(process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" ? null : resolvedDisplayOwner());
-    update();return subscribeDisplayOwner(update);
+    // DEMO ownership is always server-session-derived, never local browser state.
+    if (isDemoBackendMode()) { setCachedId(null); return; }
+    const update = () => setCachedId(resolvedDisplayOwner());
+    update();
+    return subscribeDisplayOwner(update);
   }, [session.status, authenticated]);
-  // No demo credential is put into AuthSession. This is just the 10-digit
-  // account selector for the isolated public-Pages backend simulator.
-  const [demoId, setDemoId] = useState<AuthSessionContext["global_id"] | null>(null);
-  useEffect(() => {
-    if (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" ||
-        process.env.NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF !== "1") return;
-    let active = true;
-    let unsubscribe: (() => void) | null = null;
-    void Promise.all([
-      import("../reconstruction/demoUnifiedStore"),
-      import("../types/identity"),
-    ]).then(([store, identity]) => {
-      if (!active || !store.isDemoPreviewEnabled()) return;
-      const update = () => setDemoId(identity.parseGlobalId(store.readDemoState().selected_global_id));
-      unsubscribe = store.subscribeDemoState(update);
-      update();
-    });
-    return () => { active = false; unsubscribe?.(); };
-  }, []);
-  return authenticated ?? demoId ?? cachedId;
+  return authenticated ?? cachedId;
 }

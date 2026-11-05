@@ -26,17 +26,8 @@ module.exports = {
 };
 '''
 
-# The old v907 global interception shim blocked TONConnect bridges,
-# real TEST API requests, external HUB destinations, XHR, WebSockets and
-# window.open even after a direct user gesture. This restores the
-# browser transport and leaves identity, RBAC and payment validation in
-# the real application/backend, instead of emulating a failed request.
-SAFETY = r'''/* EFHC Pages: isolated DEMO account bootstrap only.
-This flag selects local DEMO when no explicit authenticated TEST API
-is configured; it is NOT a network, wallet or navigation firewall.
-Real server actions remain protected by the API/identity contracts. */
-window.__EFHC_DEMO_READ_ONLY__ = true;
-'''
+# Pages serves only the React app and a public, nonprivileged runtime config.
+# It must never inject browser-owned DEMO identities or financial data.
 
 
 def main():
@@ -53,7 +44,7 @@ def main():
         shutil.rmtree(target)
     shutil.copytree(source, target)
     # v868 owns the fixes in actual React source; no temporary TS/route hacks.
-    # Pages-only data routing is selected by NEXT_PUBLIC_EFHC_PAGES_PREVIEW.
+    # Pages basePath is independent of the API backend choice.
     # Static image paths still require the subpath prefix on project Pages.
     splash = target / 'src/components/SplashScreen.tsx'
     splash_text = splash.read_text(encoding='utf-8')
@@ -80,13 +71,13 @@ def main():
     if 'src="/public-runtime-config.js"' not in content:
         raise ValueError('Expected runtime-config script not found in actual _document.tsx')
     content = content.replace('src="/public-runtime-config.js"',
-                              f'src="{base}/efhc-demo-safety.js"', 1)
+                              f'src="{base}/public-runtime-config.js"', 1)
     # Retain the existing Telegram runtime; public Pages remains an ordinary browser host.
     # Static assets referenced directly from document are not basePath-rewritten by Next.
     content = content.replace('href="/assets/', f'href="{base}/assets/')
     doc.write_text(content, encoding='utf-8')
-    safety = SAFETY.replace('__BASE_PATH__', base)
-    (target / 'public/efhc-demo-safety.js').write_text(safety, encoding='utf-8')
+    (target / 'public/public-runtime-config.js').write_text(
+        'window.__EFHC_PUBLIC_CONFIG__=Object.freeze({});\n', encoding='utf-8')
     owner = os.environ.get('GITHUB_REPOSITORY_OWNER', 'gly-efhc')
     if not owner or not owner.replace('-', '').isalnum():
         raise ValueError('Invalid Pages owner in TONConnect manifest')
@@ -100,7 +91,7 @@ def main():
     (target / 'public/sw.js').unlink(missing_ok=True)
     (target / 'public/runtime-config.json').unlink(missing_ok=True)
     (target / 'public/manifest.webmanifest').unlink(missing_ok=True)
-    # TEST service origins remain controlled by explicit frontend configuration.
+    # The DEMO backend receives business requests over its explicit HTTPS origin.
     print(f'EFHC_PAGES_TEMP_BUILD_READY base={base!r} source={source} target={target}')
 
 

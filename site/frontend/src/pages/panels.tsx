@@ -30,7 +30,6 @@ import { useInterfaceCustomization } from
   "../hooks/useInterfaceCustomization";
 import { useInterfaceVariantSurface } from
   "../hooks/useInterfaceVariantSurface";
-import { useFrozenDemoTables } from "../reconstruction/useFrozenDemoTables";
 
 const PANELS_ROUTE_STATIC_GUARD = {
   active: "/panels/active",
@@ -45,7 +44,6 @@ export default function PanelsPage(props: {
   const t = useT();
   const router = useRouter();
   const globalId = useAuthOwnerGlobalId();
-  const demoPreview = useFrozenDemoTables();
   const customization = useInterfaceCustomization();
   const heroSurface = useInterfaceVariantSurface<HTMLElement>("PH");
   const activationSurface = useInterfaceVariantSurface<HTMLDivElement>("PA");
@@ -80,16 +78,14 @@ export default function PanelsPage(props: {
 
   const activatePanel = async () => {
     if (customization.mutationBlocked) return;
-    if (activating || !canActivatePanel || (!globalId && !demoPreview)) return;
+    if (activating || !canActivatePanel || !globalId) return;
     const ok = await confirm(
       "purchase",
       t("panels.activate_panel"),
       t("panels.subtitle_price_100"),
     );
     if (!ok) return;
-    // Both PUBLIC DEMO and production use the same UI action. The public Pages
-    // API adapter creates a LOCAL simulated panel and D8 ledger debit; it can
-    // never reach production billing, TON or a real external wallet.
+    // Server-authoritative panel purchase: test and production share one API contract.
     const idk = newIdempotencyKey();
     try {
       await activationMutation.mutateAsync(idk);
@@ -279,7 +275,6 @@ export default function PanelsPage(props: {
             onClick={activatePanel}
             disabled={activating || !canActivatePanel}
             className="efhc-panels-activate efhc-theme03-cta"
-            data-panels-demo-preview={demoPreview ? "read-only" : undefined}
             data-panel-activation-cta="100-efhc"
             data-panel-activation-debit="bonus-first-main-second"
             aria-label={t("panels.buy_panel")}

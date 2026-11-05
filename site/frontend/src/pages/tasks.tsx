@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 
 import { useAuthOwnerGlobalId } from "../auth/AuthSessionProvider";
 import { LayoutContext } from "../components/Layout";
@@ -17,16 +17,6 @@ import { AdManager, adManagerErrorCode } from "../lib/ads/AdManager";
 import { isSystemAdPlacementCode } from "../lib/ads/systemPlacements";
 import type { AdRunPhase } from "../lib/ads/types";
 import { formatD8ToHuman } from "../lib/format";
-import { demoTaskPreviewBalanceD8 } from "../reconstruction/demoTables";
-import { completeDemoAd, completeDemoTask, readDemoAccount, subscribeDemoState } from "../reconstruction/demoUnifiedStore";
-import { useQueryClient } from "@tanstack/react-query";
-import { queryKeys } from "../queries/queryKeys";
-import { useFrozenDemoTables } from "../reconstruction/useFrozenDemoTables";
-import {
-  DEMO_AD_LIMIT, DEMO_AD_SECONDS, DEMO_TASK_STORAGE_KEY,
-  applyDemoTaskAction, demoTaskTotalsD8, freshDemoTaskState, normalizeDemoTaskState,
-  type DemoTaskState,
-} from "../reconstruction/demoTasksSimulation";
 import { taskTemplateByKind, taskTemplateForRecord, taskTemplateTarget } from "../lib/tasks/templates";
 import { newIdempotencyKey } from "../lib/idempotency";
 import { publicApiErrorMessage } from "../lib/publicError";
@@ -60,8 +50,6 @@ function isCompletedStatus(status: string | null | undefined): boolean {
 export default function TasksPage(props: { snap: SyncSnapshot | null }) {
   const t = useT();
   const globalId = useAuthOwnerGlobalId();
-  const queryClient = useQueryClient();
-  const isDemoPreview = useFrozenDemoTables();
   const ctx = useContext(LayoutContext);
   const customization = useInterfaceCustomization();
   const tasksSurface = useInterfaceVariantSurface<HTMLDivElement>("TG", { dotsPlacement: "below" });
@@ -73,44 +61,6 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
   const [adTaskCode, setAdTaskCode] = useState<string | null>(null);
   const [adPhase, setAdPhase] = useState<AdRunPhase | null>(null);
   const [dailyLimitedCodes, setDailyLimitedCodes] = useState<Set<string>>(() => new Set());
-  // Preview state is ONLY stored in the isolated Pages DEMO browser session.
-  // No preview action invokes a real claims, ads, reward or wallet API.
-  const [demoState, setDemoState] = useState<DemoTaskState>(() => freshDemoTaskState());
-  const [demoReady, setDemoReady] = useState(false);
-  const [demoTargetTask, setDemoTargetTask] = useState<TaskCatalogItem | null>(null);
-  const [demoAdSeconds, setDemoAdSeconds] = useState(DEMO_AD_SECONDS);
-  useEffect(() => {
-    if (!isDemoPreview) return;
-    const sync = () => {
-      const account = readDemoAccount();
-      const next = normalizeDemoTaskState({dayUTC:account.ad_date_utc, completed:account.completed_tasks,adViews:account.ad_views});
-      setDemoState(previous => JSON.stringify(previous) === JSON.stringify(next) ? previous : next);
-    };
-    sync();
-    const unsubscribe = subscribeDemoState(sync);
-    setDemoReady(true);
-    return unsubscribe;
-  }, [isDemoPreview]);
-  useEffect(() => {
-    if (!isDemoPreview || !demoReady) return;
-    // Both tasks and the Header/profile read the same Global-ID account.
-    void queryClient.invalidateQueries({ queryKey: queryKeys.snapshot.current(globalId) });
-    void queryClient.invalidateQueries({ queryKey: queryKeys.tasks.earnings(globalId) });
-    void queryClient.invalidateQueries({ queryKey: queryKeys.tasks.mine(globalId) });
-  }, [isDemoPreview, demoReady, demoState, globalId, queryClient]);
-  useEffect(() => {
-    if (!isDemoPreview || !adOpen || adPhase !== "viewing" || demoAdSeconds <= 0) return;
-    const timer = window.setTimeout(() => setDemoAdSeconds((current) => Math.max(0, current - 1)), 1_000);
-    return () => window.clearTimeout(timer);
-  }, [isDemoPreview, adOpen, adPhase, demoAdSeconds]);
-  useEffect(() => {
-    if (!isDemoPreview || !adOpen || adPhase !== "viewing" || demoAdSeconds !== 0) return;
-    completeDemoAd();
-    setAdPhase("rewarded");
-    setMessage("Просмотр завершён.");
-  }, [isDemoPreview, adOpen, adPhase, demoAdSeconds]);
-
-
   const catalogQuery = useTasksCatalog();
   const myTasksQuery = useMyTasks();
   const earningsQuery = useTaskEarnings();
@@ -124,12 +74,6 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
   );
   const loading = catalogQuery.isFetching || (Boolean(globalId) && myTasksQuery.isFetching);
   const hasError = Boolean(catalogQuery.error || (globalId && myTasksQuery.error));
-  const demoTotals = isDemoPreview ? {
-    earned: earningsQuery.data?.total_bonus_earned ?? "0.02000000",
-    remaining: readDemoAccount().bonus_balance,
-  } : null;
-
-
   const templateOf = (item: TaskCatalogItem) =>
     taskTemplateForRecord(item.kind, item.meta || null) || taskTemplateByKind(item.kind);
 
@@ -144,10 +88,6 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
   };
 
   const normalizedStatus = (state: MyTaskItem | undefined, item: TaskCatalogItem): string => {
-    if (isDemoPreview) {
-      if (isAdTask(item)) return demoState.adViews >= DEMO_AD_LIMIT ? "daily_limit" : "available";
-      return demoState.completed.includes(item.code) ? "completed" : "available";
-    }
     if (dailyLimitedCodes.has(item.code)) return "daily_limit";
     if (!globalId) return "unavailable";
     if (state?.status) return state.status;
@@ -155,11 +95,6 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
   };
 
   const canUse = (item: TaskCatalogItem, state: MyTaskItem | undefined): boolean => {
-    if (isDemoPreview) {
-      return !customization.mutationBlocked && (isAdTask(item)
-        ? demoState.adViews < DEMO_AD_LIMIT
-        : !demoState.completed.includes(item.code));
-    }
     if (!globalId || customization.mutationBlocked) return false;
     if (dailyLimitedCodes.has(item.code)) return false;
     if (isAdTask(item)) return READY_AD_STATUSES.has(String(state?.status || "not_started"));
@@ -170,8 +105,6 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
 
 
   const buttonLabel = (item: TaskCatalogItem): string => {
-    if (isDemoPreview && !isAdTask(item) && demoState.completed.includes(item.code)) return "Выполнено";
-    if (isDemoPreview && isAdTask(item) && demoState.adViews >= DEMO_AD_LIMIT) return "Лимит";
     if (busyCode === item.code) return t("common.loading");
     return t("tasks.action_execute");
   };
@@ -198,20 +131,6 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
   };
 
   const executeTask = async (item: TaskCatalogItem, state: MyTaskItem | undefined): Promise<void> => {
-    if (isDemoPreview) {
-      if (customization.mutationBlocked) return;
-      if (isAdTask(item)) {
-        if (demoState.adViews >= DEMO_AD_LIMIT) return;
-        setDemoAdSeconds(DEMO_AD_SECONDS);
-        setAdTaskCode(item.code);
-        setAdPhase("viewing");
-        setAdOpen(true);
-      } else if (!demoState.completed.includes(item.code)) {
-        setDemoTargetTask(item);
-      }
-      return;
-    }
-
     if (isAdTask(item)) {
       await watchAd(item);
       return;
@@ -287,7 +206,6 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
   };
 
   const visibleCatalog = catalog.filter((item) => {
-    if (isDemoPreview) return !isSystemAdPlacementCode(item.code);
     if (isSystemAdPlacementCode(item.code)) return false;
     if (isAdTask(item)) return true;
     const state = statesByTaskId.get(item.id);
@@ -299,11 +217,6 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
     void catalogQuery.refetch();
     void myTasksQuery.refetch();
     void earningsQuery.refetch();
-    if (isDemoPreview) {
-      // Refresh preserves preview progress; only a new browser session resets it.
-      setDemoState((current) => normalizeDemoTaskState(current));
-      setMessage("Задания обновлены.");
-    }
   };
 
   return (
@@ -315,7 +228,6 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
       data-public-surface="tasks"
       data-tasks-runtime="templates-v162"
       data-tasks-cycle0013="react-real-runtime-v892"
-      data-demo-task-mode={isDemoPreview ? "global-id-unified-preview" : undefined}
       data-tg-selection={tasksSurface.selection}
       data-tasks-public-history="forbidden"
       data-eam-family="EAM-TASKS-001"
@@ -323,19 +235,14 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
       <GameHero kicker={t("tasks.standalone_kicker")} title={t("tasks.title")} detail={t("tasks.standalone_detail")}>
         <BonusEarningsStrip
           earnedLabel={t("common.earned_all_time")}
-          earnedValue={formatD8ToHuman(demoTotals?.earned ?? earningsQuery.data?.total_bonus_earned ?? "0")}
+          earnedValue={formatD8ToHuman(earningsQuery.data?.total_bonus_earned ?? "0")}
           remainingLabel={t("common.bonus_remaining")}
-          remainingValue={formatD8ToHuman(demoTotals?.remaining ?? props.snap?.profile?.bonus_balance ?? "0")}
+          remainingValue={formatD8ToHuman(props.snap?.profile?.bonus_balance ?? "0")}
           asset={earningsQuery.data?.bonus_asset ?? "EFHCb"}
-          loading={earningsQuery.isLoading && !isDemoPreview}
+          loading={earningsQuery.isLoading}
         />
       </GameHero>
 
-      {isDemoPreview ? (
-        <div className="efhc-tasks-refresh">
-          <Button variant="secondary" onClick={refresh}>Обновить</Button>
-        </div>
-      ) : null}
       {message ? <GameNotice title={t("common.status")} detail={message} /> : null}
       {hasError && !loading ? (
         <EmptyState title={t("tasks.error_title")} detail={t("tasks.empty_detail")} actionLabel={t("common.refresh")} onAction={refresh} />
@@ -384,35 +291,13 @@ export default function TasksPage(props: { snap: SyncSnapshot | null }) {
       </div>
 
       <Modal
-        open={Boolean(isDemoPreview && demoTargetTask)}
-        onClose={() => setDemoTargetTask(null)}
-        title="Выполнение задания"
-      >
-        <p className="efhc-tasks-demo-description">{demoTargetTask ? titleOf(demoTargetTask) : ""}</p>
-        <p className="efhc-tasks-demo-description">Подтвердите выполнение задания.</p>
-        <div className="efhc-tasks-demo-actions">
-          {demoTargetTask && /^https:\/\//i.test(targetOf(demoTargetTask)) ? (
-            <Button variant="secondary" onClick={() => {
-              const url = targetOf(demoTargetTask);
-              if (/^https:\/\//i.test(url)) window.open(url, "_blank", "noopener,noreferrer");
-            }}>Открыть цель</Button>
-          ) : null}
-          <Button disabled={claimMutation.isPending} onClick={async () => {
-            if (!demoTargetTask) return;
-            await claim(demoTargetTask);
-            setDemoTargetTask(null);
-          }}>Подтвердить</Button>
-          <Button variant="secondary" onClick={() => setDemoTargetTask(null)}>Закрыть</Button>
-        </div>
-      </Modal>
-      <Modal
         open={adOpen}
         onClose={() => { if (busyCode === adTaskCode) return; setAdOpen(false); }}
         closeDisabled={busyCode === adTaskCode}
         title={t("tasks.ad_modal_title")}
       >
         <div className="efhc-ad-countdown" data-ad-countdown="state">
-          {isDemoPreview ? (adPhase === "rewarded" ? "Просмотр завершён" : `Просмотр — ${demoAdSeconds} сек.`) : adPhaseLabel()}
+          {adPhaseLabel()}
         </div>
         <div className="mt-4">
           <Button disabled={busyCode === adTaskCode} onClick={() => setAdOpen(false)} className="w-full">{t("common.close")}</Button>

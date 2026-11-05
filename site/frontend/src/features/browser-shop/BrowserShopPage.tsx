@@ -1,5 +1,4 @@
 import { publicRuntimeValue } from "../../lib/public-runtime";
-import { isLocalDemoActive } from "../../reconstruction/demoPreviewGate";
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { LayoutContext } from "../../components/Layout";
 import { useRouter } from "next/router";
@@ -397,9 +396,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
     if (typeof window === "undefined") return;
     const restoreContext = () => {
       const restored = readInitialContext();
-      if(isLocalDemoActive()){
-        void import("../../reconstruction/demoUnifiedStore").then(store=>setToken(`demo:${store.readDemoAccount().global_id}`));
-      }else setToken(restored.token);
+      setToken(restored.token);
       setSelectedSku(restored.sku);
       setGlobalMethod(restored.method);
     };
@@ -409,7 +406,7 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
     window.addEventListener("hashchange", restoreContext);
     const proofWindow = window as Window & { __EFHC_PUBLIC_VISUAL_PROOF__?: boolean };
     const localHost = ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
-    if (!isLocalDemoActive() && proofWindow.__EFHC_PUBLIC_VISUAL_PROOF__ === true && navigator.webdriver === true && localHost) setVisualProof(true);
+    if (proofWindow.__EFHC_PUBLIC_VISUAL_PROOF__ === true && navigator.webdriver === true && localHost) setVisualProof(true);
     return () => window.removeEventListener("hashchange", restoreContext);
   }, []);
 
@@ -850,22 +847,6 @@ export default function BrowserShopPage({ view = "shop" }: { view?: ShopPageView
     const { item, method } = selection;
     setSelectedSku(item.sku); rememberCheckout(token, item.sku, method);
     setLocalError(""); setLocalNotice(""); setWalletTxPhase("idle"); setEfhcVipPurchased(false); setConfirmedOrderId("");
-    if (isLocalDemoActive()) {
-      try {
-        if (method === "EFHC") {
-          const result = await purchaseEfhc.mutateAsync({sku: item.sku, quantity: 1, idempotencyKey: newIdempotencyKey()});
-          setConfirmedOrderId(shopOrderIdFromUnknown(result));
-          setEfhcVipPurchased(true);
-        } else {
-          const result = await createIntent.mutateAsync({token, sku: item.sku, quantity: 1, pay_method: method,
-            custom_efhc_amount_d8: selection.customEfhcAmountD8 || null, client_nonce: globalThis.crypto.randomUUID()});
-          setActiveIntentId(result.intent_id); setCreatedExpiresAt(result.expires_at);
-        }
-        setCheckout(null);
-        setLocalNotice("Демонстрационная покупка. Реального перевода нет.");
-      } catch { setLocalError(t("portal.browser_shop.efhc_purchase_failed")); }
-      return;
-    }
     const vip = itemType(item) !== "EFHC_PACKAGE";
     if (vip && !token) { await linkWebAccount(selection); return; }
     if (vip && walletSyncRequired && linkedWalletChoices.length > 0) {

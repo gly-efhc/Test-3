@@ -1,4 +1,3 @@
-import { isLocalDemoActive } from "../../reconstruction/demoPreviewGate";
 import React, { useMemo, useState } from "react";
 
 import { AdminPage } from "../../components/admin/AdminPage";
@@ -62,7 +61,7 @@ export default function AdminApiWorkbenchPage() {
       return;
     }
     if (
-      !isLocalDemoActive() && selected.method === "PATCH"
+      selected.method === "PATCH"
       && /^\/admin\/panels\/\d+\/(?:activate|deactivate)$/.test(pathValue)
     ) {
       setResult(

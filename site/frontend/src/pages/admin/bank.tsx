@@ -15,7 +15,6 @@ import {
 } from "../../services/adminLogExport.service";
 
 import {requireBankSnapshot,type AdminBankSnapshot} from "../../lib/adminBankSnapshot";
-import {isLocalDemoActive} from "../../reconstruction/demoPreviewGate";
 
 type OverviewResponse = AdminBankSnapshot;
 
@@ -151,37 +150,6 @@ export default function AdminBankPage() {
     void load();
     return()=>{alive.current=false;};
   }, [load]);
-
-  useEffect(()=>{
-    if(!isLocalDemoActive())return;
-    let active=true,cleanup:undefined|(()=>void);
-    void import("../../reconstruction/demoUnifiedStore").then(store=>{
-      if(!active)return;
-      const sync=()=>{
-        // The first Admin read materializes the shared fixture before returning.
-        // Never publish an intermediate USER-only snapshot while it is in flight.
-        if(!active||inFlight.current)return;
-        const state=store.readDemoState();
-        if(state.scenario==='error'){
-          setMsg(adminSafeLoadError(new Error('SCENARIO_ERROR'),t));return;
-        }
-        const snapshot=state.server?.bank_snapshot;
-        if(!snapshot){void load();return;}
-        try{setOverview(requireBankSnapshot(snapshot));setMsg(null);}
-        catch(error){setMsg(adminSafeLoadError(error,t));}
-      };
-      const storage=(event:StorageEvent)=>{
-        if(event.key!==store.DEMO_STORAGE_KEY&&event.key!==null)return;
-        store.reloadDemoStateFromStorage();sync();
-      };
-      const focus=()=>{store.reloadDemoStateFromStorage();void load();};
-      const unsubscribe=store.subscribeDemoState(sync);
-      window.addEventListener('storage',storage);window.addEventListener('focus',focus);
-      cleanup=()=>{unsubscribe();window.removeEventListener('storage',storage);window.removeEventListener('focus',focus);};
-      sync();
-    });
-    return()=>{active=false;cleanup?.();};
-  },[load,t]);
 
   const facts = overview?.facts || {};
   const integrityReady = facts.bank_metrics_ready === "1";

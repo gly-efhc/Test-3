@@ -27,8 +27,6 @@ def main():
     for p in root.rglob('*'):
         if not p.is_file() or p.suffix not in ('.html', '.css', '.js'):
             continue
-        if p.name == 'efhc-demo-safety.js':
-            continue
         original = p.read_text(encoding='utf-8')
         updated = PATTERN.sub(lambda m: m.group(1) + base + '/' + m.group(2), original)
         if updated != original:

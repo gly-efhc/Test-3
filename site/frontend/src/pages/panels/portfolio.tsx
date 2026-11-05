@@ -16,7 +16,6 @@ import { publicApiErrorMessage } from "../../lib/publicError";
 import { shouldRequestNextPanelPage, type PanelPaginationTrigger } from "../../reconstruction/panelPaginationGate";
 import { usePanelsList } from "../../queries/usePanels";
 import { useT } from "../../hooks/useT";
-import { useDemoGenerationProjection } from "../../hooks/useDemoGenerationProjection";
 import type { SyncSnapshot } from "../../hooks/useSnapshot";
 import { format8 } from "../../lib/format";
 import { hapticSelection } from "../../lib/telegram";
@@ -71,7 +70,6 @@ export default function PanelsPortfolioPage(props: {
   snap: SyncSnapshot | null;
 }) {
   const t = useT();
-  const liveGeneration = useDemoGenerationProjection();
   const { settings } = useContext(LayoutContext);
   const tabsSurface = useInterfaceVariantSurface<HTMLDivElement>("PT");
   const cardsSurface = useInterfaceVariantSurface<HTMLDivElement>("PC");
@@ -437,7 +435,7 @@ export default function PanelsPortfolioPage(props: {
                       {t("panels.generated_kwh")}
                     </div>
                     <div className="font-semibold tabular-nums">
-                      {format8(liveGeneration?.panels[String(p.id)] ?? p.generated_kwh)}
+                      {format8(p.generated_kwh)}
                     </div>
                   </div>
                   <div

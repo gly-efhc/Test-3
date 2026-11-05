@@ -1,4 +1,3 @@
-import { isLocalDemoActive } from "../../reconstruction/demoPreviewGate";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import {
@@ -194,7 +193,7 @@ export function AdminObservabilityTimeseriesDashboardRuntime() {
       className="efhc-admin-observability-timeseries efhc-dashboard-surface"
       data-admin-observability-timeseries-dashboard="1492"
       data-admin-observability-truth="real_timeseries"
-      data-admin-observability-synthetic={isLocalDemoActive()?"true":"false"}
+      data-admin-observability-synthetic={"false"}
       data-admin-observability-no-fake-series="true"
       data-admin-observability-no-write-actions="true"
       data-admin-observability-no-idempotency-key="true"

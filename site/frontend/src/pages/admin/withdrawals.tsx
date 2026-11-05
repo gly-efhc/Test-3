@@ -1,5 +1,4 @@
 import { publicRuntimeValue } from "../../lib/public-runtime";
-import { isLocalDemoActive } from "../../reconstruction/demoPreviewGate";
 import { useAdminLinkedTransport } from "../../queries/useAdminLinkedTransport";
 /* Compatibility marker: Refresh selected case */
 /* Compatibility marker: Repair consistency */
@@ -772,16 +771,6 @@ export default function AdminWithdrawalsPage() {
 
   async function payWithWallet(item: Withdrawal) {
     if (payingId === item.id) return;
-    if (isLocalDemoActive()) {
-      setPayingId(item.id);
-      try {
-        await adminApiRequest(`/admin/withdrawals/${item.id}/approve`, "POST", {body: {reason: "DEMO payout"}, idempotencyKey: newIdk("demo-payout")});
-        await refreshSelectedCase(item.id);
-        setWalletRouteNotice("Демонстрационная выплата завершена. Реального перевода нет.");
-      } catch (error) { setError(adminSafeLoadError(error, t)); }
-      finally { setPayingId(null); }
-      return;
-    }
     setSelectedId(item.id);
     setDecisionOpen(true);
     if (!item.external_address) {

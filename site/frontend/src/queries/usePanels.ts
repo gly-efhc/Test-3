@@ -13,17 +13,13 @@ import {
   type PanelTab,
 } from "../services/panels.service";
 import { queryKeys } from "./queryKeys";
-import { useFrozenDemoTables } from "../reconstruction/useFrozenDemoTables";
-import { demoPanelsSummary, demoPanelsPage } from "../reconstruction/demoTables";
-import { isDemoPreviewEnabled } from "../reconstruction/demoPreviewGate";
 
 export function usePanelsSummary() {
   const globalId = useAuthOwnerGlobalId();
-  const demo = useFrozenDemoTables();
   return useQuery({
     queryKey: queryKeys.panels.summary(globalId),
-    enabled: Boolean(globalId) || demo,
-    queryFn: demo && !isDemoPreviewEnabled() ? demoPanelsSummary : getPanelsSummary,
+    enabled: Boolean(globalId),
+    queryFn: getPanelsSummary,
     staleTime: 10_000,
   });
 }
@@ -33,20 +29,11 @@ export function usePanelsList(
   sortDirection: "oldest" | "newest" = "oldest",
 ) {
   const globalId = useAuthOwnerGlobalId();
-  const demo = useFrozenDemoTables();
   return useInfiniteQuery({
-    // A DEMO sort changes which 20 rows are returned, not merely their order
-    // inside one previously fetched page. Production query keys are unchanged.
-    queryKey: demo
-      ? [...queryKeys.panels.list(globalId, tab), "demo", sortDirection]
-      : queryKeys.panels.list(globalId, tab),
-    enabled: Boolean(globalId) || demo,
+    queryKey: [...queryKeys.panels.list(globalId, tab), sortDirection],
+    enabled: Boolean(globalId),
     initialPageParam: null as string | null,
-    queryFn: ({ pageParam, signal }) => demo
-      ? (isDemoPreviewEnabled()
-        ? getPanelsPage({ tab, cursor: pageParam, signal, demoSortDirection: sortDirection })
-        : Promise.resolve(demoPanelsPage(tab, pageParam, sortDirection)))
-      : getPanelsPage({ tab, cursor: pageParam, signal }),
+    queryFn: ({ pageParam, signal }) => getPanelsPage({ tab, cursor: pageParam, signal }),
     getNextPageParam: (lastPage) => lastPage.next_cursor ?? undefined,
     refetchOnMount: 'always',
   });

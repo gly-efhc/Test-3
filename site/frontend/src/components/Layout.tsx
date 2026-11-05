@@ -25,7 +25,7 @@ import {
 import { InterfaceIndicators } from "./interface-settings/InterfaceIndicators";
 import { GlobalHeader } from "./GlobalHeader";
 import { AppNavIcon } from "./icons/AppNavIcon";
-import { BrowserLoginDemo } from "./BrowserLoginDemo";
+import { BrowserTelegramLogin } from "./BrowserTelegramLogin";
 import { getUserLevel } from "../lib/skins";
 import { useWalletsMe } from "../hooks/useWalletsMe";
 import { queryKeys } from "../queries/queryKeys";
@@ -320,7 +320,7 @@ export function Layout(
       window.removeEventListener("resize", syncBottomNavViewport);
     };
   }, [isAdminRoute]);
-  const showBrowserLoginDemo = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" && !props.telegramProviderId &&
+  const showBrowserTelegramLogin = (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" || process.env.NEXT_PUBLIC_EFHC_DATA_SOURCE === "demo_backend") && !props.telegramProviderId &&
     router.pathname !== "/browser-shop" &&
     !isAdminRoute;
 
@@ -771,7 +771,7 @@ export function Layout(
               : "var(--efhc-user-bottom-nav-boundary)",
           }}
         >
-          {showBrowserLoginDemo ? <BrowserLoginDemo t={t} /> : null}
+          {showBrowserTelegramLogin ? <BrowserTelegramLogin t={t} /> : null}
           {props.children}
         </FrontendShellMain>
         </FrontendShellFrame>

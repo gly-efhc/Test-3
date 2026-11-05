@@ -24,8 +24,10 @@ def main():
     base = args.base_path.rstrip('/')
     if base and base + '/_next/' not in content:
         raise ValueError('Next static asset basePath was not applied')
-    if not (root / 'efhc-demo-safety.js').is_file():
-        raise ValueError('Isolated DEMO bootstrap file missing')
+    if not (root / 'public-runtime-config.js').is_file():
+        raise ValueError('Public runtime bootstrap file missing')
+    if (root / 'efhc-demo-safety.js').exists():
+        raise ValueError('Obsolete browser DEMO bootstrap is forbidden')
     forbidden = [
         p for p in root.rglob('*')
         if p.is_file() and (

@@ -1,4 +1,3 @@
-import { isLocalDemoActive } from "../../reconstruction/demoPreviewGate";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { formatD8ToHuman } from "../../lib/format";
 
@@ -218,7 +217,7 @@ export function AdminDomainReportsDashboardRuntime() {
       className="efhc-admin-domain-reports efhc-dashboard-surface"
       data-admin-domain-reports="1719"
       data-admin-domain-reports-truth="Реальные данные по времени"
-      data-admin-domain-reports-synthetic={isLocalDemoActive()?"true":"false"}
+      data-admin-domain-reports-synthetic={"false"}
       data-admin-domain-reports-owner="global_id"
     >
       <AdminDashboardToolbar
