@@ -63,6 +63,31 @@ const freshReferral=(globalId:string,index:number,active:boolean)=>{
   invited_at:time,activated_at:active?time:null,is_active:active,total_generated_kwh:active?"120.00000000":zero,panels_count:active?1:0};
 };
 function referralStats(a:DemoAccountState){
+ const links=readDemoState().server?.settings.neon_referrals as Record<string,unknown>[]|undefined;
+ if(links){
+  const own=links.filter(r=>r.inviter_global_id===a.global_id);
+  const active=own.filter(r=>r.activated_at).length,inactive=own.length-active;
+  const requirements=[10,100,1000,3000,10000],rewards=['1','10','100','300','1000'];
+  const level=requirements.filter(n=>active>=n).length;
+  const total=a.ledger.filter(r=>r.reason==='referral_bonus'&&r.direction==='credit').reduce((n,r)=>n+d8(r.amount_efhc),0n);
+  const direct=BigInt(active)*d8('0.1');
+  const steps=requirements.map((required,i)=>({level:i+1,required_active:required,
+    level_bonus:formatD8(d8(rewards[i])),direct_bonus_total:formatD8(BigInt(Math.min(required,10000))*d8('0.1')),
+    cumulative_level_bonus:formatD8(rewards.slice(0,i+1).reduce((v,n)=>v+d8(n),0n)),
+    cumulative_total_reward:formatD8(BigInt(Math.min(required,10000))*d8('0.1')+
+      rewards.slice(0,i+1).reduce((v,n)=>v+d8(n),0n))}));
+  const next=requirements[level]??10000,previous=level?requirements[level-1]:0;
+  return {bonus_balance:a.bonus_balance,referrals_bonus_total:formatD8(total),total_referrals:own.length,
+   active_referrals:active,inactive_referrals:inactive,level,current_level_min:previous,next_level:Math.min(level+1,5),
+   next_level_min:next,refs_to_next:Math.max(0,next-active),
+   progress:next>previous?(active-previous)/(next-previous):1,unit_bonus_per_active:'0.10000000',
+   direct_bonus_total:formatD8(direct),cumulative_level_bonus:formatD8(total-direct),
+   cumulative_total_reward:formatD8(total),max_active_for_unit_bonus:10000,
+   bonus_asset:'EFHCb',full_cycle_direct_bonus:'1000.00000000',full_cycle_level_bonus:'1411.00000000',
+   full_cycle_total_bonus:'2411.00000000',level_steps:steps,referral_code:a.global_id,
+   referral_link:`https://t.me/efhc_bot/app?startapp=${a.global_id}`};
+ }
+
  const active=17,inactive=7,next=100;
  const steps=[1,2,3,4,5].map((level,i)=>({level,required_active:[10,100,1000,3000,10000][i],
   level_bonus:["1.00000000","10.00000000","100.00000000","300.00000000","1000.00000000"][i],
@@ -183,7 +208,17 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
  const route=new URL(path,"https://efhc.preview.invalid");
  const p=route.pathname.replace(/^\/api(?=\/)/,"");
  const q=route.searchParams,control=readDemoState();
- if(isNeonPagesDemo()&&p==="/admin/logs/transfers"&&method.toUpperCase()==="GET"){
+ if(isNeonPagesDemo()&&p==="/exchange/history"&&method.toUpperCase()==="GET"&&control.server?.settings?.neon_seed_revision){
+   const {getNeonExchangePage}=await import("./neonDemoDataApi");
+   const gid=control.selected_global_id,local=control.accounts[gid]?.exchanges||[];
+   const offset=Number(q.get("cursor")||"0"),limit=Math.min(100,Math.max(1,Number(q.get("limit")||50)));
+   if(!Number.isSafeInteger(offset)||offset<0)throw new PreviewApiError(400,"BAD_CURSOR");
+   const localRows=local.slice(offset,offset+limit),remaining=limit-localRows.length;
+   if(!remaining)return {items:localRows,next_cursor:String(offset+limit)};
+   const sql=await getNeonExchangePage(gid,Math.max(0,offset-local.length),remaining);
+   return {items:[...localRows,...sql.items],next_cursor:localRows.length+sql.items.length===limit?String(offset+limit):null};
+  }
+  if(isNeonPagesDemo()&&p==="/admin/logs/transfers"&&method.toUpperCase()==="GET"){
   const {getNeonAdminLedgerPage}=await import("./neonDemoDataApi");
   const offset=Number(q.get("cursor")||"0"),limit=Math.min(100,Math.max(1,Number(q.get("limit")||50)));
   return getNeonAdminLedgerPage(q.get("global_id"),offset,limit);
@@ -304,7 +339,16 @@ export async function demoApiRequest(path:string,method:string,body:unknown=unde
  }
  if(p==="/referrals/stats/me"&&readOnly)return empty?{...referralStats(a),total_referrals:0,active_referrals:0,inactive_referrals:0,level:0,refs_to_next:10,progress:0}:referralStats(a);
  if((p==="/referrals/active/me"||p==="/referrals/inactive/me")&&readOnly){
-  const active=p.includes("/active/");const size=active?17:7;const rows=empty?[]:Array.from({length:size},(_,i)=>freshReferral(a.global_id,active?i:17+i,active));
+  const active=p.includes("/active/"),links=control.server?.settings.neon_referrals as Record<string,unknown>[]|undefined;
+  if(links){
+   const rows=links.filter(r=>r.inviter_global_id===a.global_id&&Boolean(r.activated_at)===active)
+     .map(r=>{const gid=String(r.invitee_global_id),child=control.accounts[gid];
+      return {child_global_id:gid,global_id:gid,username:child?.username||gid,
+       joined_at:r.created_at,invited_at:r.created_at,activated_at:r.activated_at,is_active:active,
+       total_generated_kwh:child?.total_generated_kwh||zero,panels_count:child?.panels?.length||0};});
+   return cursorPage(empty?[]:rows,q);
+  }
+  const size=active?17:7;const rows=empty?[]:Array.from({length:size},(_,i)=>freshReferral(a.global_id,active?i:17+i,active));
   return cursorPage(rows,q);
  }
  if(p==="/wallets/me"&&readOnly)return walletPayload(control.scenario==="no_wallet"?{...a,wallets:[]}:a);
