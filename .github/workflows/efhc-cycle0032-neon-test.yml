@@ -40,6 +40,31 @@ jobs:
       - name: Install smoke dependency
         shell: bash
         run: python -m pip install --disable-pip-version-check 'psycopg[binary]>=3.2,<4'
+      - name: Diagnose configured secrets without disclosing values
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          raw = os.environ.get("NEON_TEST_DSN", "").strip()
+          token = os.environ.get("NEON_API_TOKEN", "").strip()
+          origin = "postgresql" if raw.startswith(("postgresql://", "postgres://", "postgresql+asyncpg://")) else ("name_or_other" if raw else "absent")
+          expected = "fragrant-mountain-35143707"
+          project = os.environ.get("STAGING_PROJECT_ID", "").strip()
+          asserted = os.environ.get("STAGING_EXPECTED_PROJECT_ID", "").strip()
+          lines = [
+              "EFHC_CYCLE0032_STAGING_DIAGNOSTIC",
+              "database_secret_present=" + str(bool(raw)).lower(),
+              "database_secret_format=" + origin,
+              "api_key_secret_present=" + str(bool(token)).lower(),
+              "project_secret_present=" + str(bool(project)).lower(),
+              "project_matches_test=" + str(project == expected).lower(),
+              "expected_project_secret_present=" + str(bool(asserted)).lower(),
+              "expected_project_matches_test=" + str(asserted == expected).lower(),
+          ]
+          Path(os.environ["RUNNER_TEMP"], "efhc-staging-diagnostic.txt").write_text("\n".join(lines)+"\n", encoding="utf-8")
+          print("EFHC_STAGING_SECRET_DIAG_WRITTEN")
+          PY
       - name: Check exact TEST Neon branch and existing EFHC tables without writes
         shell: bash
         run: |
@@ -121,3 +146,12 @@ jobs:
                   print(f"EFHC_NEON_TEST_READONLY_PASS tables={tables} views={views} users={users} panels={panels} ledger={ledger} snapshots={snapshots}")
               connection.rollback()
           PY
+
+      - name: Upload redacted staging diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cycle0032-neon-secret-diagnostics
+          path: ${{ runner.temp }}/efhc-staging-diagnostic.txt
+          if-no-files-found: error
+          retention-days: 1
