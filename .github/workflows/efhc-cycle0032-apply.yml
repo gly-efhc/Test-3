@@ -113,6 +113,9 @@ jobs:
           rm -- .efhc-cycle0032/import_payload.b64.txt
           printf '\nsite/frontend/node_modules/\n' >> .git/info/exclude
           git add -A
+          # Contents-only workflow token cannot commit .github/workflows changes.
+          # Two updated workflow files are applied by the authorized GitHub connector.
+          git restore --staged -- .github/workflows/efhc-pages.yml .github/workflows/efhc-parity.yml
           # Markdown hard-line break is valid; keep byte-identical README from local package.
           git diff --cached --check -- . ':(exclude)demo_backend/README.md'
           git commit -m 'feat(cycle0032): server-side demo_backend and React API migration [efhc-cycle0032-apply]'
