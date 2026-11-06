@@ -635,6 +635,11 @@ function AppInner(props: {
     });
   }, [shellProgress]);
 
+  // TEST Pages loads its real short-lived preview session asynchronously.
+  // Never redirect deep Admin links while this bootstrap is pending.
+  const isOpenTestPagesRuntime =
+    process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" &&
+    process.env.NEXT_PUBLIC_EFHC_DATA_SOURCE === "demo_backend";
   const isAdminRoute = Boolean(effectiveAdminVisualProofPath)
     || router.pathname === "/admin"
     || router.pathname.startsWith("/admin/");
@@ -642,14 +647,17 @@ function AppInner(props: {
   const adminRouteBlocked = isAdminRoute
     && adminGuardCanDecide
     && !isAdmin
-    && !effectiveAdminVisualProofPath;
+    && !effectiveAdminVisualProofPath
+    && (!isOpenTestPagesRuntime || authSession.status === "error");
   const adminRouteChecking = isAdminRoute
-    && !adminGuardCanDecide
-    && !effectiveAdminVisualProofPath;
+    && !isAdmin
+    && !effectiveAdminVisualProofPath
+    && !adminRouteBlocked;
 
   useEffect(() => {
     if (
       effectiveAdminVisualProofPath
+      || isOpenTestPagesRuntime
       || !isAdminRoute
       || !adminGuardCanDecide
       || isAdmin
@@ -662,6 +670,7 @@ function AppInner(props: {
     effectiveAdminVisualProofPath,
     isAdmin,
     isAdminRoute,
+    isOpenTestPagesRuntime,
     router,
   ]);
 
