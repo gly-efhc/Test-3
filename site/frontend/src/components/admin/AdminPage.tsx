@@ -50,7 +50,7 @@ export function AdminPage(
     void adminApiRequest<unknown>(ADMIN_REPORTS_OVERVIEW_PATH, "GET").catch(() => undefined);
   }, [adminApiRequest, ctx.isAdmin, props.refreshBankSnapshot, router.pathname]);
 
-  if (typeof ctx.isAdmin === "boolean" && !ctx.isAdmin) {
+  if (!ctx.canRenderAdminPage && typeof ctx.isAdmin === "boolean" && !ctx.isAdmin) {
     return (
       <div
         ref={adminThemeSurface.ref}

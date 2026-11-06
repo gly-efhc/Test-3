@@ -15,14 +15,15 @@ export function BonusEarningsStrip(props: Props) {
     <div
       className="efhc-bonus-earnings-strip"
       data-bonus-earnings-strip="earned-and-remaining"
+      aria-busy={props.loading || undefined}
     >
       <div className="efhc-bonus-earnings-row" data-bonus-metric="earned">
         <span>{props.earnedLabel} · {asset}</span>
-        <strong>{props.loading ? "…" : props.earnedValue}</strong>
+        <strong>{props.earnedValue}</strong>
       </div>
       <div className="efhc-bonus-earnings-row" data-bonus-metric="remaining">
         <span>{props.remainingLabel} · {asset}</span>
-        <strong>{props.loading ? "…" : props.remainingValue}</strong>
+        <strong>{props.remainingValue}</strong>
       </div>
     </div>
   );

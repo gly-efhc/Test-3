@@ -9,6 +9,7 @@
 import {localPagesBase} from './pages-base.mjs';
 import {verifyPortfolioThemeHeights} from './portfolio-theme-height.mjs';
 import {verifyHeaderMaterials} from './header-material.mjs';
+import {verifyStaticPages} from './static-pages.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {createRequire} from 'node:module';
@@ -51,6 +52,10 @@ async function assertUserShell(){
 }
 const userRoutes=['','panels/','exchange/','referrals/','tasks/','ranks/','hub/','web-profile/','faq/'];
 try{
+  await check('every static route retains controls through auth and API failures',async()=>{
+    const matrix=await verifyStaticPages({base,artifacts:dir,widths:[390,1440],modes:['offline','slow','401','403','500','malformed']});
+    assert.equal(matrix.length,154);
+  });
   for(const route of userRoutes)await check('offline keeps USER page '+(route||'home'),async()=>{
     await visit(route);
     await assertUserShell();

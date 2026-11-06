@@ -202,6 +202,7 @@ export function AuthSessionProvider(props: {
       const context = await fetchAuthSessionContext();
       setState({status: "authenticated", context, errorCode: null});
     })().catch((error) => {
+      guestBootstrapStarted.current = false;
       clearDemoSession();
       clearAuthSession();
       setState({status: "error", context: null, errorCode: errorCode(error)});
@@ -241,7 +242,7 @@ export function AuthSessionProvider(props: {
       const status=stateRef.current.status;
       if(status==="restoring"||status==="authenticating"||status==="authenticated")return;
       if(getTelegramInitData()&&needsTelegramOwnerResolution())void loginTelegram().catch(()=>undefined);
-      else if(readAuthSession())void restoreSession();
+      else if(readAuthSession()||isDemoBackendMode())void restoreSession();
     };
     window.addEventListener("efhc:activity-sync",activity);
     return()=>window.removeEventListener("efhc:activity-sync",activity);
@@ -319,8 +320,8 @@ export function useAuthOwnerGlobalId(): AuthSessionContext["global_id"] | null {
   const authenticated = session.status === "authenticated" ? session.context?.global_id ?? null : null;
   const [cachedId, setCachedId] = useState<AuthSessionContext["global_id"] | null>(null);
   useEffect(() => {
-    // DEMO ownership is always server-session-derived, never local browser state.
-    if (isDemoBackendMode()) { setCachedId(null); return; }
+    // This association was recorded from a validated server session. It keeps
+    // same-owner display/cache stable through transport failures, not API rights.
     const update = () => setCachedId(resolvedDisplayOwner());
     update();
     return subscribeDisplayOwner(update);

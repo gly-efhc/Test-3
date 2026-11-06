@@ -6,11 +6,7 @@ import type { FaqCatalog } from "../../data/faq/types";
 import type { Lang } from "../../lib/i18n";
 import { emitRuntimeProgress } from "../../lib/runtimeProgress";
 import { queryKeys } from "../../queries/queryKeys";
-
-const EMPTY_CATALOG: FaqCatalog = {
-  sections: [],
-  title: "EFHC FAQ",
-};
+import initialCatalog from "../../../public/faq/en.json";
 
 function isFaqCatalog(value: unknown): value is FaqCatalog {
   if (!value || typeof value !== "object") return false;
@@ -101,7 +97,9 @@ export function useFaqCatalog(lang: Lang) {
   }, [query.data]);
 
   return {
-    catalog: query.data || EMPTY_CATALOG,
+    // The checked-in English release catalog renders identically in SSR and
+    // the first client frame. Locale/cache refresh may replace data afterward.
+    catalog: query.data || initialCatalog as FaqCatalog,
     error: query.error instanceof Error
       ? query.error.message
       : null,

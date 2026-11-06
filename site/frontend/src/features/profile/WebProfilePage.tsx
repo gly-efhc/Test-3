@@ -323,7 +323,7 @@ export default function WebProfilePage(props: Props) {
         </button>
         <strong>{t("profile.page_title")}</strong>
         <div className="efhc-profile-topbar_actions">
-          {ctx.isAdmin ? (
+          {ctx.canRenderAdminPage || ctx.isAdmin ? (
             <button
               type="button"
               onClick={() => void router.push("/admin")}

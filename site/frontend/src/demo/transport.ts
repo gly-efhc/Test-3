@@ -1,9 +1,10 @@
 /** Neon TEST remote API: same route + payload + response schemas as production. */
-import { clearAuthSession, getAuthAuthorizationHeader } from "../lib/auth-session";
+import { getAuthAuthorizationHeader } from "../lib/auth-session";
 import { ApiError, normalizeApiPath, type ApiRequestOptions, type HttpMethod } from "../lib/api";
 import { type ApiTransport } from "../data/transport";
 import { demoApiOrigin } from "./config";
-import { clearDemoSession, currentDemoSessionScope, sessionCsrf } from "./session";
+import { invalidateDemoCredential, currentDemoSessionScope, sessionCsrf } from "./session";
+import { demoFetch } from "./request";
 
 export async function demoRawRequest(
   path: string, method: HttpMethod, options: ApiRequestOptions = {},
@@ -21,14 +22,14 @@ export async function demoRawRequest(
   if (options.requestId) headers["X-Request-ID"] = options.requestId;
   if (method !== "GET" && !guest &&
       normalized !== "/api/staging/login" && normalized !== "/api/staging/guest") {
-    headers["X-EFHC-Test-CSRF"] = await sessionCsrf().catch(() => "");
+    headers["X-EFHC-Test-CSRF"] = await sessionCsrf();
   }
   if (options.body !== undefined) headers["Content-Type"] = "application/json";
-  const response = await fetch(`${demoApiOrigin()}${endpoint}`, {
+  const response = await demoFetch(`${demoApiOrigin()}${endpoint}`, {
     method, headers, credentials: "include", cache: "no-store", signal: options.signal,
     body: options.body === undefined ? undefined : JSON.stringify(options.body),
   });
-  if (response.status === 401) { clearDemoSession(); if (bearer) clearAuthSession(); }
+  if (response.status === 401) invalidateDemoCredential(headers.Authorization || null);
   return response;
 }
 

@@ -4,6 +4,7 @@
  * No password, cookie, or bearer token is put in the public build or logs. */
 import { clearAuthSession, getAuthAuthorizationHeader, storeAuthSession } from "../lib/auth-session";
 import { demoApiOrigin } from "./config";
+import { demoFetch } from "./request";
 let csrf: string | null = null;
 const DEMO_SCOPE_KEY = "efhc.demo.session.scope.v1";
 type DemoScope = "guest" | "operator" | "preview";
@@ -36,6 +37,13 @@ type IssuedDemoSession = SessionInfo & {
 };
 
 export function clearDemoSession(): void { csrf = null; setDemoSessionScope(null); }
+/** Only the credential used by the failed request can be invalidated.
+ * A delayed 401 must not revoke a newer login/owner selected in this tab. */
+export function invalidateDemoCredential(authorization: string | null): void {
+  if (getAuthAuthorizationHeader() !== authorization) return;
+  clearDemoSession();
+  if (authorization) clearAuthSession();
+}
 export function isDemoBackendMode(): boolean {
   return process.env.NEXT_PUBLIC_EFHC_DATA_SOURCE === "demo_backend";
 }
@@ -62,12 +70,12 @@ function acceptIssuedDemoSession(value: IssuedDemoSession): SessionInfo {
 }
 
 export async function sessionInfo(): Promise<SessionInfo> {
-  const response = await fetch(`${demoApiOrigin()}/api/staging/session`, {
-    credentials: "include", cache: "no-store", headers: authorizationHeaders(),
+  const headers = authorizationHeaders();
+  const response = await demoFetch(`${demoApiOrigin()}/api/staging/session`, {
+    credentials: "include", cache: "no-store", headers,
   });
   if (response.status === 401) {
-    clearDemoSession();
-    clearAuthSession();
+    invalidateDemoCredential(headers.Authorization || null);
     throw new Error("EFHC_DEMO_SESSION_REQUIRED");
   }
   if (!response.ok) throw new Error(`EFHC_DEMO_SESSION_HTTP_${response.status}`);
@@ -87,14 +95,11 @@ async function writeControl<T>(route: string, body?: unknown, login = false): Pr
     ...(!login ? authorizationHeaders() : {}),
   };
   if (!login) headers["X-EFHC-Test-CSRF"] = await sessionCsrf();
-  const response = await fetch(`${demoApiOrigin()}/api/staging/${route}`, {
+  const response = await demoFetch(`${demoApiOrigin()}/api/staging/${route}`, {
     method: "POST", credentials: "include", cache: "no-store", headers,
     body: body === undefined ? undefined : JSON.stringify(body),
   });
-  if (response.status === 401) {
-    clearDemoSession();
-    clearAuthSession();
-  }
+  if (response.status === 401 && !login) invalidateDemoCredential(headers.Authorization || null);
   if (!response.ok) throw new Error(`EFHC_DEMO_${route.toUpperCase()}_HTTP_${response.status}`);
   const value = await response.json() as T;
   if (value && typeof value === "object" && "csrf" in value &&

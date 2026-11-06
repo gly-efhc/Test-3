@@ -28,7 +28,7 @@ function harness({origin='https://demo-api.example.org',auth='Bearer TEST_OPERAT
    clearAuthSession:()=>{cleared++;issued=null;},
   },
  };
- const context=vm.createContext({process:{env},URL,URLSearchParams,AbortController,AbortSignal,Response,Headers,Blob,console,Promise,Date,Error,JSON,fetch:async(url,opts={})=>{
+ const context=vm.createContext({process:{env},URL,URLSearchParams,AbortController,AbortSignal,Response,Headers,Blob,console,Promise,Date,Error,JSON,setTimeout,clearTimeout,fetch:async(url,opts={})=>{
   calls.push({url:String(url),options:opts});
   if(onRequest)return onRequest(String(url),opts);
   if(String(url).endsWith('/api/staging/session'))return Response.json({ok:true,global_id:issued?.access_token?.startsWith('S')?'0000000088':'0000000002',csrf:issued?.access_token?.startsWith('S')?'next-csrf':'csrf-token',mode:'operator'});
@@ -139,4 +139,36 @@ test('C0034 public TEST preview is server-issued for owner 0000000088 and can ca
  await tr.demoRawRequest('/admin/access','GET');
  assert.equal(h.calls[1].url,'https://demo-api.example.org/api/admin/access');
  assert.equal(h.calls[1].options.headers.Authorization,'Bearer '+'P'.repeat(64));
+});
+
+test('late 401 from an older request must not revoke a newly issued TEST session',async()=>{
+ let finish;
+ const pendingResponse=new Promise(resolve=>{finish=resolve;});
+ const h=harness({onRequest:async(url)=>{
+  if(url.endsWith('/api/staging/guest'))return Response.json({ok:true,global_id:'0000000088',csrf:'fresh-csrf',mode:'neon-test-preview',scope:'preview',demo_bearer_token:'N'.repeat(64),expires_at_epoch:Math.floor(Date.now()/1000)+3600});
+  return pendingResponse;
+ }});
+ const transport=h.load('demo/transport.ts');
+ const rejected=assert.rejects(transport.demoBackendTransport.request('/wallets/me','GET',{}),e=>e.status===401);
+ await h.load('demo/session.ts').loginDemoGuest();
+ finish(Response.json({detail:'old request expired'},{status:401}));await rejected;
+ assert.equal(h.cleared,0,'an old response must not destroy the newer session');
+});
+
+test('a failed operator password must preserve the existing TEST preview session',async()=>{
+ const h=harness({onRequest:async()=>Response.json({detail:'DEMO_BAD_CREDENTIALS'},{status:401})});
+ await assert.rejects(h.load('demo/session.ts').loginDemo('wrong'),/HTTP_401/);
+ assert.equal(h.cleared,0,'invalid replacement credentials do not revoke the current session');
+});
+
+test('401 for an explicit Authorization override never revokes another current credential',async()=>{
+ const h=harness({onRequest:async()=>Response.json({detail:'expired other token'},{status:401})});
+ await assert.rejects(h.load('demo/transport.ts').demoBackendTransport.request('/wallets/me','GET',{headers:{Authorization:'Bearer OTHER_SESSION'}}),e=>e.status===401);
+ assert.equal(h.cleared,0);
+});
+
+test('failed CSRF synchronization does not send a protected operation with an empty proof',async()=>{
+ const h=harness({onRequest:async()=>Response.json({detail:'unavailable'},{status:503})});
+ await assert.rejects(h.load('demo/transport.ts').demoBackendTransport.request('/panels/activate','POST',{}));
+ assert.equal(h.calls.length,1,'stop at failed CSRF session read, do not submit the operation');
 });

@@ -243,9 +243,8 @@ jobs:
             | tee "$RUNNER_TEMP/efhc-pages-diagnostics/verify-export.log"
 
       # Full browser persistence is optional during active frontend development.
-      - name: Review persistent pages under data failure (full review only)
-        if: ${{ inputs.full_review == true }}
-        timeout-minutes: 5
+      - name: Require every static page under authentication and data failure
+        timeout-minutes: 8
         env:
           EFHC_BROWSER_TOOLS: ${{ runner.temp }}/efhc-browser-tools/package.json
           EFHC_PARITY_ARTIFACTS: ${{ runner.temp }}/efhc-persistence-artifacts
@@ -262,8 +261,8 @@ jobs:
           export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
           export EFHC_REACT_URL="http://127.0.0.1:19245/${GITHUB_REPOSITORY#*/}/"
           node site/frontend/tests/parity/persistent-pages.mjs
-      - name: Retain optional persistence review
-        if: ${{ always() && inputs.full_review == true }}
+      - name: Retain mandatory persistence evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: efhc-persistence-${{ github.run_id }}-${{ github.run_attempt }}

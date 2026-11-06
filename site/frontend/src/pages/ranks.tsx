@@ -222,9 +222,7 @@ export default function RanksPage(props: {
           data-ranks-my-card="true"
           data-ranks-show-me-boundary="v049"
         >
-          {rankQ.isLoading ? (
-            <Skeleton className="h-8" />
-          ) : (
+          {(
             <RankRow
               item={me}
               hiddenLabel={hiddenLabel}
@@ -272,7 +270,7 @@ export default function RanksPage(props: {
             variant="secondary"
             data-ranks-show-me-action="load-and-focus-neighbors"
             data-ranks-active={focusMode ? "true" : "false"}
-            disabled={findingMe || rankQ.isLoading}
+            disabled={findingMe}
             onClick={() => void findMe()}
           >
             {findingMe ? t("common.loading") : t("ranks.find_me")}

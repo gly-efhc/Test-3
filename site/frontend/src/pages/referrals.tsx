@@ -11,7 +11,6 @@ import {
   GameStat,
   GameStatsGrid,
 } from "../components/ui/GameShell";
-import { Skeleton } from "../components/ui/Skeleton";
 import { BonusEarningsStrip } from "../components/ui/BonusEarningsStrip";
 import { useT } from "../hooks/useT";
 import { useInterfaceVariantSurface } from "../hooks/useInterfaceVariantSurface";
@@ -141,22 +140,22 @@ export default function ReferralsPage(props: {
         <GameStatsGrid compact>
           <GameStat
             label={t("referrals.active")}
-            value={stats ? stats.active_referrals : "—"}
+            value={stats?.active_referrals ?? 0}
           />
           <GameStat
             label={t("referrals.inactive")}
-            value={stats ? stats.inactive_referrals : "—"}
+            value={stats?.inactive_referrals ?? 0}
           />
           <GameStat
             label={t("referrals.total")}
-            value={stats ? stats.total_referrals : "—"}
+            value={stats?.total_referrals ?? 0}
           />
         </GameStatsGrid>
         <BonusEarningsStrip
           earnedLabel={t("common.earned_all_time")}
-          earnedValue={stats ? formatD8ToHuman(stats.referrals_bonus_total) : "—"}
+          earnedValue={formatD8ToHuman(stats?.referrals_bonus_total ?? "0")}
           remainingLabel={t("common.bonus_remaining")}
-          remainingValue={stats ? formatD8ToHuman(stats.bonus_balance) : "—"}
+          remainingValue={formatD8ToHuman(stats?.bonus_balance ?? "0")}
           asset={stats?.bonus_asset ?? "EFHCb"}
           loading={statsQ.isLoading}
         />
@@ -236,14 +235,9 @@ export default function ReferralsPage(props: {
       >
         <div className="efhc-referral-level-heading">
           <h2 className="efhc-referral-card-title">{t("referrals.achievement_levels_title")}</h2>
-          <span className="efhc-referral-level-pill"><span data-i18n-fixed-token="Lvl">Lvl</span> {stats ? stats.level : "—"}</span>
+          <span className="efhc-referral-level-pill"><span data-i18n-fixed-token="Lvl">Lvl</span> {stats?.level ?? 0}</span>
         </div>
-        {statsQ.isLoading ? (
-          <div className="grid gap-3">
-            <Skeleton className="h-6" />
-            <Skeleton className="h-3" />
-          </div>
-        ) : (
+        {(
           <div className="grid gap-3">
             <div
               className="efhc-energy-progress-track"
@@ -273,7 +267,7 @@ export default function ReferralsPage(props: {
                 <span style={{ width: achievementProgressPct }} />
               </div>
               <div className="efhc-referral-achievement-nodes">
-                {(stats?.level_steps ?? []).map((step) => {
+                {(stats?.level_steps ?? [1, 2, 3, 4, 5].map(level => ({level, required_active: 0}))).map((step) => {
                   const reached = (stats?.level ?? 0) >= step.level;
                   const next = stats?.next_level === step.level;
                   return (

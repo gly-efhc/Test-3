@@ -48,6 +48,7 @@ import type { InterfaceAppMode, InterfaceVariantGroup } from
 import { useAvatarPreference } from "../queries/useAvatarPreference";
 import { getThemePageDescriptor } from "../lib/themePageRegistry";
 import { sameTonAddress } from "../lib/wallet-provider/primaryWalletRouting";
+import { isDemoBackendMode } from "../demo/session";
 
 export type LayoutContextValue = {
   lang: Lang;
@@ -55,6 +56,8 @@ export type LayoutContextValue = {
   td: (k: string) => string;
   isVip: boolean;
   isAdmin: boolean;
+  /** Presentation only; TEST API authorization remains server controlled. */
+  canRenderAdminPage?: boolean;
   appMode: InterfaceAppMode;
   settings: UserSettings;
   setLang: (l: Lang) => void;
@@ -320,7 +323,7 @@ export function Layout(
       window.removeEventListener("resize", syncBottomNavViewport);
     };
   }, [isAdminRoute]);
-  const showBrowserTelegramLogin = (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" || process.env.NEXT_PUBLIC_EFHC_DATA_SOURCE === "demo_backend") && !props.telegramProviderId &&
+  const showBrowserTelegramLogin = process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" && !props.telegramProviderId &&
     router.pathname !== "/browser-shop" &&
     !isAdminRoute;
 
@@ -663,6 +666,7 @@ export function Layout(
         td,
         isVip: props.isVip,
         isAdmin: props.isAdmin,
+        canRenderAdminPage: props.isAdmin || (process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1" && isDemoBackendMode()),
         appMode,
         settings: props.settings,
         setLang: props.setLang,

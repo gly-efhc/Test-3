@@ -447,7 +447,7 @@ export default function AdminUsersPage() {
     }
   }
 
-  if (typeof ctx.isAdmin === "boolean" && !ctx.isAdmin) {
+  if (!ctx.canRenderAdminPage && typeof ctx.isAdmin === "boolean" && !ctx.isAdmin) {
     return (
       <div className="efhc-profile-page efhc-admin-user-profile" data-admin-page-marker="ADM-01" data-eam-family="EAM-ADMIN-001">
         <TelegramEmptyState title="Пользователь" detail="Доступ запрещён." />
