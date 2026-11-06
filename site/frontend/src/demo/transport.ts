@@ -3,22 +3,28 @@ import { clearAuthSession, getAuthAuthorizationHeader } from "../lib/auth-sessio
 import { ApiError, normalizeApiPath, type ApiRequestOptions, type HttpMethod } from "../lib/api";
 import { type ApiTransport } from "../data/transport";
 import { demoApiOrigin } from "./config";
-import { clearDemoSession, sessionCsrf } from "./session";
+import { clearDemoSession, isDemoGuestSession, sessionCsrf } from "./session";
 
 export async function demoRawRequest(
   path: string, method: HttpMethod, options: ApiRequestOptions = {},
 ): Promise<Response> {
+  const guest = isDemoGuestSession();
+  const normalized = normalizeApiPath(path);
+  // Public DEMO is a read-only preview: never run fresh=1 generation on entry.
+  // The server independently enforces this request boundary.
+  const endpoint = guest && method === "POST" && normalized.split("?")[0] === "/api/sync/me"
+    ? "/api/sync/me?fresh=0" : normalized;
   const headers: Record<string, string> = { ...(options.headers || {}) };
   const bearer = getAuthAuthorizationHeader();
   if (bearer && !headers.Authorization) headers.Authorization = bearer;
   if (options.idempotencyKey) headers["Idempotency-Key"] = options.idempotencyKey;
   if (options.requestId) headers["X-Request-ID"] = options.requestId;
-  if (method !== "GET" &&
-      normalizeApiPath(path) !== "/api/staging/login") {
+  if (method !== "GET" && !guest &&
+      normalized !== "/api/staging/login" && normalized !== "/api/staging/guest") {
     headers["X-EFHC-Test-CSRF"] = await sessionCsrf().catch(() => "");
   }
   if (options.body !== undefined) headers["Content-Type"] = "application/json";
-  const response = await fetch(`${demoApiOrigin()}${normalizeApiPath(path)}`, {
+  const response = await fetch(`${demoApiOrigin()}${endpoint}`, {
     method, headers, credentials: "include", cache: "no-store", signal: options.signal,
     body: options.body === undefined ? undefined : JSON.stringify(options.body),
   });
