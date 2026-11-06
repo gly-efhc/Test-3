@@ -219,6 +219,7 @@ export function useAppBackNavigation(router: NextRouter): void {
     // Next skips its callback on the first same-URL pop (Safari handling).
     // Keep a fallback for that event, but consume every browser Back only once.
     let browserBackHandled = false;
+    let browserPopAllowed = false;
     const handleBrowserBack = (): boolean => {
       if (disposed) return true;
       if (releasingLayerGuard) {
@@ -234,6 +235,10 @@ export function useAppBackNavigation(router: NextRouter): void {
       return false;
     };
     router.beforePopState(() => {
+      if (browserPopAllowed) {
+        browserPopAllowed = false;
+        return true;
+      }
       const allow = handleBrowserBack();
       if (!allow) {
         browserBackHandled = true;
@@ -244,6 +249,12 @@ export function useAppBackNavigation(router: NextRouter): void {
     const onPopState = (event: PopStateEvent) => {
       if (browserBackHandled) return;
       if (!handleBrowserBack()) event.stopImmediatePropagation();
+      else {
+        // Capture and Next's callback belong to one traversal. Do not handle
+        // it again if Next already exposes the new asPath by the callback.
+        browserPopAllowed = true;
+        window.setTimeout(() => { browserPopAllowed = false; }, 0);
+      }
     };
     window.addEventListener("popstate", onPopState, true);
     const onNativeBack = (event: Event): void => {

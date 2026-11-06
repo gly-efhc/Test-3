@@ -24,6 +24,7 @@ function harness(current='/ranks',stack=['/','/panels','/referrals','/ranks']){
 test('ordinary browser Back and Forward use their requested history destination',()=>{
  for(const [current,target] of [['/ranks','/referrals'],['/referrals','/ranks']]){
   const h=harness(current);assert.equal(h.pop(target),false,'native history traversal is not rewritten as logical Back');
+  h.router.asPath=target; // The router may expose the destination before its callback.
   assert.equal(h.allow(),true);assert.deepEqual(h.replaced,[]);
  }
 });

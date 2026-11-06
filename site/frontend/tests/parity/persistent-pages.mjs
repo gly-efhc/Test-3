@@ -33,7 +33,7 @@ async function check(name,fn){
   try{await fn();results.push({name,status:'PASS'});console.log('PASS '+name);}
   catch(error){
     results.push({name,status:'FAIL',error:String(error?.message||error)});
-    console.error('FAIL '+name+': '+String(error?.message||error));
+    console.error('FAIL '+name+': '+String(error?.message||error),JSON.stringify({actual:error?.actual,expected:error?.expected,url:page.url()}));
     await page.screenshot({path:dir+'/persistent-failure-'+results.length+'.png',fullPage:true}).catch(()=>undefined);
   }
 }
