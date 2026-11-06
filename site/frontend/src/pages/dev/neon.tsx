@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useAuthSessionController } from "../../auth/AuthSessionProvider";
-import { isDemoBackendMode, sessionInfo } from "../../demo/session";
+import { currentDemoSessionScope, isDemoBackendMode, sessionInfo } from "../../demo/session";
 import { transportRequest } from "../../data/transport";
 
 /** Operator console for the real Neon TEST backend. No local accounting. */
@@ -12,7 +12,8 @@ export default function NeonTestConsole(): React.JSX.Element {
   const [message, setMessage] = useState("");
   const [result, setResult] = useState<unknown>(null);
   const [busy, setBusy] = useState(false);
-  const authorized = auth.status === "authenticated" && Boolean(auth.context?.global_id);
+  // Server independently denies guest/operator impersonation; the console also hides controls.
+  const authorized = auth.status === "authenticated" && currentDemoSessionScope() === "operator" && Boolean(auth.context?.global_id);
   useEffect(() => { if (auth.context?.global_id) setCandidate(auth.context.global_id); }, [auth.context?.global_id]);
   const call = useCallback(async (fn: () => Promise<unknown>) => {
     setBusy(true); setMessage("");
