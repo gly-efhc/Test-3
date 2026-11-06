@@ -26,7 +26,7 @@ import {
   captureReferralStartParamFromFirstEntry,
 } from "../lib/referral-start-param";
 import {beginDisplayOwnerResolution,needsTelegramOwnerResolution,resolvedDisplayOwner,subscribeDisplayOwner} from "../lib/displayOwner";
-import { isDemoBackendMode, loginDemo as issueDemoLogin, selectDemoGlobalId as issueDemoSelection, logoutDemo as revokeDemoLogin } from "../demo/session";
+import { clearDemoSession, isDemoBackendMode, isDemoGuestSession, loginDemoGuest as issueDemoGuest, loginDemo as issueDemoLogin, selectDemoGlobalId as issueDemoSelection, logoutDemo as revokeDemoLogin } from "../demo/session";
 
 export type AuthBootstrapStatus =
   | "anonymous"
@@ -74,6 +74,7 @@ export function AuthSessionProvider(props: {
 }): React.JSX.Element {
   const [state, setState] = useState<AuthState>(initialAuthState);
   const telegramBootstrapStarted = useRef(false);
+  const guestBootstrapStarted = useRef(false);
 
   useEffect(() => {
     captureReferralStartParamFromFirstEntry();
@@ -145,6 +146,7 @@ export function AuthSessionProvider(props: {
     }));
     try {
       await completeTelegramSessionLogin(initData);
+      clearDemoSession(); // Signed Telegram identity supersedes any guest/operator scope hint.
       const context = await fetchAuthSessionContext();
       setState({
         status: "authenticated",
@@ -163,11 +165,19 @@ export function AuthSessionProvider(props: {
   }, []);
 
   useEffect(() => {
-    if(readAuthSession() || isDemoBackendMode()) {
-      if(!isDemoBackendMode() && getTelegramInitData()&&needsTelegramOwnerResolution())void loginTelegram().catch(()=>undefined);
-      else void restoreSession();
+    const credential = readAuthSession();
+    const signedTelegramData = getTelegramInitData();
+    if (isDemoBackendMode() && signedTelegramData && (!credential || isDemoGuestSession())) {
+      // Real Telegram Mini App proof takes precedence over a public DEMO guest.
+      void loginTelegram().catch(() => undefined);
+    } else if (credential || isDemoBackendMode()) {
+      if (!isDemoBackendMode() && signedTelegramData && needsTelegramOwnerResolution()) {
+        void loginTelegram().catch(() => undefined);
+      } else {
+        void restoreSession();
+      }
     }
-  },[restoreSession,loginTelegram]);
+  }, [restoreSession, loginTelegram]);
 
   useEffect(() => {
     if (
@@ -182,6 +192,22 @@ export function AuthSessionProvider(props: {
     void loginTelegram().catch(() => undefined);
   }, [loginTelegram, state.status]);
 
+  useEffect(() => {
+    if (!isDemoBackendMode() || state.status !== "anonymous" ||
+        readAuthSession() || getTelegramInitData() || guestBootstrapStarted.current) return;
+    guestBootstrapStarted.current = true;
+    setState({status: "authenticating", context: null, errorCode: null});
+    void (async () => {
+      await issueDemoGuest();
+      const context = await fetchAuthSessionContext();
+      setState({status: "authenticated", context, errorCode: null});
+    })().catch((error) => {
+      clearDemoSession();
+      clearAuthSession();
+      setState({status: "error", context: null, errorCode: errorCode(error)});
+    });
+  }, [state.status]);
+
   const loginTon = useCallback(async (proofRequest: unknown) => {
     beginDisplayOwnerResolution(true);
     setState((current) => ({
@@ -191,6 +217,7 @@ export function AuthSessionProvider(props: {
     }));
     try {
       await completeTonProofLogin(proofRequest);
+      clearDemoSession(); // Verified TON Proof supersedes guest/operator session hints.
       const context = await fetchAuthSessionContext();
       setState({
         status: "authenticated",
@@ -244,6 +271,9 @@ export function AuthSessionProvider(props: {
       else await revokeAuthSession();
     } finally {
       clearAuthSession();
+      clearDemoSession();
+      // Do not automatically reissue a public guest after explicit sign-out.
+      guestBootstrapStarted.current = true;
       setState({
         status: "anonymous",
         context: null,
