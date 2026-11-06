@@ -1,5 +1,8 @@
 name: EFHC C0034 — live TEST preview API smoke
 on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/efhc-c0034-preview-smoke.yml"]
   workflow_run:
     workflows: ["EFHC — React DEMO Pages"]
     types: [completed]
