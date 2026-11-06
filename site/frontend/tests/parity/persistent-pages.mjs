@@ -26,7 +26,7 @@ await context.route('**/*',route=>{
   return new URL(url).origin===ownOrigin ? route.continue() : route.abort();
 });
 const errors=[],results=[];
-page.on('pageerror',error=>errors.push(error.message));
+page.on('pageerror',error=>errors.push({url:page.url(),message:error.message}));
 async function check(name,fn){
   if(process.env.EFHC_PERSISTENCE_FOCUS&&!name.includes(process.env.EFHC_PERSISTENCE_FOCUS))return;
   try{await fn();results.push({name,status:'PASS'});console.log('PASS '+name);}
@@ -66,9 +66,18 @@ try{
     assert.ok((await page.locator('body').innerText()).includes('Neon TEST'));
     assert.ok(!(await page.locator('body').innerText()).includes('Application error'));
   });
-  await check('Admin route retains its page and controls while offline',async()=>{
+  await check('unauthenticated Admin is guarded or redirected without exposing admin data',async()=>{
     await visit('admin/');
-    await page.locator('[data-admin-primitive="page"]').waitFor({state:'visible'});
+    await page.waitForFunction(()=>
+      Boolean(document.querySelector('[data-admin-client-route-guard]')) ||
+      !location.pathname.replace(/\\/+$/,'').endsWith('/admin')
+    );
+    if(new URL(page.url()).pathname.replace(/\\/+$/,'').endsWith('/admin')){
+      await page.locator('[data-admin-client-route-guard]').waitFor({state:'visible'});
+      assert.equal(await page.locator('[data-admin-primitive="page"]').count(),0);
+    }else{
+      await assertUserShell();
+    }
     assert.ok((await page.locator('body').innerText()).trim().length>25);
   });
   await check('Browser Shop remains a full local page without external requests',async()=>{
