@@ -8,9 +8,11 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 import {
   clearAuthSession,
+  getAuthAuthorizationHeader,
   readAuthSession,
   subscribeAuthSessionInvalidation,
   type AuthSessionContext,
@@ -73,6 +75,7 @@ export function AuthSessionProvider(props: {
   children: ReactNode;
 }): React.JSX.Element {
   const [state, setState] = useState<AuthState>(initialAuthState);
+  const queryClient = useQueryClient();
   const telegramBootstrapStarted = useRef(false);
   const guestBootstrapStarted = useRef(false);
 
@@ -81,6 +84,7 @@ export function AuthSessionProvider(props: {
   }, []);
 
   const restoreSession = useCallback(async () => {
+    const authorization = getAuthAuthorizationHeader();
     if (!readAuthSession() && !isDemoBackendMode()) {
       setState({
         status: "anonymous",
@@ -103,6 +107,8 @@ export function AuthSessionProvider(props: {
       });
       return context;
     } catch (error) {
+      if (errorCode(error) === "AUTH_SESSION_REPLACED" ||
+          (getAuthAuthorizationHeader() && getAuthAuthorizationHeader() !== authorization)) return null;
       if (!readAuthSession() && isDemoBackendMode()) {
         setState({ status: "anonymous", context: null, errorCode: null });
         return null;
@@ -203,8 +209,9 @@ export function AuthSessionProvider(props: {
       setState({status: "authenticated", context, errorCode: null});
     })().catch((error) => {
       guestBootstrapStarted.current = false;
-      clearDemoSession();
-      clearAuthSession();
+      if (errorCode(error) === "DEMO_SESSION_REPLACED" || errorCode(error) === "AUTH_SESSION_REPLACED") return;
+      // A temporary context/read failure does not revoke a server-issued session.
+      // Actual 401 invalidation is scoped to the credential used by transport.
       setState({status: "error", context: null, errorCode: errorCode(error)});
     });
   }, [state.status]);
@@ -237,6 +244,18 @@ export function AuthSessionProvider(props: {
   }, []);
 
   const stateRef=useRef(state);stateRef.current=state;
+  useEffect(() => {
+    if (state.status !== "authenticated") return;
+    let active = true;
+    // Reads started while restoring a cached owner may have used an expired
+    // credential. Refresh after server proof is ready, without replaying writes.
+    void queryClient.cancelQueries({type: "active"}).then(async () => {
+      if (!active) return;
+      window.dispatchEvent(new Event("efhc:activity-sync"));
+      await queryClient.refetchQueries({type: "active"});
+    });
+    return () => { active = false; };
+  }, [state.status, state.context, queryClient]);
   useEffect(()=>{
     const activity=()=>{
       const status=stateRef.current.status;

@@ -46,7 +46,9 @@ async function assertUserShell(){
   await main.waitFor({state:'visible'});
   await page.locator('.efhc-game-nav').waitFor({state:'visible'});
   assert.equal(await page.locator('.efhc-game-nav a').count(),6,'six fixed navigation destinations');
-  assert.ok((await main.innerText()).trim().length>10,'persistent page content');
+  if (await page.locator('[data-public-surface="hub"]').count()) {
+    assert.equal(await page.locator('[data-hub-link-slot-grid]').count(),1,'persistent authorized HUB grid');
+  } else assert.ok((await main.innerText()).trim().length>10,'persistent page content');
   assert.ok(!/Application error|ZodError/.test(await page.locator('body').innerText()));
   assert.equal(await page.locator('[data-energy-state="loading"],[data-energy-state="recoverable-error"]').count(),0);
 }

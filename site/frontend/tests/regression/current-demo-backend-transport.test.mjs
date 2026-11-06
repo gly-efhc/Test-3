@@ -10,7 +10,7 @@ import {fileURLToPath} from 'node:url';
 const require=createRequire(import.meta.url);
 const ts=require('typescript');
 const root=fileURLToPath(new URL('../../src/',import.meta.url));
-function harness({origin='https://demo-api.example.org',auth='Bearer TEST_OPERATOR',onRequest}={}){
+function harness({origin='https://demo-api.example.org',auth='Bearer TEST_OPERATOR',onRequest,moduleMocks={}}={}){
  const calls=[];
  let cleared=0;
  let issued=null;
@@ -28,6 +28,7 @@ function harness({origin='https://demo-api.example.org',auth='Bearer TEST_OPERAT
    clearAuthSession:()=>{cleared++;issued=null;},
   },
  };
+ Object.assign(mocks,moduleMocks);
  const context=vm.createContext({process:{env},URL,URLSearchParams,AbortController,AbortSignal,Response,Headers,Blob,console,Promise,Date,Error,JSON,setTimeout,clearTimeout,fetch:async(url,opts={})=>{
   calls.push({url:String(url),options:opts});
   if(onRequest)return onRequest(String(url),opts);
@@ -171,4 +172,53 @@ test('failed CSRF synchronization does not send a protected operation with an em
  const h=harness({onRequest:async()=>Response.json({detail:'unavailable'},{status:503})});
  await assert.rejects(h.load('demo/transport.ts').demoBackendTransport.request('/panels/activate','POST',{}));
  assert.equal(h.calls.length,1,'stop at failed CSRF session read, do not submit the operation');
+});
+
+test('late public preview issuance cannot replace a newer operator session', async()=>{
+ let finishGuest;
+ const h=harness({auth:null,onRequest:async(url)=>{
+  if(url.endsWith('/guest'))return await new Promise(resolve=>{finishGuest=resolve;});
+  if(url.endsWith('/login'))return Response.json({ok:true,global_id:'0000000002',csrf:'operator-csrf',mode:'operator',scope:'operator',demo_bearer_token:'L'.repeat(64),expires_at_epoch:Math.floor(Date.now()/1000)+3600});
+  if(url.endsWith('/session'))return Response.json({ok:true,global_id:'0000000002',csrf:'operator-csrf',mode:'operator'});
+  return Response.json({});
+ }});
+ const s=h.load('demo/session.ts'), old=s.loginDemoGuest();
+ await s.loginDemo('test-password');
+ finishGuest(Response.json({ok:true,global_id:'0000000088',csrf:'old-csrf',mode:'preview',scope:'preview',demo_bearer_token:'P'.repeat(64),expires_at_epoch:Math.floor(Date.now()/1000)+3600}));
+ await assert.rejects(()=>old,/DEMO_SESSION_REPLACED/);
+ await s.sessionInfo();
+ assert.equal(h.calls.at(-1).options.headers.Authorization,'Bearer '+'L'.repeat(64));
+ assert.equal(await s.sessionCsrf(),'operator-csrf');
+ assert.equal(h.cleared,0);
+});
+
+test('late session metadata cannot apply CSRF proof from a superseded credential', async()=>{
+ let finishSession;
+ const h=harness({onRequest:async(url)=>{
+  if(url.endsWith('/session'))return await new Promise(resolve=>{finishSession=resolve;});
+  return Response.json({ok:true,global_id:'0000000002',csrf:'new-csrf',mode:'operator',demo_bearer_token:'L'.repeat(64),expires_at_epoch:Math.floor(Date.now()/1000)+3600});
+ }});
+ const s=h.load('demo/session.ts'), old=s.sessionInfo();
+ await s.loginDemo('test-password');
+ finishSession(Response.json({ok:true,global_id:'0000000088',csrf:'old-csrf',mode:'preview'}));
+ await assert.rejects(()=>old,/DEMO_SESSION_REPLACED/);
+ assert.equal(await s.sessionCsrf(),'new-csrf');
+});
+
+test('obsolete auth proof cannot replace the display owner of a newer session', async()=>{
+ let resolveProof, authorization='Bearer OLD_PROOF'; const owners=[];
+ const h=harness({moduleMocks:{
+  'lib/auth-session':{getAuthAuthorizationHeader:()=>authorization, validateAuthSessionContext:value=>value},
+  'services/authSession.service':{requestAuthSessionContext:()=>new Promise(resolve=>{resolveProof=resolve;})},
+  'lib/displayOwner':{recordResolvedDisplayOwner:owner=>owners.push(owner)},
+ }});
+ const client=h.load('lib/auth-session-client.ts'), old=client.fetchAuthSessionContext();
+ authorization='Bearer NEW_PROOF';
+ resolveProof({global_id:'0000000088',provider:'preview',roles:['admin']});
+ await assert.rejects(()=>old,/AUTH_SESSION_REPLACED/);
+ assert.deepEqual(owners,[],'stale response must never bind or restore another owner cache');
+ const current=client.fetchAuthSessionContext();
+ resolveProof({global_id:'0000000002',provider:'operator',roles:['admin']});
+ assert.equal((await current).global_id,'0000000002');
+ assert.deepEqual(owners,['0000000002']);
 });

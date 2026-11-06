@@ -1,5 +1,6 @@
 import {
   clearAuthSession,
+  getAuthAuthorizationHeader,
   storeAuthSession,
   validateAuthSessionContext,
   type AuthSessionContext,
@@ -27,7 +28,9 @@ export function acceptIssuedAuthSession(
 
 export async function fetchAuthSessionContext():
   Promise<AuthSessionContext> {
+  const authorization = getAuthAuthorizationHeader();
   const result = await requestAuthSessionContext();
+  if (authorization !== getAuthAuthorizationHeader()) throw new Error("AUTH_SESSION_REPLACED");
   const context=validateAuthSessionContext(result);
   recordResolvedDisplayOwner(context.global_id);
   return context;

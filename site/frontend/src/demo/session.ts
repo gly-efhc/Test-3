@@ -6,6 +6,7 @@ import { clearAuthSession, getAuthAuthorizationHeader, storeAuthSession } from "
 import { demoApiOrigin } from "./config";
 import { demoFetch } from "./request";
 let csrf: string | null = null;
+let sessionVersion = 0;
 const DEMO_SCOPE_KEY = "efhc.demo.session.scope.v1";
 type DemoScope = "guest" | "operator" | "preview";
 
@@ -36,7 +37,7 @@ type IssuedDemoSession = SessionInfo & {
   scope?: DemoScope;
 };
 
-export function clearDemoSession(): void { csrf = null; setDemoSessionScope(null); }
+export function clearDemoSession(): void { sessionVersion++; csrf = null; setDemoSessionScope(null); }
 /** Only the credential used by the failed request can be invalidated.
  * A delayed 401 must not revoke a newer login/owner selected in this tab. */
 export function invalidateDemoCredential(authorization: string | null): void {
@@ -71,6 +72,7 @@ function acceptIssuedDemoSession(value: IssuedDemoSession): SessionInfo {
 
 export async function sessionInfo(): Promise<SessionInfo> {
   const headers = authorizationHeaders();
+  const version = sessionVersion;
   const response = await demoFetch(`${demoApiOrigin()}/api/staging/session`, {
     credentials: "include", cache: "no-store", headers,
   });
@@ -80,6 +82,9 @@ export async function sessionInfo(): Promise<SessionInfo> {
   }
   if (!response.ok) throw new Error(`EFHC_DEMO_SESSION_HTTP_${response.status}`);
   const result = await response.json() as SessionInfo;
+  if (version !== sessionVersion || (headers.Authorization || null) !== getAuthAuthorizationHeader()) {
+    throw new Error("DEMO_SESSION_REPLACED");
+  }
   csrf = result.csrf;
   return result;
 }
@@ -90,11 +95,13 @@ export async function sessionCsrf(): Promise<string> {
 }
 
 async function writeControl<T>(route: string, body?: unknown, login = false): Promise<T> {
+  const version = sessionVersion;
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     ...(!login ? authorizationHeaders() : {}),
   };
   if (!login) headers["X-EFHC-Test-CSRF"] = await sessionCsrf();
+  if (version !== sessionVersion) throw new Error("DEMO_SESSION_REPLACED");
   const response = await demoFetch(`${demoApiOrigin()}/api/staging/${route}`, {
     method: "POST", credentials: "include", cache: "no-store", headers,
     body: body === undefined ? undefined : JSON.stringify(body),
@@ -102,23 +109,27 @@ async function writeControl<T>(route: string, body?: unknown, login = false): Pr
   if (response.status === 401 && !login) invalidateDemoCredential(headers.Authorization || null);
   if (!response.ok) throw new Error(`EFHC_DEMO_${route.toUpperCase()}_HTTP_${response.status}`);
   const value = await response.json() as T;
+  if (version !== sessionVersion) throw new Error("DEMO_SESSION_REPLACED");
   if (value && typeof value === "object" && "csrf" in value &&
       typeof value.csrf === "string") csrf = value.csrf;
   return value;
 }
 
 export async function loginDemoGuest(): Promise<SessionInfo> {
+  sessionVersion++;
   const result = await writeControl<IssuedDemoSession>("guest", undefined, true);
   if (result.scope !== "guest" && result.scope !== "preview") throw new Error("DEMO_GUEST_SCOPE_INVALID");
   return acceptIssuedDemoSession(result);
 }
 
 export async function loginDemo(password: string): Promise<SessionInfo> {
+  sessionVersion++;
   const result = await writeControl<IssuedDemoSession>("login", {password}, true);
   return acceptIssuedDemoSession(result);
 }
 export async function selectDemoGlobalId(global_id: string): Promise<SessionInfo> {
   if (!/^\d{10}$/.test(global_id) || global_id === "0000000000") throw new Error("INVALID_GLOBAL_ID");
+  sessionVersion++;
   const result = await writeControl<IssuedDemoSession>("select-global-id", {global_id});
   return acceptIssuedDemoSession(result);
 }
