@@ -33,11 +33,17 @@ export function createEfhcQueryClient() {
     },
   });
   if (typeof window !== "undefined") {
-    hydratePublicCatalogQueries(client);
-    startPublicCatalogPersistence(client);
     startUserDataPersistence(client);
   }
   return client;
+}
+
+/** Hydrate public catalog after React hydration: cached FAQ must not alter
+ * the first client tree relative to the static SSR markup. */
+export function restorePublicCatalogAfterMount(client: QueryClient): () => void {
+  if (typeof window === "undefined") return () => undefined;
+  hydratePublicCatalogQueries(client);
+  return startPublicCatalogPersistence(client);
 }
 
 export function activateUserDataOwner(client: QueryClient, owner: string | null, admin: boolean): boolean {
