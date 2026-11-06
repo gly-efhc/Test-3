@@ -59,7 +59,7 @@ jobs:
           
           status, hdr, ctx = request("/api/auth/session", bearer=token)
           assert status == 200 and ctx.get("global_id") == "0000000088", "USER owner not resolved"
-          assert hdr.get("X-EFHC-Data-Source") == "neon-test", "wrong backend source"
+          assert {k.lower(): v for k, v in hdr.items()}.get("x-efhc-data-source") == "neon-test", "wrong backend source"
           print("USER_NATIVE_HTTP_AUTH_CONTEXT=PASS neon-test")
           
           status, hdr, adm = request("/api/admin/access", bearer=token)
