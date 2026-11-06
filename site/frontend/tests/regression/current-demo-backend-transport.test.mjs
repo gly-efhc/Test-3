@@ -32,6 +32,7 @@ function harness({origin='https://demo-api.example.org',auth='Bearer TEST_OPERAT
   calls.push({url:String(url),options:opts});
   if(onRequest)return onRequest(String(url),opts);
   if(String(url).endsWith('/api/staging/session'))return Response.json({ok:true,global_id:issued?.access_token?.startsWith('S')?'0000000088':'0000000002',csrf:issued?.access_token?.startsWith('S')?'next-csrf':'csrf-token',mode:'operator'});
+  if(String(url).endsWith('/api/staging/guest'))return Response.json({ok:true,global_id:'0000000088',csrf:'test-preview-csrf',mode:'neon-test-preview',scope:'preview',demo_bearer_token:'P'.repeat(64),expires_at_epoch:Math.floor(Date.now()/1000)+3600});
   if(String(url).endsWith('/api/staging/login'))return Response.json({ok:true,global_id:'0000000002',csrf:'login-csrf',mode:'operator',demo_bearer_token:'L'.repeat(64),expires_at_epoch:Math.floor(Date.now()/1000)+3600});
   if(String(url).endsWith('/api/staging/select-global-id'))return Response.json({ok:true,global_id:'0000000088',csrf:'next-csrf',mode:'operator',demo_bearer_token:'S'.repeat(64),expires_at_epoch:Math.floor(Date.now()/1000)+3600});
   if(String(url).endsWith('/api/staging/logout'))return Response.json({ok:true});
@@ -126,4 +127,16 @@ test('registered transport preserves request options and raw binary response pat
  assert.equal(await (await dispatcher.transportRawRequest('/admin/logs/export.csv','GET',{})).text(),'csv');
  assert.equal(seen[0][2],options);
  assert.equal(seen[1][0],'/admin/logs/export.csv');
+});
+
+test('C0034 public TEST preview is server-issued for owner 0000000088 and can call Admin data API',async()=>{
+ const h=harness({auth:null}),session=h.load('demo/session.ts');
+ const ctx=await session.loginDemoGuest();
+ assert.equal(ctx.global_id,'0000000088');
+ assert.equal(ctx.demo_bearer_token,undefined,'secret must not leak to visible profile state');
+ assert.equal(h.calls[0].url,'https://demo-api.example.org/api/staging/guest');
+ const tr=h.load('demo/transport.ts');
+ await tr.demoRawRequest('/admin/access','GET');
+ assert.equal(h.calls[1].url,'https://demo-api.example.org/api/admin/access');
+ assert.equal(h.calls[1].options.headers.Authorization,'Bearer '+'P'.repeat(64));
 });
