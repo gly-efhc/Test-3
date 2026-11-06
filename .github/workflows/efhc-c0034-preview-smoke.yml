@@ -47,8 +47,14 @@ jobs:
                       with urllib.request.urlopen(req, timeout=30) as res:
                           raw = res.read(2000000)
                           return res.status, dict(res.headers), json.loads(raw)
-                  except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as exc:
-                      last = exc
+                  except urllib.error.HTTPError as exc:
+                      # Show a bounded error detail only; never print credentials.
+                      detail = exc.read(512).decode("utf-8", "replace")
+                      last = f"HTTP {exc.code}: {detail[:512]}"
+                      if attempt != 3:
+                          time.sleep(3)
+                  except (urllib.error.URLError, TimeoutError) as exc:
+                      last = type(exc).__name__
                       if attempt != 3:
                           time.sleep(3)
               raise AssertionError(f"{method} {path} failed: {last}") from last
