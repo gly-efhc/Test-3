@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass
-from urllib.parse import urlsplit, parse_qs
+from urllib.parse import urlsplit, parse_qs, parse_qsl, urlencode, urlunsplit
 
 
 # Neon TEST is restricted to the exact existing TEST branch endpoint.
@@ -45,9 +45,15 @@ class DemoConfig:
             raise DemoConfigurationError("ALLOW_REAL_FUNDS must be disabled")
         url = env.get("DEMO_DATABASE_URL", "").strip()
         expected_host = env.get("DEMO_NEON_HOST", "").strip().lower()
+        if not url:
+            raise DemoConfigurationError(
+                "DEMO_DATABASE_URL is not set or is empty in the running service"
+            )
         parsed = urlsplit(url)
         if parsed.scheme not in {"postgresql", "postgresql+asyncpg", "postgres"}:
-            raise DemoConfigurationError("DEMO_DATABASE_URL must use PostgreSQL")
+            raise DemoConfigurationError(
+                "DEMO_DATABASE_URL has an unsupported URL scheme; use a PostgreSQL DSN without surrounding quotes"
+            )
         if expected_host not in _ALLOWED_NEON_TEST_HOSTS or parsed.hostname != expected_host:
             raise DemoConfigurationError("DEMO_NEON_HOST must match the pinned Neon TEST branch endpoint")
         if not parsed.username or not parsed.password or not parsed.path or parsed.path == "/":
@@ -89,8 +95,17 @@ class DemoConfig:
 
 def prepare_backend_environment(config: DemoConfig) -> None:
     """Use Neon TEST and disable automatic funds sends; retain TON and ad APIs."""
+    # Neon exports libpq-specific channel_binding=require; asyncpg does not
+    # accept it as a connection keyword. Keep sslmode=require for the original
+    # backend engine normalizer, which enforces TLS via connect_args["ssl"].
+    parts = urlsplit(config.database_url)
+    query = urlencode([(key, value) for key, value in
+                       parse_qsl(parts.query, keep_blank_values=True)
+                       if key.lower() != "channel_binding"])
+    asyncpg_url = urlunsplit((parts.scheme, parts.netloc, parts.path,
+                             query, parts.fragment))
     os.environ.update({
-        "ENV": "local", "DATABASE_URL": config.database_url,
+        "ENV": "local", "DATABASE_URL": asyncpg_url,
         "ALLOW_REAL_FUNDS": "false", "RUN_EMBEDDED_TON_AGENT": "false",
         "ALLOW_INSECURE_USER_HEADERS": "false",
         "CORS_ALLOW_ORIGINS": ",".join(config.cors_origins),
