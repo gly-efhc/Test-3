@@ -51,7 +51,7 @@ import {
 } from "../lib/settings";
 import { fetchAdminAccess } from "../lib/admin";
 import {cachedAdminView,forgetAdminView,markAdminUnavailable,rememberAdminView,subscribeAdminView} from "../lib/adminViewState";
-import { createEfhcQueryClient } from "../lib/queryClient";
+import { createEfhcQueryClient, restorePublicCatalogAfterMount } from "../lib/queryClient";
 import { startActivitySync } from "../lib/frontendActivity";
 import {
   getSkinKey,
@@ -118,6 +118,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const isBrowserShop = router.pathname === "/browser-shop" || router.pathname.startsWith("/browser-shop/");
   const isAdminRoute = router.pathname.startsWith("/admin");
   const [queryClient] = useState(() => createEfhcQueryClient());
+  useEffect(() => restorePublicCatalogAfterMount(queryClient), [queryClient]);
   useEffect(() => startActivitySync(queryClient), [queryClient]);
 
   const [tcManifestUrl, setTcManifestUrl] = useState<HttpsUrl>(() => {
