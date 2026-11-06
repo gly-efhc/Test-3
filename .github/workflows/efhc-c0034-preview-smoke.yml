@@ -92,6 +92,10 @@ jobs:
           print("PUBLIC_PAGES_HTML=PASS")
           print("C0034_LIVE_TEST_PREVIEW_HTTP_SMOKE=PASS")
           PY
+      - name: Checkout real React route manifest for Chrome smoke
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: C0034_REAL_PAGES_CHROME_VISIBILITY
         timeout-minutes: 12
         env:
