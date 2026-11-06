@@ -92,3 +92,22 @@ jobs:
           print("PUBLIC_PAGES_HTML=PASS")
           print("C0034_LIVE_TEST_PREVIEW_HTTP_SMOKE=PASS")
           PY
+      - name: C0034_REAL_PAGES_CHROME_VISIBILITY
+        timeout-minutes: 12
+        env:
+          EFHC_BROWSER_TOOLS: ${{ runner.temp }}/efhc-c0034-browser-tools/package.json
+          EFHC_PAGES_URL: https://gly-efhc.github.io/efhc/
+          EFHC_PARITY_ARTIFACTS: ${{ runner.temp }}/efhc-c0034-live-artifacts
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/efhc-c0034-browser-tools" playwright-core@1.64.1 --ignore-scripts --no-audit --no-fund
+          export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
+          node --check site/frontend/tests/parity/c0034-live-pages.mjs
+          node site/frontend/tests/parity/c0034-live-pages.mjs
+      - name: Retain live C0034 route evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: efhc-c0034-route-evidence-${{ github.run_id }}
+          path: ${{ runner.temp }}/efhc-c0034-live-artifacts/
+          if-no-files-found: warn
