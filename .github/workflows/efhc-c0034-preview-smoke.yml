@@ -1,0 +1,83 @@
+name: EFHC C0034 — live TEST preview API smoke
+on:
+  workflow_run:
+    workflows: ["EFHC — React DEMO Pages"]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test-preview:
+    name: Public preview session, USER and Admin real Neon TEST data
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - name: Real TEST preview HTTP smoke (no financial writes)
+        env:
+          API: https://efhc-cycle0032-demo-api.onrender.com
+          PAGES: https://gly-efhc.github.io/efhc/
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import time
+          import urllib.error
+          import urllib.request
+          from urllib.parse import urlparse
+          
+          api = os.environ["API"]
+          pages = os.environ["PAGES"]
+          origin = "https://gly-efhc.github.io"
+          
+          def request(path, method="GET", bearer=None):
+              url = api + path
+              headers = {"Origin": origin, "Accept": "application/json"}
+              if bearer:
+                  headers["Authorization"] = "Bearer " + bearer
+              if method == "POST":
+                  headers["Content-Type"] = "application/json"
+              req = urllib.request.Request(url, method=method, data=b"{}" if method == "POST" else None, headers=headers)
+              last = None
+              for attempt in range(4):
+                  try:
+                      with urllib.request.urlopen(req, timeout=30) as res:
+                          raw = res.read(2000000)
+                          return res.status, dict(res.headers), json.loads(raw)
+                  except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as exc:
+                      last = exc
+                      if attempt != 3:
+                          time.sleep(3)
+              raise AssertionError(f"{method} {path} failed: {last}") from last
+          
+          status, hdr, guest = request("/api/staging/guest", "POST")
+          assert status == 200 and guest["scope"] == "preview", "C0034 open TEST preview unavailable"
+          assert guest["global_id"] == "0000000088", "unexpected preview account"
+          token = guest["demo_bearer_token"]
+          assert len(token) > 32, "missing short-lived TEST token"
+          print("TEST_PREVIEW_SESSION=PASS owner=0000000088 scope=preview")
+          
+          status, hdr, ctx = request("/api/auth/session", bearer=token)
+          assert status == 200 and ctx.get("global_id") == "0000000088", "USER owner not resolved"
+          assert hdr.get("X-EFHC-Data-Source") == "neon-test", "wrong backend source"
+          print("USER_NATIVE_HTTP_AUTH_CONTEXT=PASS neon-test")
+          
+          status, hdr, adm = request("/api/admin/access", bearer=token)
+          assert status == 200 and adm.get("global_id") == "0000000088" and adm.get("role"), "Admin not visible"
+          print("ADMIN_ACCESS_TEST_PREVIEW=PASS")
+          
+          status, hdr, overview = request("/api/admin/reports/overview", bearer=token)
+          assert status == 200 and isinstance(overview.get("facts"), dict), "Admin real business overview missing"
+          print("ADMIN_OVERVIEW_NEON_FACTS=PASS keys=" + str(len(overview["facts"])))
+          
+          status, hdr, snap = request("/api/sync/me?fresh=0", "POST", bearer=token)
+          assert status == 200 and isinstance(snap, dict), "USER data snapshot unavailable"
+          print("USER_SNAPSHOT_NEON=PASS")
+          
+          req = urllib.request.Request(pages, method="GET")
+          with urllib.request.urlopen(req, timeout=30) as response:
+              html = response.read(2000000).decode("utf-8", "replace")
+          assert "EFHC" in html and "html" in html.lower(), "Pages entry missing"
+          print("PUBLIC_PAGES_HTML=PASS")
+          print("C0034_LIVE_TEST_PREVIEW_HTTP_SMOKE=PASS")
+          PY
