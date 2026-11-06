@@ -235,15 +235,12 @@ export function useAppBackNavigation(router: NextRouter): void {
       return false;
     };
     router.beforePopState(() => {
-      if (browserPopAllowed) {
-        browserPopAllowed = false;
-        return true;
-      }
-      const allow = handleBrowserBack();
-      if (!allow) {
-        browserBackHandled = true;
-        window.setTimeout(() => { browserBackHandled = false; }, 0);
-      }
+      const allow = browserPopAllowed || handleBrowserBack();
+      browserPopAllowed = false;
+      // Listener ordering varies. The fallback must not reinterpret an allowed
+      // traversal after Next has already updated its current route.
+      browserBackHandled = true;
+      window.setTimeout(() => { browserBackHandled = false; }, 0);
       return allow;
     });
     const onPopState = (event: PopStateEvent) => {

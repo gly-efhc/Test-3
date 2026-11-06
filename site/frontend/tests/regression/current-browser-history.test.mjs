@@ -26,6 +26,12 @@ test('ordinary browser Back and Forward use their requested history destination'
   const h=harness(current);assert.equal(h.pop(target),false,'native history traversal is not rewritten as logical Back');
   h.router.asPath=target; // The router may expose the destination before its callback.
   assert.equal(h.allow(),true);assert.deepEqual(h.replaced,[]);
+  const nextFirst=harness(current);
+  nextFirst.window.location.pathname='/efhc'+target;
+  assert.equal(nextFirst.allow(),true);
+  nextFirst.router.asPath=target;
+  assert.equal(nextFirst.pop(target),false);
+  assert.deepEqual(nextFirst.replaced,[],'fallback must not handle an already allowed Next traversal twice');
  }
 });
 test('same-URL direct-entry Back retains hierarchical Admin fallback',()=>{
