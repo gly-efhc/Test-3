@@ -53,7 +53,10 @@ try {
   assert.equal(await page.getByText('Доступ запрещён.',{exact:true}).count(),0,'Admin is still blocked by the client');
   await page.getByText('Административные модули',{exact:true}).waitFor({state:'visible',timeout:40000});
   console.log('C0034_REAL_ADMIN_HOME_PASS');
-  for(const route of ['admin/users/','admin/bank/','admin/panels/','admin/reports/']) {
+  // Admin Users is a dedicated frozen profile composition, NOT AdminPage.
+  await visit('admin/users/','[data-admin-user-profile="profile-composition"]');
+  assert.equal(await page.getByText('Доступ запрещён.',{exact:true}).count(),0,'Blocked Admin Users');
+  for(const route of ['admin/bank/','admin/panels/','admin/reports/']) {
     const normalized='/'+route.replace(/\/$/,'');
     await visit(route,`[data-admin-route="${normalized}"]`);
     assert.equal(await page.getByText('Доступ запрещён.',{exact:true}).count(),0,'Blocked Admin module: '+route);
