@@ -225,6 +225,10 @@ export function useAppBackNavigation(router: NextRouter): void {
         releasingLayerGuard = false;
         return false;
       }
+      // A different real history destination belongs to Next, including
+      // Forward. Logical Back is only needed for a same-URL guard or a layer.
+      const destination = pathWithoutHash(window.location.pathname + window.location.search);
+      if (!hasBackLayer() && destination !== pathWithoutHash(routerRef.current.asPath)) return true;
       if (pathWithoutHash(routerRef.current.asPath) === "/" && !hasBackLayer()) return true;
       backInsideApp();
       return false;

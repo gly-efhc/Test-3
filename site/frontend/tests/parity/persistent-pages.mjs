@@ -67,6 +67,27 @@ try{
       assert.equal(await page.locator('.efhc-energy-progress-track').count(),1);
     }
   });
+  await check('browser Back and Forward keep their final requested routes',async()=>{
+    await visit();
+    const hrefs=await page.locator('.efhc-game-nav a').evaluateAll(as=>as.map(a=>a.getAttribute('href')));
+    const referrals=hrefs.find(href=>/\/referrals\/?$/.test(href));
+    const ranks=hrefs.find(href=>/\/ranks\/?$/.test(href));
+    assert.ok(referrals&&ranks);
+    for(const href of [referrals,ranks]){
+      await page.locator(`.efhc-game-nav a[href="${href}"]`).click();
+      await page.waitForURL(new URL(href,base).href);
+      await page.waitForTimeout(300);
+    }
+    await page.goBack();
+    await page.waitForURL(new URL(referrals,base).href);
+    await page.waitForTimeout(300);
+    assert.equal(page.url(),new URL(referrals,base).href,'Back must remain on Referrals');
+    await page.goForward();
+    await page.waitForURL(new URL(ranks,base).href);
+    await page.waitForTimeout(300);
+    assert.equal(page.url(),new URL(ranks,base).href,'Forward must remain on Ranks after all handlers');
+    await assertUserShell();
+  });
   await check('operator console remains accessible without remote API',async()=>{
     await visit('dev/neon/');
     await page.locator('input[type="password"]').waitFor({state:'visible'});
