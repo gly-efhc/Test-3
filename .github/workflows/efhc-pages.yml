@@ -179,7 +179,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cd "$RUNNER_TEMP/efhc-demo-build"
+          ln -s "$RUNNER_TEMP/efhc-demo-build/node_modules" site/frontend/node_modules
+          cd site/frontend
           echo 'EFHC_PREDEPLOY_FRONTEND_REGRESSION_START'
           npm run test:frontend-regression 2>&1 \
             | tee "$RUNNER_TEMP/efhc-pages-diagnostics/frontend-regression.log"

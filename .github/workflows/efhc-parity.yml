@@ -46,7 +46,8 @@ jobs:
         run: npm install --prefix "$RUNNER_TEMP/efhc-browser-tools" playwright-core@1.64.1 --ignore-scripts --no-audit --no-fund
       - name: Check immutable HTML contracts and generated shared shell
         run: |
-          cd "$RUNNER_TEMP/efhc-parity-build"
+          ln -s "$RUNNER_TEMP/efhc-parity-build/node_modules" site/frontend/node_modules
+          cd site/frontend
           npm run test:frontend-regression
           cd "$GITHUB_WORKSPACE"
           EFHC_FRONTEND_DEPENDENCIES="$RUNNER_TEMP/efhc-parity-build/package.json" node site/ci/parity/generate_shell.mjs --check
