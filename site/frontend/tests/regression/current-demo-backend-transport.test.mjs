@@ -31,7 +31,7 @@ function harness({origin='https://demo-api.example.org',auth='Bearer TEST_OPERAT
  const context=vm.createContext({process:{env},URL,URLSearchParams,AbortController,AbortSignal,Response,Headers,Blob,console,Promise,Date,Error,JSON,fetch:async(url,opts={})=>{
   calls.push({url:String(url),options:opts});
   if(onRequest)return onRequest(String(url),opts);
-  if(String(url).endsWith('/api/staging/session'))return Response.json({ok:true,global_id:'0000000002',csrf:'csrf-token',mode:'operator'});
+  if(String(url).endsWith('/api/staging/session'))return Response.json({ok:true,global_id:issued?.access_token?.startsWith('S')?'0000000088':'0000000002',csrf:issued?.access_token?.startsWith('S')?'next-csrf':'csrf-token',mode:'operator'});
   if(String(url).endsWith('/api/staging/login'))return Response.json({ok:true,global_id:'0000000002',csrf:'login-csrf',mode:'operator',demo_bearer_token:'L'.repeat(64),expires_at_epoch:Math.floor(Date.now()/1000)+3600});
   if(String(url).endsWith('/api/staging/select-global-id'))return Response.json({ok:true,global_id:'0000000088',csrf:'next-csrf',mode:'operator',demo_bearer_token:'S'.repeat(64),expires_at_epoch:Math.floor(Date.now()/1000)+3600});
   if(String(url).endsWith('/api/staging/logout'))return Response.json({ok:true});
@@ -105,7 +105,7 @@ test('DEMO operator login and Global ID switching preserve server-issued bearer 
  assert.equal(h.calls[3].options.headers.Authorization,'Bearer '+'S'.repeat(64));
  await assert.rejects(()=>s.selectDemoGlobalId('88'),/INVALID_GLOBAL_ID/);
  await s.logoutDemo();
- assert.equal(h.calls[4].options.headers['X-EFHC-Test-CSRF'],'csrf-token');
+ assert.equal(h.calls[4].options.headers['X-EFHC-Test-CSRF'],'next-csrf');
  assert.equal(h.calls[4].options.headers.Authorization,'Bearer '+'S'.repeat(64));
  assert.equal(h.cleared,1);
 });
