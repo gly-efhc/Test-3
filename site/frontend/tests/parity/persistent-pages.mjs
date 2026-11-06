@@ -70,9 +70,9 @@ try{
     await visit('admin/');
     await page.waitForFunction(()=>
       Boolean(document.querySelector('[data-admin-client-route-guard]')) ||
-      !location.pathname.replace(/\\/+$/,'').endsWith('/admin')
+      !(location.pathname.endsWith('/admin/') || location.pathname.endsWith('/admin'))
     );
-    if(new URL(page.url()).pathname.replace(/\\/+$/,'').endsWith('/admin')){
+    if((new URL(page.url()).pathname.endsWith('/admin/') || new URL(page.url()).pathname.endsWith('/admin'))){
       await page.locator('[data-admin-client-route-guard]').waitFor({state:'visible'});
       assert.equal(await page.locator('[data-admin-primitive="page"]').count(),0);
     }else{
