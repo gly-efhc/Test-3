@@ -643,36 +643,23 @@ function AppInner(props: {
   const isAdminRoute = Boolean(effectiveAdminVisualProofPath)
     || router.pathname === "/admin"
     || router.pathname.startsWith("/admin/");
+  // Routes are immutable UI surfaces. A backend/identity failure may block
+  // protected data and operations, never delete a page or redirect away.
+  // Open TEST Pages keeps the static Admin UI mounted even during API outage.
+  // API authorization remains solely server-controlled in production.
   const adminGuardCanDecide = adminAccessState !== "checking";
   const adminRouteBlocked = isAdminRoute
+    && !isOpenTestPagesRuntime
     && adminGuardCanDecide
     && !isAdmin
-    && !effectiveAdminVisualProofPath
-    && (!isOpenTestPagesRuntime || authSession.status === "error");
+    && !effectiveAdminVisualProofPath;
   const adminRouteChecking = isAdminRoute
+    && !isOpenTestPagesRuntime
     && !isAdmin
     && !effectiveAdminVisualProofPath
     && !adminRouteBlocked;
+  // Do not route.replace("/") on failed auth/backend: stay on deep link.
 
-  useEffect(() => {
-    if (
-      effectiveAdminVisualProofPath
-      || isOpenTestPagesRuntime
-      || !isAdminRoute
-      || !adminGuardCanDecide
-      || isAdmin
-    ) {
-      return;
-    }
-    void router.replace("/");
-  }, [
-    adminGuardCanDecide,
-    effectiveAdminVisualProofPath,
-    isAdmin,
-    isAdminRoute,
-    isOpenTestPagesRuntime,
-    router,
-  ]);
 
   useEffect(() => {
     if (splashDone || splashReady) {
