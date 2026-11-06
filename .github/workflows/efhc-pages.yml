@@ -243,7 +243,7 @@ jobs:
             --base-path "/${REPO_NAME}" 2>&1 \
             | tee "$RUNNER_TEMP/efhc-pages-diagnostics/verify-export.log"
 
-      # Full browser persistence is optional during active frontend development.
+      # Page persistence is mandatory; optional visual diagnostics remain separate.
       - name: Require every static page under authentication and data failure
         timeout-minutes: 8
         env:

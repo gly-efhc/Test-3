@@ -9,11 +9,14 @@ const source=fileURLToPath(new URL('../../src/pages/',import.meta.url));
 const pages=(await fs.readdir(source,{recursive:true})).filter(x=>x.endsWith('.tsx')&&!x.startsWith('api/')&&!x.split('/').some(p=>p.startsWith('_')||p.startsWith('['))&&!['404.tsx','500.tsx'].includes(x));
 export const staticRoutes=pages.map(x=>x.replace(/\.tsx$/,'').replace(/(^|\/)index$/,'').replace(/^\//,'')).sort();
 function observe(){
- const state={seen:false,lost:false,adminReplaced:false};window.__efhcStaticObservation=state;
+ const state={seen:false,lost:false,adminSeen:false,adminReplaced:false};window.__efhcStaticObservation=state;
  const read=()=>{const main=document.querySelector('#efhc-main-content');if(main){state.seen=true;if(location.pathname.includes('/admin/')){
   const user=location.pathname.includes('/admin/users/')||location.pathname.includes('/admin/user-history/');
-  if(user){const root=document.querySelector('[data-admin-user-profile="profile-composition"]');if(!root||!root.querySelector('input'))state.adminReplaced=true;}
-  else if(document.querySelector('[data-admin-primitive="page"]')&&!document.querySelector('[data-app-navigation="exit-admin"]'))state.adminReplaced=true;
+  const control=user?document.querySelector('[data-admin-user-profile="profile-composition"]')?.querySelector('input'):document.querySelector('[data-app-navigation="exit-admin"]');
+  // Streaming HTML parsing inserts the wrapper before its children. Record a
+  // removal only after the real control existed; final assertions still reject
+  // routes whose controls never appeared.
+  if(control)state.adminSeen=true;else if(state.adminSeen)state.adminReplaced=true;
  }}else if(state.seen&&!location.pathname.includes('/browser-shop'))state.lost=true;};
  new MutationObserver(read).observe(document,{subtree:true,childList:true});
 }
