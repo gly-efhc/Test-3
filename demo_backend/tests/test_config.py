@@ -53,3 +53,28 @@ def test_disabled_by_default(env):
     env.pop("EFHC_DEMO_ENABLED")
     with pytest.raises(DemoConfigurationError):
         DemoConfig.from_env(env)
+
+def test_asyncpg_neon_channel_binding_removed_preserving_tls_and_test_scope(env):
+    import os
+    from unittest.mock import patch
+    from urllib.parse import parse_qs, urlsplit
+    from demo_backend.config import prepare_backend_environment
+
+    env["DEMO_DATABASE_URL"] += "&channel_binding=require&application_name=efhc_test"
+    config = DemoConfig.from_env(env)
+    with patch.dict(os.environ, {}, clear=True):
+        prepare_backend_environment(config)
+        forwarded = os.environ["DATABASE_URL"]
+        query = parse_qs(urlsplit(forwarded).query)
+        assert "channel_binding" not in query
+        assert query["sslmode"] == ["require"]
+        assert query["application_name"] == ["efhc_test"]
+        assert os.environ["ALLOW_REAL_FUNDS"] == "false"
+        assert os.environ["RUN_EMBEDDED_TON_AGENT"] == "false"
+    assert "channel_binding=require" in config.database_url
+
+
+def test_empty_neon_database_url_fails_explicitly(env):
+    env["DEMO_DATABASE_URL"] = ""
+    with pytest.raises(DemoConfigurationError, match="not set or is empty"):
+        DemoConfig.from_env(env)
