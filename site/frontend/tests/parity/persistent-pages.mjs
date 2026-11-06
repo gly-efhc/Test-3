@@ -66,18 +66,16 @@ try{
     assert.ok((await page.locator('body').innerText()).includes('Neon TEST'));
     assert.ok(!(await page.locator('body').innerText()).includes('Application error'));
   });
-  await check('unauthenticated Admin is guarded or redirected without exposing admin data',async()=>{
+  await check('offline keeps the protected Admin page visible in OWNER-approved TEST Pages',async()=>{
     await visit('admin/');
-    await page.waitForFunction(()=>
-      Boolean(document.querySelector('[data-admin-client-route-guard]')) ||
-      !(location.pathname.endsWith('/admin/') || location.pathname.endsWith('/admin'))
-    );
-    if((new URL(page.url()).pathname.endsWith('/admin/') || new URL(page.url()).pathname.endsWith('/admin'))){
-      await page.locator('[data-admin-client-route-guard]').waitFor({state:'visible'});
-      assert.equal(await page.locator('[data-admin-primitive="page"]').count(),0);
-    }else{
-      await assertUserShell();
-    }
+    // GitHub Pages is an isolated public TEST preview, not production Admin
+    // authorization. Its static route and page shell must survive API failure.
+    await page.locator('[data-admin-primitive="page"]').first().waitFor({state:'visible'});
+    const pathname=new URL(page.url()).pathname;
+    assert.ok(pathname.endsWith('/admin/')||pathname.endsWith('/admin'),
+      'Admin deep link must never redirect to home because API is down');
+    assert.equal(await page.locator('[data-admin-client-route-guard]').count(),0,
+      'TEST route is not replaced by an authorization loading/denied screen');
     assert.ok((await page.locator('body').innerText()).trim().length>25);
   });
   await check('Browser Shop remains a full local page without external requests',async()=>{
