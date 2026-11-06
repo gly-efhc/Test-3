@@ -1,9 +1,10 @@
-name: EFHC cycle0032 - React typecheck, regression and build
+name: EFHC cycle0032/0033 - React typecheck, regression and build
 
 on:
   push:
     branches:
       - cycle0032/demo-backend-migration
+      - cycle0033/react-demo-integration
     paths:
       - site/**
       - demo_backend/**
@@ -45,7 +46,7 @@ jobs:
         env:
           NEXT_TELEMETRY_DISABLED: '1'
           NEXT_PUBLIC_EFHC_DATA_SOURCE: demo_backend
-          NEXT_PUBLIC_EFHC_DEMO_API_ORIGIN: https://demo.invalid
+          NEXT_PUBLIC_EFHC_DEMO_API_ORIGIN: https://efhc-cycle0032-demo-api.onrender.com
           NEXT_PUBLIC_EFHC_PAGES_PREVIEW: '1'
           NEXT_PUBLIC_EFHC_ADMIN_VISUAL_PROOF: '1'
           NEXT_PUBLIC_EFHC_OBSERVABILITY_VISUAL_PROOF: '1'
