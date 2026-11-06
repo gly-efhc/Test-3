@@ -80,6 +80,26 @@ jobs:
           status, hdr, overview = request("/api/admin/reports/overview", bearer=token)
           assert status == 200 and isinstance(overview.get("facts"), dict), "Admin real business overview missing"
           print("ADMIN_OVERVIEW_NEON_FACTS=PASS keys=" + str(len(overview["facts"])))
+
+          # C0036: require the actual formerly failing read routes and wire DTOs.
+          import re
+          for path in (
+              "/api/user/me/panels-summary",
+              "/api/referrals/stats/me",
+              "/api/profile/avatar",
+              "/api/profile/avatar/sources",
+              "/api/admin/bonuses?source=all&limit=1&offset=0",
+              "/api/admin/efhc-deposits/inbox?limit=20",
+              "/api/tasks/my",
+              "/api/health/runtime",
+          ):
+              status, _, data = request(path, bearer=token)
+              assert status == 200 and isinstance(data, dict), "Read route failed: " + path
+              if path == "/api/referrals/stats/me":
+                  assert re.fullmatch(r"-?\d+(?:\.\d{1,8})?", data["referrals_bonus_total"]), "Invalid D8 wire notation"
+              if path == "/api/tasks/my":
+                  assert all(item["id"] is None or int(item["id"]) > 0 for item in data["items"]), "Fabricated task Lifetime ID zero"
+              print("C0036_REAL_READ_CONTRACT=PASS " + path)
           
           status, hdr, snap = request("/api/sync/me?fresh=0", "POST", bearer=token, csrf=guest["csrf"])
           assert status == 200 and isinstance(snap, dict), "USER data snapshot unavailable"
