@@ -3,15 +3,15 @@ import { clearAuthSession, getAuthAuthorizationHeader } from "../lib/auth-sessio
 import { ApiError, normalizeApiPath, type ApiRequestOptions, type HttpMethod } from "../lib/api";
 import { type ApiTransport } from "../data/transport";
 import { demoApiOrigin } from "./config";
-import { clearDemoSession, isDemoGuestSession, sessionCsrf } from "./session";
+import { clearDemoSession, currentDemoSessionScope, sessionCsrf } from "./session";
 
 export async function demoRawRequest(
   path: string, method: HttpMethod, options: ApiRequestOptions = {},
 ): Promise<Response> {
-  const guest = isDemoGuestSession();
+  const guest = currentDemoSessionScope() === "guest";
   const normalized = normalizeApiPath(path);
-  // Public DEMO is a read-only preview: never run fresh=1 generation on entry.
-  // The server independently enforces this request boundary.
+  // C0034 preview writes use canonical TEST APIs, guest scope remains read-only.
+  // Both are enforced on the isolated Neon TEST backend.
   const endpoint = guest && method === "POST" && normalized.split("?")[0] === "/api/sync/me"
     ? "/api/sync/me?fresh=0" : normalized;
   const headers: Record<string, string> = { ...(options.headers || {}) };
