@@ -57,7 +57,7 @@ jobs:
                       last = type(exc).__name__
                       if attempt != 3:
                           time.sleep(3)
-              raise AssertionError(f"{method} {path} failed: {last}") from last
+              raise AssertionError(f"{method} {path} failed: {last}")
           
           status, hdr, guest = request("/api/staging/guest", "POST")
           assert status == 200 and guest["scope"] == "preview", "C0034 open TEST preview unavailable"
