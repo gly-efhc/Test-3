@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 // The entire 58-second track is decoded once and repeated in the Web Audio
 // rendering thread. An HTMLMediaElement loop can pause at an MP3 boundary.
@@ -24,6 +25,7 @@ export function primeBackgroundMusicFromGesture(): void {
 
 /** One OWNER-approved background composition, opt-in and gapless buffered loop. */
 export function BackgroundMusicController({ enabled }: { enabled: boolean }) {
+  const { basePath } = useRouter();
   useEffect(() => {
     if (!enabled || typeof window === "undefined") return;
     const Ctor = audioContextConstructor();
@@ -46,7 +48,7 @@ export function BackgroundMusicController({ enabled }: { enabled: boolean }) {
     // No MP3 request or decode ever occurs while disabled.
     void (async () => {
       try {
-        const response = await fetch("/audio/background/1.mp3", {
+        const response = await fetch(`${basePath}/audio/background/1.mp3`, {
           signal: controller.signal,
           cache: "no-store",
         });
@@ -85,6 +87,6 @@ export function BackgroundMusicController({ enabled }: { enabled: boolean }) {
       if (gain) { gain.disconnect(); gain = null; }
       void context.close().catch(() => {});
     };
-  }, [enabled]);
+  }, [enabled, basePath]);
   return null;
 }
