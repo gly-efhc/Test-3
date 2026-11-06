@@ -13,6 +13,7 @@ const root=fileURLToPath(new URL('../../src/',import.meta.url));
 function harness({origin='https://demo-api.example.org',auth='Bearer TEST_OPERATOR',onRequest}={}){
  const calls=[];
  let cleared=0;
+ let issued=null;
  const cache=new Map();
  const fakeApi={
   ApiError:class ApiError extends Error{constructor(args){super('EFHC_API_REQUEST_FAILED');Object.assign(this,args);}},
@@ -21,14 +22,18 @@ function harness({origin='https://demo-api.example.org',auth='Bearer TEST_OPERAT
  const env={NEXT_PUBLIC_EFHC_DEMO_API_ORIGIN:origin,NEXT_PUBLIC_EFHC_DATA_SOURCE:'demo_backend'};
  const mocks={
   'lib/api':fakeApi,
-  'lib/auth-session':{getAuthAuthorizationHeader:()=>auth,clearAuthSession:()=>{cleared++;}},
+  'lib/auth-session':{
+   getAuthAuthorizationHeader:()=>issued ? 'Bearer '+issued.access_token : auth,
+   storeAuthSession:credential=>{issued=credential;},
+   clearAuthSession:()=>{cleared++;issued=null;},
+  },
  };
  const context=vm.createContext({process:{env},URL,URLSearchParams,AbortController,AbortSignal,Response,Headers,Blob,console,Promise,Date,Error,JSON,fetch:async(url,opts={})=>{
   calls.push({url:String(url),options:opts});
   if(onRequest)return onRequest(String(url),opts);
   if(String(url).endsWith('/api/staging/session'))return Response.json({ok:true,global_id:'0000000002',csrf:'csrf-token',mode:'operator'});
-  if(String(url).endsWith('/api/staging/login'))return Response.json({ok:true,global_id:'0000000002',csrf:'login-csrf',mode:'operator'});
-  if(String(url).endsWith('/api/staging/select-global-id'))return Response.json({ok:true,global_id:'0000000088',csrf:'next-csrf',mode:'operator'});
+  if(String(url).endsWith('/api/staging/login'))return Response.json({ok:true,global_id:'0000000002',csrf:'login-csrf',mode:'operator',demo_bearer_token:'L'.repeat(64),expires_at_epoch:Math.floor(Date.now()/1000)+3600});
+  if(String(url).endsWith('/api/staging/select-global-id'))return Response.json({ok:true,global_id:'0000000088',csrf:'next-csrf',mode:'operator',demo_bearer_token:'S'.repeat(64),expires_at_epoch:Math.floor(Date.now()/1000)+3600});
   if(String(url).endsWith('/api/staging/logout'))return Response.json({ok:true});
   if(String(url).endsWith('/api/sync/me'))return Response.json({profile:{global_id:'0000000002'}});
   return Response.json({code:'not-found'},{status:404});
@@ -80,15 +85,34 @@ test('unauthorized API response revokes DEMO session and returns an explicit err
  assert.equal(h.cleared,1);
  assert.equal(hits,1);
 });
-test('operator login, Global ID switching and logout use HttpOnly-cookie session and CSRF',async()=>{
- const h=harness();const s=h.load('demo/session.ts');
- const login=await s.loginDemo('test-password');assert.equal(login.global_id,'0000000002');
- const selected=await s.selectDemoGlobalId('0000000088');assert.equal(selected.global_id,'0000000088');
- assert.equal(h.calls[1].options.headers['X-EFHC-Test-CSRF'],'login-csrf');
- assert.equal(h.calls[1].options.credentials,'include');
- assert.deepEqual(JSON.parse(h.calls[1].options.body),{global_id:'0000000088'});
+test('DEMO operator login and Global ID switching preserve server-issued bearer when cross-site cookies are blocked',async()=>{
+ const h=harness({auth:null}),s=h.load('demo/session.ts');
+ const login=await s.loginDemo('test-password');
+ assert.equal(login.global_id,'0000000002');
+ assert.equal(login.demo_bearer_token,undefined,'bearer must not leak into UI return value');
+ const session=await s.sessionInfo();
+ assert.equal(session.global_id,'0000000002');
+ assert.equal(h.calls[1].options.headers.Authorization,'Bearer '+'L'.repeat(64));
+ const selected=await s.selectDemoGlobalId('0000000088');
+ assert.equal(selected.global_id,'0000000088');
+ assert.equal(selected.demo_bearer_token,undefined);
+ assert.equal(h.calls[2].options.headers['X-EFHC-Test-CSRF'],'csrf-token');
+ assert.equal(h.calls[2].options.headers.Authorization,'Bearer '+'L'.repeat(64));
+ assert.equal(h.calls[2].options.credentials,'include');
+ assert.deepEqual(JSON.parse(h.calls[2].options.body),{global_id:'0000000088'});
+ const renewed=await s.sessionInfo();
+ assert.equal(renewed.ok,true);
+ assert.equal(h.calls[3].options.headers.Authorization,'Bearer '+'S'.repeat(64));
  await assert.rejects(()=>s.selectDemoGlobalId('88'),/INVALID_GLOBAL_ID/);
- await s.logoutDemo();assert.equal(h.calls[2].options.headers['X-EFHC-Test-CSRF'],'next-csrf');
+ await s.logoutDemo();
+ assert.equal(h.calls[4].options.headers['X-EFHC-Test-CSRF'],'csrf-token');
+ assert.equal(h.calls[4].options.headers.Authorization,'Bearer '+'S'.repeat(64));
+ assert.equal(h.cleared,1);
+});
+test('DEMO operator credential must be server-issued and not invented client-side',async()=>{
+ const h=harness({auth:null,onRequest:()=>Response.json({ok:true,global_id:'0000000002',csrf:'unsafe',mode:'neon-test'})});
+ await assert.rejects(()=>h.load('demo/session.ts').loginDemo('test-password'),/DEMO_SESSION_CREDENTIAL_MISSING/);
+ assert.equal(h.calls.length,1);
 });
 test('registered transport preserves request options and raw binary response path',async()=>{
  const h=harness(),dispatcher=h.load('data/transport.ts');
