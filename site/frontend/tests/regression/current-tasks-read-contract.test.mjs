@@ -22,3 +22,23 @@ test('bad catalog synchronization preserves the previous validated catalog',asyn
  const s=h.load('services/tasks.service.ts'),options={queryKey:['tasks-catalog'],queryFn:s.getTasksCatalog,retry:false,staleTime:0};
  try{await c.fetchQuery(options);payload={items:[item('0E-8')]};await assert.rejects(c.fetchQuery(options));assert.equal(c.getQueryData(options.queryKey)[0].bonus_efhc,'0.00000000');}finally{c.clear();}
 });
+
+test('actual Tasks observers reject old malformed cached amounts before the formatter',async()=>{
+ const {QueryClient,QueryObserver}=await import('@tanstack/react-query');
+ const h=sourceRuntime({overrides:{
+  '../lib/api':{apiRequest:async()=>({})},
+  '../auth/AuthSessionProvider':{useAuthOwnerGlobalId:()=> '0000000088'},
+  '@tanstack/react-query':{useQuery:options=>options,useMutation:()=>({}),useQueryClient:()=>({})},
+ }});
+ const hooks=h.load('queries/useTasks.ts'),c=new QueryClient();
+ const cases=[
+  [hooks.useTasksCatalog(),[item('0E-8')]],
+  [hooks.useMyTasks(),[{id:null,task_id:'1',status:'not_started',bonus_efhc:'0E-8',can_claim:false}]],
+  [hooks.useTaskEarnings(),{total_bonus_earned:'0E-8',bonus_asset:'EFHCb',includes_ads:true}],
+ ];
+ try{for(const [options,data] of cases){
+  c.setQueryData(options.queryKey,data);const observer=new QueryObserver(c,{...options,enabled:false});
+  const result=observer.getCurrentResult();assert.equal(result.data,undefined,'bad cached data never reaches Tasks render');assert.equal(result.isError,true);
+  observer.destroy();
+ }}finally{c.clear();}
+});

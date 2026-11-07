@@ -76,6 +76,14 @@ export type AdCallbackResponse = z.infer<
   typeof AdCallbackResponseSchema
 >;
 
+// Persisted queries from older builds must cross the same read boundary.
+export const selectTaskCatalog = (data: unknown): TaskCatalogItem[] =>
+  z.array(TaskCatalogItemSchema).parse(data);
+export const selectMyTasks = (data: unknown): MyTaskItem[] =>
+  z.array(MyTaskItemSchema).parse(data);
+export const selectTaskEarnings = (data: unknown): TaskEarningsResponse =>
+  TaskEarningsResponseSchema.parse(data);
+
 export async function getTasksCatalog(): Promise<TaskCatalogItem[]> {
   const raw = await apiRequest<unknown>("/tasks/catalog", "GET");
   return TaskCatalogResponseSchema.parse(raw).items;

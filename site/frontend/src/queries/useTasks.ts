@@ -10,6 +10,9 @@ import {
   getMyTasks,
   getTaskEarnings,
   getTasksCatalog,
+  selectTaskCatalog,
+  selectMyTasks,
+  selectTaskEarnings,
 } from "../services/tasks.service";
 import type { GlobalId } from "../types/identity";
 import { queryKeys } from "./queryKeys";
@@ -37,6 +40,7 @@ export function useTasksCatalog() {
     enabled: true,
     staleTime: 60_000,
     queryFn: getTasksCatalog,
+    select: selectTaskCatalog,
   });
 }
 
@@ -47,6 +51,7 @@ export function useTaskEarnings() {
     enabled: Boolean(globalId),
     staleTime: 10_000,
     queryFn: getTaskEarnings,
+    select: selectTaskEarnings,
   });
 }
 
@@ -57,6 +62,7 @@ export function useMyTasks() {
     enabled: Boolean(globalId),
     staleTime: 10_000,
     queryFn: getMyTasks,
+    select: selectMyTasks,
   });
 }
 
