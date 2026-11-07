@@ -43,6 +43,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
     const reloadLabel = translate("common.reload");
     return (
       <div
+        data-app-render-error="true"
         className="min-h-[60vh] flex items-center"
         style={{ justifyContent: "center" }}
       >

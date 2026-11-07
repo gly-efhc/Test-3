@@ -91,6 +91,8 @@ jobs:
               "/api/admin/bonuses?source=all&limit=1&offset=0",
               "/api/admin/efhc-deposits/inbox?limit=20",
               "/api/tasks/my",
+              "/api/tasks/catalog",
+              "/api/tasks/earnings/me",
               "/api/health/runtime",
           ):
               status, _, data = request(path, bearer=token)
@@ -99,6 +101,10 @@ jobs:
                   assert re.fullmatch(r"-?\d+(?:\.\d{1,8})?", data["referrals_bonus_total"]), "Invalid D8 wire notation"
               if path == "/api/tasks/my":
                   assert all(item["id"] is None or int(item["id"]) > 0 for item in data["items"]), "Fabricated task Lifetime ID zero"
+              if path in ("/api/tasks/catalog", "/api/tasks/my"):
+                  assert all(re.fullmatch(r"-?\d+(?:\.\d{1,8})?", item["bonus_efhc"]) for item in data["items"]), "Invalid Tasks reward wire notation"
+              if path == "/api/tasks/earnings/me":
+                  assert re.fullmatch(r"-?\d+(?:\.\d{1,8})?", data["total_bonus_earned"]), "Invalid Tasks earnings wire notation"
               print("C0036_REAL_READ_CONTRACT=PASS " + path)
           
           status, hdr, snap = request("/api/sync/me?fresh=0", "POST", bearer=token, csrf=guest["csrf"])

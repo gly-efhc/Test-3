@@ -24,6 +24,7 @@ async function assertSurface(page,route){
  const shop=route.startsWith('browser-shop');
  if(shop){await page.locator('[data-public-surface="browser-shop"]').waitFor({state:'visible'});assert.ok(await page.locator('button,a,input').count()>2,'Shop controls persist');return;}
  const main=page.locator('#efhc-main-content');await main.waitFor({state:'visible'});
+ assert.equal(await page.locator('[data-app-render-error]').count(),0,'an error boundary is not a page');
  if(route==='hub')assert.equal(await page.locator('[data-public-surface="hub"] [data-hub-link-slot-grid]').count(),1,'empty authorized link collection keeps its fixed grid');
  else if(route==='faq')assert.ok(await page.locator('.efhc-faq-section-node').count()>0,'canonical static FAQ sections exist before network data');
  else assert.ok((await main.innerText()).trim().length>10,'actual route content remains present');
@@ -36,6 +37,7 @@ async function assertSurface(page,route){
   if(['','app'].includes(route)){assert.equal(await page.locator('[data-energy-chip]').count(),3);assert.equal(await page.locator('.efhc-energy-progress-track').count(),1);}
   if(route==='panels')assert.equal(await page.locator('[data-panel-activation-cta]').count(),1);
   if(route==='panels/portfolio')assert.equal(await page.locator('[data-panels-tab-button]').count(),2);
+  if(route==='tasks')assert.equal(await page.locator('[data-public-surface="tasks"] .efhc-tasks-grid').count(),1,'actual Tasks content persists');
   if(route==='referrals'){
    assert.equal(await page.locator('[data-referrals-progress-bar]').count(),1,'progress bar must never be replaced with a loading skeleton');
    assert.equal(await page.locator('[data-referral-level-step]').count(),5,'five static level positions remain present');

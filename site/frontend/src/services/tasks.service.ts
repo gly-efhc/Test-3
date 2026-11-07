@@ -4,12 +4,16 @@ import { apiRequest } from "../lib/api";
 import { dbIdSchema } from "../lib/api/db-id";
 import type { DbId } from "../types/db-id";
 
+// Validate wire amounts before they enter the query cache or strict formatter.
+// A malformed update remains a data error and cannot crash the page renderer.
+const taskAmountSchema = z.string().regex(/^-?\d+(?:\.\d{1,8})?$/);
+
 const TaskCatalogItemSchema = z.object({
   id: dbIdSchema,
   code: z.string(),
   title: z.string(),
   description: z.unknown().optional(),
-  bonus_efhc: z.string(),
+  bonus_efhc: taskAmountSchema,
   is_active: z.boolean().optional().default(true),
   kind: z.string().nullable().optional(),
   meta: z.record(z.string(), z.unknown()).nullable().optional(),
@@ -20,7 +24,7 @@ const MyTaskItemSchema = z.object({
   task_id: dbIdSchema,
   status: z.string(),
   progress: z.record(z.string(), z.unknown()).nullable().optional(),
-  bonus_efhc: z.string(),
+  bonus_efhc: taskAmountSchema,
   can_claim: z.boolean(),
   next_available_at: z.string().nullable().optional(),
 });
@@ -49,7 +53,7 @@ const AdSlotResponseSchema = z.object({
 });
 
 const TaskEarningsResponseSchema = z.object({
-  total_bonus_earned: z.string(),
+  total_bonus_earned: taskAmountSchema,
   bonus_asset: z.literal("EFHCb").default("EFHCb"),
   includes_ads: z.boolean().default(true),
 });

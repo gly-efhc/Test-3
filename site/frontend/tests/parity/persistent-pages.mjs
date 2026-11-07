@@ -10,6 +10,7 @@ import {localPagesBase} from './pages-base.mjs';
 import {verifyPortfolioThemeHeights} from './portfolio-theme-height.mjs';
 import {verifyHeaderMaterials} from './header-material.mjs';
 import {verifyStaticPages} from './static-pages.mjs';
+import {verifyTasksData} from './tasks-data.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {createRequire} from 'node:module';
@@ -54,6 +55,10 @@ async function assertUserShell(){
 }
 const userRoutes=['','panels/','exchange/','referrals/','tasks/','ranks/','hub/','web-profile/','faq/'];
 try{
+  await check('Tasks keeps its own interface after valid and malformed data arrive',async()=>{
+    const cases=await verifyTasksData({base,artifacts:dir});
+    assert.equal(cases.length,6);
+  });
   await check('every static route retains controls through auth and API failures',async()=>{
     const matrix=await verifyStaticPages({base,artifacts:dir,widths:[390,1440],modes:['offline','slow','401','403','500','malformed']});
     assert.equal(matrix.length,154);

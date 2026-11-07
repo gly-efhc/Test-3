@@ -49,6 +49,15 @@ try {
   }
   await visit('web-profile/','[data-profile-global-id="0000000088"]');
   await visit('panels/','#efhc-main-content');
+  const taskReads=['/api/tasks/catalog','/api/tasks/my','/api/tasks/earnings/me'].map(path=>
+    page.waitForResponse(response=>new URL(response.url()).pathname===path&&response.status()===200));
+  await visit('tasks/','[data-public-surface="tasks"]');
+  await Promise.all(taskReads);
+  await page.waitForTimeout(700);
+  assert.equal(await page.locator('[data-public-surface="tasks"] .efhc-tasks-grid').count(),1,'Tasks must remain after its real data arrives');
+  assert.ok(await page.locator('[data-task-card]').count()>0,'real task catalog is displayed');
+  assert.equal(await page.locator('[data-app-render-error]').count(),0,'handled React failure is not a working page');
+  console.log('C0036_REAL_TASKS_RENDER_AFTER_DATA_PASS');
   await visit('admin/','[data-admin-route="/admin"]');
   assert.equal(await page.getByText('Доступ запрещён.',{exact:true}).count(),0,'Admin is still blocked by the client');
   await page.getByText('Административные модули',{exact:true}).waitFor({state:'visible',timeout:40000});
