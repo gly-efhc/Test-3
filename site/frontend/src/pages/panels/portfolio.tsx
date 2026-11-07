@@ -377,7 +377,7 @@ export default function PanelsPortfolioPage(props: {
               <div
                 key={p.id}
                 className="efhc-panel-tile"
-                data-panel-identity={p.public_id ?? String(p.id)}
+                data-panel-identity={p.public_id ?? undefined}
                 data-panel-card={tab}
                 data-panel-countdown-contract="1282"
               >
