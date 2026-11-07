@@ -119,7 +119,7 @@ function clampPercent(value: number): number {
 }
 
 function panelLabel(panel: PanelsPortfolioRuntimePanel): string {
-  return panel.public_id || `#${panel.id}`;
+  return /^PNL-(?!00000000$)[0-9]{8}$/.test(panel.public_id ?? "") ? panel.public_id! : "—";
 }
 
 function buildPanelPoints(
