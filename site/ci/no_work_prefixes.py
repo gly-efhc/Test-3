@@ -2,6 +2,7 @@
 """Reject additions of work-number identities; retain existing debt in place."""
 
 import argparse
+import base64
 from collections import Counter
 import json
 from pathlib import Path
@@ -26,6 +27,21 @@ SOURCE_SUFFIXES = {'.py', '.js', '.mjs', '.cjs', '.jsx', '.ts', '.tsx', '.css', 
 QUOTED_HASH = re.compile(r'([\"\'])[a-f0-9]{40}(?:[a-f0-9]{24})?\1', re.IGNORECASE)
 COLOR_VALUE = re.compile(r'(?<=:)\s*#(?:[a-f0-9]{8}|[a-f0-9]{6}|[a-f0-9]{4}|[a-f0-9]{3})(?![\w-])', re.IGNORECASE)
 SVG_PATH = re.compile(r'([\"\'])[Mm][-+0-9.,\sMmLlHhVvCcSsQqTtAaZzEe]*\1')
+BINARY_IMAGE = re.compile(r'data:image/(webp|png|jpeg|gif|avif);base64,([A-Za-z0-9+/]+={0,2})')
+CSS_DECLARATION = re.compile(r'(?<=[;{])(\s*[-\w]+\s*:)([^{};]*)(?=;|\})')
+HEX_COLOR = re.compile(r'#(?:[a-f0-9]{8}|[a-f0-9]{6}|[a-f0-9]{4}|[a-f0-9]{3})(?![\w-])', re.IGNORECASE)
+
+
+def binary_image(match):
+    raw = base64.b64decode(match[2], validate=True)
+    valid = {'webp': raw.startswith(b'RIFF') and raw[8:12] == b'WEBP',
+             'png': raw.startswith(b'\x89PNG\r\n\x1a\n'),
+             'jpeg': raw.startswith(b'\xff\xd8'),
+             'gif': raw.startswith((b'GIF87a', b'GIF89a')),
+             'avif': raw[4:8] == b'ftyp' and b'avif' in raw[8:32]}
+    if not valid[match[1]]:
+        raise ValueError('invalid opaque image payload')
+    return 'binary-image-data'
 
 
 def git(*args):
@@ -101,6 +117,8 @@ def identities(path, content, policy):
     text = QUOTED_HASH.sub('"checksum"', text)
     text = COLOR_VALUE.sub(' color', text)
     text = SVG_PATH.sub('"svg-path"', text)
+    text = BINARY_IMAGE.sub(binary_image, text)
+    text = CSS_DECLARATION.sub(lambda match: match[1] + HEX_COLOR.sub('color', match[2]), text)
     for match in TOKEN.finditer(text):
         token = match.group()
         if SEGMENT.search(token) or CAMEL.search(token):

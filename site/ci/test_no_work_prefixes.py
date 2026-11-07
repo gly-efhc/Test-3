@@ -1,6 +1,7 @@
 """Exercise real Git snapshots and negative exit statuses without runtime changes."""
 
 import importlib.util
+import base64
 import json
 from pathlib import Path
 import subprocess
@@ -199,6 +200,25 @@ class PrefixGuardTests(unittest.TestCase):
         self.put(guard.IDENTITIES_PATH, json.dumps({'source_commit': base, 'aliases': {'absent-' + 'v' + '999': 'stable'}}))
         self.commit()
         self.check(2, base)
+
+    def test_binary_image_data_is_preserved_but_cannot_hide_selector_names(self):
+        raw = b'RIFF\x00\x00\x00\x00WEBP' + b'v' + b'123'
+        uri = 'data:image/webp;base64,' + base64.b64encode(raw).decode()
+        self.put('src/header.css', '.header { background:url("' + uri + '"); }')
+        self.commit()
+        self.check(0)
+        self.put('src/header.css', '.header-' + 'v' + '123 { background:url("' + uri + '"); }')
+        self.commit()
+        self.check(1)
+
+    def test_gradient_color_is_data_but_descendant_id_is_an_identity(self):
+        color = '#' + '4c' + '81c8'
+        self.put('src/header.css', '.header { background:linear-gradient(' + color + ',#000); }')
+        self.commit()
+        self.check(0)
+        self.put('src/header.css', '.header #' + 'c' + '00334 { color: inherit; }')
+        self.commit()
+        self.check(1)
 
 
 if __name__ == '__main__':
