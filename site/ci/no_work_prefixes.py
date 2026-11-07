@@ -22,6 +22,8 @@ DOM_WORK_VALUE = re.compile(
     r'(?:[\"\']([vV]?\d+)[\"\']|\{(\d+)\})', re.IGNORECASE,
 )
 SOURCE_SUFFIXES = {'.py', '.js', '.mjs', '.cjs', '.jsx', '.ts', '.tsx', '.css', '.scss', '.html', '.json', '.yml', '.yaml', '.sh'}
+QUOTED_HASH = re.compile(r'([\"\'])[a-f0-9]{40}(?:[a-f0-9]{24})?\1', re.IGNORECASE)
+COLOR_VALUE = re.compile(r'(?<=:)\s*#(?:[a-f0-9]{8}|[a-f0-9]{6}|[a-f0-9]{4}|[a-f0-9]{3})(?![\w-])', re.IGNORECASE)
 
 
 def git(*args):
@@ -92,6 +94,10 @@ def identities(path, content, policy):
     for item in policy['exceptions']:
         if path == item['path']:
             text = text.replace(item['literal'], '')
+    # Full quoted Git/SHA checksums and CSS declaration values are data, not
+    # work-number identities. Selectors/function names are still inspected.
+    text = QUOTED_HASH.sub('"checksum"', text)
+    text = COLOR_VALUE.sub(' color', text)
     for match in TOKEN.finditer(text):
         token = match.group()
         if SEGMENT.search(token) or CAMEL.search(token):

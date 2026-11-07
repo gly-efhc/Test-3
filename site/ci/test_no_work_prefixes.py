@@ -153,6 +153,24 @@ class PrefixGuardTests(unittest.TestCase):
         self.commit()
         self.check(2)
 
+    def test_checksum_metadata_is_not_a_work_identity(self):
+        digest = 'c' + '123' + 'a' * 36
+        self.put('metadata.json', json.dumps({'commit': digest, 'sha256': digest + 'b' * 24}))
+        self.commit()
+        self.check(0)
+        self.put('src/runtime.ts', 'const ' + digest + ' = 1;')
+        self.commit()
+        self.check(1)
+
+    def test_css_color_data_is_not_a_selector_exemption(self):
+        color = 'c' + '00334'
+        self.put('src/header.css', '.header { color: #' + color + '; }')
+        self.commit()
+        self.check(0)
+        self.put('src/header.css', '#' + color + ' { color: inherit; }')
+        self.commit()
+        self.check(1)
+
 
 if __name__ == '__main__':
     unittest.main()
