@@ -58,9 +58,10 @@ function formatUtcMinute(iso: string | null | undefined): string {
 }
 
 function panelPublicId(panel: PanelItem): string {
-  if (panel.public_id) return panel.public_id;
-  const id = String(panel.id).replace(/\D/g, "");
-  return id ? `ID${id.padStart(8, "0")}` : `Panel ${String(panel.id)}`;
+  if (typeof panel.public_id === "string" && /^PNL-(?!00000000$)[0-9]{8}$/.test(panel.public_id)) {
+    return panel.public_id;
+  }
+  return "Ошибка целостности PNL";
 }
 
 function formatRemaining(seconds: number | null | undefined): string {
@@ -74,8 +75,9 @@ function formatRemaining(seconds: number | null | undefined): string {
 function parseSearch(raw: string): { kind: SearchKind; value: string } | null {
   const value = raw.trim();
   if (!value) return null;
-  const publicId = /^ID(\d+)$/i.exec(value);
-  if (publicId) return { kind: "panel", value: publicId[1] };
+  if (/^PNL-(?!00000000$)[0-9]{8}$/.test(value)) {
+    return { kind: "panel", value };
+  }
   if (/^\d{10}$/.test(value)) return { kind: "global", value };
   if (/^\d+$/.test(value)) return { kind: "panel", value };
   return null;
@@ -203,7 +205,7 @@ export default function AdminPanelsPage() {
     const contour = contourOverride ?? searchContour;
     if (!parsed) {
       setResults([]);
-      setSearchError("Введите 10-значный Global ID или Panel ID (например ID00012345). ");
+      setSearchError("Введите 10-значный Global ID или PNL-00000001.");
       return;
     }
     setSearchLoading(true);
@@ -368,7 +370,7 @@ export default function AdminPanelsPage() {
             <input
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
-              placeholder="0000000001 или ID00012345"
+              placeholder="0000000001 или PNL-00000001"
               autoComplete="off"
               style={{ minHeight: "2.25rem", padding: ".52rem .62rem", borderRadius: ".68rem" }}
             />
