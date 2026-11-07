@@ -61,7 +61,7 @@ class PrefixGuardTests(unittest.TestCase):
     def test_all_work_identities_fail_in_arbitrary_working_files(self):
         markers = ['v' + '123', 'cycle' + '0036', 'iteration_' + '01',
                    'c' + '0034', 'iter-' + '02', 'revision' + '42',
-                   'release_' + '99', 'build' + '42', 'i' + '03']
+                   'release_' + '99', 'build' + '42']
         for marker in markers:
             with self.subTest(marker=marker):
                 self.put('arbitrary.asset', 'name_' + marker)
@@ -170,6 +170,35 @@ class PrefixGuardTests(unittest.TestCase):
         self.put('src/header.css', '#' + color + ' { color: inherit; }')
         self.commit()
         self.check(1)
+
+    def test_internationalization_is_not_an_iteration(self):
+        self.put('src/i' + '18n.ts', 'const i' + '18nKey = "language";')
+        self.commit()
+        self.check(0)
+
+    def test_validated_historical_rename_retains_only_previous_debt(self):
+        old = 'src/header-' + 'v' + '123.css'
+        self.put(old, '.header-' + 'v' + '123 {}')
+        base = self.commit()
+        self.put(guard.IDENTITIES_PATH, json.dumps({'source_commit': base, 'aliases': {old: 'src/header-layout.css'}}))
+        (self.root / old).rename(self.root / 'src/header-layout.css')
+        self.commit()
+        self.check(0, base)
+        self.put('src/header-layout.css', ('.header-' + 'v' + '123 {}\n') * 2)
+        self.commit()
+        self.check(1, base)
+
+    def test_historical_map_cannot_invent_identity_or_keep_original_copy(self):
+        old = 'src/header-' + 'v' + '123.css'
+        self.put(old, '.header-' + 'v' + '123 {}')
+        base = self.commit()
+        self.put(guard.IDENTITIES_PATH, json.dumps({'source_commit': base, 'aliases': {old: 'src/header-layout.css'}}))
+        self.put('src/header-layout.css', '.header-' + 'v' + '123 {}')
+        self.commit()
+        self.check(1, base)
+        self.put(guard.IDENTITIES_PATH, json.dumps({'source_commit': base, 'aliases': {'absent-' + 'v' + '999': 'stable'}}))
+        self.commit()
+        self.check(2, base)
 
 
 if __name__ == '__main__':

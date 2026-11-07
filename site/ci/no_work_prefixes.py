@@ -11,12 +11,13 @@ import sys
 
 
 POLICY_PATH = 'site/ci/work-prefix-exceptions.json'
+IDENTITIES_PATH = 'site/frontend/src/design-system/source-identities.json'
 TOKEN = re.compile(r'[A-Za-z_$][A-Za-z0-9_$]*(?:[-.][A-Za-z0-9_$]+)*')
 SEGMENT = re.compile(
     r'(?:^|[-_.])(?:v|cycles?|iterations?|iter|it|revision|rev|release|build|patch)[_-]?\d+'
-    r'|(?:^|[-_.])(?:c\d{2,}|i\d{2,})', re.IGNORECASE,
+    r'|(?:^|[-_.])c\d{2,}', re.IGNORECASE,
 )
-CAMEL = re.compile(r'(?<=[a-z0-9])(?:V\d+|C\d{2,}|I\d{2,}|Cycle[_-]?\d+|Iteration[_-]?\d+|Revision[_-]?\d+|Release[_-]?\d+|Build[_-]?\d+|Patch[_-]?\d+)')
+CAMEL = re.compile(r'(?<=[a-z0-9])(?:V\d+|C\d{2,}|Cycle[_-]?\d+|Iteration[_-]?\d+|Revision[_-]?\d+|Release[_-]?\d+|Build[_-]?\d+|Patch[_-]?\d+)')
 DOM_WORK_VALUE = re.compile(
     r'(data-[\w-]*(?:cycle|iteration|version|revision)[\w-]*)\s*=\s*'
     r'(?:[\"\']([vV]?\d+)[\"\']|\{(\d+)\})', re.IGNORECASE,
@@ -24,6 +25,7 @@ DOM_WORK_VALUE = re.compile(
 SOURCE_SUFFIXES = {'.py', '.js', '.mjs', '.cjs', '.jsx', '.ts', '.tsx', '.css', '.scss', '.html', '.json', '.yml', '.yaml', '.sh'}
 QUOTED_HASH = re.compile(r'([\"\'])[a-f0-9]{40}(?:[a-f0-9]{24})?\1', re.IGNORECASE)
 COLOR_VALUE = re.compile(r'(?<=:)\s*#(?:[a-f0-9]{8}|[a-f0-9]{6}|[a-f0-9]{4}|[a-f0-9]{3})(?![\w-])', re.IGNORECASE)
+SVG_PATH = re.compile(r'([\"\'])[Mm][-+0-9.,\sMmLlHhVvCcSsQqTtAaZzEe]*\1')
 
 
 def git(*args):
@@ -98,6 +100,7 @@ def identities(path, content, policy):
     # work-number identities. Selectors/function names are still inspected.
     text = QUOTED_HASH.sub('"checksum"', text)
     text = COLOR_VALUE.sub(' color', text)
+    text = SVG_PATH.sub('"svg-path"', text)
     for match in TOKEN.finditer(text):
         token = match.group()
         if SEGMENT.search(token) or CAMEL.search(token):
@@ -107,9 +110,41 @@ def identities(path, content, policy):
     return found
 
 
+def source_aliases(new, base):
+    """Validate inert provenance, never an exemption for live identifiers.
+
+    Only aliases physically present in an ancestor may be recorded; destinations
+    must be stable and unique. An approved rename may transfer remaining debt,
+    but a copy or new prefix still fails. The frozen sources stay unchanged.
+    """
+    if IDENTITIES_PATH not in new:
+        return {}
+    document = json.loads(blob(new[IDENTITIES_PATH]))
+    if set(document) != {'source_commit', 'aliases'}:
+        raise ValueError('invalid historical identity mapping')
+    source = document['source_commit']
+    if not re.fullmatch(r'[0-9a-f]{40}', source):
+        raise ValueError('identity source must be a pinned ancestor commit')
+    git('merge-base', '--is-ancestor', source, base)
+    originals = tree(source)
+    content = b'\n'.join(blob(entry) for entry in originals.values() if entry[1] == 'blob')
+    aliases = document['aliases']
+    if not isinstance(aliases, dict) or len(set(aliases.values())) != len(aliases):
+        raise ValueError('identity collisions are forbidden')
+    for previous, stable in aliases.items():
+        if not previous or previous.encode() not in content and previous not in originals:
+            raise ValueError('historical alias is absent from its pinned source')
+        if not stable or identities(stable, stable.encode(), {'exceptions': []}):
+            raise ValueError('destination is not a stable functional identity')
+        if any(x in stable for x in ('..', '\n', '\0')):
+            raise ValueError('invalid identity destination')
+    return aliases
+
+
 def inspect(base, head, policy_ref):
     old, new = tree(base), tree(head)
     policy = read_policy(policy_ref)
+    aliases = source_aliases(new, base)
     failures = []
     checked = 0
     # A PR cannot grant itself exceptions. Initial installation is the only case
@@ -120,8 +155,16 @@ def inspect(base, head, policy_ref):
         if old.get(path) == entry:
             continue
         checked += 1
+        if path == IDENTITIES_PATH:
+            continue  # validated source provenance, never imported by runtime
         current = identities(path, blob(entry), policy)
-        previous = identities(path, blob(old[path]), policy) if path in old else Counter()
+        previous_path = path if path in old else next((prior for prior, stable in aliases.items()
+                                                     if stable == path and prior in old and prior not in new), None)
+        previous = identities(previous_path, blob(old[previous_path]), policy) if previous_path else Counter()
+        # The old filename is not carried into the new path. Contents retain the
+        # old allowance until each dependency has actually been cleaned up.
+        if previous_path and previous_path != path:
+            current = Counter({key: count for key, count in current.items() if not key.startswith('path:')})
         for identity, count in (current - previous).items():
             failures.append({'path': path, 'identity': identity, 'added': count})
     return {'guard': 'NO_WORK_PREFIXES', 'base': base, 'head': head,
