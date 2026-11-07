@@ -222,3 +222,15 @@ test('obsolete auth proof cannot replace the display owner of a newer session', 
  assert.equal((await current).global_id,'0000000002');
  assert.deepEqual(owners,['0000000002']);
 });
+
+test('anonymous 401 must not cancel an in-flight public preview issuance',async()=>{
+ let finishGuest;
+ const h=harness({auth:null,onRequest:async url=>{
+  if(url.endsWith('/guest'))return new Promise(resolve=>{finishGuest=resolve;});
+  return Response.json({detail:'DEMO_SESSION_REQUIRED'},{status:401});
+ }});
+ const s=h.load('demo/session.ts'),guest=s.loginDemoGuest();
+ await assert.rejects(()=>h.load('demo/transport.ts').demoBackendTransport.request('/tasks/catalog','GET',{}));
+ finishGuest(Response.json({ok:true,global_id:'0000000088',csrf:'preview-csrf',mode:'preview',scope:'preview',demo_bearer_token:'P'.repeat(64),expires_at_epoch:Math.floor(Date.now()/1000)+3600}));
+ assert.equal((await guest).global_id,'0000000088');assert.equal(h.cleared,0);
+});

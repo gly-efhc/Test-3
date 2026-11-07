@@ -41,9 +41,11 @@ export function clearDemoSession(): void { sessionVersion++; csrf = null; setDem
 /** Only the credential used by the failed request can be invalidated.
  * A delayed 401 must not revoke a newer login/owner selected in this tab. */
 export function invalidateDemoCredential(authorization: string | null): void {
-  if (getAuthAuthorizationHeader() !== authorization) return;
-  clearDemoSession();
-  if (authorization) clearAuthSession();
+  if (!authorization || getAuthAuthorizationHeader() !== authorization) return;
+  // Revoking this credential must not cancel a newer issuance in flight.
+  csrf = null;
+  setDemoSessionScope(null);
+  clearAuthSession();
 }
 export function isDemoBackendMode(): boolean {
   return process.env.NEXT_PUBLIC_EFHC_DATA_SOURCE === "demo_backend";

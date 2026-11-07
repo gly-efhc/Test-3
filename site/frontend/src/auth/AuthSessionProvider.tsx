@@ -132,6 +132,7 @@ export function AuthSessionProvider(props: {
 
 
   useEffect(() => subscribeAuthSessionInvalidation(() => {
+    guestBootstrapStarted.current = false;
     setState({
       status: "anonymous",
       context: null,
