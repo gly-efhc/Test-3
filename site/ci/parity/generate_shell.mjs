@@ -28,7 +28,7 @@ function filter(container){
 }
 const adapter=`/* Generated from frozen FRONTEND_v866.css by site/ci/parity/generate_shell.mjs.
    Scope: USER header/navigation only. Admin and Shop do not match. */\n${filter(source).toString().replace(/[ \t]+$/gm, '').trimEnd()}\n`;
-const destination=path.join(root,'public/v866-react-shell.css');
+const destination=path.join(root,'public/user-shell.css');
 if(process.argv.includes('--check')){
  if(fs.readFileSync(destination,'utf8')!==adapter)throw Error('v866 shared-shell adapter drift');
  console.log('V866_REACT_SHELL_DERIVATION=PASS');

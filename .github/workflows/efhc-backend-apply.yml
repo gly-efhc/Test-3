@@ -7,7 +7,7 @@ on:
     branches:
       - cycle0032/demo-backend-migration
     paths:
-      - .github/workflows/efhc-cycle0032-apply.yml
+      - .github/workflows/efhc-backend-apply.yml
       - .efhc-cycle0032/import_payload.b64.txt
   workflow_dispatch:
 

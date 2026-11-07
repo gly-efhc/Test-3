@@ -31,7 +31,7 @@ test('all imported CSS attribute selectors have at most one unquoted attribute e
   assert.deepEqual(errors, [], 'Invalid CSS attribute selectors would fail Next CSSNano');
 });
 test('canonical HB and BN filters have separate bracketed attributes',()=>{
-  const s=fs.readFileSync(path.join(stylesDir,'reconstruction-canon-v866-user-shell.css'),'utf8');
+  const s=fs.readFileSync(path.join(stylesDir,'user-shell-layout.css'),'utf8');
   assert.ok(s.includes(':not([data-hb="HB-14"][data-canon-hb="HB-14"])'));
   assert.ok(s.includes('[data-bn="BN-01"][data-canon-bn="BN-01"]'));
 });

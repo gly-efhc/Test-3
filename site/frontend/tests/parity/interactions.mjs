@@ -12,7 +12,7 @@ import {verifyProgress20Grid} from './progress-grid.mjs';
 import {expectedSelectionOrder} from './progress-order.mjs';
 const require=createRequire(process.env.EFHC_BROWSER_TOOLS||import.meta.url);
 const {chromium}=require('playwright-core');
-const canon=JSON.parse(await fs.readFile(new URL('./v866-contract.json',import.meta.url)));
+const canon=JSON.parse(await fs.readFile(new URL('./source-interface-contract.json',import.meta.url)));
 const base=localPagesBase();
 const basePath=new URL(base).pathname.replace(/\/$/,'');
 if(process.env.EFHC_PARITY_ARTIFACTS)await fs.mkdir(process.env.EFHC_PARITY_ARTIFACTS,{recursive:true});
@@ -90,7 +90,7 @@ try{
    assert.equal(await track.getAttribute('data-pb'),canon.SOURCE_STYLE.PB[order[theme]]||order[theme]);
    const starter=await track.evaluate(el=>{
     const read=()=>{const t=getComputedStyle(el),f=getComputedStyle(el.firstElementChild);return {height:el.getBoundingClientRect().height,fillHeight:el.firstElementChild.getBoundingClientRect().height,background:t.backgroundImage,color:t.backgroundColor,border:t.borderColor,radius:t.borderRadius,shadow:t.boxShadow,fill:f.backgroundImage,fillColor:f.backgroundColor,fillShadow:f.boxShadow}};
-    const sheet=[...document.styleSheets].find(s=>s.href?.endsWith('/v866-react-progress-models.css'));
+    const sheet=[...document.styleSheets].find(s=>s.href?.endsWith('/progress-models.css'));
     const actual=read();const disabled=sheet.disabled;
     try{sheet.disabled=true;return {actual,withoutNonStarterSheet:read()}}finally{sheet.disabled=disabled}
    });

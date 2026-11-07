@@ -6,7 +6,7 @@ on:
     branches:
       - cycle0032/demo-backend-migration
     paths:
-      - .github/workflows/efhc-cycle0032-neon-test.yml
+      - .github/workflows/efhc-database-test.yml
       - demo_backend/**
   workflow_dispatch:
 

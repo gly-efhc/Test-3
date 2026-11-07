@@ -71,7 +71,7 @@ try {
     assert.match(s, /const pagePreview = process\.env\.NEXT_PUBLIC_EFHC_PAGES_PREVIEW === "1"/);
   });
   test('Original FAQ route is excluded from asset-only basePath rewrite', () => {
-    const text = src('src/reconstruction/verify-pages-faq-route-v877.test.mjs');
+    const text = src('src/reconstruction/verify-pages-faq-route.test.mjs');
     assert.match(text, /preserves the real FAQ route/);
     assert.match(src('src/pages/faq.tsx'), /export default function|function FaqPage/);
   });

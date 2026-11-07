@@ -20,23 +20,23 @@ function load(relative){
  vm.runInThisContext(`(function(require,module,exports){${code}\n})`,{filename})(localRequire,module,module.exports);
  return module.exports;
 }
-const canon=JSON.parse(fs.readFileSync(new URL('./v866-contract.json',import.meta.url)));
+const canon=JSON.parse(fs.readFileSync(new URL('./source-interface-contract.json',import.meta.url)));
 const registry=load('src/lib/interfaceVariantRegistry.ts');
 const colors=load('src/lib/colorThemeRegistry.ts');
 const headers=load('src/lib/headerThemeComposition.ts');
 const json=value=>JSON.parse(JSON.stringify(value));
 test('PA-01 source reference and delivered public stylesheet stay connected',()=>{
- const reference=JSON.parse(fs.readFileSync(new URL('./v866-panels-activation-reference.json',import.meta.url)));
+ const reference=JSON.parse(fs.readFileSync(new URL('./panels-activation-reference.json',import.meta.url)));
  assert.equal(reference.source_html_sha256,canon.source.html_sha256);
- const source=fs.readFileSync(path.join(root,'src/styles/reconstruction-v866-panels-cycle0010.css'),'utf8');
- const delivered=fs.readFileSync(path.join(root,'public/react-shell-mobile-viewport-v923.css'),'utf8');
- const start='/* BEGIN SOURCE: src/styles/reconstruction-v866-panels-cycle0010.css */\n';
- const end='/* END SOURCE: src/styles/reconstruction-v866-panels-cycle0010.css */';
+ const source=fs.readFileSync(path.join(root,'src/styles/panels-layout.css'),'utf8');
+ const delivered=fs.readFileSync(path.join(root,'public/responsive-layout.css'),'utf8');
+ const start='/* BEGIN SOURCE: src/styles/panels-layout.css */\n';
+ const end='/* END SOURCE: src/styles/panels-layout.css */';
  assert.equal(delivered.split(start).length,2);assert.equal(delivered.split(end).length,2);
  assert.equal(delivered.split(start)[1].split(end)[0],source,'Pages must receive the actual corrected source CSS');
 });
 test('Portfolio color bridge preserves accepted geometry rules and contains no sizing changes',()=>{
- const source=fs.readFileSync(path.join(root,'src/styles/reconstruction-v866-panels-cycle0010.css'),'utf8');
+ const source=fs.readFileSync(path.join(root,'src/styles/panels-layout.css'),'utf8');
  const start='/* RECON_CYCLE_0024/02 — source Portfolio chroma bridge.';
  const end='/* PC-01 source shows plain countdown text';
  const bridge=source.split(start)[1].split(end)[0];
@@ -45,7 +45,7 @@ test('Portfolio color bridge preserves accepted geometry rules and contains no s
  assert.equal(crypto.createHash('sha256').update(accepted.replace(/\s+/g,'')).digest('hex'),'e759f04a3a87f4cd8d645e56f99afb79fee309d40e5ba263fa071e42e13ad88c','accepted PC source geometry/selectors unchanged after whitespace normalization');
  const allowed=new Set(['background-image','background-color','background','border-color','color','box-shadow','text-shadow']);
  for(const [,body] of bridge.matchAll(/\{([^{}]*)\}/g))for(const [,property] of body.matchAll(/([\w-]+)\s*:/g))assert.ok(allowed.has(property),`geometry declaration in color-only bridge: ${property}`);
- const fixture=JSON.parse(fs.readFileSync(new URL('./v866-panels-hero-reference.json',import.meta.url)));
+ const fixture=JSON.parse(fs.readFileSync(new URL('./panels-hero-reference.json',import.meta.url)));
  assert.equal(fixture.source_html_sha256,canon.source.html_sha256);
  assert.deepEqual(fixture.cases.map(c=>c.selection),canon.REGISTRY.PH.slice(1));
 });
@@ -58,7 +58,7 @@ test('OWNER shared progress library exposes 24 positions with independent PB/RP 
 });
 test('USER available-height source is delivered byte-for-byte after frozen CSS',()=>{
  const source=fs.readFileSync(path.join(root,'src/styles/user-available-height.css'),'utf8').trimEnd();
- const delivered=fs.readFileSync(path.join(root,'public/react-shell-mobile-viewport-v923.css'),'utf8');
+ const delivered=fs.readFileSync(path.join(root,'public/responsive-layout.css'),'utf8');
  const begin='/* BEGIN SOURCE: src/styles/user-available-height.css */\n';
  const end='\n/* END SOURCE: src/styles/user-available-height.css */';
  assert.equal(delivered.split(begin).length,2,'duplicate/missing height authority');
@@ -108,7 +108,7 @@ test('ten color palettes and runtime projections match HTML v866',()=>{
  }
 });
 test('frozen v866 CSS retains exact source extraction hashes',()=>{
- const manifest=JSON.parse(fs.readFileSync(path.join(root,'src/design-system/v866-css-canon-manifest.json')));
+ const manifest=JSON.parse(fs.readFileSync(path.join(root,'src/design-system/css-source-manifest.json')));
  assert.equal(manifest.stylesheets['FRONTEND_v866.css'].source_html_sha256,canon.source.html_sha256);
  for(const [name,expected] of Object.entries(manifest.stylesheets)){
   const bytes=fs.readFileSync(path.join(root,'public',name));

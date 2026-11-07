@@ -59,5 +59,5 @@ ${user} ${page} .efhc-game-hero_glow {display:none!important;}
 ${user} ${page} .efhc-referrals-link-card {margin-top:.55rem!important;padding:.62rem!important;background:rgba(5,10,18,.5)!important;}
 ${user} ${page} .efhc-referral-card-title {margin:0!important;}
 `;
-const dest=path.join(root,'public/v866-react-referrals.css');
+const dest=path.join(root,'public/referrals.css');
 if(process.argv.includes('--check')){if(fs.readFileSync(dest,'utf8')!==css)throw Error('v866 referrals adapter drift');console.log('V866_REACT_REFERRALS_DERIVATION=PASS')}else fs.writeFileSync(dest,css);

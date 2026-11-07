@@ -6,7 +6,7 @@ import { dirname,resolve } from 'node:path';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 const read=(path)=>readFileSync(resolve(root,path),'utf8');
 const header=read('src/components/GlobalHeader.tsx');
-const css=read('src/styles/reconstruction-v866-header-cycle0007.css');
+const css=read('src/styles/header-layout.css');
 const app=read('src/pages/_app.tsx');
 const shell=read('src/components/Layout.tsx');
 
@@ -26,7 +26,7 @@ test('only approved Header geometry is scoped to User and only cycle 0007',()=>{
   assert.match(css,/\[data-canon-header-cycle="0007"\]/);
   assert.match(shell,/data-efhc-canon-migration=\{appMode === "user" \? "v872" : undefined\}/);
   assert.doesNotMatch(css,/\.efhc-admin|data-interface-app-mode="admin"/);
-  assert.match(app,/import "\.\.\/styles\/reconstruction-v866-header-cycle0007\.css";/);
+  assert.match(app,/import "\.\.\/styles\/header-layout\.css";/);
 });
 test('frozen TZ-002 equal columns and four buttons persist across 320-430',()=>{
   assert.match(css,/grid-template-columns:repeat\(2,minmax\(0,1fr\)\) !important;/);

@@ -337,7 +337,7 @@ export default function App({ Component, pageProps }: AppProps) {
         {isAdminRoute ? (
           <>
             <link rel="stylesheet" href={`${router.basePath}/FRONTEND_v866.css`} data-efhc-visual-authority="frozen-v866" />
-            <link rel="stylesheet" href={`${router.basePath}/react-shell-mobile-viewport-v923.css`} data-efhc-visual-patch="mobile-width-only-v923" />
+            <link rel="stylesheet" href={`${router.basePath}/responsive-layout.css`} data-efhc-visual-patch="mobile-width-only-v923" />
           </>
         ) : null}
         {process.env.NEXT_PUBLIC_EFHC_PAGES_PREVIEW !== "1" ? <link rel="manifest" href="/manifest.webmanifest" /> : null}
@@ -354,11 +354,11 @@ export default function App({ Component, pageProps }: AppProps) {
       {!isAdminRoute && !isBrowserShop ? (
         <>
           <link rel="stylesheet" href={`${router.basePath}/FRONTEND_v866.css`} data-efhc-visual-authority="frozen-v866" />
-          <link rel="stylesheet" href={`${router.basePath}/react-shell-mobile-viewport-v923.css`} data-efhc-visual-patch="mobile-width-only-v923" />
-          <link rel="stylesheet" href={`${router.basePath}/v866-react-shell.css`} data-efhc-visual-adapter="user-shell" />
+          <link rel="stylesheet" href={`${router.basePath}/responsive-layout.css`} data-efhc-visual-patch="mobile-width-only-v923" />
+          <link rel="stylesheet" href={`${router.basePath}/user-shell.css`} data-efhc-visual-adapter="user-shell" />
           <link rel="stylesheet" href={`${router.basePath}/react-viewport.css`} data-efhc-visual-adapter="react-host" />
-          <link rel="stylesheet" href={`${router.basePath}/v866-react-referrals.css`} data-efhc-visual-adapter="referrals" />
-          <link rel="stylesheet" href={`${router.basePath}/v866-react-progress-models.css`} data-efhc-visual-adapter="progress-models" />
+          <link rel="stylesheet" href={`${router.basePath}/referrals.css`} data-efhc-visual-adapter="referrals" />
+          <link rel="stylesheet" href={`${router.basePath}/progress-models.css`} data-efhc-visual-adapter="progress-models" />
         </>
       ) : null}
       {!isBrowserShop ? <>

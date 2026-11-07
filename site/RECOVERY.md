@@ -4,7 +4,7 @@
 `7dc9d5f2135a762c3c74de521b77d60444d0a197`, SHA-256
 `459cc5d7467f358303e86ef2df92956204dc2bdadd4ea59cd17fe46d2c864e5a`.
 Архив и оба HTML остаются неизменными. Их контрольные суммы совпали с ранее
-сохранённым `src/design-system/v866-css-canon-manifest.json`.
+сохранённым `src/design-system/css-source-manifest.json`.
 Приватный архив, backend и ENV в публичный Test-3 не переносятся.
 
 ## Визуальная приёмка OWNER
@@ -30,9 +30,9 @@
 
 ## Контроль синхронизации
 
-- `frontend/tests/parity/v866-contract.json`: извлечённые из HTML каталоги,
+- `frontend/tests/parity/source-interface-contract.json`: извлечённые из HTML каталоги,
   значения по умолчанию, соответствия CSS, состав шапки и десять палитр.
-- `ci/parity/extract_v866.py`: повторное извлечение/проверка из архива с
+- `ci/parity/extract_source.py`: повторное извлечение/проверка из архива с
   проверкой его SHA и SHA самого HTML. Результат нельзя обновлять по React.
 - `ci/parity/generate_shell.mjs`: воспроизводимый USER-адаптер шапки и навигации
   из неизменного CSS v866. Исходные селекторы, порядок и объявления сохраняются;
@@ -61,8 +61,8 @@ npm run test:frontend-regression
 
 ```sh
 node site/ci/parity/generate_shell.mjs --check
-python3 site/ci/parity/extract_v866.py --archive /path/FRONTEND_v866.zip \
-  --contract site/frontend/tests/parity/v866-contract.json --check
+python3 site/ci/parity/extract_source.py --archive /path/FRONTEND_v866.zip \
+  --contract site/frontend/tests/parity/source-interface-contract.json --check
 ```
 
 Рабочая ветка: `recovery/html-v866-parity`. OWNER разрешил перенос результатов

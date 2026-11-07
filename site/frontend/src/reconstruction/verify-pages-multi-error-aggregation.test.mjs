@@ -6,7 +6,7 @@ import {join} from 'node:path';
 import {spawnSync} from 'node:child_process';
 
 const yaml = readFileSync(new URL('../../../ci/efhc-pages.yml',import.meta.url),'utf8');
-const css = readFileSync(new URL('../styles/reconstruction-ranks-hero-cycle0012-v891.css',import.meta.url),'utf8');
+const css = readFileSync(new URL('../styles/ranks-hero.css',import.meta.url),'utf8');
 const start = '          cat > "$RUNNER_TEMP/efhc-pages-tools/browser-smoke.mjs" <<\'EFHC_BUNDLED_BROWSER_SMOKE_MJS\'\n';
 const end = '          EFHC_BUNDLED_BROWSER_SMOKE_MJS';
 function extract() {

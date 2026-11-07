@@ -9,7 +9,7 @@ const header=read('src/components/GlobalHeader.tsx');
 const profileModal=read('src/components/ProfileModal.tsx');
 const profilePage=read('src/features/profile/WebProfilePage.tsx');
 const home=read('src/pages/index.tsx');
-const css=read('src/styles/reconstruction-v866-energy-header-cycle0008.css');
+const css=read('src/styles/energy-header-layout.css');
 const app=read('src/pages/_app.tsx');
 const owner=read('../docs/SSOT/ADMIN_ENTRY_GLOBAL_ID_CANON_v885.md');
 test('OWNER: exactly four Header actions and NO admin mode switch in any role',()=>{
@@ -58,5 +58,5 @@ test('EG EI PB variants and theme material untouched by cycle CSS',()=>{
  assert.doesNotMatch(css,/data-color-theme-id=|data-global-theme-id=|background:linear-gradient|background-color:/);
 });
 test('new stylesheet follows earlier source corrections',()=>{
- assert.ok(app.indexOf('reconstruction-v866-energy-header-cycle0008.css')>app.indexOf('reconstruction-v866-header-cycle0007.css'));
+ assert.ok(app.indexOf('energy-header-layout.css')>app.indexOf('header-layout.css'));
 });

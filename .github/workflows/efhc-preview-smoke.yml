@@ -2,7 +2,7 @@ name: EFHC C0034 — live TEST preview API smoke
 on:
   push:
     branches: [main]
-    paths: [".github/workflows/efhc-c0034-preview-smoke.yml"]
+    paths: [".github/workflows/efhc-preview-smoke.yml"]
   workflow_run:
     workflows: ["EFHC — React DEMO Pages"]
     types: [completed]
@@ -132,8 +132,8 @@ jobs:
           set -euo pipefail
           npm install --prefix "$RUNNER_TEMP/efhc-c0034-browser-tools" playwright-core@1.64.1 --ignore-scripts --no-audit --no-fund
           export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
-          node --check site/frontend/tests/parity/c0034-live-pages.mjs
-          node site/frontend/tests/parity/c0034-live-pages.mjs
+          node --check site/frontend/tests/parity/live-pages.mjs
+          node site/frontend/tests/parity/live-pages.mjs
       - name: Retain live C0034 route evidence
         if: always()
         uses: actions/upload-artifact@v4

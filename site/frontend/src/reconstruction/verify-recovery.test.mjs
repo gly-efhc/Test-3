@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 const text = p => readFileSync(new URL(p,import.meta.url),'utf8');
 const layout=text('../components/Layout.tsx');
-const css=text('../styles/reconstruction-regression-recovery-v888.css');
+const css=text('../styles/recovered-layout.css');
 const nav=text('../lib/appBackNavigation.ts');
 const smoke=text('../../../ci/efhc-pages.yml');
 

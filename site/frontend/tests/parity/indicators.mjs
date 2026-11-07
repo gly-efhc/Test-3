@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
-const material=JSON.parse(await fs.readFile(new URL('./cycle0023-indicator-material.json',import.meta.url)));
+const material=JSON.parse(await fs.readFile(new URL('./theme-indicator-material.json',import.meta.url)));
 const technicalCopy=(await Promise.all(['ru','en','uk','de','fr','es','it','tr','pl','da','hi','id','sw','pt','ko','ja'].map(async lang=>JSON.parse(await fs.readFile(new URL(`../../public/locale/${lang}.json`,import.meta.url)))))).flatMap(d=>['error.system_theme_note'].map(k=>d[k]).filter(Boolean));
 export async function verifyIndicators(page,{open,width,artifacts}){
  const routes=['','panels/','panels/portfolio/','exchange/','tasks/','referrals/','referrals/my/','referrals/active/','referrals/inactive/','ranks/','web-profile/','hub/','faq/','withdraw/','ads/','404/','500/'];

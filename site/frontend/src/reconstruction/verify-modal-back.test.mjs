@@ -15,7 +15,7 @@ test("Pages and Android share the same navigation guard on every route", () => {
   assert.doesNotMatch(src, /efhc-app-back-guard/);
 });
 test("Modal portal stands above onboarding and can be scrolled entirely within viewport", () => {
-  const css = read("../styles/reconstruction-dialog-navigation-v877.css");
+  const css = read("../styles/dialog-navigation.css");
   assert.match(css, /z-index:\s*2147483100\s*!important/);
   assert.match(css, /height:\s*100dvh\s*!important/);
   assert.match(css, /max-height:\s*calc\(100dvh - 32px\)/);
@@ -23,7 +23,7 @@ test("Modal portal stands above onboarding and can be scrolled entirely within v
   const globals = read("../styles/globals.css");
   assert.match(globals, /z-index:\s*2147483000/);
   const app = read("../pages/_app.tsx");
-  assert.match(app, /import "\.\.\/styles\/reconstruction-dialog-navigation-v877\.css";/);
+  assert.match(app, /import "\.\.\/styles\/dialog-navigation\.css";/);
 });
 test("Modal header supports pointer dragging, viewport clamp and keeps close action", () => {
   const src = read("../components/ui/Modal.tsx");

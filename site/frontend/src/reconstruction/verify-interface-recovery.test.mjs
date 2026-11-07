@@ -2,10 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 const read = (name) => readFileSync(new URL(name, import.meta.url), 'utf8');
-const css = read('../styles/reconstruction-v866-panels-cycle0010.css');
+const css = read('../styles/panels-layout.css');
 const page = read('../pages/panels.tsx');
 const ci = read('../../../ci/efhc-pages.yml');
-const shell = read('../styles/reconstruction-regression-recovery-v888.css');
+const shell = read('../styles/recovered-layout.css');
 
 test('PA-01 alone has two-column activation values and source-dense size', () => {
   assert.match(css, /efhc-panels-activation-card\[data-pa="PA-01"\] > \.grid > \.grid \{\s*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);

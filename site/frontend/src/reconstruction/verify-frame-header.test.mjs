@@ -6,7 +6,7 @@ import { test } from 'node:test';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const load = (path) => readFileSync(resolve(root, path), 'utf8');
-const css = load('src/styles/reconstruction-canon-v866-frames-header-v878.css');
+const css = load('src/styles/header-frames.css');
 const header = load('src/components/GlobalHeader.tsx');
 const shell = load('src/components/ui/GameShell.tsx');
 const card = load('src/components/ui/Card.tsx');
@@ -41,7 +41,7 @@ test('shared real React templates retain their preexisting classes and add canon
   assert.match(card, /data-canon-frame="source-card"/);
 });
 test('shared canon stylesheet loads after legacy CSS; no admin scope', () => {
-  assert.ok(app.indexOf('reconstruction-canon-v866-frames-header-v878.css') > app.indexOf('reconstruction-dialog-navigation-v877.css'));
+  assert.ok(app.indexOf('header-frames.css') > app.indexOf('dialog-navigation.css'));
   assert.doesNotMatch(css, /data-interface-app-mode="admin"/);
   assert.ok(css.includes('data-interface-app-mode="user"'));
 });

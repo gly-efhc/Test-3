@@ -8,7 +8,7 @@ const here=import.meta.dirname;
 const read = p=>fs.readFileSync(path.resolve(here,p),'utf8');
 
 test('R06 ranks D8 is atomic, only within the hero; no global styles or list changes',()=>{
- const css=read('../styles/reconstruction-ranks-hero-cycle0012-v891.css');
+ const css=read('../styles/ranks-hero.css');
  const anchor='.efhc-ranks-shell[data-kg] [data-ranks-hero-energy-d8="true"]';
  const i=css.indexOf(anchor);
  assert.ok(i>0,'Missing exact D8 span selector');

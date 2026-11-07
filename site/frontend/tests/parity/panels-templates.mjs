@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
-const reference=JSON.parse(await fs.readFile(new URL('./v866-panels-hero-reference.json',import.meta.url)));
+const reference=JSON.parse(await fs.readFile(new URL('./panels-hero-reference.json',import.meta.url)));
 const sourceCases=reference.viewports.flatMap(width=>reference.cases.map(base=>{
  const r=structuredClone(base);r.width=width;
  for(const {path,value} of reference.viewport_overrides[base.selection][width]){

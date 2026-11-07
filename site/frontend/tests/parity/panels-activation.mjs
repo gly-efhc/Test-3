@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
-const reference=JSON.parse(await fs.readFile(new URL('./v866-panels-activation-reference.json',import.meta.url)));
+const reference=JSON.parse(await fs.readFile(new URL('./panels-activation-reference.json',import.meta.url)));
 
 export async function verifyPanelsActivationReference(page,{open,artifacts}){
  await open(page,'panels/');await page.mouse.move(12,12);

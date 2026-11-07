@@ -5,7 +5,7 @@ import { createRequire } from 'node:module';
 // Kept outside the production dependency graph; CI installs this exact tool.
 const require = createRequire(process.env.EFHC_BROWSER_TOOLS || import.meta.url);
 const { chromium } = require('playwright-core');
-const contract = JSON.parse(await fs.readFile(new URL('./v866-contract.json', import.meta.url)));
+const contract = JSON.parse(await fs.readFile(new URL('./source-interface-contract.json', import.meta.url)));
 const base=localPagesBase();
 const basePath=new URL(base).pathname.replace(/\/$/,'');
 const browser = await chromium.launch({executablePath:process.env.CHROME_BIN || '/usr/bin/chromium',args:['--no-sandbox','--disable-dev-shm-usage']});

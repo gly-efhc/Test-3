@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 
-const reference=JSON.parse(await fs.readFile(new URL('./cycle0031-header-material-reference.json',import.meta.url)));
+const reference=JSON.parse(await fs.readFile(new URL('./header-material-reference.json',import.meta.url)));
 const physical=['HS-03','HS-06','HS-07','HS-10','HS-11','HS-13'];
 const accents=[[110,168,255],[115,174,252],[167,139,250],[34,158,217],[229,191,88],[217,70,239],[127,180,255],[143,134,255],[88,199,180],[197,161,90]];
 // Chromium may serialize equivalent colors as rgba() or color(srgb ...).

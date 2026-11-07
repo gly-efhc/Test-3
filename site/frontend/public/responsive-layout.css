@@ -2,7 +2,7 @@
    Exact source-backed rules follow unchanged for Panels and Tasks.
    No global old CSS imports, no palette or design overrides. */
 
-/* BEGIN SOURCE: src/styles/reconstruction-v866-panels-cycle0010.css */
+/* BEGIN SOURCE: src/styles/panels-layout.css */
 /* RECON_CYCLE_0010 — Panels source DOM contract only.
  * Source: frozen FRONTEND_v866.html; variant color/material authority preserved.
  * The previously truncated effective kWh rate must display the full D8 number
@@ -339,9 +339,9 @@ html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .
 .efhc-panels-portfolio-shell .efhc-panels-card-surface[data-pc="PC-01"] .efhc-panel-countdown-live::before {
   content:none;
 }
-/* END SOURCE: src/styles/reconstruction-v866-panels-cycle0010.css */
+/* END SOURCE: src/styles/panels-layout.css */
 
-/* BEGIN SOURCE: src/styles/reconstruction-tasks-cycle0013-v892.css */
+/* BEGIN SOURCE: src/styles/tasks-layout.css */
 /* Cycle 0013. Local React TASKS surface only. The frozen HTML remains read-only.
    CT owns hue, TG owns material/geometry. Do not change production task reward semantics. */
 .efhc-independent-shell[data-interface-app-mode="user"][data-color-theme-id] .efhc-tasks-shell[data-tg] {
@@ -490,7 +490,7 @@ html[data-interface-app-mode="user"][data-color-theme-id] #panelsPortfolioPage .
   --tasks-cycle-wash: rgba(197,161,90,.055);
 }
 
-/* END SOURCE: src/styles/reconstruction-tasks-cycle0013-v892.css */
+/* END SOURCE: src/styles/tasks-layout.css */
 
 /* EFHC RECON v923: MOBILE WIDTH ONLY. Source frozen CSS and CT01..CT10 remain unchanged.
    Root cause verified from frozen lab stylesheet: @media(max-width:820px) caps

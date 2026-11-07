@@ -6,7 +6,7 @@ const root=resolve(dirname(fileURLToPath(import.meta.url)),'..','..');
 const read=(r)=>readFileSync(resolve(root,r),'utf8');
 const header=read('src/components/GlobalHeader.tsx');
 const layout=read('src/components/Layout.tsx');
-const css=read('src/styles/reconstruction-canon-v866-user-shell.css');
+const css=read('src/styles/user-shell-layout.css');
 assert.match(header,/<div\s+className="efhc-game-header_profile"/);
 assert.match(header,/className="efhc-game-header_profile-avatar-button"/);
 assert.match(header,/className="efhc-game-header_profile-name-button"/);

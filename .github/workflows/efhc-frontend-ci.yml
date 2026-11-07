@@ -8,7 +8,7 @@ on:
     paths:
       - site/**
       - demo_backend/**
-      - .github/workflows/efhc-cycle0032-frontend-ci.yml
+      - .github/workflows/efhc-frontend-ci.yml
   workflow_dispatch:
 
 permissions:

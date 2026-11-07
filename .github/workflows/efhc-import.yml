@@ -69,7 +69,7 @@ jobs:
           }
           SUBTREES = ('frontend/src/', 'frontend/public/', 'frontend/tests/parity/')
           PARITY_FILES = {
-              'ci/parity/extract_v866.py', 'ci/parity/generate_shell.mjs',
+              'ci/parity/extract_source.py', 'ci/parity/generate_shell.mjs',
               'ci/parity/generate_referrals.mjs', 'ci/parity/referrals_chroma.mjs',
           }
           PAGES_WORKFLOW_IN_ZIP = 'ci/efhc-pages.yml'
@@ -215,7 +215,7 @@ jobs:
                       raise ValueError('Missing parity delivery tools')
                   required_parity = {
                       'frontend/tests/parity/' + name for name in (
-                          'contracts.test.mjs', 'v866-contract.json', 'browser.mjs',
+                          'contracts.test.mjs', 'source-interface-contract.json', 'browser.mjs',
                           'interactions.mjs', 'templates.mjs', 'routes.mjs', 'referrals.mjs',
                       )
                   }

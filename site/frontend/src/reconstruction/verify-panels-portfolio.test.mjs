@@ -65,7 +65,7 @@ test('onScroll uses visible panel identity rather than raw added scrollHeight',(
 });
 test('PC-01 density and UTC seconds are scoped, fixed token Activ stays neutral on archived',()=>{
  const s=read('../pages/panels/portfolio.tsx');
- const css=read('../styles/reconstruction-v866-panels-cycle0010.css');
+ const css=read('../styles/panels-layout.css');
  assert.match(s, /\$\{dd\}\.\$\{mm\}\.\$\{yy\}, \$\{hh\}:\$\{mi\}:\$\{ss\} UTC/);
  assert.match(s,/data-active=\{p\.is_active \? "true" : "false"\}/);
  assert.match(s,/data-i18n-fixed-token="Activ"/);

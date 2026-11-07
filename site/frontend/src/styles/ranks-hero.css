@@ -61,7 +61,7 @@
 }
 
 /* OWNER v903: more specific than the generic v866 frame rule in
-   reconstruction-canon-v866-frames-header-v878.css. The generic
+   header-frames.css. The generic
    [data-canon-template="v866"] .efhc-game-stat_value rule otherwise wins
    CSS specificity and silently clips the complete D8 Ranks value.
    Limit override to the Ranks hero for all KG/CT combinations. */
