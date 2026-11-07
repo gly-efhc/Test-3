@@ -25,7 +25,12 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'push' }}
 
 jobs:
+  prefixes:
+    uses: ./.github/workflows/no-work-prefixes.yml
+    with:
+      check_name: Pages prefix gate
   publish:
+    needs: prefixes
     name: Build real React and publish to Pages
     runs-on: ubuntu-latest
     timeout-minutes: 90

@@ -20,7 +20,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  prefixes:
+    uses: ./.github/workflows/no-work-prefixes.yml
+    with:
+      check_name: Parity prefix gate
   parity:
+    needs: prefixes
     name: v866 contracts, build and rendered React
     runs-on: ubuntu-latest
     timeout-minutes: 20

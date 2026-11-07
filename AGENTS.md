@@ -6,6 +6,8 @@
 
 ## 1. Порядок старта
 
+**Имена кода:** действует [единый закон NO_WORK_PREFIXES](https://github.com/gly-efhc/efhc_archive/blob/main/01_CANON/OWNER_DECISIONS.md#no_work_prefixes). GPT запрещено создавать имена файлов, CSS-классы, DOM-атрибуты, функции и переменные с номерами версий, циклов и итераций. Использовать устойчивые функциональные имена. Существующие зависимости не переименовывать массово. Исполнение и границы исключений: [Guard](site/ci/work-prefixes.md). Это ссылка на единственное решение OWNER, не его альтернативная редакция.
+
 1. Прочитать [START_HERE.md](START_HERE.md), [KERNEL.md](KERNEL.md) **один раз за контекст** и [INDEX.md](INDEX.md).
 2. Получить точный `efhc/main` HEAD и определить область задания. При работе на снимке/архиве отдельно фиксировать его версию/SHA; не считать его автоматически текущим remote HEAD.
 3. Если решение зависит от правил EFHC, через **авторизованный GitHub-коннектор** прочитать только необходимые материалы приватного [Архива](https://github.com/gly-efhc/efhc_archive): `AGENTS.md → START_HERE.md → KERNEL.md` (один раз) `→ INDEX.md → 01_CANON/TERMS.md → 17_CONTROL/DOCUMENT_MANAGEMENT_RULES.md → relevant CANON/SSOT/NORM`.

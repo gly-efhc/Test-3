@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "exceptions": [
+    {
+      "path": ".github/workflows/no-work-prefixes.yml",
+      "literal": "actions/checkout@v7",
+      "kind": "external-action",
+      "reason": "Official third-party action release reference; not an EFHC work-number identity."
+    }
+  ]
+}

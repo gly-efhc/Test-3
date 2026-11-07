@@ -1,0 +1,50 @@
+name: NO_WORK_PREFIXES
+
+on:
+  push:
+  pull_request:
+  merge_group:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      check_name:
+        type: string
+        default: NO_WORK_PREFIXES
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: ${{ inputs.check_name || 'NO_WORK_PREFIXES' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Require stable functional names
+        env:
+          EVENT_BASE: ${{ github.event.pull_request.base.sha || github.event.before || github.event.merge_group.base_sha }}
+          EVENT_NAME: ${{ github.event_name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="$EVENT_BASE"
+          if [[ -z "$base" || "$base" =~ ^0+$ ]]; then
+            # New branches/manual runs compare to main; they cannot invent a base.
+            base="$(git merge-base HEAD origin/main)"
+          fi
+          policy="$base"
+          if git cat-file -e "$base:site/ci/no_work_prefixes.py" 2>/dev/null; then
+            git show "$base:site/ci/no_work_prefixes.py" > "$RUNNER_TEMP/no-work-prefixes.py"
+          else
+            # One-time audited installation against the exact previous main.
+            test "$base" = '7eb66a8e78adaf009087e86af161db2052b0baa3'
+            cp site/ci/no_work_prefixes.py "$RUNNER_TEMP/no-work-prefixes.py"
+            policy="$GITHUB_SHA"
+          fi
+          python3 "$RUNNER_TEMP/no-work-prefixes.py" --base "$base" --head "$GITHUB_SHA" --policy-ref "$policy" --report "$RUNNER_TEMP/work-prefix-result.json"
+      - name: Verify the guard against intentional violations
+        run: python3 -I -m unittest discover -s site/ci -p 'test_no_work_prefixes.py' -v

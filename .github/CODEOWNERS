@@ -1,0 +1,9 @@
+# Naming guard and its enforcement require OWNER review.
+/AGENTS.md @gly-efhc
+/KERNEL.md @gly-efhc
+/.github/CODEOWNERS @gly-efhc
+/.github/workflows/ @gly-efhc
+/.github/rulesets/ @gly-efhc
+/site/ci/no_work_prefixes.py @gly-efhc
+/site/ci/test_no_work_prefixes.py @gly-efhc
+/site/ci/work-prefix-exceptions.json @gly-efhc
